@@ -1,6 +1,6 @@
 # Reviewer 必讀原則
 
-- 文件位置：`docs/governance/REVIEWER-PRINCIPLES.md`
+- 文件位置：`docs/REVIEWER-PRINCIPLES.md`
 - 文件效力：所有 Reviewer 在開始任何 Review 前必須閱讀並遵守
 - 最終決策者：專案負責人
 - 適用範圍：需求、分析文件、技術方案、程式變更、翻譯、測試與發布 Review
