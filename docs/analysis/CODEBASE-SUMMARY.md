@@ -1,5 +1,14 @@
 # Forge Steel 中文化前 codebase 盤點
 
+- 文件分類：稽核／歷史
+- 文件用途：記錄指定基準 commit 的 codebase 現況、資料邊界與風險證據
+- 文件效力：不是需求、產品決策或實作規格
+- 盤點基準：`93931b420669b05bb1117c9a9aadbf950753afd2`
+- 現行需求：`docs/requirements/V1-REQUIREMENTS.md`
+- 現行技術方向：`docs/analysis/LOCALIZATION-TECHNICAL-OPTIONS.md`
+
+**文件效力說明：** 本文件只描述盤點基準時的程式現況。文件中的推論、建議或待確認事項不是正式決策；若與後續已批准需求或技術方向不同，以後者為準。
+
 基準：`develop` 的 `93931b420669b05bb1117c9a9aadbf950753afd2`（`chore: establish repository baseline (#1)`）；僅閱讀原始碼，未提取或統計英文清單。此 commit 直接承接 V1 upstream baseline `267ca1a10dcab32a700089fc65dd212dc81f880a`，差異只有 bootstrap 文件與 CI 調整，未帶入上游功能／內容更新。
 
 ## 1. 玩家文字
@@ -16,11 +25,15 @@
 - Community 與 `data/sourcebooks/third-party/` 都在固定匯入清單，預設載入；`communityPrerelease`、`ageOfSecrets` 是額外的本機 feature flag。
 - `official/patreon.ts` 是 Playtest 來源書，僅在 `FeatureFlags.playtest` 啟用時匯入；旗標存於 `localStorage.feature_flag_codes`，`FeatureFlags.clear()` 可清除。
 - Patreon Warehouse 是儲存後端：`DataLoader` 驗證 Patreon 後設 `usePatreonWarehouse`，`StorageServiceFactory` 選 `WarehouseService`，否則 `LocalService`；它不是另一份內建內容。
-- Homebrew 由 `DataService.getHomebrew()` 從 LocalForage 或 Warehouse 讀取（本機鍵 `forgesteel-homebrew-settings`），再合併。
+- **已確認：** Homebrew 由 `DataService.getHomebrew()` 從 LocalForage 或 Warehouse 讀取（本機鍵 `forgesteel-homebrew-settings`），再與內建來源合併。
+- **已批准需求：** 中文版不得讀取、顯示或修改既有 Homebrew 資料。
+- **尚未驗證：** 滿足該需求的最小實作邊界，以及 Local／Warehouse 是否需要相同攔截位置。
 
-來源書「隱藏」只儲存 ID（`forgesteel-hidden-setting-ids`）供部分列表篩選，不會阻止載入或清除角色參照。目前沒有完整全域停用開關；完整停用需在 Local 與 Warehouse 兩個後端都停止讀取、合併、顯示與匯入 Homebrew，並處理既存資料（不刪除、不修改）。不應因名稱含 Patreon 而停用 Warehouse；是否保留其角色儲存／同步能力須另行判斷。
+來源書「隱藏」只儲存 ID（`forgesteel-hidden-setting-ids`）供部分列表篩選，不會阻止載入或清除角色參照。目前沒有完整全域停用開關；這是現況證據，不在本文件核定具體攔截架構。既存資料仍不得刪除或修改。
 
-**V1 高風險：** `Main.newHero()` 會把所有 `SourcebookType.Official` 加入新角色 `sourcebookIDs`。Playtest 的 `official/patreon.ts` 也是 Official，故瀏覽器已有或日後取得 playtest flag 時，不能只清既有 flag；還必須確保該來源書不載入，或不會進入允許來源與新角色 `sourcebookIDs`。最終做法留待技術方案決定。
+**高風險：** `Main.newHero()` 使用 `SourcebookType.Official`，而 Playtest 來源也可能屬於 Official。
+
+已核准技術方向要求使用明確四書白名單。實際攔截位置留待 prototype／實作批次驗證。
 
 ## 4. 通常為純顯示的文字
 
@@ -46,15 +59,15 @@
 
 ## 8. 中英切換的主要範圍
 
-會涉及 `components/` JSX、`data/` 內容欄位、`ability-logic.ts`、`classic-sheet/`、`hero-sheet/`，以及 models、儲存、匯入匯出相容性；必須先處理「英文文本即邏輯」處。可供評估的既有設定持久化位置包括 `Options`／`DataManagerProvider` 與 `DataService` 的 LocalForage `forgesteel-options`；`index.tsx` 的 app-level `DataLoader → DataManagerProvider → Main` 是確認切換不重載角色資料的關鍵。路由由 `HashRouter`／`hooks/use-navigation.ts` 管理；`HeroEditPage` 的 local working copy／`dirty` state 必須在切換時保留。須確認切換不呼叫 `DataLoader.loadData()`、不重建 hero，並在英文模式同樣限制為四本允許來源書。
+會涉及 `components/` JSX、`data/` 內容欄位、`ability-logic.ts`、`classic-sheet/`、`hero-sheet/`，以及 models、儲存、匯入匯出相容性。**已確認的高風險：** 部分英文文字參與 parser、分類、查找或存檔值，不能直接替換成中文。已核准方向要求 canonical 值保持英文，中文只在 presentation boundary 顯示。可供評估的既有設定持久化位置包括 `Options`／`DataManagerProvider` 與 `DataService` 的 LocalForage `forgesteel-options`；`index.tsx` 的 app-level `DataLoader → DataManagerProvider → Main` 是確認切換不重載角色資料的關鍵。路由由 `HashRouter`／`hooks/use-navigation.ts` 管理；`HeroEditPage` 的 local working copy／`dirty` state 必須在切換時保留。須確認切換不呼叫 `DataLoader.loadData()`、不重建 hero，並在英文模式同樣限制為四本允許來源書。
 
 ## 9. 字型與輸出風險
 
 `index.scss` 僅內嵌 PT Sans、Merriweather、Roboto Slab、Draw Steel Glyphs，未見保證繁中字形的字型；Classic Sheet 可能 fallback 或缺字。固定字級、卡片／欄寬、`overflow`、`uppercase` 也可能令中文溢位。PDF／圖片經 `modern-screenshot`／`html2canvas` 轉 PNG，再交 jsPDF；須驗證字型載入、glyph、DPI、分頁與列印 CSS。若圖片資產內嵌英文，則不會隨語言切換。V1 可做最低 smoke test；完整排版最佳化列為 V1.1／已知限制調查，不阻擋下一階段。
 
-## 10. 下一步調查
+## 10. 後續使用方式
 
-1. 先界定非官方內容完整停用邊界：兩種後端、載入／合併／顯示／匯入與既存資料。
-2. 以代表資料逐欄確認名稱與文字是否參與查找、parser、匯出或 CSS class，並整理 hero／Homebrew／匯入 JSON 相容性。
-3. 定義角色建立、升級、角色表、重開機與雙語切換（路由、dirty working copy、不重載資料）的驗收案例。
-4. V1 最低 smoke test 後，於 V1.1／已知限制調查實測繁中字型、Classic Sheet 溢位／分頁、PDF／PNG 與列印。
+- 本文件只作為中文化實作時的 codebase 地圖與高風險位置索引。
+- 已核准的中文化架構、保護措施與最小 prototype 範圍，以 `docs/analysis/LOCALIZATION-TECHNICAL-OPTIONS.md` 為準。
+- 除非 prototype 發現新的重大證據，不再進行全 codebase 盤點，也不建立完整英文清單。
+- 實作時只針對當前 vertical slice 驗證相關欄位、parser、存檔與顯示邊界。
