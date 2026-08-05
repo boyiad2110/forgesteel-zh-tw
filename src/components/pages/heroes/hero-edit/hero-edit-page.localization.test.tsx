@@ -94,6 +94,8 @@ describe('HeroEditPage prototype locale switching', () => {
 		fireEvent.click(screen.getByRole('button', { name: 'EN' }));
 		fireEvent.click(screen.getByRole('button', { name: 'zh-TW' }));
 
+		const localizedSaveButton = screen.getByRole('button', { name: '【原型】儲存變更' }) as HTMLButtonElement;
+		expect(localizedSaveButton.disabled).toBe(false);
 		expect(screen.getByTestId('working-copy').textContent).toBe(workingCopyBeforeLocaleSwitch);
 		expect(screen.getByTestId('route').textContent).toBe(routeBeforeLocaleSwitch);
 		expect(saveChanges).not.toHaveBeenCalled();
