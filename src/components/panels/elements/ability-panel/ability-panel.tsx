@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Ability, AbilitySectionField, AbilitySectionPackage, AbilitySectionRoll, AbilitySectionText } from '@/models/ability';
 import { Alert, Flex, Space, Tag } from 'antd';
 import { CSSProperties, useState } from 'react';
@@ -7,8 +9,10 @@ import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
+import { getLocalizedElementField } from '@/localization/prototype-localization';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
+import { useLocalization } from '@/contexts/localization-context';
 import { Collections } from '@/utils/collections';
 import { ConditionType } from '@/enums/condition-type';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
@@ -42,6 +46,8 @@ interface Props {
 }
 
 export const AbilityPanel = (props: Props) => {
+	const { locale } = useLocalization();
+	const displayName = getLocalizedElementField(locale, props.ability.id, 'name', props.ability.name);
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 	const options = useOptions();
 	const clipboard = useClipboard();
@@ -283,7 +289,7 @@ export const AbilityPanel = (props: Props) => {
 						ribbon={getRibbon()}
 						tags={props.tags}
 					>
-						{props.ability.name || 'Unnamed Ability'}
+						{displayName || 'Unnamed Ability'}
 					</HeaderText>
 					<Markdown text={props.ability.description} className='ability-description-text' />
 				</div>
@@ -327,7 +333,7 @@ export const AbilityPanel = (props: Props) => {
 						/>
 					}
 				>
-					{props.ability.name || 'Unnamed Ability'}
+					{displayName || 'Unnamed Ability'}
 				</HeaderText>
 				<Markdown text={props.ability.description} className='ability-description-text' />
 				{

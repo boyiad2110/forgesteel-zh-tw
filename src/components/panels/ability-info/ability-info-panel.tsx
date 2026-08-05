@@ -1,12 +1,16 @@
+/* eslint-disable sort-imports */
+
 import { Ability } from '@/models/ability';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityUsage } from '@/enums/ability-usage';
+import { getLocalizedElementField, getLocalizedMessage } from '@/localization/prototype-localization';
 import { Field } from '@/components/controls/field/field';
 import { FormatLogic } from '@/logic/format-logic';
 import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { SashPanel } from '@/components/panels/sash/sash-panel';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './ability-info-panel.scss';
 
@@ -16,6 +20,7 @@ interface Props {
 }
 
 export const AbilityInfoPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	if ((props.ability.type.usage === AbilityUsage.NoAction) && (props.ability.distance.length === 0) && (props.ability.target === '') && (props.ability.type.trigger === '')) {
 		return null;
 	}
@@ -58,10 +63,15 @@ export const AbilityInfoPanel = (props: Props) => {
 
 	const distance = props.ability.distance.map(d => AbilityLogic.getDistance(d, props.ability, props.hero)).join(' or ');
 	const monogram = getMonogram();
+	const displayTarget = getLocalizedElementField(locale, props.ability.id, 'target', props.ability.target);
+	const displaySummary = props.ability.id === 'free-melee' ?
+		getLocalizedMessage(locale, 'ability.free-melee.summary', { abilityName: props.ability.name, target: displayTarget }, '{abilityName} | Target: {target}') :
+		null;
 
 	return (
 		<div className='ability-info-panel'>
 			{monogram ? <SashPanel monogram={monogram} /> : null}
+			{displaySummary ? <div className='prototype-localization-message'>{displaySummary}</div> : null}
 			<div className='ds-text compact-text bold-text' style={{ position: 'relative', zIndex: '10' }}>
 				{FormatLogic.getAbilityType(props.ability.type)}
 			</div>
@@ -79,7 +89,7 @@ export const AbilityInfoPanel = (props: Props) => {
 					<Field
 						compact={true}
 						label='Target'
-						value={<Markdown useSpan={true} text={props.ability.target} />}
+						value={<Markdown useSpan={true} text={displayTarget} />}
 					/>
 					: null
 			}
