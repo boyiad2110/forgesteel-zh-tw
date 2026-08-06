@@ -1,16 +1,15 @@
-import { Button, Drawer, Flex, Segmented, Space, Upload } from 'antd';
+import { Button, Drawer, Flex, Segmented, Space, Upload, notification } from 'antd';
 import { DownloadOutlined, PlusOutlined } from '@ant-design/icons';
 import { useDataManager, useHiddenSourcebookIDs } from '@/contexts/data-context';
 import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { HeaderText } from '@/components/controls/header-text/header-text';
-import { Info } from '@/components/controls/info/info';
-import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
 import { PanelMode } from '@/enums/panel-mode';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Sourcebook } from '@/models/sourcebook';
+import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookPanel } from '@/components/panels/elements/sourcebook-panel/sourcebook-panel';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { UpdateLogic } from '@/logic/update/update-logic';
@@ -28,9 +27,13 @@ interface Props {
 }
 
 export const SourcebooksModal = (props: Props) => {
+	// Sourcebooks already in storage are filtered too, so an excluded type saved by an
+	// earlier version is never shown here or fed back into the persistence callbacks.
+	const allowedHomebrewSourcebooks = SourcebookLogic.filterAllowedSourcebooks(props.homebrewSourcebooks);
+
 	const [ page, setPage ] = useState<SourcebookType>(SourcebookType.Official);
 	const [ selectedSourcebook, setSelectedSourcebook ] = useState<Sourcebook | null>(null);
-	const [ homebrewSourcebooks, setHomebrewSourcebooks ] = useState<Sourcebook[]>(Utils.copy(props.homebrewSourcebooks));
+	const [ homebrewSourcebooks, setHomebrewSourcebooks ] = useState<Sourcebook[]>(Utils.copy(allowedHomebrewSourcebooks));
 	const [ hiddenSourcebookIDs, setHiddenSourcebookIDs ] = useState<string[]>(Utils.copy(useHiddenSourcebookIDs()));
 
 	const dataManager = useDataManager();
@@ -98,82 +101,6 @@ export const SourcebooksModal = (props: Props) => {
 					</>
 				);
 			}
-			case SourcebookType.ThirdParty: {
-				const thirdPartySourcebooks = props.officialSourcebooks.filter(s => s.type === SourcebookType.ThirdParty);
-				return (
-					<>
-						<HeaderText
-							level={1}
-							extra={
-								<Info>
-									<Markdown text={'If you\'d like your company\'s content to be featured here, [get in touch](mailto:andy.aiken@live.co.uk).'} />
-								</Info>
-							}
-						>
-							Third-Party Sourcebooks
-						</HeaderText>
-						<Space orientation='vertical' style={{ width: '100%' }}>
-							{
-								Collections.sort(thirdPartySourcebooks, sb => sb.name).map(s => (
-									<SelectablePanel key={s.id} onSelect={() => setSelectedSourcebook(s)}>
-										<SourcebookPanel
-											sourcebook={s}
-											sourcebooks={[ ...props.officialSourcebooks, ...homebrewSourcebooks ]}
-											visibility={{
-												visible: !hiddenSourcebookIDs.includes(s.id),
-												onSetVisibility: (value: boolean) => setVisibility(s, value)
-											}}
-										/>
-									</SelectablePanel>
-								))
-							}
-							{
-								thirdPartySourcebooks.length === 0 ?
-									<Empty />
-									: null
-							}
-						</Space>
-					</>
-				);
-			}
-			case SourcebookType.Community: {
-				const communitySourcebooks = props.officialSourcebooks.filter(s => s.type === SourcebookType.Community);
-				return (
-					<>
-						<HeaderText
-							level={1}
-							extra={
-								<Info>
-									<Markdown text={'If you\'d like your creations to be featured here, just fill in [this form](https://forms.cloud.microsoft/r/mmxqfnFzx4).'} />
-								</Info>
-							}
-						>
-							Community Sourcebooks
-						</HeaderText>
-						<Space orientation='vertical' style={{ width: '100%' }}>
-							{
-								Collections.sort(communitySourcebooks, sb => sb.name).map(s => (
-									<SelectablePanel key={s.id} onSelect={() => setSelectedSourcebook(s)}>
-										<SourcebookPanel
-											sourcebook={s}
-											sourcebooks={[ ...props.officialSourcebooks, ...homebrewSourcebooks ]}
-											visibility={{
-												visible: !hiddenSourcebookIDs.includes(s.id),
-												onSetVisibility: (value: boolean) => setVisibility(s, value)
-											}}
-										/>
-									</SelectablePanel>
-								))
-							}
-							{
-								communitySourcebooks.length === 0 ?
-									<Empty />
-									: null
-							}
-						</Space>
-					</>
-				);
-			}
 			case SourcebookType.Homebrew: {
 				const createSourcebook = () => {
 					const copy = Utils.copy(homebrewSourcebooks);
@@ -208,6 +135,14 @@ export const SourcebooksModal = (props: Props) => {
 													const sourcebook = JSON.parse(json) as Sourcebook;
 													sourcebook.id = Utils.guid();
 													UpdateLogic.updateSourcebook(sourcebook);
+													if (!SourcebookLogic.isSourcebookAllowed(sourcebook)) {
+														notification.error({
+															title: 'Sourcebook not imported',
+															description: `${sourcebook.type} sourcebooks are not available in this edition.`,
+															placement: 'top'
+														});
+														return;
+													}
 													importSourcebook(sourcebook);
 												});
 											return false;
@@ -226,7 +161,7 @@ export const SourcebooksModal = (props: Props) => {
 									<SelectablePanel key={s.id} onSelect={() => setSelectedSourcebook(s)}>
 										<SourcebookPanel
 											sourcebook={s}
-											sourcebooks={[ ...props.officialSourcebooks, ...props.homebrewSourcebooks ]}
+											sourcebooks={[ ...props.officialSourcebooks, ...allowedHomebrewSourcebooks ]}
 											visibility={{
 												visible: !hiddenSourcebookIDs.includes(s.id),
 												onSetVisibility: (value: boolean) => setVisibility(s, value)
@@ -258,8 +193,6 @@ export const SourcebooksModal = (props: Props) => {
 					block={true}
 					options={[
 						{ value: SourcebookType.Official, label: 'Official' },
-						{ value: SourcebookType.ThirdParty, label: 'Third Party' },
-						{ value: SourcebookType.Community, label: 'Community' },
 						{ value: SourcebookType.Homebrew, label: 'Homebrew' }
 					]}
 					value={page}
@@ -276,7 +209,7 @@ export const SourcebooksModal = (props: Props) => {
 									<div style={{ padding: '0 20px 20px 20px' }}>
 										<SourcebookPanel
 											sourcebook={selectedSourcebook}
-											sourcebooks={[ ...props.officialSourcebooks, ...props.homebrewSourcebooks ]}
+											sourcebooks={[ ...props.officialSourcebooks, ...allowedHomebrewSourcebooks ]}
 											mode={PanelMode.Full}
 										/>
 									</div>

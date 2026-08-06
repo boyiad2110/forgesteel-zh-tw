@@ -29,6 +29,7 @@ import { Random } from '@/utils/random';
 import { Skill } from '@/models/skill';
 import { SkillList } from '@/enums/skill-list';
 import { SourcebookData } from '@/data/sourcebook-data';
+import { SourcebookType } from '@/enums/sourcebook-type';
 import { SubClass } from '@/models/subclass';
 import { TacticalMap } from '@/models/tactical-map';
 import { Terrain } from '@/models/terrain';
@@ -36,6 +37,20 @@ import { Title } from '@/models/title';
 import { UpdateLogic } from './update/update-logic';
 
 export class SourcebookLogic {
+	// The sourcebook type policy for this edition. It is independent of the display
+	// language, so both languages see exactly the same sourcebook collection, and it
+	// is driven by SourcebookType alone rather than by any fixed list of IDs, so any
+	// Official sourcebook (including ones added later) is kept automatically.
+	static allowedSourcebookTypes: SourcebookType[] = [ SourcebookType.Official, SourcebookType.Homebrew ];
+
+	static isSourcebookAllowed = (sourcebook: Sourcebook) => {
+		return SourcebookLogic.allowedSourcebookTypes.includes(sourcebook.type);
+	};
+
+	static filterAllowedSourcebooks = (sourcebooks: Sourcebook[]) => {
+		return sourcebooks.filter(SourcebookLogic.isSourcebookAllowed);
+	};
+
 	static getSourcebooks = (homebrew: Sourcebook[] = []) => {
 		const list = [ ...SourcebookData.getCached() ];
 
@@ -43,7 +58,7 @@ export class SourcebookLogic {
 
 		list.push(...homebrew);
 
-		return list;
+		return SourcebookLogic.filterAllowedSourcebooks(list);
 	};
 
 	static getElements = (sourcebook: Sourcebook): { element: Element, type: SourcebookElementKind }[] => {
