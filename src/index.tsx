@@ -1,5 +1,8 @@
+/* eslint-disable sort-imports */
+
 import { DataLoader } from '@/components/panels/data-loader/data-loader';
 import { DataManagerProvider } from './contexts/data-context';
+import { LocalizationProvider } from './contexts/localization-context';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { HashRouter } from 'react-router';
 import { Main } from '@/components/main/main.tsx';
@@ -37,10 +40,12 @@ root.render(
 										initialHomebrewSourcebooks={data.homebrewSourcebooks}
 										initialHiddenSourcebookIDs={data.hiddenSourcebookIDs}
 									>
-										<Main
-											connectionSettings={data.connectionSettings}
-											dataService={data.service}
-										/>
+										<LocalizationProvider>
+											<Main
+												connectionSettings={data.connectionSettings}
+												dataService={data.service}
+											/>
+										</LocalizationProvider>
 									</DataManagerProvider>
 								</HashRouter>
 							</StrictMode>

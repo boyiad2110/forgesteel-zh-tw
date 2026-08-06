@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { AppFooter, FooterParams } from '@/components/panels/app-footer/app-footer';
 import { Button, Segmented, Select, Space } from 'antd';
 import { CloseOutlined, SaveOutlined, ThunderboltOutlined } from '@ant-design/icons';
@@ -15,6 +17,7 @@ import { CareerSection } from '@/components/pages/heroes/hero-edit/career-sectio
 import { Characteristic } from '@/enums/characteristic';
 import { ClassSection } from '@/components/pages/heroes/hero-edit/class-section/class-section';
 import { Collections } from '@/utils/collections';
+import { LocalePrototypeToggle } from '@/components/controls/locale-prototype-toggle/locale-prototype-toggle';
 import { Complication } from '@/models/complication';
 import { ComplicationSection } from '@/components/pages/heroes/hero-edit/complication-section/complication-section';
 import { Culture } from '@/models/culture';
@@ -38,6 +41,8 @@ import { useIsSmall } from '@/hooks/use-is-small';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useParams } from 'react-router';
 import { useTitle } from '@/hooks/use-title';
+import { getLocalizedUIString } from '@/localization/prototype-localization';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './hero-edit-page.scss';
 
@@ -58,6 +63,7 @@ interface Props {
 
 export const HeroEditPage = (props: Props) => {
 	const isSmall = useIsSmall();
+	const { locale } = useLocalization();
 	const options = useOptions();
 	const heroes = useHeroes();
 	const navigation = useNavigation();
@@ -609,7 +615,8 @@ export const HeroEditPage = (props: Props) => {
 					<ButtonGroup
 						buttons={[
 							{ type: 'control', control: <SearchBox disabled={!allowSearch()} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> },
-							{ type: 'button', label: isSmall ? undefined : 'Save Changes', icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
+							{ type: 'control', control: <LocalePrototypeToggle /> },
+							{ type: 'button', label: isSmall ? undefined : getLocalizedUIString(locale, 'hero-edit.save-changes', 'Save Changes'), icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
 							{ type: 'button', label: isSmall ? undefined : 'Cancel', icon: <CloseOutlined />, onClick: () => navigation.goToHeroView(heroID!) }
 						]}
 					/>
