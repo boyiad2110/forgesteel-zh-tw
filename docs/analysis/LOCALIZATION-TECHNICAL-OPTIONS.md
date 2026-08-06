@@ -33,7 +33,7 @@
 - 英文原始資料仍是唯一 canonical rule data；中文只存在於顯示層。
 - 不修改 ID、enum、引用關係、計算、parser、角色存檔格式或匯入／匯出格式。
 - 既有角色、LocalForage、Warehouse 與匯入 JSON 必須保持相容。
-- Core、Orden、Beastheart、Summoner 是 V1 唯一允許來源；繁中與英文模式使用同一白名單。Community、Third Party、Homebrew、Patreon、Playtest 都不得因切換語言而出現。
+- 繁中與英文模式使用相同且獨立於 locale 的來源類型政策：允許 `SourcebookType.Official` 與 `SourcebookType.Homebrew`，排除 `SourcebookType.ThirdParty` 與 `SourcebookType.Community`。Official Patreon／Playtest 沿用原版 feature flag；localization layer 不得控制 feature flag。Homebrew 保持 canonical 使用者資料，不做自動翻譯或資料改寫。
 - 玩家輸入內容保持原樣；正式中文譯文只由專案負責人核准，AI 不得自行覆寫。
 - V1 必須做角色表、PDF、圖片與列印的最低 smoke test；完整中文排版與字型最佳化可延至 V1.1。
 
@@ -45,9 +45,9 @@
 |---|---|---|
 | 專案目前沒有 i18n layer | `package.json` 沒有 i18n dependency；`src/models/options.ts:Options` 沒有 locale 欄位 | library 與 catalog 格式尚未決定；不能假設既有整合點 |
 | 啟動資料由單一 loader 建立 | `src/index.tsx` 的 `DataLoader → DataManagerProvider → Main`；`src/components/panels/data-loader/data-loader.tsx:loadData()` 同時載入 sourcebooks、heroes、options、session | 語言切換若重跑 `loadData()`，會重建 app state；應避免 |
-| 官方與非官方來源目前混合載入 | `src/data/sourcebook-data.ts:SourcebookData.loadAll()` 固定匯入四本官方書，也固定匯入 Community／Third Party，並可依 flag 匯入 Playtest | 白名單必須在 locale 之外獨立強制；只翻譯四本書不等於停用其他來源 |
-| 內建與 Homebrew 會合併 | `src/logic/sourcebook-logic.ts:SourcebookLogic.getSourcebooks()` 先取 cached built-ins，再加入 Homebrew | 英文模式也須共享同一允許來源集合；不能以「沒有中文翻譯」當作內容停用機制 |
-| 新角色會採所有 Official | `src/components/main/main.tsx:newHero()` 以 `SourcebookType.Official` 產生 `sourcebookIDs` | Playtest 也可能是 Official；V1 需要明確 ID 白名單，不能只依 type |
+| 官方與非官方來源目前混合載入 | `src/data/sourcebook-data.ts:SourcebookData.loadAll()` 固定匯入四本官方書，也固定匯入 Community／Third Party，並可依 flag 匯入 Playtest | Community／Third Party 必須在 locale 之外排除；Official 不得被固定為四本的限制截斷 |
+| 內建與 Homebrew 會合併 | `src/logic/sourcebook-logic.ts:SourcebookLogic.getSourcebooks()` 先取 cached built-ins，再加入 Homebrew | Homebrew 合併是應保留的原版功能；過濾防線必須保證 Homebrew 不被誤刪，Community／Third Party 不得藉由 aggregation 重新進入 runtime |
+| 新角色會採所有 Official | `src/components/main/main.tsx:newHero()` 以 `SourcebookType.Official` 產生 `sourcebookIDs` | 這符合現行產品決策；新 Hero 可以使用所有已實際載入的 Official，Patreon／Playtest 在 feature flag 啟用並載入時可自然成為 Official 選項 |
 | 規則文字是物件欄位 | `src/models/element.ts:Element` 有 `id`、`name`、`description`；`src/data/sourcebooks/official/beastheart.ts` 有 Markdown `effect`；`src/data/ability-data.ts` 與 `src/data/classes/tactician/tactician.ts` 有 sections | catalog 必須能定位 element 欄位與巢狀 section，而不是只處理 JSX 固定文字 |
 | `name` 不是安全的純顯示欄位 | `src/logic/hero-sheet/hero-sheet-builder.ts` 以 `Augmentation`、`Ward`、`Prayer of`、`Enchantment of` 比對名稱；其他名稱也用於排序與 CSS | canonical `name` 必須保持英文；中文名稱只能在顯示邊界取得 |
 | 語言與技能以英文名稱存取 | `src/models/language.ts`、`src/models/skill.ts` 沒有 ID；`src/logic/hero-logic.ts:getLanguages()` 以 `l.name === name` 查找，`getSkills()` 以名稱查找；`src/data/sourcebooks/official/orden.ts` 的 `related` 也是名稱陣列 | 顯示中文不能回寫 `selected`、`related` 或 hero；無 ID 項目的 catalog identity 需另行治理 |
@@ -110,7 +110,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - **語言與技能：** hero 的 `selected: string[]`、`Language.related` 與 `HeroLogic.getLanguages()`／`getSkills()` 繼續使用英文。下拉選單應是 `{ value: canonicalEnglishName, label: localizedDisplayName }`；不得以中文 label 當 value。
 - **parser 與文字驅動 logic：** `AbilityLogic`、`HeroSheetBuilder`、`ClassicSheetBuilder`、`SheetFormatter` 只接收原英文物件。若 parser 產生顯示結果，先完成英文計算，再對已知顯示 slot 做本地化；不把中文送回 parser。
 - **derived／composed display messages：** builder input 與規則結果保持 canonical／structured；在 presentation boundary 用穩定 message key 與結構化參數組句。不得用完整 runtime 英文句子作 key 或對完成段落全域替換；模板必須正確保留數字、插值、Markdown、規則 token 與玩家輸入。
-- **搜尋與排序：** 先以四書白名單限制 canonical 搜尋範圍，再以允許 element 的 localized display text（及依產品決策納入的 canonical 英文）建立 presentation index。中文查詢只查此 index，結果回傳 canonical ID／物件；不得把中文名稱寫入 Hero、selected value、規則資料或存檔。V1 搜尋只查目前語言或同時查中英，以及中文模式純顯示清單採 canonical 或 localized label 排序，均待專案決定。
+- **搜尋與排序：** 先以來源類型政策限制 canonical 搜尋範圍，再以允許 element 的 localized display text（及依產品決策納入的 canonical 英文）建立 presentation index。中文查詢只查此 index，結果回傳 canonical ID／物件；不得把中文名稱寫入 Hero、selected value、規則資料或存檔。V1 搜尋只查目前語言或同時查中英，以及中文模式純顯示清單採 canonical 或 localized label 排序，均待專案決定。
 
 ### 5.3 角色生命週期、切換與儲存
 
@@ -119,12 +119,12 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - **working copy：** `HeroEditPage` 的 local `hero` 與 `dirty` 不含 locale；切換前後應保持同一份語意資料。需用 integration test 證明 component 沒有 remount。
 - **LocalForage／Warehouse／匯入匯出：** locale preference 可存於 app options 或獨立 app preference，但不得放入 Hero。Hero 維持既有 schema，`saveHero`、Warehouse API、`JSON.parse` 匯入與 `exportHeroData` 不需 locale-aware。
 
-### 5.4 白名單、fallback 與一致性檢查
+### 5.4 來源類型政策、fallback 與一致性檢查
 
-- **四書白名單：** 在 `SourcebookData`／可用來源集合的共同邊界強制 Core、Orden、Beastheart、Summoner，不由 catalog 是否有翻譯決定。繁中與英文 resolver 共用同一 canonical 白名單。既存 Homebrew 保留但不讀取、不合併、不修改。
+- **來源類型政策：** 在 `SourcebookData`／可用來源集合的共同邊界依 `SourcebookType` 保留 Official／Homebrew、排除 Community／Third Party，不由 catalog 是否有翻譯決定。繁中與英文 resolver 共用同一政策；Official Patreon／Playtest 仍依原版 feature flag 決定是否載入。
 - **fallback：** runtime 缺少中文時顯示傳入的 canonical 英文，不能顯示空字串、key 或改動資料。開發環境記錄缺漏；發布 gate 對 V1 玩家範圍視為失敗。GM 未翻譯範圍依需求允許英文 fallback。
 - **缺少翻譯：** 由「V1 必要 identity manifest」對 catalog 做差集。
-- **多餘翻譯／失效 ID：** catalog identity 對當前四書與 UI key registry 做反向差集；不存在的 element ID 或 field slot 報錯。
+- **多餘翻譯／失效 ID：** catalog identity 對當前允許來源與 UI key registry 做反向差集；不存在的 element ID 或 field slot 報錯。
 - **英文原文變更：** 比較 catalog 的 canonical snapshot／hash 與當前英文欄位；變更後標為待重新核准，不自動改中文。
 - **無 ID 項目：** 驗證明確 identity 映射能唯一命中一個 canonical 語言／技能；0 或多個命中都失敗。
 
@@ -132,7 +132,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 
 - **單元測試：** locale fallback、ID／path 命中、錯誤 identity、source hash 漂移、placeholder／Markdown／規則 token／玩家輸入保留，以及 value 英文／label 中文分離。
 - **integration test：** 在 `HeroEditPage` 修改未儲存欄位後切換兩次，驗證 route、hero JSON、dirty、選項、計算不變；建立角色並升到 2、3 級；存檔重開；匯入舊 JSON、再匯出比較 schema。
-- **搜尋、來源與輸出測試：** 中文關鍵字命中中文 display text 後回傳正確 canonical element；英文搜尋仍可運作；排除來源不進入任何 locale 的 index／結果；搜尋與純顯示排序不改變 Hero JSON 或選項 value。兩個 locale 都只能看到四書；角色表英文／繁中顯示可變但數值與選項一致；PDF／圖片最低 smoke test。
+- **搜尋、來源與輸出測試：** 中文關鍵字命中中文 display text 後回傳正確 canonical element；英文搜尋仍可運作；Community／Third Party 不進入任何 locale 的 index／結果；搜尋與純顯示排序不改變 Hero JSON 或選項 value。兩個 locale 都使用相同的 Official／Homebrew 政策；角色表英文／繁中顯示可變但數值與選項一致；PDF／圖片最低 smoke test。
 - **衍生文字測試：** 至少選一個代表性的 derived／composed message，驗證切換前後規則結果不變、locale template 可切換、所有插值正確，且中文輸出不回流 parser 或 storage。
 - **修改面積：** 需要 locale provider、resolver、catalog、顯示呼叫點與驗證工具；models、parser、計算及 Hero schema 不必整體重構。規則 component 數量仍多，需逐步覆蓋。
 - **上游更新：** canonical diff 與 snapshot/hash 可直接指出英文變更；穩定 ID 未變時多數翻譯仍可沿用。欄位移動或無 ID 項目變更需人工處理。
@@ -161,7 +161,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - **高風險 `name`：** view model 必須同時保留 `canonicalName`／canonical identity 與 `displayName`，或建立完全不同的 presentation type。若直接把 `name` 換成中文，現有 component 很容易把它傳回 logic。
 - **語言與技能：** view option 必須明確分開英文 `value` 與中文 `label`。由於現有 models 沒有語言／技能 ID，投影層仍需外部 identity 映射，不能解決根本識別問題。
 - **parser 與文字驅動 logic：** projector 必須在所有 logic 執行之後，或每個 view model 同時攜帶 canonical object。現有 component 常直接把 `props.sourcebooks` 傳入 `SourcebookLogic`、`FeatureLogic`、builder；若改傳投影，中文會進入 parser／名稱判斷。
-- **搜尋、排序與衍生文字：** 可把 display text 與 message params 集中在 view model，但必須先對 canonical data 套白名單，index 命中後只回傳 canonical identity。純顯示排序可用 `displayName`，domain 排序仍用 canonical；完成英文句子不得成為投影 identity。這些額外 view 欄位與 mapping 也提高雙模型成本。
+- **搜尋、排序與衍生文字：** 可把 display text 與 message params 集中在 view model，但必須先對 canonical data 套來源類型政策，index 命中後只回傳 canonical identity。純顯示排序可用 `displayName`，domain 排序仍用 canonical；完成英文句子不得成為投影 identity。這些額外 view 欄位與 mapping 也提高雙模型成本。
 
 ### 6.3 角色生命週期、切換與儲存
 
@@ -170,9 +170,9 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - **working copy：** 最安全做法是 `HeroEditPage` 永遠編輯 canonical working copy，投影只供 render。若改成編輯 localized hero view，dirty diff、反向映射與儲存都會變得危險，應禁止。
 - **LocalForage／Warehouse／匯入匯出：** projector 必須是單向且不可序列化；save／import／export API 只接受 canonical type。若缺乏強型別邊界，投影被誤存的風險高於方案 A。
 
-### 6.4 白名單、fallback 與一致性檢查
+### 6.4 來源類型政策、fallback 與一致性檢查
 
-- **四書白名單：** 必須在投影之前先篩 canonical sourcebooks，並讓兩個 locale 共用；投影不能當安全邊界。
+- **來源類型政策：** 必須在投影之前先依 `SourcebookType` 篩選 canonical sourcebooks，並讓兩個 locale 共用；投影不能當安全邊界。
 - **fallback：** projector 對缺漏欄位複製 canonical 英文；玩家範圍仍需 release gate，GM 可 fallback。
 - **缺漏／多餘／失效／英文變更：** 若 projector 的輸入仍是旁掛 catalog，可以採用與 A 相同的 manifest、反向差集與 snapshot/hash。若投影規則散在 code，則難以完整盤點，應避免。
 - **驗證附加項：** 必須驗證每個 view object 可追溯至唯一 canonical identity，且 projector 不修改輸入（deep-freeze／immutability test）。
@@ -207,7 +207,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - **高風險 `name`：** 若 artifact 沿用 canonical model 並把 `name` 改中文，就會偽裝成可供 logic 使用的 Sourcebook／Element，風險極高。較安全的 artifact 必須是 display-only schema，或同時保留 canonicalName；這會接近方案 B 的雙模型成本。
 - **語言與技能：** 不能把生成後中文名稱放入 `selected`、`related` 或 option value。artifact 仍需 canonical identity／英文 value 與中文 label 分離。
 - **parser 與文字驅動 logic：** parser 必須只讀英文 bundle。若 component／builder 切到中文 artifact，`damage`、`Melee`、名稱 pattern 等會失效。要安全使用，必須在 build 產生 display-only overlay，runtime 再按 identity 套用；此時核心其實退化為方案 A。
-- **搜尋、排序與衍生文字：** build 可預先產生白名單內的 display index 或 message template，但 runtime 命中仍須解析為 canonical identity，domain 排序仍不可使用中文。若 artifact 保存完成英文／中文句子而非 template + structured params，上游 drift 與插值正確性會更難驗證。
+- **搜尋、排序與衍生文字：** build 可預先產生允許來源內的 display index 或 message template，但 runtime 命中仍須解析為 canonical identity，domain 排序仍不可使用中文。若 artifact 保存完成英文／中文句子而非 template + structured params，上游 drift 與插值正確性會更難驗證。
 
 ### 7.3 角色生命週期、切換與儲存
 
@@ -216,9 +216,9 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - **working copy：** Hero 必須留在 canonical state；artifact 只能被 render 讀取。整套資料物件替換更容易改變 object identity 與 key，風險高於 A。
 - **LocalForage／Warehouse／匯入匯出：** 只要 artifact 完全隔離，Hero schema 可不變；一旦生成物可被當成 canonical model 寫回，會污染兩個後端和 JSON。
 
-### 7.4 白名單、fallback 與一致性檢查
+### 7.4 來源類型政策、fallback 與一致性檢查
 
-- **四書白名單：** generator 輸入與 runtime canonical loader 都必須套同一白名單；只讓 generator 產四書不能阻止英文 bundle 載入非官方內容。
+- **來源類型政策：** generator 輸入與 runtime canonical loader 都必須套同一 Official／Homebrew 保留、Community／Third Party 排除政策；只讓 generator 處理部分來源不能阻止英文 bundle 載入被排除內容。
 - **fallback：** build 可對 V1 玩家 manifest 缺漏直接失敗；若允許 GM 部分缺漏，artifact 需帶 fallback 指示或 runtime 回到 canonical 英文。若整個 artifact 載入失敗，也必須無狀態損失地回到英文。
 - **缺漏／多餘／失效／英文變更：** build pipeline 適合執行 manifest 差集、schema 驗證、ID／slot 存在性與 snapshot/hash；這是 C 的主要優點，也可獨立套用到 A。
 - **產物驗證：** 必須檢查 artifact 沒有新增／刪除 ID、enum、引用或結構值，且輸出可重現；還要避免把未核准譯文打包。
@@ -298,7 +298,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 2. `AbilityLogic`、`HeroSheetBuilder`、`SheetFormatter` 可繼續只讀英文，因此中文不會進入文字解析或規則判斷。
 3. locale 與 catalog 不屬於 Hero，LocalForage、Warehouse、匯入／匯出 schema 可保持不變。
 4. 切換只更新顯示 context，不需要重跑 `DataLoader`、換 route 或重建 `HeroEditPage` working copy。
-5. 白名單、presentation search index 與 canonical identity 可明確分層；中文搜尋／排序不需要改寫規則物件或 Hero value。
+5. 來源類型政策、presentation search index 與 canonical identity 可明確分層；中文搜尋／排序不需要改寫規則物件或 Hero value。
 6. catalog 與 message templates 可允許英文 fallback 及欄位級增量覆蓋，適合逐步翻譯；同時以 V1 玩家 manifest 在發布前阻擋缺漏。
 7. 修改集中在 presentation 呼叫點及少量基礎設施，不要求重寫現有 domain models、builder、parser 或 storage，不構成與 V1 無關的大型重構。
 
@@ -327,7 +327,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 
 第一個最小 prototype 的唯一必要驗證範圍以第 12.1 節為準。
 
-搜尋索引、搜尋語言政策、純顯示排序、四書白名單完整端到端實作、locale preference 完整持久化、角色表全面驗證、Warehouse、PWA／cache，以及無 ID 資料 identity，依第 12.2 與第 13 節分批處理，不阻擋第一個最小 prototype。
+搜尋索引、搜尋語言政策、純顯示排序、來源類型政策完整端到端實作、locale preference 完整持久化、角色表全面驗證、Warehouse、PWA／cache，以及無 ID 資料 identity，依第 12.2 與第 13 節分批處理，不阻擋第一個最小 prototype。
 
 上述技術事項應優先由 prototype 或實作證據解決；只有符合第 13.2 節條件的真正產品或流程取捨，才交由專案負責人裁定。
 
@@ -342,7 +342,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 3. Hero schema、匯入／匯出格式及既有存檔相容性不得改變。
 4. 中文只在 presentation boundary 顯示。
 5. 語言切換不得重跑 `DataLoader`、切換 route、remount 編輯頁或遺失 working copy／`dirty`。
-6. 繁中與英文使用相同四書白名單。
+6. 繁中與英文使用相同的來源類型政策：保留 Official／Homebrew，排除 Community／Third Party。
 7. 中文搜尋或 label 最終必須回到 canonical ID／英文 value。
 8. 動態組合文字先以 canonical／structured data 完成規則結果，再於顯示層組句。
 9. 缺漏中文時使用英文 fallback；V1 玩家必要內容發布前缺漏歸零。
@@ -356,7 +356,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - **resolver API：** 維持窄型、presentation-only 的 resolver；不得提供會深層翻譯整個 Sourcebook／Hero 的 API。
 - **catalog identity 與 metadata：** 優先使用穩定 element ID、受控欄位／slot identity、canonical snapshot 或 hash、核准狀態與備註；具體欄位與格式可由 prototype 替換。
 - **validator：** 可在 test、獨立 script 或 CI 執行 required-but-missing、catalog-but-stale、失效 ID／field slot、重複 key 與英文原文變更檢查；具體檔案位置與執行方式不固定。
-- **搜尋索引工程：** 先套用既定四書邊界，再讓 display text 命中回傳 canonical identity；搜尋語言與純顯示排序仍依第 13.2 節的產品取捨處理。
+- **搜尋索引工程：** 先套用既定來源類型政策，再讓 display text 命中回傳 canonical identity；搜尋語言與純顯示排序仍依第 13.2 節的產品取捨處理。
 - **衍生文字測試：** 以穩定 message key、template、structured params、插值／Markdown／規則 token 保留測試驗證顯示結果；不得以完整 runtime 英文句子作唯一 identity。
 - **schema 與 value／label 測試：** 以測試確認 locale、displayName、翻譯 metadata 不進 Hero，中文 label 不取代英文 value，切換前後 Hero JSON 與 canonical identity 不變。
 - **切換與回復測試：** 驗證 `HeroEditPage`、route、working copy／`dirty` 與資料載入狀態在切換時保持；若 catalog 或 resolver 發生事故，建議能無 migration 地回退英文顯示。
@@ -385,7 +385,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 
 - 搜尋索引與搜尋語言政策。
 - localized label 排序。
-- 四書白名單的完整端到端實作。
+- 來源類型政策的完整端到端實作。
 - Warehouse 完整驗證與完整流程。
 - 舊 JSON 匯入／匯出完整相容性。
 - 所有角色建立與升級流程。
@@ -410,7 +410,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 - 預設 locale、切換控制、URL、working copy 與 `dirty` 的完整持久化與狀態驗證。
 - `HeroEditPage` 不 remount、`DataLoader.loadData()` 不重跑，以及高風險 element 的 canonical name、ID、section、selected value 與 parser input 不變。
 - LocalForage、Warehouse、舊版 JSON 匯入／匯出與既有 Hero schema 相容性。
-- 兩種 locale 的完整四書白名單、排除來源、搜尋索引與純顯示排序行為。
+- 兩種 locale 的完整來源類型政策、排除來源、搜尋索引與純顯示排序行為。
 - 所有角色建立、升級、角色表、PDF、PNG、列印與窄畫面驗證。
 - V1 玩家內容 manifest、缺漏檢查、發布 gate，以及既有 lint、typecheck、test、build。
 
@@ -428,7 +428,7 @@ catalog 至少應能保存 localization identity、canonical 英文快照或 has
 2. **builder／formatter 顯示邊界：** 哪些欄位可在 builder 後 resolver，哪些仍被 formatter 用於分類；以及 derived／composed message 如何提供 message key + structured params。
 3. **locale preference 儲存位置：** 擴充既有 `Options` 或使用獨立 LocalForage key，何者對舊 options migration、provider 穩定性與測試最小。
 4. **i18n library 是否必要：** 是否需要 ICU、rich text、typed keys、namespace lazy loading，以及是否造成 provider remount、額外資料載入或過度 bundle 成本。
-5. **四書白名單的最小攔截位置：** 內建載入、Homebrew 讀取／合併、匯入、搜尋、隨機與既存角色參照之間，哪個最小共同邊界能滿足既定白名單。
+5. **來源類型政策的最小攔截位置：** 內建載入、Homebrew 讀取／合併、匯入、搜尋、隨機與既存角色參照之間，哪個最小共同邊界能滿足既定 Official／Homebrew 保留、Community／Third Party 排除政策。
 6. **Warehouse 測試方法：** 如何在不影響正式資料的環境驗證 locale 不進遠端 Hero schema，以及完整流程的驗證方式。
 7. **PWA／cache 行為：** 若後續採用 catalog chunk 或 lazy-load，首次載入、更新後切換與離線狀態的 cache 行為。
 

@@ -26,14 +26,13 @@
 - `official/patreon.ts` 是 Playtest 來源書，僅在 `FeatureFlags.playtest` 啟用時匯入；旗標存於 `localStorage.feature_flag_codes`，`FeatureFlags.clear()` 可清除。
 - Patreon Warehouse 是儲存後端：`DataLoader` 驗證 Patreon 後設 `usePatreonWarehouse`，`StorageServiceFactory` 選 `WarehouseService`，否則 `LocalService`；它不是另一份內建內容。
 - **已確認：** Homebrew 由 `DataService.getHomebrew()` 從 LocalForage 或 Warehouse 讀取（本機鍵 `forgesteel-homebrew-settings`），再與內建來源合併。
-- **已批准需求：** 中文版不得讀取、顯示或修改既有 Homebrew 資料。
-- **尚未驗證：** 滿足該需求的最小實作邊界，以及 Local／Warehouse 是否需要相同攔截位置。
+- **現行產品決策：** 保留 Official 與 Homebrew，排除 Community 與 Third Party。
 
 來源書「隱藏」只儲存 ID（`forgesteel-hidden-setting-ids`）供部分列表篩選，不會阻止載入或清除角色參照。目前沒有完整全域停用開關；這是現況證據，不在本文件核定具體攔截架構。既存資料仍不得刪除或修改。
 
-**高風險：** `Main.newHero()` 使用 `SourcebookType.Official`，而 Playtest 來源也可能屬於 Official。
+**已確認的 codebase 行為：** `Main.newHero()` 使用 `SourcebookType.Official`；這符合現行產品決策。Patreon／Playtest 是否出現仍取決於原版 feature flag 是否載入該 Official sourcebook。
 
-已核准技術方向要求使用明確四書白名單。實際攔截位置留待 prototype／實作批次驗證。
+現行技術方向要求來源政策獨立於 locale，並依 `SourcebookType` 保留 Official／Homebrew、排除 Community／Third Party。
 
 ## 4. 通常為純顯示的文字
 
@@ -59,7 +58,7 @@
 
 ## 8. 中英切換的主要範圍
 
-會涉及 `components/` JSX、`data/` 內容欄位、`ability-logic.ts`、`classic-sheet/`、`hero-sheet/`，以及 models、儲存、匯入匯出相容性。**已確認的高風險：** 部分英文文字參與 parser、分類、查找或存檔值，不能直接替換成中文。已核准方向要求 canonical 值保持英文，中文只在 presentation boundary 顯示。可供評估的既有設定持久化位置包括 `Options`／`DataManagerProvider` 與 `DataService` 的 LocalForage `forgesteel-options`；`index.tsx` 的 app-level `DataLoader → DataManagerProvider → Main` 是確認切換不重載角色資料的關鍵。路由由 `HashRouter`／`hooks/use-navigation.ts` 管理；`HeroEditPage` 的 local working copy／`dirty` state 必須在切換時保留。須確認切換不呼叫 `DataLoader.loadData()`、不重建 hero，並在英文模式同樣限制為四本允許來源書。
+會涉及 `components/` JSX、`data/` 內容欄位、`ability-logic.ts`、`classic-sheet/`、`hero-sheet/`，以及 models、儲存、匯入匯出相容性。**已確認的高風險：** 部分英文文字參與 parser、分類、查找或存檔值，不能直接替換成中文。已核准方向要求 canonical 值保持英文，中文只在 presentation boundary 顯示。可供評估的既有設定持久化位置包括 `Options`／`DataManagerProvider` 與 `DataService` 的 LocalForage `forgesteel-options`；`index.tsx` 的 app-level `DataLoader → DataManagerProvider → Main` 是確認切換不重載角色資料的關鍵。路由由 `HashRouter`／`hooks/use-navigation.ts` 管理；`HeroEditPage` 的 local working copy／`dirty` state 必須在切換時保留。須確認切換不呼叫 `DataLoader.loadData()`、不重建 hero，並讓繁中與英文模式均使用相同的 type policy：保留 Official／Homebrew，排除 Community／Third Party。
 
 ## 9. 字型與輸出風險
 
