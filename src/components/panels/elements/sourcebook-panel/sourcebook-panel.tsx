@@ -444,7 +444,6 @@ export const SourcebookPanel = (props: Props) => {
 				buttons.push(
 					{
 						type: 'danger',
-						disabled: msg === undefined,
 						disabledMessage: msg,
 						onClick: () => props.onDelete!(sourcebook)
 					}
