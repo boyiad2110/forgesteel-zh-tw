@@ -22,12 +22,14 @@
 
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active development branch：`develop`
-- `develop` / `origin/develop`：
+- Current substantive baseline：
   `5b3a9743322704278fd943db1ad4bd6b1d3c800b`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
-- Last merged PR：`#10`
+- Last merged substantive PR：`#10`
 - Current phase：正式 localization implementation 前的準備階段
+
+`develop` 的實際 HEAD 以 Git repository 為準。只更新 `docs/PROJECT-STATUS.md` 的 documentation-only PR 不改寫 substantive baseline 或 last merged substantive PR。
 
 目前尚未開始大規模正式翻譯。
 
@@ -56,6 +58,8 @@
 ---
 
 ## 4. Completed Batches
+
+本表記錄截至 current substantive baseline 的完成批次；只更新本文件的 documentation-only PR 不自我列入。
 
 | PR | 內容 | Merge commit |
 |---|---|---|
@@ -173,11 +177,13 @@ V1 localization 的**核心技術方向已核准**：以顯示層 localization �
 
 本文件只在下列時機更新：
 
-- 一個完整批次已合併至 `develop`。
-- Current baseline 改變。
+- 一個完整的 substantive 批次已合併至 `develop`。
+- Current substantive baseline 改變。
 - 已核准的產品決策改變。
 - Next Work 改變。
 - 新問題被正式列為 V1 blocker 或正式 deferred。
+
+只更新 `docs/PROJECT-STATUS.md` 的 documentation-only PR 不自我記錄其 PR number 或 merge SHA，也不觸發另一個 status-only 更新循環。Repository 當前 HEAD 以 `develop` 的實際 Git 狀態為準。
 
 更新時：
 
