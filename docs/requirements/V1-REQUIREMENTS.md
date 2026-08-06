@@ -35,9 +35,9 @@ V1 保留凍結基準中所有分類為 `SourcebookType.Official` 的內容；�
 - Beastheart
 - Summoner
 
-Core、Orden、Beastheart、Summoner 是已知正式官方來源與主要翻譯目標，但不是 runtime 唯一允許來源。Official 玩家內容的中文完成範圍仍以 V1 的 1～3 級玩家需求為準。Homebrew 內容與功能保留，但 Homebrew 內容不屬於專案負責人必須完成中文定稿的官方 V1 翻譯範圍。
+Core、Orden、Beastheart、Summoner 是已知正式官方來源與主要翻譯目標，但不是 runtime 唯一允許來源。V1 必須完成中文定稿的官方玩家內容限於 Core、Orden、Beastheart、Summoner 中建立與使用 1～3 級角色所需的內容。其他允許的 Official 來源，包括 Patreon／Playtest，可依原版條件使用 canonical 英文，不列入 V1 翻譯完整性發布門檻。Homebrew 內容與功能保留，但不屬於專案負責人必須完成中文定稿或翻譯缺漏 gate 的範圍。
 
-V1 必須涵蓋建立與使用 1～3 級角色所需的 Official 玩家內容，包括角色選項、能力、裝備、說明文字與玩家介面。
+V1 必須涵蓋建立與使用上述四個來源之 1～3 級角色所需的玩家內容，包括角色選項、能力、裝備、說明文字與玩家介面。
 
 ### 3.2 玩家功能
 
@@ -84,7 +84,7 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 2. AI 不得自行覆寫或修改正式中文譯文。
 3. 所有中文修改都必須由專案負責人確認。
 4. `develop` 可暫時保留英文。
-5. V1 正式版不得出現未翻譯的 1～3 級玩家介面或官方玩家內容。
+5. V1 正式版不得在 Core、Orden、Beastheart、Summoner 的 1～3 級玩家流程及其必要玩家介面中出現未翻譯內容；其他允許的 Official、Homebrew 與 GM 內容可依本文件規定顯示 canonical 英文。
 6. 玩家自行輸入的名稱與文字保持原樣，不自動翻譯。
 
 翻譯資料必須能唯一對應 V1 顯示項目、保留 canonical 英文基準、記錄正式中文核准狀態，並能偵測相關英文原文變更。具體資料格式與 metadata 欄位依已核准技術方向及 prototype 證據決定。
@@ -102,7 +102,7 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 ### 必測
 
 - 每個官方職業至少建立 1 名角色，並由 1 級升至 2 級。
-- 以翻譯缺漏檢查或等效可驗證機制，完整確認所有 V1 1～3 級玩家內容均已納入並完成中文定稿。
+- 以翻譯缺漏檢查或等效可驗證機制，完整確認 Core／Orden／Beastheart／Summoner 的 V1 1～3 級玩家內容與必要玩家介面均已納入並完成中文定稿；Patreon／Playtest、其他允許的 Official 與 Homebrew 不進入翻譯缺漏發布 gate。
 - 完整人工檢查所有 1～2 級玩家內容。
 - 抽樣人工檢查 3 級內容與升級流程。
 - 測試儲存、重新開啟及原版存檔相容性。
@@ -114,7 +114,7 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 - 由專案負責人與團員進行封閉 Beta。
 - 通過 lint、TypeScript、自動測試、production build 與翻譯缺漏檢查。
 
-3 級內容的人工流程可採抽樣，但內容納入與翻譯完整性不得抽樣。
+上述四個主要翻譯來源的 3 級內容人工流程可採抽樣，但其內容納入與翻譯完整性不得抽樣。
 
 ### 發布權限
 
@@ -148,8 +148,8 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 
 V1 必須同時符合：
 
-1. 玩家可用繁體中文完整建立與使用官方 1～3 級角色。
-2. 所有 V1 玩家內容與介面均已完成中文定稿。
+1. 玩家可用繁體中文完整建立與使用 Core、Orden、Beastheart、Summoner 的 1～3 級角色。
+2. 「所有 V1 玩家內容與介面」是指 Core、Orden、Beastheart、Summoner 的 1～3 級玩家內容與必要玩家介面，且均已完成中文定稿。
 3. 中英文切換不影響角色資料與計算。
 4. 除中英文切換及第 4 節明確排除的內容與功能外，原版功能與流程未因中文化而改變。
 5. Official 與 Homebrew 功能未因中文化被破壞，且 Community 與 Third Party 不會載入或顯示。
