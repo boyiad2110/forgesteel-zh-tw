@@ -36,9 +36,9 @@ V1 保留凍結基準中所有分類為 `SourcebookType.Official` 的內容；�
 - Beastheart
 - Summoner
 
-Core、Orden、Beastheart、Summoner 是已知正式官方來源與主要翻譯目標，但不是 runtime 唯一允許來源。V1 必須完成中文定稿的官方玩家內容限於 Core、Orden、Beastheart、Summoner 中建立與使用 Level 1–3 Hero 所需的內容。其他允許的 Official 來源，包括 Patreon／Playtest，可依原版條件使用 canonical 英文，不列入 V1 翻譯完整性發布門檻。Homebrew 內容與功能保留，但不屬於專案負責人必須完成中文定稿或翻譯缺漏 gate 的範圍。
+Core、Orden、Beastheart、Summoner 是已知的 Official Sourcebooks 與主要翻譯目標，但不是 runtime 唯一允許的 Sourcebooks。V1 必須完成中文定稿的官方玩家內容限於 Core、Orden、Beastheart、Summoner 中建立與使用 Level 1–3 Hero 所需的內容。其他允許的 Official Sourcebooks，包括 Patreon／Playtest，可依原版條件使用 canonical 英文，不列入 V1 翻譯完整性發布門檻。Homebrew 內容與功能保留，但不屬於專案負責人必須完成中文定稿或翻譯缺漏 gate 的範圍。
 
-V1 必須涵蓋建立與使用上述四個來源之 Level 1–3 Hero 所需的玩家內容，包括 required Hero options、game content、explanatory text 與 player-facing UI。
+V1 必須涵蓋建立與使用上述四個 Sourcebooks 之 Level 1–3 Hero 所需的玩家內容，包括 required Hero options、game content、explanatory text 與 player-facing UI。
 
 ### 3.2 玩家功能
 
@@ -64,9 +64,9 @@ V1 必須涵蓋建立與使用上述四個來源之 Level 1–3 Hero 所需的�
 - Community 內容
 - Third Party 內容
 
-Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Party 不得載入、顯示，或出現在選單、搜尋、隨機產生及 Hero creation flow。切換繁中／英文不得改變允許的來源集合。
+Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Party 不得載入、顯示，或出現在選單、搜尋、隨機產生及 Hero creation flow。切換繁中／英文不得改變允許的 Sourcebook set。
 
-中文模式沒有譯文時，允許的 Official、Homebrew 或 GM 內容可以顯示 canonical 英文。不得因來源排除而刪除或修改既有使用者資料。
+中文模式沒有譯文時，允許的 Official、Homebrew 或 GM 內容可以顯示 canonical 英文。不得因 Sourcebook filtering 而刪除或修改既有使用者資料。
 
 ## 5. 中英文切換
 
@@ -77,7 +77,7 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 - 切換後 Hero values、Hero options 與存檔內容必須完全一致。
 - 中文模式下，尚未翻譯的 GM 內容可繼續顯示英文。
 - 繁中與英文模式均允許 Official 與 Homebrew，並均排除 Community 與 Third Party。
-- 語言切換不得重新載入被排除來源，也不得隱藏或破壞 Homebrew。
+- 語言切換不得重新載入被排除的 Sourcebooks，也不得隱藏或破壞 Homebrew。
 
 ## 6. 翻譯規則
 
@@ -115,7 +115,7 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 - 由專案負責人與團員進行封閉 Beta。
 - 通過 lint、TypeScript、自動測試、production build 與翻譯缺漏檢查。
 
-上述四個主要翻譯來源的 Level 3 content 人工流程可採抽樣，但其內容納入與翻譯完整性不得抽樣。
+上述四個主要 translation-target Sourcebooks 的 Level 3 content 人工流程可採抽樣，但其內容納入與翻譯完整性不得抽樣。
 
 ### 發布權限
 

@@ -25,7 +25,7 @@
 - Community 與 `data/sourcebooks/third-party/` 都在固定匯入清單，預設載入；`communityPrerelease`、`ageOfSecrets` 是額外的本機 feature flag。
 - `official/patreon.ts` 是 Playtest Sourcebook，僅在 `FeatureFlags.playtest` 啟用時匯入；旗標存於 `localStorage.feature_flag_codes`，`FeatureFlags.clear()` 可清除。
 - Patreon Warehouse 是儲存後端：`DataLoader` 驗證 Patreon 後設 `usePatreonWarehouse`，`StorageServiceFactory` 選 `WarehouseService`，否則 `LocalService`；它不是另一份內建內容。
-- **已確認：** Homebrew 由 `DataService.getHomebrew()` 從 LocalForage 或 Warehouse 讀取（本機鍵 `forgesteel-homebrew-settings`），再與內建來源合併。
+- **已確認：** Homebrew 由 `DataService.getHomebrew()` 從 LocalForage 或 Warehouse 讀取（本機鍵 `forgesteel-homebrew-settings`），再與 built-in Sourcebooks 合併。
 - **現行產品決策：** 保留 Official 與 Homebrew，排除 Community 與 Third Party。
 
 Sourcebook「隱藏」只儲存 ID（`forgesteel-hidden-setting-ids`）供部分列表篩選，不會阻止載入或清除 Hero 參照。目前沒有完整全域停用開關；這是現況證據，不在本文件核定具體攔截架構。既存資料仍不得刪除或修改。
@@ -43,7 +43,7 @@ Sourcebook「隱藏」只儲存 ID（`forgesteel-hidden-setting-ids`）供部分
 - **ID／存檔鍵：** `Element.id`、`Hero.id`、`sourcebookIDs`、`selectedIDs`、匯入 JSON 與 `SourcebookLogic.getElement()` 用 ID 關聯；`AbilityLogic` 對 `grab`、`knockback`、`null-1-8` 有特例。
 - **enum／結構值：** `FeatureType`、`SourcebookType`、規則 enum，及 section `type: 'text' | 'field' | 'roll'`、`'build' | 'respite' | 'play'`，均為程式或存檔值。
 - **名稱作為鍵：** `Language`／`Skill` 選擇存字串，`HeroLogic.getLanguages()` 以 `l.name === name` 查找；Orden `related` 也引用 `Language` 名稱。
-- **英文 parser：** `logic/ability-logic.ts` 解析 `damage`／`dmg`、`Might`、potency、`equal to your level` 等句式並計算；`logic/format-logic.ts` 解析骰子與數值。
+- **英文 parser：** `logic/ability-logic.ts` 解析 `damage`／`dmg`、`Might`、potency、`equal to your level` 等句式並計算；`logic/format-logic.ts` 解析 dice expressions 與 numeric values。
 - **文字驅動判斷：** `logic/hero-sheet/hero-sheet-builder.ts` 以 `Augmentation`、`Ward`、`Prayer of`、`Enchantment of` 分類；`logic/classic-sheet/sheet-formatter.ts` 以 `Melee`／`Ranged`／`Self`、trigger 字首選圖示或排序。`utils/utils.ts`、Hero creation 各 section 與 `logic/monster-logic.ts` 以英文空白分詞／小寫搜尋；多個 Classic Sheet 元件再以名稱／enum 產生 CSS class。中文會使英文詞數估計失真。
 
 ## 6. Hero creation、level-up、儲存與重新開啟
