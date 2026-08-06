@@ -117,3 +117,64 @@ describe('SourcebooksModal sourcebook type policy', () => {
 		expect(screen.queryByText('imported-excluded', { exact: true })).toBeNull();
 	});
 });
+
+// An incomplete homebrew file, as written by an older version: a plain object with no
+// key at all for the collections it never used.
+const incompleteHomebrewFile = (extra: Record<string, unknown> = {}): Record<string, unknown> => ({
+	id: 'file-id',
+	name: 'incomplete-homebrew',
+	description: 'Saved before these collections existed.',
+	type: SourcebookType.Homebrew,
+	...extra
+});
+
+describe('SourcebooksModal incomplete homebrew import', () => {
+	it.each([
+		[ 'no languages', incompleteHomebrewFile({ skills: [] }) ],
+		[ 'no skills', incompleteHomebrewFile({ languages: [] }) ],
+		[ 'neither languages nor skills', incompleteHomebrewFile() ]
+	])('imports and lists a homebrew file with %s', async (_label, file) => {
+		const onHomebrewSourcebookChange = renderModal([]);
+		fireEvent.click(screen.getByText('Homebrew', { exact: true }));
+
+		uploadSourcebook(file);
+
+		await waitFor(() => expect(onHomebrewSourcebookChange).toHaveBeenCalledTimes(1));
+		expect(await screen.findByText('incomplete-homebrew', { exact: true })).not.toBeNull();
+		expect(notificationError).not.toHaveBeenCalled();
+
+		const imported = onHomebrewSourcebookChange.mock.calls[0][0] as Sourcebook;
+		expect(imported.languages).toEqual([]);
+		expect(imported.skills).toEqual([]);
+	});
+
+	it('gives the imported sourcebook a fresh id and keeps its other fields', async () => {
+		const onHomebrewSourcebookChange = renderModal([]);
+		fireEvent.click(screen.getByText('Homebrew', { exact: true }));
+
+		uploadSourcebook(incompleteHomebrewFile());
+
+		await waitFor(() => expect(onHomebrewSourcebookChange).toHaveBeenCalledTimes(1));
+
+		const imported = onHomebrewSourcebookChange.mock.calls[0][0] as Sourcebook;
+		expect(imported.id).not.toBe('file-id');
+		expect(imported.id).not.toBe('');
+		expect(imported.name).toBe('incomplete-homebrew');
+		expect(imported.description).toBe('Saved before these collections existed.');
+		expect(imported.type).toBe(SourcebookType.Homebrew);
+	});
+
+	it.each([
+		[ 'community', SourcebookType.Community ],
+		[ 'third party', SourcebookType.ThirdParty ]
+	])('still refuses an incomplete %s file', async (_label, type) => {
+		const onHomebrewSourcebookChange = renderModal([]);
+		fireEvent.click(screen.getByText('Homebrew', { exact: true }));
+
+		uploadSourcebook(incompleteHomebrewFile({ name: 'incomplete-excluded', type }));
+
+		await waitFor(() => expect(notificationError).toHaveBeenCalledTimes(1));
+		expect(onHomebrewSourcebookChange).not.toHaveBeenCalled();
+		expect(screen.queryByText('incomplete-excluded', { exact: true })).toBeNull();
+	});
+});
