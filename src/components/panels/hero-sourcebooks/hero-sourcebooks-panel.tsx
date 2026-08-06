@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Space, Upload } from 'antd';
+import { Button, Divider, Flex, Space, Upload, notification } from 'antd';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -37,7 +37,7 @@ export const HeroSourcebooksPanel = (props: Props) => {
 			</div>
 			<Space orientation='vertical' style={{ width: '100%' }}>
 				{
-					[ SourcebookType.Official, SourcebookType.Homebrew, SourcebookType.ThirdParty, SourcebookType.Community ]
+					[ SourcebookType.Official, SourcebookType.Homebrew ]
 						.map(type => ({ type: type, sourcebooks: props.sourcebooks.filter(sb => sb.type === type).filter(sb => SourcebookLogic.getElements(sb).length > 0) }))
 						.filter(item => item.sourcebooks.length > 0)
 						.map(item => (
@@ -73,6 +73,14 @@ export const HeroSourcebooksPanel = (props: Props) => {
 								const sourcebook = JSON.parse(json) as Sourcebook;
 								sourcebook.id = Utils.guid();
 								UpdateLogic.updateSourcebook(sourcebook);
+								if (!SourcebookLogic.isSourcebookAllowed(sourcebook)) {
+									notification.error({
+										title: 'Sourcebook not imported',
+										description: `${sourcebook.type} sourcebooks are not available in this edition.`,
+										placement: 'top'
+									});
+									return;
+								}
 								props.onImportSourcebook(sourcebook);
 							});
 						return false;
