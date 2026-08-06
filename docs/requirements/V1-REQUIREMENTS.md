@@ -101,10 +101,10 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 
 ### 必測
 
-- 每個官方職業至少建立 1 名角色，並由 1 級升至 2 級。
+- Core、Orden、Beastheart、Summoner 中的每個官方職業至少建立 1 名角色，並由 1 級升至 2 級。
 - 以翻譯缺漏檢查或等效可驗證機制，完整確認 Core／Orden／Beastheart／Summoner 的 V1 1～3 級玩家內容與必要玩家介面均已納入並完成中文定稿；Patreon／Playtest、其他允許的 Official 與 Homebrew 不進入翻譯缺漏發布 gate。
-- 完整人工檢查所有 1～2 級玩家內容。
-- 抽樣人工檢查 3 級內容與升級流程。
+- 完整人工檢查 Core、Orden、Beastheart、Summoner 的所有 1～2 級玩家內容。
+- 抽樣人工檢查 Core、Orden、Beastheart、Summoner 的 3 級內容與升級流程。
 - 測試儲存、重新開啟及原版存檔相容性。
 - 測試繁中切換英文，再切回繁中。
 - 確認切換前後資料與數值不變。
