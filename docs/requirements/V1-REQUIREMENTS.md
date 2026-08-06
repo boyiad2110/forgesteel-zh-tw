@@ -11,7 +11,7 @@
 
 ## 1. 專案目標
 
-建立 Forge Steel 的獨立繁體中文版，讓玩家能用繁體中文完整建立與使用官方 1～3 級角色，降低漏選項的情況，並減少 GM 人工檢查角色的負擔。
+建立 Forge Steel 的獨立繁體中文版，讓玩家能用繁體中文完整建立與使用 Official Level 1–3 Hero，降低漏選項的情況，並減少 GM 人工檢查 Hero 的負擔。
 
 V1 完成後可公開提供給台灣 Draw Steel 玩家使用。
 
@@ -23,35 +23,38 @@ V1 完成後可公開提供給台灣 Draw Steel 玩家使用。
 4. 除中英文切換外，不新增或重新設計原版功能。
 5. 除明確排除的內容外，原版功能與操作流程應維持不變。
 6. 專案負責人是所有中文譯文的唯一定稿者。
+7. 在正式翻譯及術語核准開始前，所有專案文件、Agent 任務、Review、測試說明與實作註解中涉及遊戲內容的術語，均使用原版 canonical English。未經專案負責人核准，不得建立、使用或暗示任何中文譯名。
 
 ## 3. V1 範圍
 
 ### 3.1 官方內容
 
-V1 納入凍結基準中的下列正式官方來源：
+V1 保留凍結基準中所有分類為 `SourcebookType.Official` 的內容；包含原版分類為 Official 的 Patreon／Playtest。Patreon／Playtest 是否實際提供，沿用原版 feature flag 與既有條件，中文版不得因語言或翻譯完成度額外排除 Official。
 
 - Core
 - Orden
 - Beastheart
 - Summoner
 
-V1 必須涵蓋建立與使用 1～3 級角色所需的所有玩家內容，包括角色選項、能力、裝備、說明文字與玩家介面。
+Core、Orden、Beastheart、Summoner 是已知的 Official Sourcebooks 與主要翻譯目標，但不是 runtime 唯一允許的 Sourcebooks。V1 必須完成中文定稿的官方玩家內容限於 Core、Orden、Beastheart、Summoner 中建立與使用 Level 1–3 Hero 所需的內容。其他允許的 Official Sourcebooks，包括 Patreon／Playtest，可依原版條件使用 canonical 英文，不列入 V1 翻譯完整性發布門檻。Homebrew 內容與功能保留，但不屬於專案負責人必須完成中文定稿或翻譯缺漏 gate 的範圍。
+
+V1 必須涵蓋建立與使用上述四個 Sourcebooks 之 Level 1–3 Hero 所需的玩家內容，包括 required Hero options、game content、explanatory text 與 player-facing UI。
 
 ### 3.2 玩家功能
 
 玩家必須能依照原版流程：
 
-- 建立完整的 1～3 級角色
-- 升級至 2 級與 3 級
-- 儲存並重新開啟角色
-- 查看角色表
-- 使用原版既有的角色管理功能
+- 建立完整的 Level 1–3 Hero
+- level-up 至 Level 2 與 Level 3
+- 儲存並重新開啟 Hero
+- 查看 Hero Sheet
+- 使用原版既有的 Hero management functions
 - 在繁中與英文之間切換
 
 ### 3.3 GM 功能
 
-- 除第 4 節明確排除的非官方內容、Homebrew／自製內容與相關功能外，原版 GM 功能保留。
-- V1 尚未翻譯的 GM 功能可維持英文。
+- 原版 GM 功能、Homebrew 與 Director／GM 工具保留；只有 Community 與 Third Party 內容及其專屬入口需要排除。
+- 未中文化的 GM 與 Homebrew 介面可維持英文。
 - GM 功能尚未完整中文化，不阻擋 V1 發布。
 
 ## 4. 排除範圍
@@ -60,23 +63,21 @@ V1 必須涵蓋建立與使用 1～3 級角色所需的所有玩家內容，包�
 
 - Community 內容
 - Third Party 內容
-- Homebrew／自製內容與功能
-- Patreon 預覽內容
-- Playtest、測試版或其他未正式發布內容
 
-上述內容不得載入、顯示或出現在選單、搜尋、隨機產生與角色建立流程中；切換到英文後也不得重新出現。
+Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Party 不得載入、顯示，或出現在選單、搜尋、隨機產生及 Hero creation flow。切換繁中／英文不得改變允許的 Sourcebook set。
 
-既有瀏覽器中的 Homebrew 資料不得自動刪除，中文版只是不讀取、不顯示、不修改。
+中文模式沒有譯文時，允許的 Official、Homebrew 或 GM 內容可以顯示 canonical 英文。不得因 Sourcebook filtering 而刪除或修改既有使用者資料。
 
 ## 5. 中英文切換
 
 - 預設顯示繁體中文。
 - 提供一鍵切換繁中／英文。
 - 記住使用者上次選擇。
-- 切換時不得遺失角色資料、未儲存狀態或目前頁面狀態。
-- 切換後角色數值、選項與存檔內容必須完全一致。
+- 切換時不得遺失 Hero data、未儲存狀態或目前頁面狀態。
+- 切換後 Hero values、Hero options 與存檔內容必須完全一致。
 - 中文模式下，尚未翻譯的 GM 內容可繼續顯示英文。
-- 英文模式只顯示中文版允許的官方內容。
+- 繁中與英文模式均允許 Official 與 Homebrew，並均排除 Community 與 Third Party。
+- 語言切換不得重新載入被排除的 Sourcebooks，也不得隱藏或破壞 Homebrew。
 
 ## 6. 翻譯規則
 
@@ -84,7 +85,7 @@ V1 必須涵蓋建立與使用 1～3 級角色所需的所有玩家內容，包�
 2. AI 不得自行覆寫或修改正式中文譯文。
 3. 所有中文修改都必須由專案負責人確認。
 4. `develop` 可暫時保留英文。
-5. V1 正式版不得出現未翻譯的 1～3 級玩家介面或官方玩家內容。
+5. V1 正式版不得在 Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player flows 及其必要 player-facing UI 中出現未翻譯內容；其他允許的 Official、Homebrew 與 GM 內容可依本文件規定顯示 canonical 英文。
 6. 玩家自行輸入的名稱與文字保持原樣，不自動翻譯。
 
 翻譯資料必須能唯一對應 V1 顯示項目、保留 canonical 英文基準、記錄正式中文核准狀態，並能偵測相關英文原文變更。具體資料格式與 metadata 欄位依已核准技術方向及 prototype 證據決定。
@@ -92,8 +93,8 @@ V1 必須涵蓋建立與使用 1～3 級角色所需的所有玩家內容，包�
 ## 7. 相容性與版面
 
 - 中文版沿用原版 Hero schema 與存檔格式。
-- 相同凍結基準版本的原版角色資料必須能在中文版正常開啟。
-- 中文版不得因中文化寫入 locale、中文顯示值或翻譯 metadata；其角色資料必須維持與相同凍結基準版本原版相容。
+- 相同凍結基準版本的原版 Hero data 必須能在中文版正常開啟。
+- 中文版不得因中文化寫入 locale、中文顯示值或翻譯 metadata；其 Hero data 必須維持與相同凍結基準版本原版相容。
 - 中文不得造成按鈕消失、文字重疊、內容截斷、無法捲動或主要操作失效。
 - 裝置、瀏覽器與畫面尺寸支援範圍跟隨原版，不另外擴充。
 
@@ -101,18 +102,20 @@ V1 必須涵蓋建立與使用 1～3 級角色所需的所有玩家內容，包�
 
 ### 必測
 
-- 每個官方職業至少建立 1 名角色，並由 1 級升至 2 級。
-- 以翻譯缺漏檢查或等效可驗證機制，完整確認所有 V1 1～3 級玩家內容均已納入並完成中文定稿。
-- 完整人工檢查所有 1～2 級玩家內容。
-- 抽樣人工檢查 3 級內容與升級流程。
+- Core、Orden、Beastheart、Summoner 中的每個 official Class 至少建立 1 名 Hero，並由 Level 1 level-up 至 Level 2。
+- 以翻譯缺漏檢查或等效可驗證機制，完整確認 Core／Orden／Beastheart／Summoner 的 V1 Level 1–3 Hero player content 與必要 player-facing UI 均已納入並完成中文定稿；Patreon／Playtest、其他允許的 Official 與 Homebrew 不進入翻譯缺漏發布 gate。
+- 完整人工檢查 Core、Orden、Beastheart、Summoner 的所有 Level 1–2 player content。
+- 抽樣人工檢查 Core、Orden、Beastheart、Summoner 的 Level 3 content 與 level-up flow。
 - 測試儲存、重新開啟及原版存檔相容性。
 - 測試繁中切換英文，再切回繁中。
 - 確認切換前後資料與數值不變。
-- 確認所有排除內容不會載入或顯示。
+- 確認 Community 與 Third Party 不會載入或顯示。
+- 確認 Official 內容維持原版行為；啟用原版 Playtest feature flag 時，Official Patreon／Playtest 不會被中文版額外排除，未啟用時中文版不得自行強制載入。
+- 確認 Homebrew 可以正常載入、顯示、建立、匯入、編輯、刪除、儲存與重新開啟，且切換語言不影響 Homebrew 或 Official 的資料與操作。
 - 由專案負責人與團員進行封閉 Beta。
 - 通過 lint、TypeScript、自動測試、production build 與翻譯缺漏檢查。
 
-3 級內容的人工流程可採抽樣，但內容納入與翻譯完整性不得抽樣。
+上述四個主要 translation-target Sourcebooks 的 Level 3 content 人工流程可採抽樣，但其內容納入與翻譯完整性不得抽樣。
 
 ### 發布權限
 
@@ -146,11 +149,11 @@ V1 必須涵蓋建立與使用 1～3 級角色所需的所有玩家內容，包�
 
 V1 必須同時符合：
 
-1. 玩家可用繁體中文完整建立與使用官方 1～3 級角色。
-2. 所有 V1 玩家內容與介面均已完成中文定稿。
-3. 中英文切換不影響角色資料與計算。
+1. 玩家可用繁體中文完整建立與使用 Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero。
+2. 「所有 V1 玩家內容與介面」是指 Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player content 與必要 player-facing UI，且均已完成中文定稿。
+3. 中英文切換不影響 Hero data 與計算。
 4. 除中英文切換及第 4 節明確排除的內容與功能外，原版功能與流程未因中文化而改變。
-5. 排除內容不會載入或顯示。
+5. Official 與 Homebrew 功能未因中文化被破壞，且 Community 與 Third Party 不會載入或顯示。
 6. 最低測試與自動檢查全部通過。
 7. 授權與發布文字已確認。
 8. 專案負責人批准正式發布。
