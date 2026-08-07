@@ -7,10 +7,10 @@ import { FooterParams } from '@/components/panels/app-footer/app-footer';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { Options } from '@/models/options';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { Profiler, ReactNode, useEffect } from 'react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/contexts/data-context', () => ({
 	useHeroes: () => [ testHero ],
@@ -18,8 +18,13 @@ vi.mock('@/contexts/data-context', () => ({
 	useOptions: () => testOptions
 }));
 
-vi.mock('@/hooks/use-is-small', () => ({ useIsSmall: () => false }));
-vi.mock('@/hooks/use-navigation', () => ({ useNavigation: () => ({ goToHeroView: vi.fn() }) }));
+// The page shows the same navigation through two different controls, so the viewport is
+// switchable here rather than fixed.
+const viewport = vi.hoisted(() => ({ isSmall: false }));
+vi.mock('@/hooks/use-is-small', () => ({ useIsSmall: () => viewport.isSmall }));
+
+const navigation = vi.hoisted(() => ({ goToHeroView: vi.fn(), goToHeroEdit: vi.fn() }));
+vi.mock('@/hooks/use-navigation', () => ({ useNavigation: () => navigation }));
 vi.mock('@/hooks/use-title', () => ({ useTitle: vi.fn() }));
 vi.mock('@/components/controls/error-boundary/error-boundary', () => ({ ErrorBoundary: ({ children }: { children: ReactNode }) => <>{children}</> }));
 vi.mock('@/components/panels/app-header/app-header', () => ({ AppHeader: ({ children }: { children: ReactNode }) => <header>{children}</header> }));
@@ -51,6 +56,15 @@ vi.mock('@/components/pages/heroes/hero-edit/details-section/details-section', (
 	)
 }));
 
+// jsdom has no ResizeObserver, which the small-screen control's popup needs before it will
+// draw its options. Nothing here depends on the sizes it would report.
+class ResizeObserverStub {
+	observe() {}
+	unobserve() {}
+	disconnect() {}
+}
+globalThis.ResizeObserver = ResizeObserverStub;
+
 const testHero = { ...FactoryLogic.createHero(), id: 'hero-1' };
 const testSourcebook = { ...FactoryLogic.createSourcebook(), id: 'sourcebook-1', name: 'Homebrew Sourcebook' };
 const testOptions: Options = { ...FactoryLogic.createOptions(), compactView: false, locale: 'zh-TW' };
@@ -68,6 +82,92 @@ const DataLoaderBoundaryProbe = (props: { children: ReactNode; onLoad: () => voi
 
 const getButton = (name: string | RegExp) => screen.getByRole('button', { name: name }) as HTMLButtonElement;
 const getLocaleToggle = () => getButton(/^Switch to /);
+
+// The navigation values the router and the hero edit route are defined in terms of; the
+// labels below are only ever what is drawn over them.
+const canonicalTabValues = [ 'start', 'ancestry', 'culture', 'career', 'class', 'complication', 'details' ];
+const canonicalTabLabels = [ 'Start', 'Ancestry', 'Culture', 'Career', 'Class', 'Complication', 'Details' ];
+// The project owner's approved zh-TW, taken verbatim from docs/translation/TRANSLATION-GLOSSARY.csv.
+const approvedTabLabels = [ '開始', '族裔', '文化', '職業', '範型', '糾葛', '細項' ];
+
+const renderHeroEditPage = () => {
+	return render(
+		<LocalizationProvider>
+			<MemoryRouter initialEntries={[ '/heroes/hero-1/details' ]}>
+				<Routes>
+					<Route
+						path='/heroes/:heroID/:page'
+						element={<HeroEditPage params={{} as FooterParams} saveChanges={vi.fn()} importSourcebook={vi.fn()} sourcebooks={[ testSourcebook ]} />}
+					/>
+				</Routes>
+			</MemoryRouter>
+		</LocalizationProvider>
+	);
+};
+
+// This suite does not run with vitest globals, so the rendered tree is torn down here
+// rather than by the testing library's automatic cleanup.
+afterEach(cleanup);
+
+beforeEach(() => {
+	viewport.isSmall = false;
+	vi.clearAllMocks();
+});
+
+describe('HeroEditPage navigation labels', () => {
+	it('draws the approved zh-TW labels on the full-size control, and canonical English in the English locale', () => {
+		renderHeroEditPage();
+
+		approvedTabLabels.forEach(label => expect(screen.getByText(label)).toBeTruthy());
+		canonicalTabLabels.forEach(label => expect(screen.queryByText(label)).toBeNull());
+
+		fireEvent.click(getLocaleToggle());
+
+		canonicalTabLabels.forEach(label => expect(screen.getByText(label)).toBeTruthy());
+		approvedTabLabels.forEach(label => expect(screen.queryByText(label)).toBeNull());
+	});
+
+	it('draws the approved zh-TW labels on the small-screen control, and canonical English in the English locale', () => {
+		viewport.isSmall = true;
+		renderHeroEditPage();
+
+		// The small-screen control lists the tabs only once it is opened; the current tab is
+		// also drawn in the closed control, so a label can legitimately appear more than once.
+		fireEvent.mouseDown(screen.getByRole('combobox'));
+		const isDrawn = (label: string) => screen.queryAllByText(label).length > 0;
+
+		expect(approvedTabLabels.filter(isDrawn)).toEqual(approvedTabLabels);
+		expect(canonicalTabLabels.filter(isDrawn)).toEqual([]);
+
+		fireEvent.click(getLocaleToggle());
+
+		expect(canonicalTabLabels.filter(isDrawn)).toEqual(canonicalTabLabels);
+		expect(approvedTabLabels.filter(isDrawn)).toEqual([]);
+	});
+
+	// The point of the whole batch: a player reading 族裔 still navigates to 'ancestry'.
+	it('navigates with the canonical tab value when an approved zh-TW label is chosen on the full-size control', () => {
+		renderHeroEditPage();
+
+		fireEvent.click(screen.getByRole('radio', { name: /族裔/ }));
+
+		expect(navigation.goToHeroEdit).toHaveBeenCalledTimes(1);
+		expect(navigation.goToHeroEdit).toHaveBeenCalledWith('hero-1', 'ancestry');
+		expect(canonicalTabValues).toContain(navigation.goToHeroEdit.mock.calls[0][1]);
+	});
+
+	it('navigates with the canonical tab value when an approved zh-TW label is chosen on the small-screen control', () => {
+		viewport.isSmall = true;
+		renderHeroEditPage();
+
+		fireEvent.mouseDown(screen.getByRole('combobox'));
+		fireEvent.click(screen.getByText('族裔'));
+
+		expect(navigation.goToHeroEdit).toHaveBeenCalledTimes(1);
+		expect(navigation.goToHeroEdit).toHaveBeenCalledWith('hero-1', 'ancestry');
+		expect(canonicalTabValues).toContain(navigation.goToHeroEdit.mock.calls[0][1]);
+	});
+});
 
 describe('HeroEditPage locale switching', () => {
 	it('keeps the loaded tree, route, working copy, dirty state, save boundary, and canonical data stable', () => {
