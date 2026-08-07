@@ -40,10 +40,17 @@ import { useIsSmall } from '@/hooks/use-is-small';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useParams } from 'react-router';
 import { useTitle } from '@/hooks/use-title';
+import { AppLocale } from '@/localization/locale';
 import { localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 
 import './hero-edit-page.scss';
+
+// Presentation only. The tab keeps its canonical value everywhere it matters — the option
+// value, the route token and the navigation call — and this is just the text drawn over it.
+const getTabLabel = (locale: AppLocale, tab: HeroEditTab) => {
+	return localizeUIString(locale, `hero-edit.tab.${tab}`, Format.capitalize(tab, '-'));
+};
 
 enum PageState {
 	Blank = '',
@@ -466,7 +473,7 @@ export const HeroEditPage = (props: Props) => {
 								'details'
 							] as const).map(tab => ({
 								value: tab,
-								label: <div className='ds-text'>{Format.capitalize(tab, '-')}</div>
+								label: <div className='ds-text'>{getTabLabel(locale, tab)}</div>
 							}))}
 							value={page}
 							onChange={value => navigation.goToHeroEdit(heroID!, value)}
@@ -487,7 +494,7 @@ export const HeroEditPage = (props: Props) => {
 								value: tab,
 								label: (
 									<div className={`page-button ${getPageState(tab).toLowerCase().replace(' ', '-')}`}>
-										<div className='page-button-title'>{Format.capitalize(tab, '-')}</div>
+										<div className='page-button-title'>{getTabLabel(locale, tab)}</div>
 										<div className='page-button-subtitle'>{getPageState(tab)}</div>
 									</div>
 								)
