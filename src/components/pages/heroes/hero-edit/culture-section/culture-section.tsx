@@ -23,7 +23,9 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './culture-section.scss';
 
@@ -49,6 +51,7 @@ interface CultureSectionProps {
 
 export const CultureSection = (props: CultureSectionProps) => {
 	const isSmall = useIsSmall();
+	const { locale } = useLocalization();
 	const [ showEnvironment, setShowEnvironment ] = useState<boolean>(false);
 	const [ showOrganization, setShowOrganization ] = useState<boolean>(false);
 	const [ showUpbringing, setShowUpbringing ] = useState<boolean>(false);
@@ -99,12 +102,12 @@ export const CultureSection = (props: CultureSectionProps) => {
 		if (props.hero.culture.id === CultureData.bespoke.id) {
 			choices.unshift(
 				<SelectablePanel key='bespoke'>
-					<HeaderText>Bespoke Culture</HeaderText>
-					<div className='ds-text'>Choose a name for your culture.</div>
+					<HeaderText>{localizeUIString(locale, 'hero-edit.culture.bespoke-culture', 'Bespoke Culture')}</HeaderText>
+					<div className='ds-text'>{localizeUIString(locale, 'hero-edit.culture.choose-name', 'Choose a name for your culture.')}</div>
 					<Space.Compact style={{ width: '100%' }}>
 						<TextInput
 							status={props.hero.culture.name === '' ? 'warning' : ''}
-							placeholder='Name'
+							placeholder={localizeUIString(locale, 'hero-edit.name', 'Name')}
 							allowClear={true}
 							value={props.hero.culture.name}
 							onChange={setName}
@@ -112,7 +115,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 						<NameSuggestions onSelect={setName} />
 					</Space.Compact>
 					<Divider />
-					<div className='ds-text'>Choose your Environment, Organization, and Upbringing.</div>
+					<div className='ds-text'>{localizeUIString(locale, 'hero-edit.culture.choose-aspects', 'Choose your Environment, Organization, and Upbringing.')}</div>
 					<Space orientation='vertical' style={{ width: '100%' }}>
 						{
 							props.hero.culture.environment ?
@@ -128,7 +131,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 								/>
 								:
 								<Button block={true} className='status-warning' onClick={() => setShowEnvironment(true)}>
-									Choose environment
+									{localizeUIString(locale, 'hero-edit.culture.choose-environment', 'Choose environment')}
 								</Button>
 						}
 						{
@@ -145,7 +148,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 								/>
 								:
 								<Button block={true} className='status-warning' onClick={() => setShowOrganization(true)}>
-									Choose organization
+									{localizeUIString(locale, 'hero-edit.culture.choose-organization', 'Choose organization')}
 								</Button>
 						}
 						{
@@ -162,7 +165,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 								/>
 								:
 								<Button block={true} className='status-warning' onClick={() => setShowUpbringing(true)}>
-									Choose upbringing
+									{localizeUIString(locale, 'hero-edit.culture.choose-upbringing', 'Choose upbringing')}
 								</Button>
 						}
 					</Space>
@@ -194,7 +197,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 							{
 								optionsYourAncestry.length > 0 ?
 									<>
-										<HeaderText level={1}>Your Ancestry</HeaderText>
+										<HeaderText level={1}>{localizeUIString(locale, 'hero-edit.culture.your-ancestry', 'Your Ancestry')}</HeaderText>
 										<div className='grid'>
 											{optionsYourAncestry}
 										</div>
@@ -204,7 +207,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 							{
 								optionsAncestral.length > 0 ?
 									<>
-										<HeaderText level={1}>Ancestral Cultures</HeaderText>
+										<HeaderText level={1}>{localizeUIString(locale, 'hero-edit.culture.ancestral-cultures', 'Ancestral Cultures')}</HeaderText>
 										<div className='grid'>
 											{optionsAncestral}
 										</div>
@@ -214,14 +217,14 @@ export const CultureSection = (props: CultureSectionProps) => {
 							{
 								optionsProfessional.length > 0 ?
 									<>
-										<HeaderText level={1}>Professional Cultures</HeaderText>
+										<HeaderText level={1}>{localizeUIString(locale, 'hero-edit.culture.professional-cultures', 'Professional Cultures')}</HeaderText>
 										<div className='grid'>
 											{optionsProfessional}
 										</div>
 									</>
 									: null
 							}
-							<HeaderText level={1}>Bespoke Cultures</HeaderText>
+							<HeaderText level={1}>{localizeUIString(locale, 'hero-edit.culture.bespoke-cultures', 'Bespoke Cultures')}</HeaderText>
 							<div className='grid'>
 								{optionsBespoke}
 							</div>
@@ -238,7 +241,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 				{
 					choices.length > 0 ?
 						<div className='hero-edit-content-column selected' id='culture-choices'>
-							<HeaderText>Choices</HeaderText>
+							<HeaderText>{localizeUIString(locale, 'hero-edit.choices', 'Choices')}</HeaderText>
 							{choices}
 						</div>
 						: null
