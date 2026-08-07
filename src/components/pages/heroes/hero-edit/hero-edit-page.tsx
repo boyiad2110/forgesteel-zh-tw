@@ -498,8 +498,8 @@ export const HeroEditPage = (props: Props) => {
 						/>
 				}
 				<Space orientation='vertical' size={4}>
-					{!isSmall ? <Button disabled={!allowRandom || !!searchTerm} icon={<ThunderboltOutlined />} onClick={selectRandom}>Random</Button> : null}
-					<Button disabled={!unselect} icon={<CloseOutlined />} onClick={unselect}>Unselect</Button>
+					{!isSmall ? <Button disabled={!allowRandom || !!searchTerm} icon={<ThunderboltOutlined />} onClick={selectRandom}>{localizeUIString(locale, 'hero-edit.random', 'Random')}</Button> : null}
+					<Button disabled={!unselect} icon={<CloseOutlined />} onClick={unselect}>{localizeUIString(locale, 'hero-edit.unselect', 'Unselect')}</Button>
 				</Space>
 			</div>
 		);
@@ -615,7 +615,7 @@ export const HeroEditPage = (props: Props) => {
 						buttons={[
 							{ type: 'control', control: <SearchBox disabled={!allowSearch()} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> },
 							{ type: 'button', label: isSmall ? undefined : localizeUIString(locale, 'hero-edit.save-changes', 'Save Changes'), icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
-							{ type: 'button', label: isSmall ? undefined : 'Cancel', icon: <CloseOutlined />, onClick: () => navigation.goToHeroView(heroID!) }
+							{ type: 'button', label: isSmall ? undefined : localizeUIString(locale, 'hero-edit.cancel', 'Cancel'), icon: <CloseOutlined />, onClick: () => navigation.goToHeroView(heroID!) }
 						]}
 					/>
 				</AppHeader>

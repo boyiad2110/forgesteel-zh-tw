@@ -183,9 +183,10 @@ describe('resolver: canonical safety', () => {
 });
 
 describe('production resolver', () => {
-	it('shows canonical English everywhere, because no zh-TW content is approved yet', () => {
-		expect(localizeUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
+	it('shows the approved zh-TW content, and canonical English everywhere else', () => {
+		expect(localizeUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe('儲存變更');
 		expect(localizeUIString('en', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
+		// No game content is approved yet, so it still resolves to the canonical English.
 		expect(localizeElementField('zh-TW', ability.id, 'name', ability.name)).toBe(ability.name);
 		expect(localizeElementField('zh-TW', ability.id, 'target', ability.target)).toBe(ability.target);
 		expect(localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))

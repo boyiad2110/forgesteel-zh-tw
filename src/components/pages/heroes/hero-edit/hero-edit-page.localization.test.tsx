@@ -106,21 +106,33 @@ describe('HeroEditPage locale switching', () => {
 		expect(screen.queryByRole('button', { name: 'zh-TW' })).toBeNull();
 		expect(screen.getAllByRole('button', { name: /^Switch to / })).toHaveLength(1);
 
-		// Starts in the saved zh-TW locale, which has no approved translation for this label.
+		// Starts in the saved zh-TW locale, where these labels have approved translations.
 		expect(getLocaleToggle().textContent).toBe('中文');
-		expect(getButton('Save Changes').disabled).toBe(false);
-		expect(getButton('Save Changes').textContent).not.toMatch(/[一-鿿]/);
+		expect(getButton('儲存變更').disabled).toBe(false);
+		expect(getButton('取消')).toBeTruthy();
+		// These two carry an icon, so their accessible name is prefixed by it.
+		expect(getButton(/隨機選擇$/)).toBeTruthy();
+		expect(getButton(/取消選擇$/)).toBeTruthy();
+		expect(screen.queryByRole('button', { name: 'Save Changes' })).toBeNull();
 
 		fireEvent.click(getLocaleToggle());
 		expect(getLocaleToggle().textContent).toBe('EN');
+
+		// Presentation: canonical English in the English locale.
 		expect(getButton('Save Changes').disabled).toBe(false);
+		expect(getButton('Cancel')).toBeTruthy();
+		expect(getButton(/Random$/)).toBeTruthy();
+		expect(getButton(/Unselect$/)).toBeTruthy();
+		expect(screen.queryByRole('button', { name: '儲存變更' })).toBeNull();
 
 		fireEvent.click(getLocaleToggle());
 		expect(getLocaleToggle().textContent).toBe('中文');
 
-		// Presentation: canonical English fallback, never unapproved zh-TW content.
-		expect(getButton('Save Changes').disabled).toBe(false);
-		expect(getButton('Save Changes').textContent).not.toMatch(/[一-鿿]/);
+		// Presentation: back to the approved zh-TW content, and only ever that.
+		expect(getButton('儲存變更').disabled).toBe(false);
+		expect(getButton('取消')).toBeTruthy();
+		expect(getButton(/隨機選擇$/)).toBeTruthy();
+		expect(getButton(/取消選擇$/)).toBeTruthy();
 
 		// State safety.
 		expect(screen.getByTestId('working-copy').textContent).toBe(workingCopyBeforeLocaleSwitch);
