@@ -10,7 +10,8 @@ import { ReactNode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/contexts/data-context', () => ({
-	useOptions: () => ({ showClipboardOptions: false })
+	useDataManager: () => ({ saveOptions: vi.fn().mockResolvedValue(undefined) }),
+	useOptions: () => ({ showClipboardOptions: false, locale: 'zh-TW' })
 }));
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/components/controls/error-boundary/error-boundary', () => ({ ErrorBoundary: ({ children }: { children: ReactNode }) => <>{children}</> }));
@@ -36,8 +37,16 @@ const getTargetFieldValue = () => {
 	return targetField!.querySelector('.field-value')!.textContent;
 };
 
+const expectCanonicalEnglishPresentation = () => {
+	expect(screen.getByText('Free Strike (melee)', { exact: true })).not.toBeNull();
+	expect(screen.getByText('Free Strike (melee) | Target: One creature or object', { exact: true })).not.toBeNull();
+	expect(getTargetFieldValue()).toBe('One creature or object');
+	// The prototype sentinel is not approved content and must never reach the runtime.
+	expect(screen.queryByText(/【原型】/)).toBeNull();
+};
+
 describe('AbilityPanel localization presentation wiring', () => {
-	it('renders localized ability presentation values without changing the canonical ability', () => {
+	it('falls back to canonical English in zh-TW and never changes the canonical ability', () => {
 		const ability = AbilityData.freeStrikeMelee;
 		const originalReference = ability;
 		const originalJSON = JSON.stringify(ability);
@@ -52,25 +61,14 @@ describe('AbilityPanel localization presentation wiring', () => {
 			</LocalizationProvider>
 		);
 
-		expect(screen.getByText('Free Strike (melee)', { exact: true })).not.toBeNull();
-		expect(screen.getByText('Free Strike (melee) | Target: One creature or object', { exact: true })).not.toBeNull();
-		expect(getTargetFieldValue()).toBe('One creature or object');
-
-		fireEvent.click(screen.getByRole('button', { name: 'zh-TW' }));
-		expect(screen.getByText('【原型】近戰自由攻擊', { exact: true })).not.toBeNull();
-		expect(screen.getByText('【原型】Free Strike (melee)｜目標：One creature or object', { exact: true })).not.toBeNull();
-		expect(getTargetFieldValue()).toBe('One creature or object');
+		// Starts in the default zh-TW locale, which has no approved translations yet.
+		expectCanonicalEnglishPresentation();
 
 		fireEvent.click(screen.getByRole('button', { name: 'EN' }));
-		expect(screen.getByText('Free Strike (melee)', { exact: true })).not.toBeNull();
-		expect(screen.getByText('Free Strike (melee) | Target: One creature or object', { exact: true })).not.toBeNull();
-		expect(getTargetFieldValue()).toBe('One creature or object');
-		expect(screen.queryByText('【原型】近戰自由攻擊', { exact: true })).toBeNull();
+		expectCanonicalEnglishPresentation();
 
 		fireEvent.click(screen.getByRole('button', { name: 'zh-TW' }));
-		expect(screen.getByText('【原型】近戰自由攻擊', { exact: true })).not.toBeNull();
-		expect(screen.getByText('【原型】Free Strike (melee)｜目標：One creature or object', { exact: true })).not.toBeNull();
-		expect(getTargetFieldValue()).toBe('One creature or object');
+		expectCanonicalEnglishPresentation();
 
 		expect(ability).toBe(originalReference);
 		expect(ability.id).toBe(originalID);

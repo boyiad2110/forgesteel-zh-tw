@@ -1,0 +1,10 @@
+.locale-toggle {
+	// Fixed size, so switching between 中文 and EN never resizes the button
+	// or shifts the other footer actions. 48px is the smallest width that fits
+	// 中文 (28px at the footer font size) without truncation.
+	flex: 0 0 auto;
+	width: 48px;
+	min-width: 48px;
+	padding-inline: 0;
+	text-align: center;
+}

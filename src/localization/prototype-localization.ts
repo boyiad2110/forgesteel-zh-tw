@@ -1,36 +1,31 @@
 export type AppLocale = 'en' | 'zh-TW';
 
-export const defaultLocale: AppLocale = 'en';
+export const appLocales: AppLocale[] = [ 'en', 'zh-TW' ];
+
+export const defaultLocale: AppLocale = 'zh-TW';
+
+export const isAppLocale = (value: unknown): value is AppLocale => {
+	return appLocales.some(locale => locale === value);
+};
 
 type MessageParameters = Record<string, string>;
 
+// The zh-TW catalogs hold approved translations only. Until an entry is approved, the
+// resolvers fall back to the canonical English text passed in by the presentation layer.
 const uiCatalog: Record<AppLocale, Partial<Record<string, string>>> = {
 	'en': {
 		'hero-edit.save-changes': 'Save Changes'
 	},
-	'zh-TW': {
-		// Prototype sentinel only; this is not an approved translation.
-		'hero-edit.save-changes': '【原型】儲存變更'
-	}
+	'zh-TW': {}
 };
 
-const elementCatalog: Partial<Record<AppLocale, Record<string, Partial<Record<string, string>>>>> = {
-	'zh-TW': {
-		// Prototype sentinel only; this is not an approved translation.
-		'free-melee': {
-			name: '【原型】近戰自由攻擊'
-		}
-	}
-};
+const elementCatalog: Partial<Record<AppLocale, Record<string, Partial<Record<string, string>>>>> = {};
 
 const messageCatalog: Record<AppLocale, Record<string, string>> = {
 	'en': {
 		'ability.free-melee.summary': '{abilityName} | Target: {target}'
 	},
-	'zh-TW': {
-		// Prototype sentinel only; this is not an approved translation.
-		'ability.free-melee.summary': '【原型】{abilityName}｜目標：{target}'
-	}
+	'zh-TW': {}
 };
 
 const interpolate = (template: string, parameters: MessageParameters) => {

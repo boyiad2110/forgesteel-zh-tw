@@ -69,6 +69,7 @@ import { Tip } from '@/models/tip';
 import { Title } from '@/models/title';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
+import { defaultLocale } from '@/localization/prototype-localization';
 
 export class FactoryLogic {
 	static createElement = (name?: string, description?: string): Element => {
@@ -1052,6 +1053,7 @@ export class FactoryLogic {
 			// App
 			cookieConsent: false,
 			showDataSource: false,
+			locale: defaultLocale,
 			// Hero
 			shownStandardAbilities: [],
 			xpPerLevel: 16,

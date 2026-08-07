@@ -1,9 +1,10 @@
 import { BookOutlined, DatabaseFilled, InfoCircleOutlined, PlayCircleOutlined, ReadOutlined, SettingOutlined, TeamOutlined, WarningFilled } from '@ant-design/icons';
 import { Button, Divider, Drawer, Flex, Space, Tag } from 'antd';
-import { ButtonConfig, ButtonGroup } from '@/components/controls/button-group/button-group';
+import { ButtonConfig, ButtonGroup, ControlConfig } from '@/components/controls/button-group/button-group';
 import { useDataManager, useOptions } from '@/contexts/data-context';
 import { ConnectionSettings } from '@/models/connection-settings';
 import { Hero } from '@/models/hero';
+import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { Modal } from '@/components/modals/modal/modal';
 import { Options } from '@/models/options';
 import shield from '@/assets/shield.png';
@@ -53,7 +54,10 @@ export const AppFooter = (props: Props) => {
 		window.open('https://www.patreon.com/cw/andyaiken', '_blank');
 	};
 
-	const actions: ButtonConfig[] = [
+	// The locale toggle keeps its label on small screens, so it is a control rather than
+	// one of the icon-only buttons below.
+	const actions: (ButtonConfig | ControlConfig)[] = [
+		{ type: 'control', control: <LocaleToggle /> },
 		{ type: 'button', label: isSmall ? undefined : 'Reference', icon: <ReadOutlined />, tooltip: 'Reference', onClick: () => props.params.showReference(props.hero) },
 		{ type: 'button', label: isSmall ? undefined : 'Settings', icon: <SettingOutlined />, tooltip: 'Settings', onClick: props.params.showSettings },
 		{ type: 'button', label: isSmall ? undefined : 'About', icon: <InfoCircleOutlined />, tooltip: 'About', onClick: props.params.showAbout },

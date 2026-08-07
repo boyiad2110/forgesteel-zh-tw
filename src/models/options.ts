@@ -1,3 +1,4 @@
+import { AppLocale } from '@/localization/prototype-localization';
 import { PanelWidth } from '@/enums/panel-width';
 import { SheetPageSize } from '@/enums/sheet-page-size';
 
@@ -5,6 +6,7 @@ export interface Options {
 	// App
 	cookieConsent: boolean;
 	showDataSource: boolean;
+	locale: AppLocale;
 	// Hero
 	shownStandardAbilities: string[];
 	xpPerLevel: number;

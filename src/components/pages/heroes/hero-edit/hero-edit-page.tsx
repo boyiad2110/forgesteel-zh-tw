@@ -17,7 +17,6 @@ import { CareerSection } from '@/components/pages/heroes/hero-edit/career-sectio
 import { Characteristic } from '@/enums/characteristic';
 import { ClassSection } from '@/components/pages/heroes/hero-edit/class-section/class-section';
 import { Collections } from '@/utils/collections';
-import { LocalePrototypeToggle } from '@/components/controls/locale-prototype-toggle/locale-prototype-toggle';
 import { Complication } from '@/models/complication';
 import { ComplicationSection } from '@/components/pages/heroes/hero-edit/complication-section/complication-section';
 import { Culture } from '@/models/culture';
@@ -615,7 +614,6 @@ export const HeroEditPage = (props: Props) => {
 					<ButtonGroup
 						buttons={[
 							{ type: 'control', control: <SearchBox disabled={!allowSearch()} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> },
-							{ type: 'control', control: <LocalePrototypeToggle /> },
 							{ type: 'button', label: isSmall ? undefined : getLocalizedUIString(locale, 'hero-edit.save-changes', 'Save Changes'), icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
 							{ type: 'button', label: isSmall ? undefined : 'Cancel', icon: <CloseOutlined />, onClick: () => navigation.goToHeroView(heroID!) }
 						]}
