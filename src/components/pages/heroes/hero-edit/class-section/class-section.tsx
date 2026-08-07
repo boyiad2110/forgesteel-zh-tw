@@ -105,6 +105,16 @@ export const ClassSection = (props: Props) => {
 		);
 	};
 
+	// The selector button says the same thing as the singular prompt, without the full stop,
+	// and picks its English article from the same name for the same reason.
+	const getSubclassButtonLabel = (heroClass: HeroClass) => {
+		const subclassName = heroClass.subclassName || 'subclass';
+		return Format.startsWithVowel(subclassName) ?
+			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-an', { subclassName: subclassName }, 'Choose an {subclassName}')
+			:
+			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-a', { subclassName: subclassName }, 'Choose a {subclassName}');
+	};
+
 	const getClassOptions = (heroClass: HeroClass) => {
 		const options = {
 			level: 0,
@@ -185,7 +195,7 @@ export const ClassSection = (props: Props) => {
 					{
 						heroClass.subclasses.filter(sc => sc.selected).length < heroClass.subclassCount ?
 							<Button className='status-warning' block={true} onClick={() => setSubclassSelectorOpen(true)}>
-								Choose {Format.startsWithVowel(heroClass.subclassName || 'subclass') ? 'an' : 'a'} {heroClass.subclassName || 'subclass'}
+								{getSubclassButtonLabel(heroClass)}
 							</Button>
 							: null
 					}

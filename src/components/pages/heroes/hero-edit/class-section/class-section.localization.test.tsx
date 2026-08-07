@@ -32,6 +32,13 @@ vi.mock('@/components/panels/elements/class-panel/class-panel', () => ({ ClassPa
 vi.mock('@/components/panels/elements/subclass-panel/subclass-panel', () => ({
 	SubclassPanel: ({ subclass }: { subclass: SubClass }) => <output data-testid='subclass-detail'>{subclass.id}</output>
 }));
+// The shared selector is a later batch. It is reduced to the canonical values it is handed,
+// so the selector button's behaviour can still be observed.
+vi.mock('@/components/modals/select/subclass-select/subclass-select-modal', () => ({
+	SubClassSelectModal: ({ classID, subClasses }: { classID: string; subClasses: SubClass[] }) => (
+		<output data-testid='subclass-selector'>{`${classID}:${subClasses.map(sc => sc.id).join(',')}`}</output>
+	)
+}));
 
 // jsdom has no ResizeObserver, which antd's popups need before they will draw.
 class ResizeObserverStub {
@@ -216,6 +223,38 @@ describe('ClassSection subclasses', () => {
 		switchLocale();
 		expect(isDrawn('Choose a Path.')).toBe(true);
 		expect(isDrawn('選擇 1 個 Path。')).toBe(false);
+	});
+
+	it('draws the approved zh-TW selector button around the canonical subclass name, for both English articles', () => {
+		// The button carries no full stop, in either locale.
+		const vowel = renderClassSection(createHero(createClass({ subclassName: 'Order' })));
+
+		expect(screen.getByRole('button', { name: '選擇 1 個 Order' })).toBeTruthy();
+		expect(screen.queryByRole('button', { name: 'Choose an Order' })).toBeNull();
+
+		switchLocale();
+		expect(screen.getByRole('button', { name: 'Choose an Order' })).toBeTruthy();
+		expect(screen.queryByRole('button', { name: '選擇 1 個 Order' })).toBeNull();
+
+		vowel.unmount();
+		renderClassSection(createHero(createClass({ subclassName: 'Path' })));
+
+		expect(screen.getByRole('button', { name: '選擇 1 個 Path' })).toBeTruthy();
+		expect(screen.queryByRole('button', { name: 'Choose a Path' })).toBeNull();
+
+		switchLocale();
+		expect(screen.getByRole('button', { name: 'Choose a Path' })).toBeTruthy();
+		expect(screen.queryByRole('button', { name: '選擇 1 個 Path' })).toBeNull();
+	});
+
+	it('opens the subclass selector with canonical values from the approved zh-TW button', () => {
+		renderClassSection(createHero(createClass({ subclasses: [ { ...FactoryLogic.createSubclass(), id: 'subclass-1' } ] })));
+
+		expect(screen.queryByTestId('subclass-selector')).toBeNull();
+
+		fireEvent.click(screen.getByRole('button', { name: '選擇 1 個 Order' }));
+
+		expect(screen.getByTestId('subclass-selector').textContent).toBe('class-1:subclass-1');
 	});
 
 	it('draws the approved zh-TW plural prompt around the canonical subclass name and count', () => {
