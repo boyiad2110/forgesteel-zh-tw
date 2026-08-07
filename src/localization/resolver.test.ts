@@ -120,11 +120,20 @@ describe('resolver: canonical English fallback', () => {
 });
 
 describe('resolver: composed messages', () => {
-	it('keeps structured parameter values exactly as they are passed in', () => {
-		const parameters = { abilityName: '**Bespoke** Ability 3 + 1', target: 'Player’s own text {here}' };
-		const resolved = approvedResolver.localizeMessage('zh-TW', 'ability.free-melee.summary', parameters, canonicalMessageTemplate);
+	it('renders every declared placeholder when the call site supplies them all', () => {
+		expect(approvedResolver.localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
+			.toBe(`測試訊息 ${ability.name} / ${ability.target}`);
+		expect(approvedResolver.localizeMessage('en', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
+			.toBe(`${ability.name} | Target: ${ability.target}`);
+	});
 
-		expect(resolved).toBe('測試訊息 **Bespoke** Ability 3 + 1 / Player’s own text {here}');
+	it('keeps structured parameter values exactly as they are passed in, braces included', () => {
+		const parameters = { abilityName: '**Bespoke** Ability 3 + 1', target: 'Player’s own text {here}' };
+
+		expect(approvedResolver.localizeMessage('zh-TW', 'ability.free-melee.summary', parameters, canonicalMessageTemplate))
+			.toBe('測試訊息 **Bespoke** Ability 3 + 1 / Player’s own text {here}');
+		expect(approvedResolver.localizeMessage('en', 'ability.free-melee.summary', parameters, canonicalMessageTemplate))
+			.toBe('**Bespoke** Ability 3 + 1 | Target: Player’s own text {here}');
 	});
 
 	it('falls back when the entry declares placeholders the templates do not use', () => {
@@ -138,11 +147,22 @@ describe('resolver: composed messages', () => {
 		});
 	});
 
-	it('falls back rather than showing a zh-TW template with an unfilled slot', () => {
-		const resolved = approvedResolver.localizeMessage('zh-TW', 'ability.free-melee.summary', { abilityName: ability.name }, canonicalMessageTemplate);
+	it('never returns a raw placeholder when a required parameter is missing', () => {
+		// A missing parameter is a call-site error: there is no display string that can be
+		// produced from it, so it fails rather than showing '... | Target: {target}'.
+		const resolvers = [ approvedResolver, createLocalizationResolver([]) ];
 
-		expect(resolved).not.toContain('測試訊息');
-		expect(resolved).toBe(`${ability.name} | Target: {target}`);
+		resolvers.forEach(resolver => {
+			([ 'zh-TW', 'en' ] as const).forEach(locale => {
+				expect(() => resolver.localizeMessage(locale, 'ability.free-melee.summary', { abilityName: ability.name }, canonicalMessageTemplate))
+					.toThrow(/ability\.free-melee\.summary.*target/);
+			});
+		});
+	});
+
+	it('fails the same way for the production resolver, which has no approved entry', () => {
+		expect(() => localizeMessage('zh-TW', 'ability.free-melee.summary', {}, canonicalMessageTemplate))
+			.toThrow(/abilityName, target/);
 	});
 });
 

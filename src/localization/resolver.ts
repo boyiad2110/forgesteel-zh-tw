@@ -73,6 +73,15 @@ export const createLocalizationResolver = (entries: readonly LocalizationEntry[]
 			return localizeText(locale, elementFieldIdentity(elementID, field), canonicalEnglish);
 		},
 		localizeMessage: (locale, key, parameters, canonicalEnglishTemplate) => {
+			// A parameter the call site did not supply could only ever be shown as an
+			// unfilled placeholder, in any locale, so it fails here instead of reaching
+			// the screen. This is checked against the template, so a brace inside a
+			// parameter value — player-entered text, for instance — is left untouched.
+			const missing = getTemplatePlaceholders(canonicalEnglishTemplate).filter(name => typeof parameters[name] !== 'string');
+			if (missing.length > 0) {
+				throw new Error(`Message '${key}' was given no value for: ${missing.join(', ')}`);
+			}
+
 			const canonicalText = interpolateTemplate(canonicalEnglishTemplate, parameters);
 			if (locale === 'en') {
 				return canonicalText;
@@ -90,13 +99,8 @@ export const createLocalizationResolver = (entries: readonly LocalizationEntry[]
 				return canonicalText;
 			}
 
-			// A parameter the call site did not supply would leave a visible placeholder.
-			// This is checked against the template, so a brace inside a parameter value —
-			// player-entered text, for instance — is passed through untouched.
-			if (declared.some(name => typeof parameters[name] !== 'string')) {
-				return canonicalText;
-			}
-
+			// Every declared placeholder has a value: the declared set matches the
+			// canonical template, which was checked above.
 			return interpolateTemplate(entry.zhTW, parameters);
 		}
 	};
