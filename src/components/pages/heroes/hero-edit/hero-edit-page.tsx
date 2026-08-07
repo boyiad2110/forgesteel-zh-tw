@@ -60,6 +60,22 @@ enum PageState {
 	Completed = 'Completed'
 }
 
+const pageStateKeys: Partial<Record<PageState, string>> = {
+	[PageState.Optional]: 'hero-edit.page-state.optional',
+	[PageState.NotStarted]: 'hero-edit.page-state.not-started',
+	[PageState.InProgress]: 'hero-edit.page-state.in-progress',
+	[PageState.Completed]: 'hero-edit.page-state.completed'
+};
+
+// Presentation only. The state keeps its canonical value everywhere it is used as state —
+// the completion rules that produce it and the CSS class derived from it — and this is
+// just the text drawn in the subtitle. Keys are written out rather than derived from the
+// state, so nothing here is tied to the shape the stylesheet expects.
+const getPageStateLabel = (locale: AppLocale, state: PageState) => {
+	const key = pageStateKeys[state];
+	return key ? localizeUIString(locale, key, state) : state;
+};
+
 interface Props {
 	sourcebooks: Sourcebook[];
 	params: FooterParams;
@@ -495,7 +511,7 @@ export const HeroEditPage = (props: Props) => {
 								label: (
 									<div className={`page-button ${getPageState(tab).toLowerCase().replace(' ', '-')}`}>
 										<div className='page-button-title'>{getTabLabel(locale, tab)}</div>
-										<div className='page-button-subtitle'>{getPageState(tab)}</div>
+										<div className='page-button-subtitle'>{getPageStateLabel(locale, getPageState(tab))}</div>
 									</div>
 								)
 							}))}

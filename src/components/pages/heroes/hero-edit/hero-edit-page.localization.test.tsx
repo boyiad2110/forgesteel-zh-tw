@@ -6,14 +6,19 @@ import { HeroEditPage } from '@/components/pages/heroes/hero-edit/hero-edit-page
 import { FooterParams } from '@/components/panels/app-footer/app-footer';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { FactoryLogic } from '@/logic/factory-logic';
+import { CultureType } from '@/enums/culture-type';
+import { Hero } from '@/models/hero';
 import { Options } from '@/models/options';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { Profiler, ReactNode, useEffect } from 'react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+// The page state a tab reports is derived from the hero, so the hero under test is
+// switchable here rather than fixed.
+const loadedHeroes = vi.hoisted(() => ({ current: [] as Hero[] }));
 vi.mock('@/contexts/data-context', () => ({
-	useHeroes: () => [ testHero ],
+	useHeroes: () => loadedHeroes.current,
 	useDataManager: () => testDataManager,
 	useOptions: () => testOptions
 }));
@@ -66,6 +71,15 @@ class ResizeObserverStub {
 globalThis.ResizeObserver = ResizeObserverStub;
 
 const testHero = { ...FactoryLogic.createHero(), id: 'hero-1' };
+// A hero positioned so the navigation reports every page state that carries a subtitle at
+// once: an untouched page is not started, the optional page is optional, a culture still
+// missing its environment is in progress, and a named hero has completed its details.
+const pageStateHero: Hero = {
+	...FactoryLogic.createHero(),
+	id: 'hero-1',
+	name: 'Test Hero',
+	culture: FactoryLogic.createCulture('Test Culture', '', CultureType.Bespoke)
+};
 const testSourcebook = { ...FactoryLogic.createSourcebook(), id: 'sourcebook-1', name: 'Homebrew Sourcebook' };
 const testOptions: Options = { ...FactoryLogic.createOptions(), compactView: false, locale: 'zh-TW' };
 const testDataManager = { saveOptions: vi.fn().mockResolvedValue(undefined) };
@@ -111,6 +125,7 @@ afterEach(cleanup);
 
 beforeEach(() => {
 	viewport.isSmall = false;
+	loadedHeroes.current = [ testHero ];
 	vi.clearAllMocks();
 });
 
@@ -166,6 +181,63 @@ describe('HeroEditPage navigation labels', () => {
 		expect(navigation.goToHeroEdit).toHaveBeenCalledTimes(1);
 		expect(navigation.goToHeroEdit).toHaveBeenCalledWith('hero-1', 'ancestry');
 		expect(canonicalTabValues).toContain(navigation.goToHeroEdit.mock.calls[0][1]);
+	});
+});
+
+describe('HeroEditPage navigation page states', () => {
+	// The project owner's approved zh-TW, in the same order as the canonical states above.
+	const canonicalPageStates = [ 'Optional', 'Not Started', 'In Progress', 'Completed' ];
+	const approvedPageStates = [ '非強制', '尚未開始', '進行中', '已完成' ];
+	const isDrawn = (text: string) => screen.queryAllByText(text).length > 0;
+
+	it('draws the approved zh-TW page states on the full-size control, and canonical English in the English locale', () => {
+		loadedHeroes.current = [ pageStateHero ];
+		renderHeroEditPage();
+
+		expect(approvedPageStates.filter(isDrawn)).toEqual(approvedPageStates);
+		expect(canonicalPageStates.filter(isDrawn)).toEqual([]);
+
+		fireEvent.click(getLocaleToggle());
+
+		expect(canonicalPageStates.filter(isDrawn)).toEqual(canonicalPageStates);
+		expect(approvedPageStates.filter(isDrawn)).toEqual([]);
+	});
+
+	// The subtitle is presentation; the class beside it is state, and stays canonical.
+	it('keeps the state-derived class canonical in both locales', () => {
+		loadedHeroes.current = [ pageStateHero ];
+		renderHeroEditPage();
+
+		const classOf = (subtitle: string) => screen.getAllByText(subtitle)[0].parentElement!.className;
+
+		expect(classOf('尚未開始')).toBe('page-button not-started');
+		expect(classOf('進行中')).toBe('page-button in-progress');
+		expect(classOf('非強制')).toBe('page-button optional');
+		expect(classOf('已完成')).toBe('page-button completed');
+
+		fireEvent.click(getLocaleToggle());
+
+		expect(classOf('Not Started')).toBe('page-button not-started');
+		expect(classOf('In Progress')).toBe('page-button in-progress');
+		expect(classOf('Optional')).toBe('page-button optional');
+		expect(classOf('Completed')).toBe('page-button completed');
+	});
+
+	// The small-screen control shows tab labels only; this batch does not add a page state to it.
+	it('draws no page state on the small-screen control, in either locale', () => {
+		loadedHeroes.current = [ pageStateHero ];
+		viewport.isSmall = true;
+		renderHeroEditPage();
+
+		fireEvent.mouseDown(screen.getByRole('combobox'));
+
+		expect(approvedPageStates.filter(isDrawn)).toEqual([]);
+		expect(canonicalPageStates.filter(isDrawn)).toEqual([]);
+
+		fireEvent.click(getLocaleToggle());
+
+		expect(approvedPageStates.filter(isDrawn)).toEqual([]);
+		expect(canonicalPageStates.filter(isDrawn)).toEqual([]);
 	});
 });
 

@@ -6,3 +6,7 @@ Career,職業,game-term,approved
 Class,範型,game-term,approved
 Complication,糾葛,game-term,approved
 Details,細項,ui,approved
+Optional,非強制,ui,approved
+Not Started,尚未開始,ui,approved
+In Progress,進行中,ui,approved
+Completed,已完成,ui,approved
