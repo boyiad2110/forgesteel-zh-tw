@@ -2,23 +2,49 @@
 
 import { AbilityData } from '@/data/ability-data';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { getLocalizedElementField, getLocalizedMessage, getLocalizedUIString } from '@/localization/prototype-localization';
+import { defaultLocale, getLocalizedElementField, getLocalizedMessage, getLocalizedUIString, isAppLocale } from '@/localization/prototype-localization';
 import { describe, expect, it } from 'vitest';
 
-describe('prototype localization catalog and resolver', () => {
-	it('resolves the HeroEditPage semantic key without changing the English fallback', () => {
-		expect(getLocalizedUIString('en', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
-		expect(getLocalizedUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe('【原型】儲存變更');
+describe('locale model', () => {
+	it('defaults to zh-TW', () => {
+		expect(defaultLocale).toBe('zh-TW');
 	});
 
-	it('resolves the free-melee name by stable ID and falls back to its canonical target', () => {
+	it('only accepts the supported locales', () => {
+		expect(isAppLocale('en')).toBe(true);
+		expect(isAppLocale('zh-TW')).toBe(true);
+		expect(isAppLocale('zh')).toBe(false);
+		expect(isAppLocale('fr')).toBe(false);
+		expect(isAppLocale('')).toBe(false);
+		expect(isAppLocale(undefined)).toBe(false);
+		expect(isAppLocale(null)).toBe(false);
+		expect(isAppLocale(1)).toBe(false);
+	});
+});
+
+describe('localization catalog and resolver', () => {
+	it('resolves a catalog entry in preference to the value passed in', () => {
+		expect(getLocalizedUIString('en', 'hero-edit.save-changes', 'Unused Fallback')).toBe('Save Changes');
+		expect(getLocalizedMessage(
+			'en',
+			'ability.free-melee.summary',
+			{ abilityName: 'Free Strike (melee)', target: 'One creature or object' },
+			'unused {abilityName}'
+		)).toBe('Free Strike (melee) | Target: One creature or object');
+	});
+
+	it('shows canonical English when zh-TW has no approved UI string', () => {
+		expect(getLocalizedUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
+	});
+
+	it('shows canonical English when zh-TW has no approved element field', () => {
 		const ability = AbilityData.freeStrikeMelee;
 
-		expect(getLocalizedElementField('zh-TW', ability.id, 'name', ability.name)).toBe('【原型】近戰自由攻擊');
+		expect(getLocalizedElementField('zh-TW', ability.id, 'name', ability.name)).toBe('Free Strike (melee)');
 		expect(getLocalizedElementField('zh-TW', ability.id, 'target', ability.target)).toBe('One creature or object');
 	});
 
-	it('formats a stable message key with structured parameters', () => {
+	it('formats a stable message key with structured parameters and a canonical English template', () => {
 		const message = getLocalizedMessage(
 			'zh-TW',
 			'ability.free-melee.summary',
@@ -26,7 +52,7 @@ describe('prototype localization catalog and resolver', () => {
 			'{abilityName} | Target: {target}'
 		);
 
-		expect(message).toBe('【原型】Free Strike (melee)｜目標：One creature or object');
+		expect(message).toBe('Free Strike (melee) | Target: One creature or object');
 	});
 
 	it('never mutates the canonical ability or its representative rule result', () => {

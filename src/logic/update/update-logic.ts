@@ -1,4 +1,5 @@
 import { Feature, FeatureMaliceAbility, FeatureMaliceAbilityData } from '@/models/feature';
+import { defaultLocale, isAppLocale } from '@/localization/prototype-localization';
 import { Ability } from '@/models/ability';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { Adventure } from '@/models/adventure';
@@ -655,6 +656,12 @@ ${encounter.objective.victories}`
 
 		if (options.showDataSource === undefined) {
 			options.showDataSource = false;
+		}
+
+		// Covers options saved before the locale preference existed, and any value
+		// that is no longer one of the supported locales.
+		if (!isAppLocale(options.locale)) {
+			options.locale = defaultLocale;
 		}
 
 		if (options.xpPerLevel === undefined) {
