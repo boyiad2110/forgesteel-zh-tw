@@ -9,7 +9,7 @@ import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { getLocalizedElementField } from '@/localization/prototype-localization';
+import { localizeElementField } from '@/localization/resolver';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
 import { useLocalization } from '@/contexts/localization-context';
@@ -47,7 +47,7 @@ interface Props {
 
 export const AbilityPanel = (props: Props) => {
 	const { locale } = useLocalization();
-	const displayName = getLocalizedElementField(locale, props.ability.id, 'name', props.ability.name);
+	const displayName = localizeElementField(locale, props.ability.id, 'name', props.ability.name);
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 	const options = useOptions();
 	const clipboard = useClipboard();

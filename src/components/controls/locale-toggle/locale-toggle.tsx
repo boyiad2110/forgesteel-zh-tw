@@ -1,4 +1,4 @@
-import { AppLocale } from '@/localization/prototype-localization';
+import { AppLocale } from '@/localization/locale';
 import { Button } from 'antd';
 import { useLocalization } from '@/contexts/localization-context';
 

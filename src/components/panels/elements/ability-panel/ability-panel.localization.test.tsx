@@ -41,8 +41,8 @@ const expectCanonicalEnglishPresentation = () => {
 	expect(screen.getByText('Free Strike (melee)', { exact: true })).not.toBeNull();
 	expect(screen.getByText('Free Strike (melee) | Target: One creature or object', { exact: true })).not.toBeNull();
 	expect(getTargetFieldValue()).toBe('One creature or object');
-	// The prototype sentinel is not approved content and must never reach the runtime.
-	expect(screen.queryByText(/【原型】/)).toBeNull();
+	// No zh-TW game translation is approved yet, so no Chinese may reach this panel.
+	expect(screen.queryByText(/[一-鿿]/)).toBeNull();
 };
 
 describe('AbilityPanel localization presentation wiring', () => {

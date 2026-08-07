@@ -1,4 +1,4 @@
-import { AppLocale, defaultLocale, isAppLocale } from '@/localization/prototype-localization';
+import { AppLocale, defaultLocale, isAppLocale } from '@/localization/locale';
 import { PropsWithChildren, createContext, useContext, useMemo, useState } from 'react';
 import { useDataManager, useOptions } from '@/contexts/data-context';
 import { Utils } from '@/utils/utils';
