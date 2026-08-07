@@ -1,5 +1,5 @@
 import { Feature, FeatureMaliceAbility, FeatureMaliceAbilityData } from '@/models/feature';
-import { defaultLocale, isAppLocale } from '@/localization/prototype-localization';
+import { defaultLocale, isAppLocale } from '@/localization/locale';
 import { Ability } from '@/models/ability';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { Adventure } from '@/models/adventure';

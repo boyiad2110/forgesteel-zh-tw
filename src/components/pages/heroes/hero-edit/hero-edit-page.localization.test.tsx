@@ -103,14 +103,13 @@ describe('HeroEditPage locale switching', () => {
 		const routeBeforeLocaleSwitch = screen.getByTestId('route').textContent;
 
 		// The only locale control is the shared one in the footer; the header has none.
-		expect(screen.queryByText('Prototype locale')).toBeNull();
 		expect(screen.queryByRole('button', { name: 'zh-TW' })).toBeNull();
 		expect(screen.getAllByRole('button', { name: /^Switch to / })).toHaveLength(1);
 
 		// Starts in the saved zh-TW locale, which has no approved translation for this label.
 		expect(getLocaleToggle().textContent).toBe('中文');
 		expect(getButton('Save Changes').disabled).toBe(false);
-		expect(screen.queryByText(/【原型】/)).toBeNull();
+		expect(getButton('Save Changes').textContent).not.toMatch(/[一-鿿]/);
 
 		fireEvent.click(getLocaleToggle());
 		expect(getLocaleToggle().textContent).toBe('EN');
@@ -119,9 +118,9 @@ describe('HeroEditPage locale switching', () => {
 		fireEvent.click(getLocaleToggle());
 		expect(getLocaleToggle().textContent).toBe('中文');
 
-		// Presentation: canonical English fallback, never the prototype sentinel.
+		// Presentation: canonical English fallback, never unapproved zh-TW content.
 		expect(getButton('Save Changes').disabled).toBe(false);
-		expect(screen.queryByText(/【原型】/)).toBeNull();
+		expect(getButton('Save Changes').textContent).not.toMatch(/[一-鿿]/);
 
 		// State safety.
 		expect(screen.getByTestId('working-copy').textContent).toBe(workingCopyBeforeLocaleSwitch);

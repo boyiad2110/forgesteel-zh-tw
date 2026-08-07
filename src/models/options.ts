@@ -1,4 +1,4 @@
-import { AppLocale } from '@/localization/prototype-localization';
+import { AppLocale } from '@/localization/locale';
 import { PanelWidth } from '@/enums/panel-width';
 import { SheetPageSize } from '@/enums/sheet-page-size';
 

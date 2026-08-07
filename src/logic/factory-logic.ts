@@ -69,7 +69,7 @@ import { Tip } from '@/models/tip';
 import { Title } from '@/models/title';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
-import { defaultLocale } from '@/localization/prototype-localization';
+import { defaultLocale } from '@/localization/locale';
 
 export class FactoryLogic {
 	static createElement = (name?: string, description?: string): Element => {

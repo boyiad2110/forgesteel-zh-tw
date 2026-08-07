@@ -40,7 +40,7 @@ import { useIsSmall } from '@/hooks/use-is-small';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useParams } from 'react-router';
 import { useTitle } from '@/hooks/use-title';
-import { getLocalizedUIString } from '@/localization/prototype-localization';
+import { localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 
 import './hero-edit-page.scss';
@@ -614,7 +614,7 @@ export const HeroEditPage = (props: Props) => {
 					<ButtonGroup
 						buttons={[
 							{ type: 'control', control: <SearchBox disabled={!allowSearch()} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> },
-							{ type: 'button', label: isSmall ? undefined : getLocalizedUIString(locale, 'hero-edit.save-changes', 'Save Changes'), icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
+							{ type: 'button', label: isSmall ? undefined : localizeUIString(locale, 'hero-edit.save-changes', 'Save Changes'), icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
 							{ type: 'button', label: isSmall ? undefined : 'Cancel', icon: <CloseOutlined />, onClick: () => navigation.goToHeroView(heroID!) }
 						]}
 					/>
