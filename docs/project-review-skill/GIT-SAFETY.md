@@ -36,6 +36,22 @@ GitHub write target：
 
 Merge method 屬一般 Git 技術決策時，可由 Reviewer 依 `docs/REVIEWER-PRINCIPLES.md` 決定；除非 Owner 或 repository policy 已指定，不需要每批再請 Owner 三選一。
 
+## Takeover / Interrupted Stage 3 Recovery
+
+若 Stage 3 換手、中斷，或前一位執行者可能已做 GitHub write，任何 GitHub write 前必須先 read-only reconcile actual remote state。不得以 handoff 文字取代 repository／GitHub evidence。
+
+至少確認：
+
+- remote feature branch 是否存在與其 HEAD；
+- 是否已有 PR，以及 PR state、base、head 與 head SHA；
+- required CI state；
+- current `origin/develop`；
+- remote feature commit 與 `develop` 的 ancestry；以及 local 與 remote history 不同時的 tree equivalence。
+
+remote branch 已存在、PR 已建立或已 merge、或 local history 與 remote history 不同時，停止正常 Stage 3 假設並先選擇 recovery path。此時不得直接 push、force push、rebase、reset、amend、重建 branch、建立第二個 PR 或重複 merge。
+
+只有 reconciliation 證明尚未開始 closeout，才可繼續下列 Pre-write Gate。若 PR 已 merge，先驗證 `develop`、CI、merge result 與 ancestry；local 與 merged commit SHA 不同時，以零 diff 的 tree equivalence 作為 cleanup 前的必要證據。
+
 ## Pre-write Gate
 
 在第一次 GitHub write 前確認：

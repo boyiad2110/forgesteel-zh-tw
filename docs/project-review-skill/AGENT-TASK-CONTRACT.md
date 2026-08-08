@@ -95,6 +95,12 @@ Manual smoke 應使用少量代表性 flow，不把每一批都升級成全站�
 
 ## Stage 3 — Git／PR Closeout
 
+### 接手或中斷後的第一步
+
+接手既有 Stage 3，或前一位 Agent 可能已做 GitHub write 時，第一步一律是 read-only reconciliation，而不是照舊 handoff 直接續跑。先查 remote branch 與 HEAD、PR 是否存在及其 state／base／head、CI、`origin/develop`，並在需要時確認 ancestry 與 tree equivalence。
+
+未確認 actual remote state 前，不得 push、force push、rebase、reset、amend、重建 branch、建立第二個 PR 或重複 merge。reconciliation 後再由 evidence 決定正常 Stage 3 或 recovery closeout。
+
 只有下列條件成立時執行：
 
 - Reviewer PASS。

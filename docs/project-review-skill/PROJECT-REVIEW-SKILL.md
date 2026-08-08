@@ -142,6 +142,12 @@ Owner 人工驗收與必要測試通過後，功能／內容 Review 結束。
 
 依 `GIT-SAFETY.md` 執行。
 
+### Takeover / interrupted-execution recovery gate
+
+若更換 Agent、Stage 3 中斷，或前一位執行者可能已做 GitHub write，接手者在任何 write 前必須先以 read-only 操作 reconcile actual repository state。至少確認 remote feature branch 是否存在與其 HEAD、是否已有 PR、PR state／base／head、CI state，以及目前的 `origin/develop`。
+
+只有完成 reconciliation 後，才能判定要走正常 Stage 3 還是 recovery closeout。若 remote branch 已存在、PR 已建立或已 merge，或 remote history 與 local history 不同，不得假設舊 handoff 仍正確；不得直接 push、force push、rebase、reset、amend、重建 branch、建立第二個 PR 或重複 merge。
+
 正常情況可一次授權：
 
 **push → PR → verify diff／commits → CI → merge → sync `develop` → cleanup**
