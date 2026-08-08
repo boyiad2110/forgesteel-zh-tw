@@ -154,5 +154,16 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	// so it reaches the screen as the canonical number the subclass and the ability carry.
 	{ kind: 'message', key: 'subclass-panel.level', canonicalEnglish: 'Level {level}', zhTW: '{level} 級', placeholders: [ 'level' ], approval: 'approved' },
 	// '費' is the ability's heroic resource cost; the cost itself stays the number it was.
-	{ kind: 'message', key: 'subclass-panel.cost-abilities', canonicalEnglish: '{cost}pt Abilities', zhTW: '{cost} 費招式', placeholders: [ 'cost' ], approval: 'approved' }
+	{ kind: 'message', key: 'subclass-panel.cost-abilities', canonicalEnglish: '{cost}pt Abilities', zhTW: '{cost} 費招式', placeholders: [ 'cost' ], approval: 'approved' },
+	// The class panel uses canonical page values and ability costs; these entries only read
+	// their labels. Its class, subclass, feature and ability data stays canonical.
+	{ kind: 'ui', key: 'class-panel.page.overview', canonicalEnglish: 'Overview', zhTW: '概述', approval: 'approved' },
+	{ kind: 'ui', key: 'class-panel.page.features', canonicalEnglish: 'Features', zhTW: '特性', approval: 'approved' },
+	{ kind: 'ui', key: 'class-panel.page.abilities', canonicalEnglish: 'Abilities', zhTW: '招式', approval: 'approved' },
+	{ kind: 'ui', key: 'class-panel.page.subclasses', canonicalEnglish: 'Subclasses', zhTW: '子範型', approval: 'approved' },
+	{ kind: 'ui', key: 'class-panel.primary-characteristics', canonicalEnglish: 'Primary Characteristics', zhTW: '主要屬性', approval: 'approved' },
+	{ kind: 'ui', key: 'class-panel.signature-abilities', canonicalEnglish: 'Signature Abilities', zhTW: '招牌招式', approval: 'approved' },
+	{ kind: 'ui', key: 'class-panel.unnamed', canonicalEnglish: 'Unnamed Class', zhTW: '未命名範型', approval: 'approved' },
+	{ kind: 'message', key: 'class-panel.level', canonicalEnglish: 'Level {level}', zhTW: '{level} 級', placeholders: [ 'level' ], approval: 'approved' },
+	{ kind: 'message', key: 'class-panel.cost-abilities', canonicalEnglish: '{cost}pt Abilities', zhTW: '{cost} 費招式', placeholders: [ 'cost' ], approval: 'approved' }
 ];

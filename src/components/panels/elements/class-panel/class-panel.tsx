@@ -1,3 +1,4 @@
+import { localizeMessage, localizeUIString } from '@/localization/resolver';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
@@ -18,9 +19,13 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { SubclassPanel } from '@/components/panels/elements/subclass-panel/subclass-panel';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './class-panel.scss';
+
+const levelTemplate = 'Level {level}';
+const costAbilitiesTemplate = '{cost}pt Abilities';
 
 interface Props {
 	heroClass: HeroClass;
@@ -30,7 +35,9 @@ interface Props {
 }
 
 export const ClassPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
+	const className = props.heroClass.name || localizeUIString(locale, 'class-panel.unnamed', 'Unnamed Class');
 
 	const getOverview = () => {
 		return (
@@ -41,7 +48,7 @@ export const ClassPanel = (props: Props) => {
 						<Field label={Format.pluralize(props.heroClass.subclassName)} value={props.heroClass.subclasses.map(c => c.name).join(', ')} />
 						: null
 				}
-				<Field label='Primary Characteristics' value={props.heroClass.primaryCharacteristics.join(', ') || props.heroClass.primaryCharacteristicsOptions.map(array => array.join(', ') || 'None').join(' or ') || 'None'} />
+				<Field label={localizeUIString(locale, 'class-panel.primary-characteristics', 'Primary Characteristics')} value={props.heroClass.primaryCharacteristics.join(', ') || props.heroClass.primaryCharacteristicsOptions.map(array => array.join(', ') || 'None').join(' or ') || 'None'} />
 			</>
 		);
 	};
@@ -56,7 +63,7 @@ export const ClassPanel = (props: Props) => {
 								key={lvl.level}
 								title={
 									<Field
-										label={`Level ${lvl.level.toString()}`}
+										label={localizeMessage(locale, 'class-panel.level', { level: lvl.level.toString() }, levelTemplate)}
 										value={lvl.features.map(f => f.name).join(', ')}
 									/>
 								}
@@ -90,7 +97,15 @@ export const ClassPanel = (props: Props) => {
 							return null;
 						}
 						return (
-							<Expander key={cost} title={cost === 'signature' ? 'Signature Abilities' : `${cost}pt Abilities`}>
+							<Expander
+								key={cost}
+								title={
+									cost === 'signature' ?
+										localizeUIString(locale, 'class-panel.signature-abilities', 'Signature Abilities')
+										:
+										localizeMessage(locale, 'class-panel.cost-abilities', { cost: cost.toString() }, costAbilitiesTemplate)
+								}
+							>
 								<div className='class-abilities-grid'>
 									{
 										abilities.map(a => (
@@ -146,16 +161,16 @@ export const ClassPanel = (props: Props) => {
 		}
 
 		const pages = [
-			{ value: 'overview', label: 'Overview' },
-			{ value: 'features', label: 'Features' }
+			{ value: 'overview', label: localizeUIString(locale, 'class-panel.page.overview', 'Overview') },
+			{ value: 'features', label: localizeUIString(locale, 'class-panel.page.features', 'Features') }
 		];
 
 		if (props.heroClass.abilities.length > 0) {
-			pages.push({ value: 'abilities', label: 'Abilities' });
+			pages.push({ value: 'abilities', label: localizeUIString(locale, 'class-panel.page.abilities', 'Abilities') });
 		}
 
 		if (props.heroClass.subclasses.length > 0) {
-			pages.push({ value: 'subclasses', label: 'Subclasses' });
+			pages.push({ value: 'subclasses', label: localizeUIString(locale, 'class-panel.page.subclasses', 'Subclasses') });
 		}
 
 		return (
@@ -197,7 +212,7 @@ export const ClassPanel = (props: Props) => {
 		return (
 			<div className='class-panel compact'>
 				<HeaderText level={1} tags={tags}>
-					{props.heroClass.name || 'Unnamed Class'}
+					{className}
 				</HeaderText>
 				<Markdown text={props.heroClass.description} />
 			</div>
@@ -208,7 +223,7 @@ export const ClassPanel = (props: Props) => {
 		<ErrorBoundary>
 			<div className='class-panel' id={SheetFormatter.getPageId('class', props.heroClass.id)}>
 				<HeaderText level={1} tags={tags}>
-					{props.heroClass.name || 'Unnamed Class'}
+					{className}
 				</HeaderText>
 				{getContent()}
 			</div>
