@@ -1,4 +1,5 @@
 import { CSSProperties, useState } from 'react';
+import { localizeMessage, localizeUIString } from '@/localization/resolver';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
@@ -17,8 +18,12 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { SubClass } from '@/models/subclass';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './subclass-panel.scss';
+
+const levelTemplate = 'Level {level}';
+const costAbilitiesTemplate = '{cost}pt Abilities';
 
 interface Props {
 	subclass: SubClass;
@@ -29,7 +34,10 @@ interface Props {
 }
 
 export const SubclassPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
+
+	const subclassName = props.subclass.name || localizeUIString(locale, 'subclass-panel.unnamed', 'Unnamed Subclass');
 
 	const getOverview = () => {
 		return (
@@ -47,7 +55,9 @@ export const SubclassPanel = (props: Props) => {
 								key={lvl.level}
 								title={
 									<Field
-										label={`Level ${lvl.level.toString()}`}
+										// The heading names the level the subclass already carries; the
+										// level itself is the number it always was.
+										label={localizeMessage(locale, 'subclass-panel.level', { level: lvl.level.toString() }, levelTemplate)}
 										value={lvl.features.map(f => f.name).join(', ')}
 									/>
 								}
@@ -83,7 +93,17 @@ export const SubclassPanel = (props: Props) => {
 							return null;
 						}
 						return (
-							<Expander key={cost} title={cost === 'signature' ? 'Signature Abilities' : `${cost}pt Abilities`}>
+							// The abilities are still grouped by the canonical 'signature' sentinel and
+							// the canonical numeric cost; the heading only says which group it is.
+							<Expander
+								key={cost}
+								title={
+									cost === 'signature' ?
+										localizeUIString(locale, 'subclass-panel.signature-abilities', 'Signature Abilities')
+										:
+										localizeMessage(locale, 'subclass-panel.cost-abilities', { cost: cost.toString() }, costAbilitiesTemplate)
+								}
+							>
 								<div className='subclass-abilities-grid'>
 									{
 										abilities.map(a => (
@@ -116,13 +136,14 @@ export const SubclassPanel = (props: Props) => {
 				break;
 		}
 
+		// The value is what the panel is on; the label beside it is only how that page reads.
 		const pages = [
-			{ value: 'overview', label: 'Overview' },
-			{ value: 'features', label: 'Features' }
+			{ value: 'overview', label: localizeUIString(locale, 'subclass-panel.page.overview', 'Overview') },
+			{ value: 'features', label: localizeUIString(locale, 'subclass-panel.page.features', 'Features') }
 		];
 
 		if (props.subclass.abilities.length > 0) {
-			pages.push({ value: 'abilities', label: 'Abilities' });
+			pages.push({ value: 'abilities', label: localizeUIString(locale, 'subclass-panel.page.abilities', 'Abilities') });
 		}
 
 		return (
@@ -152,7 +173,7 @@ export const SubclassPanel = (props: Props) => {
 		return (
 			<div className='subclass-panel compact'>
 				<HeaderText level={1} tags={tags}>
-					{props.subclass.name || 'Unnamed Subclass'}
+					{subclassName}
 				</HeaderText>
 				<Markdown text={props.subclass.description} />
 			</div>
@@ -163,7 +184,7 @@ export const SubclassPanel = (props: Props) => {
 		<ErrorBoundary>
 			<div className='subclass-panel' id={SheetFormatter.getPageId('subclass', props.subclass.id)} style={props.style}>
 				<HeaderText level={1} tags={tags}>
-					{props.subclass.name || 'Unnamed Subclass'}
+					{subclassName}
 				</HeaderText>
 				{getContent()}
 			</div>
