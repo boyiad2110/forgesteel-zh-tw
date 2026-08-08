@@ -12,6 +12,8 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './career-panel.scss';
@@ -24,7 +26,10 @@ interface Props {
 }
 
 export const CareerPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
+
+	const careerName = props.career.name || localizeUIString(locale, 'career-panel.unnamed', 'Unnamed Career');
 
 	const getOverview = () => {
 		return (
@@ -80,10 +85,11 @@ export const CareerPanel = (props: Props) => {
 				<Segmented
 					style={{ marginBottom: '20px' }}
 					block={true}
+					// The value is what the panel is on; the label beside it is only how that page reads.
 					options={[
-						{ value: 'overview', label: 'Overview' },
-						{ value: 'features', label: 'Features' },
-						{ value: 'incidents', label: 'Inciting Incidents' }
+						{ value: 'overview', label: localizeUIString(locale, 'career-panel.page.overview', 'Overview') },
+						{ value: 'features', label: localizeUIString(locale, 'career-panel.page.features', 'Features') },
+						{ value: 'incidents', label: localizeUIString(locale, 'career-panel.page.incidents', 'Inciting Incidents') }
 					]}
 					value={page}
 					onChange={setPage}
@@ -106,7 +112,7 @@ export const CareerPanel = (props: Props) => {
 		return (
 			<div className='career-panel compact'>
 				<HeaderText level={1} tags={tags}>
-					{props.career.name || 'Unnamed Career'}
+					{careerName}
 				</HeaderText>
 				<Markdown text={props.career.description} />
 			</div>
@@ -117,7 +123,7 @@ export const CareerPanel = (props: Props) => {
 		<ErrorBoundary>
 			<div className='class-panel' id={SheetFormatter.getPageId('career', props.career.id)}>
 				<HeaderText level={1} tags={tags}>
-					{props.career.name || 'Unnamed Career'}
+					{careerName}
 				</HeaderText>
 				{getContent()}
 			</div>
