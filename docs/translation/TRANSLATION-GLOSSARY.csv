@@ -37,3 +37,14 @@ Characteristics,屬性,game-term,approved
 Primary Characteristics,主要屬性,game-term,approved
 Language,語言,game-term,approved
 Skill,技能,game-term,approved
+Creating a Hero,創建英雄,ui,approved
+Hero Sheet,角色卡,game-term,approved
+Sourcebook,資料來源,game-term,approved
+Sourcebooks,資料來源,game-term,approved
+Official,官方,game-term,approved
+Official Sourcebooks,官方資料來源,game-term,approved
+Homebrew,自製,game-term,approved
+Homebrew Sourcebooks,自製資料來源,game-term,approved
+Unnamed Sourcebook,未命名的資料來源,ui,approved
+Import a sourcebook,匯入資料來源,ui,approved
+Sourcebook not imported,無法匯入資料來源,ui,approved
