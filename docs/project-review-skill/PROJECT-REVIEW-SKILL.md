@@ -1,0 +1,210 @@
+---
+name: forge-steel-reviewer
+description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
+metadata:
+  author: Forge Steel 中文版開發
+  version: "0.3.0"
+---
+
+# Forge Steel Reviewer
+
+## Purpose
+
+本 Skill 是 Forge Steel 繁中專案的 **Reviewer 操作 workflow**。
+
+權限、Findings、User Decision、Review limit、Batch 原則與翻譯決策邊界，以 `docs/REVIEWER-PRINCIPLES.md` 為準。本 Skill 不維護第二套政策。
+
+> 先確認 authority 與唯一 Batch，再用與風險相稱的最低足夠證據完成實作、Review 與收尾。
+
+## 1. Load Authority
+
+開始規劃、Review、Agent 任務、PR 收尾或 handoff 前：
+
+1. 讀目前對話中專案負責人的最新明確決定。
+2. 讀 `docs/REVIEWER-PRINCIPLES.md`。
+3. 依需要讀現行 V1 requirements／decision 文件。
+4. 讀本批相關 code、tests、PR、CI、人工驗收 evidence。
+5. `docs/PROJECT-STATUS.md` 只作摘要；actual repository state 優先。
+
+Authority 衝突時依 Principles 處理，不自行補規格。
+
+## 2. Fix One Batch Contract
+
+每批開始前固定：
+
+- **Goal**：唯一可驗證結果。
+- **Authority**。
+- **Base**：branch／起點。
+- **In scope**。
+- **Out of scope**。
+- **Acceptance**。
+- **Risk Level**。
+- **Git permission**。
+- **Report**。
+- **Stop**。
+
+Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 slice。
+
+缺少 Goal、scope、Acceptance 或 Stop，不開始實作。
+
+## 3. V1 Blocker Gate
+
+遇到問題先問：
+
+- 是否直接違反已核准 V1 requirement？
+- 是否使實際功能無法使用？
+- 是否危及 data、save compatibility、ID、enum、reference 或 canonical data？
+- 是否造成明確安全／發布風險？
+- 是否直接阻擋本批既定 flow？
+
+只有有實際影響時才升級 blocker。問題來自 upstream 不代表可以降級；文件不漂亮也不代表是 blocker。
+
+## 4. Assign Risk and Evidence
+
+- **Level A**：文件、已核准文案、無 state／data 影響的 display-only change。
+- **Level B**：component behavior、state、filtering、lookup、fallback、locale switching。
+- **Level C**：delete、import、storage、persistence、migration、schema、data-loss、security。
+
+詳細：`RISK-AND-VERIFICATION.md`
+
+原則：
+
+- 不把所有批次升成 Level C。
+- 測 public behavior，不只測 implementation detail。
+- critical interaction 不應被 mock 掉。
+- 最後一次 code change 後取得 fresh tests／lint／typecheck／build／CI evidence。
+- manual smoke 只補自動測試難以證明的 UI／responsive／interaction risk。
+
+## 5. Prepare Agent Task
+
+依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。
+
+至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。
+
+### Tooling / Skill
+
+若需要額外 Agent skill：
+
+- 預設 user-level／global 安裝，不裝進 repository。
+- 安裝後確認 `git status` 仍乾淨。
+- 不 commit skill、lockfile、symlink、Agent metadata 或 tooling 產物。
+- 若產生未知 repo 檔案，停止回報；不要用 `git clean` 或改 `.gitignore` 掩蓋。
+- execution skill 不得覆蓋 Batch Contract 或 authority。
+
+## 6. Stage 1 — Local Implementation
+
+預設從核准 `develop` 建 feature branch，只修改 In Scope，執行本批 verification；未明確授權時，不 push、不建 PR、不 merge。
+
+Agent 回報只需：
+
+- branch／HEAD。
+- changed files。
+- 核心 implementation approach。
+- tests／fresh verification。
+- canonical／data safety evidence（若相關）。
+- working tree。
+- deviations／risks／需要決策事項。
+
+## 7. Review — Two Passes
+
+### Pass 1 — Requirement / Scope
+
+確認 Goal／Acceptance、Owner 定稿、changed files、commit 與 scope；檢查是否有未授權 schema、ID、enum、reference、save format、canonical data 或 shared-architecture change。
+
+### Pass 2 — Correctness / Evidence
+
+確認 root cause、必要 call path／state／persistence 語意、public-behavior tests、critical callback／canonical values，以及最後變更後的 fresh evidence；核對 Agent claim 與實際 diff／tests／CI。
+
+Verdict 與 Findings 直接依 `docs/REVIEWER-PRINCIPLES.md`。
+
+## 8. Stage 2 — Focused Correction
+
+只有第一輪有 blocker 時使用：
+
+- 只修 blocker，不夾帶重構或 Non-blocking Observation。
+- 重新驗證受影響範圍與必要 regression。
+- 第二輪只審 correction 與新重大問題。
+- 第二輪仍有結構性 blocker 時停止 patch loop。
+
+已核准譯文的 singular／plural、`a/an`、大小寫、標點等純機械變體依 Principles 直接處理，不重新要求 Owner approval。
+
+## 9. Manual Acceptance Gate
+
+Reviewer PASS 後依 Risk 決定是否需要 Owner manual smoke。
+
+Smoke 只驗自動測試難以證明的視覺、responsive 或真實 interaction，用少量代表性 flow；不要無目的全站巡覽。
+
+Owner 人工驗收與必要測試通過後，功能／內容 Review 結束。
+
+## 10. Stage 3 — Git / PR Closeout
+
+前提：Reviewer PASS、必要人工驗收 PASS、approved HEAD 固定、working tree clean。
+
+依 `GIT-SAFETY.md` 執行。
+
+正常情況可一次授權：
+
+**push → PR → verify diff／commits → CI → merge → sync `develop` → cleanup**
+
+只有 repository／base／head／SHA、changed files、commit count、CI、mergeability、ancestry 或 code/history 出現異常時才停止回報。
+
+### Merge method
+
+Reviewer 依 Principles 與本批 history 選擇適合方式，並在 Stage 3 Contract 中**明確固定**。除非 Owner 或 repository policy 已指定，不需要每批再請 Owner 三選一。
+
+### Repository safety
+
+- `develop` = integration branch；`main` frozen，除非另行授權。
+- 不得對 upstream write。
+- 所有 `gh` write command 明確包含：
+
+```bash
+--repo boyiad2110/forgesteel-zh-tw
+```
+
+- merge 後同步 local／origin `develop`，安全清理 feature branch。
+- 最終確認 working tree clean、`main` 未改。
+
+## 11. Completion / Handoff
+
+完成條件：Reviewer PASS、必要 CI／manual acceptance PASS、PR 依核准方式進 `develop`、local = origin/develop、feature branch 清理、working tree clean、`main` 未改、未開始下一批。
+
+`docs/PROJECT-STATUS.md` 只在狀態真的需要維護時更新，不複製 PR body 或 test log。
+
+Handoff 只保留：最新 `develop` baseline、現行 authority、已完成摘要、未完成／deferred、blocker／風險、下一個唯一目標、clone-specific safety、停止事項。歷史以 path／PR／SHA 引用，不重寫流水帳。
+
+## 12. Efficiency
+
+- 不重問已知資訊。
+- 不重複相同 SHA／status 超過必要 gate。
+- Agent report 採差異式。
+- 不因文件完整感增加 blocker。
+- 不建立平行規格文件。
+- 小 fix 不順手重構 shared architecture。
+- 每個額外 test、smoke、文件、Review 輪次或 Owner question 都必須降低具體風險。
+- Reviewer 能處理的機械細節，不交回 Owner。
+- 收尾後停止；下一批需要新的 Batch Contract。
+
+## Self-Check
+
+- [ ] 已讀最新 Owner decision 與 `docs/REVIEWER-PRINCIPLES.md`。
+- [ ] 已固定 coherent Batch、scope、Acceptance、Risk、Stop。
+- [ ] 驗證成本與風險相稱。
+- [ ] 未自行決定新的中文遊戲術語。
+- [ ] 未把純機械變體當 User Decision。
+- [ ] GitHub write target 明確為繁中 fork。
+- [ ] Findings 依 Principles 分類。
+- [ ] 未重開已核准內容。
+
+## References
+
+需要時才讀：
+
+- `docs/REVIEWER-PRINCIPLES.md` — 權威原則與決策邊界。
+- `RISK-AND-VERIFICATION.md` — Risk 與最低證據。
+- `AGENT-TASK-CONTRACT.md` — Agent Stage contract。
+- `GIT-SAFETY.md` — Git／PR／merge／cleanup safety。
+- `FAILURE-MODES.md` — 常見失敗模式。
+- `EVALUATION-SCENARIOS.md` — workflow evaluation。
+
+修改本 Skill 時，至少重新執行與變更規則相關的 evaluation scenarios。

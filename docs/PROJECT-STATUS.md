@@ -1,197 +1,137 @@
 # Forge Steel 繁體中文化專案進度
 
-> 最後更新：2026-08-07
-> 本文件是 handoff 摘要，不取代 GitHub PR、commit、V1 需求文件或 Reviewer 原則。
+> 最後更新：2026-08-08
+> 本文件是 handoff 摘要，不取代 GitHub PR／commit、`docs/REVIEWER-PRINCIPLES.md`、V1 requirements、現行 code／tests／CI 或人工驗收 evidence。
 
----
-
-## 1. 文件目的
-
-讓下一批 Reviewer 或 Agent 能快速確認：
-
-- 目前應以哪個 branch 與 commit 作為基準。
-- 已完成哪些批次。
-- 哪些 V1 工作尚未完成。
-- 下一步應該做什麼。
-
-實作細節、diff、測試紀錄與 CI 結果以 GitHub PR 為準。
-
----
-
-## 2. Current Baseline
+## 1. Current Baseline
 
 - Repository：`boyiad2110/forgesteel-zh-tw`
-- Active development branch：`develop`
-- Current substantive baseline：
-  `5b3a9743322704278fd943db1ad4bd6b1d3c800b`
+- Active integration branch：`develop`
+- Current `develop` / `origin/develop` baseline：
+  `7daeb0b8397df3d94a2164589efe42e193ad16a3`
+- Latest merged substantive PR：`#18 feat: localize hero edit section UI`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
-- Last merged substantive PR：`#10`
-- Current phase：正式 localization implementation 前的準備階段
+- Current phase：**production localization 已建立，正在以 coherent V1 player-facing slices 逐步擴充 coverage**。
 
-`develop` 的實際 HEAD 以 Git repository 為準。只更新 `docs/PROJECT-STATUS.md` 的 documentation-only PR 不改寫 substantive baseline 或 last merged substantive PR。
+實際 repository state 永遠優先於本摘要。若 `develop` 已前進，先依 Git／GitHub evidence 更新判斷，不把本文件中的 SHA 當成 reset 目標。
 
-目前尚未開始大規模正式翻譯。
+## 2. Source of Truth
 
----
-
-## 3. Source of Truth
-
-若來源之間出現差異，依下列順序判定：
+依 `docs/REVIEWER-PRINCIPLES.md`：
 
 1. 專案負責人在目前對話中的最新明確決定。
-2. `docs/REVIEWER-PRINCIPLES.md`。
-3. 現行且已核准的 V1 requirements／decision 文件：
-   - `docs/requirements/V1-REQUIREMENTS.md`
-   - `docs/analysis/LOCALIZATION-TECHNICAL-OPTIONS.md`
-4. 本文件（`docs/PROJECT-STATUS.md`），只作狀態摘要。
-5. 與該項工作直接相關的 repository code、tests、GitHub PR、commit、CI 與人工驗收 evidence。
+2. repository 現行權威文件。
+3. 已核准 requirements／decision records／測試標準。
+4. code、tests、PR、CI、人工驗收與歷史文件，作為現況或 evidence。
 
-其他現行參考文件：
+主要現行文件：
 
-- `docs/PROJECT-SCOPE.md`
-- `docs/UPSTREAM-BASELINE.md`
-- `docs/analysis/CODEBASE-SUMMARY.md`
+- `docs/REVIEWER-PRINCIPLES.md` — Reviewer 權限與決策邊界。
+- `docs/requirements/V1-REQUIREMENTS.md` — V1 產品 scope／完成／發布條件。
+- `docs/analysis/LOCALIZATION-TECHNICAL-OPTIONS.md` — 已核准 localization 核心架構與安全邊界。
+- `docs/translation/TRANSLATION-GLOSSARY.csv` — 已核准 standalone terminology／UI glossary evidence。
+- `docs/PROJECT-SCOPE.md` — 快速摘要；不建立第二套 scope。
+- `docs/UPSTREAM-BASELINE.md` — frozen upstream baseline。
+- `docs/analysis/CODEBASE-SUMMARY.md` — 固定舊 commit 的稽核／歷史 codebase map，不是現行 implementation status。
 
-本文件只提供狀態摘要，不建立新的產品規則。若 authority 之間發生衝突且當下必須決定，交由專案負責人裁定。
+## 3. 已完成的主要 milestones
 
----
+### 3.1 Repository／governance foundation
 
-## 4. Completed Batches
+- `develop` 作為 integration branch；`main` 維持 frozen upstream baseline。
+- CI、Reviewer Principles、V1 requirements、localization technical direction 與 Sourcebook policy 已建立。
+- 每批以獨立 feature branch／PR、Batch Contract、risk-matched evidence 與明確 stop condition 執行。
 
-本表記錄截至 current substantive baseline 的完成批次；只更新本文件的 documentation-only PR 不自我列入。
+相關歷史：PR #1–#5、#7、#11。
 
-| PR | 內容 | Merge commit |
-|---|---|---|
-| `#1` | 建立 repository baseline | `93931b420669b05bb1117c9a9aadbf950753afd2` |
-| `#2` | 定稿 V1 需求與 codebase summary | `34890a3b420d3067caa91474c9ca52afc5e39c4d` |
-| `#3` | 核准 localization 技術方向 | `529ce1907884a8fea0c5f66084494ac80f8aa136` |
-| `#4` | 建立 Reviewer 原則 | `1ac34b4617903cc447a3bd24bbe5465b11b7c5f6` |
-| `#5` | 對齊專案文件與 Reviewer 原則 | `fdfeb017d5ed3c1a3216cc3620946d35dd29ac1f` |
-| `#6` | 加入 minimal localization prototype | `82512ebc4df4aa1f1902ff1dc88f44b8c9f10e28` |
-| `#7` | 對齊 Sourcebook scope 與 canonical terminology | `b3dedec03f03c9f0a88c315f0903d12faac0c847` |
-| `#8` | 只保留 Official 與 Homebrew Sourcebooks | `ef96aaec9a6442375f97582ed9c8dfac27f1bcce` |
-| `#9` | 修復 Homebrew Sourcebook deletion regression | `e1e21cd5071329f3a831d4300f99f6bdcfd91795` |
-| `#10` | 修復缺少 `languages`／`skills` 的 incomplete Homebrew Sourcebook import compatibility | `5b3a9743322704278fd943db1ad4bd6b1d3c800b` |
+### 3.2 Sourcebook／Homebrew V1 blocker work
 
----
+- Runtime 保留 Official／Homebrew，排除 Community／Third Party，且 policy 與 locale 無關。
+- Official Patreon／Playtest 保留原版 feature-flag behavior。
+- Homebrew unreferenced deletion regression 已修復。
+- 缺少 `languages`／`skills` collection 的 incomplete Homebrew import compatibility 已修復。
 
-## 5. 已完成工作摘要
+相關歷史：PR #8–#10。
 
-### 5.1 專案治理與工作流程
+### 3.3 Localization architecture
 
-- `develop` 作為整合 branch，`main` 維持 frozen baseline。
-- 每個批次使用獨立 feature branch，並透過 PR 合併。
-- Reviewer 負責需求、範圍、風險與驗收；Agent 負責實作、測試與 Git 操作。
-- 未經 Reviewer 核准不得擴大批次範圍。
-- 未經專案負責人核准不得定稿中文遊戲譯名。
+- Minimal localization prototype 已完成並通過 Reviewer／Owner acceptance；不再是待完成前置工作。
+- Locale default = `zh-TW`，可切換 `en`／`zh-TW`。
+- Locale preference 已持久化於 app `Options`，不進 Hero schema。
+- Production localization catalog／resolver／approval state／canonical-English drift 與 placeholder validation 已建立。
+- Missing／unapproved／stale translation fallback 到 canonical English。
+- 中文只走 presentation boundary，canonical Hero／Sourcebook／ID／enum／parser／save data 不變。
 
-### 5.2 Localization 核心技術方向與 prototype
+相關歷史：PR #6、#12、#13。
 
-V1 localization 的**核心技術方向已核准**：以顯示層 localization 作為 runtime 核心，並搭配 build／test-time catalog 驗證能力。
+### 3.4 已完成 production translation slices
 
-`develop` 上已有標示為 prototype 的 localization 程式碼，包含 localization context、prototype 字串來源與 locale 切換控制項，並有對應測試。此 prototype 只提供可行性證據，**production implementation 尚未完成**；library、catalog 格式、檔案位置及其他可替換的實作細節仍未定稿。
+- 第一批 Hero Edit 固定 UI actions。
+- 正式 `TRANSLATION-GLOSSARY.csv` baseline 與後續 approved standalone terms。
+- Hero Edit navigation labels。
+- Hero Edit PageState subtitles。
+- Hero Edit shell 與 section-local UI，包括多個 dynamic／composed message call sites。
+- PR #18 已完成 Reviewer second-round PASS、Owner manual smoke PASS、CI PASS 與 normal merge commit。
 
-### 5.3 Sourcebook runtime policy
+相關歷史：PR #14–#18。
 
-- 保留所有 `Official` 與所有 `Homebrew` Sourcebook。
-- 排除所有 `Community` 與 `ThirdParty` Sourcebook。
-- 不使用固定 Sourcebook ID allowlist；翻譯目標與 runtime 可用範圍分開管理。
-- 不修改既有 Hero 的 `sourcebookIDs`。
+## 4. 現行 translation／decision 規則
 
-### 5.4 Homebrew Sourcebook 相容性修復
+- 專案負責人是新中文遊戲術語、正式譯名與語意性中文修改的最終決策者。
+- 未核准的新術語保持 canonical English。
+- 已核准譯文的 singular／plural、`a/an`、大小寫、不改變語意的標點、英文 plural `s` 與 placeholder 周圍純文法調整，可依 `docs/REVIEWER-PRINCIPLES.md` 由 Reviewer／Agent 機械處理，不需逐項回問 Owner。
+- runtime translation coverage 不能決定 Sourcebook allowlist。
+- localization 不得寫回 canonical data、Hero data 或 persistence。
 
-- **Delete（PR #9）**：無引用的 Homebrew Sourcebook 可正常刪除；被引用時顯示阻擋原因且不提供刪除按鈕。
-- **Import（PR #10）**：缺少 `languages` 或 `skills` 欄位的 Homebrew Sourcebook JSON 可完成 normalization、import、persistence 與 reload。修正僅在既有 normalization boundary 補上兩個缺省集合，未變更 schema、ID、enum、save format 或 Sourcebook policy。
+## 5. 尚未完成的 V1 工作
 
----
+依現行 V1 requirements 與截至 PR #18 的 repository evidence，仍需逐步完成：
 
-## 6. 已核准的重要決策
+- Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player content 與必要 player-facing UI translation coverage。
+- Hero creation／Hero Edit 中尚未納入的 shared components、game-content panels、instructional／rules content 與其他實際 V1 player-facing surfaces。
+- Level 2／3 level-up player flow 所需 UI／game content localization 與 canonical-safety regression evidence。
+- Hero Sheet／Classic Sheet 的 V1 player-facing localization boundary 與必要 translation coverage。
+- 正式 V1 player-content manifest／translation completeness gate。
+- 依 V1 requirements 完成 save／reopen／original-save compatibility、Official／Homebrew、locale switching、Hero Sheet／output 等剩餘 required verification。
+- 專案負責人與團員的封閉 Beta。
+- 發布前 dependency/security risk decision、GPL／Draw Steel licensing／legal notice、免費 deployment 與正式發布批准。
 
-### 6.1 Localization
+未中文化的 GM、Homebrew 與其他 V1 非翻譯門檻內容，可依 requirements 繼續顯示 canonical English。
 
-- 中文化只改變顯示文字，canonical data 不因 locale 改變。
-- 英文是 fallback；未翻譯內容可顯示 canonical English。
-- 中文譯名必須由專案負責人核准；核准前一律使用 canonical English。
+## 6. 已知 deferred／後續議題
 
-### 6.2 相容性
+- PDF／PNG／print 的完整中文字型、分頁、DPI 與視覺最佳化屬 V1.1；V1 仍需最低 smoke test 並確保主要內容可讀／可操作。
+- 搜尋語言與 presentation-only localized sorting 只有在相應功能真正進入 Batch、現行 authority 無答案時才需要 Owner product decision。
+- Warehouse／PWA／cache 等只按實際觸及風險取得 evidence，不預先建立大型驗證工程。
+- 不做與 V1 localization 無關的大型 storage／schema／shared architecture refactor。
 
-不得因 localization 修改 Hero schema、Sourcebook schema、ID、enum、reference、calculation logic、save format 或既有 Hero data。Hero data 不得寫入 locale、中文顯示值或翻譯 metadata。
+## 7. Next Work
 
-### 6.3 範圍控制
+下一步不是重做 blocker gate、prototype 或完整 codebase 盤點。
 
-- 不在同一批次順手修 unrelated issue，不進行未核准的重構。
-- 不自行開始下一個批次。
-- 不修改 upstream 或 frozen `main`。
+由 Reviewer：
 
----
+1. 先讀 `docs/project-review-skill/PROJECT-REVIEW-SKILL.md` 與現行 authority。
+2. 以 `develop` 當前實際 HEAD 為 base。
+3. 從剩餘 V1 player-facing scope 中選**一個 coherent、可獨立驗收的 UI／功能 slice**。
+4. 依實際 code boundary 確定 In／Out scope、Risk、Acceptance 與必要 translation decisions。
+5. 只在有新的 blocker evidence 時中止 localization progression。
 
-## 7. 尚未完成的 V1 工作
+不要以單一詞彙、單一 call site 或為更新本文件而建立無產品價值的 micro-batch。
 
-依 `docs/requirements/V1-REQUIREMENTS.md` 與現行 repository evidence：
+## 8. Update Rules
 
-- 將已核准的 localization 核心技術方向落地為 production implementation；具體可替換實作細節仍須由後續批次與實作證據決定。
-- 正式 locale state、translation lookup、fallback 規則與 locale preference persistence。
-- 繁中／英文一鍵切換，且切換不影響 Hero data、數值與目前頁面狀態。
-- Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player content 中文定稿。
-- Hero creation、level-up 至 Level 2／3、Hero Sheet 等 player-facing flow 中文化。
-- 翻譯資料結構、approval metadata 與翻譯缺漏檢查機制。
-- V1 必測項目與封閉 Beta。
-- 授權、法律聲明與發布前置條件確認。
+本文件只在下列情況需要更新：
 
-大量 player-facing string 目前仍直接寫在 React components 內。
-
----
-
-## 8. Next Work
-
-1. 重新執行 V1 Blocker Gate，確認目前是否存在優先於 localization 的 blocker。
-2. 若沒有更高優先 blocker，再由 Reviewer 選定**唯一一個** localization batch。
-
-在該 batch 經 Reviewer 核准前，不得假定任何 localization 實作方式、範圍或 vertical slice 已獲核准，也不得開始翻譯。
-
----
-
-## 9. Deferred / 需專案負責人決定
-
-依 V1 需求第 12 節，仍然有效：
-
-- 翻譯資料的最終格式（由 prototype 或實作證據決定）。
-- 語言切換按鈕的位置與樣式。
-- 免費部署平台。
-- 正式發布所需的授權文字。
-
-暫不處理：
-
-- 與已核准 batch 無關的 baseline bug。
-- 未核准的 UI redesign。
-- 大型 storage refactor 與 schema migration。
-- Community 或 ThirdParty 內容支援。
-- V1.1 範圍。
-
-若已知問題直接阻擋 V1 核准需求，必須在進入相關 flow 前重新評估優先順序。
-
----
-
-## 10. Update Rules
-
-本文件只在下列時機更新：
-
-- 一個完整的 substantive 批次已合併至 `develop`。
-- Current substantive baseline 改變。
-- 已核准的產品決策改變。
-- Next Work 改變。
-- 新問題被正式列為 V1 blocker 或正式 deferred。
-
-只更新 `docs/PROJECT-STATUS.md` 的 documentation-only PR 不自我記錄其 PR number 或 merge SHA，也不觸發另一個 status-only 更新循環。Repository 當前 HEAD 以 `develop` 的實際 Git 狀態為準。
+- substantive milestone 已 merge 至 `develop`，使目前 phase／baseline／剩餘 V1 工作發生實質變化。
+- 已核准產品／技術決策改變。
+- 新問題正式成為 V1 blocker／deferred item。
+- handoff 摘要已明顯無法代表 repository 現況。
 
 更新時：
 
-- 不記錄每日工作流水帳、PR body、CI log 或測試清單。
-- 不記錄本機環境狀態、token、credential 或個人路徑。
-- Completed Batches 每個 PR 只保留一行摘要。
-- 已完成項目移入 Completed，不保留過時敘述。
-
-所有 `gh` write command 應明確使用 `--repo boyiad2110/forgesteel-zh-tw`。push 安全設定屬於個別 clone 的本機設定，重新 clone 後必須重新確認。
-
-詳細歷史以 GitHub 為準。
+- 不複製 PR body、完整 CI log、逐日流水帳或每一筆 test count。
+- 不把 documentation-only status update 自我加入 completed history，再觸發下一次 status-only PR。
+- 不把本機 clone 狀態、credential、token 或個人路徑寫入文件。
+- detailed history 以 GitHub PR／commit 與 Git history 為準。
