@@ -3,11 +3,12 @@
 - 文件分類：現行權威
 - 文件狀態：已核准 V1 需求
 - 核准者：專案負責人
-- 核准日期：2026-08-06
+- 初始核准日期：2026-08-06
+- 最近對齊日期：2026-08-08
 - 原版基準：`267ca1a10dcab32a700089fc65dd212dc81f880a`
 - 最終決策者：專案負責人
 
-**文件效力說明：** 本文件是 Forge Steel 繁體中文版 V1 的現行產品需求、範圍、排除項目與發布條件依據。未驗證的技術實作細節由已核准的技術方向及 prototype 證據決定；第 12 節列出的延後決策不影響其餘已核准需求的效力。
+**文件效力說明：** 本文件是 Forge Steel 繁體中文版 V1 的現行產品需求、範圍、排除項目與發布條件依據。技術實作遵循已核准的 localization 技術方向，並由後續 repository code、tests、PR、CI 與人工驗收 evidence 驗證。可替換的工程細節不得放寬本文件的產品需求與安全邊界。
 
 ## 1. 專案目標
 
@@ -22,8 +23,9 @@ V1 完成後可公開提供給台灣 Draw Steel 玩家使用。
 3. 不修改原版的計算、ID、enum、引用關係或存檔格式。
 4. 除中英文切換外，不新增或重新設計原版功能。
 5. 除明確排除的內容外，原版功能與操作流程應維持不變。
-6. 專案負責人是所有中文譯文的唯一定稿者。
-7. 在正式翻譯及術語核准開始前，所有專案文件、Agent 任務、Review、測試說明與實作註解中涉及遊戲內容的術語，均使用原版 canonical English。未經專案負責人核准，不得建立、使用或暗示任何中文譯名。
+6. 專案負責人是新中文遊戲術語、正式譯名及會改變語意之中文措辭的唯一定稿者。
+7. 未經專案負責人核准的新遊戲術語，所有專案文件、Agent 任務、Review、測試說明與實作註解均使用 canonical English，不得自行建立暫譯、中文別名或暗示正式譯名。
+8. 已核准譯文之純機械變體，例如 singular／plural、`a/an`、大小寫、不改變語意的標點、英文 plural `s` 與 placeholder 周圍的純文法調整，依 `docs/REVIEWER-PRINCIPLES.md` 處理，不需逐項重新送交專案負責人核准。
 
 ## 3. V1 範圍
 
@@ -36,7 +38,7 @@ V1 保留凍結基準中所有分類為 `SourcebookType.Official` 的內容；�
 - Beastheart
 - Summoner
 
-Core、Orden、Beastheart、Summoner 是已知的 Official Sourcebooks 與主要翻譯目標，但不是 runtime 唯一允許的 Sourcebooks。V1 必須完成中文定稿的官方玩家內容限於 Core、Orden、Beastheart、Summoner 中建立與使用 Level 1–3 Hero 所需的內容。其他允許的 Official Sourcebooks，包括 Patreon／Playtest，可依原版條件使用 canonical 英文，不列入 V1 翻譯完整性發布門檻。Homebrew 內容與功能保留，但不屬於專案負責人必須完成中文定稿或翻譯缺漏 gate 的範圍。
+Core、Orden、Beastheart、Summoner 是已知的 Official Sourcebooks 與主要翻譯目標，但不是 runtime 唯一允許的 Sourcebooks。V1 必須完成中文定稿的官方玩家內容限於 Core、Orden、Beastheart、Summoner 中建立與使用 Level 1–3 Hero 所需的內容。其他允許的 Official Sourcebooks，包括 Patreon／Playtest，可依原版條件使用 canonical English，不列入 V1 翻譯完整性發布門檻。Homebrew 內容與功能保留，但不屬於專案負責人必須完成中文定稿或翻譯缺漏 gate 的範圍。
 
 V1 必須涵蓋建立與使用上述四個 Sourcebooks 之 Level 1–3 Hero 所需的玩家內容，包括 required Hero options、game content、explanatory text 與 player-facing UI。
 
@@ -66,7 +68,7 @@ V1 必須涵蓋建立與使用上述四個 Sourcebooks 之 Level 1–3 Hero 所�
 
 Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Party 不得載入、顯示，或出現在選單、搜尋、隨機產生及 Hero creation flow。切換繁中／英文不得改變允許的 Sourcebook set。
 
-中文模式沒有譯文時，允許的 Official、Homebrew 或 GM 內容可以顯示 canonical 英文。不得因 Sourcebook filtering 而刪除或修改既有使用者資料。
+中文模式沒有譯文時，允許的 Official、Homebrew 或 GM 內容可以顯示 canonical English。不得因 Sourcebook filtering 而刪除或修改既有使用者資料。
 
 ## 5. 中英文切換
 
@@ -82,13 +84,14 @@ Official 與 Homebrew 維持原版載入與操作行為。Community 與 Third Pa
 ## 6. 翻譯規則
 
 1. AI 可提取原文、提出建議並標記漏翻、錯字、格式與術語問題。
-2. AI 不得自行覆寫或修改正式中文譯文。
-3. 所有中文修改都必須由專案負責人確認。
-4. `develop` 可暫時保留英文。
-5. V1 正式版不得在 Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player flows 及其必要 player-facing UI 中出現未翻譯內容；其他允許的 Official、Homebrew 與 GM 內容可依本文件規定顯示 canonical 英文。
-6. 玩家自行輸入的名稱與文字保持原樣，不自動翻譯。
+2. AI 不得自行覆寫專案負責人已定稿之譯文語意，也不得自行建立新的正式中文遊戲術語。
+3. 新中文遊戲術語、新正式譯名、會改變語意的中文措辭，以及既有譯文的語意性修改，必須由專案負責人確認。
+4. 已核准譯文的純機械變體依 `docs/REVIEWER-PRINCIPLES.md` 處理，不視為新的翻譯決策。
+5. `develop` 可暫時保留英文 fallback。
+6. V1 正式版不得在 Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player flows 及其必要 player-facing UI 中出現未翻譯內容；其他允許的 Official、Homebrew 與 GM 內容可依本文件規定顯示 canonical English。
+7. 玩家自行輸入的名稱與文字保持原樣，不自動翻譯。
 
-翻譯資料必須能唯一對應 V1 顯示項目、保留 canonical 英文基準、記錄正式中文核准狀態，並能偵測相關英文原文變更。具體資料格式與 metadata 欄位依已核准技術方向及 prototype 證據決定。
+翻譯資料必須能唯一對應 V1 顯示項目、保留 canonical English 基準、記錄正式中文核准狀態，並能偵測相關英文原文變更。現行 production implementation 使用獨立 localization catalog／resolver 與 build／test-time validation；其具體 TypeScript 結構、檔案拆分與 validator 執行方式可在不改變核准架構與安全邊界的前提下演進。
 
 ## 7. 相容性與版面
 
@@ -158,17 +161,22 @@ V1 必須同時符合：
 7. 授權與發布文字已確認。
 8. 專案負責人批准正式發布。
 
-## 12. 未驗證事項與決策時點
+## 12. 決策時點
 
-### 12.1 由 prototype 或實作證據決定
+### 12.1 已由實作證據解決
 
-- 翻譯資料的最終格式
+- **Localization production data format／runtime core：** 已採獨立 production localization catalog + presentation-only resolver + build／test-time validation。此項不再等待 prototype 決定；可替換工程細節仍依核准架構與現行 repository evidence 演進。
+- **Locale preference persistence：** locale 已納入 app `Options`，不進入 Hero schema；後續只有在出現新的相容性證據時才需要重新評估。
 
 ### 12.2 相應工作開始時由專案負責人裁定
 
-- 語言切換按鈕的位置與樣式
+只有現行 requirement、已核准技術方向與 repository evidence 無法決定的真正產品取捨，才交由專案負責人。
+
 - 免費部署平台
 - 正式發布所需的授權文字
+- 其他實際進入相關功能時才浮現、且無法由既有 authority 解決的產品取捨
+
+語言切換控制若現行實作已滿足 V1 requirement 並通過人工驗收，不因文件仍保留舊的「位置與樣式待決」描述而要求重新開啟設計。
 
 ### 12.3 不屬於 V1 本輪決策
 
