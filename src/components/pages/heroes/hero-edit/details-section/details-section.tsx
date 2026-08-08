@@ -21,7 +21,9 @@ import { Sourcebook } from '@/models/sourcebook';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
 import { useHeroes } from '@/contexts/data-context';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './details-section.scss';
 
@@ -36,19 +38,24 @@ interface DetailsSectionProps {
 }
 
 export const DetailsSection = (props: DetailsSectionProps) => {
+	const { locale } = useLocalization();
 	const allHeroes = useHeroes();
 	const folders = allHeroes
 		.map(h => h.folder)
 		.filter(f => !!f)
 		.sort();
 
+	// These features exist only to be drawn: the panel below shows their name and hands the
+	// hero's own feature ID back to setFeatureData, so a localized name here is display text
+	// and never reaches the hero, the feature IDs, the options or the selected values. The
+	// feature's own name, where it has one, is element data and stays canonical.
 	const languageFeatures = HeroLogic.getFeatures(props.hero)
 		.map(f => f.feature)
 		.filter(f => f.type === FeatureType.LanguageChoice)
 		.map(f => {
 			return FactoryLogic.feature.createLanguageChoice({
 				id: f.id,
-				name: f.name || 'Language',
+				name: f.name || localizeUIString(locale, 'hero-edit.details.language', 'Language'),
 				options: [ ...f.data.options ],
 				allowedTypes: [ ...f.data.allowedTypes ],
 				count: f.data.count,
@@ -62,7 +69,7 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 		.map(f => {
 			return FactoryLogic.feature.createSkillChoice({
 				id: f.id,
-				name: 'Skill',
+				name: localizeUIString(locale, 'hero-edit.details.skill', 'Skill'),
 				options: [ ...f.data.options ],
 				listOptions: [ ...f.data.listOptions ],
 				count: f.data.count,
@@ -77,11 +84,11 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 		<div className='hero-edit-content details-section'>
 			<div className='hero-edit-content-column selected' id='details-main'>
 				<SelectablePanel>
-					<HeaderText>Name</HeaderText>
+					<HeaderText>{localizeUIString(locale, 'hero-edit.name', 'Name')}</HeaderText>
 					<Space.Compact style={{ width: '100%' }}>
 						<TextInput
 							status={props.hero.name === '' ? 'warning' : ''}
-							placeholder='Name'
+							placeholder={localizeUIString(locale, 'hero-edit.name', 'Name')}
 							allowClear={true}
 							value={props.hero.name}
 							onChange={props.setName}
@@ -90,11 +97,11 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 					</Space.Compact>
 				</SelectablePanel>
 				<SelectablePanel>
-					<HeaderText>Portrait</HeaderText>
+					<HeaderText>{localizeUIString(locale, 'hero-edit.details.portrait', 'Portrait')}</HeaderText>
 					{
 						props.hero.picture ?
 							<Flex align='center' justify='center' gap={10}>
-								<img className='portrait-edit' src={props.hero.picture} title='Portrait' />
+								<img className='portrait-edit' src={props.hero.picture} title={localizeUIString(locale, 'hero-edit.details.portrait', 'Portrait')} />
 								<DangerButton mode='clear' onConfirm={() => props.setPicture(null)} />
 							</Flex>
 							:
@@ -117,21 +124,21 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 							>
 								<Button>
 									<DownloadOutlined />
-									Choose a picture
+									{localizeUIString(locale, 'hero-edit.details.choose-picture', 'Choose a picture')}
 								</Button>
 							</Upload>
 					}
 				</SelectablePanel>
 				<SelectablePanel>
 					<HeaderText
-						extra={<Info>You can add your hero to a folder to group it with other heroes.</Info>}
+						extra={<Info>{localizeUIString(locale, 'hero-edit.details.folder-explanation', 'You can add your hero to a folder to group it with other heroes.')}</Info>}
 					>
-						Folder
+						{localizeUIString(locale, 'hero-edit.details.folder', 'Folder')}
 					</HeaderText>
 					<AutoComplete
 						options={Collections.distinct(folders, f => f).map(option => ({ value: option, label: option }))}
 						optionRender={o => <div className='ds-text'>{o.data.label}</div>}
-						placeholder='Folder'
+						placeholder={localizeUIString(locale, 'hero-edit.details.folder', 'Folder')}
 						allowClear={true}
 						showSearch={{ filterOption: true }}
 						value={props.hero.folder}
@@ -145,7 +152,7 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 			</div>
 			<div className='hero-edit-content-column selected'>
 				<Expander
-					title='Language Choices'
+					title={localizeUIString(locale, 'hero-edit.details.language-choices', 'Language Choices')}
 					expandedByDefault={!languagesDone}
 					extra={[
 						languagesDone ?
@@ -171,7 +178,7 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 					}
 				</Expander>
 				<Expander
-					title='Skill Choices'
+					title={localizeUIString(locale, 'hero-edit.details.skill-choices', 'Skill Choices')}
 					expandedByDefault={!skillsDone}
 					extra={[
 						skillsDone ?

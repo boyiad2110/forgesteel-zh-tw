@@ -30,9 +30,7 @@ vi.mock('@/hooks/use-is-small', () => ({ useIsSmall: () => viewport.isSmall }));
 
 const navigation = vi.hoisted(() => ({ goToHeroView: vi.fn(), goToHeroEdit: vi.fn() }));
 vi.mock('@/hooks/use-navigation', () => ({ useNavigation: () => navigation }));
-vi.mock('@/hooks/use-title', () => ({ useTitle: vi.fn() }));
 vi.mock('@/components/controls/error-boundary/error-boundary', () => ({ ErrorBoundary: ({ children }: { children: ReactNode }) => <>{children}</> }));
-vi.mock('@/components/panels/app-header/app-header', () => ({ AppHeader: ({ children }: { children: ReactNode }) => <header>{children}</header> }));
 // The real footer is exercised by app-footer.localization.test.tsx; here it is reduced to
 // the shared control under test, so the switch still goes through the real LocaleToggle.
 vi.mock('@/components/panels/app-footer/app-footer', () => ({ AppFooter: () => <footer><LocaleToggle /></footer> }));
@@ -126,7 +124,40 @@ afterEach(cleanup);
 beforeEach(() => {
 	viewport.isSmall = false;
 	loadedHeroes.current = [ testHero ];
+	document.title = '';
 	vi.clearAllMocks();
+});
+
+describe('HeroEditPage shell', () => {
+	// The browser title and the desktop header name the same thing, so they draw the same
+	// approved text rather than two separately localized copies of it.
+	it('draws the approved zh-TW builder name in the browser title and the desktop header, and canonical English in the English locale', () => {
+		renderHeroEditPage();
+
+		expect(document.title).toBe('Forge Steel - 創建英雄');
+		expect(screen.getByText('創建英雄')).toBeTruthy();
+		expect(screen.queryByText('Hero Builder')).toBeNull();
+
+		fireEvent.click(getLocaleToggle());
+
+		expect(document.title).toBe('Forge Steel - Hero Builder');
+		expect(screen.getByText('Hero Builder')).toBeTruthy();
+		expect(screen.queryByText('創建英雄')).toBeNull();
+	});
+
+	// The small screen has never carried the builder name; localizing it must not add it.
+	it('draws no builder name in the small-screen header, in either locale', () => {
+		viewport.isSmall = true;
+		renderHeroEditPage();
+
+		expect(screen.queryByText('創建英雄')).toBeNull();
+		expect(screen.queryByText('Hero Builder')).toBeNull();
+
+		fireEvent.click(getLocaleToggle());
+
+		expect(screen.queryByText('創建英雄')).toBeNull();
+		expect(screen.queryByText('Hero Builder')).toBeNull();
+	});
 });
 
 describe('HeroEditPage navigation labels', () => {

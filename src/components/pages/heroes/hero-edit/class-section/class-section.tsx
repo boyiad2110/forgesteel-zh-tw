@@ -31,9 +31,30 @@ import { SubclassPanel } from '@/components/panels/elements/subclass-panel/subcl
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLocalization } from '@/contexts/localization-context';
 import { useOptions } from '@/contexts/data-context';
 
+import { localizeMessage, localizeUIString } from '@/localization/resolver';
+
 import './class-section.scss';
+
+// The characteristics are drawn in bold inside a sentence that reads in a different order in
+// each locale, so the emphasis is placed by finding the value in the resolved text rather
+// than by assuming where in the sentence it sits.
+const withEmphasis = (text: string, emphasized: string) => {
+	const index = emphasized ? text.indexOf(emphasized) : -1;
+	if (index < 0) {
+		return text;
+	}
+
+	return (
+		<>
+			{text.slice(0, index)}
+			<b>{emphasized}</b>
+			{text.slice(index + emphasized.length)}
+		</>
+	);
+};
 
 const matchElement = (element: Element, searchTerm: string) => {
 	const name = element.name.toLowerCase();
@@ -59,9 +80,40 @@ interface Props {
 
 export const ClassSection = (props: Props) => {
 	const isSmall = useIsSmall();
+	const { locale } = useLocalization();
 	const appOptions = useOptions();
 	const [ selectedSubClass, setSelectedSubClass ] = useState<SubClass | null>(null);
 	const [ subclassSelectorOpen, setSubclassSelectorOpen ] = useState<boolean>(false);
+
+	// The subclass name is the class's own data and is interpolated as it is; only the
+	// sentence around it is presentation. English needs an article that depends on that name,
+	// so each English form has its own approved entry.
+	const getSubclassPrompt = (heroClass: HeroClass) => {
+		if (heroClass.subclassCount === 1) {
+			const subclassName = heroClass.subclassName || 'subclass';
+			return Format.startsWithVowel(subclassName) ?
+				localizeMessage(locale, 'hero-edit.class.choose-subclass-an', { subclassName: subclassName }, 'Choose an {subclassName}.')
+				:
+				localizeMessage(locale, 'hero-edit.class.choose-subclass-a', { subclassName: subclassName }, 'Choose a {subclassName}.');
+		}
+
+		return localizeMessage(
+			locale,
+			'hero-edit.class.choose-subclasses',
+			{ count: `${heroClass.subclassCount}`, subclassName: heroClass.subclassName || 'subclasse' },
+			'Choose {count} {subclassName}s.'
+		);
+	};
+
+	// The selector button says the same thing as the singular prompt, without the full stop,
+	// and picks its English article from the same name for the same reason.
+	const getSubclassButtonLabel = (heroClass: HeroClass) => {
+		const subclassName = heroClass.subclassName || 'subclass';
+		return Format.startsWithVowel(subclassName) ?
+			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-an', { subclassName: subclassName }, 'Choose an {subclassName}')
+			:
+			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-a', { subclassName: subclassName }, 'Choose a {subclassName}');
+	};
 
 	const getClassOptions = (heroClass: HeroClass) => {
 		const options = {
@@ -75,21 +127,21 @@ export const ClassSection = (props: Props) => {
 
 		options.choices.push(
 			<SelectablePanel key='class-level'>
-				<HeaderText>Level</HeaderText>
+				<HeaderText>{localizeUIString(locale, 'hero-edit.class.level', 'Level')}</HeaderText>
 				<NumberSpin
 					value={heroClass.level}
 					min={1}
 					max={heroClass.featuresByLevel.length}
 					onChange={value => props.setLevel(value)}
 				/>
-				<Field label='XP' value={props.hero.state.xp} />
+				<Field label={localizeUIString(locale, 'hero-edit.class.xp', 'XP')} value={props.hero.state.xp} />
 				{
 					HeroLogic.canLevelUp(props.hero, appOptions) ?
 						<Button
 							className='status-warning'
 							onClick={() => props.setLevel(heroClass.level + 1)}
 						>
-							Advance to level {heroClass.level + 1}
+							{localizeMessage(locale, 'hero-edit.class.advance-to-level', { level: `${heroClass.level + 1}` }, 'Advance to level {level}')}
 						</Button>
 						: null
 				}
@@ -110,7 +162,7 @@ export const ClassSection = (props: Props) => {
 			options.choices.push(
 				<SelectablePanel key='subclass'>
 					<HeaderText>{heroClass.subclassName}</HeaderText>
-					<div className='ds-text'>Choose {heroClass.subclassCount === 1 ? `${Format.startsWithVowel(heroClass.subclassName || 'subclass') ? 'an' : 'a'} ${heroClass.subclassName || 'subclass'}` : `${heroClass.subclassCount} ${heroClass.subclassName || 'subclasse'}s`}.</div>
+					<div className='ds-text'>{getSubclassPrompt(heroClass)}</div>
 					{
 						heroClass.subclasses
 							.filter(sc => sc.selected)
@@ -125,14 +177,14 @@ export const ClassSection = (props: Props) => {
 										<Button
 											style={{ flex: '0 0 auto' }}
 											type='text'
-											title='Select'
+											title={localizeUIString(locale, 'hero-edit.class.subclass-info', 'Select')}
 											icon={<InfoCircleOutlined />}
 											onClick={() => setSelectedSubClass(sc)}
 										/>
 										<Button
 											style={{ flex: '0 0 auto' }}
 											type='text'
-											title='Remove'
+											title={localizeUIString(locale, 'hero-edit.remove', 'Remove')}
 											icon={<CloseOutlined />}
 											onClick={() => props.removeSubclass(sc.id)}
 										/>
@@ -143,7 +195,7 @@ export const ClassSection = (props: Props) => {
 					{
 						heroClass.subclasses.filter(sc => sc.selected).length < heroClass.subclassCount ?
 							<Button className='status-warning' block={true} onClick={() => setSubclassSelectorOpen(true)}>
-								Choose {Format.startsWithVowel(heroClass.subclassName || 'subclass') ? 'an' : 'a'} {heroClass.subclassName || 'subclass'}
+								{getSubclassButtonLabel(heroClass)}
 							</Button>
 							: null
 					}
@@ -231,12 +283,12 @@ export const ClassSection = (props: Props) => {
 			{
 				choicesByLevel.length > 0 ?
 					<div className='hero-edit-content-column selected' id='class-choices'>
-						<HeaderText>Choices</HeaderText>
+						<HeaderText>{localizeUIString(locale, 'hero-edit.choices', 'Choices')}</HeaderText>
 						{
 							choicesByLevel.map(lvl => (
 								<Expander
 									key={lvl.level}
-									title={lvl.level === 0 ? 'Class Choices' : `Level ${lvl.level} Choices`}
+									title={lvl.level === 0 ? localizeUIString(locale, 'hero-edit.class.class-choices', 'Class Choices') : localizeMessage(locale, 'hero-edit.class.level-choices', { level: `${lvl.level}` }, 'Level {level} Choices')}
 									expandedByDefault={!lvl.completed}
 									extra={[
 										lvl.completed ?
@@ -248,7 +300,7 @@ export const ClassSection = (props: Props) => {
 										{lvl.choices}
 										{
 											lvl.choices.length === 0 ?
-												<Empty text='Nothing to choose for this level' />
+												<Empty text={localizeUIString(locale, 'hero-edit.class.nothing-to-choose', 'Nothing to choose for this level')} />
 												: null
 										}
 									</Space>
@@ -275,6 +327,8 @@ interface CharacteristicsProps {
 }
 
 const Characteristics = (props: CharacteristicsProps) => {
+	const { locale } = useLocalization();
+
 	const getArray = () => {
 		let currentArray: number[] = [];
 
@@ -311,7 +365,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 						: null
 				}
 			>
-				Characteristics
+				{localizeUIString(locale, 'hero-edit.class.characteristics', 'Characteristics')}
 			</HeaderText>
 		);
 	};
@@ -321,12 +375,12 @@ const Characteristics = (props: CharacteristicsProps) => {
 			<>
 				{getHeader()}
 				<div className='ds-text'>
-					Your class allows you to choose your primary characteristics.
+					{localizeUIString(locale, 'hero-edit.class.choose-primary-characteristics', 'Your class allows you to choose your primary characteristics.')}
 				</div>
 				<Select
 					style={{ width: '100%' }}
 					status='warning'
-					placeholder='Select your primary characteristics'
+					placeholder={localizeUIString(locale, 'hero-edit.class.select-primary-characteristics', 'Select your primary characteristics')}
 					options={props.heroClass.primaryCharacteristicsOptions.map(a => ({ value: a.join(', '), array: a }))}
 					optionRender={option => <div className='ds-text'>{option.data.value}</div>}
 					value={props.heroClass.primaryCharacteristics && (props.heroClass.primaryCharacteristics.length > 0) ? props.heroClass.primaryCharacteristics.join(', ') : null}
@@ -345,7 +399,17 @@ const Characteristics = (props: CharacteristicsProps) => {
 				{getHeader()}
 				<Space orientation='vertical' style={{ width: '100%' }}>
 					<div className='ds-text'>
-						You start with a 2 in <b>{props.heroClass.primaryCharacteristics.join(' and ')}</b>. Choose the set of values you'd like for your other characteristics.
+						{
+							withEmphasis(
+								localizeMessage(
+									locale,
+									'hero-edit.class.characteristic-array',
+									{ primaryCharacteristics: props.heroClass.primaryCharacteristics.join(' and ') },
+									'You start with a 2 in {primaryCharacteristics}. Choose the set of values you\'d like for your other characteristics.'
+								),
+								props.heroClass.primaryCharacteristics.join(' and ')
+							)
+						}
 					</div>
 					{
 						HeroLogic.getCharacteristicArrays(props.heroClass.primaryCharacteristics.length)
@@ -365,7 +429,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 			<>
 				{getHeader()}
 				<div className='ds-text'>
-					Choose your characteristics.
+					{localizeUIString(locale, 'hero-edit.class.choose-characteristics', 'Choose your characteristics.')}
 				</div>
 				{
 					HeroLogic.calculateCharacteristicArrays(array, props.heroClass.primaryCharacteristics)

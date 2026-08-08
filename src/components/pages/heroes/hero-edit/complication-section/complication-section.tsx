@@ -14,7 +14,9 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './complication-section.scss';
 
@@ -37,6 +39,7 @@ interface Props {
 
 export const ComplicationSection = (props: Props) => {
 	const isSmall = useIsSmall();
+	const { locale } = useLocalization();
 
 	const listElementRef = useRef<HTMLDivElement>(null);
 	const scrollPositionRef = useRef(0);
@@ -112,7 +115,7 @@ export const ComplicationSection = (props: Props) => {
 			{
 				choices.length > 0 ?
 					<div className='hero-edit-content-column selected' id='complication-choices'>
-						<HeaderText>Choices</HeaderText>
+						<HeaderText>{localizeUIString(locale, 'hero-edit.choices', 'Choices')}</HeaderText>
 						{choices}
 					</div>
 					: null

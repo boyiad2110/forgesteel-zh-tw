@@ -14,7 +14,9 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './ancestry-section.scss';
 
@@ -37,6 +39,7 @@ interface Props {
 
 export const AncestrySection = (props: Props) => {
 	const isSmall = useIsSmall();
+	const { locale } = useLocalization();
 
 	const ancestries = SourcebookLogic.getAncestries(props.sourcebooks).map(Utils.copy).filter(a => matchElement(a, props.searchTerm));
 	const options = ancestries.map(a => (
@@ -90,7 +93,7 @@ export const AncestrySection = (props: Props) => {
 			{
 				choices.length > 0 ?
 					<div className='hero-edit-content-column selected' id='ancestry-choices'>
-						<HeaderText>Choices</HeaderText>
+						<HeaderText>{localizeUIString(locale, 'hero-edit.choices', 'Choices')}</HeaderText>
 						{choices}
 					</div>
 					: null

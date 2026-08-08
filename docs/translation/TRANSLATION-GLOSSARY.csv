@@ -10,3 +10,30 @@ Optional,非強制,ui,approved
 Not Started,尚未開始,ui,approved
 In Progress,進行中,ui,approved
 Completed,已完成,ui,approved
+Save Changes,儲存變更,ui,approved
+Cancel,取消,ui,approved
+Random,隨機選擇,ui,approved
+Unselect,取消選擇,ui,approved
+Hero Builder,創建英雄,ui,approved
+Choices,選項,ui,approved
+Name,名稱,ui,approved
+Remove,移除,ui,approved
+Portrait,肖像,ui,approved
+Folder,資料夾,ui,approved
+Language Choices,語言選項,ui,approved
+Skill Choices,技能選項,ui,approved
+Bespoke,自訂,game-term,approved
+Bespoke Culture,自訂文化,game-term,approved
+Bespoke Cultures,自訂文化,game-term,approved
+Ancestral Cultures,族裔文化,game-term,approved
+Professional Cultures,專業文化,game-term,approved
+Environment,生活環境,game-term,approved
+Organization,組織型態,game-term,approved
+Upbringing,成長經歷,game-term,approved
+Inciting Incident,關鍵事件,game-term,approved
+Level,等級,game-term,approved
+XP,XP,game-term,approved
+Characteristics,屬性,game-term,approved
+Primary Characteristics,主要屬性,game-term,approved
+Language,語言,game-term,approved
+Skill,技能,game-term,approved

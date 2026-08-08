@@ -19,7 +19,9 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './career-section.scss';
 
@@ -43,6 +45,7 @@ interface Props {
 
 export const CareerSection = (props: Props) => {
 	const isSmall = useIsSmall();
+	const { locale } = useLocalization();
 	const [ showIncitingIncidents, setShowIncitingIncidents ] = useState<boolean>(false);
 
 	const careers = SourcebookLogic.getCareers(props.sourcebooks).map(Utils.copy).filter(c => matchElement(c, props.searchTerm));
@@ -65,7 +68,7 @@ export const CareerSection = (props: Props) => {
 
 		choices.push(
 			<SelectablePanel key='inciting-incident'>
-				<HeaderText>Inciting Incident</HeaderText>
+				<HeaderText>{localizeUIString(locale, 'hero-edit.career.inciting-incident', 'Inciting Incident')}</HeaderText>
 				{
 					props.hero.career.incitingIncidents.selected ?
 						<SelectionBox
@@ -80,7 +83,7 @@ export const CareerSection = (props: Props) => {
 						/>
 						:
 						<Button block={true} className='status-warning' onClick={() => setShowIncitingIncidents(true)}>
-							Choose an inciting incident
+							{localizeUIString(locale, 'hero-edit.career.choose-inciting-incident', 'Choose an inciting incident')}
 						</Button>
 				}
 			</SelectablePanel>
@@ -121,7 +124,7 @@ export const CareerSection = (props: Props) => {
 				{
 					choices.length > 0 ?
 						<div className='hero-edit-content-column selected' id='career-choices'>
-							<HeaderText>Choices</HeaderText>
+							<HeaderText>{localizeUIString(locale, 'hero-edit.choices', 'Choices')}</HeaderText>
 							{choices}
 						</div>
 						: null

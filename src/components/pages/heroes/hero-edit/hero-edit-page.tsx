@@ -94,7 +94,10 @@ export const HeroEditPage = (props: Props) => {
 	const [ hero, setHero ] = useState<Hero>(Utils.copy(originalHero));
 	const [ dirty, setDirty ] = useState<boolean>(false);
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
-	useTitle('Hero Builder');
+	// The browser title and the desktop header name the same thing, so they are drawn from
+	// one resolved value rather than localized twice.
+	const heroBuilderName = localizeUIString(locale, 'hero-edit.hero-builder', 'Hero Builder');
+	useTitle(heroBuilderName);
 
 	const getPageState = (page: HeroEditTab) => {
 		switch (page) {
@@ -633,7 +636,7 @@ export const HeroEditPage = (props: Props) => {
 	return (
 		<ErrorBoundary>
 			<div className='hero-edit-page'>
-				<AppHeader subheader='Hero Builder'>
+				<AppHeader subheader={heroBuilderName}>
 					<ButtonGroup
 						buttons={[
 							{ type: 'control', control: <SearchBox disabled={!allowSearch()} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> },
