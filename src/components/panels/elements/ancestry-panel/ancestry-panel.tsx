@@ -16,6 +16,8 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './ancestry-panel.scss';
@@ -28,7 +30,10 @@ interface Props {
 }
 
 export const AncestryPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
+
+	const ancestryName = props.ancestry.name || localizeUIString(locale, 'ancestry-panel.unnamed', 'Unnamed Ancestry');
 
 	const getOverview = () => {
 		return (
@@ -58,7 +63,7 @@ export const AncestryPanel = (props: Props) => {
 
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
-				<Field label='Ancestry Points' value={props.ancestry.ancestryPoints} />
+				<Field label={localizeUIString(locale, 'ancestry-panel.ancestry-points', 'Ancestry Points')} value={props.ancestry.ancestryPoints} />
 				{
 					features.map(f => (
 						<SelectablePanel key={f.feature.id}>
@@ -95,14 +100,15 @@ export const AncestryPanel = (props: Props) => {
 				break;
 		}
 
+		// The value is what the panel is on; the label beside it is only how that page reads.
 		const pages = [
-			{ value: 'overview', label: 'Overview' },
-			{ value: 'signature', label: 'Signature' },
-			{ value: 'purchased', label: 'Purchased' }
+			{ value: 'overview', label: localizeUIString(locale, 'ancestry-panel.page.overview', 'Overview') },
+			{ value: 'signature', label: localizeUIString(locale, 'ancestry-panel.page.signature', 'Signature') },
+			{ value: 'purchased', label: localizeUIString(locale, 'ancestry-panel.page.purchased', 'Purchased') }
 		];
 
 		if (props.ancestry.culture) {
-			pages.push({ value: 'culture', label: 'Culture' });
+			pages.push({ value: 'culture', label: localizeUIString(locale, 'ancestry-panel.page.culture', 'Culture') });
 		}
 
 		return (
@@ -132,7 +138,7 @@ export const AncestryPanel = (props: Props) => {
 		return (
 			<div className='ancestry-panel compact'>
 				<HeaderText level={1} tags={tags}>
-					{props.ancestry.name || 'Unnamed Ancestry'}
+					{ancestryName}
 				</HeaderText>
 				<Markdown text={props.ancestry.description} />
 			</div>
@@ -143,7 +149,7 @@ export const AncestryPanel = (props: Props) => {
 		<ErrorBoundary>
 			<div className='ancestry-panel' id={SheetFormatter.getPageId('ancestry', props.ancestry.id)}>
 				<HeaderText level={1} tags={tags}>
-					{props.ancestry.name || 'Unnamed Ancestry'}
+					{ancestryName}
 				</HeaderText>
 				{getContent()}
 			</div>
