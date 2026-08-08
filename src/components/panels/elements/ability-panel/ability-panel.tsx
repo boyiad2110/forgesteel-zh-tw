@@ -9,7 +9,7 @@ import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { localizeElementField } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
 import { useLocalization } from '@/contexts/localization-context';
@@ -194,7 +194,7 @@ export const AbilityPanel = (props: Props) => {
 	const getRibbon = () => {
 		if (isSignature) {
 			return (
-				<Pill>Signature</Pill>
+				<Pill>{localizeUIString(locale, 'ability-panel.signature-badge', 'Signature')}</Pill>
 			);
 		}
 

@@ -19,7 +19,9 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { localizeUIString } from '@/localization/resolver';
 import { useClipboard } from '@/hooks/use-clipboard';
+import { useLocalization } from '@/contexts/localization-context';
 import { useOptions } from '@/contexts/data-context';
 
 import './feature-panel.scss';
@@ -36,6 +38,7 @@ interface Props {
 }
 
 export const FeaturePanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 	const options = useOptions();
 	const clipboard = useClipboard();
@@ -48,7 +51,7 @@ export const FeaturePanel = (props: Props) => {
 			if (props.sourcebooks && (props.sourcebooks.length > 0)) {
 				const sourcebookType = SourcebookLogic.getPerkSourcebook(props.sourcebooks, props.feature as Perk)?.type || SourcebookType.Official;
 				if (sourcebookType !== SourcebookType.Official) {
-					tags.push(sourcebookType);
+					tags.push(sourcebookType === SourcebookType.Homebrew ? localizeUIString(locale, 'element-header.sourcebook-type.homebrew', 'Homebrew') : sourcebookType);
 				}
 			}
 
@@ -66,7 +69,7 @@ export const FeaturePanel = (props: Props) => {
 		if (props.feature.type === FeatureType.HeroicResource) {
 			switch (props.feature.data.type) {
 				case 'heroic':
-					tags.push('Heroic Resource');
+					tags.push(localizeUIString(locale, 'feature-panel.heroic-resource', 'Heroic Resource'));
 					break;
 				case 'epic':
 					tags.push('Epic Resource');
@@ -130,7 +133,7 @@ export const FeaturePanel = (props: Props) => {
 				<HeaderText
 					ribbon={
 						props.cost === 'signature' ?
-							<Pill>Signature</Pill>
+							<Pill>{localizeUIString(locale, 'feature-panel.signature-badge', 'Signature')}</Pill>
 							:
 							props.cost ?
 								<ResourcePill value={props.cost} repeatable={props.repeatable} />
