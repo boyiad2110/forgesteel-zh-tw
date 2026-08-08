@@ -9,6 +9,8 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './complication-panel.scss';
 
@@ -20,11 +22,13 @@ interface Props {
 }
 
 export const ComplicationPanel = (props: Props) => {
+	const { locale } = useLocalization();
+	const complicationName = props.complication.name || localizeUIString(locale, 'complication-panel.unnamed', 'Unnamed Complication');
 	const tags = [];
 	if (props.sourcebooks.length > 0) {
 		const sourcebookType = SourcebookLogic.getComplicationSourcebook(props.sourcebooks, props.complication)?.type || SourcebookType.Official;
 		if (sourcebookType !== SourcebookType.Official) {
-			tags.push(sourcebookType);
+			tags.push(sourcebookType === SourcebookType.Homebrew ? localizeUIString(locale, 'element-header.sourcebook-type.homebrew', 'Homebrew') : sourcebookType);
 		}
 	}
 
@@ -32,7 +36,7 @@ export const ComplicationPanel = (props: Props) => {
 		<ErrorBoundary>
 			<div className={props.mode === PanelMode.Full ? 'complication-panel' : 'complication-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('complication', props.complication.id) : undefined}>
 				<HeaderText level={1} tags={tags}>
-					{props.complication.name || 'Unnamed Complication'}
+					{complicationName}
 				</HeaderText>
 				<Markdown text={props.complication.description} />
 				{

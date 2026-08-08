@@ -35,12 +35,13 @@ export const CulturePanel = (props: Props) => {
 	const { locale } = useLocalization();
 
 	const cultureTypeTag = cultureTypeTags.find(t => t.type === props.culture.type);
-	// The sourcebook type tag beside it is not localized here, and is still its canonical value.
+	// Only the approved Homebrew reading changes at this presentation boundary; all other
+	// SourcebookType values remain their canonical values for lookup and fallback.
 	const tags: string[] = [ cultureTypeTag ? localizeUIString(locale, cultureTypeTag.key, cultureTypeTag.tag) : props.culture.type ];
 	if (props.sourcebooks.length > 0) {
 		const sourcebookType = SourcebookLogic.getCultureSourcebook(props.sourcebooks, props.culture)?.type || SourcebookType.Official;
 		if (sourcebookType !== SourcebookType.Official) {
-			tags.push(sourcebookType);
+			tags.push(sourcebookType === SourcebookType.Homebrew ? localizeUIString(locale, 'element-header.sourcebook-type.homebrew', 'Homebrew') : sourcebookType);
 		}
 	}
 

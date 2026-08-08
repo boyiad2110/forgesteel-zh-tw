@@ -130,7 +130,7 @@ export const AncestryPanel = (props: Props) => {
 	if (props.sourcebooks.length > 0) {
 		const sourcebookType = SourcebookLogic.getAncestrySourcebook(props.sourcebooks, props.ancestry)?.type || SourcebookType.Official;
 		if (sourcebookType !== SourcebookType.Official) {
-			tags.push(sourcebookType);
+			tags.push(sourcebookType === SourcebookType.Homebrew ? localizeUIString(locale, 'element-header.sourcebook-type.homebrew', 'Homebrew') : sourcebookType);
 		}
 	}
 
