@@ -1,6 +1,5 @@
 import { Button, Divider, Flex, Space, Upload, notification } from 'antd';
 import { localizeMessage, localizeUIString } from '@/localization/resolver';
-import { AppLocale } from '@/localization/locale';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -18,18 +17,13 @@ import './hero-sourcebooks-panel.scss';
 
 const notAvailableTemplate = '{sourcebookType} sourcebooks are not available in this edition.';
 
-// The SourcebookType value is what filters, compares and gets reported; this only says how
-// to read it. A type with no approved reading is shown as the canonical value it is.
-const localizeSourcebookType = (locale: AppLocale, type: SourcebookType) => {
-	switch (type) {
-		case SourcebookType.Official:
-			return localizeUIString(locale, 'hero-sourcebooks.type.official', SourcebookType.Official);
-		case SourcebookType.Homebrew:
-			return localizeUIString(locale, 'hero-sourcebooks.type.homebrew', SourcebookType.Homebrew);
-		default:
-			return type;
-	}
-};
+// The sourcebook types a hero can draw on, and the heading each one's section carries. The
+// SourcebookType value is what filters and compares; the heading beside it is only how that
+// section is read.
+const sourcebookTypeSections = [
+	{ type: SourcebookType.Official, headingKey: 'hero-sourcebooks.type-sourcebooks.official', heading: 'Official Sourcebooks' },
+	{ type: SourcebookType.Homebrew, headingKey: 'hero-sourcebooks.type-sourcebooks.homebrew', heading: 'Homebrew Sourcebooks' }
+];
 
 interface Props {
 	sourcebooks: Sourcebook[];
@@ -56,13 +50,13 @@ export const HeroSourcebooksPanel = (props: Props) => {
 			</div>
 			<Space orientation='vertical' style={{ width: '100%' }}>
 				{
-					[ SourcebookType.Official, SourcebookType.Homebrew ]
-						.map(type => ({ type: type, sourcebooks: props.sourcebooks.filter(sb => sb.type === type).filter(sb => SourcebookLogic.getElements(sb).length > 0) }))
+					sourcebookTypeSections
+						.map(section => ({ ...section, sourcebooks: props.sourcebooks.filter(sb => sb.type === section.type).filter(sb => SourcebookLogic.getElements(sb).length > 0) }))
 						.filter(item => item.sourcebooks.length > 0)
 						.map(item => (
 							<div key={item.type} className='sourcebook-type-section'>
 								<HeaderText level={3}>
-									{localizeMessage(locale, 'hero-sourcebooks.type-sourcebooks', { sourcebookType: localizeSourcebookType(locale, item.type) }, '{sourcebookType} Sourcebooks')}
+									{localizeUIString(locale, item.headingKey, item.heading)}
 								</HeaderText>
 								{
 									item.sourcebooks.map(sb => (
