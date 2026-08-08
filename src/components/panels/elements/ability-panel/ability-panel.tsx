@@ -289,7 +289,7 @@ export const AbilityPanel = (props: Props) => {
 						ribbon={getRibbon()}
 						tags={props.tags}
 					>
-						{displayName || 'Unnamed Ability'}
+						{displayName || localizeUIString(locale, 'ability-panel.unnamed', 'Unnamed Ability')}
 					</HeaderText>
 					<Markdown text={props.ability.description} className='ability-description-text' />
 				</div>
@@ -327,13 +327,13 @@ export const AbilityPanel = (props: Props) => {
 									}
 									: null,
 								options.showClipboardOptions ?
-									{ type: 'button', icon: <CopyOutlined />, tooltip: 'Copy Ability', onClick: () => clipboard.setData(props.ability) }
+									{ type: 'button', icon: <CopyOutlined />, tooltip: localizeUIString(locale, 'ability-panel.copy', 'Copy Ability'), onClick: () => clipboard.setData(props.ability) }
 									: null
 							]}
 						/>
 					}
 				>
-					{displayName || 'Unnamed Ability'}
+					{displayName || localizeUIString(locale, 'ability-panel.unnamed', 'Unnamed Ability')}
 				</HeaderText>
 				<Markdown text={props.ability.description} className='ability-description-text' />
 				{

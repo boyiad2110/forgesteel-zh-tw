@@ -176,5 +176,10 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'ui', key: 'ability-panel.signature-badge', canonicalEnglish: 'Signature', zhTW: '招牌', approval: 'approved' },
 	// The HeroicResource feature type and its 'heroic' / 'epic' data stay canonical; only
 	// this approved heroic header tag is presented in zh-TW.
-	{ kind: 'ui', key: 'feature-panel.heroic-resource', canonicalEnglish: 'Heroic Resource', zhTW: '英雄資源', approval: 'approved' }
+	{ kind: 'ui', key: 'feature-panel.heroic-resource', canonicalEnglish: 'Heroic Resource', zhTW: '英雄資源', approval: 'approved' },
+	{ kind: 'ui', key: 'feature-panel.unnamed', canonicalEnglish: 'Unnamed Feature', zhTW: '未命名特性', approval: 'approved' },
+	{ kind: 'ui', key: 'feature-panel.notes', canonicalEnglish: 'Notes', zhTW: '備註', approval: 'approved' },
+	{ kind: 'ui', key: 'feature-panel.copy', canonicalEnglish: 'Copy Feature', zhTW: '複製特性', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-panel.unnamed', canonicalEnglish: 'Unnamed Ability', zhTW: '未命名招式', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-panel.copy', canonicalEnglish: 'Copy Ability', zhTW: '複製招式', approval: 'approved' }
 ];
