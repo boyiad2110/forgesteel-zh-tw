@@ -66,8 +66,4 @@ Unnamed Culture,未命名文化,ui,approved
 Subclass,子範型,game-term,approved
 Unnamed Subclass,未命名子範型,ui,approved
 Signature Abilities,招牌招式,game-term,approved
-Abilities,招式,game-term,approved
-Subclasses,子範型,game-term,approved
-Level {level},{level} 級,message,approved
-{cost}pt Abilities,{cost} 費招式,message,approved
 Unnamed Class,未命名範型,ui,approved
