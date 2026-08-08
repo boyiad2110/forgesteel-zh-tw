@@ -169,5 +169,12 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	// This tag reads the canonical SourcebookType.Homebrew value only at a hero element's
 	// presentation boundary. Every other sourcebook type falls back to its canonical value.
 	{ kind: 'ui', key: 'element-header.sourcebook-type.homebrew', canonicalEnglish: 'Homebrew', zhTW: '自製', approval: 'approved' },
-	{ kind: 'ui', key: 'complication-panel.unnamed', canonicalEnglish: 'Unnamed Complication', zhTW: '未命名糾葛', approval: 'approved' }
+	{ kind: 'ui', key: 'complication-panel.unnamed', canonicalEnglish: 'Unnamed Complication', zhTW: '未命名糾葛', approval: 'approved' },
+	// Each Signature badge is limited to its own panel header context; neither entry reads
+	// the canonical cost sentinel or the standalone word in another player-facing context.
+	{ kind: 'ui', key: 'feature-panel.signature-badge', canonicalEnglish: 'Signature', zhTW: '招牌', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-panel.signature-badge', canonicalEnglish: 'Signature', zhTW: '招牌', approval: 'approved' },
+	// The HeroicResource feature type and its 'heroic' / 'epic' data stay canonical; only
+	// this approved heroic header tag is presented in zh-TW.
+	{ kind: 'ui', key: 'feature-panel.heroic-resource', canonicalEnglish: 'Heroic Resource', zhTW: '英雄資源', approval: 'approved' }
 ];
