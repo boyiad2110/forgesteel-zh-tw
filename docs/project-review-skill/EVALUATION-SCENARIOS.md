@@ -209,7 +209,28 @@
 
 ---
 
-## Scenario 10 — Review Round Pressure
+## Scenario 10 — Stale Stage 3 Handoff After Remote Progress
+
+### Prompt
+
+> 前一位執行者可能已 push、建立 PR 或 merge，但新 Agent 收到的 handoff 仍說 feature branch 尚未 push。新 Agent 應如何繼續？
+
+### Expected behavior
+
+- 在任何 write 前先 read-only 查詢 remote feature branch／HEAD、PR state／base／head、CI 與 `origin/develop`。
+- 若 PR 已 merge，驗證 merge result、`develop`、required CI 與 feature commit ancestry；local 與 remote SHA 不同時以 tree equivalence 判定 recovery cleanup 安全性。
+- 只有 remote state 證明尚未開始 closeout 才執行正常 Stage 3。
+- 不 push、force push、rebase、reset、amend、重建 branch、建立第二個 PR 或重複 merge。
+
+### Failure indicators
+
+- 直接依舊 handoff push feature branch。
+- 在未查 PR 或 CI 前建立第二個 PR 或再次 merge。
+- 以 local SHA 不同為由自行改寫 remote 或 local history。
+
+---
+
+## Scenario 11 — Review Round Pressure
 
 ### Prompt
 

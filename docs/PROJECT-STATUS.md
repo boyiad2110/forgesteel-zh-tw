@@ -8,8 +8,8 @@
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active integration branch：`develop`
 - Current `develop` / `origin/develop` baseline：
-  `7daeb0b8397df3d94a2164589efe42e193ad16a3`
-- Latest merged substantive PR：`#18 feat: localize hero edit section UI`
+  `e5ecd389729272dda439dbadfb25175230004655`
+- Latest merged substantive PR：`#25 feat: localize subclass panel interface`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
 - Current phase：**production localization 已建立，正在以 coherent V1 player-facing slices 逐步擴充 coverage**。
@@ -72,9 +72,10 @@
 - Hero Edit navigation labels。
 - Hero Edit PageState subtitles。
 - Hero Edit shell 與 section-local UI，包括多個 dynamic／composed message call sites。
-- PR #18 已完成 Reviewer second-round PASS、Owner manual smoke PASS、CI PASS 與 normal merge commit。
+- PR #19–#25 延續 coherent player-facing localization progression；完成內容包含 Hero Edit 週邊 UI 與 SubclassPanel 自身介面框架。
+- PR #25 將 SubclassPanel 的介面標籤、頁籤與等級／費用格式接入既有 localization catalog，同時保持 canonical game data、numeric ability cost、`signature` sentinel 與 page state 原值。
 
-相關歷史：PR #14–#18。
+相關歷史：PR #14–#25。
 
 ## 4. 現行 translation／decision 規則
 
@@ -86,7 +87,7 @@
 
 ## 5. 尚未完成的 V1 工作
 
-依現行 V1 requirements 與截至 PR #18 的 repository evidence，仍需逐步完成：
+依現行 V1 requirements 與截至 PR #25 的 repository evidence，仍需逐步完成：
 
 - Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player content 與必要 player-facing UI translation coverage。
 - Hero creation／Hero Edit 中尚未納入的 shared components、game-content panels、instructional／rules content 與其他實際 V1 player-facing surfaces。

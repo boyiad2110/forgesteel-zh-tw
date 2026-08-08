@@ -145,3 +145,13 @@ Reviewer PASS、manual gate PASS、approved HEAD 固定後，仍要求 Agent 在
 修正：
 
 若 Reviewer 已明確授權完整 Stage 3，可一次執行 `push → PR → CI → merge → sync → cleanup`；只有 repository／SHA／diff／CI／mergeability／ancestry 等 gate 出現異常才停止。
+
+## 15. Stage 3 換手時直接依舊 handoff 續跑
+
+錯誤：
+
+新 Agent 依前一位執行者的最後報告直接 push、建立 PR 或 merge，沒有先確認 remote branch、PR、CI 與 `origin/develop` 的 actual state。
+
+修正：
+
+Stage 3 換手、中斷，或 prior executor 可能做過 GitHub write 時，先只做 read-only reconciliation。確認 remote branch HEAD、PR state／base／head、CI、`origin/develop`、ancestry；local 與 remote commit identity 不同時再確認 tree equivalence。任何不一致先走 recovery path，不直接 push、force 或改寫 history。
