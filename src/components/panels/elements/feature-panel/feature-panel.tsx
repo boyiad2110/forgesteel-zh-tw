@@ -152,13 +152,13 @@ export const FeaturePanel = (props: Props) => {
 									}
 									: null,
 								options.showClipboardOptions ?
-									{ type: 'button', icon: <CopyOutlined />, tooltip: 'Copy Feature', onClick: () => clipboard.setData(props.feature) }
+									{ type: 'button', icon: <CopyOutlined />, tooltip: localizeUIString(locale, 'feature-panel.copy', 'Copy Feature'), onClick: () => clipboard.setData(props.feature) }
 									: null
 							]}
 						/>
 					}
 				>
-					{customization?.name || props.feature.name || 'Unnamed Feature'}
+					{customization?.name || props.feature.name || localizeUIString(locale, 'feature-panel.unnamed', 'Unnamed Feature')}
 				</HeaderText>
 				<Markdown
 					text={
@@ -180,7 +180,7 @@ export const FeaturePanel = (props: Props) => {
 				{
 					customization && customization.notes ?
 						<Field
-							label='Notes'
+							label={localizeUIString(locale, 'feature-panel.notes', 'Notes')}
 							value={<Markdown text={customization.notes} useSpan={true} />}
 						/>
 						: null
