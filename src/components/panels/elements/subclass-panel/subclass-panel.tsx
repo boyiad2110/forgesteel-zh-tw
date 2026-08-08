@@ -165,7 +165,7 @@ export const SubclassPanel = (props: Props) => {
 	if (props.sourcebooks.length > 0) {
 		const sourcebookType = SourcebookLogic.getSubclassSourcebook(props.sourcebooks, props.subclass)?.type || SourcebookType.Official;
 		if (sourcebookType !== SourcebookType.Official) {
-			tags.push(sourcebookType);
+			tags.push(sourcebookType === SourcebookType.Homebrew ? localizeUIString(locale, 'element-header.sourcebook-type.homebrew', 'Homebrew') : sourcebookType);
 		}
 	}
 
