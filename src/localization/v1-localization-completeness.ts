@@ -1,12 +1,12 @@
 import {
-	LocalizationEntry,
-	getEntryIdentity
-} from '@/localization/catalog';
-import {
 	CanonicalEnglishSource,
 	LocalizationCatalogIssue,
 	validateLocalizationCatalog
 } from '@/localization/catalog-validator';
+import {
+	LocalizationEntry,
+	getEntryIdentity
+} from '@/localization/catalog';
 import { V1LocalizationUnresolvedDomain } from '@/localization/v1-localization-manifest';
 
 export interface V1LocalizationCompletenessInput {

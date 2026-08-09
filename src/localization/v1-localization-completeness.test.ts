@@ -1,6 +1,8 @@
+/* eslint-disable sort-imports */
+
+import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { LocalizationEntry } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
-import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { v1LocalizationManifest } from '@/localization/v1-localization-manifest';
 import { describe, expect, it } from 'vitest';
 
