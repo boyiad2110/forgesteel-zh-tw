@@ -2,6 +2,7 @@ import { AppFooter, FooterParams } from '@/components/panels/app-footer/app-foot
 import { Button, Divider, Space, Tabs, Upload } from 'antd';
 import { DownloadOutlined, PlusOutlined, TeamOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Hero, HeroOverview } from '@/models/hero';
+import { localizeMessage, localizeUIString } from '@/localization/resolver';
 import { useHeroes, useHiddenSourcebookIDs, useOptions } from '@/contexts/data-context';
 import { useMemo, useState } from 'react';
 import { AppHeader } from '@/components/panels/app-header/app-header';
@@ -20,6 +21,7 @@ import { SelectablePanel } from '@/components/controls/selectable-panel/selectab
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLocalization } from '@/contexts/localization-context';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useParams } from 'react-router';
 import { useTitle } from '@/hooks/use-title';
@@ -36,13 +38,17 @@ interface Props {
 }
 
 export const HeroListPage = (props: Props) => {
+	const { locale } = useLocalization();
 	const isSmall = useIsSmall();
 	const navigation = useNavigation();
 	const { folder } = useParams<{ folder: string }>();
 	const [ previousTab, setPreviousTab ] = useState<string | undefined>(folder);
 	const [ currentTab, setCurrentTab ] = useState<string>(folder ?? '');
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
-	useTitle('Heroes');
+	// The one reading of 'Heroes' the page uses for its title, its header and the tab a hero
+	// with no folder of its own sits under. A folder the player named is their text, not this.
+	const heroesLabel = localizeUIString(locale, 'hero-list.heroes', 'Heroes');
+	useTitle(heroesLabel);
 	const options = useOptions();
 	const fullHeroes = useHeroes();
 	const hiddenSourcebookIDs = useHiddenSourcebookIDs();
@@ -117,19 +123,19 @@ export const HeroListPage = (props: Props) => {
 	return (
 		<ErrorBoundary>
 			<div className='hero-list-page'>
-				<AppHeader subheader='Heroes'>
+				<AppHeader subheader={heroesLabel}>
 					<ButtonGroup
 						buttons={[
 							{ type: 'control', control: <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> },
 							{
 								type: 'dropdown',
-								label: isSmall ? undefined : 'Add',
+								label: isSmall ? undefined : localizeUIString(locale, 'hero-list.add', 'Add'),
 								icon: <PlusOutlined />,
 								primary: true,
 								popover: (
 									<Space orientation='vertical' style={{ width: '300px' }}>
 										<Button type='primary' block={true} icon={<PlusOutlined />} onClick={() => props.addHero(currentTab)}>
-											Create a New Hero
+											{localizeUIString(locale, 'hero-list.create-hero', 'Create a New Hero')}
 										</Button>
 										<Divider />
 										<Upload
@@ -147,13 +153,13 @@ export const HeroListPage = (props: Props) => {
 											}}
 										>
 											<Button block={true} icon={<DownloadOutlined />}>
-												Import a Hero File
+												{localizeUIString(locale, 'hero-list.import-hero', 'Import a Hero File')}
 											</Button>
 										</Upload>
 										<Button block={true} icon={<ThunderboltOutlined />} onClick={() => props.importHero(HeroLogic.createRandomHero(props.sourcebooks.filter(sb => !hiddenSourcebookIDs.includes(sb.id))), currentTab)}>
-											Generate a Random Hero
+											{localizeUIString(locale, 'hero-list.random-hero', 'Generate a Random Hero')}
 										</Button>
-										<Expander title='Use a premade example'>
+										<Expander title={localizeUIString(locale, 'hero-list.premade-example', 'Use a premade example')}>
 											<Space orientation='vertical' style={{ width: '100%', maxHeight: '220px', overflowY: 'auto' }}>
 												{
 													PregenData.getPregens().map(p => (
@@ -177,7 +183,7 @@ export const HeroListPage = (props: Props) => {
 							},
 							{
 								type: 'button',
-								label: isSmall ? undefined : 'Party',
+								label: isSmall ? undefined : localizeUIString(locale, 'hero-list.party', 'Party'),
 								icon: <TeamOutlined />,
 								disabled: getHeroes(currentTab).filter(h => h.isActive).length < 2,
 								onClick: () => props.showParty(currentTab)
@@ -194,14 +200,19 @@ export const HeroListPage = (props: Props) => {
 								label: (
 									<div className='section-header'>
 										<div className='section-title'>
-											{f || 'Heroes'}
+											{f || heroesLabel}
 										</div>
 										<div className='section-count'>
 											{
 												getHeroes(f).every(h => h.isActive) ?
 													`${getHeroes(f).length}`
 													:
-													`${getHeroes(f).filter(h => h.isActive).length} of ${getHeroes(f).length}`
+													localizeMessage(
+														locale,
+														'hero-list.active-count',
+														{ active: getHeroes(f).filter(h => h.isActive).length.toString(), total: getHeroes(f).length.toString() },
+														'{active} of {total}'
+													)
 											}
 										</div>
 									</div>

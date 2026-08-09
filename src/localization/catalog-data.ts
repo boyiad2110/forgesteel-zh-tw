@@ -333,5 +333,46 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'ui', key: 'config-skill-choice.duplicated', canonicalEnglish: 'Duplicated', zhTW: '已重複', approval: 'approved' },
 	{ kind: 'ui', key: 'config-skill-choice.duplicated-message', canonicalEnglish: 'You already have this skill.', zhTW: '你已經擁有此技能。', approval: 'approved' },
 	// Choosing languages; the language names stay canonical for the same reason.
-	{ kind: 'ui', key: 'config-language-choice.choose-language', canonicalEnglish: 'Choose a language', zhTW: '選擇 1 種語言', approval: 'approved' }
+	{ kind: 'ui', key: 'config-language-choice.choose-language', canonicalEnglish: 'Choose a language', zhTW: '選擇 1 種語言', approval: 'approved' },
+	// The hero list's management shell. 英雄 names the page, the header and the tab a hero
+	// with no folder sits under; a folder the player named is their own text and is shown
+	// exactly as they typed it, even when they happen to have typed 英雄.
+	{ kind: 'ui', key: 'hero-list.heroes', canonicalEnglish: 'Heroes', zhTW: '英雄', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-list.add', canonicalEnglish: 'Add', zhTW: '新增', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-list.create-hero', canonicalEnglish: 'Create a New Hero', zhTW: '創建新英雄', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-list.import-hero', canonicalEnglish: 'Import a Hero File', zhTW: '匯入英雄檔案', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-list.random-hero', canonicalEnglish: 'Generate a Random Hero', zhTW: '隨機生成英雄', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-list.premade-example', canonicalEnglish: 'Use a premade example', zhTW: '使用預建範例', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-list.party', canonicalEnglish: 'Party', zhTW: '隊伍', approval: 'approved' },
+	// How many heroes in a folder are shown. Both numbers are counted from the heroes
+	// themselves and interpolated; the reading only changes the word between them.
+	{ kind: 'message', key: 'hero-list.active-count', canonicalEnglish: '{active} of {total}', zhTW: '{active} / {total}', placeholders: [ 'active', 'total' ], approval: 'approved' },
+	// The hero overview's labels and fallback. The values beside them - the hero's name,
+	// folder, ancestry, background, class and complication - are the hero's own data and stay
+	// canonical; Ancestry, Class and Complication resolve through their existing entries.
+	{ kind: 'ui', key: 'hero-overview.show-hide', canonicalEnglish: 'Show / Hide', zhTW: '顯示 / 隱藏', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-overview.unnamed', canonicalEnglish: 'Unnamed Hero', zhTW: '未命名英雄', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-overview.background', canonicalEnglish: 'Background', zhTW: '背景', approval: 'approved' },
+	// The hero view's management shell. The hero handed to each action, the section and folder
+	// each navigation targets, and the export resolutions all stay exactly as they were.
+	{ kind: 'ui', key: 'hero-view.hero', canonicalEnglish: 'Hero', zhTW: '英雄', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.not-found', canonicalEnglish: 'This hero could not be found. It may have been deleted, or the link points to a hero that only exists on another device.', zhTW: '找不到英雄。這名英雄可能已被刪除，或此連結指向僅存於其他裝置上的英雄。', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.edit', canonicalEnglish: 'Edit', zhTW: '編輯', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.copy', canonicalEnglish: 'Copy', zhTW: '複製', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.export', canonicalEnglish: 'Export', zhTW: '匯出', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.delete', canonicalEnglish: 'Delete', zhTW: '刪除', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.close', canonicalEnglish: 'Close', zhTW: '關閉', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.pdf-hint', canonicalEnglish: 'If you want to export your hero as a PDF, switch to Classic view.', zhTW: '若要將英雄匯出為 PDF，請切換至經典檢視。', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.classic', canonicalEnglish: 'Classic', zhTW: '經典', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.export-pdf', canonicalEnglish: 'Export as PDF', zhTW: '匯出為 PDF', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.export-pdf-high', canonicalEnglish: 'Export as PDF (high res)', zhTW: '匯出為 PDF（高解析度）', approval: 'approved' },
+	{ kind: 'ui', key: 'hero-view.export-data', canonicalEnglish: 'Export as Data', zhTW: '匯出資料', approval: 'approved' },
+	// The view selector's mode tooltips. 'modern', 'classic', 'abilities' and 'notes' remain
+	// the values the selector reports and the page switches on. 'Print' has no approved
+	// reading in this batch and so has no entry: it resolves to its canonical English.
+	// 筆記 is this tab's approved reading; the feature panel's own Notes section keeps 備註.
+	{ kind: 'ui', key: 'view-selector.modern', canonicalEnglish: 'Interactive View (for on-screen use)', zhTW: '互動檢視（螢幕用）', approval: 'approved' },
+	{ kind: 'ui', key: 'view-selector.classic', canonicalEnglish: 'Classic View (for exporting)', zhTW: '經典檢視（匯出用）', approval: 'approved' },
+	{ kind: 'ui', key: 'view-selector.abilities', canonicalEnglish: 'Standard Abilities', zhTW: '標準招式', approval: 'approved' },
+	{ kind: 'ui', key: 'view-selector.notes', canonicalEnglish: 'Notes', zhTW: '筆記', approval: 'approved' }
 ];

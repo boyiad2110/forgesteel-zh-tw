@@ -4,6 +4,8 @@ import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { HeroOverview } from '@/models/hero';
 import { HeroOverviewToken } from '@/components/panels/token/token';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './hero-overview-panel.scss';
 
@@ -16,6 +18,10 @@ interface Props {
 }
 
 export const HeroOverviewPanel = (props: Props) => {
+	const { locale } = useLocalization();
+
+	// Only the labels and the unnamed fallback are read here. The hero's name, folder and
+	// every value beside a label is the hero's own data, and is shown exactly as it is held.
 	return (
 		<div className='hero-overview-panel'>
 			<HeaderText
@@ -30,7 +36,7 @@ export const HeroOverviewPanel = (props: Props) => {
 								{
 									type: 'button',
 									icon: props.visibility.visible ? <EyeOutlined /> : <EyeInvisibleOutlined />,
-									tooltip: 'Show / Hide',
+									tooltip: localizeUIString(locale, 'hero-overview.show-hide', 'Show / Hide'),
 									onClick: () => props.visibility!.onSetVisibility(!props.visibility!.visible)
 								}
 								: null
@@ -38,12 +44,12 @@ export const HeroOverviewPanel = (props: Props) => {
 					/>
 				}
 			>
-				{props.hero.name || 'Unnamed Hero'}
+				{props.hero.name || localizeUIString(locale, 'hero-overview.unnamed', 'Unnamed Hero')}
 			</HeaderText>
-			{props.hero.ancestry ? <Field compact={true} label='Ancestry' value={props.hero.ancestry} /> : null}
-			{props.hero.background ? <Field compact={true} label='Background' value={props.hero.background} /> : null}
-			{props.hero.class ? <Field compact={true} label='Class' value={props.hero.class} /> : null}
-			{props.hero.complication ? <Field compact={true} label='Complication' value={props.hero.complication} /> : null}
+			{props.hero.ancestry ? <Field compact={true} label={localizeUIString(locale, 'hero-edit.tab.ancestry', 'Ancestry')} value={props.hero.ancestry} /> : null}
+			{props.hero.background ? <Field compact={true} label={localizeUIString(locale, 'hero-overview.background', 'Background')} value={props.hero.background} /> : null}
+			{props.hero.class ? <Field compact={true} label={localizeUIString(locale, 'hero-edit.tab.class', 'Class')} value={props.hero.class} /> : null}
+			{props.hero.complication ? <Field compact={true} label={localizeUIString(locale, 'hero-edit.tab.complication', 'Complication')} value={props.hero.complication} /> : null}
 		</div>
 	);
 };
