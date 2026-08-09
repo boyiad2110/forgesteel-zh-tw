@@ -84,6 +84,22 @@
 - 只 snapshot 大型 UI 而沒有行為 assertion。
 - 為了 coverage 加入無法保護 requirement 的測試。
 
+## Responsive / Delegated Fallback
+
+- 若 responsive、compact、mobile 或 icon-only 走的是 materially relevant 的不同 render path，targeted behavior test 應覆蓋代表性 branch，而不是只測 desktop。
+- shared／delegated component 若含 fallback、default label 或 mode-dependent presentation，必須驗證最終 rendered public behavior，不能只檢查直接 call site 傳入的 argument。
+- 只有在該 branch 無法可靠自動測試時，才補最小 manual smoke。
+
+## Intermittent / Flaky Verification
+
+- failure 必須如實回報。
+- 後續 rerun green 不會抹除先前 failure；兩者都要出現在 evidence 中。
+- 不得只反覆 rerun 到綠燈，然後宣稱全部通過。
+- 疑似 unrelated、baseline 或 intermittent 的 failure，以最低足夠 isolation evidence 判斷，例如：isolation run、排除本批 tests 後仍可重現、確認本批未觸及相關 dependency／call path。
+- 不得為求綠燈修改 timeout、test config 或無關 production code。
+- Reviewer 具備 isolation evidence 時，可將該 failure 列為 Non-blocking Observation，而不是自動升為 blocker。
+- Stage 3 required CI failure 一律 STOP，不得 merge。
+
 ## Mutation-style Evidence
 
 只有在以下情況使用：
