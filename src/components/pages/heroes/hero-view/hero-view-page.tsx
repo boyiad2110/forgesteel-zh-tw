@@ -31,8 +31,10 @@ import { StandardAbilitiesPage } from '@/components/pages/heroes/hero-sheet/stan
 import { SummoningInfo } from '@/models/summon';
 import { Title } from '@/models/title';
 import { ViewSelector } from '@/components/panels/view-selector/view-selector';
+import { localizeUIString } from '@/localization/resolver';
 import { useHeroes } from '@/contexts/data-context';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLocalization } from '@/contexts/localization-context';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useParams } from 'react-router';
 import { useTitle } from '@/hooks/use-title';
@@ -73,6 +75,7 @@ interface Props {
 }
 
 export const HeroViewPage = (props: Props) => {
+	const { locale } = useLocalization();
 	const isSmall = useIsSmall();
 	const navigation = useNavigation();
 	const { heroID } = useParams<{ heroID: string }>();
@@ -82,18 +85,19 @@ export const HeroViewPage = (props: Props) => {
 		() => heroes.find(h => h.id === heroID),
 		[ heroID, heroes ]
 	);
-	useTitle(hero?.name || 'Unnamed Hero');
+	// The hero's own name is what the player typed; only the fallback beside it is read.
+	useTitle(hero?.name || localizeUIString(locale, 'hero-overview.unnamed', 'Unnamed Hero'));
 
 	if (!hero) {
 		return (
 			<div className='hero-view-page'>
-				<AppHeader subheader='Hero' />
+				<AppHeader subheader={localizeUIString(locale, 'hero-view.hero', 'Hero')} />
 				<ErrorBoundary>
 					<div className={isSmall ? 'hero-view-page-content compact' : 'hero-view-page-content'}>
 						<Alert
 							type='warning'
 							showIcon={true}
-							title='This hero could not be found. It may have been deleted, or the link points to a hero that only exists on another device.'
+							title={localizeUIString(locale, 'hero-view.not-found', 'This hero could not be found. It may have been deleted, or the link points to a hero that only exists on another device.')}
 						/>
 					</div>
 				</ErrorBoundary>
@@ -167,14 +171,15 @@ export const HeroViewPage = (props: Props) => {
 	return (
 		<ErrorBoundary>
 			<div className='hero-view-page'>
-				<AppHeader subheader='Hero'>
+				<AppHeader subheader={localizeUIString(locale, 'hero-view.hero', 'Hero')}>
 					<ButtonGroup
 						buttons={[
-							{ type: 'button', label: isSmall ? undefined : 'Edit', icon: <EditOutlined />, onClick: () => navigation.goToHeroEdit(heroID!, 'details') },
-							{ type: 'button', label: isSmall ? undefined : 'Copy', icon: <CopyOutlined />, onClick: () => props.copyHero(hero) },
+							{ type: 'button', label: isSmall ? undefined : localizeUIString(locale, 'hero-view.edit', 'Edit'), icon: <EditOutlined />, onClick: () => navigation.goToHeroEdit(heroID!, 'details') },
+							// The hero handed to each action below is the hero itself, unchanged.
+							{ type: 'button', label: isSmall ? undefined : localizeUIString(locale, 'hero-view.copy', 'Copy'), icon: <CopyOutlined />, onClick: () => props.copyHero(hero) },
 							{
 								type: 'dropdown',
-								label: isSmall ? undefined : 'Export',
+								label: isSmall ? undefined : localizeUIString(locale, 'hero-view.export', 'Export'),
 								icon: <UploadOutlined />,
 								popover: (
 									<div style={{ width: '325px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -183,32 +188,33 @@ export const HeroViewPage = (props: Props) => {
 												<Alert
 													type='info'
 													showIcon={true}
-													title='If you want to export your hero as a PDF, switch to Classic view.'
-													action={<Button onClick={() => setView('classic')}>Classic</Button>}
+													title={localizeUIString(locale, 'hero-view.pdf-hint', 'If you want to export your hero as a PDF, switch to Classic view.')}
+													action={<Button onClick={() => setView('classic')}>{localizeUIString(locale, 'hero-view.classic', 'Classic')}</Button>}
 												/>
 												: null
 										}
 										{
 											view === 'classic' ?
 												<>
-													<Button onClick={() => props.exportHeroPdf(hero, 'standard')}>Export as PDF</Button>
-													<Button onClick={() => props.exportHeroPdf(hero, 'high')}>Export as PDF (high res)</Button>
+													<Button onClick={() => props.exportHeroPdf(hero, 'standard')}>{localizeUIString(locale, 'hero-view.export-pdf', 'Export as PDF')}</Button>
+													<Button onClick={() => props.exportHeroPdf(hero, 'high')}>{localizeUIString(locale, 'hero-view.export-pdf-high', 'Export as PDF (high res)')}</Button>
 												</>
 												: null
 										}
 										{
 											view === 'abilities' ?
-												<Button onClick={() => props.exportStandardAbilities()}>Export as PDF</Button>
+												<Button onClick={() => props.exportStandardAbilities()}>{localizeUIString(locale, 'hero-view.export-pdf', 'Export as PDF')}</Button>
 												: null
 										}
 										<Divider />
-										<Button onClick={() => props.exportHeroData(hero)}>Export as Data</Button>
+										<Button onClick={() => props.exportHeroData(hero)}>{localizeUIString(locale, 'hero-view.export-data', 'Export as Data')}</Button>
 									</div>
 								)
 							},
-							{ type: 'danger', label: isSmall ? undefined : 'Delete', icon: <DeleteOutlined />, onClick: () => props.deleteHero(hero) },
+							{ type: 'danger', label: isSmall ? undefined : localizeUIString(locale, 'hero-view.delete', 'Delete'), icon: <DeleteOutlined />, onClick: () => props.deleteHero(hero) },
 							{ type: 'control', control: <ViewSelector value={view} mode='hero' onChange={setView} /> },
-							{ type: 'button', label: isSmall ? undefined : 'Close', icon: <CloseOutlined />, onClick: () => navigation.goToHeroList(hero.folder) }
+							// The folder is the hero's own, so closing returns to where it lives.
+							{ type: 'button', label: isSmall ? undefined : localizeUIString(locale, 'hero-view.close', 'Close'), icon: <CloseOutlined />, onClick: () => navigation.goToHeroList(hero.folder) }
 						]}
 					/>
 				</AppHeader>
