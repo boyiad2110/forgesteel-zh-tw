@@ -17,7 +17,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 	unresolvedDomains: [
 		{ id: 'official-ability-authored-content', description: 'Official ability authored content has not been enumerated.' },
 		{ id: 'class-and-subclass-level-content', description: 'Class and subclass level content has not been enumerated.' },
-		{ id: 'skills-and-languages', description: 'Skill and language localization identities need an owner decision.' },
+		{ id: 'skills-and-languages', description: 'Skill and language localization identities have not been defined.' },
 		{ id: 'hero-sheet', description: 'Hero Sheet player-facing content has not been bounded.' },
 		{ id: 'hero-edit-semantic-keys', description: 'Hero Edit semantic required keys have not been enumerated.' }
 	]
