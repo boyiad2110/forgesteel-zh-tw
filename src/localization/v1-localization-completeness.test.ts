@@ -129,16 +129,18 @@ describe('V1 localization completeness', () => {
 		expect(result.complete).toBe(true);
 	});
 
-	it('keeps the current V1 manifest incomplete until its domains are enumerated', () => {
+	it('keeps the current V1 manifest incomplete until its remaining domains are enumerated', () => {
 		const result = analyzeV1LocalizationCompleteness({
 			...v1LocalizationManifest,
 			catalogEntries: productionLocalizationEntries
 		});
 
-		expect(result.requiredCount).toBe(0);
+		expect(result.requiredCount).toBeGreaterThan(0);
+		expect(result.missing.length).toBeGreaterThan(0);
 		expect(result.unresolvedDomains.map(domain => domain.id)).toEqual([
 			'official-ability-authored-content',
 			'class-and-subclass-level-content',
+			'hero-creation-nested-authored-content',
 			'skills-and-languages',
 			'hero-sheet',
 			'hero-edit-semantic-keys'
