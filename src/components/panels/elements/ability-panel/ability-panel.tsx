@@ -9,7 +9,7 @@ import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { localizeElementField, localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
 import { useLocalization } from '@/contexts/localization-context';
@@ -54,6 +54,11 @@ export const AbilityPanel = (props: Props) => {
 
 	const keywords = AbilityLogic.getKeywords(props.ability, props.hero);
 	const isSignature = (props.cost ?? props.ability.cost) === 'signature';
+	const getCostUnits = (cost: number) => localizeUIString(
+		locale,
+		cost === 1 ? 'ability-panel.cost-unit.pt' : 'ability-panel.cost-unit.pts',
+		cost === 1 ? 'pt' : 'pts'
+	);
 
 	const getCost = () => {
 		if (isSignature) {
@@ -118,73 +123,73 @@ export const AbilityPanel = (props: Props) => {
 		if ((conditions.includes(ConditionType.Bleeding) || ((state === 'dying') && (props.ability.id !== AbilityData.catchBreath.id))) && [ AbilityUsage.MainAction, AbilityUsage.Trigger ].includes(props.ability.type.usage)) {
 			warnings.push({
 				label: ConditionType.Bleeding,
-				text: `After using this ability, you lose 1d6 + ${level} Stamina.`
+				text: localizeMessage(locale, 'ability-panel.warning.bleeding', { level: level.toString() }, 'After using this ability, you lose 1d6 + {level} Stamina.')
 			});
 		}
 		if (conditions.includes(ConditionType.Dazed) && (props.ability.type.usage === AbilityUsage.Trigger)) {
 			warnings.push({
 				label: ConditionType.Dazed,
-				text: 'You can’t use this ability.'
+				text: localizeMessage(locale, 'ability-panel.warning.cannot-use', {}, 'You can’t use this ability.')
 			});
 		}
 		if (conditions.includes(ConditionType.Dazed) && ((props.ability.type.usage === AbilityUsage.Maneuver) && props.ability.type.free)) {
 			warnings.push({
 				label: ConditionType.Dazed,
-				text: 'You can’t use this ability.'
+				text: localizeMessage(locale, 'ability-panel.warning.cannot-use', {}, 'You can’t use this ability.')
 			});
 		}
 		if (conditions.includes(ConditionType.Frightened) && hasRoll) {
 			warnings.push({
 				label: ConditionType.Frightened,
-				text: 'This ability takes a bane if it targets the source of your fear.'
+				text: localizeMessage(locale, 'ability-panel.warning.frightened', {}, 'This ability takes a bane if it targets the source of your fear.')
 			});
 		}
 		if (conditions.includes(ConditionType.Grabbed) && hasRoll) {
 			warnings.push({
 				label: ConditionType.Grabbed,
-				text: 'This ability takes a bane if it doesn’t target the creature grabbing you.'
+				text: localizeMessage(locale, 'ability-panel.warning.grabbed', {}, 'This ability takes a bane if it doesn’t target the creature grabbing you.')
 			});
 		}
 		if (conditions.includes(ConditionType.Grabbed) && (props.ability.id === AbilityData.knockback.id)) {
 			warnings.push({
 				label: ConditionType.Grabbed,
-				text: 'You can’t use this ability.'
+				text: localizeMessage(locale, 'ability-panel.warning.cannot-use', {}, 'You can’t use this ability.')
 			});
 		}
 		if (conditions.includes(ConditionType.Prone) && keywords.includes(AbilityKeyword.Strike)) {
 			warnings.push({
 				label: ConditionType.Prone,
-				text: 'This ability takes a bane.'
+				text: localizeMessage(locale, 'ability-panel.warning.bane', {}, 'This ability takes a bane.')
 			});
 		}
 		if (conditions.includes(ConditionType.Restrained) && hasRoll) {
 			warnings.push({
 				label: ConditionType.Restrained,
-				text: 'This ability takes a bane.'
+				text: localizeMessage(locale, 'ability-panel.warning.bane', {}, 'This ability takes a bane.')
 			});
 		}
 		if (conditions.includes(ConditionType.Restrained) && (props.ability.id === AbilityData.standUp.id)) {
 			warnings.push({
 				label: ConditionType.Restrained,
-				text: 'You can’t use this ability.'
+				text: localizeMessage(locale, 'ability-panel.warning.cannot-use', {}, 'You can’t use this ability.')
 			});
 		}
 		if (conditions.includes(ConditionType.Taunted) && hasRoll) {
 			warnings.push({
 				label: ConditionType.Taunted,
-				text: 'This ability takes a double bane if it doesn’t target the creature who taunted you, and you have line of effect to that creature.'
+				text: localizeMessage(locale, 'ability-panel.warning.taunted', {}, 'This ability takes a double bane if it doesn’t target the creature who taunted you, and you have line of effect to that creature.')
 			});
 		}
 		if (conditions.includes(ConditionType.Weakened) && hasRoll) {
 			warnings.push({
 				label: ConditionType.Weakened,
-				text: 'This ability takes a bane.'
+				text: localizeMessage(locale, 'ability-panel.warning.bane', {}, 'This ability takes a bane.')
 			});
 		}
 		if ((state === 'dying') && (props.ability.id === AbilityData.catchBreath.id)) {
 			warnings.push({
 				label: 'Dying',
-				text: 'You can’t use this ability.'
+				text: localizeMessage(locale, 'ability-panel.warning.cannot-use', {}, 'You can’t use this ability.')
 			});
 		}
 
@@ -204,7 +209,7 @@ export const AbilityPanel = (props: Props) => {
 			return (
 				<ResourcePill
 					value={cost}
-					units={cost === 1 ? 'pt' : 'pts'}
+					units={getCostUnits(cost)}
 					repeatable={props.repeatable ?? props.ability.repeatable}
 					satisfied={props.hero && (cost <= resource)}
 				/>
@@ -233,6 +238,7 @@ export const AbilityPanel = (props: Props) => {
 							section.value ?
 								<ResourcePill
 									value={section.value}
+									units={getCostUnits(section.value)}
 									repeatable={section.repeatable}
 									satisfied={props.hero && (cost <= resource)}
 								/>
@@ -307,7 +313,7 @@ export const AbilityPanel = (props: Props) => {
 								key={n}
 								type='warning'
 								showIcon={true}
-								title={<div><b>{warn.label}</b>: {warn.text}</div>}
+								title={<div><b>{localizeUIString(locale, `ability-panel.condition.${warn.label.toLowerCase()}`, warn.label)}</b>: {warn.text}</div>}
 							/>
 						))
 					}
@@ -322,7 +328,7 @@ export const AbilityPanel = (props: Props) => {
 									{
 										type: 'button',
 										icon: autoCalc ? <ThunderboltFilled style={{ color: 'rgb(22, 119, 255)' }} /> : <ThunderboltOutlined />,
-										tooltip: 'Auto-calculate damage, potency, etc',
+										tooltip: localizeUIString(locale, 'ability-panel.auto-calculate', 'Auto-calculate damage, potency, etc'),
 										onClick: () => setAutoCalc(!autoCalc)
 									}
 									: null,
@@ -348,7 +354,7 @@ export const AbilityPanel = (props: Props) => {
 						<Alert
 							type='info'
 							showIcon={true}
-							title='This ability can be used in place of a melee free strike when you take the Charge action.'
+							title={localizeUIString(locale, 'ability-panel.charge-message', 'This ability can be used in place of a melee free strike when you take the Charge action.')}
 						/>
 						: null
 				}

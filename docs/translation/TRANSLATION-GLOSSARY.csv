@@ -112,3 +112,19 @@ Line,線形,distance-type,approved
 Wall,障壁,distance-type,approved
 Summoner Range,召喚師射程,distance-type,approved
 Special,特殊,distance-type,approved
+Stamina,體力,game-term,approved
+Bleeding,出血,condition,approved
+Dazed,暈眩,condition,approved
+Frightened,畏縮,condition,approved
+Grabbed,擒制,condition,approved
+Prone,伏地,condition,approved
+Restrained,束縛,condition,approved
+Taunted,嘲諷,condition,approved
+Weakened,虛弱,condition,approved
+Dying,瀕死,condition,approved
+bane,劣勢,game-term,approved
+double bane,雙劣勢,game-term,approved
+line of effect,效果線,game-term,approved
+Charge,衝鋒,game-term,approved
+pt,費,ui-unit,approved
+pts,費,ui-unit,approved
