@@ -10,6 +10,7 @@ import { Career } from '@/models/career';
 import { Characteristic } from '@/enums/characteristic';
 import { Complication } from '@/models/complication';
 import { Culture } from '@/models/culture';
+import { DangerButton } from '@/components/controls/danger-button/danger-button';
 import { Domain } from '@/models/domain';
 import { EncounterSlot } from '@/models/encounter';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
@@ -211,7 +212,23 @@ export const HeroViewPage = (props: Props) => {
 									</div>
 								)
 							},
-							{ type: 'danger', label: isSmall ? undefined : localizeUIString(locale, 'hero-view.delete', 'Delete'), icon: <DeleteOutlined />, onClick: () => props.deleteHero(hero) },
+							// The danger control is built here rather than described to the button
+							// group, because the group picks its mode from whether a label was
+							// given - and on a small screen the label has to be dropped from the
+							// toolbar while the control still needs one to name itself by. The
+							// mode is what the group would have chosen either way: an icon on a
+							// small screen, an icon beside its reading otherwise.
+							{
+								type: 'control',
+								control: (
+									<DangerButton
+										mode={isSmall ? 'clear' : 'inline'}
+										label={localizeUIString(locale, 'hero-view.delete', 'Delete')}
+										icon={<DeleteOutlined />}
+										onConfirm={e => { e.stopPropagation(); props.deleteHero(hero); }}
+									/>
+								)
+							},
 							{ type: 'control', control: <ViewSelector value={view} mode='hero' onChange={setView} /> },
 							// The folder is the hero's own, so closing returns to where it lives.
 							{ type: 'button', label: isSmall ? undefined : localizeUIString(locale, 'hero-view.close', 'Close'), icon: <CloseOutlined />, onClick: () => navigation.goToHeroList(hero.folder) }

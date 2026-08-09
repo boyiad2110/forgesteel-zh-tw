@@ -313,3 +313,78 @@ describe('HeroViewPage management callbacks', () => {
 		expect(JSON.stringify(testHero)).toBe(serialized);
 	});
 });
+
+// On a small screen the header actions drop their labels and show only their icons. The
+// delete control is the one that still has to read: it names itself through its title, and
+// through the action inside the confirmation it opens. The real DangerButton is used here,
+// since it is where the reading is resolved.
+describe('HeroViewPage small-screen delete control', () => {
+	beforeEach(() => {
+		viewport.isSmall = true;
+	});
+
+	const getDeleteControl = (title: string) => screen.getByTitle(title);
+
+	it('reads its title, stays icon-only, and restores the canonical English', () => {
+		renderView(callbacks());
+
+		const control = getDeleteControl('刪除');
+		// Icon-only: the control names itself through its title, not through visible text.
+		expect(control.textContent).toBe('');
+		// The other header actions carry no label on a small screen, so the reading here is
+		// not a label that has crept back in.
+		expect(getButtons('刪除').length).toBe(0);
+		expect(screen.queryByTitle('Delete')).toBeNull();
+
+		switchLocale();
+
+		const englishControl = getDeleteControl('Delete');
+		expect(englishControl.textContent).toBe('');
+		expect(screen.queryByTitle('刪除')).toBeNull();
+	});
+
+	it('reads the confirmation action and still deletes the unchanged hero', () => {
+		const handlers = callbacks();
+		const serialized = JSON.stringify(testHero);
+
+		renderView(handlers);
+
+		fireEvent.click(getDeleteControl('刪除'));
+
+		// The confirmation's own action reads in zh-TW too; it is the only text 刪除 on screen.
+		const confirmation = getButton('刪除');
+		expect(handlers.deleteHero).not.toHaveBeenCalled();
+
+		fireEvent.click(confirmation);
+
+		expect(handlers.deleteHero).toHaveBeenCalledTimes(1);
+		expect(handlers.deleteHero).toHaveBeenCalledWith(testHero);
+		expect(handlers.deleteHero.mock.calls[0][0].id).toBe('hero-1');
+		expect(handlers.deleteHero.mock.calls[0][0].name).toBe('Seren of the Ash');
+		expect(JSON.stringify(testHero)).toBe(serialized);
+	});
+
+	it('reads the confirmation action in English once the locale is switched', () => {
+		const handlers = callbacks();
+
+		renderView(handlers);
+		switchLocale();
+
+		fireEvent.click(getDeleteControl('Delete'));
+		fireEvent.click(getButton('Delete'));
+
+		expect(handlers.deleteHero).toHaveBeenCalledWith(testHero);
+	});
+
+	it('deletes nothing when only the locale changes', () => {
+		const handlers = callbacks();
+
+		renderView(handlers);
+
+		switchLocale();
+		switchLocale();
+
+		expect(handlers.deleteHero).not.toHaveBeenCalled();
+		expect(getDeleteControl('刪除')).toBeTruthy();
+	});
+});
