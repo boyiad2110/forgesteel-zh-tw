@@ -86,3 +86,19 @@ Reason,理智,game-term,approved
 Intuition,直覺,game-term,approved
 Presence,氣場,game-term,approved
 Odds,機率,ui,approved
+Potency,效力,game-term,approved
+weak,弱,potency-tier,approved
+average,中,potency-tier,approved
+strong,強,potency-tier,approved
+melee damage,近戰傷害,game-term,approved
+ranged damage,遠程傷害,game-term,approved
+Damage,傷害,game-term,approved
+Acid,酸蝕,game-term,approved
+Cold,寒冷,game-term,approved
+Corruption,腐朽,game-term,approved
+Fire,火焰,game-term,approved
+Holy,神聖,game-term,approved
+Lightning,閃電,game-term,approved
+Poison,劇毒,game-term,approved
+Psychic,心靈,game-term,approved
+Sonic,音波,game-term,approved
