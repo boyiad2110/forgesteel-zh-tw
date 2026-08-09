@@ -288,5 +288,14 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'ui', key: 'power-roll.distance-type.line', canonicalEnglish: 'Line', zhTW: '線形', approval: 'approved' },
 	{ kind: 'ui', key: 'power-roll.distance-type.wall', canonicalEnglish: 'Wall', zhTW: '障壁', approval: 'approved' },
 	{ kind: 'ui', key: 'power-roll.distance-type.summoner', canonicalEnglish: 'Summoner Range', zhTW: '召喚師射程', approval: 'approved' },
-	{ kind: 'ui', key: 'power-roll.distance-type.special', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' }
+	{ kind: 'ui', key: 'power-roll.distance-type.special', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	// Authored ability content, addressed by the ability's own ID and the canonical path the
+	// text sits at (see src/localization/ability-field-path.ts). A section has no ID of its
+	// own, so its position in the ability is what identifies it; if a section is ever moved
+	// or reworded, the canonical English recorded here stops matching and the entry falls
+	// back to English until it is re-approved. The canonicalEnglish below is the English an
+	// author wrote, which is also what the panel shows for these two: the parser leaves both
+	// of them exactly as they are.
+	{ kind: 'element-field', elementID: 'free-strike', field: 'sections.0.text', canonicalEnglish: 'A creature can use this main action to make a free strike.', zhTW: '生物可以使用此主要動作進行基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'escape-grab', field: 'sections.1.roll.tier1', canonicalEnglish: 'No effect.', zhTW: '無效果。', approval: 'approved' }
 ];

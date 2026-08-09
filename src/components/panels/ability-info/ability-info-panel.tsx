@@ -5,6 +5,7 @@ import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
+import { abilityTriggerField } from '@/localization/ability-field-path';
 import { Field } from '@/components/controls/field/field';
 import { getAbilityTypeDisplay } from '@/components/panels/ability-info/ability-type-display';
 import { Hero } from '@/models/hero';
@@ -64,6 +65,7 @@ export const AbilityInfoPanel = (props: Props) => {
 	const distance = props.ability.distance.map(d => AbilityLogic.getDistance(d, props.ability, props.hero)).join(' or ');
 	const monogram = getMonogram();
 	const displayTarget = localizeElementField(locale, props.ability.id, 'target', props.ability.target);
+	const displayTrigger = localizeElementField(locale, props.ability.id, abilityTriggerField, props.ability.type.trigger);
 	const displaySummary = props.ability.id === 'free-melee' ?
 		localizeMessage(locale, 'ability.free-melee.summary', { abilityName: props.ability.name, target: displayTarget }, '{abilityName} | Target: {target}') :
 		null;
@@ -98,7 +100,7 @@ export const AbilityInfoPanel = (props: Props) => {
 					<Field
 						compact={true}
 						label={localizeUIString(locale, 'ability-info.trigger', 'Trigger')}
-						value={<Markdown useSpan={true} text={props.ability.type.trigger} />}
+						value={<Markdown useSpan={true} text={displayTrigger} />}
 					/>
 					: null
 			}

@@ -10,6 +10,13 @@ import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
+import {
+	abilityDescriptionField,
+	abilitySectionEffectField,
+	abilitySectionNameField,
+	abilitySectionRollField,
+	abilitySectionTextField
+} from '@/localization/ability-field-path';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
 import { useLocalization } from '@/contexts/localization-context';
@@ -48,6 +55,7 @@ interface Props {
 export const AbilityPanel = (props: Props) => {
 	const { locale } = useLocalization();
 	const displayName = localizeElementField(locale, props.ability.id, 'name', props.ability.name);
+	const displayDescription = localizeElementField(locale, props.ability.id, abilityDescriptionField, props.ability.description);
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 	const options = useOptions();
 	const clipboard = useClipboard();
@@ -86,6 +94,14 @@ export const AbilityPanel = (props: Props) => {
 		}
 
 		return text;
+	};
+
+	// The canonical English goes through the parser first; only the text that comes back out
+	// is offered to the boundary. A catalog entry is approved against the English an author
+	// wrote, so once the parser has rewritten a line - resolving a characteristic, say - the
+	// snapshot no longer matches and the calculated English is what stays on screen.
+	const localizeParsedText = (field: string, text: string) => {
+		return localizeElementField(locale, props.ability.id, field, parseText(text));
 	};
 
 	const autoCalcAvailable = () => {
@@ -223,7 +239,7 @@ export const AbilityPanel = (props: Props) => {
 		switch (section.type) {
 			case 'text': {
 				return (
-					<Markdown key={index} text={parseText(section.text)} />
+					<Markdown key={index} text={localizeParsedText(abilitySectionTextField(index), section.text)} />
 				);
 			}
 			case 'field': {
@@ -232,8 +248,9 @@ export const AbilityPanel = (props: Props) => {
 				return (
 					<Field
 						key={index}
+						// The danger state reads the canonical name, not the displayed one.
 						danger={(section.name === 'Strained') && (resource < 0)}
-						label={section.name}
+						label={localizeElementField(locale, props.ability.id, abilitySectionNameField(index), section.name)}
 						labelTag={
 							section.value ?
 								<ResourcePill
@@ -244,7 +261,7 @@ export const AbilityPanel = (props: Props) => {
 								/>
 								: null
 						}
-						value={<Markdown text={parseText(section.effect)} useSpan={true} />}
+						value={<Markdown text={localizeParsedText(abilitySectionEffectField(index), section.effect)} useSpan={true} />}
 					/>
 				);
 			}
@@ -253,6 +270,7 @@ export const AbilityPanel = (props: Props) => {
 					<PowerRollPanel
 						key={index}
 						powerRoll={section.roll}
+						rollField={abilitySectionRollField(index)}
 						ability={props.ability}
 						creature={props.hero || props.monster}
 						autoCalc={autoCalc}
@@ -297,7 +315,7 @@ export const AbilityPanel = (props: Props) => {
 					>
 						{displayName || localizeUIString(locale, 'ability-panel.unnamed', 'Unnamed Ability')}
 					</HeaderText>
-					<Markdown text={props.ability.description} className='ability-description-text' />
+					<Markdown text={displayDescription} className='ability-description-text' />
 				</div>
 			</ErrorBoundary>
 		);
@@ -341,7 +359,7 @@ export const AbilityPanel = (props: Props) => {
 				>
 					{displayName || localizeUIString(locale, 'ability-panel.unnamed', 'Unnamed Ability')}
 				</HeaderText>
-				<Markdown text={props.ability.description} className='ability-description-text' />
+				<Markdown text={displayDescription} className='ability-description-text' />
 				{
 					keywords.length > 0 ?
 						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{k}</Tag>)}</Flex>
