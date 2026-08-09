@@ -1,5 +1,3 @@
-// @vitest-environment jsdom
-
 /* eslint-disable sort-imports */
 
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';

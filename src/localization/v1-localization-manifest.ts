@@ -1,10 +1,13 @@
 /* eslint-disable sort-imports */
 
 import { CanonicalEnglishSource } from '@/localization/catalog-validator';
-import { SourcebookData } from '@/data/sourcebook-data';
+import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
+import { core } from '@/data/sourcebooks/official/core';
+import { orden } from '@/data/sourcebooks/official/orden';
+import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Element } from '@/models/element';
-import { Sourcebook, SourcebookElementKind } from '@/models/sourcebook';
+import { Sourcebook } from '@/models/sourcebook';
 import { elementFieldIdentity } from '@/localization/catalog';
 
 export interface V1LocalizationUnresolvedDomain {
@@ -17,9 +20,9 @@ export interface V1LocalizationManifest {
 	unresolvedDomains: V1LocalizationUnresolvedDomain[];
 }
 
-export const v1HeroCreationSourcebookIDs = [ 'core', 'orden', 'beastheart', 'summoner' ];
+export const v1HeroCreationSourcebooks: Sourcebook[] = [ core, orden, beastheartSourcebook, summonerSourcebook ];
 
-const heroCreationElementKinds: SourcebookElementKind[] = [ 'ancestry', 'culture', 'career', 'class', 'complication' ];
+export const v1HeroCreationSourcebookIDs = v1HeroCreationSourcebooks.map(sourcebook => sourcebook.id);
 
 const isV1HeroCreationSourcebook = (sourcebook: Sourcebook) => v1HeroCreationSourcebookIDs.includes(sourcebook.id);
 
@@ -44,13 +47,14 @@ const deduplicateHeroCreationElements = (elements: Element[]) => {
 /** The direct Hero creation selections, including ancestry-provided cultures. */
 export const getV1HeroCreationElements = (sourcebooks: Sourcebook[]) => {
 	const targetSourcebooks = sourcebooks.filter(isV1HeroCreationSourcebook);
-	const directSelections = targetSourcebooks
-		.flatMap(SourcebookLogic.getElements)
-		.filter(entry => heroCreationElementKinds.includes(entry.type))
-		.map(entry => entry.element);
-	const cultures = SourcebookLogic.getCultures(targetSourcebooks, true);
 
-	return deduplicateHeroCreationElements([ ...directSelections, ...cultures ]);
+	return deduplicateHeroCreationElements([
+		...SourcebookLogic.getAncestries(targetSourcebooks),
+		...SourcebookLogic.getCultures(targetSourcebooks, true),
+		...SourcebookLogic.getCareers(targetSourcebooks),
+		...SourcebookLogic.getClasses(targetSourcebooks),
+		...SourcebookLogic.getComplications(targetSourcebooks)
+	]);
 };
 
 /** Builds the V1 Element-field denominator from live canonical sourcebook metadata. */
@@ -77,10 +81,8 @@ export const createV1HeroCreationRequiredCanonicalEnglish = (sourcebooks: Source
 
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
-const sourcebooks = await SourcebookData.loadAll();
-
 export const v1LocalizationManifest: V1LocalizationManifest = {
-	requiredCanonicalEnglish: createV1HeroCreationRequiredCanonicalEnglish(sourcebooks),
+	requiredCanonicalEnglish: createV1HeroCreationRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 	unresolvedDomains: [
 		{ id: 'official-ability-authored-content', description: 'Official ability authored content has not been enumerated.' },
 		{ id: 'class-and-subclass-level-content', description: 'Class and subclass level content has not been enumerated.' },
