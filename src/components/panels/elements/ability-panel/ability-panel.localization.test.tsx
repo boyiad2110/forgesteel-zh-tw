@@ -30,23 +30,37 @@ const LocaleToggle = () => {
 	);
 };
 
-const getTargetFieldValue = () => {
-	const targetLabel = screen.getByText('Target', { exact: true });
-	const targetField = targetLabel.closest('.field');
-	expect(targetField).not.toBeNull();
-	return targetField!.querySelector('.field-value')!.textContent;
+const getFieldValue = (label: string) => {
+	const fieldLabel = screen.getByText(label, { exact: true });
+	const field = fieldLabel.closest('.field');
+	expect(field).not.toBeNull();
+	return field!.querySelector('.field-value')!.textContent;
+};
+
+// The ability's name, its summary message and its target are element data with no approved
+// zh-TW reading, so they stay canonical English whichever locale the panel is shown in. Only
+// the field labels beside them and the action type above them are read in zh-TW.
+const expectCanonicalAbilityContent = (targetLabel: string, distanceLabel: string) => {
+	expect(screen.getByText('Free Strike (melee)', { exact: true })).not.toBeNull();
+	expect(screen.getByText('Free Strike (melee) | Target: One creature or object', { exact: true })).not.toBeNull();
+	expect(getFieldValue(targetLabel)).toBe('One creature or object');
+	expect(getFieldValue(distanceLabel)).toBe('Melee 1');
+};
+
+const expectApprovedChinesePresentation = () => {
+	expectCanonicalAbilityContent('目標', '射程');
+	expect(screen.getByText('基礎打擊', { exact: true })).not.toBeNull();
 };
 
 const expectCanonicalEnglishPresentation = () => {
-	expect(screen.getByText('Free Strike (melee)', { exact: true })).not.toBeNull();
-	expect(screen.getByText('Free Strike (melee) | Target: One creature or object', { exact: true })).not.toBeNull();
-	expect(getTargetFieldValue()).toBe('One creature or object');
-	// No zh-TW game translation is approved yet, so no Chinese may reach this panel.
+	expectCanonicalAbilityContent('Target', 'Distance');
+	expect(screen.getByText('Free Strike', { exact: true })).not.toBeNull();
+	// English presentation carries no Chinese at all.
 	expect(screen.queryByText(/[一-鿿]/)).toBeNull();
 };
 
 describe('AbilityPanel localization presentation wiring', () => {
-	it('falls back to canonical English in zh-TW and never changes the canonical ability', () => {
+	it('shows the approved zh-TW metadata, keeps the rest canonical English, and never changes the canonical ability', () => {
 		const ability = AbilityData.freeStrikeMelee;
 		const originalReference = ability;
 		const originalJSON = JSON.stringify(ability);
@@ -61,14 +75,14 @@ describe('AbilityPanel localization presentation wiring', () => {
 			</LocalizationProvider>
 		);
 
-		// Starts in the default zh-TW locale, which has no approved translations yet.
-		expectCanonicalEnglishPresentation();
+		// Starts in the default zh-TW locale.
+		expectApprovedChinesePresentation();
 
 		fireEvent.click(screen.getByRole('button', { name: 'EN' }));
 		expectCanonicalEnglishPresentation();
 
 		fireEvent.click(screen.getByRole('button', { name: 'zh-TW' }));
-		expectCanonicalEnglishPresentation();
+		expectApprovedChinesePresentation();
 
 		expect(ability).toBe(originalReference);
 		expect(ability.id).toBe(originalID);
