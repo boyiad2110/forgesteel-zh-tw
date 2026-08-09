@@ -1,7 +1,9 @@
 import { CSSProperties, ReactNode, useEffect, useState } from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { localizeUIString } from '@/localization/resolver';
 import { useDebounce } from '@/hooks/use-debounce';
+import { useLocalization } from '@/contexts/localization-context';
 
 interface Props {
 	value: string;
@@ -50,9 +52,13 @@ interface SearchBoxProps {
 }
 
 export const SearchBox = (props: SearchBoxProps) => {
+	const { locale } = useLocalization();
+
+	// Only the prompt is read. The search term stays whatever the caller holds, and nothing
+	// localized is ever written into it or into what it filters.
 	return (
 		<TextInput
-			placeholder='Search'
+			placeholder={localizeUIString(locale, 'search-box.placeholder', 'Search')}
 			allowClear={true}
 			value={props.searchTerm}
 			disabled={props.disabled}

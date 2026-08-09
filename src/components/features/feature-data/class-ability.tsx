@@ -1,5 +1,6 @@
 import { Button, Drawer, Select, Space } from 'antd';
 import { Feature, FeatureClassAbilityData } from '@/models/feature';
+import { localizeMessage, localizeUIString } from '@/localization/resolver';
 import { Ability } from '@/models/ability';
 import { AbilityModal } from '@/components/modals/ability/ability-modal';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
@@ -19,6 +20,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -213,6 +215,7 @@ interface ConfigProps {
 }
 
 export const ConfigClassAbility = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ abilitySelectorOpen, setAbilitySelectorOpen ] = useState<boolean>(false);
 	const [ selectedAbility, setSelectedAbility ] = useState<Ability | null>(null);
 
@@ -236,21 +239,36 @@ export const ConfigClassAbility = (props: ConfigProps) => {
 	const getAddButton = () => {
 		if (sortedAbilities.length === 0) {
 			return (
-				<Empty text='There are no options to choose for this feature.' />
+				<Empty text={localizeUIString(locale, 'feature-config.no-options', 'There are no options to choose for this feature.')} />
 			);
 		}
 
 		return (
 			<Button className='status-warning' block={true} onClick={() => setAbilitySelectorOpen(true)}>
-				Choose an ability
+				{localizeUIString(locale, 'config-class-ability.choose-ability', 'Choose an ability')}
 			</Button>
 		);
+	};
+
+	// The canonical line is composed from the cost and the number of abilities wanted, so
+	// each variant it can produce is localized as itself. The cost is interpolated as the
+	// value the feature holds - a number, or 'signature' - and is never read from the display.
+	const getSelectionMessage = () => {
+		if (props.data.count > 1) {
+			return props.data.cost === 'signature' ?
+				localizeMessage(locale, 'config-class-ability.choose-signature-many', { count: props.data.count.toString() }, 'Choose {count} signature abilities.')
+				: localizeMessage(locale, 'config-class-ability.choose-cost-many', { count: props.data.count.toString(), cost: props.data.cost.toString() }, 'Choose {count} {cost}pt abilities.');
+		}
+
+		return props.data.cost === 'signature' ?
+			localizeUIString(locale, 'config-class-ability.choose-signature-one', 'Choose a signature ability.')
+			: localizeMessage(locale, 'config-class-ability.choose-cost-one', { cost: props.data.cost.toString() }, 'Choose a {cost}pt ability.');
 	};
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
 			<div className='ds-text'>
-				Choose {props.data.count > 1 ? props.data.count : 'a'} {props.data.cost === 'signature' ? 'signature' : `${props.data.cost}pt`} {props.data.count > 1 ? 'abilities' : 'ability'}.
+				{getSelectionMessage()}
 			</div>
 			{
 				props.data.selectedIDs.map(id => {
