@@ -252,5 +252,18 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	// 'weak', 'average' and 'strong' the hero's potency is calculated from keep those names.
 	// The full-width commas belong to the zh-TW reading, so the separators live in the template.
 	{ kind: 'ui', key: 'power-roll.potency', canonicalEnglish: 'Potency', zhTW: '效力', approval: 'approved' },
-	{ kind: 'message', key: 'power-roll.potency-values', canonicalEnglish: 'weak {weak}, average {average}, strong {strong}', zhTW: '弱 {weak}，中 {average}，強 {strong}', placeholders: [ 'weak', 'average', 'strong' ], approval: 'approved' }
+	{ kind: 'message', key: 'power-roll.potency-values', canonicalEnglish: 'weak {weak}, average {average}, strong {strong}', zhTW: '弱 {weak}，中 {average}，強 {strong}', placeholders: [ 'weak', 'average', 'strong' ], approval: 'approved' },
+	// The distances an ability can be used at, as the power roll panel's selector labels them.
+	// The canonical English of each entry is the AbilityDistanceType value it stands for; that
+	// value stays the option's value, the selected state and what every calculation reads.
+	{ kind: 'ui', key: 'power-roll.distance-type.self', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.melee', canonicalEnglish: 'Melee', zhTW: '近戰', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.ranged', canonicalEnglish: 'Ranged', zhTW: '遠程', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.aura', canonicalEnglish: 'Aura', zhTW: '靈光', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.burst', canonicalEnglish: 'Burst', zhTW: '爆發', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.cube', canonicalEnglish: 'Cube', zhTW: '立方', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.line', canonicalEnglish: 'Line', zhTW: '線形', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.wall', canonicalEnglish: 'Wall', zhTW: '障壁', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.summoner', canonicalEnglish: 'Summoner Range', zhTW: '召喚師射程', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.distance-type.special', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' }
 ];

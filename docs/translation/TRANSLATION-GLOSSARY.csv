@@ -102,3 +102,13 @@ Lightning,閃電,game-term,approved
 Poison,劇毒,game-term,approved
 Psychic,心靈,game-term,approved
 Sonic,音波,game-term,approved
+Self,自身,distance-type,approved
+Melee,近戰,distance-type,approved
+Ranged,遠程,distance-type,approved
+Aura,靈光,distance-type,approved
+Burst,爆發,distance-type,approved
+Cube,立方,distance-type,approved
+Line,線形,distance-type,approved
+Wall,障壁,distance-type,approved
+Summoner Range,召喚師射程,distance-type,approved
+Special,特殊,distance-type,approved

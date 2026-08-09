@@ -14,6 +14,7 @@ import { HeroLogic } from '@/logic/hero-logic';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { PowerRoll } from '@/models/power-roll';
+import { getDistanceOptions } from '@/components/panels/power-roll/power-roll-distance';
 import { localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
@@ -182,7 +183,7 @@ export const PowerRollPanel = (props: Props) => {
 					{
 						props.autoCalc && props.ability && (props.ability.distance.length > 1) ?
 							<Segmented
-								options={props.ability.distance.map(d => d.type)}
+								options={getDistanceOptions(locale, props.ability.distance.map(d => d.type))}
 								value={distance}
 								onChange={setDistance}
 							/>

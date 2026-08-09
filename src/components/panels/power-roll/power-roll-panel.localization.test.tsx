@@ -149,7 +149,7 @@ describe('PowerRollPanel core header localization', () => {
 		expect(zero.bonus).toBe(0);
 	});
 
-	it('leaves the power roll, its characteristics, its tier effects and the distance selector canonical across a locale switch', () => {
+	it('leaves the power roll, its characteristics and its tier effects canonical across a locale switch, while the distance selector reads its approved labels', () => {
 		const powerRoll = createPowerRoll([ Characteristic.Might, Characteristic.Agility ]);
 		const serializedBefore = JSON.stringify(powerRoll);
 		const hero = FactoryLogic.createHero();
@@ -169,9 +169,7 @@ describe('PowerRollPanel core header localization', () => {
 		);
 
 		const expectCanonicalContent = () => {
-			const panels = Array.from(container.querySelectorAll('.power-roll-panel'));
-			const tiers = within(panels[0] as HTMLElement);
-			const selector = within(panels[1] as HTMLElement);
+			const tiers = within(Array.from(container.querySelectorAll('.power-roll-panel'))[0] as HTMLElement);
 
 			expect(tiers.getByText('Tier one effect', { exact: true })).toBeTruthy();
 			expect(tiers.getByText('Tier two effect', { exact: true })).toBeTruthy();
@@ -179,16 +177,24 @@ describe('PowerRollPanel core header localization', () => {
 			expect(tiers.getByText('!', { exact: true })).toBeTruthy();
 			expect(tiers.getByText('@', { exact: true })).toBeTruthy();
 			expect(tiers.getByText('#', { exact: true })).toBeTruthy();
-			// Distance terminology has no approved reading and stays canonical in either locale.
-			expect(selector.getByText('Melee', { exact: true })).toBeTruthy();
-			expect(selector.getByText('Ranged', { exact: true })).toBeTruthy();
+		};
+
+		// The selector labels the distances it offers; the ability's own distance values stay
+		// canonical either way, which the serialization check below confirms.
+		const expectSelectorLabels = (melee: string, ranged: string) => {
+			const selector = within(Array.from(container.querySelectorAll('.power-roll-panel'))[1] as HTMLElement);
+
+			expect(selector.getByText(melee, { exact: true })).toBeTruthy();
+			expect(selector.getByText(ranged, { exact: true })).toBeTruthy();
 		};
 
 		expectCanonicalContent();
+		expectSelectorLabels('近戰', '遠程');
 
 		switchLocale();
 
 		expectCanonicalContent();
+		expectSelectorLabels('Melee', 'Ranged');
 		expect(powerRoll.characteristic).toEqual([ Characteristic.Might, Characteristic.Agility ]);
 		expect(Characteristic.Might).toBe('Might');
 		expect(Characteristic.Agility).toBe('Agility');
