@@ -50,6 +50,28 @@ Agent 不得自行建立新的中文遊戲術語或改變已核准語意。
 
 若出現新的詞義、術語或真正翻譯取捨，停止並回報 Reviewer。
 
+### Approval 的作用範圍
+
+translation approval 依 surface、localization identity 與 semantic context 生效，不是依 canonical English 字面生效。
+
+- 相同 canonical English 可以在不同 context 擁有不同的 approved zh-TW。
+- Agent 不得因為字面相同就自行 deduplicate、unify、overwrite 或改寫其他 surface 的已核准譯文。
+- 只有 Owner 明確要求全域統一時才合併。
+- 發現疑似不一致時列為回報事項，不自行處理。
+
+## Reviewer Patch Handoff
+
+當 Reviewer 無法直接存取 Agent local workspace，且 Contract 不允許 push／PR 時，Stage 1／Stage 2 收尾必須附上可審查的 patch evidence：
+
+- 在 final local commit 且 working tree clean 後，輸出**完整 `Base..HEAD` patch**，不是逐 commit 或部分 diff。
+- patch 寫在 repository 之外。
+- 對 patch 做 reverse-apply check。
+- 記錄 patch byte size 與 SHA-256。
+- patch 產生後再次確認 working tree clean。
+- Stage 2 correction 後重新輸出完整 `Base..HEAD` patch，不只輸出 correction diff。
+
+本節只定義 handoff workflow，不擴張 Git permission。
+
 ## Stage 1 — Local Implementation
 
 Agent：

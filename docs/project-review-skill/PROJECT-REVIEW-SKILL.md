@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 # Forge Steel Reviewer
@@ -104,6 +104,20 @@ Agent 回報只需：
 - canonical／data safety evidence（若相關）。
 - working tree。
 - deviations／risks／需要決策事項。
+
+### Local-only Reviewer Patch Handoff
+
+當 Reviewer 無法直接存取 Agent local workspace，且本批不允許 push／PR 時，local commit 不足以構成可審查 evidence。此時 Stage 1 收尾必須：
+
+- 在 final local commit 且 working tree clean 後，輸出**完整 `Base..HEAD` patch**，不是逐 commit 或部分 diff。
+- patch 寫在 repository 之外，避免污染 working tree。
+- 對 patch 做 reverse-apply check，確認可還原。
+- 記錄 patch byte size 與 SHA-256，供 Reviewer 核對 identity。
+- patch 產生後再次確認 working tree clean。
+
+Stage 2 correction 後，重新輸出**完整 `Base..HEAD` patch**，不只輸出 correction diff，讓 Reviewer 一次看到最終累積狀態。
+
+本規則只定義 handoff workflow，不改變 Git authorization；未授權的 push／PR／history rewrite 仍然禁止。
 
 ## 7. Review — Two Passes
 

@@ -1,6 +1,6 @@
 # Forge Steel 繁體中文化專案進度
 
-> 最後更新：2026-08-09
+> 最後更新：2026-08-10
 > 本文件是 handoff 摘要，不取代 GitHub PR／commit、`docs/REVIEWER-PRINCIPLES.md`、V1 requirements、現行 code／tests／CI 或人工驗收 evidence。
 
 ## 1. Current Baseline
@@ -8,8 +8,8 @@
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active integration branch：`develop`
 - Current `develop` / `origin/develop` baseline：
-  `d0fdfdfad2a1e39e4604253960340a6ffd72fb75`
-- Latest merged substantive PR：`#34 feat: localize power roll distance selector`
+  `c3020278ea3fd6ae528837a556856bf33b042b53`
+- Latest merged substantive PR：`#39 feat: localize hero management shell`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
 - Current phase：**production localization 已建立，正在以 coherent V1 player-facing slices 逐步擴充 coverage**。
@@ -75,8 +75,10 @@
 - PR #19–#25 延續 coherent player-facing localization progression；完成內容包含 Hero Edit 週邊 UI 與 SubclassPanel 自身介面框架。
 - PR #26 補足 Stage 3 recovery safeguards / governance；PR #27–#34 形成新的 player-facing localization milestone，而非逐一 PR 流水帳：ClassPanel presentation frame、Hero element header metadata、Feature / Ability metadata 與 basic UI、AbilityInfo core labels / approved action metadata，以及 PowerRoll header / characteristics / Odds、footer damage / DamageType / Potency、multi-distance selector localized labels。
 - PowerRoll 的 multi-distance selector 保留 canonical `AbilityDistanceType`，只在 presentation boundary 使用 approved localized labels。
+- PR #36–#39 形成下一個 player-facing milestone：AbilityPanel residual UI、static Ability authored-content presentation boundary、shared Hero choice configuration UI，以及 Hero management shell（含小螢幕 delete control）。
+- 上述 authored-content 與 shared-config 工作維持既有邊界：canonical data／ID／enum 不變，只在 presentation boundary 套用 approved 譯文。
 
-相關歷史：PR #14–#34。
+相關歷史：PR #14–#39。
 
 ## 4. 現行 translation／decision 規則
 
@@ -88,7 +90,7 @@
 
 ## 5. 尚未完成的 V1 工作
 
-依現行 V1 requirements 與截至 PR #34 的 repository evidence，仍需逐步完成：
+依現行 V1 requirements 與截至 PR #39 的 repository evidence，仍需逐步完成：
 
 - Core、Orden、Beastheart、Summoner 的 Level 1–3 Hero player content 與必要 player-facing UI translation coverage。
 - Hero creation／Hero Edit 中尚未納入的 shared components、game-content panels、instructional／rules content 與其他實際 V1 player-facing surfaces。
@@ -96,7 +98,8 @@
 - Hero Sheet／Classic Sheet 的 V1 player-facing localization boundary 與必要 translation coverage。
 - 正式 V1 player-content manifest／translation completeness gate。
 - 依 V1 requirements 完成 save／reopen／original-save compatibility、Official／Homebrew、locale switching、Hero Sheet／output 等剩餘 required verification。
-- 已知尚未納入的較小 player-facing surfaces：AbilityPanel warnings / condition messages、keywords presentation、auto-calculate tooltip、resource `pt / pts`、Charge informational message、AbilityInfo 完整 distance formatter，以及 PowerRoll tier-effect / broader game-content translation。
+- 已知尚未納入的較小 player-facing surfaces：AbilityInfo 完整 distance formatter，以及其他尚未 inventory 的 Hero creation／Hero Edit 週邊 UI。
+- Ability authored content 與 PowerRoll tier effect 的 presentation boundary 已建立，但 approved 譯文只覆蓋少數 readings；實際 game-content translation coverage 仍待逐批補足。
 - 專案負責人與團員的封閉 Beta。
 - 發布前 dependency/security risk decision、GPL／Draw Steel licensing／legal notice、免費 deployment 與正式發布批准。
 
@@ -108,6 +111,7 @@
 - 搜尋語言與 presentation-only localized sorting 只有在相應功能真正進入 Batch、現行 authority 無答案時才需要 Owner product decision。
 - Warehouse／PWA／cache 等只按實際觸及風險取得 evidence，不預先建立大型驗證工程。
 - 不做與 V1 localization 無關的大型 storage／schema／shared architecture refactor。
+- local full-suite 曾觀察到 intermittent timeout；PR #39 required CI PASS。在取得 reproducible evidence 前不視為 localization blocker；若持續出現，另做獨立的 test-stability inventory。
 
 ## 7. Next Work
 
