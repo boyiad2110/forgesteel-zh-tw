@@ -4,7 +4,6 @@ import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localizatio
 import {
 	createV1HeroCreationRequiredCanonicalEnglish,
 	getV1HeroCreationElements,
-	v1HeroCreationSourcebookIDs,
 	v1HeroCreationSourcebooks,
 	v1LocalizationManifest
 } from '@/localization/v1-localization-manifest';
