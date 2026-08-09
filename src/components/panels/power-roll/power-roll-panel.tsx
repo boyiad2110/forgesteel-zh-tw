@@ -1,6 +1,7 @@
 import { Button, Segmented, Space } from 'antd';
 import { getCharacteristicsHeader, getPowerRollLabel, getTestHeader } from '@/components/panels/power-roll/power-roll-header';
 import { getFeatureDamageBonus, getKitDamageBonus, getPotencyLabel, getPotencyValues } from '@/components/panels/power-roll/power-roll-footer';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { Ability } from '@/models/ability';
 import { AbilityDistanceType } from '@/enums/ability-distance-type';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -15,7 +16,7 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { PowerRoll } from '@/models/power-roll';
 import { getDistanceOptions } from '@/components/panels/power-roll/power-roll-distance';
-import { localizeUIString } from '@/localization/resolver';
+import { powerRollTierField } from '@/localization/ability-field-path';
 import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
@@ -24,6 +25,10 @@ import './power-roll-panel.scss';
 interface Props {
 	powerRoll: PowerRoll;
 	ability?: Ability;
+	// Where this power roll sits inside the ability, as a presentation-only field path such
+	// as 'sections.2.roll'. It gives the roll's tiers a localization identity; a caller that
+	// has no ability behind the roll leaves it out, and the tiers stay canonical English.
+	rollField?: string;
 	creature?: Hero | Monster;
 	test?: boolean;
 	autoCalc?: boolean;
@@ -166,11 +171,19 @@ export const PowerRollPanel = (props: Props) => {
 	};
 
 	const getTier = (tier: number, value: string) => {
-		if (props.autoCalc && props.ability) {
-			return AbilityLogic.getTierEffectCreature(value, tier, props.ability, distance, props.creature);
+		// The tier the power roll carries is the only thing calculation ever sees. Whatever
+		// it returns is display text, and the boundary below reads that - so an approved
+		// zh-TW tier can never become a parser input, and a tier the calculation has already
+		// rewritten no longer matches the English its entry was approved against.
+		const calculated = (props.autoCalc && props.ability) ?
+			AbilityLogic.getTierEffectCreature(value, tier, props.ability, distance, props.creature)
+			: value;
+
+		if (!props.ability || !props.rollField) {
+			return calculated;
 		}
 
-		return value;
+		return localizeElementField(locale, props.ability.id, powerRollTierField(props.rollField, tier), calculated);
 	};
 
 	const footer = getFooter();
