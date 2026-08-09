@@ -4,9 +4,9 @@ import { Ability } from '@/models/ability';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityUsage } from '@/enums/ability-usage';
-import { localizeElementField, localizeMessage } from '@/localization/resolver';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 import { Field } from '@/components/controls/field/field';
-import { FormatLogic } from '@/logic/format-logic';
+import { getAbilityTypeDisplay } from '@/components/panels/ability-info/ability-type-display';
 import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { SashPanel } from '@/components/panels/sash/sash-panel';
@@ -73,13 +73,13 @@ export const AbilityInfoPanel = (props: Props) => {
 			{monogram ? <SashPanel monogram={monogram} /> : null}
 			{displaySummary ? <div className='ability-summary-message'>{displaySummary}</div> : null}
 			<div className='ds-text compact-text bold-text' style={{ position: 'relative', zIndex: '10' }}>
-				{FormatLogic.getAbilityType(props.ability.type)}
+				{getAbilityTypeDisplay(locale, props.ability.type)}
 			</div>
 			{
 				distance ?
 					<Field
 						compact={true}
-						label={props.ability.target !== distance ? 'Distance' : 'Distance / Target'}
+						label={props.ability.target !== distance ? localizeUIString(locale, 'ability-info.distance', 'Distance') : localizeUIString(locale, 'ability-info.distance-target', 'Distance / Target')}
 						value={<Markdown useSpan={true} text={distance} />}
 					/>
 					: null
@@ -88,7 +88,7 @@ export const AbilityInfoPanel = (props: Props) => {
 				props.ability.target && (props.ability.target !== distance) ?
 					<Field
 						compact={true}
-						label='Target'
+						label={localizeUIString(locale, 'ability-info.target', 'Target')}
 						value={<Markdown useSpan={true} text={displayTarget} />}
 					/>
 					: null
@@ -97,7 +97,7 @@ export const AbilityInfoPanel = (props: Props) => {
 				props.ability.type.trigger ?
 					<Field
 						compact={true}
-						label='Trigger'
+						label={localizeUIString(locale, 'ability-info.trigger', 'Trigger')}
 						value={<Markdown useSpan={true} text={props.ability.type.trigger} />}
 					/>
 					: null

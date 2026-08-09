@@ -181,5 +181,27 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'ui', key: 'feature-panel.notes', canonicalEnglish: 'Notes', zhTW: '備註', approval: 'approved' },
 	{ kind: 'ui', key: 'feature-panel.copy', canonicalEnglish: 'Copy Feature', zhTW: '複製特性', approval: 'approved' },
 	{ kind: 'ui', key: 'ability-panel.unnamed', canonicalEnglish: 'Unnamed Ability', zhTW: '未命名招式', approval: 'approved' },
-	{ kind: 'ui', key: 'ability-panel.copy', canonicalEnglish: 'Copy Ability', zhTW: '複製招式', approval: 'approved' }
+	{ kind: 'ui', key: 'ability-panel.copy', canonicalEnglish: 'Copy Ability', zhTW: '複製招式', approval: 'approved' },
+	// The ability info panel's fixed field labels. Only the label is read here: the distance
+	// result, the target and the trigger keep whatever they already resolved to.
+	{ kind: 'ui', key: 'ability-info.distance', canonicalEnglish: 'Distance', zhTW: '射程', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-info.target', canonicalEnglish: 'Target', zhTW: '目標', approval: 'approved' },
+	// The combined label the panel shows when the distance is the target; the spacing around
+	// the separator is part of the approved reading.
+	{ kind: 'ui', key: 'ability-info.distance-target', canonicalEnglish: 'Distance / Target', zhTW: '射程 / 目標', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-info.trigger', canonicalEnglish: 'Trigger', zhTW: '觸發', approval: 'approved' },
+	// How the approved player-facing action types read. The canonical English of each entry is
+	// the AbilityUsage value it stands for; the ability keeps that value, and the usages with
+	// no approved reading — Villain Action, Champion Action, Other — are not listed here.
+	{ kind: 'ui', key: 'ability-info.usage.main-action', canonicalEnglish: 'Main Action', zhTW: '主要動作', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-info.usage.maneuver', canonicalEnglish: 'Maneuver', zhTW: '機動動作', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-info.usage.move-action', canonicalEnglish: 'Move Action', zhTW: '移動動作', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-info.usage.no-action', canonicalEnglish: 'No Action', zhTW: '無需動作', approval: 'approved' },
+	{ kind: 'ui', key: 'ability-info.usage.triggered-action', canonicalEnglish: 'Triggered Action', zhTW: '反應動作', approval: 'approved' },
+	// 'Free Strike' is one whole term, not a free version of a strike, so it is read as a term
+	// of its own and never takes the free modifier below.
+	{ kind: 'ui', key: 'ability-info.usage.free-strike', canonicalEnglish: 'Free Strike', zhTW: '基礎打擊', approval: 'approved' },
+	// The free modifier an action type can carry, e.g. a free maneuver. This reading belongs to
+	// that modifier alone; the word is not translated this way anywhere else.
+	{ kind: 'ui', key: 'ability-info.action-type.free', canonicalEnglish: 'Free', zhTW: '免費', approval: 'approved' }
 ];

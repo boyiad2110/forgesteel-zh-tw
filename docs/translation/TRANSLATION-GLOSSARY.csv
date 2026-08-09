@@ -68,3 +68,12 @@ Unnamed Subclass,未命名子範型,ui,approved
 Signature Abilities,招牌招式,game-term,approved
 Unnamed Class,未命名範型,ui,approved
 Unnamed Complication,未命名糾葛,ui,approved
+Distance,射程,game-term,approved
+Target,目標,game-term,approved
+Trigger,觸發,game-term,approved
+Distance / Target,射程 / 目標,ui,approved
+Main Action,主要動作,game-term,approved
+Maneuver,機動動作,game-term,approved
+Move Action,移動動作,game-term,approved
+No Action,無需動作,game-term,approved
+Free Strike,基礎打擊,game-term,approved
