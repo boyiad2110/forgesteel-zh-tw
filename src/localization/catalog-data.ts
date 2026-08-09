@@ -203,5 +203,29 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'ui', key: 'ability-info.usage.free-strike', canonicalEnglish: 'Free Strike', zhTW: '基礎打擊', approval: 'approved' },
 	// The free modifier an action type can carry, e.g. a free maneuver. This reading belongs to
 	// that modifier alone; the word is not translated this way anywhere else.
-	{ kind: 'ui', key: 'ability-info.action-type.free', canonicalEnglish: 'Free', zhTW: '免費', approval: 'approved' }
+	{ kind: 'ui', key: 'ability-info.action-type.free', canonicalEnglish: 'Free', zhTW: '免費', approval: 'approved' },
+	// The power roll panel's headers. The roll's characteristics, its bonus and the tier effects
+	// beneath the header stay canonical; only the header's own wording is read here.
+	{ kind: 'ui', key: 'power-roll.test', canonicalEnglish: 'Test', zhTW: '考驗', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.highest-characteristic', canonicalEnglish: 'Highest Characteristic', zhTW: '最高屬性', approval: 'approved' },
+	// The canonical English of each entry is the Characteristic value it stands for; the roll
+	// keeps that value, and it is what every calculation continues to read.
+	{ kind: 'ui', key: 'power-roll.characteristic.might', canonicalEnglish: 'Might', zhTW: '力量', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.characteristic.agility', canonicalEnglish: 'Agility', zhTW: '敏捷', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.characteristic.reason', canonicalEnglish: 'Reason', zhTW: '理智', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.characteristic.intuition', canonicalEnglish: 'Intuition', zhTW: '直覺', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.characteristic.presence', canonicalEnglish: 'Presence', zhTW: '氣場', approval: 'approved' },
+	// How a characteristic list is joined, in this header only. English separates them with a
+	// spaced 'or'; zh-TW runs them together with 或, so the spacing belongs to the entry.
+	{ kind: 'ui', key: 'power-roll.characteristic-separator', canonicalEnglish: ' or ', zhTW: '或', approval: 'approved' },
+	// The characteristics are already read before they reach this template, so the template only
+	// carries what sits around them.
+	{ kind: 'message', key: 'power-roll.characteristic-test', canonicalEnglish: '{characteristics} Test', zhTW: '{characteristics}考驗', placeholders: [ 'characteristics' ], approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.power-roll', canonicalEnglish: 'Power Roll', zhTW: '檢定', approval: 'approved' },
+	// The '+' and the spaces around it are the same in both readings, so they stay in the
+	// template rather than being rebuilt around it.
+	{ kind: 'message', key: 'power-roll.characteristics', canonicalEnglish: 'Power Roll + {characteristics}', zhTW: '檢定 + {characteristics}', placeholders: [ 'characteristics' ], approval: 'approved' },
+	// The control that shows and hides the tier percentages; only its label is read, and the
+	// percentages themselves stay the numbers the panel calculated.
+	{ kind: 'ui', key: 'power-roll.odds', canonicalEnglish: 'Odds', zhTW: '機率', approval: 'approved' }
 ];

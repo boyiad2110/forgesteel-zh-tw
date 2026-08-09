@@ -1,4 +1,5 @@
 import { Button, Segmented, Space } from 'antd';
+import { getCharacteristicsHeader, getPowerRollLabel, getTestHeader } from '@/components/panels/power-roll/power-roll-header';
 import { Ability } from '@/models/ability';
 import { AbilityDistanceType } from '@/enums/ability-distance-type';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -12,6 +13,8 @@ import { HeroLogic } from '@/logic/hero-logic';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { PowerRoll } from '@/models/power-roll';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './power-roll-panel.scss';
@@ -27,18 +30,13 @@ interface Props {
 }
 
 export const PowerRollPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ distance, setDistance ] = useState<AbilityDistanceType | undefined>(props.ability && props.ability.distance.length > 1 ? props.ability.distance[0].type : undefined);
 	const [ showOdds, setShowOdds ] = useState<boolean>(false);
 
 	const getHeader = () => {
 		if (props.test) {
-			if (props.powerRoll.characteristic.length === 0) {
-				return 'Test';
-			}
-			if (props.powerRoll.characteristic.length === 5) {
-				return 'Highest Characteristic Test';
-			}
-			return `${props.powerRoll.characteristic.join(' or ')} Test`;
+			return getTestHeader(locale, props.powerRoll.characteristic);
 		}
 
 		if ((CreatureLogic.isHero(props.creature) || (CreatureLogic.isMonster(props.creature) && props.creature.retainer)) && props.autoCalc) {
@@ -60,16 +58,13 @@ export const PowerRollPanel = (props: Props) => {
 
 		if (rollCharacteristics.length > 0) {
 			if (rollCharacteristics.length === 0) {
-				return 'Power Roll';
+				return getPowerRollLabel(locale);
 			}
-			if (rollCharacteristics.length === 5) {
-				return 'Power Roll + Highest Characteristic';
-			}
-			return `Power Roll + ${rollCharacteristics.join(' or ')}`;
+			return getCharacteristicsHeader(locale, rollCharacteristics);
 		}
 
 		const sign = props.powerRoll.bonus >= 0 ? '+' : '';
-		return `Power Roll ${sign} ${props.powerRoll.bonus}`;
+		return `${getPowerRollLabel(locale)} ${sign} ${props.powerRoll.bonus}`;
 	};
 
 	const getFooter = () => {
@@ -196,7 +191,7 @@ export const PowerRollPanel = (props: Props) => {
 						props.odds ?
 							<Button
 								type='text'
-								title='Odds'
+								title={localizeUIString(locale, 'power-roll.odds', 'Odds')}
 								icon={<BarChartOutlined style={showOdds ? { color: 'rgb(22, 119, 255)' } : undefined} />}
 								onClick={() => setShowOdds(!showOdds)}
 							/>
