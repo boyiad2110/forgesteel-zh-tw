@@ -13,6 +13,8 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -139,6 +141,7 @@ interface ConfigProps {
 }
 
 export const ConfigLanguageChoice = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ languageSelectorOpen, setLanguageSelectorOpen ] = useState<boolean>(false);
 
 	const currentLanguages = HeroLogic.getLanguages(props.hero, props.sourcebooks).map(l => l.name);
@@ -174,7 +177,7 @@ export const ConfigLanguageChoice = (props: ConfigProps) => {
 			{
 				(props.data.selected.length < props.data.count) || (props.data.count === -1) ?
 					<Button className='status-warning' block={true} onClick={() => setLanguageSelectorOpen(true)}>
-						Choose a language
+						{localizeUIString(locale, 'config-language-choice.choose-language', 'Choose a language')}
 					</Button>
 					: null
 			}

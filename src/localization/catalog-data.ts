@@ -297,5 +297,41 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	// author wrote, which is also what the panel shows for these two: the parser leaves both
 	// of them exactly as they are.
 	{ kind: 'element-field', elementID: 'free-strike', field: 'sections.0.text', canonicalEnglish: 'A creature can use this main action to make a free strike.', zhTW: '生物可以使用此主要動作進行基礎打擊。', approval: 'approved' },
-	{ kind: 'element-field', elementID: 'escape-grab', field: 'sections.1.roll.tier1', canonicalEnglish: 'No effect.', zhTW: '無效果。', approval: 'approved' }
+	{ kind: 'element-field', elementID: 'escape-grab', field: 'sections.1.roll.tier1', canonicalEnglish: 'No effect.', zhTW: '無效果。', approval: 'approved' },
+	// The shared search box. Only the placeholder is read; the term the player types, the
+	// state it is held in and everything filtered by it stay exactly as they are.
+	{ kind: 'ui', key: 'search-box.placeholder', canonicalEnglish: 'Search', zhTW: '搜尋', approval: 'approved' },
+	// The shared selection box's two controls. Its 'Remove' reads as the hero edit sections'
+	// 'Remove' does, so it resolves through that entry rather than a second one.
+	{ kind: 'ui', key: 'selection-box.show-details', canonicalEnglish: 'Show details', zhTW: '查看詳細資訊', approval: 'approved' },
+	// Every hero choice configuration says this the same way when nothing is left to pick.
+	{ kind: 'ui', key: 'feature-config.no-options', canonicalEnglish: 'There are no options to choose for this feature.', zhTW: '此特性沒有需要選擇的項目。', approval: 'approved' },
+	// Choosing features. The count is a structured value the panel calculates; it is
+	// interpolated, never read, and the selected features keep their canonical identity.
+	{ kind: 'message', key: 'config-choice.choose-count', canonicalEnglish: 'Choose {count} option(s).', zhTW: '選擇 {count} 個項目。', placeholders: [ 'count' ], approval: 'approved' },
+	{ kind: 'message', key: 'config-choice.points-left', canonicalEnglish: 'You have {pointsLeft} point(s) to spend.', zhTW: '你還有 {pointsLeft} 點可以花費。', placeholders: [ 'pointsLeft' ], approval: 'approved' },
+	{ kind: 'ui', key: 'config-choice.choose-option', canonicalEnglish: 'Choose an option', zhTW: '選擇 1 個項目', approval: 'approved' },
+	{ kind: 'ui', key: 'config-choice.choose-option-extended', canonicalEnglish: 'Choose an option (extended)', zhTW: '選擇 1 個項目（擴充）', approval: 'approved' },
+	{ kind: 'ui', key: 'config-choice.any-ancestry', canonicalEnglish: 'Choose a feature from any ancestry', zhTW: '從任意族裔選擇 1 個特性', approval: 'approved' },
+	{ kind: 'ui', key: 'config-choice.against-rules', canonicalEnglish: 'This is typically against the rules.', zhTW: '這通常不符合規則。', approval: 'approved' },
+	// Choosing a class ability. The canonical line is composed from the ability's cost and
+	// the number wanted, so each mechanical variant the call site can produce is its own
+	// entry. 'signature' and the numeric cost stay the values every rule and save still read;
+	// only the sentence around them is localized, with the approved 費 reading of pt.
+	{ kind: 'ui', key: 'config-class-ability.choose-ability', canonicalEnglish: 'Choose an ability', zhTW: '選擇 1 個招式', approval: 'approved' },
+	{ kind: 'ui', key: 'config-class-ability.choose-signature-one', canonicalEnglish: 'Choose a signature ability.', zhTW: '選擇 1 個招牌招式。', approval: 'approved' },
+	{ kind: 'message', key: 'config-class-ability.choose-signature-many', canonicalEnglish: 'Choose {count} signature abilities.', zhTW: '選擇 {count} 個招牌招式。', placeholders: [ 'count' ], approval: 'approved' },
+	{ kind: 'message', key: 'config-class-ability.choose-cost-one', canonicalEnglish: 'Choose a {cost}pt ability.', zhTW: '選擇 1 個 {cost} 費招式。', placeholders: [ 'cost' ], approval: 'approved' },
+	{ kind: 'message', key: 'config-class-ability.choose-cost-many', canonicalEnglish: 'Choose {count} {cost}pt abilities.', zhTW: '選擇 {count} 個 {cost} 費招式。', placeholders: [ 'count', 'cost' ], approval: 'approved' },
+	// Choosing perks. The counted line names what is being chosen in zh-TW, which the bare
+	// English count leaves to the heading above it.
+	{ kind: 'ui', key: 'config-perk.choose-perk', canonicalEnglish: 'Choose a perk', zhTW: '選擇 1 個專長', approval: 'approved' },
+	{ kind: 'message', key: 'config-perk.choose-count', canonicalEnglish: 'Choose {count}:', zhTW: '選擇 {count} 個專長：', placeholders: [ 'count' ], approval: 'approved' },
+	// Choosing skills. The skill names themselves stay canonical: they are what the hero
+	// stores, and what every list and calculation matches on.
+	{ kind: 'ui', key: 'config-skill-choice.choose-skill', canonicalEnglish: 'Choose a Skill', zhTW: '選擇 1 個技能', approval: 'approved' },
+	{ kind: 'ui', key: 'config-skill-choice.duplicated', canonicalEnglish: 'Duplicated', zhTW: '已重複', approval: 'approved' },
+	{ kind: 'ui', key: 'config-skill-choice.duplicated-message', canonicalEnglish: 'You already have this skill.', zhTW: '你已經擁有此技能。', approval: 'approved' },
+	// Choosing languages; the language names stay canonical for the same reason.
+	{ kind: 'ui', key: 'config-language-choice.choose-language', canonicalEnglish: 'Choose a language', zhTW: '選擇 1 種語言', approval: 'approved' }
 ];

@@ -13,6 +13,8 @@ import { SkillSelectModal } from '@/components/modals/select/skill-select/skill-
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -142,6 +144,7 @@ interface ConfigProps {
 }
 
 export const ConfigSkillChoice = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ skillSelectorOpen, setSkillSelectorOpen ] = useState<boolean>(false);
 
 	const currentSkills = HeroLogic.getSkills(props.hero, props.sourcebooks).map(s => s.name);
@@ -176,7 +179,11 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 									}
 									{
 										duplicated ?
-											<Field danger={true} label='Duplicated' value='You already have this skill.' />
+											<Field
+												danger={true}
+												label={localizeUIString(locale, 'config-skill-choice.duplicated', 'Duplicated')}
+												value={localizeUIString(locale, 'config-skill-choice.duplicated-message', 'You already have this skill.')}
+											/>
 											: null
 									}
 								</Flex>
@@ -193,7 +200,7 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 			{
 				(props.data.selected.length < props.data.count) || (props.data.count === -1) ?
 					<Button className='status-warning' block={true} onClick={() => setSkillSelectorOpen(true)}>
-						Choose a Skill
+						{localizeUIString(locale, 'config-skill-choice.choose-skill', 'Choose a Skill')}
 					</Button>
 					: null
 			}

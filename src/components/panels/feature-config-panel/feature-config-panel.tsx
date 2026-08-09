@@ -12,6 +12,8 @@ import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Perk } from '@/models/perk';
 import { Sourcebook } from '@/models/sourcebook';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './feature-config-panel.scss';
 
@@ -24,6 +26,7 @@ interface Props {
 }
 
 export const FeatureConfigPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 
 	const autoCalcAvailable = () => {
@@ -60,7 +63,7 @@ export const FeatureConfigPanel = (props: Props) => {
 								<Button
 									key='autocalc'
 									type='text'
-									title='Auto-calculate damage, potency, etc'
+									title={localizeUIString(locale, 'ability-panel.auto-calculate', 'Auto-calculate damage, potency, etc')}
 									icon={autoCalc ? <ThunderboltFilled style={{ color: 'rgb(22, 119, 255)' }} /> : <ThunderboltOutlined />}
 									onClick={e => { e.stopPropagation(); setAutoCalc(!autoCalc); }}
 								/>
@@ -78,7 +81,7 @@ export const FeatureConfigPanel = (props: Props) => {
 					</>
 				}
 			>
-				{props.feature.name || 'Unnamed Feature'}
+				{props.feature.name || localizeUIString(locale, 'feature-panel.unnamed', 'Unnamed Feature')}
 			</HeaderText>
 			<Markdown text={getDescription()} />
 			<ConfigFeature
@@ -100,6 +103,8 @@ interface SelectionBoxProps {
 }
 
 export const SelectionBox = (props: SelectionBoxProps) => {
+	const { locale } = useLocalization();
+
 	return (
 		<div className={props.transparent ? 'selection-box' : 'selection-box with-border'}>
 			<Flex align='center' justify='space-between' gap={10}>
@@ -109,7 +114,7 @@ export const SelectionBox = (props: SelectionBoxProps) => {
 						props.onSelect ?
 							<Button
 								type='text'
-								title='Show details'
+								title={localizeUIString(locale, 'selection-box.show-details', 'Show details')}
 								icon={<InfoCircleOutlined />}
 								onClick={e => {
 									e.stopPropagation();
@@ -122,7 +127,7 @@ export const SelectionBox = (props: SelectionBoxProps) => {
 						props.onRemove ?
 							<Button
 								type='text'
-								title='Remove'
+								title={localizeUIString(locale, 'hero-edit.remove', 'Remove')}
 								icon={<CloseOutlined />}
 								onClick={e => {
 									e.stopPropagation();

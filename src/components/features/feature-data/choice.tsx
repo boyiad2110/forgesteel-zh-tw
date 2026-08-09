@@ -1,6 +1,7 @@
 import { Alert, Button, Divider, Drawer, Segmented, Space } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined, PlusOutlined } from '@ant-design/icons';
 import { Feature, FeatureChoiceData } from '@/models/feature';
+import { localizeMessage, localizeUIString } from '@/localization/resolver';
 import { Collections } from '@/utils/collections';
 import { DangerButton } from '@/components/controls/danger-button/danger-button';
 import { Empty } from '@/components/controls/empty/empty';
@@ -22,6 +23,7 @@ import { SelectionBox } from '@/components/panels/feature-config-panel/feature-c
 import { Sourcebook } from '@/models/sourcebook';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -196,6 +198,7 @@ interface ConfigProps {
 }
 
 export const ConfigChoice = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ comprehensive, setComprehensive ] = useState<boolean>(false);
 	const [ choiceSelectorOpen, setChoiceSelectorOpen ] = useState<boolean>(false);
 	const [ selectedFeature, setSelectedFeature ] = useState<Feature | null>(null);
@@ -246,10 +249,12 @@ export const ConfigChoice = (props: ConfigProps) => {
 		<Space orientation='vertical' style={{ width: '100%' }}>
 			<div className='ds-text'>
 				{
+					// The point total and the count are calculated values; they are interpolated
+					// into the reading rather than being read themselves.
 					showCosts ?
-						(pointsLeft > 0) ? `You have ${pointsLeft} point(s) to spend.` : null
+						(pointsLeft > 0) ? localizeMessage(locale, 'config-choice.points-left', { pointsLeft: pointsLeft.toString() }, 'You have {pointsLeft} point(s) to spend.') : null
 						:
-						`Choose ${props.data.count} option(s).`
+						localizeMessage(locale, 'config-choice.choose-count', { count: props.data.count.toString() }, 'Choose {count} option(s).')
 				}
 			</div>
 			{
@@ -275,10 +280,14 @@ export const ConfigChoice = (props: ConfigProps) => {
 			{
 				pointsLeft > 0 ?
 					sortedOptions.length === 0 ?
-						<Empty text='There are no options to choose for this feature.' />
+						<Empty text={localizeUIString(locale, 'feature-config.no-options', 'There are no options to choose for this feature.')} />
 						:
 						<Button className='status-warning' block={true} onClick={() => setChoiceSelectorOpen(true)}>
-							{comprehensive ? 'Choose an option (extended)' : 'Choose an option'}
+							{
+								comprehensive ?
+									localizeUIString(locale, 'config-choice.choose-option-extended', 'Choose an option (extended)')
+									: localizeUIString(locale, 'config-choice.choose-option', 'Choose an option')
+							}
 						</Button>
 					: null
 			}
@@ -286,7 +295,7 @@ export const ConfigChoice = (props: ConfigProps) => {
 				(pointsLeft > 0) && (props.data.count === 'ancestry') ?
 					<>
 						<Divider />
-						<Toggle label='Choose a feature from any ancestry' value={comprehensive} onChange={setComprehensive} />
+						<Toggle label={localizeUIString(locale, 'config-choice.any-ancestry', 'Choose a feature from any ancestry')} value={comprehensive} onChange={setComprehensive} />
 					</>
 					: null
 			}
@@ -295,7 +304,7 @@ export const ConfigChoice = (props: ConfigProps) => {
 					<Alert
 						type='warning'
 						showIcon={true}
-						title='This is typically against the rules.'
+						title={localizeUIString(locale, 'config-choice.against-rules', 'This is typically against the rules.')}
 					/>
 					: null
 			}

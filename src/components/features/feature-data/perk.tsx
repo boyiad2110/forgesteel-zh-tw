@@ -1,5 +1,6 @@
 import { Button, Drawer, Select, Space } from 'antd';
 import { Feature, FeaturePerkData } from '@/models/feature';
+import { localizeMessage, localizeUIString } from '@/localization/resolver';
 import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
 import { FeatureType } from '@/enums/feature-type';
@@ -19,6 +20,7 @@ import { SelectionBox } from '@/components/panels/feature-config-panel/feature-c
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -116,6 +118,7 @@ interface ConfigProps {
 }
 
 export const ConfigPerk = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ perkSelectorOpen, setPerkSelectorOpen ] = useState<boolean>(false);
 	const [ selectedPerk, setSelectedPerk ] = useState<Perk | null>(null);
 
@@ -131,20 +134,20 @@ export const ConfigPerk = (props: ConfigProps) => {
 	const getAddButton = () => {
 		if (sortedPerks.length === 0) {
 			return (
-				<Empty text='There are no options to choose for this feature.' />
+				<Empty text={localizeUIString(locale, 'feature-config.no-options', 'There are no options to choose for this feature.')} />
 			);
 		}
 
 		return (
 			<Button className='status-warning' block={true} onClick={() => setPerkSelectorOpen(true)}>
-				Choose a perk
+				{localizeUIString(locale, 'config-perk.choose-perk', 'Choose a perk')}
 			</Button>
 		);
 	};
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			{props.data.count > 1 ? <div className='ds-text'>Choose {props.data.count}:</div> : null}
+			{props.data.count > 1 ? <div className='ds-text'>{localizeMessage(locale, 'config-perk.choose-count', { count: props.data.count.toString() }, 'Choose {count}:')}</div> : null}
 			{
 				props.data.selected.map(perk => (
 					<SelectionBox
