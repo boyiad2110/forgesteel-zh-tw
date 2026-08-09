@@ -1,5 +1,6 @@
 import { Button, Segmented, Space } from 'antd';
 import { getCharacteristicsHeader, getPowerRollLabel, getTestHeader } from '@/components/panels/power-roll/power-roll-header';
+import { getFeatureDamageBonus, getKitDamageBonus, getPotencyLabel, getPotencyValues } from '@/components/panels/power-roll/power-roll-footer';
 import { Ability } from '@/models/ability';
 import { AbilityDistanceType } from '@/enums/ability-distance-type';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -109,7 +110,7 @@ export const PowerRollPanel = (props: Props) => {
 							<Field
 								key={`kit-${n}`}
 								label={`${bonus.name}`}
-								value={`+${bonus.tier1} / +${bonus.tier2} / +${bonus.tier3} ${bonus.type} damage`}
+								value={getKitDamageBonus(locale, bonus)}
 							/>
 						);
 					});
@@ -124,7 +125,7 @@ export const PowerRollPanel = (props: Props) => {
 				HeroLogic
 					.getFeatureDamageBonuses(props.creature, props.ability, distance)
 					.forEach((bonus, n) => {
-						const value = `${bonus.value} ${bonus.type}`;
+						const value = getFeatureDamageBonus(locale, bonus);
 						sections.push(<Field key={`feature-${n}`} label={bonus.feature} value={value} />);
 					});
 			}
@@ -142,8 +143,8 @@ export const PowerRollPanel = (props: Props) => {
 					sections.push(
 						<Field
 							key='potency'
-							label='Potency'
-							value={`weak ${weak}, average ${avg}, strong ${strong}`}
+							label={getPotencyLabel(locale)}
+							value={getPotencyValues(locale, { weak: weak, average: avg, strong: strong })}
 						/>
 					);
 				}

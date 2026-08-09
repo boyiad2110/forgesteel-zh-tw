@@ -227,5 +227,30 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'message', key: 'power-roll.characteristics', canonicalEnglish: 'Power Roll + {characteristics}', zhTW: '檢定 + {characteristics}', placeholders: [ 'characteristics' ], approval: 'approved' },
 	// The control that shows and hides the tier percentages; only its label is read, and the
 	// percentages themselves stay the numbers the panel calculated.
-	{ kind: 'ui', key: 'power-roll.odds', canonicalEnglish: 'Odds', zhTW: '機率', approval: 'approved' }
+	{ kind: 'ui', key: 'power-roll.odds', canonicalEnglish: 'Odds', zhTW: '機率', approval: 'approved' },
+	// A kit's damage bonus. Each phrase was approved whole: neither is a reading of the melee or
+	// ranged distance terms on their own, which stay canonical wherever else they appear.
+	{ kind: 'ui', key: 'power-roll.kit-damage.melee', canonicalEnglish: 'melee damage', zhTW: '近戰傷害', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.kit-damage.ranged', canonicalEnglish: 'ranged damage', zhTW: '遠程傷害', approval: 'approved' },
+	// The three tiers read the same way round in both languages; the entry exists so the layout
+	// belongs to the locale rather than to the panel, and so the tiers stay structured values.
+	{ kind: 'message', key: 'power-roll.kit-damage-bonus', canonicalEnglish: '+{tier1} / +{tier2} / +{tier3} {damage}', zhTW: '+{tier1} / +{tier2} / +{tier3} {damage}', placeholders: [ 'tier1', 'tier2', 'tier3', 'damage' ], approval: 'approved' },
+	// A feature's damage bonus. The canonical English of each entry below is the DamageType value
+	// it stands for; the feature keeps that value, and it is what every rule still reads.
+	{ kind: 'message', key: 'power-roll.feature-damage-bonus', canonicalEnglish: '{value} {damageType}', zhTW: '{value} {damageType}', placeholders: [ 'value', 'damageType' ], approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.damage', canonicalEnglish: 'Damage', zhTW: '傷害', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.acid', canonicalEnglish: 'Acid', zhTW: '酸蝕', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.cold', canonicalEnglish: 'Cold', zhTW: '寒冷', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.corruption', canonicalEnglish: 'Corruption', zhTW: '腐朽', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.fire', canonicalEnglish: 'Fire', zhTW: '火焰', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.holy', canonicalEnglish: 'Holy', zhTW: '神聖', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.lightning', canonicalEnglish: 'Lightning', zhTW: '閃電', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.poison', canonicalEnglish: 'Poison', zhTW: '劇毒', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.psychic', canonicalEnglish: 'Psychic', zhTW: '心靈', approval: 'approved' },
+	{ kind: 'ui', key: 'power-roll.damage-type.sonic', canonicalEnglish: 'Sonic', zhTW: '音波', approval: 'approved' },
+	// The potency line. 弱 / 中 / 強 name the three potency strengths here and nowhere else; the
+	// 'weak', 'average' and 'strong' the hero's potency is calculated from keep those names.
+	// The full-width commas belong to the zh-TW reading, so the separators live in the template.
+	{ kind: 'ui', key: 'power-roll.potency', canonicalEnglish: 'Potency', zhTW: '效力', approval: 'approved' },
+	{ kind: 'message', key: 'power-roll.potency-values', canonicalEnglish: 'weak {weak}, average {average}, strong {strong}', zhTW: '弱 {weak}，中 {average}，強 {strong}', placeholders: [ 'weak', 'average', 'strong' ], approval: 'approved' }
 ];
