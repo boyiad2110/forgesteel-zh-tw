@@ -420,6 +420,93 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'career-warden', field: 'description', canonicalEnglish: 'You protected a wild region from those who sought to harm it, such as poachers and cultists bent on the destruction of the natural world. Knowing your land well, you could also serve as a guide or the leader of a rescue party for those wandering the wilds.', zhTW: '你曾經保護著一片荒野不受他人破壞，包括盜獵者和企圖毀滅大自然的邪教徒。由於你非常熟悉當地環境，你也會承擔嚮導和救援隊長的工作，幫助迷失在荒野中的人們。', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'career-watch-officer', field: 'name', canonicalEnglish: 'Watch Officer', zhTW: '執法者', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'career-watch-officer', field: 'description', canonicalEnglish: 'You served as an officer of the law for a local government. You might have been a single person in a much larger city watch or the only constable patrolling a small village.', zhTW: '你曾經當過地方政府的執法人員，可能是大城市警衛的一員，或是小村莊唯一的治安官。', approval: 'approved' },
+	// Class top-level name/description, addressed by the class's own ID. Subclasses, Class
+	// Features, abilities and other nested authored content stay canonical English until a
+	// later batch. Multi-paragraph descriptions here are template literals so the approved
+	// text can carry the same paragraph breaks as the canonical English.
+	{ kind: 'element-field', elementID: 'class-censor', field: 'name', canonicalEnglish: 'Censor', zhTW: '懲戒者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-censor', field: 'description', canonicalEnglish: `
+Demons and deathless fear you. Criminals run from the sight of your shadow. Agents of chaos, blasphemers, and heretics tremble at the sound of your voice. You carry the power of the gods, armed with wrath and sent out into the world first to seek, then censor those whose actions—or even existence—are anathema to your church.
+
+As a censor, you’re at your best against the strongest foes. Your judgment terrifies heretics, stops enemies in their tracks, and even hurls them across the battlefield.`, zhTW: `惡魔與亡靈畏懼你；罪犯見你蹤影就倉皇逃逸；混沌爪牙、瀆神者和異端者聽到你的聲音便不寒而慄。你身負眾神之力，手持神聖怒火，奉命周遊世界，尋找並懲罰那些被教會視為禁忌的邪惡之徒。
+
+身為懲戒者，你面對強敵時能夠大顯神威。你的審判令敵人膽戰心驚、裹足不前，甚至能將他們拋飛至戰場的另一端。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-conduit', field: 'name', canonicalEnglish: 'Conduit', zhTW: '神導士', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-conduit', field: 'description', canonicalEnglish: `
+The power of the gods flows through you! As a vessel for divine power, you don’t just keep your allies in the fight. You make those allies more effective, even as you rain divine energy down upon your foes. Though the deity or saint you serve might have other faithful and clergy, you are special among worshippers, receiving your abilities from the highest source.
+
+As a conduit, you heal and buff your allies, and debuff your foes while smiting them with divine magic. The spark of divinity within you shines, filling your enemies with awe and making you more worldly and aware.`, zhTW: `神力在你的體內奔流！身為神聖力量的載體，你不僅能讓盟友繼續奮戰，還能增強他們的力量，同時對敵人降下神聖的制裁。雖然你信奉的神明或聖者擁有眾多信徒和神職人員，但你是所有信眾中最獨特的存在，能夠直接從至高無上的源頭獲得力量。
+
+身為神導士，你可以治療並強化盟友，同時用神聖魔法削弱並制裁敵人。你體內的神性光輝璀璨奪目，不只讓敵人心生敬畏，也讓你更加通曉世事、洞察萬物。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-elementalist', field: 'name', canonicalEnglish: 'Elementalist', zhTW: '元素師', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-elementalist', field: 'description', canonicalEnglish: `
+Air for movement. Earth for permanence. Fire for destruction. Water for change. Green for growth. Rot for death. Void for the mystery. Years of study and practice and poring over tomes brought you the revelations that allow you to manipulate these building blocks of reality. Now you use your mastery of the seven elements to destroy, create, and warp the world with magic.
+
+As an elementalist, you can unleash your wrath across a field of foes, put an enemy exactly where you want them, debilitate foes with harmful effects, ward yourself and allies against danger, manipulate terrain, warp space, and more. Your choice of elemental specialization determines which of these things you do best.`, zhTW: `疾風為流動；磐土為永恆；烈火為毀滅；流水為變化；翠息為生長；枯蝕為死亡；虛冥為詭祕。透過多年的學習、實踐，與埋首古籍，你終於領悟如何操縱這些構築現實的根基。如今，你掌握七大元素之力，能夠隨心所欲地改造這個世界。
+
+身為元素師，你能夠向敵群傾瀉火力、削弱對手、庇護盟友、改變地形、扭曲空間等等，而你精通的元素決定了你在哪個領域最為出眾。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-fury', field: 'name', canonicalEnglish: 'Fury', zhTW: '熾怒者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-fury', field: 'description', canonicalEnglish: `
+You do not temper the heat of battle within you. You unleash it! Your experience in the wild taught you the secrets of predators, and now, like the raptor, the panther, the wolf, you channel unfettered anger into martial prowess. Primordial Chaos is your ally. Let others use finesse to clean up the wreckage left in your wake.
+
+As a fury, you devastate foes with overwhelming might, hurl yourself and enemies around the battlefield, and grow stronger as your ferocity increases. Nature has no concept of fairness — and neither do you..`, zhTW: `你從不壓抑體內的狂熱戰意，而是將其徹底釋放！在荒野中的歷練讓你領悟了掠食者的祕密。你如同猛禽、獵豹與野狼一般，將純粹的憤怒轉化為致命的戰技。原初混沌與你並肩作戰，就讓其他人去收拾你肆虐過後的殘局吧。
+
+身為熾怒者，你以摧枯拉朽之力粉碎敵人，如旋風般席捲戰場，越戰越勇。大自然從不講求公平，你也一樣。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-null', field: 'name', canonicalEnglish: 'Null', zhTW: '無念者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-null', field: 'description', canonicalEnglish: `
+The mind is not separate from the body. Perfection of one requires perfection of the other. You strive for perfect discipline, perfect order, mastery over mind and body becoming an unarmed psionic warrior who dampens and absorbs magic and psionics. You require no weapons, no tools. You suffice.
+
+As a null, you resist the supernatural forces of the universe with composure and confidence. As you strive for perfect order, you are an enemy of the ultimate expression of chaos: the supernatural. Those who break the laws of nature using sorcery or psionics should fear you.
+
+*"Any weapon can be turned against the hand that wields it."* - Ardashir`, zhTW: `心智與身軀本為一體，追求其一的完美，必然要追求另一者的完美。你追求絕對的紀律與秩序，並掌握身心的極致，進而成為一名能夠抑制並吸收魔法與靈能的徒手戰士。你不需要武器或工具，你已足矣。
+
+身為無念者，你以沉著與自信抵抗宇宙的超常力量。在追求完美秩序的道路上，你與混沌的終極體現勢不兩立。那些利用魔法或靈能破壞自然法則的人，都應當畏懼你的存在。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-shadow', field: 'name', canonicalEnglish: 'Shadow', zhTW: '影舞者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-shadow', field: 'description', canonicalEnglish: `
+Subtlety is your art, the tip of the blade your brush. You studied at a secret college, specializing in alchemy, illusion, or shadow-magics. Your training and knowledge place you among the elite ranks of assassins, spies, and commandos. But more potent than any weapon or sorcery is your insight into your enemies’ weaknesses.
+
+As a shadow, you possess abilities that deal significant damage, enable you to move swiftly across the battlefield and evade hazards, and allow you to fade from notice even in the midstof the most intense combat encounters. You also possess more skills than any other hero.`, zhTW: `詭詐是你的藝術，刀鋒是你的畫筆。你曾經在一所祕密學院修行，專精於鍊金術、幻術或暗影魔法。你的訓練與知識讓你躋身刺客、間諜和特種部隊的精英之列。然而，比任何武器或法術更為強大的，是你洞察敵人弱點的能力。
+
+身為影舞者，你不僅能造成大量的傷害，還能在戰場上靈活移動、避開危險，甚至在最激烈的戰鬥中消失無蹤。除此之外，你擁有的技能也比其他英雄更多。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-tactician', field: 'name', canonicalEnglish: 'Tactician', zhTW: '戰術家', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-tactician', field: 'description', canonicalEnglish: `
+Strategist. Defender. Leader. With sword in hand, you lead allies into the maw of battle, barking out commands that inspire your fellow heroes to move faster and strike more precisely. All the while, you stand between your compatriots and death, taunting the followers of evil to best you if they can.
+
+As a tactician, you have abilities that heal your allies and grant them increased damage, movement, and attacks.`, zhTW: `策略家、守護者、指揮官。你手持武器，率領盟友衝鋒陷陣，發出號令激勵同伴更快速且更精準地行動。你挺身擋在夥伴與死亡之間，向邪惡勢力發出挑戰，挑釁他們放膽來對付你。
+
+身為戰術家，你能夠治療盟友，還能提升他們的傷害、移動能力和攻擊效果，同時讓敵人陷入混亂，難以應戰。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-talent', field: 'name', canonicalEnglish: 'Talent', zhTW: '異能者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-talent', field: 'description', canonicalEnglish: `
+A rare few people are born with the potential to harness psionic power, but only those who experience an awakening, a significant event that activates a talent’s abilities, can tap into the mind’s full potential. You are one of those people—a master of psionics and a source of incredible power created through sheer force of will. You can move and change matter, time, gravity, the laws of physics, or another creature’s mind.
+
+As a talent, you are limited only by the strength of your mind. But the ability to wield multiple powers at once and change reality at will involves a gamble. Every manifestation has a chance of harming you, and talents who use too much power too quickly pay a deadly price.`, zhTW: `只有極少數人天生就擁有駕馭靈能的潛力，但若要完全發揮心靈的力量，還必須經歷某個重大的覺醒時刻。你正是其中之一，能夠以純粹的意志力創造不可思議的壯舉。你可以移動並改變物質、時間、重力、物理法則，甚至是他人的心智。
+
+身為異能者，你唯一的限制是自己的心智強度。然而，同時運用多種力量、隨心所欲地改變現實，也是一場危險的賭注。你每次展現能力都可能傷及自身，而在短時間內過度消耗靈能往往會付出致命的代價。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-troubadour', field: 'name', canonicalEnglish: 'Troubadour', zhTW: '遊唱家', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-troubadour', field: 'description', canonicalEnglish: `The whole world’s a stage, and everyone on it, an actor. No one knows this better than the troubadour. You find energy in the drama of everyday life and know how to draw spectacle forth from even the most mundane of situations. You accent highs and deepen lows in service to whoever might witness your performance.
+
+As a troubadour, you chase drama. The insurmountable dangers of the world might cause many a hero to cower. But you take to that world stage not intending to die, but to find out if you are truly alive.
+
+“History is a tale. Each of us is just a story we tell ourselves. Change the story, and you change the world.”
+Jackson Bootblack`, zhTW: `整個世界就是一座舞台，每個人都是其中的演員。沒有人比遊唱家更明白這個道理。你能從日常生活的大小事汲取能量，善於將平凡的瞬間轉化為精彩的場面。為了打動觀眾，你將故事的高潮渲染得更加精彩，也讓低谷顯得更加深邃。
+
+身為遊唱家，你時時刻刻追尋著戲劇張力。那些讓英雄們卻步的危險，對你而言是絕佳的機會。你踏上這個世界的舞台，不是為了赴死，而是為了探尋生命的真諦。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-beastheart', field: 'name', canonicalEnglish: 'Beastheart', zhTW: '獸魂者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-beastheart', field: 'description', canonicalEnglish: `
+A beastheart never fights alone! You travel with a ferocious beast by your side — no trained pet, but an untamed creature such as a wolf, a basilisk, or even a young dragon. Bound to you by a primordial connection, your companion honors your wishes just as you are guided by their instincts. But beware! As battle rages on, your companion may succumb to a blood-soaked rampage, lashing out at enemies and friends alike.
+
+As a beastheart, you face the world’s dangers alongside your wild companion. With your combined might, you rush into the thick of combat to challenge enemy champions or prowl around the outskirts to pick off vulnerable foes.`, zhTW: `獸魂者從不獨自作戰！你的身旁永遠伴隨著一頭兇猛野獸。牠不是受過訓練的普通寵物，而是狼、蜥怪，甚至幼龍之類的野獸。你與夥伴之間存在著某種原始野性的連結，牠尊重你的意願，你也會受到牠本能的引導，但要小心！隨著戰鬥愈演愈烈，你的夥伴可能會陷入血腥狂暴，不分敵我地發動攻擊。
+
+身為獸魂者，你與野獸夥伴一同面對世界的危險。憑藉彼此的連攜力量，你可以殺入敵陣挑戰強者，也可以在戰場外圍伺機而動，逐一獵殺脆弱的敵人。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-summoner', field: 'name', canonicalEnglish: 'Summoner', zhTW: '召喚師', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'class-summoner', field: 'description', canonicalEnglish: `
+You are the armada. The kings of old would trade armies for your abilities. You’ve undertaken the tradition that conjures an endless supply of warriors. You are the summoner, the mage who takes their dreams and makes them manifest.
+
+You call forth minions to trudge fearlessly into the fray and provide support, holding the enemy at bay while you and your fellow heroes ready the counteroffensive. Your minions serve unflinchingly, unerringly, to their death or to yours.
+
+You can also take advantage of powerful magic to buff your allies, whittle down your enemies, or enlist the fallen into your ranks. And when push comes to shove, you can call upon your champion to finish the fight.`, zhTW: `你一人就擁有大軍之力。你承襲了一門能召來無盡戰士的魔法流派，古代的國王甚至願意拿整支軍隊交換你的力量。你能夠召喚僕從，命令他們無所畏懼地衝入戰場、提供支援、牽制敵軍，好讓你與其他英雄發動反攻。你的僕從不會退縮、不會遲疑，直到它們或你死去。
+
+你也能夠運用魔法強化盟友、削弱敵人，甚至將死者納入自己的軍隊。當戰況真正陷入危急時，你還能召喚自己麾下的強大勇士，為戰鬥畫下句點。`, approval: 'approved' },
 	// The shared search box. Only the placeholder is read; the term the player types, the
 	// state it is held in and everything filtered by it stay exactly as they are.
 	{ kind: 'ui', key: 'search-box.placeholder', canonicalEnglish: 'Search', zhTW: '搜尋', approval: 'approved' },

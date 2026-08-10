@@ -1,4 +1,4 @@
-import { localizeMessage, localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
@@ -37,12 +37,15 @@ interface Props {
 export const ClassPanel = (props: Props) => {
 	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
-	const className = props.heroClass.name || localizeUIString(locale, 'class-panel.unnamed', 'Unnamed Class');
+	const className = props.heroClass.name
+		? localizeElementField(locale, props.heroClass.id, 'name', props.heroClass.name)
+		: localizeUIString(locale, 'class-panel.unnamed', 'Unnamed Class');
+	const classDescription = localizeElementField(locale, props.heroClass.id, 'description', props.heroClass.description);
 
 	const getOverview = () => {
 		return (
 			<>
-				<Markdown text={props.heroClass.description} />
+				<Markdown text={classDescription} />
 				{
 					props.heroClass.subclasses.length > 0 ?
 						<Field label={Format.pluralize(props.heroClass.subclassName)} value={props.heroClass.subclasses.map(c => c.name).join(', ')} />
@@ -214,7 +217,7 @@ export const ClassPanel = (props: Props) => {
 				<HeaderText level={1} tags={tags}>
 					{className}
 				</HeaderText>
-				<Markdown text={props.heroClass.description} />
+				<Markdown text={classDescription} />
 			</div>
 		);
 	}
