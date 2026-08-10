@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Segmented, Space } from 'antd';
 import { Ancestry } from '@/models/ancestry';
 import { AncestryLogic } from '@/logic/ancestry-logic';
@@ -16,7 +18,7 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
-import { localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
@@ -33,11 +35,14 @@ export const AncestryPanel = (props: Props) => {
 	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
 
-	const ancestryName = props.ancestry.name || localizeUIString(locale, 'ancestry-panel.unnamed', 'Unnamed Ancestry');
+	const ancestryName = props.ancestry.name
+		? localizeElementField(locale, props.ancestry.id, 'name', props.ancestry.name)
+		: localizeUIString(locale, 'ancestry-panel.unnamed', 'Unnamed Ancestry');
+	const ancestryDescription = localizeElementField(locale, props.ancestry.id, 'description', props.ancestry.description);
 
 	const getOverview = () => {
 		return (
-			<Markdown text={props.ancestry.description} />
+			<Markdown text={ancestryDescription} />
 		);
 	};
 
@@ -140,7 +145,7 @@ export const AncestryPanel = (props: Props) => {
 				<HeaderText level={1} tags={tags}>
 					{ancestryName}
 				</HeaderText>
-				<Markdown text={props.ancestry.description} />
+				<Markdown text={ancestryDescription} />
 			</div>
 		);
 	}
