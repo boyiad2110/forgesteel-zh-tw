@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Culture } from '@/models/culture';
 import { CultureType } from '@/enums/culture-type';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
@@ -10,7 +12,7 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
-import { localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 
 import './culture-panel.scss';
@@ -34,6 +36,11 @@ interface Props {
 export const CulturePanel = (props: Props) => {
 	const { locale } = useLocalization();
 
+	const cultureName = props.culture.name
+		? localizeElementField(locale, props.culture.id, 'name', props.culture.name)
+		: localizeUIString(locale, 'culture-panel.unnamed', 'Unnamed Culture');
+	const cultureDescription = localizeElementField(locale, props.culture.id, 'description', props.culture.description);
+
 	const cultureTypeTag = cultureTypeTags.find(t => t.type === props.culture.type);
 	// Only the approved Homebrew reading changes at this presentation boundary; all other
 	// SourcebookType values remain their canonical values for lookup and fallback.
@@ -52,9 +59,9 @@ export const CulturePanel = (props: Props) => {
 					level={1}
 					tags={tags}
 				>
-					{props.culture.name || localizeUIString(locale, 'culture-panel.unnamed', 'Unnamed Culture')}
+					{cultureName}
 				</HeaderText>
-				<Markdown text={props.culture.description} />
+				<Markdown text={cultureDescription} />
 				{
 					props.mode === PanelMode.Full ?
 						<div style={{ paddingTop: '10px' }}>
