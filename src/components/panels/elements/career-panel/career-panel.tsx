@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Segmented, Space } from 'antd';
 import { Career } from '@/models/career';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
@@ -12,7 +14,7 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
-import { localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
@@ -29,11 +31,14 @@ export const CareerPanel = (props: Props) => {
 	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
 
-	const careerName = props.career.name || localizeUIString(locale, 'career-panel.unnamed', 'Unnamed Career');
+	const careerName = props.career.name
+		? localizeElementField(locale, props.career.id, 'name', props.career.name)
+		: localizeUIString(locale, 'career-panel.unnamed', 'Unnamed Career');
+	const careerDescription = localizeElementField(locale, props.career.id, 'description', props.career.description);
 
 	const getOverview = () => {
 		return (
-			<Markdown text={props.career.description} />
+			<Markdown text={careerDescription} />
 		);
 	};
 
@@ -114,7 +119,7 @@ export const CareerPanel = (props: Props) => {
 				<HeaderText level={1} tags={tags}>
 					{careerName}
 				</HeaderText>
-				<Markdown text={props.career.description} />
+				<Markdown text={careerDescription} />
 			</div>
 		);
 	}
