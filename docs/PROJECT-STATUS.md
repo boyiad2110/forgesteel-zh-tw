@@ -12,7 +12,7 @@
 - Latest merged substantive PR：`#42 feat: add V1 hero creation manifest`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
-- Current phase：**V1 localization completeness foundation 已建立，正在依 Translation Workflow 以 coherent player-facing slices 擴充 manifest coverage 與正式翻譯**。
+- Current phase：**V1 localization completeness foundation 已建立，部分 V1 denominator 已納入；下一階段將依 Translation Workflow，以 coherent player-facing slices 同步推進 manifest coverage 與正式翻譯。**
 
 實際 repository state 永遠優先於本摘要。若 `develop` 已前進，先依 Git／GitHub evidence 更新判斷，不把本文件中的 SHA 當成 reset 目標。
 
@@ -29,7 +29,7 @@
 
 - `docs/REVIEWER-PRINCIPLES.md` — Reviewer 權限與決策邊界。
 - `docs/requirements/V1-REQUIREMENTS.md` — V1 產品 scope／完成／發布條件。
-- `docs/translation/TRANSLATION-WORKFLOW.md` — V1 翻譯工作的執行方式。
+- `docs/translation/TRANSLATION-WORKFLOW.md` — V1 翻譯工作的執行方式；不取代 Owner latest decision、Reviewer Principles、Reviewer Skill 或 V1 requirements。
 - `docs/analysis/LOCALIZATION-TECHNICAL-OPTIONS.md` — 已核准 localization 核心架構與安全邊界。
 - `docs/translation/TRANSLATION-GLOSSARY.csv` — 已核准 standalone terminology／UI glossary evidence。
 - `docs/PROJECT-SCOPE.md` — 快速摘要；不建立第二套 scope。

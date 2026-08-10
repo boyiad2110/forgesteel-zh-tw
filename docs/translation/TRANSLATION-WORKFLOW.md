@@ -12,7 +12,7 @@
 - 現行 V1 requirements
 - repository code、tests、PR、CI 與人工驗收 evidence
 
-若有衝突，以較高 authority 與較新的 repository evidence 為準。
+Authority 衝突依 `docs/REVIEWER-PRINCIPLES.md` 處理；repository code、tests、PR、CI 與人工驗收 evidence 用於判定實際現況，不得覆蓋較高 authority。
 
 Reviewer / Agent 的 Batch、Review、Git / PR workflow 仍依 `PROJECT-REVIEW-SKILL.md`；本文件不建立第二套 Reviewer 流程。
 
