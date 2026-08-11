@@ -6,6 +6,8 @@ import { Hero } from '@/models/hero';
 import { PanelMode } from '@/enums/panel-mode';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
+import { localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -16,13 +18,15 @@ interface InfoProps {
 }
 
 export const InfoMultiple = (props: InfoProps) => {
+	const { locale } = useLocalization();
+
 	if (props.data.features.length === 0) {
 		return null;
 	}
 
 	if (props.feature.description) {
 		return (
-			<Expander title='Features'>
+			<Expander title={localizeUIString(locale, 'feature-multiple.features', 'Features')}>
 				{props.data.features.map(f => <FeaturePanel key={f.id} feature={f} mode={PanelMode.Full} />)}
 			</Expander>
 		);

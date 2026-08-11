@@ -14,6 +14,8 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
+import { localizeElementField } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -83,6 +85,7 @@ interface ConfigProps {
 }
 
 export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const currentFeatureIDs = HeroLogic.getFeatures(props.hero)
 		.map(f => f.feature)
 		.filter(f => f.id !== props.feature.id)
@@ -125,7 +128,7 @@ export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
 				status={!props.data.selected ? 'warning' : ''}
 				allowClear={true}
 				placeholder='Select a feature from an ancestry'
-				options={sortedFeatures.map(f => ({ label: f.name, value: f.id, desc: f.description || f.type, disabled: currentFeatureIDs.includes(f.id) }))}
+				options={sortedFeatures.map(f => ({ label: localizeElementField(locale, f.id, 'name', f.name), value: f.id, desc: f.description ? localizeElementField(locale, f.id, 'description', f.description) : f.type, disabled: currentFeatureIDs.includes(f.id) }))}
 				optionRender={option => <Field disabled={option.data.disabled} label={option.data.label} value={option.data.desc} />}
 				value={props.data.selected ? props.data.selected.id : null}
 				onChange={value => {

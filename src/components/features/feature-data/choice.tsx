@@ -1,7 +1,7 @@
 import { Alert, Button, Divider, Drawer, Segmented, Space } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined, PlusOutlined } from '@ant-design/icons';
 import { Feature, FeatureChoiceData } from '@/models/feature';
-import { localizeMessage, localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 import { Collections } from '@/utils/collections';
 import { DangerButton } from '@/components/controls/danger-button/danger-button';
 import { Empty } from '@/components/controls/empty/empty';
@@ -34,6 +34,8 @@ interface InfoProps {
 }
 
 export const InfoChoice = (props: InfoProps) => {
+	const { locale } = useLocalization();
+
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%', padding: '0 20px', borderLeft: '5px solid rgb(200 200 200)' }}>
@@ -60,7 +62,7 @@ export const InfoChoice = (props: InfoProps) => {
 			<Space orientation='vertical' style={{ width: '100%' }}>
 				{
 					props.data.options.map(o => (
-						<Expander key={o.feature.id} title={o.feature.name}>
+						<Expander key={o.feature.id} title={localizeElementField(locale, o.feature.id, 'name', o.feature.name)}>
 							<FeaturePanel feature={o.feature} cost={showCosts ? o.value : undefined} mode={PanelMode.Full} />
 						</Expander>
 					))
@@ -264,8 +266,8 @@ export const ConfigChoice = (props: ConfigProps) => {
 						content={
 							<Field
 								style={{ flex: '1 1 0' }}
-								label={f.name}
-								value={<Markdown text={f.description} useSpan={true} />}
+								label={localizeElementField(locale, f.id, 'name', f.name)}
+								value={<Markdown text={localizeElementField(locale, f.id, 'description', f.description)} useSpan={true} />}
 							/>
 						}
 						onSelect={() => setSelectedFeature(f)}
