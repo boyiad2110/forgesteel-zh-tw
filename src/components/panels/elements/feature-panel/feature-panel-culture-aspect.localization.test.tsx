@@ -42,47 +42,44 @@ const renderPanel = (feature: Feature, hero?: Hero) => render(
 	</LocalizationProvider>
 );
 
+const approvedDescription = '從 Exploration 技能或 Interpersonal 技能中選擇 1 項技能。';
+
 describe('FeaturePanel Culture Aspect localization', () => {
-	it('shows the approved zh-TW name, and canonical English after switching locale', () => {
+	it('shows the approved zh-TW name and description, and canonical English after switching locale', () => {
 		const serialized = JSON.stringify(nomadic);
+		const canonicalDescription = nomadic.description;
 
 		renderPanel(nomadic);
 
 		expect(screen.getByText('遊牧', { exact: true })).toBeTruthy();
+		expect(screen.getByText(approvedDescription, { exact: true })).toBeTruthy();
 		expect(screen.queryByText('Nomadic', { exact: true })).toBeNull();
+		expect(screen.queryByText(canonicalDescription, { exact: true })).toBeNull();
 
 		switchLocale();
 
 		expect(screen.getByText('Nomadic', { exact: true })).toBeTruthy();
+		expect(screen.getByText(canonicalDescription, { exact: true })).toBeTruthy();
 		expect(screen.queryByText('遊牧', { exact: true })).toBeNull();
+		expect(screen.queryByText(approvedDescription, { exact: true })).toBeNull();
 
 		// The canonical Feature object is never mutated by either reading of it.
 		expect(JSON.stringify(nomadic)).toBe(serialized);
 	});
 
-	it('switches back and forth between zh-TW and English name without drift', () => {
+	it('switches back and forth between zh-TW and English name/description without drift', () => {
 		renderPanel(nomadic);
 
 		expect(screen.getByText('遊牧', { exact: true })).toBeTruthy();
+		expect(screen.getByText(approvedDescription, { exact: true })).toBeTruthy();
 
 		switchLocale();
 		expect(screen.getByText('Nomadic', { exact: true })).toBeTruthy();
+		expect(screen.getByText(nomadic.description, { exact: true })).toBeTruthy();
 
 		switchLocale();
 		expect(screen.getByText('遊牧', { exact: true })).toBeTruthy();
-	});
-
-	it('shows the canonical (auto-generated) description in both locales, since it has no approved catalog entry yet', () => {
-		// This batch localizes only the Culture Aspect name; the description identity is
-		// deliberately unresolved (see the Stage 1 report), so it must keep falling back to
-		// canonical English in zh-TW exactly as an untranslated identity would.
-		renderPanel(nomadic);
-
-		expect(screen.getByText(nomadic.description, { exact: true })).toBeTruthy();
-
-		switchLocale();
-
-		expect(screen.getByText(nomadic.description, { exact: true })).toBeTruthy();
+		expect(screen.getByText(approvedDescription, { exact: true })).toBeTruthy();
 	});
 
 	it('lets a player name customization override the approved zh-TW name', () => {

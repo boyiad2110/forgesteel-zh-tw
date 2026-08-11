@@ -44,12 +44,13 @@ describe('V1 Culture Aspect manifest', () => {
 	});
 
 	// createSkillChoice() in factory-feature-logic.ts has a pre-existing operator-precedence
-	// bug ('data.description || count > 1 ? A : B') that discards the descriptive text a
-	// caller passes in and always stores an auto-generated 'Choose N from <skill list>.'
-	// sentence as the runtime description instead. This is canonical calculation logic this
-	// project does not modify, so the denominator below reflects that actual runtime text,
-	// not the descriptive text culture-data.ts appears to author.
-	it('requires the actual auto-generated sentence for description, not the descriptive text culture-data.ts passes in', () => {
+	// bug that discards the descriptive text a caller passes in and always stores an
+	// auto-generated 'Choose N from <skill list>.' sentence as the runtime description
+	// instead. The Owner decided to keep this upstream runtime behavior as-is rather than
+	// have this project modify calculation logic, so the denominator below is required to
+	// track that actual runtime text — whatever it is — rather than the descriptive text
+	// culture-data.ts appears to author.
+	it('requires whatever description a Culture Aspect Feature actually holds at runtime, not authored source text', () => {
 		const required = createV1CultureAspectRequiredCanonicalEnglish();
 
 		expect(EnvironmentData.nomadic.description).not.toBe('A nomadic culture travels from place to place to survive.');
@@ -71,25 +72,22 @@ describe('V1 Culture Aspect manifest', () => {
 		expect(v1LocalizationManifest.unresolvedDomains.map(domain => domain.id)).toContain('hero-creation-nested-authored-content');
 	});
 
-	it('has approved catalog entries for all 13 Culture Aspect names, but no description entries pending an Owner decision', () => {
-		// The Owner-approved zh-TW description text was written against the descriptive text
-		// culture-data.ts authors, not the auto-generated sentence actually shown, so it
-		// cannot be attached to these description identities without misrepresenting what was
-		// approved. Until that is resolved, these 13 description identities are honestly
-		// reported missing rather than paired with mismatched or invented English.
+	it('has approved catalog entries for all 26 Culture Aspect name and description identities', () => {
 		const result = analyzeV1LocalizationCompleteness({
 			...v1LocalizationManifest,
 			catalogEntries: productionLocalizationEntries
 		});
 		const elements = getV1CultureAspectElements();
-		const nameIdentities = elements.map(element => elementFieldIdentity(element.id, 'name'));
-		const descriptionIdentities = elements.map(element => elementFieldIdentity(element.id, 'description'));
+		const identities = elements.flatMap(element => [
+			elementFieldIdentity(element.id, 'name'),
+			elementFieldIdentity(element.id, 'description')
+		]);
 
-		nameIdentities.forEach(identity => {
+		expect(identities).toHaveLength(26);
+		identities.forEach(identity => {
 			expect(result.missing).not.toContain(identity);
 			expect(result.unapproved).not.toContain(identity);
 		});
-		expect(result.missing.filter(identity => descriptionIdentities.includes(identity)).sort()).toEqual([ ...descriptionIdentities ].sort());
 		expect(result.catalogIssues).toEqual([]);
 	});
 });

@@ -136,27 +136,7 @@ describe('V1 localization completeness', () => {
 		});
 
 		expect(result.requiredCount).toBeGreaterThan(0);
-		// The 13 Culture Aspect description identities are a known, reported gap: their
-		// actual runtime canonical English is an auto-generated sentence a pre-existing
-		// createSkillChoice() bug substitutes for the descriptive text culture-data.ts
-		// passes in, so the Owner-approved zh-TW (written against that descriptive text)
-		// cannot be attached to them without misrepresenting what was approved. See the
-		// Culture Aspect batch's Stage 1 report.
-		expect(result.missing.sort()).toEqual([
-			'element:env-nomadic/description',
-			'element:env-rural/description',
-			'element:env-secluded/description',
-			'element:env-urban/description',
-			'element:env-wilderness/description',
-			'element:org-bureaucratic/description',
-			'element:org-communal/description',
-			'element:up-academic/description',
-			'element:up-creative/description',
-			'element:up-labor/description',
-			'element:up-lawless/description',
-			'element:up-martial/description',
-			'element:up-noble/description'
-		].sort());
+		expect(result.missing).toEqual([]);
 		expect(result.unresolvedDomains.map(domain => domain.id)).toEqual([
 			'official-ability-authored-content',
 			'class-and-subclass-level-content',

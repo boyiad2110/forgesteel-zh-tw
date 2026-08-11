@@ -75,27 +75,42 @@ const renderSection = () => {
 	return container;
 };
 
-// The Field label for the "already selected" bespoke Environment/Organization/Upbringing
-// summary is the only text carrying the 'field-label' class in this tree, so it can be read
-// without ambiguity even though the same Feature's name is also shown elsewhere (its own
-// FeatureConfigPanel choice card, covered by a separate test).
+// The Field label/value for the "already selected" bespoke Environment/Organization/
+// Upbringing summary are the only text carrying these classes in this tree, so they can be
+// read without ambiguity even though the same Feature's name/description is also shown
+// elsewhere (its own FeatureConfigPanel choice card, covered by a separate test).
 const getBespokeAspectLabels = (container: HTMLElement) => Array.from(container.querySelectorAll('.field-label')).map(node => node.textContent);
+const getBespokeAspectDescriptions = (container: HTMLElement) => Array.from(container.querySelectorAll('.field-value')).map(node => node.textContent);
+
+const approvedDescriptions = [
+	'從 Exploration 技能或 Interpersonal 技能中選擇 1 項技能。',
+	'從 Interpersonal 技能或 Intrigue 技能中選擇 1 項技能。',
+	'從 Blacksmithing、Fletching、Climb、Endurance、Ride、Intimidate、Alertness、Track、Monsters 或 Strategy 中選擇 1 項技能。'
+];
+const canonicalDescriptions = [
+	EnvironmentData.nomadic.description,
+	OrganizationData.bureaucratic.description,
+	UpbringingData.martial.description
+];
 
 describe('CultureSection bespoke aspect localization', () => {
-	it('shows the approved zh-TW names for the selected Environment, Organization and Upbringing', () => {
+	it('shows the approved zh-TW names and descriptions for the selected Environment, Organization and Upbringing', () => {
 		const container = renderSection();
 
 		expect(getBespokeAspectLabels(container)).toEqual([ '遊牧', '官僚', '尚武' ]);
+		expect(getBespokeAspectDescriptions(container)).toEqual(approvedDescriptions);
 	});
 
-	it('shows canonical English names after switching locale, then restores zh-TW without drift', () => {
+	it('shows canonical English names and descriptions after switching locale, then restores zh-TW without drift', () => {
 		const container = renderSection();
 
 		switchLocale();
 		expect(getBespokeAspectLabels(container)).toEqual([ 'Nomadic', 'Bureaucratic', 'Martial' ]);
+		expect(getBespokeAspectDescriptions(container)).toEqual(canonicalDescriptions);
 
 		switchLocale();
 		expect(getBespokeAspectLabels(container)).toEqual([ '遊牧', '官僚', '尚武' ]);
+		expect(getBespokeAspectDescriptions(container)).toEqual(approvedDescriptions);
 	});
 
 	it('never mutates the canonical Culture Aspect Features by rendering or switching locale', () => {
