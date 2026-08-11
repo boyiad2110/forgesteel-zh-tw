@@ -797,5 +797,42 @@ Note: Stormwight furies can’t take this complication.`, zhTW: `也許你小時
 	{ kind: 'ui', key: 'view-selector.modern', canonicalEnglish: 'Interactive View (for on-screen use)', zhTW: '互動檢視（螢幕用）', approval: 'approved' },
 	{ kind: 'ui', key: 'view-selector.classic', canonicalEnglish: 'Classic View (for exporting)', zhTW: '經典檢視（匯出用）', approval: 'approved' },
 	{ kind: 'ui', key: 'view-selector.abilities', canonicalEnglish: 'Standard Abilities', zhTW: '標準招式', approval: 'approved' },
-	{ kind: 'ui', key: 'view-selector.notes', canonicalEnglish: 'Notes', zhTW: '筆記', approval: 'approved' }
+	{ kind: 'ui', key: 'view-selector.notes', canonicalEnglish: 'Notes', zhTW: '筆記', approval: 'approved' },
+	// Culture Aspect name/description: the Environment, Organization and Upbringing
+	// skill-choice Features a Bespoke Culture is built from, addressed by their own Feature
+	// ID. Their listOptions/options skill lists stay canonical English; skill names are out
+	// of scope.
+	//
+	// createSkillChoice() in factory-feature-logic.ts has a pre-existing operator-precedence
+	// bug that discards the descriptive text a caller passes in and always stores an
+	// auto-generated 'Choose N from <skill list>.' sentence as the runtime description
+	// instead. The Owner has decided to keep this upstream runtime behavior as-is (Option A):
+	// factory-feature-logic.ts is not modified, and canonicalEnglish below is that actual
+	// auto-generated sentence, matching what a player is actually shown.
+	{ kind: 'element-field', elementID: 'env-nomadic', field: 'name', canonicalEnglish: 'Nomadic', zhTW: '遊牧', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-nomadic', field: 'description', canonicalEnglish: 'Choose 1 from Exploration skills, Interpersonal skills.', zhTW: '從 Exploration 技能或 Interpersonal 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-rural', field: 'name', canonicalEnglish: 'Rural', zhTW: '鄉村', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-rural', field: 'description', canonicalEnglish: 'Choose 1 from Crafting skills, Lore skills.', zhTW: '從 Crafting 技能或 Lore 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-secluded', field: 'name', canonicalEnglish: 'Secluded', zhTW: '隱居', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-secluded', field: 'description', canonicalEnglish: 'Choose 1 from Interpersonal skills, Lore skills.', zhTW: '從 Interpersonal 技能或 Lore 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-urban', field: 'name', canonicalEnglish: 'Urban', zhTW: '城市', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-urban', field: 'description', canonicalEnglish: 'Choose 1 from Interpersonal skills, Intrigue skills.', zhTW: '從 Interpersonal 技能或 Intrigue 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-wilderness', field: 'name', canonicalEnglish: 'Wilderness', zhTW: '荒野', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-wilderness', field: 'description', canonicalEnglish: 'Choose 1 from Crafting skills, Exploration skills.', zhTW: '從 Crafting 技能或 Exploration 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'org-bureaucratic', field: 'name', canonicalEnglish: 'Bureaucratic', zhTW: '官僚', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'org-bureaucratic', field: 'description', canonicalEnglish: 'Choose 1 from Interpersonal skills, Intrigue skills.', zhTW: '從 Interpersonal 技能或 Intrigue 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'org-communal', field: 'name', canonicalEnglish: 'Communal', zhTW: '平權', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'org-communal', field: 'description', canonicalEnglish: 'Choose 1 from Crafting skills, Exploration skills.', zhTW: '從 Crafting 技能或 Exploration 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-academic', field: 'name', canonicalEnglish: 'Academic', zhTW: '學術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-academic', field: 'description', canonicalEnglish: 'Choose 1 from Lore skills.', zhTW: '從 Lore 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-creative', field: 'name', canonicalEnglish: 'Creative', zhTW: '創作', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-creative', field: 'description', canonicalEnglish: 'Choose 1 from Music, Perform, Crafting skills.', zhTW: '從 Music、Perform 或 Crafting 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-lawless', field: 'name', canonicalEnglish: 'Lawless', zhTW: '法外', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-lawless', field: 'description', canonicalEnglish: 'Choose 1 from Intrigue skills.', zhTW: '從 Intrigue 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-labor', field: 'name', canonicalEnglish: 'Labor', zhTW: '勞動', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-labor', field: 'description', canonicalEnglish: 'Choose 1 from Blacksmithing, Handle Animals, Exploration skills.', zhTW: '從 Blacksmithing、Handle Animals 或 Exploration 技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-martial', field: 'name', canonicalEnglish: 'Martial', zhTW: '尚武', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-martial', field: 'description', canonicalEnglish: 'Choose 1 from Blacksmithing, Fletching, Climb, Endurance, Ride, Intimidate, Alertness, Track, Monsters, Strategy.', zhTW: '從 Blacksmithing、Fletching、Climb、Endurance、Ride、Intimidate、Alertness、Track、Monsters 或 Strategy 中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-noble', field: 'name', canonicalEnglish: 'Noble', zhTW: '貴族', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-noble', field: 'description', canonicalEnglish: 'Choose 1 from Interpersonal skills.', zhTW: '從 Interpersonal 技能中選擇 1 項技能。', approval: 'approved' }
 ];

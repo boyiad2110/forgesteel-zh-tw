@@ -1,6 +1,7 @@
 /* eslint-disable sort-imports */
 
 import { CanonicalEnglishSource } from '@/localization/catalog-validator';
+import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
 import { orden } from '@/data/sourcebooks/official/orden';
@@ -57,32 +58,55 @@ export const getV1HeroCreationElements = (sourcebooks: Sourcebook[]) => {
 	]);
 };
 
+/** Adds an Element's name, and its description when non-empty, rejecting a re-used identity. */
+const addRequiredElementFields = (requiredCanonicalEnglish: CanonicalEnglishSource, element: Element) => {
+	const addRequiredField = (field: 'name' | 'description', canonicalEnglish: string) => {
+		const identity = elementFieldIdentity(element.id, field);
+		if (requiredCanonicalEnglish[identity] !== undefined) {
+			throw new Error(`duplicate localization identity '${identity}'`);
+		}
+		requiredCanonicalEnglish[identity] = canonicalEnglish;
+	};
+
+	addRequiredField('name', element.name);
+	if (element.description !== '') {
+		addRequiredField('description', element.description);
+	}
+};
+
 /** Builds the V1 Element-field denominator from live canonical sourcebook metadata. */
 export const createV1HeroCreationRequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1HeroCreationElements(sourcebooks).forEach(element => addRequiredElementFields(requiredCanonicalEnglish, element));
+	return requiredCanonicalEnglish;
+};
 
-	getV1HeroCreationElements(sourcebooks).forEach(element => {
-		const addRequiredField = (field: 'name' | 'description', canonicalEnglish: string) => {
-			const identity = elementFieldIdentity(element.id, field);
-			if (requiredCanonicalEnglish[identity] !== undefined) {
-				throw new Error(`duplicate localization identity '${identity}'`);
-			}
-			requiredCanonicalEnglish[identity] = canonicalEnglish;
-		};
+/**
+ * The V1 Culture Aspect denominator: the Environment, Organization and Upbringing
+ * skill-choice Features a Bespoke Culture is built from. These are enumerated explicitly
+ * from their own data classes rather than by traversing arbitrary nested Feature content,
+ * so this stays a stable, reviewable list rather than a recursive nested-content crawler.
+ */
+export const getV1CultureAspectElements = (): Element[] => [
+	...EnvironmentData.getEnvironments(),
+	...OrganizationData.getOrganizations(),
+	...UpbringingData.getUpbringings()
+];
 
-		addRequiredField('name', element.name);
-		if (element.description !== '') {
-			addRequiredField('description', element.description);
-		}
-	});
-
+/** Builds the V1 Element-field denominator for the Culture Aspect Features above. */
+export const createV1CultureAspectRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1CultureAspectElements().forEach(element => addRequiredElementFields(requiredCanonicalEnglish, element));
 	return requiredCanonicalEnglish;
 };
 
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
-	requiredCanonicalEnglish: createV1HeroCreationRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+	requiredCanonicalEnglish: {
+		...createV1HeroCreationRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1CultureAspectRequiredCanonicalEnglish()
+	},
 	unresolvedDomains: [
 		{ id: 'official-ability-authored-content', description: 'Official ability authored content has not been enumerated.' },
 		{ id: 'class-and-subclass-level-content', description: 'Class and subclass level content has not been enumerated.' },

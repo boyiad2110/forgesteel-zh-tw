@@ -2,6 +2,7 @@
 /* eslint-disable sort-imports */
 
 import { FeatureConfigPanel, SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
+import { EnvironmentData } from '@/data/culture-data';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { LocalizationProvider } from '@/contexts/localization-context';
 import { FactoryLogic } from '@/logic/factory-logic';
@@ -99,6 +100,39 @@ describe('FeatureConfigPanel localization', () => {
 
 		expect(screen.getByText('The target takes damage equal to 4.', { exact: true })).toBeTruthy();
 		expect(feature.description).toBe('The target takes damage equal to your level.');
+	});
+
+	it('shows the approved zh-TW name and description for a real Culture Aspect Feature, and canonical English after switching locale', () => {
+		// A real production Feature, taken directly from EnvironmentData rather than
+		// constructed for the test, so the identity the resolver sees is the one the app
+		// actually renders.
+		const nomadic = EnvironmentData.nomadic;
+		const hero = FactoryLogic.createHero();
+		const serializedFeature = JSON.stringify(nomadic);
+		const approvedDescription = '從 Exploration 技能或 Interpersonal 技能中選擇 1 項技能。';
+		const canonicalDescription = nomadic.description;
+
+		renderLocalized(
+			<FeatureConfigPanel
+				feature={nomadic}
+				hero={hero}
+				sourcebooks={[]}
+				setData={vi.fn()}
+			/>
+		);
+
+		expect(screen.getByText('遊牧', { exact: true })).toBeTruthy();
+		expect(screen.getByText(approvedDescription, { exact: true })).toBeTruthy();
+		expect(screen.queryByText('Nomadic', { exact: true })).toBeNull();
+		expect(screen.queryByText(canonicalDescription, { exact: true })).toBeNull();
+
+		switchLocale();
+
+		expect(screen.getByText('Nomadic', { exact: true })).toBeTruthy();
+		expect(screen.getByText(canonicalDescription, { exact: true })).toBeTruthy();
+		expect(screen.queryByText('遊牧', { exact: true })).toBeNull();
+		expect(screen.queryByText(approvedDescription, { exact: true })).toBeNull();
+		expect(JSON.stringify(nomadic)).toBe(serializedFeature);
 	});
 });
 

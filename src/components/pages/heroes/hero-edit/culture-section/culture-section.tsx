@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Button, Divider, Drawer, Space } from 'antd';
 import { CultureData, EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { FeatureConfigPanel, SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
@@ -23,7 +25,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
-import { localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useIsSmall } from '@/hooks/use-is-small';
 import { useLocalization } from '@/contexts/localization-context';
 
@@ -123,8 +125,8 @@ export const CultureSection = (props: CultureSectionProps) => {
 									content={
 										<Field
 											style={{ flex: '1 1 0' }}
-											label={props.hero.culture.environment.name}
-											value={<Markdown text={props.hero.culture.environment.description} useSpan={true} />}
+											label={localizeElementField(locale, props.hero.culture.environment.id, 'name', props.hero.culture.environment.name)}
+											value={<Markdown text={localizeElementField(locale, props.hero.culture.environment.id, 'description', props.hero.culture.environment.description)} useSpan={true} />}
 										/>
 									}
 									onRemove={() => props.selectEnvironment(null)}
@@ -140,8 +142,8 @@ export const CultureSection = (props: CultureSectionProps) => {
 									content={
 										<Field
 											style={{ flex: '1 1 0' }}
-											label={props.hero.culture.organization.name}
-											value={<Markdown text={props.hero.culture.organization.description} useSpan={true} />}
+											label={localizeElementField(locale, props.hero.culture.organization.id, 'name', props.hero.culture.organization.name)}
+											value={<Markdown text={localizeElementField(locale, props.hero.culture.organization.id, 'description', props.hero.culture.organization.description)} useSpan={true} />}
 										/>
 									}
 									onRemove={() => props.selectOrganization(null)}
@@ -157,8 +159,8 @@ export const CultureSection = (props: CultureSectionProps) => {
 									content={
 										<Field
 											style={{ flex: '1 1 0' }}
-											label={props.hero.culture.upbringing.name}
-											value={<Markdown text={props.hero.culture.upbringing.description} useSpan={true} />}
+											label={localizeElementField(locale, props.hero.culture.upbringing.id, 'name', props.hero.culture.upbringing.name)}
+											value={<Markdown text={localizeElementField(locale, props.hero.culture.upbringing.id, 'description', props.hero.culture.upbringing.description)} useSpan={true} />}
 										/>
 									}
 									onRemove={() => props.selectUpbringing(null)}
