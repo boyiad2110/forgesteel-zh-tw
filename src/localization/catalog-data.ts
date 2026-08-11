@@ -586,6 +586,7 @@ You can also take advantage of powerful magic to buff your allies, whittle down 
 As a child, you survived a gnoll attack. But that attack left you with a toothy scar and the occasional fit of bloodlust.
 
 You can’t take this complication if you can’t be made dazed.`, zhTW: `你小時候曾被鬣狗人襲擊。儘管你倖存下來，但你全身滿是齒痕的傷疤，甚至偶爾會陷入嗜血的衝動。
+
 若你不會陷入暈眩，你不能選擇這項糾葛。`, approval: 'approved' },
 	{ kind: 'element-field', elementID: 'comp-greening', field: 'name', canonicalEnglish: 'Greening', zhTW: '汲取翠息', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'comp-greening', field: 'description', canonicalEnglish: 'You once felt the call of a great tree in the middle of a forest, whose life force was being drained by a parasitic supernatural moss clinging to its roots. As you removed the moss, you felt as if you were being filled with green elemental energy. Sadly, the great tree withered before you could finish the job, but left behind a golden sapling you now carry with you, seeking the perfect place to plant it.', zhTW: '你曾經在森林深處感受到一棵巨大古樹的呼喚。那棵樹的生命力正被某種寄生於樹根的超自然苔蘚所吸取。當你移除這些苔蘚時，一股翠息元素能量湧入你的體內，但遺憾的是，古樹早已枯萎，只留下一株金色的幼苗。如今你帶著這株幼苗，四處尋找最適合栽種它的地方。', approval: 'approved' },
@@ -688,6 +689,7 @@ You can’t take this complication if you can’t be made dazed.`, zhTW: `你小
 Maybe you were bitten as a child, or maybe it’s a family curse. Either way, you have a malady that is best not discussed in public, lest the torches and pitchforks make an appearance.
 
 Note: Stormwight furies can’t take this complication.`, zhTW: `也許你小時候曾被咬傷，又或者這是家族的詛咒。無論如何，你罹患了一種最好別在公共場合提起的病症，免得眾人拿出火把和草叉。
+
 注意：颶魂熾怒者不能選擇這項糾葛。`, approval: 'approved' },
 	{ kind: 'element-field', elementID: 'comp-stolenFace', field: 'name', canonicalEnglish: 'Stolen Face', zhTW: '遭竊之顏', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'comp-stolenFace', field: 'description', canonicalEnglish: 'An evil fairy cursed you, leaving you with a blank visage instead of a face. Although you’re able to imitate other peoples’ features, you’d like to have your own back.', zhTW: '一名邪惡妖精詛咒了你，奪走你的臉，只留下一片空白。雖然你能模仿其他人的五官，但你真正想要的，還是拿回自己的臉。', approval: 'approved' },

@@ -51,7 +51,7 @@ const renderPanel = (complication: Complication, mode: PanelMode) => render(
 );
 
 const approvedName = '遭鬣狗人重創';
-const approvedDescription = '你小時候曾被鬣狗人襲擊。儘管你倖存下來，但你全身滿是齒痕的傷疤，甚至偶爾會陷入嗜血的衝動。\n若你不會陷入暈眩，你不能選擇這項糾葛。';
+const approvedDescription = '你小時候曾被鬣狗人襲擊。儘管你倖存下來，但你全身滿是齒痕的傷疤，甚至偶爾會陷入嗜血的衝動。\n\n若你不會陷入暈眩，你不能選擇這項糾葛。';
 const canonicalName = 'Gnoll-Mauled';
 const canonicalDescription = gnollMauled.description;
 
@@ -112,14 +112,15 @@ describe('ComplicationPanel top-level localization', () => {
 		expect(screen.getByText(drawback.description, { exact: true })).toBeTruthy();
 	});
 
-	it('does not swallow the paragraph break in a multi-line approved description', () => {
-		// comp-gnollMauled's approved description carries a line break between its two
-		// sentences; the exact approved text (break included) must reach the render boundary.
+	it('does not swallow the blank-line paragraph break in a multi-line approved description', () => {
+		// comp-gnollMauled's approved description carries a blank-line paragraph break between
+		// its two sentences; the exact approved text (break included) must reach the render
+		// boundary, not just any single line break.
 		renderPanel(gnollMauled, PanelMode.Full);
 
 		const node = screen.getByText(approvedDescription, exactMultiline);
 		expect(node.textContent).toBe(approvedDescription);
-		expect(node.textContent).toContain('\n');
+		expect(node.textContent).toContain('\n\n');
 	});
 
 	it('falls back to the unnamed-complication label when the canonical name is empty', () => {
