@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Complication } from '@/models/complication';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
@@ -9,7 +11,7 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
-import { localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 
 import './complication-panel.scss';
@@ -23,7 +25,10 @@ interface Props {
 
 export const ComplicationPanel = (props: Props) => {
 	const { locale } = useLocalization();
-	const complicationName = props.complication.name || localizeUIString(locale, 'complication-panel.unnamed', 'Unnamed Complication');
+	const complicationName = props.complication.name
+		? localizeElementField(locale, props.complication.id, 'name', props.complication.name)
+		: localizeUIString(locale, 'complication-panel.unnamed', 'Unnamed Complication');
+	const complicationDescription = localizeElementField(locale, props.complication.id, 'description', props.complication.description);
 	const tags = [];
 	if (props.sourcebooks.length > 0) {
 		const sourcebookType = SourcebookLogic.getComplicationSourcebook(props.sourcebooks, props.complication)?.type || SourcebookType.Official;
@@ -38,7 +43,7 @@ export const ComplicationPanel = (props: Props) => {
 				<HeaderText level={1} tags={tags}>
 					{complicationName}
 				</HeaderText>
-				<Markdown text={props.complication.description} />
+				<Markdown text={complicationDescription} />
 				{
 					props.mode === PanelMode.Full ?
 						props.complication.features.map(f => (
