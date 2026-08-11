@@ -13,6 +13,8 @@ import { SelectionBox } from '@/components/panels/feature-config-panel/feature-c
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { localizeElementField } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -44,6 +46,7 @@ interface ConfigProps {
 }
 
 export const ConfigAncestryChoice = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ selectedAncestry, setSelectedAncestry ] = useState<Ancestry | null>(null);
 
 	const ancestries = SourcebookLogic.getAncestries(props.sourcebooks);
@@ -62,7 +65,7 @@ export const ConfigAncestryChoice = (props: ConfigProps) => {
 				status={!props.data.selected ? 'warning' : ''}
 				allowClear={true}
 				placeholder='Select an ancestry'
-				options={sortedAncestries.map(a => ({ label: a.name, value: a.id, desc: a.description }))}
+				options={sortedAncestries.map(a => ({ label: localizeElementField(locale, a.id, 'name', a.name), value: a.id, desc: localizeElementField(locale, a.id, 'description', a.description) }))}
 				optionRender={option => <Field label={option.data.label} value={option.data.desc} />}
 				value={props.data.selected ? props.data.selected.id : null}
 				onChange={value => {
@@ -77,8 +80,8 @@ export const ConfigAncestryChoice = (props: ConfigProps) => {
 						content={
 							<Field
 								style={{ flex: '1 1 0' }}
-								label={props.data.selected.name}
-								value={<Markdown text={props.data.selected.description} useSpan={true} />}
+								label={localizeElementField(locale, props.data.selected.id, 'name', props.data.selected.name)}
+								value={<Markdown text={localizeElementField(locale, props.data.selected.id, 'description', props.data.selected.description)} useSpan={true} />}
 							/>
 						}
 						onSelect={() => setSelectedAncestry(props.data.selected)}

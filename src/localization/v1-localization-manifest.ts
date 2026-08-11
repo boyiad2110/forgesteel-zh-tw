@@ -6,8 +6,10 @@ import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
 import { orden } from '@/data/sourcebooks/official/orden';
 import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
-import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Element } from '@/models/element';
+import { Feature } from '@/models/feature';
+import { FeatureType } from '@/enums/feature-type';
+import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Sourcebook } from '@/models/sourcebook';
 import { elementFieldIdentity } from '@/localization/catalog';
 
@@ -100,12 +102,56 @@ export const createV1CultureAspectRequiredCanonicalEnglish = (): CanonicalEnglis
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * Walks Feature nodes reachable from a V1 Ancestry's own top-level features, descending only
+ * through Choice options and Multiple child Features. A FeatureType.Ability node is collected
+ * nowhere: traversal stops there without creating an identity for it, so authored Ability
+ * content (name, description, sections, Power Rolls, ...) stays part of the still-unresolved
+ * official-ability-authored-content domain instead of being captured piecemeal here. No other
+ * Feature type's own selection/child data is walked, so this stays a bounded, reviewable slice
+ * rather than an arbitrary all-content recursive crawler.
+ */
+const collectNonAbilityFeatureNodes = (features: Feature[], collected: Feature[] = []): Feature[] => {
+	features.forEach(feature => {
+		if (feature.type === FeatureType.Ability) {
+			return;
+		}
+
+		collected.push(feature);
+
+		if (feature.type === FeatureType.Choice) {
+			collectNonAbilityFeatureNodes(feature.data.options.map(option => option.feature), collected);
+		}
+
+		if (feature.type === FeatureType.Multiple) {
+			collectNonAbilityFeatureNodes(feature.data.features, collected);
+		}
+	});
+
+	return collected;
+};
+
+/** The V1 Ancestry nested Feature denominator: every non-Ability Feature node nested beneath a V1 Ancestry's own top-level features. */
+export const getV1AncestryNestedFeatureElements = (sourcebooks: Sourcebook[]): Feature[] => {
+	const targetSourcebooks = sourcebooks.filter(isV1HeroCreationSourcebook);
+	const ancestries = SourcebookLogic.getAncestries(targetSourcebooks);
+	return collectNonAbilityFeatureNodes(ancestries.flatMap(ancestry => ancestry.features));
+};
+
+/** Builds the V1 Element-field denominator for the Ancestry nested Features above. */
+export const createV1AncestryNestedFeatureRequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1AncestryNestedFeatureElements(sourcebooks).forEach(element => addRequiredElementFields(requiredCanonicalEnglish, element));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
 	requiredCanonicalEnglish: {
 		...createV1HeroCreationRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
-		...createV1CultureAspectRequiredCanonicalEnglish()
+		...createV1CultureAspectRequiredCanonicalEnglish(),
+		...createV1AncestryNestedFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
 	},
 	unresolvedDomains: [
 		{ id: 'official-ability-authored-content', description: 'Official ability authored content has not been enumerated.' },
