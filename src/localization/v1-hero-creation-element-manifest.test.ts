@@ -111,7 +111,7 @@ describe('V1 Hero creation Element metadata manifest', () => {
 		});
 
 		expect(result.requiredCount).toBeGreaterThan(0);
-		expect(result.missing.length).toBeGreaterThan(0);
+		expect(result.missing).toEqual([]);
 		expect(result.unresolvedDomains.map(domain => domain.id)).toContain('hero-creation-nested-authored-content');
 		expect(result.complete).toBe(false);
 	});
