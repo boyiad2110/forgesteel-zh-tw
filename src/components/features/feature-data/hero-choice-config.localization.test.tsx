@@ -449,7 +449,7 @@ describe('ConfigSkillChoice localization', () => {
 		const data = createData({ selected: [ 'Alchemy' ] });
 		const setData = renderConfig(data, createHero());
 
-		expect(screen.getByText('選擇 1 個技能', { exact: true })).toBeTruthy();
+		expect(screen.getByText('選擇 1 項技能', { exact: true })).toBeTruthy();
 		// The skill's own name and description are canonical game content in either locale.
 		expect(screen.getByText('Alchemy', { exact: true })).toBeTruthy();
 

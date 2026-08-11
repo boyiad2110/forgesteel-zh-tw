@@ -752,7 +752,7 @@ Note: Stormwight furies can’t take this complication.`, zhTW: `也許你小時
 	{ kind: 'message', key: 'config-perk.choose-count', canonicalEnglish: 'Choose {count}:', zhTW: '選擇 {count} 個專長：', placeholders: [ 'count' ], approval: 'approved' },
 	// Choosing skills. The skill names themselves stay canonical: they are what the hero
 	// stores, and what every list and calculation matches on.
-	{ kind: 'ui', key: 'config-skill-choice.choose-skill', canonicalEnglish: 'Choose a Skill', zhTW: '選擇 1 個技能', approval: 'approved' },
+	{ kind: 'ui', key: 'config-skill-choice.choose-skill', canonicalEnglish: 'Choose a Skill', zhTW: '選擇 1 項技能', approval: 'approved' },
 	{ kind: 'ui', key: 'config-skill-choice.duplicated', canonicalEnglish: 'Duplicated', zhTW: '已重複', approval: 'approved' },
 	{ kind: 'ui', key: 'config-skill-choice.duplicated-message', canonicalEnglish: 'You already have this skill.', zhTW: '你已經擁有此技能。', approval: 'approved' },
 	// Choosing languages; the language names stay canonical for the same reason.
