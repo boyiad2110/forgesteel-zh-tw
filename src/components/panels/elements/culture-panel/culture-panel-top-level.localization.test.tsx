@@ -86,24 +86,27 @@ describe('CulturePanel top-level localization', () => {
 		expect(screen.getByText(approvedDescription, { exact: true })).toBeTruthy();
 	});
 
-	it('leaves the nested Environment, Organization and Upbringing content in canonical English, in either locale', () => {
-		// This batch only localizes the culture's own name and description; the aspect
-		// Features it references are a separate, later batch even though their English
-		// happens to match glossary-reusable terms now approved for other identities.
+	it('localizes the nested Environment, Organization and Upbringing names, and restores canonical English on locale switch', () => {
+		// The Culture Aspect batch gave these three Features their own approved zh-TW; this
+		// only re-asserts the boundary this panel's own batch already protects (that nested
+		// content flows through the resolver via FeaturePanel), not that batch's own coverage.
 		const nestedCanonical = [
 			artisanGuild.environment?.name,
 			artisanGuild.organization?.name,
 			artisanGuild.upbringing?.name
 		].filter((v): v is string => !!v);
 		expect(nestedCanonical).toEqual([ 'Urban', 'Bureaucratic', 'Creative' ]);
+		const nestedApproved = [ '城市', '官僚', '創作' ];
 
 		renderPanel(PanelMode.Full);
 
-		nestedCanonical.forEach(text => expect(screen.getByText(text, { exact: true })).toBeTruthy());
+		nestedApproved.forEach(text => expect(screen.getByText(text, { exact: true })).toBeTruthy());
+		nestedCanonical.forEach(text => expect(screen.queryByText(text, { exact: true })).toBeNull());
 
 		switchLocale();
 
 		nestedCanonical.forEach(text => expect(screen.getByText(text, { exact: true })).toBeTruthy());
+		nestedApproved.forEach(text => expect(screen.queryByText(text, { exact: true })).toBeNull());
 	});
 
 	it('draws no nested aspect content in compact mode, in either locale', () => {

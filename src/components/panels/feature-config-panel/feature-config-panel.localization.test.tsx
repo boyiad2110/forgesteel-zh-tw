@@ -2,6 +2,7 @@
 /* eslint-disable sort-imports */
 
 import { FeatureConfigPanel, SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
+import { EnvironmentData } from '@/data/culture-data';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { LocalizationProvider } from '@/contexts/localization-context';
 import { FactoryLogic } from '@/logic/factory-logic';
@@ -99,6 +100,56 @@ describe('FeatureConfigPanel localization', () => {
 
 		expect(screen.getByText('The target takes damage equal to 4.', { exact: true })).toBeTruthy();
 		expect(feature.description).toBe('The target takes damage equal to your level.');
+	});
+
+	it('shows the approved zh-TW name for a real Culture Aspect Feature, and canonical English after switching locale', () => {
+		// A real production Feature, taken directly from EnvironmentData rather than
+		// constructed for the test, so the identity the resolver sees is the one the app
+		// actually renders.
+		const nomadic = EnvironmentData.nomadic;
+		const hero = FactoryLogic.createHero();
+		const serializedFeature = JSON.stringify(nomadic);
+
+		renderLocalized(
+			<FeatureConfigPanel
+				feature={nomadic}
+				hero={hero}
+				sourcebooks={[]}
+				setData={vi.fn()}
+			/>
+		);
+
+		expect(screen.getByText('遊牧', { exact: true })).toBeTruthy();
+		expect(screen.queryByText('Nomadic', { exact: true })).toBeNull();
+
+		switchLocale();
+
+		expect(screen.getByText('Nomadic', { exact: true })).toBeTruthy();
+		expect(screen.queryByText('遊牧', { exact: true })).toBeNull();
+		expect(JSON.stringify(nomadic)).toBe(serializedFeature);
+	});
+
+	it('shows the canonical (auto-generated) description for a Culture Aspect Feature in both locales, since it has no approved catalog entry yet', () => {
+		// This batch localizes only the Culture Aspect name; the description identity is
+		// deliberately unresolved (see the Stage 1 report), so it must keep falling back to
+		// canonical English in zh-TW exactly as an untranslated identity would.
+		const nomadic = EnvironmentData.nomadic;
+		const hero = FactoryLogic.createHero();
+
+		renderLocalized(
+			<FeatureConfigPanel
+				feature={nomadic}
+				hero={hero}
+				sourcebooks={[]}
+				setData={vi.fn()}
+			/>
+		);
+
+		expect(screen.getByText(nomadic.description, { exact: true })).toBeTruthy();
+
+		switchLocale();
+
+		expect(screen.getByText(nomadic.description, { exact: true })).toBeTruthy();
 	});
 });
 

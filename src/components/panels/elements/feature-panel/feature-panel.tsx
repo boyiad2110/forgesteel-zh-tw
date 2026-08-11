@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { AbilityCustomization, Hero } from '@/models/hero';
 import { CSSProperties, useState } from 'react';
 import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
@@ -19,7 +21,7 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
-import { localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useLocalization } from '@/contexts/localization-context';
 import { useOptions } from '@/contexts/data-context';
@@ -127,6 +129,14 @@ export const FeaturePanel = (props: Props) => {
 		customization = props.hero.abilityCustomizations.find(ac => ac.abilityID === props.feature.id) || null;
 	}
 
+	// A player customization always wins over canonical localization; it's the player's own
+	// text, in whichever language they typed it. Falling through to an empty canonical name
+	// skips the lookup entirely so it can't shadow the unnamed fallback below.
+	const featureName = customization?.name
+		|| (props.feature.name ? localizeElementField(locale, props.feature.id, 'name', props.feature.name) : '')
+		|| localizeUIString(locale, 'feature-panel.unnamed', 'Unnamed Feature');
+	const featureDescription = customization?.description || localizeElementField(locale, props.feature.id, 'description', props.feature.description);
+
 	return (
 		<ErrorBoundary>
 			<div className={props.mode === PanelMode.Full ? 'feature-panel' : 'feature-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('feaure', props.feature.id) : undefined} style={props.style}>
@@ -158,14 +168,14 @@ export const FeaturePanel = (props: Props) => {
 						/>
 					}
 				>
-					{customization?.name || props.feature.name || localizeUIString(locale, 'feature-panel.unnamed', 'Unnamed Feature')}
+					{featureName}
 				</HeaderText>
 				<Markdown
 					text={
 						(props.feature.type === FeatureType.Text) && autoCalc && props.hero ?
 							AbilityLogic.getTextEffect(customization?.description || props.feature.description, props.hero)
 							:
-							(customization?.description || props.feature.description)
+							featureDescription
 					}
 				/>
 				{

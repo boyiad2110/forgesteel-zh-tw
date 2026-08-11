@@ -109,9 +109,14 @@ describe('V1 Hero creation Element metadata manifest', () => {
 			...v1LocalizationManifest,
 			catalogEntries: productionLocalizationEntries
 		});
+		const heroCreationElementIdentities = getV1HeroCreationElements(getTargetSourcebooks())
+			.flatMap(element => [ elementFieldIdentity(element.id, 'name'), elementFieldIdentity(element.id, 'description') ]);
 
 		expect(result.requiredCount).toBeGreaterThan(0);
-		expect(result.missing).toEqual([]);
+		// This denominator (direct Hero creation Ancestry/Culture/Career/Class/Complication
+		// Elements) is fully satisfied. A separate, later Culture Aspect denominator can leave
+		// its own identities missing without this test failing for an unrelated reason.
+		heroCreationElementIdentities.forEach(identity => expect(result.missing).not.toContain(identity));
 		expect(result.unresolvedDomains.map(domain => domain.id)).toContain('hero-creation-nested-authored-content');
 		expect(result.complete).toBe(false);
 	});

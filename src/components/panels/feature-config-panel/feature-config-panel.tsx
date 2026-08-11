@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Button, Flex } from 'antd';
 import { CloseOutlined, InfoCircleOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Feature, FeatureData } from '@/models/feature';
@@ -12,7 +14,7 @@ import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Perk } from '@/models/perk';
 import { Sourcebook } from '@/models/sourcebook';
-import { localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 
 import './feature-config-panel.scss';
@@ -33,13 +35,22 @@ export const FeatureConfigPanel = (props: Props) => {
 		return (props.feature.type === FeatureType.Text) && (AbilityLogic.getTextEffect(props.feature.description, props.hero) !== props.feature.description);
 	};
 
+	const featureName = props.feature.name
+		? localizeElementField(locale, props.feature.id, 'name', props.feature.name)
+		: localizeUIString(locale, 'feature-panel.unnamed', 'Unnamed Feature');
+
 	const getDescription = () => {
 		let desc;
 
 		if (props.feature.type === FeatureType.Ability) {
 			desc = props.feature.data.ability.description;
-		} else {
+		} else if (props.feature.type === FeatureType.Text) {
+			// Text-type authored rules content is a separate, later localization batch;
+			// auto-calc substitution below depends on recognizing English tokens, so it
+			// stays on canonical English until that content is localized.
 			desc = props.feature.description;
+		} else {
+			desc = localizeElementField(locale, props.feature.id, 'description', props.feature.description);
 		}
 
 		if (!desc) {
@@ -81,7 +92,7 @@ export const FeatureConfigPanel = (props: Props) => {
 					</>
 				}
 			>
-				{props.feature.name || localizeUIString(locale, 'feature-panel.unnamed', 'Unnamed Feature')}
+				{featureName}
 			</HeaderText>
 			<Markdown text={getDescription()} />
 			<ConfigFeature

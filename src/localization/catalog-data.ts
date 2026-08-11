@@ -797,5 +797,31 @@ Note: Stormwight furies can’t take this complication.`, zhTW: `也許你小時
 	{ kind: 'ui', key: 'view-selector.modern', canonicalEnglish: 'Interactive View (for on-screen use)', zhTW: '互動檢視（螢幕用）', approval: 'approved' },
 	{ kind: 'ui', key: 'view-selector.classic', canonicalEnglish: 'Classic View (for exporting)', zhTW: '經典檢視（匯出用）', approval: 'approved' },
 	{ kind: 'ui', key: 'view-selector.abilities', canonicalEnglish: 'Standard Abilities', zhTW: '標準招式', approval: 'approved' },
-	{ kind: 'ui', key: 'view-selector.notes', canonicalEnglish: 'Notes', zhTW: '筆記', approval: 'approved' }
+	{ kind: 'ui', key: 'view-selector.notes', canonicalEnglish: 'Notes', zhTW: '筆記', approval: 'approved' },
+	// Culture Aspect name: the Environment, Organization and Upbringing skill-choice Features
+	// a Bespoke Culture is built from, addressed by their own Feature ID. Their
+	// listOptions/options skill lists stay canonical English; skill names are out of scope.
+	//
+	// description is deliberately NOT included here. createSkillChoice() in
+	// factory-feature-logic.ts has a pre-existing operator-precedence bug ('data.description
+	// || count > 1 ? A : B' instead of 'data.description || (count > 1 ? A : B)') that
+	// discards the descriptive text passed in and always stores an auto-generated
+	// 'Choose N from <skill list>.' sentence as the actual runtime canonicalEnglish. The
+	// Owner-approved zh-TW description text was written against the discarded descriptive
+	// text, not that generated sentence, so it cannot be attached to these identities without
+	// misrepresenting what was approved. See the Stage 1 report for detail; this needs an
+	// Owner/Reviewer decision before the description half of this batch can proceed.
+	{ kind: 'element-field', elementID: 'env-nomadic', field: 'name', canonicalEnglish: 'Nomadic', zhTW: '遊牧', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-rural', field: 'name', canonicalEnglish: 'Rural', zhTW: '鄉村', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-secluded', field: 'name', canonicalEnglish: 'Secluded', zhTW: '隱居', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-urban', field: 'name', canonicalEnglish: 'Urban', zhTW: '城市', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'env-wilderness', field: 'name', canonicalEnglish: 'Wilderness', zhTW: '荒野', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'org-bureaucratic', field: 'name', canonicalEnglish: 'Bureaucratic', zhTW: '官僚', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'org-communal', field: 'name', canonicalEnglish: 'Communal', zhTW: '平權', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-academic', field: 'name', canonicalEnglish: 'Academic', zhTW: '學術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-creative', field: 'name', canonicalEnglish: 'Creative', zhTW: '創作', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-lawless', field: 'name', canonicalEnglish: 'Lawless', zhTW: '法外', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-labor', field: 'name', canonicalEnglish: 'Labor', zhTW: '勞動', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-martial', field: 'name', canonicalEnglish: 'Martial', zhTW: '尚武', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'up-noble', field: 'name', canonicalEnglish: 'Noble', zhTW: '貴族', approval: 'approved' }
 ];
