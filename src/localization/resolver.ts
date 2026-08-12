@@ -8,6 +8,7 @@ import {
 	getEntryIdentity,
 	getTemplatePlaceholders,
 	interpolateTemplate,
+	languageFieldIdentity,
 	messageIdentity,
 	skillFieldIdentity,
 	uiStringIdentity
@@ -24,6 +25,7 @@ export interface LocalizationResolver {
 	localizeUIString: (locale: AppLocale, key: string, canonicalEnglish: string) => string;
 	localizeElementField: (locale: AppLocale, elementID: string, field: string, canonicalEnglish: string) => string;
 	localizeSkillField: (locale: AppLocale, skillName: string, field: string, canonicalEnglish: string) => string;
+	localizeLanguageField: (locale: AppLocale, languageName: string, field: string, canonicalEnglish: string) => string;
 	localizeMessage: (locale: AppLocale, key: string, parameters: MessageParameters, canonicalEnglishTemplate: string) => string;
 }
 
@@ -77,6 +79,9 @@ export const createLocalizationResolver = (entries: readonly LocalizationEntry[]
 		localizeSkillField: (locale, skillName, field, canonicalEnglish) => {
 			return localizeText(locale, skillFieldIdentity(skillName, field), canonicalEnglish);
 		},
+		localizeLanguageField: (locale, languageName, field, canonicalEnglish) => {
+			return localizeText(locale, languageFieldIdentity(languageName, field), canonicalEnglish);
+		},
 		localizeMessage: (locale, key, parameters, canonicalEnglishTemplate) => {
 			// A parameter the call site did not supply could only ever be shown as an
 			// unfilled placeholder, in any locale, so it fails here instead of reaching
@@ -116,4 +121,5 @@ const productionResolver = createLocalizationResolver(productionLocalizationEntr
 export const localizeUIString = productionResolver.localizeUIString;
 export const localizeElementField = productionResolver.localizeElementField;
 export const localizeSkillField = productionResolver.localizeSkillField;
+export const localizeLanguageField = productionResolver.localizeLanguageField;
 export const localizeMessage = productionResolver.localizeMessage;

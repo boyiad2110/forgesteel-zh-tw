@@ -9,10 +9,11 @@ import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 import { Element } from '@/models/element';
 import { Feature } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
+import { Language } from '@/models/language';
 import { Skill } from '@/models/skill';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Sourcebook } from '@/models/sourcebook';
-import { elementFieldIdentity, skillFieldIdentity } from '@/localization/catalog';
+import { elementFieldIdentity, languageFieldIdentity, skillFieldIdentity } from '@/localization/catalog';
 
 export interface V1LocalizationUnresolvedDomain {
 	id: string;
@@ -220,6 +221,42 @@ export const createV1SkillRequiredCanonicalEnglish = (sourcebooks: Sourcebook[])
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The V1 Language denominator: every unique Language record across the V1 target
+ * sourcebooks, addressed by the Language's own canonical English `name` (Language has no
+ * stable ID - see src/models/language.ts - and `name` is already the value Feature/Hero
+ * selection data and save data use to reference a Language). Reuses
+ * SourcebookLogic.getLanguages, the same name-deduplicated, sorted list every other
+ * Language call site already draws from.
+ */
+export const getV1LanguageElements = (sourcebooks: Sourcebook[]): Language[] => {
+	const targetSourcebooks = sourcebooks.filter(isV1HeroCreationSourcebook);
+	return SourcebookLogic.getLanguages(targetSourcebooks);
+};
+
+/** Adds a Language's name, and its description when non-empty, rejecting a re-used identity. */
+const addRequiredLanguageFields = (requiredCanonicalEnglish: CanonicalEnglishSource, language: Language) => {
+	const addRequiredField = (field: 'name' | 'description', canonicalEnglish: string) => {
+		const identity = languageFieldIdentity(language.name, field);
+		if (requiredCanonicalEnglish[identity] !== undefined) {
+			throw new Error(`duplicate localization identity '${identity}'`);
+		}
+		requiredCanonicalEnglish[identity] = canonicalEnglish;
+	};
+
+	addRequiredField('name', language.name);
+	if (language.description !== '') {
+		addRequiredField('description', language.description);
+	}
+};
+
+/** Builds the V1 Language-field denominator from live canonical sourcebook Language data. */
+export const createV1LanguageRequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1LanguageElements(sourcebooks).forEach(language => addRequiredLanguageFields(requiredCanonicalEnglish, language));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -229,13 +266,15 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1AncestryNestedFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CareerIncitingIncidentRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CareerFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
-		...createV1SkillRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
+		...createV1SkillRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1LanguageRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
 	},
+	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
+	// now enumerated above (this batch completes Language; Skill was completed previously).
 	unresolvedDomains: [
 		{ id: 'official-ability-authored-content', description: 'Official ability authored content has not been enumerated.' },
 		{ id: 'class-and-subclass-level-content', description: 'Class and subclass level content has not been enumerated.' },
 		{ id: 'hero-creation-nested-authored-content', description: 'Nested Hero creation authored content has not been enumerated.' },
-		{ id: 'skills-and-languages', description: 'Skill and language localization identities have not been defined.' },
 		{ id: 'hero-sheet', description: 'Hero Sheet player-facing content has not been bounded.' },
 		{ id: 'hero-edit-semantic-keys', description: 'Hero Edit semantic required keys have not been enumerated.' }
 	]

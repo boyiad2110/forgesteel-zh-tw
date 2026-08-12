@@ -1,5 +1,6 @@
 import { Button, Drawer, Segmented, Select, Space } from 'antd';
 import { Feature, FeatureLanguageChoiceData } from '@/models/feature';
+import { localizeLanguageField, localizeUIString } from '@/localization/resolver';
 import { Collections } from '@/utils/collections';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -13,7 +14,6 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
-import { localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
@@ -25,9 +25,20 @@ interface InfoProps {
 }
 
 export const InfoLanguageChoice = (props: InfoProps) => {
+	const { locale } = useLocalization();
+
 	if (props.data.selected.length > 0) {
+		// A selected string with a matching canonical Language record shows its approved
+		// zh-TW reading; a custom / unrecognized Language string is shown exactly as-is.
+		const display = props.data.selected
+			.map(selected => {
+				const language = props.sourcebooks ? SourcebookLogic.getLanguage(selected, props.sourcebooks) : null;
+				return language ? localizeLanguageField(locale, language.name, 'name', language.name) : selected;
+			})
+			.join(', ');
+
 		return (
-			<Field label='Language' value={props.data.selected.join(', ')} />
+			<Field label='Language' value={display} />
 		);
 	}
 
@@ -161,7 +172,11 @@ export const ConfigLanguageChoice = (props: ConfigProps) => {
 							key={n}
 							content={
 								lang ?
-									<Field label={lang.name} value={lang.description} style={{ flex: '1 1 0' }} />
+									<Field
+										label={localizeLanguageField(locale, lang.name, 'name', lang.name)}
+										value={localizeLanguageField(locale, lang.name, 'description', lang.description)}
+										style={{ flex: '1 1 0' }}
+									/>
 									:
 									<div className='ds-text' style={{ flex: '1 1 0' }}>{language}</div>
 							}

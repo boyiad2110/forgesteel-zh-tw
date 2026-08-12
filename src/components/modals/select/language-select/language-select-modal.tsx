@@ -8,6 +8,8 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Utils } from '@/utils/utils';
+import { localizeLanguageField } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './language-select-modal.scss';
@@ -19,13 +21,24 @@ interface Props {
 }
 
 export const LanguageSelectModal = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ customLanguage, setCustomLanguage ] = useState<string>('');
 
+	// Display-only readings of a Language's name / description; the canonical Language
+	// object passed to onSelect, and the values searched against, are never replaced by
+	// these, and the filtered candidate set is still props.languages itself.
+	const localizedName = (language: Language) => localizeLanguageField(locale, language.name, 'name', language.name);
+	const localizedDescription = (language: Language) => localizeLanguageField(locale, language.name, 'description', language.description);
+
+	// Both the canonical English and the current-locale reading are search sources, so a
+	// zh-TW search finds the zh-TW name/description while an English search still works.
 	const languages = props.languages
 		.filter(l => Utils.textMatches([
 			l.name,
-			l.description
+			l.description,
+			localizedName(l),
+			localizedDescription(l)
 		], searchTerm));
 
 	return (
@@ -48,8 +61,8 @@ export const LanguageSelectModal = (props: Props) => {
 									{
 										subset.map((l, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(l)}>
-												<HeaderText>{l.name}</HeaderText>
-												<Markdown text={l.description} />
+												<HeaderText>{localizedName(l)}</HeaderText>
+												<Markdown text={localizedDescription(l)} />
 											</SelectablePanel>
 										))
 									}

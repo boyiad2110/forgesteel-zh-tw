@@ -3,7 +3,7 @@
 import { AbilityData } from '@/data/ability-data';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { LocalizationEntry } from '@/localization/catalog';
-import { createLocalizationResolver, localizeElementField, localizeMessage, localizeSkillField, localizeUIString } from '@/localization/resolver';
+import { createLocalizationResolver, localizeElementField, localizeLanguageField, localizeMessage, localizeSkillField, localizeUIString } from '@/localization/resolver';
 import { defaultLocale, isAppLocale } from '@/localization/locale';
 import { describe, expect, it } from 'vitest';
 
@@ -12,6 +12,7 @@ import { describe, expect, it } from 'vitest';
 const zhUIString = '測試字串一';
 const zhElementField = '測試字串二';
 const zhSkillField = '測試字串四';
+const zhLanguageField = '測試字串五';
 const zhMessageTemplate = '測試訊息 {abilityName} / {target}';
 
 const ability = AbilityData.freeStrikeMelee;
@@ -22,6 +23,7 @@ const approvedEntries: LocalizationEntry[] = [
 	{ kind: 'ui', key: 'hero-edit.save-changes', canonicalEnglish: 'Save Changes', zhTW: zhUIString, approval: 'approved' },
 	{ kind: 'element-field', elementID: ability.id, field: 'name', canonicalEnglish: ability.name, zhTW: zhElementField, approval: 'approved' },
 	{ kind: 'skill-field', skillName: 'Alchemy', field: 'name', canonicalEnglish: 'Alchemy', zhTW: zhSkillField, approval: 'approved' },
+	{ kind: 'language-field', languageName: 'Caelian', field: 'name', canonicalEnglish: 'Caelian', zhTW: zhLanguageField, approval: 'approved' },
 	{
 		kind: 'message',
 		key: 'ability.free-melee.summary',
@@ -40,7 +42,10 @@ const uiEntry = (overrides: Partial<LocalizationEntry>) => {
 };
 
 const messageEntry = (overrides: Record<string, unknown>) => {
-	return { ...approvedEntries[2], ...overrides } as LocalizationEntry;
+	// This batch's fixture list grew by one entry (language-field); the message fixture
+	// stays the array's last entry, so it is found by that position rather than a literal
+	// index that silently drifts out of sync the next time a kind is inserted.
+	return { ...approvedEntries[approvedEntries.length - 1], ...overrides } as LocalizationEntry;
 };
 
 describe('locale model', () => {
@@ -61,10 +66,11 @@ describe('locale model', () => {
 });
 
 describe('resolver: approved zh-TW content', () => {
-	it('shows an approved UI string, element field, skill field and composed message', () => {
+	it('shows an approved UI string, element field, skill field, language field and composed message', () => {
 		expect(approvedResolver.localizeUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe(zhUIString);
 		expect(approvedResolver.localizeElementField('zh-TW', ability.id, 'name', ability.name)).toBe(zhElementField);
 		expect(approvedResolver.localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy')).toBe(zhSkillField);
+		expect(approvedResolver.localizeLanguageField('zh-TW', 'Caelian', 'name', 'Caelian')).toBe(zhLanguageField);
 		expect(approvedResolver.localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`測試訊息 ${ability.name} / ${ability.target}`);
 	});
@@ -73,6 +79,7 @@ describe('resolver: approved zh-TW content', () => {
 		expect(approvedResolver.localizeUIString('en', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
 		expect(approvedResolver.localizeElementField('en', ability.id, 'name', ability.name)).toBe(ability.name);
 		expect(approvedResolver.localizeSkillField('en', 'Alchemy', 'name', 'Alchemy')).toBe('Alchemy');
+		expect(approvedResolver.localizeLanguageField('en', 'Caelian', 'name', 'Caelian')).toBe('Caelian');
 		expect(approvedResolver.localizeMessage('en', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`${ability.name} | Target: ${ability.target}`);
 	});
@@ -85,12 +92,17 @@ describe('resolver: canonical English fallback', () => {
 		expect(empty.localizeUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
 		expect(empty.localizeElementField('zh-TW', ability.id, 'name', ability.name)).toBe(ability.name);
 		expect(empty.localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy')).toBe('Alchemy');
+		expect(empty.localizeLanguageField('zh-TW', 'Caelian', 'name', 'Caelian')).toBe('Caelian');
 		expect(empty.localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`${ability.name} | Target: ${ability.target}`);
 	});
 
 	it('falls back for a Skill field whose canonical English has drifted, never showing stale zh-TW', () => {
 		expect(approvedResolver.localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy (revised)')).toBe('Alchemy (revised)');
+	});
+
+	it('falls back for a Language field whose canonical English has drifted, never showing stale zh-TW', () => {
+		expect(approvedResolver.localizeLanguageField('zh-TW', 'Caelian', 'name', 'Caelian (revised)')).toBe('Caelian (revised)');
 	});
 
 	it('falls back for an unapproved entry', () => {
@@ -201,6 +213,9 @@ describe('production resolver', () => {
 		// A real approved V1 Skill identity.
 		expect(localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy')).toBe('鍊金');
 		expect(localizeSkillField('en', 'Alchemy', 'name', 'Alchemy')).toBe('Alchemy');
+		// A real approved V1 Language identity.
+		expect(localizeLanguageField('zh-TW', 'Caelian', 'name', 'Caelian')).toBe('凱利安語');
+		expect(localizeLanguageField('en', 'Caelian', 'name', 'Caelian')).toBe('Caelian');
 		expect(localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`${ability.name} | Target: ${ability.target}`);
 	});
