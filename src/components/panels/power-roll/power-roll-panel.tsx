@@ -1,7 +1,6 @@
 import { Button, Segmented, Space } from 'antd';
 import { getCharacteristicsHeader, getPowerRollLabel, getTestHeader } from '@/components/panels/power-roll/power-roll-header';
 import { getFeatureDamageBonus, getKitDamageBonus, getPotencyLabel, getPotencyValues } from '@/components/panels/power-roll/power-roll-footer';
-import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { Ability } from '@/models/ability';
 import { AbilityDistanceType } from '@/enums/ability-distance-type';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -16,6 +15,8 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { PowerRoll } from '@/models/power-roll';
 import { getDistanceOptions } from '@/components/panels/power-roll/power-roll-distance';
+import { localizePowerRollTierPresentation } from '@/components/panels/power-roll/power-roll-tier-presentation';
+import { localizeUIString } from '@/localization/resolver';
 import { powerRollTierField } from '@/localization/ability-field-path';
 import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
@@ -171,10 +172,9 @@ export const PowerRollPanel = (props: Props) => {
 	};
 
 	const getTier = (tier: number, value: string) => {
-		// The tier the power roll carries is the only thing calculation ever sees. Whatever
-		// it returns is display text, and the boundary below reads that - so an approved
-		// zh-TW tier can never become a parser input, and a tier the calculation has already
-		// rewritten no longer matches the English its entry was approved against.
+		// The authored canonical tier is the only thing calculation ever sees. The
+		// presentation helper receives the result afterwards and keeps the raw canonical
+		// value as the localization approval/freshness baseline.
 		const calculated = (props.autoCalc && props.ability) ?
 			AbilityLogic.getTierEffectCreature(value, tier, props.ability, distance, props.creature)
 			: value;
@@ -183,7 +183,13 @@ export const PowerRollPanel = (props: Props) => {
 			return calculated;
 		}
 
-		return localizeElementField(locale, props.ability.id, powerRollTierField(props.rollField, tier), calculated);
+		return localizePowerRollTierPresentation({
+			locale: locale,
+			abilityID: props.ability.id,
+			field: powerRollTierField(props.rollField, tier),
+			canonicalEnglish: value,
+			calculatedEnglish: calculated
+		});
 	};
 
 	const footer = getFooter();

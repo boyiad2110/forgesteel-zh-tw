@@ -21,10 +21,23 @@ const boundary = vi.hoisted(() => ({ calls: [] as { elementID: string, field: st
 
 vi.mock('@/localization/resolver', async importActual => {
 	const actual = await importActual<typeof import('@/localization/resolver')>();
+	const calculatedTierResolver = actual.createLocalizationResolver([
+		{
+			kind: 'element-field',
+			elementID: 'localized-calculated-tier',
+			field: 'sections.0.roll.tier1',
+			canonicalEnglish: '2 + M holy damage; P < [weak], slowed (save ends)',
+			zhTW: '2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）',
+			approval: 'approved'
+		}
+	]);
 	return {
 		...actual,
 		localizeElementField: (locale: AppLocale, elementID: string, field: string, canonicalEnglish: string) => {
 			boundary.calls.push({ elementID: elementID, field: field, canonicalEnglish: canonicalEnglish });
+			if (elementID === 'localized-calculated-tier') {
+				return calculatedTierResolver.localizeElementField(locale, elementID, field, canonicalEnglish);
+			}
 			return actual.localizeElementField(locale, elementID, field, canonicalEnglish);
 		}
 	};
@@ -191,6 +204,58 @@ describe('Ability static authored content localization', () => {
 });
 
 describe('Ability static authored content parser safety', () => {
+	it('localizes calculated tier presentation without sending zh-TW through canonical calculation', () => {
+		const getTierEffectCreature = vi.spyOn(AbilityLogic, 'getTierEffectCreature');
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.characteristics = FactoryLogic.createCharacteristics(2, 0, 0, 0, 1);
+
+		const ability = FactoryLogic.createAbility({
+			id: 'localized-calculated-tier',
+			name: 'Localized Calculated Tier',
+			sections: [
+				FactoryLogic.createAbilitySectionRoll(FactoryLogic.createPowerRoll({
+					characteristic: [ Characteristic.Might ],
+					tier1: '2 + M holy damage; P < [weak], slowed (save ends)',
+					tier2: 'No effect.',
+					tier3: 'No effect.'
+				}))
+			]
+		});
+		const serializedAbility = JSON.stringify(ability);
+		const serializedHero = JSON.stringify(hero);
+
+		const { container } = render(
+			<LocalizationProvider>
+				<LocaleToggle />
+				<AbilityPanel ability={ability} hero={hero} mode={PanelMode.Full} />
+			</LocalizationProvider>
+		);
+
+		// Start with the raw authored reading, then exercise the actual lightning toggle.
+		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
+		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）');
+
+		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
+		expect(getTierTexts(container)[0]).toBe('4 神聖傷害；`氣場` < 0，緩速（豁免解除）');
+
+		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
+		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）');
+
+		// English keeps the canonical raw and calculated readings.
+		switchLocale();
+		expect(getTierTexts(container)[0]).toBe('2 + M holy damage; P < [weak], slowed (save ends)');
+		fireEvent.click(screen.getByTitle('Auto-calculate damage, potency, etc'));
+		expect(getTierTexts(container)[0]).toBe('4 holy damage; `P < 0` **slowed** (save ends)');
+
+		getTierEffectCreature.mock.calls.forEach(call => expect(call[0]).not.toMatch(chinese));
+		expect(getTierEffectCreature.mock.calls.map(call => call[0])).toContain('2 + M holy damage; P < [weak], slowed (save ends)');
+		expect(JSON.stringify(ability)).toBe(serializedAbility);
+		expect(JSON.stringify(hero)).toBe(serializedHero);
+
+		getTierEffectCreature.mockRestore();
+	});
+
 	it('keeps calculation on canonical English and never lets an approved reading reach the parser', () => {
 		const getTextEffect = vi.spyOn(AbilityLogic, 'getTextEffect');
 		const getTierEffectCreature = vi.spyOn(AbilityLogic, 'getTierEffectCreature');
