@@ -245,7 +245,22 @@ V1 requirements 仍要求：
 
 ---
 
-## 11. 簡化版流程
+## 11. Translation Worksheet / Approval Packet
+
+記錄目前已驗證可用的實際工作方式，用於將第 3 節第 4–6 步落實為具體 artifact：
+
+1. Reviewer 從 live canonical source／manifest evidence 建立翻譯工作表。
+2. 工作表應清楚分開：canonical English、AI／Reviewer suggestion、Owner-editable finalized zh-TW。
+3. AI 建議欄不是正式譯文。
+4. Owner 填寫／回傳的 finalized 欄位，以及 Owner 後續明確修正，是 translation authority。
+5. Reviewer 可檢查：completeness、blank cells、duplicate identities、row／identity misalignment、clerical mapping errors。
+6. Reviewer 不得自行修改 Owner translation semantics。
+7. 經確認後，可產生 machine-readable approved JSON／packet，包含：record count、canonical identity、approved zh-TW、SHA-256，給 Agent 作 exact implementation authority。
+8. XLSX／JSON 都是 handoff working material：不建立第二套正式 V1 denominator；不預設 commit 到 repository。
+9. repository 正式 progress evidence 仍然是：manifest、catalog、completeness。
+10. `docs/translation/TRANSLATION-GLOSSARY.csv` 是 curated reusable terminology evidence，不要求把每一筆 Skill／Language／authored-content record 全部 mirror 進 glossary。
+
+## 12. 簡化版流程
 
 一般情況：
 

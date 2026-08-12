@@ -2,10 +2,10 @@
 
 - 文件分類：現行權威（核心架構與安全邊界）＋歷史方案比較
 - 初始核准日期：2026-08-06
-- 最近對齊日期：2026-08-08
+- 最近對齊日期：2026-08-12
 - 核准者：專案負責人
 - 原始分析基準：`34890a3b420d3067caa91474c9ca52afc5e39c4d`
-- 現行實作 evidence baseline：`develop` @ `7daeb0b8397df3d94a2164589efe42e193ad16a3`（PR #18 後）
+- 現行實作 evidence baseline：`develop` @ `712d45cebc3e654ec69f75b1a91d3b9d04afef82`（PR #55 後）
 - 需求依據：`docs/requirements/V1-REQUIREMENTS.md`
 - 歷史 codebase 盤點：`docs/analysis/CODEBASE-SUMMARY.md`
 
@@ -74,7 +74,7 @@
 
 ## 4. 現行 production localization architecture
 
-截至 `develop` @ `7daeb0b8397df3d94a2164589efe42e193ad16a3`，下列不再只是 prototype 候選，而是現行 production evidence：
+截至 `develop` @ `712d45cebc3e654ec69f75b1a91d3b9d04afef82`，下列不再只是 prototype 候選，而是現行 production evidence：
 
 ### 4.1 Locale state
 
@@ -85,10 +85,12 @@
 
 ### 4.2 Catalog identity
 
-現行 localization catalog 支援三類 entry：
+現行 production `LocalizationEntry` exactly 有 5 類 entry：`LocalizationEntry = UIStringEntry | ElementFieldEntry | SkillFieldEntry | LanguageFieldEntry | MessageEntry`（見 `src/localization/catalog.ts`）：
 
 - `ui`：semantic UI key。
 - `element-field`：stable canonical element ID + display field。
+- `skill-field`：Skill 沒有 stable ID，因此以 canonical English `Skill.name + field` 作 localization identity；Hero／Feature selection、stored selected value 與 canonical Skill object 仍維持 canonical English。
+- `language-field`：Language 同樣沒有 stable ID，因此以 canonical English `Language.name + field` 作 localization identity；Hero／Feature selection、相關 reference 與 save state 仍保持 canonical English。
 - `message`：semantic message key + structured placeholders。
 
 每筆 entry 保留：
@@ -98,11 +100,11 @@
 - approval state。
 - 該 entry kind 所需的 stable identity；`message` 另保存 placeholder contract。
 
-這些 metadata 只屬 localization layer，不加入 canonical rule data 或 Hero save data。
+這些 metadata 只屬 localization layer，不加入 canonical rule data 或 Hero save data。localized display 不會寫回 canonical Skill／Language name 或任何 selection／save value。
 
 ### 4.3 Resolver contract
 
-現行 resolver 提供 presentation-only lookup，例如 UI string、element field、composed message。
+現行 resolver 提供 presentation-only lookup，例如 UI string、element field、Skill field、Language field、composed message。
 
 只有在下列條件成立時中文才可顯示：
 
@@ -125,7 +127,7 @@ build／test-time validation 用來阻擋至少下列風險：
 - malformed entry／invalid approval state。
 - composed-message placeholder mismatch。
 
-V1 發布前仍需要完整 player-content manifest／translation completeness gate；目前 catalog foundation 的 validator 不等於整個 V1 completeness 已完成。
+V1 player-content manifest／completeness foundation 已建立：目前已知 `requiredCount = 1092`，仍有 5 個 unresolved domains，尚未成為完整 V1 denominator。foundation 已建立不等於 V1 completeness 已完成；V1 發布前仍需要完整、涵蓋所有 domain 的 translation completeness gate。
 
 ## 5. 已被後續實作證據解決的早期事項
 
@@ -137,6 +139,7 @@ V1 發布前仍需要完整 player-content manifest／translation completeness g
 | production catalog／resolver format | **已解決 V1 runtime foundation** — PR #13 建立 production catalog、approval state、resolver 與 validation。 |
 | 固定 UI 與 dynamic message 能否逐步導入 | **已由 production slices 證明** — PR #14–#18 已在 Hero Edit UI、navigation、PageState 與 section-local dynamic copy 使用現行 catalog／resolver。 |
 | locale switching 是否能保留 canonical Hero data／route／working copy | **已有自動測試與人工驗收 evidence**；後續高風險 batch 仍需按實際 call path 保留 regression coverage。 |
+| 無 stable element ID 的 canonical `Language`／`Skill` 如何建立 long-term localization identity | **已由 production evidence 解決** — PR #54／#55：Skill 使用 canonical name scoped `skill-field`，Language 使用 canonical name scoped `language-field`；localized display 不寫回 canonical Skill／Language name 或任何 selection／save value。此策略不因此推廣為所有未來無 stable ID 資料的預設方案。 |
 
 這些事項不應在新 Batch 中再次被當成「尚未開始前置研究」。只有新的反證才重新開啟。
 
@@ -171,7 +174,6 @@ V1 發布前仍需要完整 player-content manifest／translation completeness g
 ### 8.1 由實作 evidence 解決，不預先要求 Owner 決定
 
 - Core／Orden／Beastheart／Summoner 大量 game content 的 stable localization identity 與 presentation boundary。
-- 無 stable element ID 的 canonical `Language`／`Skill` 等資料，在正式 game-content localization 時如何建立長期 identity；不得把 localized label 寫回 canonical string value。
 - Hero Sheet／Classic Sheet builder／formatter 的 localization boundary，尤其仍參與英文文字分類／parser 的欄位。
 - Warehouse、舊 JSON import／export、Hero Sheet output 等相應高風險 flow 的完整 V1 regression evidence。
 - V1 player-content manifest 與 translation completeness release gate。
