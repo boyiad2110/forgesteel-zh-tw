@@ -69,6 +69,7 @@ translation approval 依 surface、localization identity 與 semantic context �
 - 記錄 patch byte size 與 SHA-256。
 - patch 產生後再次確認 working tree clean。
 - Stage 2 correction 後重新輸出完整 `Base..HEAD` patch，不只輸出 correction diff。
+- 當該 final HEAD 將成為 Reviewer approval 或 Stage 3 input 時，final report 必須提供 `git rev-parse HEAD` 的完整 40-character commit SHA；abbreviated SHA、UI hyperlink label 或 `abcd1234...` 不足以固定 approved HEAD。
 
 本節只定義 handoff workflow，不擴張 Git permission。
 
@@ -188,7 +189,7 @@ Agent 只能執行 Contract 明確授權的 Git 動作。
 
 採差異式回報，只包含 Reviewer 決策需要的證據：
 
-- Branch／HEAD。
+- Branch／HEAD（final HEAD 將作為 Reviewer approval 或 Stage 3 input 時，須為完整 40-character commit SHA）。
 - 實際 changed files。
 - 核心 implementation／correction 差異。
 - tests／lint／typecheck／build／CI 等 fresh verification。

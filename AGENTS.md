@@ -1,7 +1,33 @@
 # 專案工作規範
 
-- 不得自行翻譯文字
-- 不得修改 ID、enum、計算邏輯
-- 不得加入第三方、社群或 Homebrew
-- 不得做與任務無關的大型重構
-- 完成後必須執行 lint、typecheck、test、build
+## Authority / workflow entry
+
+- 規劃、Reviewer、Agent task、code review、PR closeout、handoff 前，先依 `docs/project-review-skill/PROJECT-REVIEW-SKILL.md`。
+- 權限與決策邊界依 `docs/REVIEWER-PRINCIPLES.md`。
+- V1 scope 依 `docs/requirements/V1-REQUIREMENTS.md`。
+- translation batch 另依 `docs/translation/TRANSLATION-WORKFLOW.md`。
+
+## Canonical safety
+
+- 不自行建立新正式中文遊戲術語。
+- 中文只在 presentation boundary。
+- 不修改 canonical data、ID、enum、reference、parser、calculations、save format。
+- 不做與 Batch 無關的大型重構。
+
+## Sourcebook policy
+
+- runtime 保留 `Official` + `Homebrew`。
+- 排除 `Community` + `ThirdParty`。
+- Official Patreon / Playtest 沿用原版 feature flag。
+- translation completeness 不得決定 runtime allowlist。
+
+## Verification
+
+- 不要求每批固定跑 `lint + typecheck + test + build`。
+- verification 依 `docs/project-review-skill/RISK-AND-VERIFICATION.md` 與 Batch Contract 採 risk-matched minimum sufficient evidence。
+
+## Git
+
+- `develop` 為 integration branch；`main` frozen。
+- Git permission 依 Batch Contract。
+- 不對 upstream write。

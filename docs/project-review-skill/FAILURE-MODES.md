@@ -195,3 +195,33 @@ Reviewer 無法存取 Agent local workspace，也沒有 push／PR，卻只憑 Ag
 修正：
 
 要求 final commit 後的完整 `Base..HEAD` patch，放在 repository 外，附 reverse-apply check、byte size、SHA-256 與 patch 後的 clean tree 確認；Stage 2 後重新輸出完整 patch。
+
+## 20. Fallback Fixture 與 Production Catalog Collision
+
+錯誤：
+
+測試 fallback 時使用真實 canonical name，例如 `Caelian`／`Alchemy`；未來該 identity 加入正式 catalog 後，測試語意改變甚至失敗。
+
+修正：
+
+fallback test 使用明確不存在於 approved catalog 的 fixture identity；real approved identity 的 localization behavior 由獨立 tests 驗證。不靠「目前還沒翻到」作永久 test assumption。
+
+## 21. 用 Array Position 找 Catalog Entry
+
+錯誤：
+
+test helper 用 `approvedEntries[2]` 之類位置取得 entry；新增新的 entry kind 後 index 漂移，可能讓 test 根本沒測到預期 entry，形成 false-green。
+
+修正：
+
+使用 entry `kind`、semantic key、localization identity 或 explicit predicate 取得目標 entry。不得依 production catalog array position 作 semantic identity。
+
+## 22. Slice Test Pin Global `unresolvedDomains`
+
+錯誤：
+
+早期 slice-specific test 把 `toHaveLength(6)` 或完整 6-domain literal array 寫死；其他 domain 合法完成時，舊 batch test 也被迫修改。
+
+修正：
+
+slice-specific test 只 assert 該 slice 自己的 identities／domain contract；global completeness test 才負責 exact current unresolved list／count。若某 batch 的 acceptance 本身就是移除某 domain，該 batch 可明確 assert 該 domain 消失。
