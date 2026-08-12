@@ -38,8 +38,20 @@ describe('localized calculated Power Roll tier presentation', () => {
 
 		expect(localize({
 			canonicalEnglish: '2 holy damage; push 1',
-			calculatedEnglish: '5 holy damage; push 1'
-		})).toBe('5 神聖傷害；推動 1');
+			calculatedEnglish: '5 holy damage; push 2'
+		})).toBe('5 神聖傷害；推動 2');
+	});
+
+	it.each([
+		[ 'pull', '拉動' ],
+		[ 'slide', '滑動' ]
+	])('projects a calculated %s value onto its approved zh-TW grammar', (canonicalVerb, localizedVerb) => {
+		resolver.result = `${localizedVerb} 2`;
+
+		expect(localize({
+			canonicalEnglish: `${canonicalVerb} 2`,
+			calculatedEnglish: `${canonicalVerb} 4`
+		})).toBe(`${localizedVerb} 4`);
 	});
 
 	it('keeps English calculated presentation unchanged', () => {
@@ -50,6 +62,15 @@ describe('localized calculated Power Roll tier presentation', () => {
 		resolver.result = canonicalEnglish;
 
 		expect(localize()).toBe(calculatedEnglish);
+	});
+
+	it('keeps calculated English when the localized forced-movement verb does not match canonical mechanics', () => {
+		resolver.result = '2 神聖傷害；拉動 1';
+
+		expect(localize({
+			canonicalEnglish: '2 holy damage; push 1',
+			calculatedEnglish: '5 holy damage; push 2'
+		})).toBe('5 holy damage; push 2');
 	});
 
 	it('keeps calculated English when the rewrite is outside the supported projection grammar', () => {

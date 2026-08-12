@@ -7,6 +7,7 @@ import { LocalizationProvider } from '@/contexts/localization-context';
 import { AbilityData } from '@/data/ability-data';
 import { AppLocale } from '@/localization/locale';
 import { Characteristic } from '@/enums/characteristic';
+import { FeatureField } from '@/enums/feature-field';
 import { PanelMode } from '@/enums/panel-mode';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { FactoryLogic } from '@/logic/factory-logic';
@@ -26,8 +27,8 @@ vi.mock('@/localization/resolver', async importActual => {
 			kind: 'element-field',
 			elementID: 'localized-calculated-tier',
 			field: 'sections.0.roll.tier1',
-			canonicalEnglish: '2 + M holy damage; P < [weak], slowed (save ends)',
-			zhTW: '2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）',
+			canonicalEnglish: '2 + M holy damage; P < [weak], slowed (save ends); push 1',
+			zhTW: '2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）；推動 1',
 			approval: 'approved'
 		}
 	]);
@@ -209,6 +210,11 @@ describe('Ability static authored content parser safety', () => {
 		const hero = FactoryLogic.createHero();
 		hero.class = FactoryLogic.createClass();
 		hero.class.characteristics = FactoryLogic.createCharacteristics(2, 0, 0, 0, 1);
+		hero.class.featuresByLevel[0].features.push(FactoryLogic.feature.createBonus({
+			id: 'forced-movement-push-bonus',
+			field: FeatureField.ForcedMovementPush,
+			value: 1
+		}));
 
 		const ability = FactoryLogic.createAbility({
 			id: 'localized-calculated-tier',
@@ -216,7 +222,7 @@ describe('Ability static authored content parser safety', () => {
 			sections: [
 				FactoryLogic.createAbilitySectionRoll(FactoryLogic.createPowerRoll({
 					characteristic: [ Characteristic.Might ],
-					tier1: '2 + M holy damage; P < [weak], slowed (save ends)',
+					tier1: '2 + M holy damage; P < [weak], slowed (save ends); push 1',
 					tier2: 'No effect.',
 					tier3: 'No effect.'
 				}))
@@ -234,22 +240,22 @@ describe('Ability static authored content parser safety', () => {
 
 		// Start with the raw authored reading, then exercise the actual lightning toggle.
 		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
-		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）');
+		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）；推動 1');
 
 		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
-		expect(getTierTexts(container)[0]).toBe('4 神聖傷害；`氣場` < 0，緩速（豁免解除）');
+		expect(getTierTexts(container)[0]).toBe('4 神聖傷害；`氣場` < 0，緩速（豁免解除）；推動 2');
 
 		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
-		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）');
+		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）；推動 1');
 
 		// English keeps the canonical raw and calculated readings.
 		switchLocale();
-		expect(getTierTexts(container)[0]).toBe('2 + M holy damage; P < [weak], slowed (save ends)');
+		expect(getTierTexts(container)[0]).toBe('2 + M holy damage; P < [weak], slowed (save ends); push 1');
 		fireEvent.click(screen.getByTitle('Auto-calculate damage, potency, etc'));
-		expect(getTierTexts(container)[0]).toBe('4 holy damage; `P < 0` **slowed** (save ends)');
+		expect(getTierTexts(container)[0]).toBe('4 holy damage; `P < 0` **slowed** (save ends); push 2');
 
 		getTierEffectCreature.mock.calls.forEach(call => expect(call[0]).not.toMatch(chinese));
-		expect(getTierEffectCreature.mock.calls.map(call => call[0])).toContain('2 + M holy damage; P < [weak], slowed (save ends)');
+		expect(getTierEffectCreature.mock.calls.map(call => call[0])).toContain('2 + M holy damage; P < [weak], slowed (save ends); push 1');
 		expect(JSON.stringify(ability)).toBe(serializedAbility);
 		expect(JSON.stringify(hero)).toBe(serializedHero);
 

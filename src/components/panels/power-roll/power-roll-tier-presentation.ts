@@ -16,6 +16,19 @@ const localizedDamagePattern = /(^|[；;]\s*)(\d+(?:\s*\+\s*`[^`]+`)?)[ \t]*(?=[
 const canonicalPotencyPattern = /\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*\[(?:weak|average|avg|strong)\]/gi;
 const calculatedPotencyPattern = /`?(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*(-?\d+)`?/gi;
 const localizedPotencyPattern = /(`[^`]+`\s*<\s*)\[(?:弱|中|強)\]/g;
+const canonicalForcedMovementPattern = /\b(push|pull|slide)\s+(\d+)\b/gi;
+const localizedForcedMovementPattern = /(推動|拉動|滑動)\s+(\d+)/g;
+
+const localizedForcedMovementType = (verb: string) => {
+	switch (verb) {
+		case '推動':
+			return 'push';
+		case '拉動':
+			return 'pull';
+		case '滑動':
+			return 'slide';
+	}
+};
 
 const removeCalculationFormatting = (value: string) => value.replace(/[*`,]/g, '');
 
@@ -52,19 +65,28 @@ export const localizePowerRollTierPresentation = ({
 	const potencyValues = Array.from(calculatedEnglish.matchAll(calculatedPotencyPattern), match => match[1]);
 	const canonicalPotencies = Array.from(canonicalEnglish.matchAll(canonicalPotencyPattern));
 	const localizedPotencies = Array.from(localizedRaw.matchAll(localizedPotencyPattern));
+	const canonicalForcedMovement = Array.from(canonicalEnglish.matchAll(canonicalForcedMovementPattern), match => match[1].toLowerCase());
+	const calculatedForcedMovement = Array.from(calculatedEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), value: match[2] }));
+	const localizedForcedMovement = Array.from(localizedRaw.matchAll(localizedForcedMovementPattern), match => localizedForcedMovementType(match[1]));
 
 	if ((damageValues.length !== canonicalDamage.length)
 		|| (localizedDamage.length !== canonicalDamage.length)
 		|| (potencyValues.length !== canonicalPotencies.length)
-		|| (localizedPotencies.length !== canonicalPotencies.length)) {
+		|| (localizedPotencies.length !== canonicalPotencies.length)
+		|| (calculatedForcedMovement.length !== canonicalForcedMovement.length)
+		|| (localizedForcedMovement.length !== canonicalForcedMovement.length)
+		|| calculatedForcedMovement.some((movement, index) => movement.type !== canonicalForcedMovement[index])
+		|| localizedForcedMovement.some((type, index) => type !== canonicalForcedMovement[index])) {
 		return calculatedEnglish;
 	}
 
 	let damageIndex = 0;
 	let potencyIndex = 0;
+	let forcedMovementIndex = 0;
 	const projectedCanonical = canonicalEnglish
 		.replace(canonicalDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]}`)
-		.replace(/(\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*)\[(?:weak|average|avg|strong)\]/gi, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`);
+		.replace(/(\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*)\[(?:weak|average|avg|strong)\]/gi, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`)
+		.replace(canonicalForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
 
 	// Formatting-only rewrites (condition emphasis and potency code spans) are safe to
 	// leave in the localized authored reading. Any other rewrite is outside this helper's
@@ -75,7 +97,9 @@ export const localizePowerRollTierPresentation = ({
 
 	damageIndex = 0;
 	potencyIndex = 0;
+	forcedMovementIndex = 0;
 	return localizedRaw
 		.replace(localizedDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]} `)
-		.replace(localizedPotencyPattern, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`);
+		.replace(localizedPotencyPattern, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`)
+		.replace(localizedForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
 };
