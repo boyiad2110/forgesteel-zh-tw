@@ -10,6 +10,8 @@ import { SkillList } from '@/enums/skill-list';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { localizeSkillField } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './skill-select-modal.scss';
@@ -22,21 +24,30 @@ interface Props {
 }
 
 export const SkillSelectModal = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ customSkill, setCustomSkill ] = useState<string>('');
 
+	// Display-only readings of a Skill's name / description; the canonical Skill object
+	// passed to onSelect, and the values searched against, are never replaced by these.
+	const localizedName = (skill: Skill) => localizeSkillField(locale, skill.name, 'name', skill.name);
+	const localizedDescription = (skill: Skill) => localizeSkillField(locale, skill.name, 'description', skill.description);
+
+	// Both the canonical English and the current-locale reading are search sources, so a
+	// zh-TW search finds the zh-TW name/description while an English search still works.
+	const matchesSearch = (skill: Skill) => Utils.textMatches([
+		skill.name,
+		skill.description,
+		localizedName(skill),
+		localizedDescription(skill)
+	], searchTerm);
+
 	const skills = props.skills
-		.filter(s => Utils.textMatches([
-			s.name,
-			s.description
-		], searchTerm));
+		.filter(matchesSearch);
 
 	const otherSkills = SourcebookLogic.getSkills(props.sourcebooks)
 		.filter(os => !props.skills.map(s => s.name).includes(os.name))
-		.filter(os => Utils.textMatches([
-			os.name,
-			os.description
-		], searchTerm));
+		.filter(matchesSearch);
 
 	return (
 		<Modal
@@ -58,8 +69,8 @@ export const SkillSelectModal = (props: Props) => {
 									{
 										subset.map((s, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-												<HeaderText tags={[ s.list ]}>{s.name}</HeaderText>
-												<Markdown text={s.description} />
+												<HeaderText tags={[ s.list ]}>{localizedName(s)}</HeaderText>
+												<Markdown text={localizedDescription(s)} />
 											</SelectablePanel>
 										))
 									}
@@ -76,8 +87,8 @@ export const SkillSelectModal = (props: Props) => {
 										{
 											otherSkills.map((s, n) => (
 												<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-													<HeaderText tags={[ s.list ]}>{s.name}</HeaderText>
-													<Markdown text={s.description} />
+													<HeaderText tags={[ s.list ]}>{localizedName(s)}</HeaderText>
+													<Markdown text={localizedDescription(s)} />
 												</SelectablePanel>
 											))
 										}

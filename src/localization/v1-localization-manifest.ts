@@ -9,9 +9,10 @@ import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 import { Element } from '@/models/element';
 import { Feature } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
+import { Skill } from '@/models/skill';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Sourcebook } from '@/models/sourcebook';
-import { elementFieldIdentity } from '@/localization/catalog';
+import { elementFieldIdentity, skillFieldIdentity } from '@/localization/catalog';
 
 export interface V1LocalizationUnresolvedDomain {
 	id: string;
@@ -184,6 +185,41 @@ export const createV1CareerFeatureRequiredCanonicalEnglish = (sourcebooks: Sourc
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The V1 Skill denominator: every unique Skill record across the V1 target sourcebooks,
+ * addressed by the Skill's own canonical English `name` (Skill has no stable ID - see
+ * src/models/skill.ts - and `name` is already the value Hero/Feature selection data and
+ * save data use to reference a Skill). Reuses SourcebookLogic.getSkills, the same
+ * name-deduplicated, sorted list every other Skill call site already draws from.
+ */
+export const getV1SkillElements = (sourcebooks: Sourcebook[]): Skill[] => {
+	const targetSourcebooks = sourcebooks.filter(isV1HeroCreationSourcebook);
+	return SourcebookLogic.getSkills(targetSourcebooks);
+};
+
+/** Adds a Skill's name, and its description when non-empty, rejecting a re-used identity. */
+const addRequiredSkillFields = (requiredCanonicalEnglish: CanonicalEnglishSource, skill: Skill) => {
+	const addRequiredField = (field: 'name' | 'description', canonicalEnglish: string) => {
+		const identity = skillFieldIdentity(skill.name, field);
+		if (requiredCanonicalEnglish[identity] !== undefined) {
+			throw new Error(`duplicate localization identity '${identity}'`);
+		}
+		requiredCanonicalEnglish[identity] = canonicalEnglish;
+	};
+
+	addRequiredField('name', skill.name);
+	if (skill.description !== '') {
+		addRequiredField('description', skill.description);
+	}
+};
+
+/** Builds the V1 Skill-field denominator from live canonical sourcebook Skill data. */
+export const createV1SkillRequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1SkillElements(sourcebooks).forEach(skill => addRequiredSkillFields(requiredCanonicalEnglish, skill));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -192,7 +228,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CultureAspectRequiredCanonicalEnglish(),
 		...createV1AncestryNestedFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CareerIncitingIncidentRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
-		...createV1CareerFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
+		...createV1CareerFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1SkillRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
 	},
 	unresolvedDomains: [
 		{ id: 'official-ability-authored-content', description: 'Official ability authored content has not been enumerated.' },

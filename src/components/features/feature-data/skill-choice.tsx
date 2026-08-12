@@ -1,5 +1,6 @@
 import { Button, Drawer, Flex, Segmented, Select, Space } from 'antd';
 import { Feature, FeatureSkillChoiceData } from '@/models/feature';
+import { localizeSkillField, localizeUIString } from '@/localization/resolver';
 import { Collections } from '@/utils/collections';
 import { FeatureType } from '@/enums/feature-type';
 import { Field } from '@/components/controls/field/field';
@@ -13,7 +14,6 @@ import { SkillSelectModal } from '@/components/modals/select/skill-select/skill-
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
-import { localizeUIString } from '@/localization/resolver';
 import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
@@ -25,9 +25,20 @@ interface InfoProps {
 }
 
 export const InfoSkillChoice = (props: InfoProps) => {
+	const { locale } = useLocalization();
+
 	if (props.data.selected.length > 0) {
+		// A selected string with a matching canonical Skill record shows its approved
+		// zh-TW reading; a custom / unrecognized Skill string is shown exactly as-is.
+		const display = props.data.selected
+			.map(selected => {
+				const skill = props.sourcebooks ? SourcebookLogic.getSkill(selected, props.sourcebooks) : null;
+				return skill ? localizeSkillField(locale, skill.name, 'name', skill.name) : selected;
+			})
+			.join(', ');
+
 		return (
-			<Field label='Skill' value={props.data.selected.join(', ')} />
+			<Field label='Skill' value={display} />
 		);
 	}
 
@@ -173,7 +184,11 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 								<Flex vertical={true}>
 									{
 										sk ?
-											<Field label={sk.name} value={sk.description} style={{ flex: '1 1 0' }} />
+											<Field
+												label={localizeSkillField(locale, sk.name, 'name', sk.name)}
+												value={localizeSkillField(locale, sk.name, 'description', sk.description)}
+												style={{ flex: '1 1 0' }}
+											/>
 											:
 											<div className='ds-text' style={{ flex: '1 1 0' }}>{skill}</div>
 									}

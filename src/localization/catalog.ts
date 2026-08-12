@@ -30,6 +30,17 @@ export interface ElementFieldEntry extends LocalizationEntryBase {
 }
 
 /**
+ * A displayable field of a Skill record. Skill has no stable ID (see src/models/skill.ts),
+ * so this identity is addressed by the Skill's own canonical English `name` instead - the
+ * value Hero/Feature selection data and save data already use to reference a Skill.
+ */
+export interface SkillFieldEntry extends LocalizationEntryBase {
+	kind: 'skill-field';
+	skillName: string;
+	field: string;
+}
+
+/**
  * A composed message: a template plus the structured placeholders it interpolates.
  * The placeholder list is the entry's contract; both the canonical English template
  * and the zh-TW template must use exactly these placeholders.
@@ -40,7 +51,7 @@ export interface MessageEntry extends LocalizationEntryBase {
 	placeholders: string[];
 }
 
-export type LocalizationEntry = UIStringEntry | ElementFieldEntry | MessageEntry;
+export type LocalizationEntry = UIStringEntry | ElementFieldEntry | SkillFieldEntry | MessageEntry;
 
 /** Values interpolated into a composed message; always canonical or already-localized display text. */
 export type MessageParameters = Record<string, string>;
@@ -73,6 +84,8 @@ export const uiStringIdentity = (key: string) => `ui:${key}`;
 
 export const elementFieldIdentity = (elementID: string, field: string) => `element:${elementID}/${field}`;
 
+export const skillFieldIdentity = (skillName: string, field: string) => `skill:${skillName}/${field}`;
+
 export const messageIdentity = (key: string) => `message:${key}`;
 
 /** The stable localization identity of an entry, used as its catalog key. */
@@ -82,6 +95,8 @@ export const getEntryIdentity = (entry: LocalizationEntry) => {
 			return uiStringIdentity(entry.key);
 		case 'element-field':
 			return elementFieldIdentity(entry.elementID, entry.field);
+		case 'skill-field':
+			return skillFieldIdentity(entry.skillName, entry.field);
 		case 'message':
 			return messageIdentity(entry.key);
 	}

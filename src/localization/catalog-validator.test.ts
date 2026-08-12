@@ -36,13 +36,22 @@ const messageEntry: LocalizationEntry = {
 	placeholders: [ 'abilityName', 'target' ]
 };
 
+const skillEntry: LocalizationEntry = {
+	kind: 'skill-field',
+	skillName: 'Alchemy',
+	field: 'name',
+	canonicalEnglish: 'Alchemy',
+	zhTW: '測試字串四',
+	approval: 'approved'
+};
+
 const codes = (entries: readonly unknown[], canonical?: Record<string, string>) => {
 	return validateLocalizationCatalog(entries, canonical).map(issue => issue.code);
 };
 
 describe('catalog validator: a well-formed catalog', () => {
 	it('reports nothing for valid entries, including an unapproved draft with no content', () => {
-		const entries = [ uiEntry, elementEntry, messageEntry, { ...uiEntry, key: 'hero-edit.cancel', zhTW: '', approval: 'unapproved' } ];
+		const entries = [ uiEntry, elementEntry, skillEntry, messageEntry, { ...uiEntry, key: 'hero-edit.cancel', zhTW: '', approval: 'unapproved' } ];
 
 		expect(validateLocalizationCatalog(entries)).toEqual([]);
 	});
@@ -63,6 +72,11 @@ describe('catalog validator: duplicate or ambiguous identity', () => {
 	it('reports a repeated element field, and accepts different fields of one element', () => {
 		expect(codes([ elementEntry, { ...elementEntry } ])).toEqual([ 'duplicate-identity' ]);
 		expect(codes([ elementEntry, { ...elementEntry, field: 'target', canonicalEnglish: 'One creature or object' } ])).toEqual([]);
+	});
+
+	it('reports a repeated Skill field, and accepts different fields of one Skill', () => {
+		expect(codes([ skillEntry, { ...skillEntry } ])).toEqual([ 'duplicate-identity' ]);
+		expect(codes([ skillEntry, { ...skillEntry, field: 'description', canonicalEnglish: 'Make bombs and potions.' } ])).toEqual([]);
 	});
 });
 
@@ -104,6 +118,8 @@ describe('catalog validator: malformed entries', () => {
 		expect(codes([ { ...uiEntry, key: '' } ])).toEqual([ 'invalid-entry' ]);
 		expect(codes([ { ...elementEntry, elementID: undefined } ])).toEqual([ 'invalid-entry' ]);
 		expect(codes([ { ...elementEntry, field: 42 } ])).toEqual([ 'invalid-entry' ]);
+		expect(codes([ { ...skillEntry, skillName: undefined } ])).toEqual([ 'invalid-entry' ]);
+		expect(codes([ { ...skillEntry, field: '' } ])).toEqual([ 'invalid-entry' ]);
 	});
 
 	it('reports missing canonical English or unusable content', () => {
