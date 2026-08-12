@@ -3,7 +3,7 @@
 import { AbilityData } from '@/data/ability-data';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { LocalizationEntry } from '@/localization/catalog';
-import { createLocalizationResolver, localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
+import { createLocalizationResolver, localizeElementField, localizeMessage, localizeSkillField, localizeUIString } from '@/localization/resolver';
 import { defaultLocale, isAppLocale } from '@/localization/locale';
 import { describe, expect, it } from 'vitest';
 
@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest';
 // and none is introduced here. They only have to be visibly not the canonical English.
 const zhUIString = '測試字串一';
 const zhElementField = '測試字串二';
+const zhSkillField = '測試字串四';
 const zhMessageTemplate = '測試訊息 {abilityName} / {target}';
 
 const ability = AbilityData.freeStrikeMelee;
@@ -20,6 +21,7 @@ const messageParameters = { abilityName: ability.name, target: ability.target };
 const approvedEntries: LocalizationEntry[] = [
 	{ kind: 'ui', key: 'hero-edit.save-changes', canonicalEnglish: 'Save Changes', zhTW: zhUIString, approval: 'approved' },
 	{ kind: 'element-field', elementID: ability.id, field: 'name', canonicalEnglish: ability.name, zhTW: zhElementField, approval: 'approved' },
+	{ kind: 'skill-field', skillName: 'Alchemy', field: 'name', canonicalEnglish: 'Alchemy', zhTW: zhSkillField, approval: 'approved' },
 	{
 		kind: 'message',
 		key: 'ability.free-melee.summary',
@@ -59,9 +61,10 @@ describe('locale model', () => {
 });
 
 describe('resolver: approved zh-TW content', () => {
-	it('shows an approved UI string, element field and composed message', () => {
+	it('shows an approved UI string, element field, skill field and composed message', () => {
 		expect(approvedResolver.localizeUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe(zhUIString);
 		expect(approvedResolver.localizeElementField('zh-TW', ability.id, 'name', ability.name)).toBe(zhElementField);
+		expect(approvedResolver.localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy')).toBe(zhSkillField);
 		expect(approvedResolver.localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`測試訊息 ${ability.name} / ${ability.target}`);
 	});
@@ -69,6 +72,7 @@ describe('resolver: approved zh-TW content', () => {
 	it('shows canonical English in en, even where zh-TW is approved', () => {
 		expect(approvedResolver.localizeUIString('en', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
 		expect(approvedResolver.localizeElementField('en', ability.id, 'name', ability.name)).toBe(ability.name);
+		expect(approvedResolver.localizeSkillField('en', 'Alchemy', 'name', 'Alchemy')).toBe('Alchemy');
 		expect(approvedResolver.localizeMessage('en', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`${ability.name} | Target: ${ability.target}`);
 	});
@@ -80,8 +84,13 @@ describe('resolver: canonical English fallback', () => {
 
 		expect(empty.localizeUIString('zh-TW', 'hero-edit.save-changes', 'Save Changes')).toBe('Save Changes');
 		expect(empty.localizeElementField('zh-TW', ability.id, 'name', ability.name)).toBe(ability.name);
+		expect(empty.localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy')).toBe('Alchemy');
 		expect(empty.localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`${ability.name} | Target: ${ability.target}`);
+	});
+
+	it('falls back for a Skill field whose canonical English has drifted, never showing stale zh-TW', () => {
+		expect(approvedResolver.localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy (revised)')).toBe('Alchemy (revised)');
 	});
 
 	it('falls back for an unapproved entry', () => {
@@ -189,6 +198,9 @@ describe('production resolver', () => {
 		// No game content is approved yet, so it still resolves to the canonical English.
 		expect(localizeElementField('zh-TW', ability.id, 'name', ability.name)).toBe(ability.name);
 		expect(localizeElementField('zh-TW', ability.id, 'target', ability.target)).toBe(ability.target);
+		// A real approved V1 Skill identity.
+		expect(localizeSkillField('zh-TW', 'Alchemy', 'name', 'Alchemy')).toBe('鍊金');
+		expect(localizeSkillField('en', 'Alchemy', 'name', 'Alchemy')).toBe('Alchemy');
 		expect(localizeMessage('zh-TW', 'ability.free-melee.summary', messageParameters, canonicalMessageTemplate))
 			.toBe(`${ability.name} | Target: ${ability.target}`);
 	});

@@ -58,6 +58,14 @@ const getStructuralProblem = (entry: unknown) => {
 				return 'field must be a non-empty string';
 			}
 			break;
+		case 'skill-field':
+			if (!isFilledString(candidate.skillName)) {
+				return 'skillName must be a non-empty string';
+			}
+			if (!isFilledString(candidate.field)) {
+				return 'field must be a non-empty string';
+			}
+			break;
 		default:
 			return `unknown entry kind '${String(candidate.kind)}'`;
 	}

@@ -9,6 +9,7 @@ import {
 	getTemplatePlaceholders,
 	interpolateTemplate,
 	messageIdentity,
+	skillFieldIdentity,
 	uiStringIdentity
 } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
@@ -22,6 +23,7 @@ import { productionLocalizationEntries } from '@/localization/catalog-data';
 export interface LocalizationResolver {
 	localizeUIString: (locale: AppLocale, key: string, canonicalEnglish: string) => string;
 	localizeElementField: (locale: AppLocale, elementID: string, field: string, canonicalEnglish: string) => string;
+	localizeSkillField: (locale: AppLocale, skillName: string, field: string, canonicalEnglish: string) => string;
 	localizeMessage: (locale: AppLocale, key: string, parameters: MessageParameters, canonicalEnglishTemplate: string) => string;
 }
 
@@ -72,6 +74,9 @@ export const createLocalizationResolver = (entries: readonly LocalizationEntry[]
 		localizeElementField: (locale, elementID, field, canonicalEnglish) => {
 			return localizeText(locale, elementFieldIdentity(elementID, field), canonicalEnglish);
 		},
+		localizeSkillField: (locale, skillName, field, canonicalEnglish) => {
+			return localizeText(locale, skillFieldIdentity(skillName, field), canonicalEnglish);
+		},
 		localizeMessage: (locale, key, parameters, canonicalEnglishTemplate) => {
 			// A parameter the call site did not supply could only ever be shown as an
 			// unfilled placeholder, in any locale, so it fails here instead of reaching
@@ -110,4 +115,5 @@ const productionResolver = createLocalizationResolver(productionLocalizationEntr
 
 export const localizeUIString = productionResolver.localizeUIString;
 export const localizeElementField = productionResolver.localizeElementField;
+export const localizeSkillField = productionResolver.localizeSkillField;
 export const localizeMessage = productionResolver.localizeMessage;

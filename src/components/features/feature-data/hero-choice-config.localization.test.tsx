@@ -416,8 +416,13 @@ describe('ConfigPerk localization', () => {
 });
 
 describe('ConfigSkillChoice localization', () => {
+	// A fixture Skill name deliberately absent from the approved V1 Skill catalog (see
+	// v1-skill-manifest.test.ts / skill-choice.localization.test.tsx for real, approved
+	// Skill identities such as 'Alchemy'), so this suite - which is about the button/
+	// duplicate-warning UI strings, not Skill content localization - keeps proving the
+	// no-catalog-entry fallback rather than colliding with an approved reading.
 	const createData = (overrides: Partial<FeatureSkillChoiceData>): FeatureSkillChoiceData => ({
-		options: [ 'Alchemy' ],
+		options: [ 'Fixture Skill' ],
 		listOptions: [],
 		count: 2,
 		selectAt: 'build',
@@ -429,7 +434,7 @@ describe('ConfigSkillChoice localization', () => {
 		const sourcebook: Sourcebook = {
 			...FactoryLogic.createSourcebook(),
 			id: 'sourcebook-1',
-			skills: [ { name: 'Alchemy', description: 'Alchemy description.', list: SkillList.Crafting } ]
+			skills: [ { name: 'Fixture Skill', description: 'Fixture Skill description.', list: SkillList.Crafting } ]
 		};
 
 		renderLocalized(
@@ -446,33 +451,33 @@ describe('ConfigSkillChoice localization', () => {
 	};
 
 	it('reads the choose button and hands back the canonical skill name on removal', () => {
-		const data = createData({ selected: [ 'Alchemy' ] });
+		const data = createData({ selected: [ 'Fixture Skill' ] });
 		const setData = renderConfig(data, createHero());
 
 		expect(screen.getByText('選擇 1 項技能', { exact: true })).toBeTruthy();
-		// The skill's own name and description are canonical game content in either locale.
-		expect(screen.getByText('Alchemy', { exact: true })).toBeTruthy();
+		// No approved catalog entry exists for this fixture Skill, so it stays canonical.
+		expect(screen.getByText('Fixture Skill', { exact: true })).toBeTruthy();
 
 		fireEvent.click(screen.getByTitle('移除'));
 
 		const removed = setData.mock.calls[0][0] as FeatureSkillChoiceData;
 		expect(removed.selected).toEqual([]);
-		expect(removed.options).toEqual([ 'Alchemy' ]);
-		expect(data.selected).toEqual([ 'Alchemy' ]);
+		expect(removed.options).toEqual([ 'Fixture Skill' ]);
+		expect(data.selected).toEqual([ 'Fixture Skill' ]);
 
 		switchLocale();
 
 		expect(screen.getByText('Choose a Skill', { exact: true })).toBeTruthy();
-		expect(screen.getByText('Alchemy', { exact: true })).toBeTruthy();
+		expect(screen.getByText('Fixture Skill', { exact: true })).toBeTruthy();
 	});
 
 	it('reads the duplicate warning while the duplicated skill name stays canonical', () => {
 		const hero = createHero();
-		const duplicateFeature = FactoryLogic.feature.createSkillChoice({ id: 'duplicate-skills', options: [ 'Alchemy' ], count: 2 });
+		const duplicateFeature = FactoryLogic.feature.createSkillChoice({ id: 'duplicate-skills', options: [ 'Fixture Skill' ], count: 2 });
 		if (duplicateFeature.type !== FeatureType.SkillChoice) {
 			throw new Error('createSkillChoice no longer produces a skill choice');
 		}
-		duplicateFeature.data.selected = [ 'Alchemy', 'Alchemy' ];
+		duplicateFeature.data.selected = [ 'Fixture Skill', 'Fixture Skill' ];
 		hero.features = [ duplicateFeature ];
 
 		renderConfig(duplicateFeature.data, hero);
@@ -484,7 +489,7 @@ describe('ConfigSkillChoice localization', () => {
 
 		expect(screen.getAllByText('Duplicated').length).toBeGreaterThan(0);
 		expect(screen.getAllByText('You already have this skill.').length).toBeGreaterThan(0);
-		expect(duplicateFeature.data.selected).toEqual([ 'Alchemy', 'Alchemy' ]);
+		expect(duplicateFeature.data.selected).toEqual([ 'Fixture Skill', 'Fixture Skill' ]);
 	});
 });
 
