@@ -101,8 +101,10 @@ describe('V1 Career Inciting Incident manifest', () => {
 		expect(required['element:env-nomadic/name']).toBe('Nomadic');
 	});
 
-	it('keeps all 6 unresolved domains, including hero-creation-nested-authored-content', () => {
-		expect(v1LocalizationManifest.unresolvedDomains).toHaveLength(6);
+	it('keeps hero-creation-nested-authored-content unresolved', () => {
+		// The total unresolved-domain count moves as later batches resolve domains (e.g.
+		// Skills and Languages removed 'skills-and-languages'), so only the specific domain
+		// this batch does not touch is asserted here, not the whole-manifest count.
 		expect(v1LocalizationManifest.unresolvedDomains.map(domain => domain.id)).toEqual(expect.arrayContaining([
 			'hero-creation-nested-authored-content'
 		]));
@@ -139,7 +141,10 @@ describe('V1 Career Inciting Incident manifest', () => {
 		expect(result.missing).toEqual([]);
 		expect(result.unapproved).toEqual([]);
 		expect(result.catalogIssues).toEqual([]);
-		expect(result.unresolvedDomains).toHaveLength(6);
+		// The unresolved-domain count itself is not pinned here for the same reason as
+		// above: later batches (Skills, Languages) have already reduced it since this batch
+		// landed, and further batches may reduce it again.
+		expect(result.unresolvedDomains.length).toBeGreaterThan(0);
 		expect(result.complete).toBe(false);
 	});
 });

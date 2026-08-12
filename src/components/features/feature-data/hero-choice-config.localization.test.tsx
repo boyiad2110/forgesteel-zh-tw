@@ -494,6 +494,11 @@ describe('ConfigSkillChoice localization', () => {
 });
 
 describe('ConfigLanguageChoice localization', () => {
+	// A fixture Language name deliberately absent from the approved V1 Language catalog
+	// (see v1-language-manifest.test.ts / language-choice.localization.test.tsx for real,
+	// approved Language identities such as 'Caelian'), so this suite - which is about the
+	// button/removal UI strings, not Language content localization - keeps proving the
+	// no-catalog-entry fallback rather than colliding with an approved reading.
 	const createData = (overrides: Partial<FeatureLanguageChoiceData>): FeatureLanguageChoiceData => ({
 		options: [],
 		allowedTypes: [ LanguageType.Common ],
@@ -507,7 +512,7 @@ describe('ConfigLanguageChoice localization', () => {
 		const sourcebook: Sourcebook = {
 			...FactoryLogic.createSourcebook(),
 			id: 'sourcebook-1',
-			languages: [ { name: 'Caelian', description: 'Caelian description.', type: LanguageType.Common, related: [] } ]
+			languages: [ { name: 'Fixture Language', description: 'Fixture Language description.', type: LanguageType.Common, related: [] } ]
 		};
 
 		renderLocalized(
@@ -524,22 +529,23 @@ describe('ConfigLanguageChoice localization', () => {
 	};
 
 	it('reads the choose button and hands back the canonical language name on removal', () => {
-		const data = createData({ selected: [ 'Caelian' ] });
+		const data = createData({ selected: [ 'Fixture Language' ] });
 		const setData = renderConfig(data);
 
 		expect(screen.getByText('選擇 1 種語言', { exact: true })).toBeTruthy();
-		expect(screen.getByText('Caelian', { exact: true })).toBeTruthy();
+		// No approved catalog entry exists for this fixture Language, so it stays canonical.
+		expect(screen.getByText('Fixture Language', { exact: true })).toBeTruthy();
 
 		fireEvent.click(screen.getByTitle('移除'));
 
 		const removed = setData.mock.calls[0][0] as FeatureLanguageChoiceData;
 		expect(removed.selected).toEqual([]);
 		expect(removed.allowedTypes).toEqual([ LanguageType.Common ]);
-		expect(data.selected).toEqual([ 'Caelian' ]);
+		expect(data.selected).toEqual([ 'Fixture Language' ]);
 
 		switchLocale();
 
 		expect(screen.getByText('Choose a language', { exact: true })).toBeTruthy();
-		expect(screen.getByText('Caelian', { exact: true })).toBeTruthy();
+		expect(screen.getByText('Fixture Language', { exact: true })).toBeTruthy();
 	});
 });

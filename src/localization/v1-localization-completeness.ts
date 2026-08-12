@@ -38,6 +38,8 @@ const getCandidateIdentity = (candidate: unknown) => {
 			return (typeof entry.elementID === 'string') && (entry.elementID !== '') && (typeof entry.field === 'string') && (entry.field !== '') ? getEntryIdentity(entry as LocalizationEntry) : null;
 		case 'skill-field':
 			return (typeof entry.skillName === 'string') && (entry.skillName !== '') && (typeof entry.field === 'string') && (entry.field !== '') ? getEntryIdentity(entry as LocalizationEntry) : null;
+		case 'language-field':
+			return (typeof entry.languageName === 'string') && (entry.languageName !== '') && (typeof entry.field === 'string') && (entry.field !== '') ? getEntryIdentity(entry as LocalizationEntry) : null;
 		default:
 			return null;
 	}

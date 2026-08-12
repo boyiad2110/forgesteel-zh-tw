@@ -60,11 +60,17 @@ describe('V1 Skill manifest', () => {
 		expect(required['element:career-agent/name']).toBe('Agent');
 	});
 
-	it('keeps all 6 unresolved domains, including skills-and-languages (Languages remain undefined)', () => {
-		expect(v1LocalizationManifest.unresolvedDomains).toHaveLength(6);
-		expect(v1LocalizationManifest.unresolvedDomains.map(domain => domain.id)).toEqual(expect.arrayContaining([
-			'skills-and-languages'
-		]));
+	it('no longer requires skills-and-languages to stay unresolved once a later batch (Languages) completes the other half', () => {
+		// At the time this Skill batch landed, 'skills-and-languages' stayed unresolved
+		// because Languages were still undefined. The V1 Language batch has since defined
+		// them and removed the domain; this suite only checks that Skill identities
+		// themselves are still fully approved, not the domain list's exact membership.
+		const result = analyzeV1LocalizationCompleteness({
+			...v1LocalizationManifest,
+			catalogEntries: productionLocalizationEntries
+		});
+		expect(result.missing).toEqual([]);
+		expect(result.unapproved).toEqual([]);
 	});
 
 	it('has approved catalog entries for all 114 required Skill identities', () => {
@@ -94,17 +100,19 @@ describe('V1 Skill manifest', () => {
 		expect(criminalUnderworld?.zhTW).not.toBe('文化');
 	});
 
-	it('raises requiredCount from 894 to 1008, with zero missing, zero unapproved and zero catalog issues, and stays incomplete', () => {
+	it('adds its own 114 required identities on top of the pre-existing V1 denominator, with zero missing, zero unapproved and zero catalog issues, and stays incomplete', () => {
 		const result = analyzeV1LocalizationCompleteness({
 			...v1LocalizationManifest,
 			catalogEntries: productionLocalizationEntries
 		});
 
-		expect(result.requiredCount).toBe(1008);
+		// This denominator (57 Skills, 114 identities) is additive; a separate, later batch
+		// (e.g. Languages) can raise requiredCount further without this test failing for an
+		// unrelated reason.
+		expect(result.requiredCount).toBeGreaterThanOrEqual(1008);
 		expect(result.missing).toEqual([]);
 		expect(result.unapproved).toEqual([]);
 		expect(result.catalogIssues).toEqual([]);
-		expect(result.unresolvedDomains).toHaveLength(6);
 		expect(result.complete).toBe(false);
 	});
 });

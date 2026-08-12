@@ -66,6 +66,14 @@ const getStructuralProblem = (entry: unknown) => {
 				return 'field must be a non-empty string';
 			}
 			break;
+		case 'language-field':
+			if (!isFilledString(candidate.languageName)) {
+				return 'languageName must be a non-empty string';
+			}
+			if (!isFilledString(candidate.field)) {
+				return 'field must be a non-empty string';
+			}
+			break;
 		default:
 			return `unknown entry kind '${String(candidate.kind)}'`;
 	}

@@ -137,11 +137,12 @@ describe('V1 localization completeness', () => {
 
 		expect(result.requiredCount).toBeGreaterThan(0);
 		expect(result.missing).toEqual([]);
+		// 'skills-and-languages' was removed once the V1 Skill and Language batches both
+		// completed their denominators; the remaining domains still await later batches.
 		expect(result.unresolvedDomains.map(domain => domain.id)).toEqual([
 			'official-ability-authored-content',
 			'class-and-subclass-level-content',
 			'hero-creation-nested-authored-content',
-			'skills-and-languages',
 			'hero-sheet',
 			'hero-edit-semantic-keys'
 		]);

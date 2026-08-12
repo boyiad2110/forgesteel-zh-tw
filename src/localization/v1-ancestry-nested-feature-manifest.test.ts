@@ -143,8 +143,10 @@ describe('V1 Ancestry nested Feature manifest', () => {
 		expect(required['element:env-nomadic/name']).toBe('Nomadic');
 	});
 
-	it('keeps hero-creation-nested-authored-content and official-ability-authored-content unresolved, and unresolvedDomains at 6', () => {
-		expect(v1LocalizationManifest.unresolvedDomains).toHaveLength(6);
+	it('keeps hero-creation-nested-authored-content and official-ability-authored-content unresolved', () => {
+		// The total unresolved-domain count moves as later batches resolve domains (e.g.
+		// Skills and Languages removed 'skills-and-languages'), so only the specific domains
+		// this batch does not touch are asserted here, not the whole-manifest count.
 		expect(v1LocalizationManifest.unresolvedDomains.map(domain => domain.id)).toEqual(expect.arrayContaining([
 			'hero-creation-nested-authored-content',
 			'official-ability-authored-content'

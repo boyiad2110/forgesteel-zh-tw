@@ -41,6 +41,18 @@ export interface SkillFieldEntry extends LocalizationEntryBase {
 }
 
 /**
+ * A displayable field of a Language record. Language has no stable ID (see
+ * src/models/language.ts), so this identity is addressed by the Language's own canonical
+ * English `name` instead - the value Feature/Hero selection data and save data already use
+ * to reference a Language.
+ */
+export interface LanguageFieldEntry extends LocalizationEntryBase {
+	kind: 'language-field';
+	languageName: string;
+	field: string;
+}
+
+/**
  * A composed message: a template plus the structured placeholders it interpolates.
  * The placeholder list is the entry's contract; both the canonical English template
  * and the zh-TW template must use exactly these placeholders.
@@ -51,7 +63,7 @@ export interface MessageEntry extends LocalizationEntryBase {
 	placeholders: string[];
 }
 
-export type LocalizationEntry = UIStringEntry | ElementFieldEntry | SkillFieldEntry | MessageEntry;
+export type LocalizationEntry = UIStringEntry | ElementFieldEntry | SkillFieldEntry | LanguageFieldEntry | MessageEntry;
 
 /** Values interpolated into a composed message; always canonical or already-localized display text. */
 export type MessageParameters = Record<string, string>;
@@ -86,6 +98,8 @@ export const elementFieldIdentity = (elementID: string, field: string) => `eleme
 
 export const skillFieldIdentity = (skillName: string, field: string) => `skill:${skillName}/${field}`;
 
+export const languageFieldIdentity = (languageName: string, field: string) => `language:${languageName}/${field}`;
+
 export const messageIdentity = (key: string) => `message:${key}`;
 
 /** The stable localization identity of an entry, used as its catalog key. */
@@ -97,6 +111,8 @@ export const getEntryIdentity = (entry: LocalizationEntry) => {
 			return elementFieldIdentity(entry.elementID, entry.field);
 		case 'skill-field':
 			return skillFieldIdentity(entry.skillName, entry.field);
+		case 'language-field':
+			return languageFieldIdentity(entry.languageName, entry.field);
 		case 'message':
 			return messageIdentity(entry.key);
 	}
