@@ -15,6 +15,10 @@ interface Props {
 	elements: Element[];
 	onClose: () => void;
 	onSelect: (element: Element) => void;
+	/** Opt-in presentation override: when supplied, the list shows this instead of the Element's own name. The Element handed to onSelect is never affected. */
+	getDisplayName?: (element: Element) => string;
+	/** Opt-in presentation override: when supplied, the list shows this instead of the Element's own description. The Element handed to onSelect is never affected. */
+	getDisplayDescription?: (element: Element) => string;
 }
 
 export const ElementSelectModal = (props: Props) => {
@@ -33,10 +37,13 @@ export const ElementSelectModal = (props: Props) => {
 		setCustomElement(copy);
 	};
 
+	const getDisplayName = props.getDisplayName || (e => e.name);
+	const getDisplayDescription = props.getDisplayDescription || (e => e.description);
+
 	const elements = props.elements
 		.filter(e => Utils.textMatches([
-			e.name,
-			e.description
+			getDisplayName(e),
+			getDisplayDescription(e)
 		], searchTerm));
 
 	return (
@@ -50,8 +57,8 @@ export const ElementSelectModal = (props: Props) => {
 						{
 							elements.map(e => (
 								<SelectablePanel key={e.id} onSelect={() => props.onSelect(e)}>
-									<HeaderText>{e.name}</HeaderText>
-									<Markdown text={e.description} />
+									<HeaderText>{getDisplayName(e)}</HeaderText>
+									<Markdown text={getDisplayDescription(e)} />
 								</SelectablePanel>
 							))
 						}
