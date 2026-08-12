@@ -103,6 +103,25 @@ export const createV1CultureAspectRequiredCanonicalEnglish = (): CanonicalEnglis
 };
 
 /**
+ * The V1 Career Inciting Incident denominator: the `incitingIncidents.options` Elements
+ * belonging to each V1 Career, addressed by the Incident's own ID. This does not walk any
+ * other nested Career content (Features, Perks, SkillChoice, LanguageChoice, ...), so it
+ * stays a bounded, reviewable slice rather than a recursive nested-content crawler.
+ */
+export const getV1CareerIncitingIncidentElements = (sourcebooks: Sourcebook[]): Element[] => {
+	const targetSourcebooks = sourcebooks.filter(isV1HeroCreationSourcebook);
+	const careers = SourcebookLogic.getCareers(targetSourcebooks);
+	return careers.flatMap(career => career.incitingIncidents.options);
+};
+
+/** Builds the V1 Element-field denominator for the Career Inciting Incident options above. */
+export const createV1CareerIncitingIncidentRequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1CareerIncitingIncidentElements(sourcebooks).forEach(element => addRequiredElementFields(requiredCanonicalEnglish, element));
+	return requiredCanonicalEnglish;
+};
+
+/**
  * Walks Feature nodes reachable from a V1 Ancestry's own top-level features, descending only
  * through Choice options and Multiple child Features. A FeatureType.Ability node is collected
  * nowhere: traversal stops there without creating an identity for it, so authored Ability
@@ -151,7 +170,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 	requiredCanonicalEnglish: {
 		...createV1HeroCreationRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CultureAspectRequiredCanonicalEnglish(),
-		...createV1AncestryNestedFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
+		...createV1AncestryNestedFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1CareerIncitingIncidentRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
 	},
 	unresolvedDomains: [
 		{ id: 'official-ability-authored-content', description: 'Official ability authored content has not been enumerated.' },

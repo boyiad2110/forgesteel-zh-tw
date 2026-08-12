@@ -1,6 +1,7 @@
 import { Button, Drawer } from 'antd';
 import { FeatureConfigPanel, SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { ReactNode, useState } from 'react';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { Career } from '@/models/career';
 import { CareerPanel } from '@/components/panels/elements/career-panel/career-panel';
 import { Element } from '@/models/element';
@@ -19,7 +20,6 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
-import { localizeUIString } from '@/localization/resolver';
 import { useIsSmall } from '@/hooks/use-is-small';
 import { useLocalization } from '@/contexts/localization-context';
 
@@ -75,8 +75,8 @@ export const CareerSection = (props: Props) => {
 							content={
 								<Field
 									style={{ flex: '1 1 0' }}
-									label={props.hero.career.incitingIncidents.selected.name}
-									value={<Markdown text={props.hero.career.incitingIncidents.selected.description} useSpan={true} />}
+									label={localizeElementField(locale, props.hero.career.incitingIncidents.selected.id, 'name', props.hero.career.incitingIncidents.selected.name)}
+									value={<Markdown text={localizeElementField(locale, props.hero.career.incitingIncidents.selected.id, 'description', props.hero.career.incitingIncidents.selected.description)} useSpan={true} />}
 								/>
 							}
 							onRemove={() => props.selectIncitingIncident(null)}
@@ -133,6 +133,8 @@ export const CareerSection = (props: Props) => {
 			<Drawer open={showIncitingIncidents} onClose={() => setShowIncitingIncidents(false)} closeIcon={null} size={500}>
 				<ElementSelectModal
 					elements={props.hero.career ? props.hero.career.incitingIncidents.options : []}
+					getDisplayName={e => localizeElementField(locale, e.id, 'name', e.name)}
+					getDisplayDescription={e => localizeElementField(locale, e.id, 'description', e.description)}
 					onSelect={e => {
 						setShowIncitingIncidents(false);
 						props.selectIncitingIncident(Utils.copy(e));
