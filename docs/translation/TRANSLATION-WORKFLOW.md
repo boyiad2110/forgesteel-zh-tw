@@ -256,9 +256,10 @@ V1 requirements 仍要求：
 5. AI suggestion 不是正式譯文；Owner-required rows 的 finalized zh-TW 仍由 Owner 決定。Reviewer-derived mechanical rows 的 authority 來自底層已核准 translation／Owner decision 加上 Reviewer Principles 的 mechanical-variant permission，不需要 Owner 再逐 row 輸入。
 6. Owner 回傳後，Reviewer 仍負責 completeness／blank、duplicate identity、row／identity alignment 與 clerical mapping 檢查，並可依新取得的 Owner 核心譯文補齊其衍生 mechanical variants；不得因此自行改變 Owner translation semantics。
 7. 經確認後，可產生 machine-readable approved JSON／packet，包含：record count、canonical identity、approved zh-TW、SHA-256，給 Agent 作 exact implementation authority。
-8. XLSX／JSON 都是 handoff working material：不建立第二套正式 V1 denominator；不預設 commit 到 repository。
-9. repository 正式 progress evidence 仍然是：manifest、catalog、completeness。
-10. `docs/translation/TRANSLATION-GLOSSARY.csv` 是 curated reusable terminology evidence，不要求把每一筆 Skill／Language／authored-content record 全部 mirror 進 glossary。
+8. **Glossary Delta Gate：**Owner approval packet 收斂後，Reviewer 檢查本批是否產生新的 reusable approved terminology；只有已有明確 Owner／approved authority 的詞才同步至 `docs/translation/TRANSLATION-GLOSSARY.csv`。個別 ability／feature 名稱、一次性 authored prose、target sentence／template 不要求 mirror；真正新術語尚未核准時仍交 Owner 決定，不得自行加入。
+9. XLSX／JSON 都是 handoff working material：不建立第二套正式 V1 denominator；不預設 commit 到 repository。
+10. repository 正式 progress evidence 仍然是：manifest、catalog、completeness；glossary 仍只是 curated terminology evidence。
+11. `docs/translation/TRANSLATION-GLOSSARY.csv` 是 curated reusable terminology evidence，不要求把每一筆 Skill／Language／authored-content record 全部 mirror 進 glossary。
 
 ## 12. 簡化版流程
 
