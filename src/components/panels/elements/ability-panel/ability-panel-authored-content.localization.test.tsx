@@ -243,7 +243,7 @@ describe('Ability static authored content parser safety', () => {
 		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）；推動 1');
 
 		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
-		expect(getTierTexts(container)[0]).toBe('4 神聖傷害；`氣場` < 0，緩速（豁免解除）；推動 2');
+		expect(getTierTexts(container)[0]).toBe('4 神聖傷害；`氣場` < 0，**緩速**（豁免解除）；推動 2');
 
 		fireEvent.click(screen.getByTitle('自動計算傷害、效力等數值'));
 		expect(getTierTexts(container)[0]).toBe('2 + `力量`神聖傷害；`氣場` < [弱]，緩速（豁免解除）；推動 1');

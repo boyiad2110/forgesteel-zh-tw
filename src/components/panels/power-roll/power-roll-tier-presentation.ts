@@ -1,4 +1,5 @@
 import { AppLocale } from '@/localization/locale';
+import { projectCalculatedConditionEmphasis } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 import { localizeElementField } from '@/localization/resolver';
 
 interface PowerRollTierPresentation {
@@ -29,8 +30,6 @@ const localizedForcedMovementType = (verb: string) => {
 			return 'slide';
 	}
 };
-
-const removeCalculationFormatting = (value: string) => value.replace(/[*`,]/g, '');
 
 /**
  * Projects calculated canonical values onto an approved zh-TW Power Roll tier.
@@ -88,18 +87,17 @@ export const localizePowerRollTierPresentation = ({
 		.replace(/(\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*)\[(?:weak|average|avg|strong)\]/gi, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`)
 		.replace(canonicalForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
 
-	// Formatting-only rewrites (condition emphasis and potency code spans) are safe to
-	// leave in the localized authored reading. Any other rewrite is outside this helper's
-	// narrow grammar and keeps the existing calculated-English fallback.
-	if (removeCalculationFormatting(projectedCanonical) !== removeCalculationFormatting(calculatedEnglish)) {
-		return calculatedEnglish;
-	}
-
 	damageIndex = 0;
 	potencyIndex = 0;
 	forcedMovementIndex = 0;
-	return localizedRaw
+	const projectedLocalized = localizedRaw
 		.replace(localizedDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]} `)
 		.replace(localizedPotencyPattern, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`)
 		.replace(localizedForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	}) ?? calculatedEnglish;
 };
