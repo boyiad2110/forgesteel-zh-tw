@@ -2,6 +2,7 @@
 
 import { CanonicalEnglishSource } from '@/localization/catalog-validator';
 import { censor } from '@/data/classes/censor/censor';
+import { conduit } from '@/data/classes/conduit/conduit';
 import { fury } from '@/data/classes/fury/fury';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
@@ -10,7 +11,7 @@ import { orden } from '@/data/sourcebooks/official/orden';
 import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 import { Element } from '@/models/element';
 import { Ability } from '@/models/ability';
-import { Feature, FeatureAbility } from '@/models/feature';
+import { Feature, FeatureAbility, FeatureChoice } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
 import { Language } from '@/models/language';
 import { Skill } from '@/models/skill';
@@ -360,6 +361,74 @@ export const createV1CensorLevel1AbilityRequiredCanonicalEnglish = (): Canonical
 	return requiredCanonicalEnglish;
 };
 
+/** The exact approved Conduit Level 1 base-class ability slice; later Conduit levels stay unresolved. */
+export const v1ConduitLevel1AbilityIDs = [
+	'conduit-1-5',
+	'conduit-1-6',
+	'conduit-1-7a',
+	'conduit-1-7b',
+	'conduit-ability-1',
+	'conduit-ability-2',
+	'conduit-ability-3',
+	'conduit-ability-4',
+	'conduit-ability-5',
+	'conduit-ability-6',
+	'conduit-ability-7',
+	'conduit-ability-8',
+	'conduit-ability-9',
+	'conduit-ability-10',
+	'conduit-ability-11',
+	'conduit-ability-12',
+	'conduit-ability-13',
+	'conduit-ability-14',
+	'conduit-ability-15',
+	'conduit-ability-16'
+] as const;
+
+const isConduitTriggeredActionChoice = (feature: Feature): feature is FeatureChoice => (
+	(feature.type === FeatureType.Choice) && (feature.id === 'conduit-1-7')
+);
+
+const isConduitLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only Conduit's two direct Level 1 abilities, Triggered Action choices, and abilities 1–16. */
+export const getV1ConduitLevel1Abilities = (): Ability[] => {
+	const levelOne = conduit.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Conduit Level 1 features are missing');
+	}
+
+	const triggeredAction = levelOne.features.find(isConduitTriggeredActionChoice);
+	if (!triggeredAction) {
+		throw new Error('Conduit Triggered Action choices are missing');
+	}
+
+	const abilities = [
+		...levelOne.features.filter(isConduitLevel1FeatureAbility).map(feature => feature.data.ability),
+		...triggeredAction.data.options
+			.map(option => option.feature)
+			.filter(isConduitLevel1FeatureAbility)
+			.map(feature => feature.data.ability),
+		...conduit.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1ConduitLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Conduit ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 127-identity Conduit Level 1 denominator from live canonical data. */
+export const createV1ConduitLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1ConduitLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Fury Level 1 base-class ability slice; later Fury levels stay unresolved. */
 export const v1FuryLevel1AbilityIDs = [
 	'fury-ability-1',
@@ -408,6 +477,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1SkillRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1LanguageRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CensorLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
