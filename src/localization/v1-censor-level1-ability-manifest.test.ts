@@ -9,8 +9,10 @@ import {
 } from '@/localization/v1-localization-manifest';
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
+import { ClassPanel } from '@/components/panels/elements/class-panel/class-panel';
 import { LocalizationProvider } from '@/contexts/localization-context';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
+import { ClassData } from '@/data/class-data';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
 import { AbilityLogic } from '@/logic/ability-logic';
@@ -24,7 +26,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('@/contexts/data-context', () => ({
 	useDataManager: () => ({ saveOptions: vi.fn().mockResolvedValue(undefined) }),
-	useOptions: () => ({ showClipboardOptions: false, locale: 'zh-TW' })
+	useOptions: () => ({ showClipboardOptions: false, locale: 'zh-TW' }),
+	useHeroes: () => []
 }));
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/components/controls/error-boundary/error-boundary', () => ({ ErrorBoundary: ({ children }: { children: ReactNode }) => children }));
@@ -77,6 +80,18 @@ const toggleCalculation = () => fireEvent.click(screen.getByTitle(/^(自動計�
 const tierTexts = (container: HTMLElement) => Array.from(container.querySelectorAll('.power-roll-row .effect')).map(effect => effect.textContent || '');
 
 const containsParagraph = (text: string) => screen.getByText((_content, element) => element?.tagName === 'P' && element.textContent?.includes(text));
+
+const getLibraryAbility = (container: HTMLElement, id: string) => {
+	const panel = container.querySelector(`#ability-${id}`);
+	expect(panel).toBeTruthy();
+	return panel as HTMLElement;
+};
+
+const expandLibraryAbilityGroups = () => {
+	fireEvent.click(screen.getByRole('radio', { name: '招式' }));
+	fireEvent.click(screen.getByText('招牌招式'));
+	fireEvent.click(screen.getByText('5 費招式'));
+};
 
 afterEach(cleanup);
 
@@ -227,5 +242,52 @@ describe('V1 Censor Level 1 ability manifest', () => {
 		containsParagraph('遁移最多 5 格');
 		toggleCalculation();
 		containsParagraph('遁移最多等於你速度的距離');
+	});
+
+	it('renders the approved production Censor Library readings without a Hero through actual Markdown', () => {
+		const getTextEffect = vi.spyOn(AbilityLogic, 'getTextEffect');
+		const getTierEffectCreature = vi.spyOn(AbilityLogic, 'getTierEffectCreature');
+		const serializedClass = JSON.stringify(ClassData.censor);
+		const { container } = render(
+			createElement(
+				LocalizationProvider,
+				null,
+				createElement(LocaleToggle),
+				createElement(ClassPanel, { heroClass: ClassData.censor, sourcebooks: [], mode: PanelMode.Full })
+			)
+		);
+
+		expandLibraryAbilityGroups();
+
+		const halt = getLibraryAbility(container, 'censor-ability-3');
+		expect(tierTexts(halt)[0]).toContain('2 + 力量神聖傷害；氣場 < [弱]，緩速（豁免解除）');
+		expect(halt.querySelectorAll('strong')).toHaveLength(3);
+		expect(halt.querySelector('strong')?.textContent).toBe('緩速');
+		expect(halt.textContent).not.toMatch(/holy damage|slowed|save ends/);
+
+		const arrest = getLibraryAbility(container, 'censor-ability-9');
+		expect(tierTexts(arrest)[0]).toContain('6 + 力量神聖傷害；擒制');
+		expect(arrest.querySelectorAll('strong')).toHaveLength(4);
+		expect(arrest.querySelector('strong')?.textContent).toBe('擒制');
+		expect(arrest.textContent).toContain('對他造成等於你氣場的神聖傷害');
+
+		const behold = getLibraryAbility(container, 'censor-ability-10');
+		expect(tierTexts(behold)[0]).toContain('3 + 力量神聖傷害；若目標的氣場 < [弱]');
+		expect(behold.querySelectorAll('strong')).toHaveLength(4);
+		expect(behold.querySelector('strong')?.textContent).toBe('畏縮');
+		expect(behold.textContent).toContain('受到等於你氣場的心靈傷害');
+
+		const purifyingFire = getLibraryAbility(container, 'censor-ability-12');
+		expect(tierTexts(purifyingFire)[0]).toContain('5 + 力量神聖傷害；力量 < [弱]，目標獲得火焰弱點 3（豁免解除）');
+		expect(purifyingFire.textContent).not.toMatch(/fire weakness|save ends/);
+
+		fireEvent.click(screen.getByRole('button', { name: 'Switch to English' }));
+		expect(tierTexts(getLibraryAbility(container, 'censor-ability-3'))[0]).toContain('2 + M holy damage; P < [weak] slowed (save ends)');
+		expect(getLibraryAbility(container, 'censor-ability-3').querySelectorAll('strong')).toHaveLength(3);
+
+		[ ...getTextEffect.mock.calls, ...getTierEffectCreature.mock.calls ].forEach(([ input ]) => expect(input).not.toMatch(/[\u4e00-\u9fff]/));
+		expect(JSON.stringify(ClassData.censor)).toBe(serializedClass);
+		getTextEffect.mockRestore();
+		getTierEffectCreature.mockRestore();
 	});
 });
