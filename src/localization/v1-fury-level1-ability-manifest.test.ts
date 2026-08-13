@@ -188,9 +188,13 @@ describe('V1 Fury Level 1 ability manifest', () => {
 		blood.unmount();
 
 		const end = renderAbility('fury-ability-12');
-		expect(screen.getAllByText('瀕死', { selector: 'strong' })).toHaveLength(1);
+		expect(end.container.textContent).toContain('當你陷入疲態時');
+		expect(end.container.textContent).toContain('當你陷入瀕死時');
+		expect(end.container.textContent).not.toMatch(/\b(winded|dying)\b/i);
 		fireEvent.click(screen.getByRole('button', { name: 'Switch to English' }));
 		expect(tierTexts(end.container)[0]).toContain('9 damage');
+		expect(end.container.textContent).toContain('While you are winded');
+		expect(end.container.textContent).toContain('While you are dying');
 
 		[ ...getTextEffect.mock.calls, ...getTierEffectCreature.mock.calls ].forEach(([ text ]) => expect(text).not.toMatch(/[\u4e00-\u9fff]/));
 		expect(JSON.stringify(ability)).toBe(serializedAbility);
@@ -223,10 +227,14 @@ describe('V1 Fury Level 1 ability manifest', () => {
 		expect(blood.querySelectorAll('strong')).toHaveLength(6);
 		expect(blood.textContent).not.toMatch(/bleeding|weakened|save ends/);
 		const end = getLibraryAbility(container, 'fury-ability-12');
-		expect(end.querySelector('strong')?.textContent).toBe('瀕死');
+		expect(end.textContent).toContain('當你陷入疲態時');
+		expect(end.textContent).toContain('當你陷入瀕死時');
+		expect(end.textContent).not.toMatch(/\b(winded|dying)\b/i);
 
 		fireEvent.click(screen.getByRole('button', { name: 'Switch to English' }));
 		expect(tierTexts(getLibraryAbility(container, 'fury-ability-6'))[0]).toContain('3 + M damage; slide 2');
+		expect(getLibraryAbility(container, 'fury-ability-12').textContent).toContain('While you are winded');
+		expect(getLibraryAbility(container, 'fury-ability-12').textContent).toContain('While you are dying');
 		[ ...getTextEffect.mock.calls, ...getTierEffectCreature.mock.calls ].forEach(([ input ]) => expect(input).not.toMatch(/[\u4e00-\u9fff]/));
 		expect(JSON.stringify(ClassData.fury)).toBe(serializedClass);
 		getTextEffect.mockRestore();

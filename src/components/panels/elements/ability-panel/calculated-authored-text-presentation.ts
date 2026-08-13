@@ -34,8 +34,7 @@ const approvedConditionReadings: ReadonlyArray<readonly [ string, string ]> = [
 	[ 'prone', '伏地' ],
 	[ 'taunted', '嘲諷' ],
 	[ 'bleeding', '出血' ],
-	[ 'weakened', '虛弱' ],
-	[ 'dying', '瀕死' ]
+	[ 'weakened', '虛弱' ]
 ];
 
 // getTextEffect formats potency with code marks and consumes its following comma. That is
