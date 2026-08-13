@@ -249,12 +249,12 @@ V1 requirements 仍要求：
 
 記錄目前已驗證可用的實際工作方式，用於將第 3 節第 4–6 步落實為具體 artifact：
 
-1. Reviewer 從 live canonical source／manifest evidence 建立翻譯工作表。
-2. 工作表應清楚分開：canonical English、AI／Reviewer suggestion、Owner-editable finalized zh-TW。
-3. AI 建議欄不是正式譯文。
-4. Owner 填寫／回傳的 finalized 欄位，以及 Owner 後續明確修正，是 translation authority。
-5. Reviewer 可檢查：completeness、blank cells、duplicate identities、row／identity misalignment、clerical mapping errors。
-6. Reviewer 不得自行修改 Owner translation semantics。
+1. Reviewer 從 live canonical source／manifest evidence、現有 approved translations、glossary、Owner decisions 與現行 mechanical-variant authority 建立翻譯工作表。
+2. **Pre-handoff classification gate：**交付 Owner 前，Reviewer 必須先將每一 row 分為 Owner-required 或 Reviewer-derived／mechanical；不得把所有 rows 一律標為 Owner 待定稿。Owner-required 限於新術語、新正式譯名、新 authored prose、改變語意的中文措辭、context-specific semantic choice，或無法依既有 authority 安全推導的真正翻譯選擇。
+3. Reviewer-derived／mechanical 包含已核准譯文直接重用、singular／plural、`a/an`、大小寫、不改變語意的標點、plural `s`、dynamic placeholder 周圍純文法變化，以及已核准 terminology／presentation grammar 的純機械套用。這些由 Reviewer 依現有 authority 處理，不得要求 Owner 逐項重新核准。
+4. 工作表應清楚分開 canonical English、AI／Reviewer suggestion、Owner-editable finalized zh-TW，並讓 Owner 辨識需要 action 的 rows 與已由 Reviewer 依 authority 處理的 rows。mechanical rows 不得維持為空白的「Owner finalized required」狀態、不得計入 Owner 尚待完成數量，且 instructions 不得預設要求 Owner 完成全部 rows；handoff summary 應回報實際需要 Owner 決定的 row count。可使用 decision／status column、分區／filter 或同等清楚的方法，不固定永久欄位名稱。
+5. AI suggestion 不是正式譯文；Owner-required rows 的 finalized zh-TW 仍由 Owner 決定。Reviewer-derived mechanical rows 的 authority 來自底層已核准 translation／Owner decision 加上 Reviewer Principles 的 mechanical-variant permission，不需要 Owner 再逐 row 輸入。
+6. Owner 回傳後，Reviewer 仍負責 completeness／blank、duplicate identity、row／identity alignment 與 clerical mapping 檢查，並可依新取得的 Owner 核心譯文補齊其衍生 mechanical variants；不得因此自行改變 Owner translation semantics。
 7. 經確認後，可產生 machine-readable approved JSON／packet，包含：record count、canonical identity、approved zh-TW、SHA-256，給 Agent 作 exact implementation authority。
 8. XLSX／JSON 都是 handoff working material：不建立第二套正式 V1 denominator；不預設 commit 到 repository。
 9. repository 正式 progress evidence 仍然是：manifest、catalog、completeness。

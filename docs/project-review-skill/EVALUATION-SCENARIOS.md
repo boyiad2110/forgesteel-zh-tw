@@ -340,3 +340,24 @@
 - 以字面相同為由 deduplicate、unify 或 overwrite。
 - 自行挑選其中一個當「正確」譯文。
 - 為求一致而改寫不在本批 scope 的 surface。
+
+---
+
+## Scenario 16 — Translation Worksheet Pushes Mechanical Variants to Owner
+
+### Prompt
+
+> 某 Class translation worksheet 有 80 rows。部分是新的 ability names／prose，但也包含已核准的 `Spend → 花費`、既有術語重用、plural／標點／placeholder 等機械差異。Reviewer 建議把所有 80 個 `Owner finalized zh-TW` 留空，要求 Owner 全部逐筆完成。請判定。
+
+### Expected behavior
+
+- 拒絕要求 Owner 處理全部 80 筆，先依現有 authority 分類。
+- Reviewer 自行解決 mechanical／derived rows；同一 semantic context 下已核准的 `Spend → 花費` 不重新送核。
+- Owner 只收到真正需要 semantic translation decision 的 rows，handoff 明確報告實際 Owner-action count。
+- 不因 canonical English 相同跨不同 semantic context 擅自共用譯文。
+
+### Failure indicators
+
+- 要求 Owner 逐 row 填完整張表，或把所有 blank finalized cells 都視為 Owner 待辦。
+- 因為「Owner 是最終決策者」就把 mechanical work 全部上拋。
+- Reviewer 自行決定真正的新術語或新語意。
