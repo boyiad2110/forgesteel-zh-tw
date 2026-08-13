@@ -1,6 +1,6 @@
 import { AppLocale } from '@/localization/locale';
-import { projectCalculatedConditionEmphasis } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 import { localizeElementField } from '@/localization/resolver';
+import { projectCalculatedConditionEmphasis } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 
 interface PowerRollTierPresentation {
 	locale: AppLocale;
@@ -30,6 +30,8 @@ const localizedForcedMovementType = (verb: string) => {
 			return 'slide';
 	}
 };
+
+const countMatches = (value: string, pattern: RegExp) => Array.from(value.matchAll(pattern)).length;
 
 /**
  * Projects calculated canonical values onto an approved zh-TW Power Roll tier.
@@ -67,10 +69,15 @@ export const localizePowerRollTierPresentation = ({
 	const canonicalForcedMovement = Array.from(canonicalEnglish.matchAll(canonicalForcedMovementPattern), match => match[1].toLowerCase());
 	const calculatedForcedMovement = Array.from(calculatedEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), value: match[2] }));
 	const localizedForcedMovement = Array.from(localizedRaw.matchAll(localizedForcedMovementPattern), match => localizedForcedMovementType(match[1]));
+	const hasUnchangedCanonicalGrammar = (pattern: RegExp, canonicalMatches: RegExpMatchArray[]) => (
+		countMatches(calculatedEnglish, pattern) === canonicalMatches.length
+	);
+	const damageIsProjected = damageValues.length === canonicalDamage.length;
+	const potencyIsProjected = potencyValues.length === canonicalPotencies.length;
 
-	if ((damageValues.length !== canonicalDamage.length)
+	if ((!damageIsProjected && !hasUnchangedCanonicalGrammar(canonicalDamagePattern, canonicalDamage))
 		|| (localizedDamage.length !== canonicalDamage.length)
-		|| (potencyValues.length !== canonicalPotencies.length)
+		|| (!potencyIsProjected && !hasUnchangedCanonicalGrammar(canonicalPotencyPattern, canonicalPotencies))
 		|| (localizedPotencies.length !== canonicalPotencies.length)
 		|| (calculatedForcedMovement.length !== canonicalForcedMovement.length)
 		|| (localizedForcedMovement.length !== canonicalForcedMovement.length)
@@ -82,18 +89,26 @@ export const localizePowerRollTierPresentation = ({
 	let damageIndex = 0;
 	let potencyIndex = 0;
 	let forcedMovementIndex = 0;
-	const projectedCanonical = canonicalEnglish
-		.replace(canonicalDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]}`)
-		.replace(/(\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*)\[(?:weak|average|avg|strong)\]/gi, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`)
-		.replace(canonicalForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
+	let projectedCanonical = canonicalEnglish;
+	if (damageValues.length > 0) {
+		projectedCanonical = projectedCanonical.replace(canonicalDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]}`);
+	}
+	if (potencyValues.length > 0) {
+		projectedCanonical = projectedCanonical.replace(/(\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*)\[(?:weak|average|avg|strong)\]/gi, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`);
+	}
+	projectedCanonical = projectedCanonical.replace(canonicalForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
 
 	damageIndex = 0;
 	potencyIndex = 0;
 	forcedMovementIndex = 0;
-	const projectedLocalized = localizedRaw
-		.replace(localizedDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]} `)
-		.replace(localizedPotencyPattern, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`)
-		.replace(localizedForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
+	let projectedLocalized = localizedRaw;
+	if (damageValues.length > 0) {
+		projectedLocalized = projectedLocalized.replace(localizedDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]} `);
+	}
+	if (potencyValues.length > 0) {
+		projectedLocalized = projectedLocalized.replace(localizedPotencyPattern, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`);
+	}
+	projectedLocalized = projectedLocalized.replace(localizedForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
 
 	return projectCalculatedConditionEmphasis({
 		canonicalEnglish: projectedCanonical,

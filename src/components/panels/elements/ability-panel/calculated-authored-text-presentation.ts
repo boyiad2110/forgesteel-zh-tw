@@ -35,7 +35,12 @@ const approvedConditionReadings: ReadonlyArray<readonly [ string, string ]> = [
 	[ 'taunted', '嘲諷' ]
 ];
 
-const removeCalculationFormatting = (value: string) => value.replace(/[*`,]/g, '');
+// getTextEffect formats potency with code marks and consumes its following comma. That is
+// presentation-only punctuation, so normalize precisely that grammar before comparing the
+// raw and calculated canonical readings for a safe localized projection.
+const removeCalculationFormatting = (value: string) => value
+	.replace(/[*`]/g, '')
+	.replace(/([MARIP]\s*<\s*(?:\[[^\]]+\]|-?\d+)),\s*/gi, '$1 ');
 
 const matchAll = (value: string, pattern: RegExp) => Array.from(value.matchAll(pattern));
 
@@ -144,6 +149,10 @@ const projectAuthorizedValues = (canonicalEnglish: string, calculatedEnglish: st
 		}
 
 		const calculatedMatches = matchAll(calculatedEnglish, rewrite.calculated);
+		const unchangedCanonicalMatches = matchAll(calculatedEnglish, rewrite.canonical);
+		if ((calculatedMatches.length === 0) && (unchangedCanonicalMatches.length === canonicalMatches.length)) {
+			continue;
+		}
 		const localizedMatches = matchAll(localizedRaw, rewrite.localized);
 		if ((canonicalMatches.length !== 1) || (calculatedMatches.length !== 1) || (localizedMatches.length !== 1)) {
 			return undefined;
