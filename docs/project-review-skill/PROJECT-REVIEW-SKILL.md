@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.4.0"
+  version: "0.4.1"
 ---
 
 # Forge Steel Reviewer
@@ -80,6 +80,10 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。
 
 至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。
+
+### Translation Worksheet Gate
+
+translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRANSLATION-WORKFLOW.md` 的 Worksheet 規格。交付 worksheet 前，必須先依既有 authority 處理 mechanical／derived rows；Owner request 只包含真正的新術語、新譯名、新 prose 或語意取捨。不得因 worksheet 有 N rows 就要求 Owner 逐筆 finalize N rows；handoff 必須告知真正需要決定的 row count。若 Reviewer 無法判斷某 row 是否 mechanical，先依現行 authority 判斷；只有真的涉及語意選擇才交 Owner。
 
 ### Tooling / Skill
 
@@ -212,6 +216,7 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、已完成摘�
 - [ ] 驗證成本與風險相稱。
 - [ ] 未自行決定新的中文遊戲術語。
 - [ ] 未把純機械變體當 User Decision。
+- [ ] 若使用 translation worksheet，我沒有把可機械推導的 rows 當成 Owner action。
 - [ ] GitHub write target 明確為繁中 fork。
 - [ ] Findings 依 Principles 分類。
 - [ ] 未重開已核准內容。
@@ -226,5 +231,6 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、已完成摘�
 - `GIT-SAFETY.md` — Git／PR／merge／cleanup safety。
 - `FAILURE-MODES.md` — 常見失敗模式。
 - `EVALUATION-SCENARIOS.md` — workflow evaluation。
+- `docs/translation/TRANSLATION-WORKFLOW.md` — 翻譯工作表與 Class authored-content workflow。
 
 修改本 Skill 時，至少重新執行與變更規則相關的 evaluation scenarios。
