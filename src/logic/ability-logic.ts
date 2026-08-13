@@ -656,7 +656,11 @@ export class AbilityLogic {
 		});
 
 		// Condition names
-		const conditionNames = Object.values(ConditionType).filter(c => (c !== ConditionType.Custom) && (c !== ConditionType.Quick));
+		const conditionNames = [
+			...Object.values(ConditionType).filter(c => (c !== ConditionType.Custom) && (c !== ConditionType.Quick)),
+			'winded',
+			'dying'
+		];
 		const conditionRegex = new RegExp(`\\b(${conditionNames.join('|')})\\b`, 'gi');
 		text = text.replace(conditionRegex, '**$1**');
 

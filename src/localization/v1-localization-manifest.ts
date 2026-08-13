@@ -2,6 +2,7 @@
 
 import { CanonicalEnglishSource } from '@/localization/catalog-validator';
 import { censor } from '@/data/classes/censor/censor';
+import { fury } from '@/data/classes/fury/fury';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
@@ -359,6 +360,42 @@ export const createV1CensorLevel1AbilityRequiredCanonicalEnglish = (): Canonical
 	return requiredCanonicalEnglish;
 };
 
+/** The exact approved Fury Level 1 base-class ability slice; later Fury levels stay unresolved. */
+export const v1FuryLevel1AbilityIDs = [
+	'fury-ability-1',
+	'fury-ability-2',
+	'fury-ability-3',
+	'fury-ability-4',
+	'fury-ability-5',
+	'fury-ability-6',
+	'fury-ability-7',
+	'fury-ability-8',
+	'fury-ability-9',
+	'fury-ability-10',
+	'fury-ability-11',
+	'fury-ability-12'
+] as const;
+
+/** Enumerates only Fury's twelve approved Level 1 base-class abilities. */
+export const getV1FuryLevel1Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(fury.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1FuryLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Fury ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 80-identity Fury Level 1 denominator from live canonical data. */
+export const createV1FuryLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1FuryLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -370,7 +407,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CareerFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1SkillRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1LanguageRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
-		...createV1CensorLevel1AbilityRequiredCanonicalEnglish()
+		...createV1CensorLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1FuryLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
