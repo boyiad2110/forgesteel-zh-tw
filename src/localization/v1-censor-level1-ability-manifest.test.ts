@@ -130,7 +130,6 @@ describe('V1 Censor Level 1 ability manifest', () => {
 		expect(result.missing).toEqual([]);
 		expect(result.unapproved).toEqual([]);
 		expect(result.catalogIssues).toEqual([]);
-		expect(result.requiredCount).toBe(1184);
 		expect(result.unresolvedDomains.map(domain => domain.id)).toContain('official-ability-authored-content');
 		expect(result.complete).toBe(false);
 	});

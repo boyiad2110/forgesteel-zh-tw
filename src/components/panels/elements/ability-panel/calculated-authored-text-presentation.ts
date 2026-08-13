@@ -32,7 +32,9 @@ const approvedConditionReadings: ReadonlyArray<readonly [ string, string ]> = [
 	[ 'grabbed', '擒制' ],
 	[ 'frightened', '畏縮' ],
 	[ 'prone', '伏地' ],
-	[ 'taunted', '嘲諷' ]
+	[ 'taunted', '嘲諷' ],
+	[ 'bleeding', '出血' ],
+	[ 'weakened', '虛弱' ]
 ];
 
 // getTextEffect formats potency with code marks and consumes its following comma. That is
@@ -123,6 +125,20 @@ const authorizedRewrites: readonly AuthorizedRewrite[] = [
 		localizedReplacement: value => `推動目標後，你可以朝目標直線遁移最多 ${value} 格`
 	},
 	{
+		canonical: /takes extra damage equal to your Might score for each opportunity attack you trigger during your move/gi,
+		calculated: /takes extra damage equal to (-?\d+) for each opportunity attack you trigger during your move/gi,
+		localized: /會額外受到 1 次傷害，傷害量等於你的力量 × 你在移動期間引發的藉機攻擊次數/g,
+		canonicalReplacement: value => `takes extra damage equal to ${value} for each opportunity attack you trigger during your move`,
+		localizedReplacement: value => `會額外受到 ${value} × 你在移動期間引發的藉機攻擊次數傷害`
+	},
+	{
+		canonical: /takes damage equal to your Might score at the end of your turns/gi,
+		calculated: /takes damage equal to (-?\d+) at the end of your turns/gi,
+		localized: /目標會受到等於你力量的傷害/g,
+		canonicalReplacement: value => `takes damage equal to ${value} at the end of your turns`,
+		localizedReplacement: value => `目標會受到 ${value} 點傷害`
+	},
+	{
 		canonical: /is pushed away from the target up to a number of squares equal to your Presence score/gi,
 		calculated: /is pushed away from the target up to a number of squares equal to (-?\d+)/gi,
 		localized: /推動最多等於你氣場的格數/g,
@@ -170,6 +186,32 @@ const projectAuthorizedValues = (canonicalEnglish: string, calculatedEnglish: st
 	});
 };
 
+// Tide of Death's multi-sentence prose is intentionally bound to its approved identity;
+// this is a safe speed projection, not a general Chinese grammar rewrite.
+const projectFuryTideOfDeathSpeed = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'fury-ability-7') || (field !== 'sections.0.text')) {
+		return undefined;
+	}
+
+	const canonicalPrefix = 'You move up to your speed in a straight line';
+	const calculatedMatch = calculatedEnglish.match(/^You move up to (-?\d+) squares in a straight line/);
+	if (!canonicalEnglish.startsWith(canonicalPrefix) || !calculatedMatch) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(canonicalPrefix, `You move up to ${calculatedMatch[1]} squares in a straight line`);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	const localizedPrefix = '你直線移動最多等於你速度的距離';
+	if (!localizedRaw.includes(localizedPrefix)) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(localizedPrefix, `你直線移動最多 ${calculatedMatch[1]} 格`);
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only the small set of values AbilityLogic can safely rewrite for Censor.
@@ -192,6 +234,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 
 	if (calculatedEnglish === canonicalEnglish) {
 		return localizedRaw;
+	}
+
+	const furyTideOfDeath = projectFuryTideOfDeathSpeed(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (furyTideOfDeath) {
+		return furyTideOfDeath;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
