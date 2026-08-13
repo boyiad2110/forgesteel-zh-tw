@@ -277,3 +277,21 @@ V1 requirements 仍要求：
 如果 identity、traversal、scope 或風險需要獨立處理：
 
 **由 Reviewer 依 Batch Contract 拆出必要的 technical denominator batch。**
+
+## 13. Class Ability Authored Content
+
+Class ability 的 calculated localization 一律 canonical-English-first：raw canonical English 經 canonical calculator 取得 calculated English，再以 raw canonical identity 取得 approved zh-TW，僅投影可安全證明的 calculated presentation change。zh-TW 不得送入 `AbilityLogic`、parser 或 calculator。
+
+同一 ability 出現在 Hero Builder 與 Library 時，是兩條不同的 presentation path。Hero context 可使用 calculator 實際解析出的數值；Library／no-Hero 的 characteristic、potency、Presence、Recovery、Speed 等 expression 未解析時，保留 approved raw zh-TW，不得因缺少數值 fallback English。
+
+projection 的結果限於三種：
+
+1. calculator 已解析：投影其實際 canonical 結果。
+2. canonical grammar 未變但仍 unresolved：保留 approved raw zh-TW，只投影安全 formatting。
+3. unsupported structural rewrite：完整 fallback calculated English。
+
+不得猜數字、在中文層重新計算，或輸出中英混合 partial result。規則同時適用於 Power Roll tier text 與 non-roll authored effect／prose；canonical calculated result 若新增如 `**slowed**` 的 Markdown emphasis，approved 中文也保留相同 emphasis。
+
+已核准的 presentation 慣例為：ability section heading 中 `Spend` 譯為「花費」；authored prose 的 calculated damage／Stamina 寫作「N 點神聖傷害」、「N 點心靈傷害」、「恢復 N 點體力」。compact Power Roll 維持「N 神聖傷害」，不強制加入「點」。raw approved 中文中的「等於你氣場…／復元值／速度」等 expression 在 no-Hero 未解析時維持原文；解析後使用 calculator 實際數值，不寫成「等於 N」。
+
+若 Hero Builder 與 Library 都 render，automated evidence 至少涵蓋代表性的 Hero 與 no-Hero production behavior、實際 production Class data／localization 與 rendered presentation／Markdown，並證明 English、canonical state／serialization 未變，且沒有 zh-TW 進入 calculator。slice-specific manifest test 只固定本 slice 的 identities、delta 或 domain contract，不得寫死不相關的 global `requiredCount` 或完整 `unresolvedDomains`；若 batch 改動 manifest denominator，最後變更後跑 full suite。完成單一 Class 不代表 `official-ability-authored-content` 完成，僅在整個 domain 完整 enumerate 後才能移除 unresolved。

@@ -117,6 +117,18 @@ Stage 3 Contract 必須明確寫出本批 merge method：
 
 若 repository policy 或 Owner 已指定，以較高 authority 為準。
 
+## Cross-baseline Local Work Transplant
+
+當已由 Reviewer 核准的 local-only work 要重接到新的 `develop` baseline 時，先確認核准單位與 commit topology。不得只因 branch 有 final HEAD，就假設 final tip commit 是 self-contained、可單獨 cherry-pick。
+
+若成果依賴多個未合併 commits，Reviewer 必須明確指定安全 replay 方式：replay 完整 commit series，或使用已驗證 identity 的完整 `Base..HEAD` patch／tree state。若 cherry-pick 或 replay 出現 unexpected conflict，**STOP**；不得自行解 conflict、skip、rebase、reset 或改寫已核准 history，除非 Reviewer 另行授權 recovery 方式。
+
+使用 cumulative patch transplant 時，至少核對：
+
+- patch identity。
+- apply-check。
+- 必要的 tree／file equivalence。
+
 ## Repository Ambiguity
 
 若出現：
