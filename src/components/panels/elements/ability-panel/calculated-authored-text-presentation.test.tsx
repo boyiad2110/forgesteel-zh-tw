@@ -26,6 +26,8 @@ vi.mock('@/localization/resolver', async importActual => {
 		{ kind: 'element-field', elementID: 'projection-text', field: 'sections.2.text', canonicalEnglish: 'You can shift up to your speed in a straight line toward the target after pushing them.', zhTW: '推動目標後，你可以朝目標直線遁移最多等於你速度的距離。', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'projection-text', field: 'sections.3.text', canonicalEnglish: 'The target is slowed.', zhTW: '目標緩速。', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'projection-text', field: 'sections.4.text', canonicalEnglish: 'You can spend a Recovery to allow yourself or one ally within 10 squares to regain Stamina equal to your recovery value.', zhTW: '你可以花費 1 次復元，讓自己或 10 格內 1 名盟友恢復等於你復元值的體力。', approval: 'approved' },
+		{ kind: 'element-field', elementID: 'conduit-ability-7', field: 'sections.1.text', canonicalEnglish: 'You or one ally within distance gains temporary Stamina equal to your Intuition score.', zhTW: '你或射程內的 1 個盟友獲得等於你直覺的臨時體力。', approval: 'approved' },
+		{ kind: 'element-field', elementID: 'conduit-ability-10', field: 'sections.0.text', canonicalEnglish: 'An enemy takes holy damage equal to your Intuition score.', zhTW: '敵人受到等於你直覺的神聖傷害。', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'ambiguous', field: 'sections.0.text', canonicalEnglish: 'The target takes damage equal to your level.', zhTW: '目標受到等於你等級的傷害。', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'ambiguous', field: 'sections.0.text', canonicalEnglish: 'The target takes damage equal to your level.', zhTW: '目標受到等於你等級的損害。', approval: 'approved' }
 	]);
@@ -145,6 +147,8 @@ describe('calculated authored content presentation', () => {
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'missing', field: 'sections.0.text', canonicalEnglish, calculatedEnglish })).toBe(calculatedEnglish);
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'projection-text', field: 'sections.0.text', canonicalEnglish, calculatedEnglish })).toBe(calculatedEnglish);
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'ambiguous', field: 'sections.0.text', canonicalEnglish, calculatedEnglish })).toBe(calculatedEnglish);
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'conduit-ability-7', field: 'sections.1.text', canonicalEnglish: 'You or one ally within distance gains temporary Stamina equal to your Intuition score.', calculatedEnglish: 'You or one ally within distance gains temporary Stamina equal to 2.' })).toBe('你或射程內的 1 個盟友獲得 2 點臨時體力。');
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'conduit-ability-10', field: 'sections.0.text', canonicalEnglish: 'An enemy takes holy damage equal to your Intuition score.', calculatedEnglish: 'An enemy takes holy damage equal to 2.' })).toBe('敵人受到 2 點神聖傷害。');
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'en', elementID: 'projection-text', field: 'sections.0.text', canonicalEnglish, calculatedEnglish })).toBe(calculatedEnglish);
 	});
 });

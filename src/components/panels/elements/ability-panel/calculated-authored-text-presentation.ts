@@ -212,9 +212,48 @@ const projectFuryTideOfDeathSpeed = (elementID: string, field: string, canonical
 	return localizedRaw.replace(localizedPrefix, `你直線移動最多 ${calculatedMatch[1]} 格`);
 };
 
+// These two approved Conduit readings are identity-bound: AbilityLogic resolves their
+// Intuition values, while Library keeps the approved unresolved raw zh-TW wording.
+const projectConduitIntuitionValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'conduit-ability-7',
+			field: 'sections.1.text',
+			canonical: 'gains temporary Stamina equal to your Intuition score',
+			calculated: /gains temporary Stamina equal to (-?\d+)/,
+			localized: '獲得等於你直覺的臨時體力',
+			localizedReplacement: (value: string) => `獲得 ${value} 點臨時體力`
+		},
+		{
+			elementID: 'conduit-ability-10',
+			field: 'sections.0.text',
+			canonical: 'takes holy damage equal to your Intuition score',
+			calculated: /takes holy damage equal to (-?\d+)/,
+			localized: '受到等於你直覺的神聖傷害',
+			localizedReplacement: (value: string) => `受到 ${value} 點神聖傷害`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, calculatedMatch[0]);
+	if ((projectedCanonical !== calculatedEnglish) || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
- * projects only the small set of values AbilityLogic can safely rewrite for Censor.
+ * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
 export const localizeCalculatedAuthoredTextPresentation = ({
 	locale,
@@ -239,6 +278,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const furyTideOfDeath = projectFuryTideOfDeathSpeed(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (furyTideOfDeath) {
 		return furyTideOfDeath;
+	}
+
+	const conduitIntuitionValue = projectConduitIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (conduitIntuitionValue) {
+		return conduitIntuitionValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
