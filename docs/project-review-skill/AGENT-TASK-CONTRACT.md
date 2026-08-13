@@ -50,6 +50,10 @@ Agent 不得自行建立新的中文遊戲術語或改變已核准語意。
 
 若出現新的詞義、術語或真正翻譯取捨，停止並回報 Reviewer。
 
+### Class Ability Authored Content
+
+Class ability authored-content task 必須依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Class Ability Authored Content` 規格。若同一內容同時出現在 Hero 與 no-Hero surface，Batch Contract 必須分別列出兩條 presentation path 的 Acceptance，不得以其中一條 PASS 推定另一條 PASS。新 calculated grammar 若沒有現行 authority 或安全 projection，不得自行建立中文 parser／calculator 或新翻譯；依 Workflow fallback 或 STOP。
+
 ### Approval 的作用範圍
 
 translation approval 依 surface、localization identity 與 semantic context 生效，不是依 canonical English 字面生效。

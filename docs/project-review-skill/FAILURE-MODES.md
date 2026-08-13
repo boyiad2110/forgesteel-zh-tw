@@ -216,12 +216,12 @@ test helper 用 `approvedEntries[2]` 之類位置取得 entry；新增新的 ent
 
 使用 entry `kind`、semantic key、localization identity 或 explicit predicate 取得目標 entry。不得依 production catalog array position 作 semantic identity。
 
-## 22. Slice Test Pin Global `unresolvedDomains`
+## 22. Slice Test Pin Global Completeness State
 
 錯誤：
 
-早期 slice-specific test 把 `toHaveLength(6)` 或完整 6-domain literal array 寫死；其他 domain 合法完成時，舊 batch test 也被迫修改。
+slice-specific test 把 global `requiredCount`、unresolved count 或完整 unresolved list 寫死；其他合法 batch 增加 denominator 或完成 domain 時，舊 test 也被迫失敗。
 
 修正：
 
-slice-specific test 只 assert 該 slice 自己的 identities／domain contract；global completeness test 才負責 exact current unresolved list／count。若某 batch 的 acceptance 本身就是移除某 domain，該 batch 可明確 assert 該 domain 消失。
+slice-specific test 只 assert 該 slice 自己的 identities、delta 或特定 domain contract；global completeness test 才負責 exact global `requiredCount` 與 unresolved state。若某 batch acceptance 本身是新增固定數量 identities 或移除特定 domain，可 assert 自己的 delta／該 domain 消失，但不得 pin 其他 slice 的全域狀態。
