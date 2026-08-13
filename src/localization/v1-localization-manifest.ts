@@ -1,19 +1,30 @@
 /* eslint-disable sort-imports */
 
 import { CanonicalEnglishSource } from '@/localization/catalog-validator';
+import { censor } from '@/data/classes/censor/censor';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
 import { orden } from '@/data/sourcebooks/official/orden';
 import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 import { Element } from '@/models/element';
-import { Feature } from '@/models/feature';
+import { Ability } from '@/models/ability';
+import { Feature, FeatureAbility } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
 import { Language } from '@/models/language';
 import { Skill } from '@/models/skill';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Sourcebook } from '@/models/sourcebook';
 import { elementFieldIdentity, languageFieldIdentity, skillFieldIdentity } from '@/localization/catalog';
+import {
+	abilityDescriptionField,
+	abilitySectionEffectField,
+	abilitySectionNameField,
+	abilitySectionRollField,
+	abilitySectionTextField,
+	abilityTriggerField,
+	powerRollTierField
+} from '@/localization/ability-field-path';
 
 export interface V1LocalizationUnresolvedDomain {
 	id: string;
@@ -257,6 +268,97 @@ export const createV1LanguageRequiredCanonicalEnglish = (sourcebooks: Sourcebook
 	return requiredCanonicalEnglish;
 };
 
+/** The exact approved Censor Level 1 ability slice; later Censor levels stay unresolved. */
+export const v1CensorLevel1AbilityIDs = [
+	'censor-1-4',
+	'censor-1-6',
+	'censor-ability-1',
+	'censor-ability-2',
+	'censor-ability-3',
+	'censor-ability-4',
+	'censor-ability-5',
+	'censor-ability-6',
+	'censor-ability-7',
+	'censor-ability-8',
+	'censor-ability-9',
+	'censor-ability-10',
+	'censor-ability-11',
+	'censor-ability-12'
+] as const;
+
+const isCensorLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/**
+ * Enumerates only the two Censor Level 1 feature abilities and Censor abilities 1–12.
+ * It intentionally does not traverse subclasses, later levels, or arbitrary Features.
+ */
+export const getV1CensorLevel1Abilities = (): Ability[] => {
+	const levelOne = censor.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Censor Level 1 features are missing');
+	}
+
+	const abilities = [
+		...levelOne.features.filter(isCensorLevel1FeatureAbility).map(feature => feature.data.ability),
+		...censor.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1CensorLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Censor Level 1 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Adds every localizable authored field from one ability's live canonical source. */
+const addRequiredAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, ability: Ability) => {
+	const addRequiredField = (field: string, canonicalEnglish: string) => {
+		if (canonicalEnglish === '') {
+			return;
+		}
+
+		const identity = elementFieldIdentity(ability.id, field);
+		if (requiredCanonicalEnglish[identity] !== undefined) {
+			throw new Error(`duplicate localization identity '${identity}'`);
+		}
+		requiredCanonicalEnglish[identity] = canonicalEnglish;
+	};
+
+	addRequiredField('name', ability.name);
+	addRequiredField('target', ability.target);
+	addRequiredField(abilityDescriptionField, ability.description);
+	addRequiredField(abilityTriggerField, ability.type.trigger);
+
+	(ability.sections || []).forEach((section, index) => {
+		switch (section.type) {
+			case 'text':
+				addRequiredField(abilitySectionTextField(index), section.text);
+				break;
+			case 'field':
+				addRequiredField(abilitySectionNameField(index), section.name);
+				addRequiredField(abilitySectionEffectField(index), section.effect);
+				break;
+			case 'roll': {
+				const rollField = abilitySectionRollField(index);
+				addRequiredField(powerRollTierField(rollField, 1), section.roll.tier1);
+				addRequiredField(powerRollTierField(rollField, 2), section.roll.tier2);
+				addRequiredField(powerRollTierField(rollField, 3), section.roll.tier3);
+				break;
+			}
+		}
+	});
+};
+
+/** Builds the bounded 92-identity Censor Level 1 denominator from live canonical data. */
+export const createV1CensorLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1CensorLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -267,7 +369,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CareerIncitingIncidentRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CareerFeatureRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1SkillRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
-		...createV1LanguageRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
+		...createV1LanguageRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1CensorLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
