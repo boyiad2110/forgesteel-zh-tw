@@ -30,7 +30,7 @@ beforeEach(() => {
 
 describe('localized calculated Power Roll tier presentation', () => {
 	it('projects characteristic and potency results onto an approved raw zh-TW reading', () => {
-		expect(localize()).toBe('4 神聖傷害；`氣場` < 0，緩速（豁免解除）');
+		expect(localize()).toBe('4 神聖傷害；`氣場` < 0，**緩速**（豁免解除）');
 	});
 
 	it('projects a calculated fixed damage value without changing the translated effect', () => {

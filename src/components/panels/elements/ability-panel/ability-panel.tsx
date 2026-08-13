@@ -9,6 +9,7 @@ import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
+import { localizeCalculatedAuthoredTextPresentation } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 import {
 	abilityDescriptionField,
@@ -96,12 +97,17 @@ export const AbilityPanel = (props: Props) => {
 		return text;
 	};
 
-	// The canonical English goes through the parser first; only the text that comes back out
-	// is offered to the boundary. A catalog entry is approved against the English an author
-	// wrote, so once the parser has rewritten a line - resolving a characteristic, say - the
-	// snapshot no longer matches and the calculated English is what stays on screen.
+	// The resolver always receives the exact authored English snapshot. Calculation remains
+	// canonical-English-only; the presentation helper can then safely project its bounded
+	// output grammar onto the approved raw zh-TW reading.
 	const localizeParsedText = (field: string, text: string) => {
-		return localizeElementField(locale, props.ability.id, field, parseText(text));
+		return localizeCalculatedAuthoredTextPresentation({
+			locale: locale,
+			elementID: props.ability.id,
+			field: field,
+			canonicalEnglish: text,
+			calculatedEnglish: parseText(text)
+		});
 	};
 
 	const autoCalcAvailable = () => {
