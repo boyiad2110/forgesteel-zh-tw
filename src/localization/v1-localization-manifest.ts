@@ -6,6 +6,7 @@ import { conduit } from '@/data/classes/conduit/conduit';
 import { elementalist } from '@/data/classes/elementalist/elementalist';
 import { fury } from '@/data/classes/fury/fury';
 import { nullClass } from '@/data/classes/null/null';
+import { shadow } from '@/data/classes/shadow/shadow';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
@@ -588,6 +589,54 @@ export const createV1FuryLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEn
 	return requiredCanonicalEnglish;
 };
 
+/** The exact approved Shadow Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
+export const v1ShadowLevel1AbilityIDs = [
+	'shadow-1-5',
+	'shadow-ability-1',
+	'shadow-ability-2',
+	'shadow-ability-3',
+	'shadow-ability-4',
+	'shadow-ability-5',
+	'shadow-ability-6',
+	'shadow-ability-7',
+	'shadow-ability-8',
+	'shadow-ability-9',
+	'shadow-ability-10',
+	'shadow-ability-11',
+	'shadow-ability-12'
+] as const;
+
+const isShadowLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only Shadow's direct Level 1 ability and abilities 1–12. */
+export const getV1ShadowLevel1Abilities = (): Ability[] => {
+	const levelOne = shadow.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Shadow Level 1 features are missing');
+	}
+
+	const abilities = [
+		...levelOne.features.filter(isShadowLevel1FeatureAbility).map(feature => feature.data.ability),
+		...shadow.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1ShadowLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Shadow Level 1 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 82-identity Shadow Level 1 denominator from live canonical data. */
+export const createV1ShadowLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1ShadowLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -603,7 +652,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
-		...createV1FuryLevel1AbilityRequiredCanonicalEnglish()
+		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
