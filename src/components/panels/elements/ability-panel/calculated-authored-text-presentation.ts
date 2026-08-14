@@ -409,6 +409,41 @@ const projectShadowSpeedValue = (elementID: string, field: string, canonicalEngl
 	return localizedRaw.replace(localizedSpeed, `遁移最多 ${calculatedMatch[1]} 格`);
 };
 
+// Mark: Trigger is the one Tactician reading whose canonical grammar the calculator rewrites.
+// Both Reason-score expressions are resolved in English first and only their verified values
+// are carried into the approved zh-TW; the taunted emphasis is then added by the shared
+// condition projection. Squad! Forward! is deliberately absent: its 'their speed' is
+// target-relative, so the calculator leaves it alone and Hero keeps the approved raw wording.
+const projectTacticianReasonValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'tactician-1-5b') || (field !== 'sections.0.text')) {
+		return undefined;
+	}
+
+	const damageCanonical = 'The ability deals extra damage equal to twice your Reason score.';
+	const shiftCanonical = 'The creature dealing the damage can shift up to a number of squares equal to your Reason score.';
+	const damageCalculated = calculatedEnglish.match(/The ability deals extra damage equal to (-?\d+)\./);
+	const shiftCalculated = calculatedEnglish.match(/The creature dealing the damage can shift up to a number of squares equal to (-?\d+)\./);
+	const damageLocalized = '該招式額外造成你`理智` × 2 的傷害。';
+	const shiftLocalized = '造成傷害的生物可以遁移最多等於你`理智`的格數。';
+
+	if (!damageCalculated || !shiftCalculated || !localizedRaw.includes(damageLocalized) || !localizedRaw.includes(shiftLocalized)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish
+		.replace(damageCanonical, damageCalculated[0])
+		.replace(shiftCanonical, shiftCalculated[0]);
+	const projectedLocalized = localizedRaw
+		.replace(damageLocalized, `該招式額外造成 ${damageCalculated[1]} 點傷害。`)
+		.replace(shiftLocalized, `造成傷害的生物可以遁移最多 ${shiftCalculated[1]} 格。`);
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
@@ -456,6 +491,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const shadowSpeedValue = projectShadowSpeedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (shadowSpeedValue) {
 		return shadowSpeedValue;
+	}
+
+	const tacticianReasonValue = projectTacticianReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (tacticianReasonValue) {
+		return tacticianReasonValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;

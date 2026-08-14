@@ -2,9 +2,13 @@
 /* eslint-disable sort-imports */
 
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
+import { Ability } from '@/models/ability';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { LocalizationProvider } from '@/contexts/localization-context';
+import { elementalist } from '@/data/classes/elementalist/elementalist';
+import { shadow } from '@/data/classes/shadow/shadow';
+import { tactician } from '@/data/classes/tactician/tactician';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -18,6 +22,44 @@ vi.mock('@/components/controls/markdown/markdown', () => ({ Markdown: ({ text }:
 afterEach(cleanup);
 
 const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
+
+// Locates a live ability inside production class data by its own ID. Some of these are
+// nested under a Multiple feature rather than sitting at the top level, so this walks the
+// data rather than assuming a shape.
+const findAbility = (node: unknown, id: string, seen: Set<object> = new Set()): Ability | undefined => {
+	if (!node || (typeof node !== 'object') || seen.has(node)) {
+		return undefined;
+	}
+	seen.add(node);
+
+	const candidate = node as Partial<Ability>;
+	if ((candidate.id === id) && (typeof candidate.target === 'string') && Array.isArray(candidate.distance)) {
+		return candidate as Ability;
+	}
+
+	for (const child of Object.values(node)) {
+		const found = findAbility(child, id, seen);
+		if (found) {
+			return found;
+		}
+	}
+
+	return undefined;
+};
+
+const getAbility = (root: unknown, id: string) => {
+	const ability = findAbility(root, id);
+	if (!ability) {
+		throw new Error(`Production ability '${id}' is missing`);
+	}
+	return ability;
+};
+
+const makeHero = () => {
+	const hero = FactoryLogic.createHero();
+	hero.class = FactoryLogic.createClass();
+	return hero;
+};
 
 describe('AbilityInfoPanel core metadata localization', () => {
 	it('localizes the Distance, Target and Trigger labels and restores the canonical English on switching locale', () => {
@@ -49,6 +91,9 @@ describe('AbilityInfoPanel core metadata localization', () => {
 		expect(screen.getByText('目標', { exact: true })).toBeTruthy();
 		expect(screen.getByText('射程 / 目標', { exact: true })).toBeTruthy();
 		expect(screen.getByText('觸發', { exact: true })).toBeTruthy();
+		// A combined value with no approved target reading stays canonical: the fix carries an
+		// approved target through, it does not invent a translation for a distance.
+		expect(screen.getByText('Melee 1', { exact: true })).toBeTruthy();
 
 		switchLocale();
 
@@ -56,6 +101,7 @@ describe('AbilityInfoPanel core metadata localization', () => {
 		expect(screen.getByText('Target', { exact: true })).toBeTruthy();
 		expect(screen.getByText('Distance / Target', { exact: true })).toBeTruthy();
 		expect(screen.getByText('Trigger', { exact: true })).toBeTruthy();
+		expect(screen.getByText('Melee 1', { exact: true })).toBeTruthy();
 	});
 
 	it('localizes the approved player-facing action types and restores the canonical English on switching locale', () => {
@@ -221,5 +267,104 @@ describe('AbilityInfoPanel core metadata localization', () => {
 		expect(ability.type.usage).toBe(AbilityUsage.Trigger);
 		expect(ability.type.free).toBe(false);
 		expect(JSON.stringify(ability)).toBe(serializedBefore);
+	});
+});
+
+describe('AbilityInfoPanel combined Distance / Target localization', () => {
+	// One approved reading per affected canonical value: Tactician contributes the only
+	// 'Special' case and the merged classes contribute 'Self'. These are production
+	// abilities read from live class data, not fixtures.
+	const combinedCases = [
+		{ id: 'tactician-1-5b', root: tactician, canonical: 'Special', localized: '特殊' },
+		{ id: 'elementalist-1-6', root: elementalist, canonical: 'Self', localized: '自身' },
+		{ id: 'shadow-1-5', root: shadow, canonical: 'Self', localized: '自身' }
+	];
+
+	combinedCases.forEach(({ id, root, canonical, localized }) => {
+		it(`shows the approved target reading in the combined field for ${id} and restores the canonical English`, () => {
+			const ability = getAbility(root, id);
+			const serializedBefore = JSON.stringify(ability);
+
+			render(
+				<LocalizationProvider>
+					<LocaleToggle />
+					<AbilityInfoPanel ability={ability} />
+				</LocalizationProvider>
+			);
+
+			// The field really is the combined one, and it reads as the approved target.
+			expect(screen.getByText('射程 / 目標', { exact: true })).toBeTruthy();
+			expect(screen.getByText(localized, { exact: true })).toBeTruthy();
+			expect(screen.queryByText(canonical, { exact: true })).toBeNull();
+			// It is one field, not a collapsed pair.
+			expect(screen.queryByText('射程', { exact: true })).toBeNull();
+			expect(screen.queryByText('目標', { exact: true })).toBeNull();
+
+			switchLocale();
+
+			expect(screen.getByText('Distance / Target', { exact: true })).toBeTruthy();
+			expect(screen.getByText(canonical, { exact: true })).toBeTruthy();
+			expect(screen.queryByText(localized, { exact: true })).toBeNull();
+
+			expect(ability.target).toBe(canonical);
+			expect(JSON.stringify(ability)).toBe(serializedBefore);
+		});
+	});
+
+	it('keeps separate Distance and Target fields, each with its own reading, when the canonical values differ', () => {
+		const ability = getAbility(tactician, 'tactician-ability-2');
+		const serializedBefore = JSON.stringify(ability);
+
+		render(
+			<LocalizationProvider>
+				<LocaleToggle />
+				<AbilityInfoPanel ability={ability} />
+			</LocalizationProvider>
+		);
+
+		expect(screen.getByText('射程', { exact: true })).toBeTruthy();
+		expect(screen.getByText('目標', { exact: true })).toBeTruthy();
+		expect(screen.queryByText('射程 / 目標', { exact: true })).toBeNull();
+		// The distance keeps its canonical reading, joined across both authored distances;
+		// only the target is localized.
+		expect(screen.getByText('Melee 1 or Ranged 5', { exact: true })).toBeTruthy();
+		expect(screen.getByText('1 個生物或物體', { exact: true })).toBeTruthy();
+
+		switchLocale();
+
+		expect(screen.getByText('Melee 1 or Ranged 5', { exact: true })).toBeTruthy();
+		expect(screen.getByText('One creature or object', { exact: true })).toBeTruthy();
+		expect(JSON.stringify(ability)).toBe(serializedBefore);
+	});
+
+	it('reads the same way in a Hero calculation context, where the distance is computed with a Hero', () => {
+		const hero = makeHero();
+		const markTrigger = getAbility(tactician, 'tactician-1-5b');
+		const hesitation = getAbility(shadow, 'shadow-1-5');
+		const serializedHero = JSON.stringify(hero);
+		const serializedAbilities = JSON.stringify([ markTrigger, hesitation ]);
+
+		render(
+			<LocalizationProvider>
+				<LocaleToggle />
+				<AbilityInfoPanel ability={markTrigger} hero={hero} />
+				<AbilityInfoPanel ability={hesitation} hero={hero} />
+			</LocalizationProvider>
+		);
+
+		expect(screen.getAllByText('射程 / 目標', { exact: true })).toHaveLength(2);
+		expect(screen.getByText('特殊', { exact: true })).toBeTruthy();
+		expect(screen.getByText('自身', { exact: true })).toBeTruthy();
+		expect(screen.queryByText('Special', { exact: true })).toBeNull();
+		expect(screen.queryByText('Self', { exact: true })).toBeNull();
+
+		switchLocale();
+
+		expect(screen.getAllByText('Distance / Target', { exact: true })).toHaveLength(2);
+		expect(screen.getByText('Special', { exact: true })).toBeTruthy();
+		expect(screen.getByText('Self', { exact: true })).toBeTruthy();
+
+		expect(JSON.stringify(hero)).toBe(serializedHero);
+		expect(JSON.stringify([ markTrigger, hesitation ])).toBe(serializedAbilities);
 	});
 });
