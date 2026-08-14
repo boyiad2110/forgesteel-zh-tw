@@ -7,6 +7,7 @@ import { elementalist } from '@/data/classes/elementalist/elementalist';
 import { fury } from '@/data/classes/fury/fury';
 import { nullClass } from '@/data/classes/null/null';
 import { shadow } from '@/data/classes/shadow/shadow';
+import { tactician } from '@/data/classes/tactician/tactician';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
@@ -14,7 +15,7 @@ import { orden } from '@/data/sourcebooks/official/orden';
 import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 import { Element } from '@/models/element';
 import { Ability } from '@/models/ability';
-import { Feature, FeatureAbility, FeatureChoice } from '@/models/feature';
+import { Feature, FeatureAbility, FeatureChoice, FeatureMultiple } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
 import { Language } from '@/models/language';
 import { Skill } from '@/models/skill';
@@ -637,6 +638,66 @@ export const createV1ShadowLevel1AbilityRequiredCanonicalEnglish = (): Canonical
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Tactician Level 1 base-class ability slice. Level 1 selects cost 3 and
+ * cost 5 class abilities, so only abilities 1-8 belong here; cost 7+ abilities, later levels
+ * and the Tactical Doctrine subclasses stay unresolved.
+ */
+export const v1TacticianLevel1AbilityIDs = [
+	'tactician-1-5a',
+	'tactician-1-5b',
+	'tactician-1-6',
+	'tactician-ability-1',
+	'tactician-ability-2',
+	'tactician-ability-3',
+	'tactician-ability-4',
+	'tactician-ability-5',
+	'tactician-ability-6',
+	'tactician-ability-7',
+	'tactician-ability-8'
+] as const;
+
+const isTacticianMarkMultiple = (feature: Feature): feature is FeatureMultiple => (
+	(feature.type === FeatureType.Multiple) && (feature.id === 'tactician-1-5')
+);
+
+const isTacticianLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only Tactician's two Mark abilities, its direct Level 1 ability, and abilities 1-8. */
+export const getV1TacticianLevel1Abilities = (): Ability[] => {
+	const levelOne = tactician.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Tactician Level 1 features are missing');
+	}
+
+	const mark = levelOne.features.find(isTacticianMarkMultiple);
+	if (!mark) {
+		throw new Error('Tactician Mark abilities are missing');
+	}
+
+	const abilities = [
+		...mark.data.features.filter(isTacticianLevel1FeatureAbility).map(feature => feature.data.ability),
+		...levelOne.features.filter(isTacticianLevel1FeatureAbility).map(feature => feature.data.ability),
+		...tactician.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1TacticianLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Tactician Level 1 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 59-identity Tactician Level 1 denominator from live canonical data. */
+export const createV1TacticianLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1TacticianLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -653,7 +714,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
-		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish()
+		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
