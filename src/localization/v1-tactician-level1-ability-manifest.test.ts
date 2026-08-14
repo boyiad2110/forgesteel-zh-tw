@@ -135,10 +135,11 @@ describe('V1 Tactician Level 1 ability manifest', () => {
 	});
 
 	it('keeps the approved raw zh-TW reading on the Library / no-Hero path for every grammar family in this batch', () => {
-		// Mark: Trigger keeps both Reason-score expressions unresolved.
+		// Mark: Trigger keeps both Reason-score expressions unresolved, each carrying the
+		// approved characteristic Markdown.
 		const markTrigger = textReading('tactician-1-5b', 'sections.0.text');
-		expect(markTrigger).toContain('該招式額外造成你理智 × 2 的傷害。');
-		expect(markTrigger).toContain('造成傷害的生物可以遁移最多等於你理智的格數。');
+		expect(markTrigger).toContain('該招式額外造成你`理智` × 2 的傷害。');
+		expect(markTrigger).toContain('造成傷害的生物可以遁移最多等於你`理智`的格數。');
 		expect(markTrigger).toContain('每次觸發最多只能選擇 1 個效果。');
 		expect(markTrigger).not.toMatch(/Reason score/);
 		// Characteristic damage + potency + condition.
@@ -156,6 +157,18 @@ describe('V1 Tactician Level 1 ability manifest', () => {
 		expect(tierTexts(container)[0]).toBe('3 + 力量傷害；你自己或 10 格內的 1 個盟友可以花費 1 點復元力');
 	});
 
+	it('renders both unresolved Reason readings as Markdown inline code without a Hero', () => {
+		const { container } = renderAbility('tactician-1-5b');
+
+		// The approved backticks must reach the DOM as real inline code, not literal
+		// backticks in the text, so the characteristic gets its normal styling.
+		expect(Array.from(container.querySelectorAll('code')).map(node => node.textContent)).toEqual([ '理智', '理智' ]);
+		expect(container.textContent).toContain('該招式額外造成你理智 × 2 的傷害。');
+		expect(container.textContent).toContain('造成傷害的生物可以遁移最多等於你理智的格數。');
+		expect(container.textContent).not.toContain('`');
+		expect(container.textContent).not.toContain('Reason score');
+	});
+
 	it('calculates canonical English first and projects the resolved Tactician values into zh-TW', () => {
 		const hero = makeHero();
 		const ability = getAbility('tactician-1-5b');
@@ -170,8 +183,9 @@ describe('V1 Tactician Level 1 ability manifest', () => {
 		expect(markTrigger).toContain('該招式額外造成 6 點傷害。');
 		expect(markTrigger).toContain('造成傷害的生物可以遁移最多 3 格。');
 		expect(markTrigger).toContain('**嘲諷**');
-		expect(markTrigger).not.toContain('你理智 × 2');
-		expect(markTrigger).not.toContain('等於你理智');
+		expect(markTrigger).not.toContain('你`理智` × 2');
+		expect(markTrigger).not.toContain('等於你`理智`');
+		expect(markTrigger).not.toContain('理智');
 		expect(markTrigger).not.toMatch(/Reason score|equal to \d/);
 		// Characteristic damage + potency resolve through the existing Power Roll path.
 		expect(tierReading('tactician-ability-2', 'sections.0.roll.tier1', 1, hero)).toBe('5 傷害；`力量` < 1，**暈眩**（豁免解除）');

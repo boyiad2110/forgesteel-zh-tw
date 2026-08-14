@@ -423,8 +423,8 @@ const projectTacticianReasonValue = (elementID: string, field: string, canonical
 	const shiftCanonical = 'The creature dealing the damage can shift up to a number of squares equal to your Reason score.';
 	const damageCalculated = calculatedEnglish.match(/The ability deals extra damage equal to (-?\d+)\./);
 	const shiftCalculated = calculatedEnglish.match(/The creature dealing the damage can shift up to a number of squares equal to (-?\d+)\./);
-	const damageLocalized = '該招式額外造成你理智 × 2 的傷害。';
-	const shiftLocalized = '造成傷害的生物可以遁移最多等於你理智的格數。';
+	const damageLocalized = '該招式額外造成你`理智` × 2 的傷害。';
+	const shiftLocalized = '造成傷害的生物可以遁移最多等於你`理智`的格數。';
 
 	if (!damageCalculated || !shiftCalculated || !localizedRaw.includes(damageLocalized) || !localizedRaw.includes(shiftLocalized)) {
 		return undefined;
