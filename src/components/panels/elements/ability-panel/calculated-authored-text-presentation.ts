@@ -382,6 +382,33 @@ const projectNullCalculatedValue = (elementID: string, field: string, canonicalE
 	});
 };
 
+// Shadow's two authored Speed readings. AbilityLogic resolves the canonical English speed
+// first; this only carries that verified value into the Owner-approved zh-TW grammar, and
+// Library keeps the approved unresolved raw wording.
+const projectShadowSpeedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{ elementID: 'shadow-ability-7', field: 'sections.1.text' },
+		{ elementID: 'shadow-ability-10', field: 'sections.0.text' }
+	];
+	if (!projections.some(candidate => (candidate.elementID === elementID) && (candidate.field === field))) {
+		return undefined;
+	}
+
+	const canonicalSpeed = 'shift up to your speed';
+	const calculatedMatch = calculatedEnglish.match(/shift up to (-?\d+) squares/);
+	const localizedSpeed = '遁移最多等於速度的距離';
+	if (!calculatedMatch || !canonicalEnglish.includes(canonicalSpeed) || !localizedRaw.includes(localizedSpeed)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(canonicalSpeed, calculatedMatch[0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(localizedSpeed, `遁移最多 ${calculatedMatch[1]} 格`);
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
@@ -424,6 +451,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const nullCalculatedValue = projectNullCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (nullCalculatedValue) {
 		return nullCalculatedValue;
+	}
+
+	const shadowSpeedValue = projectShadowSpeedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (shadowSpeedValue) {
+		return shadowSpeedValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
