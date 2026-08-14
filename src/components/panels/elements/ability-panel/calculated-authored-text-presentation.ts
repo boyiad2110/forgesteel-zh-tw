@@ -34,7 +34,8 @@ const approvedConditionReadings: ReadonlyArray<readonly [ string, string ]> = [
 	[ 'prone', '伏地' ],
 	[ 'taunted', '嘲諷' ],
 	[ 'bleeding', '出血' ],
-	[ 'weakened', '虛弱' ]
+	[ 'weakened', '虛弱' ],
+	[ 'restrained', '束縛' ]
 ];
 
 // getTextEffect formats potency with code marks and consumes its following comma. That is
@@ -444,6 +445,60 @@ const projectTacticianReasonValue = (elementID: string, field: string, canonical
 	});
 };
 
+// Talent's authored Reason and Presence readings are identity-bound snapshots. AbilityLogic
+// resolves each value in canonical English first and only that verified number is carried into
+// the approved zh-TW grammar; the multiplication in Awe's 'three times your Presence score' is
+// never redone here. Library keeps the approved unresolved raw wording for all of them.
+const projectTalentCharacteristicValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	// Materialize resolves two separate damage values in one reading, so both the calculated
+	// cardinality and both approved zh-TW phrasings are verified before either is projected.
+	if ((elementID === 'talent-ability-6') && (field === 'sections.2.effect')) {
+		const explosionCanonical = 'each creature adjacent to the target takes damage equal to your Reason score.';
+		const selfCanonical = 'You also take damage equal to your Reason score that can’t be reduced in any way.';
+		const explosionCalculated = calculatedEnglish.match(/each creature adjacent to the target takes damage equal to (-?\d+)\./);
+		const selfCalculated = calculatedEnglish.match(/You also take damage equal to (-?\d+) that can’t be reduced in any way\./);
+		const explosionLocalized = '與目標相鄰的每個生物都會受到等於你`理智`的傷害。';
+		const selfLocalized = '你也同時受到等於你`理智`的傷害（無法被任何方式減免）。';
+
+		if (!explosionCalculated || !selfCalculated || !localizedRaw.includes(explosionLocalized) || !localizedRaw.includes(selfLocalized)) {
+			return undefined;
+		}
+
+		return projectCalculatedConditionEmphasis({
+			canonicalEnglish: canonicalEnglish
+				.replace(explosionCanonical, explosionCalculated[0])
+				.replace(selfCanonical, selfCalculated[0]),
+			calculatedEnglish: calculatedEnglish,
+			localizedRaw: localizedRaw
+				.replace(explosionLocalized, `與目標相鄰的每個生物都會受到 ${explosionCalculated[1]} 點傷害。`)
+				.replace(selfLocalized, `你也同時受到 ${selfCalculated[1]} 點傷害（無法被任何方式減免）。`)
+		});
+	}
+
+	const projections = [
+		{ elementID: 'talent-1-6b', field: 'sections.0.text', canonical: 'You can push your attacker up to a number of squares equal to your Reason score.', calculated: /You can push your attacker up to a number of squares equal to (-?\d+)\./, localized: '你可以將攻擊者推動最多等於你`理智`的格數。', replacement: (value: string) => `你可以將攻擊者推動最多 ${value} 格。` },
+		{ elementID: 'talent-ability-7', field: 'sections.2.effect', canonical: 'you take damage equal to your Reason score that can’t be reduced in any way.', calculated: /you take damage equal to (-?\d+) that can’t be reduced in any way\./, localized: '但你也會受到等於你`理智`的傷害（無法被任何方式減免）。', replacement: (value: string) => `但你也會受到 ${value} 點傷害（無法被任何方式減免）。` },
+		{ elementID: 'talent-ability-9', field: 'sections.0.text', canonical: 'they gain temporary Stamina equal to three times your Presence score,', calculated: /they gain temporary Stamina equal to (-?\d+),/, localized: '他會獲得等於你`氣場` ×3 的臨時體力，', replacement: (value: string) => `他會獲得 ${value} 點臨時體力，` },
+		{ elementID: 'talent-ability-14', field: 'sections.0.text', canonical: 'they can push one adjacent creature up to a number of squares equal to your Reason score.', calculated: /they can push one adjacent creature up to a number of squares equal to (-?\d+)\./, localized: '他可以將 1 個相鄰的生物推動最多等於你`理智`的格數。', replacement: (value: string) => `他可以將 1 個相鄰的生物推動最多 ${value} 格。` },
+		{ elementID: 'talent-ability-15', field: 'sections.0.text', canonical: 'The target’s stability increases by an amount equal to your Reason score,', calculated: /The target’s stability increases by an amount equal to (-?\d+),/, localized: '目標的穩度增加等於你`理智`的數值，', replacement: (value: string) => `目標的穩度增加 ${value}，` }
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: canonicalEnglish.replace(projection.canonical, calculatedMatch[0]),
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: localizedRaw.replace(projection.localized, projection.replacement(calculatedMatch[1]))
+	});
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
@@ -496,6 +551,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const tacticianReasonValue = projectTacticianReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (tacticianReasonValue) {
 		return tacticianReasonValue;
+	}
+
+	const talentCharacteristicValue = projectTalentCharacteristicValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (talentCharacteristicValue) {
+		return talentCharacteristicValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
