@@ -56,6 +56,8 @@ const renderAbility = (id: typeof v1NullLevel1AbilityIDs[number], hero?: ReturnT
 	)
 );
 
+const tierTexts = (container: HTMLElement) => Array.from(container.querySelectorAll('.power-roll-row .effect')).map(effect => effect.textContent?.trim() || '');
+
 afterEach(cleanup);
 
 describe('V1 Null Level 1 ability manifest', () => {
@@ -120,5 +122,42 @@ describe('V1 Null Level 1 ability manifest', () => {
 		expect(libraryReading.container.textContent).toContain('\u4f60\u53ef\u4ee5\u5c07 1 \u500b\u76f8\u9130\u7684\u6575\u4eba\u6ed1\u52d5\u6700\u591a\u7b49\u65bc\u4f60\u76f4\u89ba\u7684\u683c\u6578\u3002');
 		expect(Array.from(libraryReading.container.querySelectorAll('code')).map(node => node.textContent)).toContain('\u76f4\u89ba');
 		expect(JSON.stringify(ability)).toBe(serializedAbility);
+	});
+
+	it('renders calculated Null Power Rolls through the production AbilityPanel and PowerRollPanel path', () => {
+		const hero = makeHero();
+		const getTierEffectCreature = vi.spyOn(AbilityLogic, 'getTierEffectCreature');
+
+		const kinetic = renderAbility('null-ability-5', hero);
+		expect(tierTexts(kinetic.container)).toEqual([
+			'6 傷害；嘲諷（EoT）',
+			'7 傷害；嘲諷（EoT）；滑動 1',
+			'8 傷害；嘲諷（EoT）；滑動 2'
+		]);
+		expect(Array.from(kinetic.container.querySelectorAll('.power-roll-row .effect strong')).map(node => node.textContent)).toEqual(expect.arrayContaining([ '嘲諷' ]));
+		kinetic.unmount();
+
+		const magnetic = renderAbility('null-ability-6', hero);
+		expect(tierTexts(magnetic.container)).toEqual([
+			'7 心靈傷害；垂直拉動 1',
+			'10 心靈傷害；垂直拉動 2',
+			'13 心靈傷害；垂直拉動 3'
+		]);
+		expect(magnetic.container.textContent).not.toContain('vertical pull');
+		magnetic.unmount();
+
+		const phaseAbility = getAbility('null-ability-15');
+		const phaseRaw = required['element:null-ability-15/sections.0.roll.tier1'];
+		const phaseCalculated = AbilityLogic.getTierEffectCreature(phaseRaw, 1, phaseAbility, undefined, hero);
+		const potency = phaseCalculated.match(/`I < (-?\d+)`/)?.[1];
+		expect(potency).toBeTruthy();
+		const phase = renderAbility('null-ability-15', hero);
+		expect(tierTexts(phase.container)[0]).toContain('5 心靈傷害');
+		expect(tierTexts(phase.container)[0]).toContain(`直覺 < ${potency}`);
+		expect(tierTexts(phase.container)[0]).toContain('脫離相位');
+		expect(phase.container.textContent).not.toContain('out of phase');
+
+		getTierEffectCreature.mock.calls.forEach(([ value ]) => expect(value).not.toMatch(/[\u4e00-\u9fff]/));
+		getTierEffectCreature.mockRestore();
 	});
 });
