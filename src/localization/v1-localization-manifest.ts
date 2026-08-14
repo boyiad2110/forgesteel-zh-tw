@@ -3,6 +3,7 @@
 import { CanonicalEnglishSource } from '@/localization/catalog-validator';
 import { censor } from '@/data/classes/censor/censor';
 import { conduit } from '@/data/classes/conduit/conduit';
+import { elementalist } from '@/data/classes/elementalist/elementalist';
 import { fury } from '@/data/classes/fury/fury';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
@@ -429,6 +430,74 @@ export const createV1ConduitLevel1AbilityRequiredCanonicalEnglish = (): Canonica
 	return requiredCanonicalEnglish;
 };
 
+/** The exact approved Elementalist Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
+export const v1ElementalistLevel1AbilityIDs = [
+	'elementalist-1-4',
+	'elementalist-1-6',
+	'elementalist-1-8c',
+	'elementalist-1-8d',
+	'elementalist-ability-1',
+	'elementalist-ability-2',
+	'elementalist-ability-3',
+	'elementalist-ability-4',
+	'elementalist-ability-5',
+	'elementalist-ability-6',
+	'elementalist-ability-7',
+	'elementalist-ability-8',
+	'elementalist-ability-9',
+	'elementalist-ability-10',
+	'elementalist-ability-11',
+	'elementalist-ability-12',
+	'elementalist-ability-13',
+	'elementalist-ability-14',
+	'elementalist-ability-15',
+	'elementalist-ability-16'
+] as const;
+
+const isElementalistWardChoice = (feature: Feature): feature is FeatureChoice => (
+	(feature.type === FeatureType.Choice) && (feature.id === 'elementalist-1-8')
+);
+
+const isElementalistLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only Elementalist's direct Level 1 abilities, Ward ability choices, and abilities 1–16. */
+export const getV1ElementalistLevel1Abilities = (): Ability[] => {
+	const levelOne = elementalist.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Elementalist Level 1 features are missing');
+	}
+
+	const ward = levelOne.features.find(isElementalistWardChoice);
+	if (!ward) {
+		throw new Error('Elementalist Ward choices are missing');
+	}
+
+	const abilities = [
+		...levelOne.features.filter(isElementalistLevel1FeatureAbility).map(feature => feature.data.ability),
+		...ward.data.options
+			.map(option => option.feature)
+			.filter(isElementalistLevel1FeatureAbility)
+			.map(feature => feature.data.ability),
+		...elementalist.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1ElementalistLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Elementalist Level 1 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 133-identity Elementalist Level 1 denominator from live canonical data. */
+export const createV1ElementalistLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1ElementalistLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Fury Level 1 base-class ability slice; later Fury levels stay unresolved. */
 export const v1FuryLevel1AbilityIDs = [
 	'fury-ability-1',
@@ -478,6 +547,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1LanguageRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CensorLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are

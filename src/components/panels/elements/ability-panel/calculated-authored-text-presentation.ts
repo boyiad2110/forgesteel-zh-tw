@@ -251,6 +251,88 @@ const projectConduitIntuitionValue = (elementID: string, field: string, canonica
 	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
 };
 
+// These Elementalist Reason-score readings are identity-bound snapshots. The canonical
+// calculator resolves the English first; this only projects the verified value into the
+// Owner-approved zh-TW grammar. The Earth pillar's "up to" phrasing is intentionally not
+// listed: the canonical calculator leaves it unresolved, so Library and Hero keep its raw
+// approved zh-TW text.
+const projectElementalistReasonValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID === 'elementalist-1-6') && (field === 'sections.0.text')) {
+		const damageCanonical = 'That creature takes damage of the chosen type equal to your Reason score.';
+		const teleportCanonical = 'You teleport up to a number of squares equal to your Reason score.';
+		const damageCalculated = calculatedEnglish.match(/That creature takes damage of the chosen type equal to (-?\d+)\./);
+		const teleportCalculated = calculatedEnglish.match(/You teleport up to a number of squares equal to (-?\d+)\./);
+		const damageLocalized = '該生物會受到等於你理智的所選類型傷害。';
+		const teleportLocalized = '你傳送最多等於你理智的格數。';
+
+		if (!damageCalculated || !teleportCalculated || !localizedRaw.includes(damageLocalized) || !localizedRaw.includes(teleportLocalized)) {
+			return undefined;
+		}
+
+		const projectedCanonical = canonicalEnglish
+			.replace(damageCanonical, damageCalculated[0])
+			.replace(teleportCanonical, teleportCalculated[0]);
+		if (projectedCanonical !== calculatedEnglish) {
+			return undefined;
+		}
+
+		return localizedRaw
+			.replace(damageLocalized, `該生物會受到 ${damageCalculated[1]} 點所選類型傷害。`)
+			.replace(teleportLocalized, `你傳送最多等於 ${teleportCalculated[1]} 格。`);
+	}
+
+	const projections = [
+		{
+			elementID: 'elementalist-1-8c',
+			field: 'type.trigger',
+			canonical: 'A creature within a number of squares equal to your Reason score deals damage to you,',
+			calculated: /A creature within a number of squares equal to (-?\d+) deals damage to you,/,
+			localized: '當位於你理智格數內的',
+			localizedReplacement: (value: string) => `當位於你 ${value} 格內的`
+		},
+		{
+			elementID: 'elementalist-1-8c',
+			field: 'sections.0.text',
+			canonical: 'You slide the attacking creature up to a number of squares equal to your Reason score.',
+			calculated: /You slide the attacking creature up to a number of squares equal to (-?\d+)\./,
+			localized: '你將該生物滑動最多等於你理智的格數。',
+			localizedReplacement: (value: string) => `你將該生物滑動最多等於 ${value} 格。`
+		},
+		{
+			elementID: 'elementalist-1-8d',
+			field: 'sections.0.text',
+			canonical: 'You push that creature a number of squares equal to twice your Reason score.',
+			calculated: /You push that creature a number of squares equal to (-?\d+)\./,
+			localized: '你將該生物推動你理智 ×2 的格數。',
+			localizedReplacement: (value: string) => `你將該生物推動 ${value} 格。`
+		},
+		{
+			elementID: 'elementalist-ability-3',
+			field: 'sections.1.text',
+			canonical: 'You can teleport up to a number of squares equal to your Reason score.',
+			calculated: /You can teleport up to a number of squares equal to (-?\d+)\./,
+			localized: '你可以傳送最多等於你理智的格數。',
+			localizedReplacement: (value: string) => `你可以傳送最多等於 ${value} 格。`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, calculatedMatch[0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
@@ -283,6 +365,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const conduitIntuitionValue = projectConduitIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (conduitIntuitionValue) {
 		return conduitIntuitionValue;
+	}
+
+	const elementalistReasonValue = projectElementalistReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (elementalistReasonValue) {
+		return elementalistReasonValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
