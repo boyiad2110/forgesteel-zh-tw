@@ -425,7 +425,7 @@
 
 ### Prompt
 
-> Owner approval 已收斂，packet 沒有 `glossaryDelta` 欄位；Agent 想直接完成本批。
+> 本批 translation authority 已收斂，且內容全為既有已核准 terminology 與 mechanical variants，不需要新的 Owner action；packet 沒有 `glossaryDelta` 欄位，Agent 想直接完成本批。
 
 ### Expected behavior
 
@@ -435,6 +435,7 @@
 ### Failure indicators
 
 - 將 glossary decision 留為隱含。
+- 以「不需要新的 Owner approval」為由略過 glossary decision。
 - 未有 approved authority 就新增 glossary entry。
 
 ---

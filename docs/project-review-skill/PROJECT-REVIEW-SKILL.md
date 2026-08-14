@@ -85,7 +85,7 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 
 translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRANSLATION-WORKFLOW.md` 的 Worksheet 規格。交付 worksheet 前，必須先依既有 authority 處理 mechanical／derived rows；Owner request 只包含真正的新術語、新譯名、新 prose 或語意取捨。不得因 worksheet 有 N rows 就要求 Owner 逐筆 finalize N rows；handoff 必須告知真正需要決定的 row count。若 Reviewer 無法判斷某 row 是否 mechanical，先依現行 authority 判斷；只有真的涉及語意選擇才交 Owner。
 
-對 authored-content translation batch，交付 Agent 前還必須完成 `TRANSLATION-WORKFLOW.md` 所定義的 packet canonical-alignment gate、calculated-presentation grammar matrix 與明確 glossary-delta decision；本 Skill 只編排 gate，不重複其細節。
+交付 translation implementation 前，Reviewer 完成 `TRANSLATION-WORKFLOW.md` 對該 batch 適用的 gate：使用 approved implementation packet 時的 packet canonical-alignment、適用的 Class ability authored content／calculated presentation 的 grammar matrix，以及 translation batch 必要的明確 glossary-delta decision。本 Skill 只編排 gate，不重複其細節。
 
 ### Tooling / Skill
 
