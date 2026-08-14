@@ -1979,9 +1979,8 @@ const elementalistLevel1AbilityLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'elementalist-ability-16', field: 'sections.0.roll.tier1', canonicalEnglish: '4 acid damage', zhTW: '4 \u9178\u8755\u50b7\u5bb3', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'elementalist-ability-16', field: 'sections.0.roll.tier2', canonicalEnglish: '6 acid damage', zhTW: '6 \u9178\u8755\u50b7\u5bb3', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'elementalist-ability-16', field: 'sections.0.roll.tier3', canonicalEnglish: '10 acid damage', zhTW: '10 \u9178\u8755\u50b7\u5bb3', approval: 'approved' },
-	{ kind: 'element-field', elementID: 'elementalist-ability-16', field: 'sections.1.text', canonicalEnglish: 'You can end one effect on yourself that is ended by a saving throw or that ends at the end of your turn. Each ally in the area also gains this benefit.', zhTW: '\u4f60\u53ef\u4ee5\u70ba\u81ea\u5df1\u89e3\u9664 1 \u500b\u80fd\u5920\u900f\u904e\u8c41\u514d\u89e3\u9664\u6216 EoT \u7684\u6548\u679c\u3002\u5340\u57df\u5167\u7684\u6bcf\u500b\u76df\u53cb\u4e5f\u6703\u7372\u5f97\u9019\u9805\u76ca\u8655\u3002', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-ability-16', field: 'sections.1.text', canonicalEnglish: 'You can end one effect on yourself that is ended by a saving throw or that ends at the end of your turn. Each ally in the area also gains this benefit.', zhTW: '\u4f60\u53ef\u4ee5\u70ba\u81ea\u5df1\u89e3\u9664 1 \u500b\u80fd\u5920\u900f\u904e\u8c41\u514d\u89e3\u9664\u6216 EoT \u7684\u6548\u679c\u3002\u5340\u57df\u5167\u7684\u6bcf\u500b\u76df\u53cb\u4e5f會獲得這項益處。', approval: 'approved' }
 ];
-
 
 const languageLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'language-field', languageName: 'Ananjali', field: 'name', canonicalEnglish: 'Ananjali', zhTW: '阿納賈利語', approval: 'approved' },
