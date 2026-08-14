@@ -366,9 +366,13 @@ const projectNullCalculatedValue = (elementID: string, field: string, canonicalE
 		{ elementID: 'null-ability-13', field: 'sections.1.text', canonical: 'the target takes damage equal to your Intuition score whenever they use a supernatural ability that costs Malice.', calculated: /the target takes damage equal to (-?\d+) whenever they use a supernatural ability that costs Malice\./, localized: '就會受到等於你`直覺`的傷害。', replacement: (value: string) => `就會受到 ${value} 點傷害。` }
 	];
 	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
-	if (!projection) return undefined;
+	if (!projection) {
+		return undefined;
+	}
 	const match = calculatedEnglish.match(projection.calculated);
-	if (!match || !localizedRaw.includes(projection.localized)) return undefined;
+	if (!match || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
 	const projectedCanonical = canonicalEnglish.replace(projection.canonical, match[0]);
 	const projectedLocalized = localizedRaw.replace(projection.localized, projection.replacement(match[1]));
 	return projectCalculatedConditionEmphasis({

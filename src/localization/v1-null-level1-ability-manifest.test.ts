@@ -36,7 +36,9 @@ const nullEntries = productionLocalizationEntries.filter((entry): entry is Eleme
 
 const getAbility = (id: typeof v1NullLevel1AbilityIDs[number]) => {
 	const ability = getV1NullLevel1Abilities().find(candidate => candidate.id === id);
-	if (!ability) throw new Error(`Null ability '${id}' is missing`);
+	if (!ability) {
+		throw new Error(`Null ability '${id}' is missing`);
+	}
 	return ability;
 };
 
