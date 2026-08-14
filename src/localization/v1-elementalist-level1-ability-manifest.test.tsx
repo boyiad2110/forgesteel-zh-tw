@@ -129,7 +129,7 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 		expect(practicalZhTW).toContain('\u4f60\u50b3\u9001\u6700\u591a 2 \u683c\u3002');
 		expect(practicalZhTW).not.toContain('\u6700\u591a\u7b49\u65bc 2 \u683c');
 		const { container: practicalMarkdown } = render(createElement(Markdown, { text: practicalZhTW }));
-		expect(Array.from(practicalMarkdown.querySelectorAll('code')).map(node => node.textContent)).toEqual(expect.arrayContaining(['\u7406\u667a', '\u529b\u91cf']));
+		expect(Array.from(practicalMarkdown.querySelectorAll('code')).map(node => node.textContent)).toEqual(expect.arrayContaining([ '\u7406\u667a', '\u529b\u91cf' ]));
 
 		const wardTriggerRaw = required[elementFieldIdentity('elementalist-1-8c', 'type.trigger')];
 		const wardTriggerCalculated = AbilityLogic.getTextEffect(wardTriggerRaw, hero);
