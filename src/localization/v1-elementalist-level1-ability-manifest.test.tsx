@@ -9,6 +9,7 @@ import {
 } from '@/localization/v1-localization-manifest';
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
+import { Markdown } from '@/components/controls/markdown/markdown';
 import { LocalizationProvider } from '@/contexts/localization-context';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
@@ -38,6 +39,16 @@ const elementalistCatalogEntries = productionLocalizationEntries.filter((entry):
 	entry.kind === 'element-field'
 		&& v1ElementalistLevel1AbilityIDs.includes(entry.elementID as typeof v1ElementalistLevel1AbilityIDs[number])
 ));
+const r2CorrectedIdentities = [
+	'element:elementalist-1-6/sections.0.text',
+	'element:elementalist-1-8c/type.trigger',
+	'element:elementalist-1-8c/sections.0.text',
+	'element:elementalist-1-8d/sections.0.text',
+	'element:elementalist-ability-3/sections.1.text',
+	'element:elementalist-ability-12/sections.1.text'
+] as const;
+const getCatalogZhTW = (identity: string) => elementalistCatalogEntries.find(entry => getEntryIdentity(entry) === identity)?.zhTW;
+const stripMarkdownCode = (value: string) => value.replace(/`[^`]*`/g, '');
 
 const getAbility = (id: typeof v1ElementalistLevel1AbilityIDs[number]) => {
 	const ability = getV1ElementalistLevel1Abilities().find(candidate => candidate.id === id);
@@ -73,7 +84,16 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 		expect(elementalistCatalogEntries.map(getEntryIdentity).sort()).toEqual(requiredIdentities);
 		expect(elementalistCatalogEntries.every(entry => entry.approval === 'approved')).toBe(true);
 		expect(elementalistCatalogEntries.find(entry => getEntryIdentity(entry) === 'element:elementalist-ability-10/sections.1.name')?.zhTW).toBe('\u7e8c\u767c');
-		expect(elementalistCatalogEntries.find(entry => getEntryIdentity(entry) === 'element:elementalist-1-8c/type.trigger')?.zhTW).toContain('\u7406\u667a');
+		expect(getCatalogZhTW('element:elementalist-1-8c/type.trigger')).toBe('\u7576\u4f4d\u65bc\u4f60`\u7406\u667a`\u683c\u6578\u5167\u7684 1 \u500b\u751f\u7269\u5c0d\u4f60\u9020\u6210\u50b7\u5bb3\u6642\u3002');
+		expect(getCatalogZhTW('element:elementalist-1-8c/sections.0.text')).toBe('\u4f60\u5c07\u8a72\u751f\u7269\u6ed1\u52d5\u6700\u591a\u7b49\u65bc\u4f60`\u7406\u667a`\u7684\u683c\u6578\u3002');
+		expect(getCatalogZhTW('element:elementalist-1-8d/sections.0.text')).toBe('\u4f60\u5c07\u8a72\u751f\u7269\u63a8\u52d5\u4f60`\u7406\u667a` \u00d72 \u7684\u683c\u6578\u3002');
+		expect(getCatalogZhTW('element:elementalist-ability-3/sections.1.text')).toBe('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a\u7b49\u65bc\u4f60`\u7406\u667a`\u7684\u683c\u6578\u3002');
+
+		const r2CorrectedReadings = r2CorrectedIdentities.map(identity => getCatalogZhTW(identity));
+		expect(r2CorrectedReadings).not.toContain(undefined);
+		expect(r2CorrectedReadings.join('').match(/`\u7406\u667a`/g)).toHaveLength(8);
+		expect(r2CorrectedReadings.join('').match(/`\u529b\u91cf`/g)).toHaveLength(1);
+		expect(elementalistCatalogEntries.every(entry => !/\u7406\u667a|\u529b\u91cf/.test(stripMarkdownCode(entry.zhTW)))).toBe(true);
 	});
 
 	it('matches live canonical Elementalist English and retains the unresolved parent domain', () => {
@@ -104,11 +124,23 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 
 		const practicalRaw = required[elementFieldIdentity('elementalist-1-6', 'sections.0.text')];
 		const practicalCalculated = AbilityLogic.getTextEffect(practicalRaw, hero);
-		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-6', field: 'sections.0.text', canonicalEnglish: practicalRaw, calculatedEnglish: practicalCalculated })).toContain('\u53d7\u5230 2 \u9ede\u6240\u9078\u985e\u578b\u50b7\u5bb3');
+		const practicalZhTW = localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-6', field: 'sections.0.text', canonicalEnglish: practicalRaw, calculatedEnglish: practicalCalculated });
+		expect(practicalZhTW).toContain('\u53d7\u5230 2 \u9ede\u6240\u9078\u985e\u578b\u50b7\u5bb3');
+		expect(practicalZhTW).toContain('\u4f60\u50b3\u9001\u6700\u591a\u7b49\u65bc 2 \u683c\u3002');
+		expect(practicalZhTW).not.toContain('\u6700\u591a\u7b49\u65bc\u4f60\u7684 2 \u683c');
+		const { container: practicalMarkdown } = render(createElement(Markdown, { text: practicalZhTW }));
+		expect(Array.from(practicalMarkdown.querySelectorAll('code')).map(node => node.textContent)).toEqual(expect.arrayContaining(['\u7406\u667a', '\u529b\u91cf']));
 
 		const wardTriggerRaw = required[elementFieldIdentity('elementalist-1-8c', 'type.trigger')];
 		const wardTriggerCalculated = AbilityLogic.getTextEffect(wardTriggerRaw, hero);
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-8c', field: 'type.trigger', canonicalEnglish: wardTriggerRaw, calculatedEnglish: wardTriggerCalculated })).toContain('\u4f60 2 \u683c\u5167');
+		const slideRaw = required[elementFieldIdentity('elementalist-1-8c', 'sections.0.text')];
+		const slideCalculated = AbilityLogic.getTextEffect(slideRaw, hero);
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-8c', field: 'sections.0.text', canonicalEnglish: slideRaw, calculatedEnglish: slideCalculated })).toBe('\u4f60\u5c07\u8a72\u751f\u7269\u6ed1\u52d5\u6700\u591a\u7b49\u65bc 2 \u683c\u3002');
+
+		const graspRaw = required[elementFieldIdentity('elementalist-ability-3', 'sections.1.text')];
+		const graspCalculated = AbilityLogic.getTextEffect(graspRaw, hero);
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-ability-3', field: 'sections.1.text', canonicalEnglish: graspRaw, calculatedEnglish: graspCalculated })).toBe('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a\u7b49\u65bc 2 \u683c\u3002');
 
 		const pushRaw = required[elementFieldIdentity('elementalist-1-8d', 'sections.0.text')];
 		const pushCalculated = AbilityLogic.getTextEffect(pushRaw, hero);
@@ -118,7 +150,7 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 		const pillarRaw = required[elementFieldIdentity('elementalist-ability-12', 'sections.1.text')];
 		const pillarCalculated = AbilityLogic.getTextEffect(pillarRaw, hero);
 		expect(pillarCalculated).toBe(pillarRaw);
-		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-ability-12', field: 'sections.1.text', canonicalEnglish: pillarRaw, calculatedEnglish: pillarCalculated })).toContain('\u6700\u9ad8\u7b49\u65bc\u4f60\u7406\u667a\u7684\u683c\u6578');
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-ability-12', field: 'sections.1.text', canonicalEnglish: pillarRaw, calculatedEnglish: pillarCalculated })).toContain('\u6700\u9ad8\u7b49\u65bc\u4f60`\u7406\u667a`\u7684\u683c\u6578');
 
 		[ ...getTextEffect.mock.calls, ...getTierEffectCreature.mock.calls ].forEach(([ input ]) => expect(input).not.toMatch(/[\u4e00-\u9fff]/));
 		getTextEffect.mockRestore();
@@ -134,8 +166,9 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 			createElement(LocalizationProvider, null, createElement(LocaleToggle), createElement(AbilityPanel, { ability, mode: PanelMode.Full }))
 		);
 
-		expect(display).toBe('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a\u7b49\u65bc\u4f60\u7406\u667a\u7684\u683c\u6578\u3002');
-		expect(container.textContent).toContain(display);
+		expect(display).toBe('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a\u7b49\u65bc\u4f60`\u7406\u667a`\u7684\u683c\u6578\u3002');
+		expect(container.textContent).toContain('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a\u7b49\u65bc\u4f60\u7406\u667a\u7684\u683c\u6578\u3002');
+		expect(Array.from(container.querySelectorAll('code')).map(node => node.textContent)).toContain('\u7406\u667a');
 		expect(container.textContent).not.toContain('your Reason score');
 		expect(JSON.stringify(ability)).toBe(serializedAbility);
 	});

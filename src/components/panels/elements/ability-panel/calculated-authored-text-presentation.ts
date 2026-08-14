@@ -262,8 +262,8 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 		const teleportCanonical = 'You teleport up to a number of squares equal to your Reason score.';
 		const damageCalculated = calculatedEnglish.match(/That creature takes damage of the chosen type equal to (-?\d+)\./);
 		const teleportCalculated = calculatedEnglish.match(/You teleport up to a number of squares equal to (-?\d+)\./);
-		const damageLocalized = '該生物會受到等於你理智的所選類型傷害。';
-		const teleportLocalized = '你傳送最多等於你理智的格數。';
+		const damageLocalized = '該生物會受到等於你`理智`的所選類型傷害。';
+		const teleportLocalized = '你傳送最多等於你`理智`的格數。';
 
 		if (!damageCalculated || !teleportCalculated || !localizedRaw.includes(damageLocalized) || !localizedRaw.includes(teleportLocalized)) {
 			return undefined;
@@ -287,7 +287,7 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			field: 'type.trigger',
 			canonical: 'A creature within a number of squares equal to your Reason score deals damage to you,',
 			calculated: /A creature within a number of squares equal to (-?\d+) deals damage to you,/,
-			localized: '當位於你理智格數內的',
+			localized: '當位於你`理智`格數內的',
 			localizedReplacement: (value: string) => `當位於你 ${value} 格內的`
 		},
 		{
@@ -295,7 +295,7 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			field: 'sections.0.text',
 			canonical: 'You slide the attacking creature up to a number of squares equal to your Reason score.',
 			calculated: /You slide the attacking creature up to a number of squares equal to (-?\d+)\./,
-			localized: '你將該生物滑動最多等於你理智的格數。',
+			localized: '你將該生物滑動最多等於你`理智`的格數。',
 			localizedReplacement: (value: string) => `你將該生物滑動最多等於 ${value} 格。`
 		},
 		{
@@ -303,7 +303,7 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			field: 'sections.0.text',
 			canonical: 'You push that creature a number of squares equal to twice your Reason score.',
 			calculated: /You push that creature a number of squares equal to (-?\d+)\./,
-			localized: '你將該生物推動你理智 ×2 的格數。',
+			localized: '你將該生物推動你`理智` ×2 的格數。',
 			localizedReplacement: (value: string) => `你將該生物推動 ${value} 格。`
 		},
 		{
@@ -311,7 +311,7 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			field: 'sections.1.text',
 			canonical: 'You can teleport up to a number of squares equal to your Reason score.',
 			calculated: /You can teleport up to a number of squares equal to (-?\d+)\./,
-			localized: '你可以傳送最多等於你理智的格數。',
+			localized: '你可以傳送最多等於你`理智`的格數。',
 			localizedReplacement: (value: string) => `你可以傳送最多等於 ${value} 格。`
 		}
 	];
