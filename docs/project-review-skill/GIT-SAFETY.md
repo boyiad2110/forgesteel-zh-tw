@@ -99,6 +99,19 @@ CI PASS 後、merge 前，再確認一次真正可能在等待期間改變的項
 
 若 `develop` 在等待 CI 期間移動：停止並回報，不自行 rebase 或直接 merge 到未審 baseline。
 
+## Required CI Failure Recovery
+
+required CI red 時 merge 一律 STOP。依序：
+
+1. 檢查確切 workflow、job、step 與 annotations。
+2. 不自動 edit code；Reviewer 必須授權範圍有限的 recovery。
+3. 保留既有 PR 與 branch，不建立 duplicate PR，不得 rebase／reset／amend／force push。
+4. 以一般 correction commit 修正，取得 required exact-HEAD local evidence，並正常 push 到同一 feature branch。
+5. 等待新的 required CI；再次 red 就 STOP。
+6. 新 CI green 時，feature HEAD 已改變，Reviewer 必須驗證 correction 並重新固定 approved HEAD，然後重跑正常 pre-merge checks（含 `develop` drift）才可 merge。
+
+這是 recovery path，不是無限 patch loop 的授權。若 CI 顯示 substantive implementation problem，交回 Reviewer 依適當 Stage／scope 處理。
+
 ## Merge Method
 
 Stage 3 Contract 必須明確寫出本批 merge method：

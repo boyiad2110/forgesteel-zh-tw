@@ -75,6 +75,8 @@ translation approval 依 surface、localization identity 與 semantic context �
 - Stage 2 correction 後重新輸出完整 `Base..HEAD` patch，不只輸出 correction diff。
 - 當該 final HEAD 將成為 Reviewer approval 或 Stage 3 input 時，final report 必須提供 `git rev-parse HEAD` 的完整 40-character commit SHA；abbreviated SHA、UI hyperlink label 或 `abcd1234...` 不足以固定 approved HEAD。
 
+建議 patch 使用可決定性檔名 `<Batch>_<Stage>_<HEAD-short>_Cumulative.patch`。final report 必須將確切 path／filename、完整 HEAD、byte size、SHA-256、`Base..HEAD` range 與 reverse-apply 結果配對回報，避免交接到錯誤 patch。
+
 本節只定義 handoff workflow，不擴張 Git permission。
 
 ## Stage 1 — Local Implementation
@@ -88,6 +90,24 @@ Agent：
 - 最後一次 code change 後取得 fresh verification。
 - 依 Git permission 建立 local commit；未明確授權時，不 push、不建 PR、不 merge。
 - 完成後停止並回報。
+
+preflight 成功後，Agent 連續完成已授權的 implementation、verification、local commit、patch handoff 與 final report；正常中間進度不是 STOP 條件。只有 Contract blocker、authority mismatch、unexpected scope issue、真正需要 Owner decision，或 Contract 定義的 verification／repository anomaly 才停止。
+
+### Exact-HEAD CI Mirror Evidence
+
+當 Contract 要求 CI-equivalent local evidence，順序固定為：
+
+1. 完成授權 edits 並建立 final local commit。
+2. 記錄完整 40-character HEAD 並確認 working tree clean。
+3. 讀取**目前** repository CI workflow／與本批相關的 commands。
+4. 執行 Contract 指定且可在 local 重現的 required gates。
+5. 保存真實 exit code、failure／warning 與 summary evidence。
+
+不得把 `lint`／`tsc`／`vitest`／`build` 永久硬編為通用 CI 定義；目前 CI workflow 與本批 Risk Contract 優先。任何 tracked-file change 發生在 exact-HEAD verification 後，都使該 evidence 對 final HEAD 失效；先完成新的 authorized commit、重新確認 clean tree，再重跑 required verification。
+
+### Translation Packet Preflight
+
+從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）都必須在 implementation 前 STOP；不得靜默修補 Reviewer translation authority。最新 authorized packet revision 取代較舊 revision。
 
 Reviewer：
 
@@ -160,6 +180,10 @@ Manual smoke 應使用少量代表性 flow，不把每一批都升級成全站�
 不得為了繼續流程自行 rebase、reset、amend、force push 或改 code。
 
 Stage 3 詳細 Git safety 依 `GIT-SAFETY.md`。
+
+### Required CI Recovery
+
+required CI failure 不授權自動修復。僅在 Reviewer 提供 bounded recovery contract 後，才可保留既有 branch／PR、加入一般 correction commit（不得 amend／rebase／reset／force push）、重跑 exact-HEAD local verification 並正常 push。新 CI green 後仍不得 merge，直到 Reviewer 驗證 correction 並重新固定 approved HEAD，除非 recovery Contract 已明確授權那個已驗證的 exact HEAD。
 
 所有 `gh` write command 必須明確使用：
 

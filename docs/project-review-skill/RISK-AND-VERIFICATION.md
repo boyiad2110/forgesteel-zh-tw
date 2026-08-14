@@ -96,7 +96,9 @@
 - 後續 rerun green 不會抹除先前 failure；兩者都要出現在 evidence 中。
 - 不得只反覆 rerun 到綠燈，然後宣稱全部通過。
 - 疑似 unrelated、baseline 或 intermittent 的 failure，以最低足夠 isolation evidence 判斷，例如：isolation run、排除本批 tests 後仍可重現、確認本批未觸及相關 dependency／call path。
+- full suite 出現疑似 unrelated／intermittent failure 時，保留原始 failure 與完整 summary，不得盲目重跑整套；進行一次最低有用的 targeted isolation，並同時回報 failure 與 isolation 結果。
 - 不得為求綠燈修改 timeout、test config 或無關 production code。
+- 若 output wrapper 截斷 evidence，必要時把 log 存到 repository 外，而非只為取得較完整輸出重跑。
 - Reviewer 具備 isolation evidence 時，可將該 failure 列為 Non-blocking Observation，而不是自動升為 blocker。
 - Stage 3 required CI failure 一律 STOP，不得 merge。
 
@@ -119,3 +121,5 @@
 3. 讀取 exit code、failures、warnings 與完整摘要。
 4. Claim 必須與 evidence 一致。
 5. 缺少證據時標記「尚未驗證」，不要推測通過。
+
+final Stage input 的 fresh evidence 必須識別它驗證的 exact commit／tree；若 tracked file 在 verification 後修改，受影響 required gate 對新 HEAD 的 final evidence 一律失效。先完成新的 authorized commit 並取得 clean tree，才能重跑並宣告 final-HEAD evidence。
