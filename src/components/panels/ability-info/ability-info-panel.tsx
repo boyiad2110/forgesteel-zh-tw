@@ -65,6 +65,14 @@ export const AbilityInfoPanel = (props: Props) => {
 	const distance = props.ability.distance.map(d => AbilityLogic.getDistance(d, props.ability, props.hero)).join(' or ');
 	const monogram = getMonogram();
 	const displayTarget = localizeElementField(locale, props.ability.id, 'target', props.ability.target);
+	// The canonical comparison stays the one that decides whether target and distance are the
+	// same field. When they are, the combined field shows the target reading that was already
+	// resolved above, so an approved target translation is not lost to the raw canonical
+	// distance string. Without an approved entry the resolver hands back that same canonical
+	// English, so an unlocalized combined value still reads exactly as it does today, and no
+	// distance is ever translated on its own.
+	const targetMatchesDistance = props.ability.target === distance;
+	const displayDistance = targetMatchesDistance ? displayTarget : distance;
 	const displayTrigger = localizeElementField(locale, props.ability.id, abilityTriggerField, props.ability.type.trigger);
 	const displaySummary = props.ability.id === 'free-melee' ?
 		localizeMessage(locale, 'ability.free-melee.summary', { abilityName: props.ability.name, target: displayTarget }, '{abilityName} | Target: {target}') :
@@ -81,13 +89,13 @@ export const AbilityInfoPanel = (props: Props) => {
 				distance ?
 					<Field
 						compact={true}
-						label={props.ability.target !== distance ? localizeUIString(locale, 'ability-info.distance', 'Distance') : localizeUIString(locale, 'ability-info.distance-target', 'Distance / Target')}
-						value={<Markdown useSpan={true} text={distance} />}
+						label={!targetMatchesDistance ? localizeUIString(locale, 'ability-info.distance', 'Distance') : localizeUIString(locale, 'ability-info.distance-target', 'Distance / Target')}
+						value={<Markdown useSpan={true} text={displayDistance} />}
 					/>
 					: null
 			}
 			{
-				props.ability.target && (props.ability.target !== distance) ?
+				props.ability.target && !targetMatchesDistance ?
 					<Field
 						compact={true}
 						label={localizeUIString(locale, 'ability-info.target', 'Target')}
