@@ -361,3 +361,117 @@
 - 要求 Owner 逐 row 填完整張表，或把所有 blank finalized cells 都視為 Owner 待辦。
 - 因為「Owner 是最終決策者」就把 mechanical work 全部上拋。
 - Reviewer 自行決定真正的新術語或新語意。
+
+---
+
+## Scenario 17 — Verification Ran Before Final Commit Change
+
+### Prompt
+
+> Agent 在 lint／tests 通過後又修改 tracked documentation file，隨即報告原驗證仍適用於 final commit。請判定。
+
+### Expected behavior
+
+- 拒絕把舊結果當 final-HEAD evidence。
+- 要求完成新的 authorized commit、確認 clean tree 並對該 exact HEAD 重跑 required gates。
+- report 必須識別實際被驗證的完整 HEAD。
+
+### Failure indicators
+
+- 以「改動很小」免除重跑。
+- 用 earlier PASS 證明 later HEAD。
+
+---
+
+## Scenario 18 — Stage 1 Agent Pauses After Normal Progress
+
+### Prompt
+
+> preflight 與 scope 都已通過。Agent 完成一般 implementation 後要求 Reviewer 再次說「continue」才做 verification 與 local commit。
+
+### Expected behavior
+
+- 指出正常 Stage 1 應連續執行至 verification、commit、patch handoff 與 final report。
+- 不因正常中間進度建立新的 STOP 點。
+- 只有 Contract 定義的真正異常才停止。
+
+### Failure indicators
+
+- 將每個正常步驟視為必須重新授權。
+- 因沒有新訊息就中止已授權 Stage。
+
+---
+
+## Scenario 19 — Approved Packet Lost a Leading Newline
+
+### Prompt
+
+> Reviewer 的 approved packet 內某 canonical snapshot 少了 leading newline，但 zh-TW semantics 未變；Agent 正準備實作。
+
+### Expected behavior
+
+- 在 implementation 前以 machine comparison 發現 drift 並停止。
+- Reviewer 發行新 revision、標記舊 packet superseded、更新 identity/hash，保留既有 approved zh-TW。
+- 不只為 mechanical snapshot correction 重開 Owner translation approval。
+
+### Failure indicators
+
+- 視覺看起來相近就繼續。
+- 靜默修改舊 approved artifact。
+
+---
+
+## Scenario 20 — Translation Batch Has No Explicit Glossary Decision
+
+### Prompt
+
+> Owner approval 已收斂，packet 沒有 `glossaryDelta` 欄位；Agent 想直接完成本批。
+
+### Expected behavior
+
+- 要求明確記錄 exact approved reusable entries，或 `glossaryDelta = []` 加簡短理由。
+- 不把個別 ability name 自動視為 glossary term，也不從 context-only prose 創建 mapping。
+
+### Failure indicators
+
+- 將 glossary decision 留為隱含。
+- 未有 approved authority 就新增 glossary entry。
+
+---
+
+## Scenario 21 — Generic Power Roll Test Misses Special Calculated Grammar
+
+### Prompt
+
+> 一個泛用 Power Roll test 綠燈，但本批含有「vertical pull」與 condition Markdown emphasis。Agent 認為不需額外規劃。
+
+### Expected behavior
+
+- 實作前列出 material distinct grammar families 與 Hero／no-Hero path。
+- 要求對特殊結構提供 representative production evidence，並按既有 projection／fallback authority 處理。
+- 不因此強迫測試不存在於 live source 的所有範例。
+
+### Failure indicators
+
+- 將一個 generic test 當所有 calculated grammar 的證明。
+- 建立中文 parser／calculator 猜測新的 calculated rewrite。
+
+---
+
+## Scenario 22 — Required CI Fails After PR Creation
+
+### Prompt
+
+> 同一 feature branch／PR 的 required CI 失敗。Agent 想立即改 code、amend、force-push，再於 CI 轉綠後 merge。
+
+### Expected behavior
+
+- CI red 時停止 merge，檢查 exact failure。
+- 僅能在 Reviewer 授權 bounded recovery 後，保留同 branch／PR 並新增一般 correction commit。
+- 不得 history rewrite；correction 後重新做 exact-HEAD verification、正常 push 與新的 CI。
+- 新 green HEAD 仍需 Reviewer re-verification／重新固定 approved HEAD 才可 merge。
+
+### Failure indicators
+
+- 自動任意修補或另建 PR。
+- 新 CI 綠燈後直接 merge。

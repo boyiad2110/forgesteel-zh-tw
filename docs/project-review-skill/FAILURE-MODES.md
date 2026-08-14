@@ -225,3 +225,63 @@ slice-specific test 把 global `requiredCount`、unresolved count 或完整 unre
 修正：
 
 slice-specific test 只 assert 該 slice 自己的 identities、delta 或特定 domain contract；global completeness test 才負責 exact global `requiredCount` 與 unresolved state。若某 batch acceptance 本身是新增固定數量 identities 或移除特定 domain，可 assert 自己的 delta／該 domain 消失，但不得 pin 其他 slice 的全域狀態。
+
+## 23. Final Verification 未綁定 Final HEAD
+
+錯誤：
+
+lint／test 在最後一次 tracked-file modification 前通過，卻拿來宣告最後成果 PASS。
+
+修正：
+
+先 commit、確認 clean tree，再對 exact HEAD 做 required verification。其後任何 tracked-file change 都使 final-HEAD evidence 失效。
+
+## 24. 把正常 Stage 1 Progress 當成 STOP 點
+
+錯誤：
+
+Agent 完成一般實作或驗證後反覆詢問「是否繼續？」。
+
+修正：
+
+preflight 後連續完成授權 Stage；只有真實 blocker 才停止。
+
+## 25. Reviewer Packet Canonical Snapshot Drift
+
+錯誤：
+
+手動重建 packet canonical content，遺失 leading newline、whitespace 或 Markdown-sensitive 內容。
+
+修正：
+
+Agent handoff 前以 machine comparison 對 live canonical source 比對 packet snapshots；不符即停止實作。
+
+## 26. Glossary Delta Gate 被靜默略過
+
+錯誤：
+
+translation batch 完成時沒有明確決定 reusable approved terminology 是否進 glossary。
+
+修正：
+
+每個 packet／batch 都記錄 exact glossary delta，或明確的空 delta 與理由。
+
+## 27. 「Representative」Calculated Test 漏掉不同 Grammar Family
+
+錯誤：
+
+以泛用 Power Roll/render test 宣稱已涵蓋特殊 movement wording、potency、condition emphasis 或其他 identity-bound calculated 結構。
+
+修正：
+
+實作前分類 materially distinct dynamic grammar families，並為每一類選擇 representative production evidence。
+
+## 28. CI Failure Recovery 臨時發明流程
+
+錯誤：
+
+Agent 自動修失敗 PR、改寫 history、建立第二個 PR，或在新 green HEAD 後立即 merge。
+
+修正：
+
+只依 Reviewer 授權的 bounded recovery，在同 branch／PR 加一般 correction commit，取得 exact-HEAD evidence 與 CI，再由 Reviewer 固定新的 approved HEAD。

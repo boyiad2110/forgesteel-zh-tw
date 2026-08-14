@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.4.1"
+  version: "0.5.0"
 ---
 
 # Forge Steel Reviewer
@@ -72,7 +72,7 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 - 不把所有批次升成 Level C。
 - 測 public behavior，不只測 implementation detail。
 - critical interaction 不應被 mock 掉。
-- 最後一次 code change 後取得 fresh tests／lint／typecheck／build／CI evidence。
+- 最後一次 code change 後取得 fresh tests／lint／typecheck／build／CI evidence；需要 CI-equivalent local checks 時，依 Contract 以固定且乾淨的 exact HEAD 執行。
 - manual smoke 只補自動測試難以證明的 UI／responsive／interaction risk。
 
 ## 5. Prepare Agent Task
@@ -84,6 +84,8 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 ### Translation Worksheet Gate
 
 translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRANSLATION-WORKFLOW.md` 的 Worksheet 規格。交付 worksheet 前，必須先依既有 authority 處理 mechanical／derived rows；Owner request 只包含真正的新術語、新譯名、新 prose 或語意取捨。不得因 worksheet 有 N rows 就要求 Owner 逐筆 finalize N rows；handoff 必須告知真正需要決定的 row count。若 Reviewer 無法判斷某 row 是否 mechanical，先依現行 authority 判斷；只有真的涉及語意選擇才交 Owner。
+
+對 authored-content translation batch，交付 Agent 前還必須完成 `TRANSLATION-WORKFLOW.md` 所定義的 packet canonical-alignment gate、calculated-presentation grammar matrix 與明確 glossary-delta decision；本 Skill 只編排 gate，不重複其細節。
 
 ### Tooling / Skill
 
@@ -98,6 +100,8 @@ translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRA
 ## 6. Stage 1 — Local Implementation
 
 預設從核准 `develop` 建 feature branch，只修改 In Scope，執行本批 verification；未明確授權時，不 push、不建 PR、不 merge。
+
+preflight 通過後，正常 Stage 1 應連續完成：implementation → targeted verification → final local commit → Contract 要求時的 exact-HEAD verification → cumulative patch → final report。一般進度不是 STOP 點，也不需重複要求「繼續」；只有 Contract blocker、authority mismatch、unexpected scope issue、真正需要新 Owner decision，或 Contract 定義的 verification／repository anomaly 才停止。
 
 Agent 回報只需：
 
@@ -122,6 +126,10 @@ Agent 回報只需：
 Stage 2 correction 後，重新輸出**完整 `Base..HEAD` patch**，不只輸出 correction diff，讓 Reviewer 一次看到最終累積狀態。
 
 本規則只定義 handoff workflow，不改變 Git authorization；未授權的 push／PR／history rewrite 仍然禁止。
+
+### Exact-HEAD Verification Gate
+
+當本批要求 CI-equivalent local checks 時，Stage 3 approval 前 final local commit 必須已存在、HEAD 已固定且 working tree clean；驗證只對該 exact HEAD 生效。其後任何 tracked-file change 都使 evidence 失效，必須先完成新的 authorized commit，再重新驗證。詳細執行與 evidence 語意依 `AGENT-TASK-CONTRACT.md`、`RISK-AND-VERIFICATION.md`。
 
 ## 7. Review — Two Passes
 
@@ -171,6 +179,10 @@ Owner 人工驗收與必要測試通過後，功能／內容 Review 結束。
 **push → PR → verify diff／commits → CI → merge → sync `develop` → cleanup**
 
 只有 repository／base／head／SHA、changed files、commit count、CI、mergeability、ancestry 或 code/history 出現異常時才停止回報。
+
+### Required-CI Recovery
+
+required CI failure 時停止 merge，先檢查實際 failed step 與 evidence。只有 Reviewer 明確授權範圍有限的 correction，才可在同一 branch／PR 加入一般 correction commit；不得自動修任意 CI failure，也不得改寫 history。correction 後重新取得 exact-HEAD evidence、正常 push、等待 CI；新的 green CI 仍須 Reviewer 驗證 correction 並固定新的 approved HEAD，才回到一般 pre-merge gate。詳細安全規則依 `GIT-SAFETY.md`。
 
 ### Merge method
 

@@ -261,6 +261,29 @@ V1 requirements 仍要求：
 10. repository 正式 progress evidence 仍然是：manifest、catalog、completeness；glossary 仍只是 curated terminology evidence。
 11. `docs/translation/TRANSLATION-GLOSSARY.csv` 是 curated reusable terminology evidence，不要求把每一筆 Skill／Language／authored-content record 全部 mirror 進 glossary。
 
+### Packet Canonical Alignment Gate
+
+approved implementation packet 交付 Agent 前，Reviewer 必須將**全部** packet canonical identities／snapshots 與 live canonical extraction／manifest authority 做 machine-verifiable comparison，並回報 `N/N aligned` 與 zero drift。比較須保留 identity-sensitive 的 leading／trailing newline、whitespace、Markdown、punctuation、escaped 與 structured text；不得只靠目視比對。
+
+若有 mismatch，先修正 Reviewer artifact authority，Agent 不得開始 implementation 或靜默重建內容。
+
+### Packet Revision Rule
+
+Reviewer packet 的 canonical snapshot／transcription 若有機械錯誤，而 approved zh-TW semantics 未變，必須發行新 packet revision、將舊 revision 標記為 superseded、記錄改變的 canonical snapshot，並更新 packet identity／hash。不得靜默改舊 approved artifact；也不得只因這種 mechanical Reviewer correction 重開 Owner translation approval。若 zh-TW semantics 會變，仍依正常 Owner authority。
+
+### Mandatory Glossary Delta Decision
+
+Owner approval 收斂後，packet／batch 必須明確記錄其中一項：
+
+- `glossaryDelta =` exact approved reusable entries；或
+- `glossaryDelta = []` 加簡短理由。
+
+個別 ability／feature name 不會自動成為 glossary term；有 approved authority 且確有 cross-record reuse 的 class-defining name 才可能符合。不得從 context-only prose 發明 standalone mapping。
+
+### Agent Handoff Additions
+
+implementation handoff 另須列出 current packet revision／identity、canonical alignment result、exact glossary-delta decision，以及（適用時）calculated presentation matrix／required representative production evidence。這些是 handoff evidence，不建立第二套正式 V1 denominator。
+
 ## 12. 簡化版流程
 
 一般情況：
@@ -296,3 +319,15 @@ projection 的結果限於三種：
 已核准的 presentation 慣例為：ability section heading 中 `Spend` 譯為「花費」；authored prose 的 calculated damage／Stamina 寫作「N 點神聖傷害」、「N 點心靈傷害」、「恢復 N 點體力」。compact Power Roll 維持「N 神聖傷害」，不強制加入「點」。raw approved 中文中的「等於你氣場…／復元值／速度」等 expression 在 no-Hero 未解析時維持原文；解析後使用 calculator 實際數值，不寫成「等於 N」。
 
 若 Hero Builder 與 Library 都 render，automated evidence 至少涵蓋代表性的 Hero 與 no-Hero production behavior、實際 production Class data／localization 與 rendered presentation／Markdown，並證明 English、canonical state／serialization 未變，且沒有 zh-TW 進入 calculator。slice-specific manifest test 只固定本 slice 的 identities、delta 或 domain contract，不得寫死不相關的 global `requiredCount` 或完整 `unresolvedDomains`；若 batch 改動 manifest denominator，最後變更後跑 full suite。完成單一 Class 不代表 `official-ability-authored-content` 完成，僅在整個 domain 完整 enumerate 後才能移除 unresolved。
+
+### Calculated Presentation Matrix
+
+Agent Task 前，Reviewer 必須辨識 live source 中 materially distinct 的 dynamic presentation grammar families。matrix 可輕量、毋須成為 repository artifact，但每個 family 至少記錄：
+
+- representative localization identity；
+- canonical dynamic grammar family；
+- Hero／no-Hero production path；
+- 預期安全 zh-TW projection 或 fallback；
+- 所需 representative production evidence。
+
+只分類實際存在於該 batch 的 family；例如 characteristic-based values、half／twice Speed、potency、damage、condition Markdown emphasis、push／pull／slide、`vertical pull` 等 modified movement phrase、calculated content 周圍需保留的 structural phrase，或 unsupported calculated rewrite fallback。不得把此清單變成每批必跑的 checklist。
