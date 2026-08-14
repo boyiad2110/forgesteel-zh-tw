@@ -188,6 +188,8 @@ describe('V1 Talent Level 1 ability manifest', () => {
 		expect(tierReading('talent-ability-4', 'sections.0.roll.tier3', 3)).toBe('滑動 6 + `理智`；**伏地**');
 		// Family C: Smolder's trailing weakness arithmetic stays authored.
 		expect(tierReading('talent-ability-12', 'sections.1.roll.tier3', 3)).toBe('9 + `理智`傷害；`理智` < [強]，目標獲得指定弱點 5 + 你的`理智`（豁免解除）');
+		// Choke's tier 3 keeps its authored damage and potency and emphasizes 束縛.
+		expect(tierReading('talent-ability-10', 'sections.0.roll.tier3', 3)).toBe('8 + `理智`傷害；`力量` < [強]，**束縛**（豁免解除）');
 		// Family D: Reason-score prose.
 		expect(textReading('talent-1-6b', 'sections.0.text')).toBe('你可以將攻擊者推動最多等於你`理智`的格數。');
 		expect(textReading('talent-ability-6', 'sections.2.effect')).toBe('物體在造成傷害後隨即爆炸，與目標相鄰的每個生物都會受到等於你`理智`的傷害。你也同時受到等於你`理智`的傷害（無法被任何方式減免）。');
@@ -195,8 +197,11 @@ describe('V1 Talent Level 1 ability manifest', () => {
 		expect(textReading('talent-ability-15', 'sections.0.text')).toBe('目標的穩度增加等於你`理智`的數值，並獲得 10 點臨時體力和 2 點鬥志。當此招式賦予的臨時體力歸 0 時，穩度的加值也會跟著消失。');
 		// Family E: Awe keeps the approved three-times-Presence expression.
 		expect(textReading('talent-ability-9', 'sections.0.text')).toContain('等於你`氣場` ×3 的臨時體力');
-		// Family F: only condition emphasis is added to the approved Strained effects.
-		expect(textReading('talent-ability-2', 'sections.1.effect')).toBe('你自己也陷入**緩速**狀態，直到你下個回合結束。此外，被此招式**緩速**的目標會改為陷入束縛。');
+		// Family F: only condition emphasis is added to the approved Strained effects. Both
+		// 緩速 readings and the 束縛 reading are emphasized, so the calculated Markdown the
+		// canonical calculator introduced is never preserved for only part of one sentence.
+		expect(textReading('talent-ability-2', 'sections.1.effect')).toBe('你自己也陷入**緩速**狀態，直到你下個回合結束。此外，被此招式**緩速**的目標會改為陷入**束縛**。');
+		expect(textReading('talent-ability-10', 'sections.1.text')).toBe('你可以將目標垂直拉動最多 2 格。若目標因此招式而陷入**束縛**，這次強制移動會無視他的穩度。');
 		expect(textReading('talent-ability-5', 'sections.1.effect')).toBe('爆發區域 +2，但你會陷入**出血**狀態，直到你下個回合開始。');
 		expect(textReading('talent-ability-13', 'sections.1.effect')).toBe('你受到 1d6 點傷害，並陷入**緩速**狀態（豁免解除）。');
 		expect(textReading('talent-ability-14', 'sections.1.effect')).toBe('你陷入**虛弱**狀態（豁免解除）。若你因此方式陷入**虛弱**，每當你被強制移動時，強制移動的距離會 +5。');
@@ -229,6 +234,10 @@ describe('V1 Talent Level 1 ability manifest', () => {
 		expect(tierReading('talent-ability-4', 'sections.0.roll.tier2', 2, hero)).toBe('滑動 8');
 		expect(tierReading('talent-ability-4', 'sections.0.roll.tier3', 3, hero)).toBe('滑動 10；**伏地**');
 		[ 1, 2, 3 ].forEach(tier => expect(tierReading('talent-ability-4', `sections.0.roll.tier${tier}`, tier, hero)).not.toContain('理智'));
+		// Choke's tier 3 projects damage and potency exactly as before and emphasizes 束縛.
+		expect(tierReading('talent-ability-10', 'sections.0.roll.tier1', 1, hero)).toBe('6 傷害；`力量` < 1，**緩速**（豁免解除）');
+		expect(tierReading('talent-ability-10', 'sections.0.roll.tier3', 3, hero)).toBe('11 傷害；`力量` < 3，**束縛**（豁免解除）');
+		expect(textReading('talent-ability-10', 'sections.1.text', hero)).toBe('你可以將目標垂直拉動最多 2 格。若目標因此招式而陷入**束縛**，這次強制移動會無視他的穩度。');
 		// Family C: damage, potency and the trailing weakness arithmetic all resolve.
 		expect(tierReading('talent-ability-12', 'sections.1.roll.tier1', 1, hero)).toBe('6 傷害；`理智` < 1，目標獲得指定弱點 5（豁免解除）');
 		expect(tierReading('talent-ability-12', 'sections.1.roll.tier3', 3, hero)).toBe('12 傷害；`理智` < 3，目標獲得指定弱點 8（豁免解除）');
@@ -282,6 +291,19 @@ describe('V1 Talent Level 1 ability manifest', () => {
 		]);
 		expect(smolder.container.textContent).not.toContain('weakness');
 		smolder.unmount();
+
+		const choke = renderAbility('talent-ability-10', hero);
+		expect(tierTexts(choke.container)).toEqual([
+			'6 傷害；力量 < 1，緩速（豁免解除）',
+			'8 傷害；力量 < 2，緩速（豁免解除）',
+			'11 傷害；力量 < 3，束縛（豁免解除）'
+		]);
+		// The approved 束縛 reading reaches the DOM as real emphasis, exactly like 緩速.
+		expect(Array.from(choke.container.querySelectorAll('.power-roll-row .effect strong')).map(node => node.textContent)).toEqual([ '緩速', '緩速', '束縛' ]);
+		expect(Array.from(choke.container.querySelectorAll('strong')).map(node => node.textContent)).toContain('束縛');
+		expect(choke.container.textContent).toContain('若目標因此招式而陷入束縛，這次強制移動會無視他的穩度。');
+		expect(choke.container.textContent).not.toContain('restrained');
+		choke.unmount();
 
 		const awe = renderAbility('talent-ability-9', hero);
 		expect(awe.container.textContent).toContain('他會獲得 6 點臨時體力');
