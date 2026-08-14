@@ -21,8 +21,17 @@ const localizedDamagePattern = new RegExp(`((?:^|[；;]\\s*)${dicePrefix})(\\d+(
 const canonicalPotencyPattern = /\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*\[(?:weak|average|avg|strong)\]/gi;
 const calculatedPotencyPattern = /`?(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*(-?\d+)`?/gi;
 const localizedPotencyPattern = /(`[^`]+`\s*<\s*)\[(?:弱|中|強)\]/g;
-const canonicalForcedMovementPattern = /\b(push|pull|slide)\s+(\d+)\b/gi;
-const localizedForcedMovementPattern = /(推動|拉動|滑動)\s+(\d+)/g;
+// A forced movement distance may be authored as characteristic arithmetic, e.g. 'Slide 2 + R'.
+// The whole distance expression is captured so a calculator-resolved distance replaces all of
+// it, and neither reading is left with a half-projected '+ R' beside an already resolved value.
+const canonicalForcedMovementPattern = new RegExp(`\\b(push|pull|slide)\\s+(\\d+(?:\\s*\\+\\s*\\d*${characteristicToken})?)\\b`, 'gi');
+const localizedForcedMovementPattern = /(推動|拉動|滑動)\s+(\d+(?:\s*\+\s*`[^`]+`)?)/g;
+// A tier may close with authored characteristic arithmetic the calculator resolves in place,
+// e.g. 'weakness equal to 5 + your Reason score' becomes 'weakness equal to 8'. Only this exact
+// closing grammar is projected, and only when every reading carries it exactly once.
+const canonicalWeaknessPattern = /the target has weakness equal to \d+\s*\+\s*your (?:might|agility|reason|intuition|presence) score/gi;
+const calculatedWeaknessPattern = /the target has weakness equal to (-?\d+)/gi;
+const localizedWeaknessPattern = /目標獲得指定弱點 \d+\s*\+\s*你的`[^`]+`/g;
 
 const localizedForcedMovementType = (verb: string) => {
 	switch (verb) {
@@ -70,8 +79,8 @@ export const localizePowerRollTierPresentation = ({
 	const potencyValues = Array.from(calculatedEnglish.matchAll(calculatedPotencyPattern), match => match[1]);
 	const canonicalPotencies = Array.from(canonicalEnglish.matchAll(canonicalPotencyPattern));
 	const localizedPotencies = Array.from(localizedRaw.matchAll(localizedPotencyPattern));
-	const canonicalForcedMovement = Array.from(canonicalEnglish.matchAll(canonicalForcedMovementPattern), match => match[1].toLowerCase());
-	const calculatedForcedMovement = Array.from(calculatedEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), value: match[2] }));
+	const canonicalForcedMovement = Array.from(canonicalEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
+	const calculatedForcedMovement = Array.from(calculatedEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
 	const localizedForcedMovement = Array.from(localizedRaw.matchAll(localizedForcedMovementPattern), match => localizedForcedMovementType(match[1]));
 	const hasUnchangedCanonicalGrammar = (pattern: RegExp, canonicalMatches: RegExpMatchArray[]) => (
 		countMatches(calculatedEnglish, pattern) === canonicalMatches.length
@@ -85,8 +94,17 @@ export const localizePowerRollTierPresentation = ({
 		|| (localizedPotencies.length !== canonicalPotencies.length)
 		|| (calculatedForcedMovement.length !== canonicalForcedMovement.length)
 		|| (localizedForcedMovement.length !== canonicalForcedMovement.length)
-		|| calculatedForcedMovement.some((movement, index) => movement.type !== canonicalForcedMovement[index])
-		|| localizedForcedMovement.some((type, index) => type !== canonicalForcedMovement[index])) {
+		|| calculatedForcedMovement.some((movement, index) => movement.type !== canonicalForcedMovement[index].type)
+		|| localizedForcedMovement.some((type, index) => type !== canonicalForcedMovement[index].type)) {
+		return calculatedEnglish;
+	}
+
+	// A distance the calculator left as authored keeps its approved expression on both readings;
+	// anything else has to be a resolved plain number before it can be projected at all.
+	const forcedMovementValues = calculatedForcedMovement.map((movement, index) => (
+		movement.expression === canonicalForcedMovement[index].expression ? undefined : movement.expression
+	));
+	if (forcedMovementValues.some(value => (value !== undefined) && !/^\d+$/.test(value))) {
 		return calculatedEnglish;
 	}
 
@@ -100,7 +118,7 @@ export const localizePowerRollTierPresentation = ({
 	if (potencyValues.length > 0) {
 		projectedCanonical = projectedCanonical.replace(/(\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*)\[(?:weak|average|avg|strong)\]/gi, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`);
 	}
-	projectedCanonical = projectedCanonical.replace(canonicalForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
+	projectedCanonical = projectedCanonical.replace(canonicalForcedMovementPattern, (_match, verb: string, expression: string) => `${verb} ${forcedMovementValues[forcedMovementIndex++] ?? expression}`);
 
 	damageIndex = 0;
 	potencyIndex = 0;
@@ -112,7 +130,21 @@ export const localizePowerRollTierPresentation = ({
 	if (potencyValues.length > 0) {
 		projectedLocalized = projectedLocalized.replace(localizedPotencyPattern, (_match, prefix: string) => `${prefix}${potencyValues[potencyIndex++]}`);
 	}
-	projectedLocalized = projectedLocalized.replace(localizedForcedMovementPattern, (_match, verb: string) => `${verb} ${calculatedForcedMovement[forcedMovementIndex++].value}`);
+	projectedLocalized = projectedLocalized.replace(localizedForcedMovementPattern, (_match, verb: string, expression: string) => `${verb} ${forcedMovementValues[forcedMovementIndex++] ?? expression}`);
+
+	// Without a Hero the calculator leaves this arithmetic authored, and the approved zh-TW
+	// expression stays as it is; only a reading the calculator actually resolved is projected.
+	const canonicalWeakness = Array.from(projectedCanonical.matchAll(canonicalWeaknessPattern));
+	if ((canonicalWeakness.length > 0) && !hasUnchangedCanonicalGrammar(canonicalWeaknessPattern, canonicalWeakness)) {
+		const calculatedWeakness = Array.from(calculatedEnglish.matchAll(calculatedWeaknessPattern));
+		const localizedWeakness = Array.from(projectedLocalized.matchAll(localizedWeaknessPattern));
+		if ((canonicalWeakness.length !== 1) || (calculatedWeakness.length !== 1) || (localizedWeakness.length !== 1)) {
+			return calculatedEnglish;
+		}
+
+		projectedCanonical = projectedCanonical.replace(canonicalWeaknessPattern, calculatedWeakness[0][0]);
+		projectedLocalized = projectedLocalized.replace(localizedWeaknessPattern, `目標獲得指定弱點 ${calculatedWeakness[0][1]}`);
+	}
 
 	return projectCalculatedConditionEmphasis({
 		canonicalEnglish: projectedCanonical,

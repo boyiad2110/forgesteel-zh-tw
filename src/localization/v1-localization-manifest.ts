@@ -8,6 +8,7 @@ import { fury } from '@/data/classes/fury/fury';
 import { nullClass } from '@/data/classes/null/null';
 import { shadow } from '@/data/classes/shadow/shadow';
 import { tactician } from '@/data/classes/tactician/tactician';
+import { talent } from '@/data/classes/talent/talent';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
@@ -698,6 +699,76 @@ export const createV1TacticianLevel1AbilityRequiredCanonicalEnglish = (): Canoni
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Talent Level 1 base-class ability slice. Level 1 selects signature, cost 3
+ * and cost 5 class abilities, so only abilities 1-16 belong here; abilities 17+, later levels and
+ * the Talent Tradition subclasses stay unresolved.
+ */
+export const v1TalentLevel1AbilityIDs = [
+	'talent-1-2',
+	'talent-1-6b',
+	'talent-ability-1',
+	'talent-ability-2',
+	'talent-ability-3',
+	'talent-ability-4',
+	'talent-ability-5',
+	'talent-ability-6',
+	'talent-ability-7',
+	'talent-ability-8',
+	'talent-ability-9',
+	'talent-ability-10',
+	'talent-ability-11',
+	'talent-ability-12',
+	'talent-ability-13',
+	'talent-ability-14',
+	'talent-ability-15',
+	'talent-ability-16'
+] as const;
+
+const isTalentWardChoice = (feature: Feature): feature is FeatureChoice => (
+	(feature.type === FeatureType.Choice) && (feature.id === 'talent-1-6')
+);
+
+const isTalentLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only Talent's direct Level 1 ability, the Talent Ward ability choice, and abilities 1-16. */
+export const getV1TalentLevel1Abilities = (): Ability[] => {
+	const levelOne = talent.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Talent Level 1 features are missing');
+	}
+
+	const ward = levelOne.features.find(isTalentWardChoice);
+	if (!ward) {
+		throw new Error('Talent Ward choices are missing');
+	}
+
+	const abilities = [
+		...levelOne.features.filter(isTalentLevel1FeatureAbility).map(feature => feature.data.ability),
+		...ward.data.options
+			.map(option => option.feature)
+			.filter(isTalentLevel1FeatureAbility)
+			.map(feature => feature.data.ability),
+		...talent.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1TalentLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Talent Level 1 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 131-identity Talent Level 1 denominator from live canonical data. */
+export const createV1TalentLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1TalentLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -715,7 +786,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
-		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish()
+		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1TalentLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
