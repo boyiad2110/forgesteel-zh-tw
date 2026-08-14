@@ -5,6 +5,7 @@ import { censor } from '@/data/classes/censor/censor';
 import { conduit } from '@/data/classes/conduit/conduit';
 import { elementalist } from '@/data/classes/elementalist/elementalist';
 import { fury } from '@/data/classes/fury/fury';
+import { nullClass } from '@/data/classes/null/null';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
@@ -498,6 +499,59 @@ export const createV1ElementalistLevel1AbilityRequiredCanonicalEnglish = (): Can
 	return requiredCanonicalEnglish;
 };
 
+/** The exact approved Null Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
+export const v1NullLevel1AbilityIDs = [
+	'null-1-4',
+	'null-1-5',
+	'null-ability-1',
+	'null-ability-2',
+	'null-ability-3',
+	'null-ability-4',
+	'null-ability-5',
+	'null-ability-6',
+	'null-ability-7',
+	'null-ability-8',
+	'null-ability-9',
+	'null-ability-10',
+	'null-ability-11',
+	'null-ability-12',
+	'null-ability-13',
+	'null-ability-14',
+	'null-ability-15',
+	'null-ability-16'
+] as const;
+
+const isNullLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only Null's direct Level 1 abilities and abilities 1–16. */
+export const getV1NullLevel1Abilities = (): Ability[] => {
+	const levelOne = nullClass.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Null Level 1 features are missing');
+	}
+
+	const abilities = [
+		...levelOne.features.filter(isNullLevel1FeatureAbility).map(feature => feature.data.ability),
+		...nullClass.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1NullLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Null Level 1 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 115-identity Null Level 1 denominator from live canonical data. */
+export const createV1NullLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1NullLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Fury Level 1 base-class ability slice; later Fury levels stay unresolved. */
 export const v1FuryLevel1AbilityIDs = [
 	'fury-ability-1',
@@ -548,6 +602,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CensorLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are

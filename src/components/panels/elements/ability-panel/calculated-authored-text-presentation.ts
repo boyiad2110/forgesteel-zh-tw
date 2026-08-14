@@ -333,6 +333,51 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
 };
 
+const projectNullCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID === 'null-ability-10') && (field === 'sections.0.text')) {
+		const calculatedMatches = Array.from(calculatedEnglish.matchAll(/takes psychic damage equal to (-?\d+)/g));
+		const firstCanonical = 'takes psychic damage equal to twice your Intuition score';
+		const secondCanonical = 'takes psychic damage equal to your Intuition score';
+		const firstLocalized = '每個目標都會受到等於你`直覺` ×2 的心靈傷害。';
+		const secondLocalized = '位於你無念場區域內的每個敵人都會受到等於你`直覺`的心靈傷害。';
+
+		if ((calculatedMatches.length !== 2) || !localizedRaw.includes(firstLocalized) || !localizedRaw.includes(secondLocalized)) {
+			return undefined;
+		}
+
+		const projectedCanonical = canonicalEnglish
+			.replace(firstCanonical, calculatedMatches[0][0])
+			.replace(secondCanonical, calculatedMatches[1][0]);
+		if (projectedCanonical !== calculatedEnglish) {
+			return undefined;
+		}
+
+		return localizedRaw
+			.replace(firstLocalized, `每個目標都會受到 ${calculatedMatches[0][1]} 點心靈傷害。`)
+			.replace(secondLocalized, `位於你無念場區域內的每個敵人都會受到 ${calculatedMatches[1][1]} 點心靈傷害。`);
+	}
+
+	const projections = [
+		{ elementID: 'null-ability-1', field: 'sections.1.text', canonical: 'You can slide one adjacent enemy up to a number of squares equal to your Intuition score.', calculated: /You can slide one adjacent enemy up to a number of squares equal to (-?\d+)\./, localized: '你可以將 1 個相鄰的敵人滑動最多等於你`直覺`的格數。', replacement: (value: string) => `你可以將 1 個相鄰的敵人滑動最多 ${value} 格。` },
+		{ elementID: 'null-ability-2', field: 'sections.1.text', canonical: 'You can deal damage equal to your Agility score to one creature or object adjacent to you.', calculated: /You can deal damage equal to (-?\d+) to one creature or object adjacent to you\./, localized: '你可以對 1 個相鄰的生物或物體造成等於你`敏捷`的傷害。', replacement: (value: string) => `你可以對 1 個相鄰的生物或物體造成 ${value} 點傷害。` },
+		{ elementID: 'null-ability-3', field: 'sections.1.text', canonical: 'You can shift up to half your speed before or after you make the strike.', calculated: /You can shift up to (-?\d+) squares before or after you make the strike\./, localized: '遁移最多等於你速度一半的距離', replacement: (value: string) => `遁移最多 ${value} 格` },
+		{ elementID: 'null-ability-9', field: 'sections.1.text', canonical: 'You can shift up to half your speed before or after you make this strike.', calculated: /You can shift up to (-?\d+) squares before or after you make this strike\./, localized: '遁移最多等於你速度一半的距離', replacement: (value: string) => `遁移最多 ${value} 格` },
+		{ elementID: 'null-ability-11', field: 'sections.1.text', canonical: 'shift up to your speed. You must end this shift adjacent to the target.', calculated: /shift up to (-?\d+) squares\. You must end this shift adjacent to the target\./, localized: '遁移最多等於你速度的距離', replacement: (value: string) => `遁移最多 ${value} 格` },
+		{ elementID: 'null-ability-13', field: 'sections.1.text', canonical: 'the target takes damage equal to your Intuition score whenever they use a supernatural ability that costs Malice.', calculated: /the target takes damage equal to (-?\d+) whenever they use a supernatural ability that costs Malice\./, localized: '就會受到等於你`直覺`的傷害。', replacement: (value: string) => `就會受到 ${value} 點傷害。` }
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) return undefined;
+	const match = calculatedEnglish.match(projection.calculated);
+	if (!match || !localizedRaw.includes(projection.localized)) return undefined;
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, match[0]);
+	const projectedLocalized = localizedRaw.replace(projection.localized, projection.replacement(match[1]));
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
@@ -370,6 +415,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const elementalistReasonValue = projectElementalistReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (elementalistReasonValue) {
 		return elementalistReasonValue;
+	}
+
+	const nullCalculatedValue = projectNullCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (nullCalculatedValue) {
+		return nullCalculatedValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
