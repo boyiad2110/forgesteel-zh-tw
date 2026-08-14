@@ -278,7 +278,7 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 
 		return localizedRaw
 			.replace(damageLocalized, `該生物會受到 ${damageCalculated[1]} 點所選類型傷害。`)
-			.replace(teleportLocalized, `你傳送最多等於 ${teleportCalculated[1]} 格。`);
+			.replace(teleportLocalized, `你傳送最多 ${teleportCalculated[1]} 格。`);
 	}
 
 	const projections = [
@@ -296,7 +296,7 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			canonical: 'You slide the attacking creature up to a number of squares equal to your Reason score.',
 			calculated: /You slide the attacking creature up to a number of squares equal to (-?\d+)\./,
 			localized: '你將該生物滑動最多等於你`理智`的格數。',
-			localizedReplacement: (value: string) => `你將該生物滑動最多等於 ${value} 格。`
+			localizedReplacement: (value: string) => `你將該生物滑動最多 ${value} 格。`
 		},
 		{
 			elementID: 'elementalist-1-8d',
@@ -312,7 +312,7 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			canonical: 'You can teleport up to a number of squares equal to your Reason score.',
 			calculated: /You can teleport up to a number of squares equal to (-?\d+)\./,
 			localized: '你可以傳送最多等於你`理智`的格數。',
-			localizedReplacement: (value: string) => `你可以傳送最多等於 ${value} 格。`
+			localizedReplacement: (value: string) => `你可以傳送最多 ${value} 格。`
 		}
 	];
 	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));

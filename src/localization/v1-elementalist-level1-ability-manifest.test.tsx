@@ -126,8 +126,8 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 		const practicalCalculated = AbilityLogic.getTextEffect(practicalRaw, hero);
 		const practicalZhTW = localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-6', field: 'sections.0.text', canonicalEnglish: practicalRaw, calculatedEnglish: practicalCalculated });
 		expect(practicalZhTW).toContain('\u53d7\u5230 2 \u9ede\u6240\u9078\u985e\u578b\u50b7\u5bb3');
-		expect(practicalZhTW).toContain('\u4f60\u50b3\u9001\u6700\u591a\u7b49\u65bc 2 \u683c\u3002');
-		expect(practicalZhTW).not.toContain('\u6700\u591a\u7b49\u65bc\u4f60\u7684 2 \u683c');
+		expect(practicalZhTW).toContain('\u4f60\u50b3\u9001\u6700\u591a 2 \u683c\u3002');
+		expect(practicalZhTW).not.toContain('\u6700\u591a\u7b49\u65bc 2 \u683c');
 		const { container: practicalMarkdown } = render(createElement(Markdown, { text: practicalZhTW }));
 		expect(Array.from(practicalMarkdown.querySelectorAll('code')).map(node => node.textContent)).toEqual(expect.arrayContaining(['\u7406\u667a', '\u529b\u91cf']));
 
@@ -136,11 +136,15 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-8c', field: 'type.trigger', canonicalEnglish: wardTriggerRaw, calculatedEnglish: wardTriggerCalculated })).toContain('\u4f60 2 \u683c\u5167');
 		const slideRaw = required[elementFieldIdentity('elementalist-1-8c', 'sections.0.text')];
 		const slideCalculated = AbilityLogic.getTextEffect(slideRaw, hero);
-		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-8c', field: 'sections.0.text', canonicalEnglish: slideRaw, calculatedEnglish: slideCalculated })).toBe('\u4f60\u5c07\u8a72\u751f\u7269\u6ed1\u52d5\u6700\u591a\u7b49\u65bc 2 \u683c\u3002');
+		const slideZhTW = localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-8c', field: 'sections.0.text', canonicalEnglish: slideRaw, calculatedEnglish: slideCalculated });
+		expect(slideZhTW).toBe('\u4f60\u5c07\u8a72\u751f\u7269\u6ed1\u52d5\u6700\u591a 2 \u683c\u3002');
+		expect(slideZhTW).not.toContain('\u6700\u591a\u7b49\u65bc 2 \u683c');
 
 		const graspRaw = required[elementFieldIdentity('elementalist-ability-3', 'sections.1.text')];
 		const graspCalculated = AbilityLogic.getTextEffect(graspRaw, hero);
-		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-ability-3', field: 'sections.1.text', canonicalEnglish: graspRaw, calculatedEnglish: graspCalculated })).toBe('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a\u7b49\u65bc 2 \u683c\u3002');
+		const graspZhTW = localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-ability-3', field: 'sections.1.text', canonicalEnglish: graspRaw, calculatedEnglish: graspCalculated });
+		expect(graspZhTW).toBe('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a 2 \u683c\u3002');
+		expect(graspZhTW).not.toContain('\u6700\u591a\u7b49\u65bc 2 \u683c');
 
 		const pushRaw = required[elementFieldIdentity('elementalist-1-8d', 'sections.0.text')];
 		const pushCalculated = AbilityLogic.getTextEffect(pushRaw, hero);
@@ -157,6 +161,20 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 		getTierEffectCreature.mockRestore();
 	});
 
+	it('renders the Hero-calculated Grasp of Beyond presentation through AbilityPanel', () => {
+		const hero = makeHero();
+		const ability = getAbility('elementalist-ability-3');
+		const getTextEffect = vi.spyOn(AbilityLogic, 'getTextEffect');
+		const { container } = render(
+			createElement(LocalizationProvider, null, createElement(LocaleToggle), createElement(AbilityPanel, { ability, hero, mode: PanelMode.Full }))
+		);
+
+		expect(container.textContent).toContain('\u4f60\u53ef\u4ee5\u50b3\u9001\u6700\u591a 2 \u683c\u3002');
+		expect(container.textContent).not.toContain('\u6700\u591a\u7b49\u65bc 2 \u683c');
+		expect(getTextEffect.mock.calls.map(([ input ]) => input).every(input => !/[\u4e00-\u9fff]/.test(input))).toBe(true);
+		getTextEffect.mockRestore();
+	});
+
 	it('keeps approved raw zh-TW in the no-Hero presentation path without mutating canonical data', () => {
 		const ability = getAbility('elementalist-ability-3');
 		const canonical = required[elementFieldIdentity(ability.id, 'sections.1.text')];
@@ -171,5 +189,11 @@ describe('V1 Elementalist Level 1 ability manifest', () => {
 		expect(Array.from(container.querySelectorAll('code')).map(node => node.textContent)).toContain('\u7406\u667a');
 		expect(container.textContent).not.toContain('your Reason score');
 		expect(JSON.stringify(ability)).toBe(serializedAbility);
+
+		const practicalRaw = required[elementFieldIdentity('elementalist-1-6', 'sections.0.text')];
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-6', field: 'sections.0.text', canonicalEnglish: practicalRaw, calculatedEnglish: AbilityLogic.getTextEffect(practicalRaw, undefined) })).toContain('\u4f60\u50b3\u9001\u6700\u591a\u7b49\u65bc\u4f60`\u7406\u667a`\u7684\u683c\u6578\u3002');
+
+		const slideRaw = required[elementFieldIdentity('elementalist-1-8c', 'sections.0.text')];
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-8c', field: 'sections.0.text', canonicalEnglish: slideRaw, calculatedEnglish: AbilityLogic.getTextEffect(slideRaw, undefined) })).toBe('\u4f60\u5c07\u8a72\u751f\u7269\u6ed1\u52d5\u6700\u591a\u7b49\u65bc\u4f60`\u7406\u667a`\u7684\u683c\u6578\u3002');
 	});
 });
