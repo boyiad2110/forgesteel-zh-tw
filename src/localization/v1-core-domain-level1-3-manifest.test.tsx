@@ -13,6 +13,7 @@ import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localizatio
 import { ConfigDomain, InfoDomain } from '@/components/features/feature-data/domain';
 import { ConfigDomainFeature } from '@/components/features/feature-data/domain-feature';
 import { DomainPanel } from '@/components/panels/elements/domain-panel/domain-panel';
+import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
 import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { LocalizationProvider } from '@/contexts/localization-context';
 import { ElementFieldEntry, LocalizationEntry, MessageEntry, UIStringEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
@@ -53,23 +54,18 @@ const getDomain = (id: string) => {
 	return domain;
 };
 
-/** The authored (non-container) Feature nodes of one Domain level, in traversal order. */
-const authoredNodes = (features: Feature[], collected: Feature[] = []): Feature[] => {
+/** Every player-facing Feature node of a Domain level, containers included, in traversal order. */
+const playerFacingNodes = (features: Feature[], collected: Feature[] = []): Feature[] => {
 	features.forEach(feature => {
-		switch (feature.type) {
-			case FeatureType.Multiple:
-				authoredNodes(feature.data.features, collected);
-				break;
-			case FeatureType.SkillChoice:
-				break;
-			default:
-				collected.push(feature);
+		collected.push(feature);
+		if (feature.type === FeatureType.Multiple) {
+			playerFacingNodes(feature.data.features, collected);
 		}
 	});
 	return collected;
 };
 
-const levelNodes = (level: number) => domains.flatMap(domain => authoredNodes(domain.featuresByLevel.filter(lvl => lvl.level === level).flatMap(lvl => lvl.features)));
+const levelNodes = (level: number) => domains.flatMap(domain => playerFacingNodes(domain.featuresByLevel.filter(lvl => lvl.level === level).flatMap(lvl => lvl.features)));
 
 const identitiesFor = (elementIDs: string[]) => Object.keys(required).filter(identity => elementIDs.some(id => identity.startsWith(`element:${id}/`)));
 
@@ -78,6 +74,14 @@ const resourceGainIdentities = v1CoreDomainIDs.map(id => elementFieldIdentity(id
 const prayerIdentities = identitiesFor(domains.flatMap(domain => domain.defaultFeatures.map(feature => feature.id)));
 const level1Identities = identitiesFor(levelNodes(1).map(node => node.id));
 const level2Identities = identitiesFor(levelNodes(2).map(node => node.id));
+
+// The two Level 1 node kinds whose readings FactoryLogic composes rather than authors.
+const level1ContainerNodes = levelNodes(1).filter(node => node.type === FeatureType.Multiple);
+const level1SkillChoiceNodes = levelNodes(1).filter(node => node.type === FeatureType.SkillChoice);
+const derivedNodes = [ ...level1ContainerNodes, ...level1SkillChoiceNodes ];
+const derivedIdentities = identitiesFor(derivedNodes.map(node => node.id));
+
+const level1FeaturesOf = (domain: Domain) => domain.featuresByLevel.find(lvl => lvl.level === 1)?.features || [];
 
 const domainCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
 	(entry.kind === 'element-field') && (required[getEntryIdentity(entry)] !== undefined)
@@ -132,7 +136,7 @@ const heroWithDomain = (domain: Domain) => {
 
 const findAbility = (id: string) => {
 	const node = domains
-		.flatMap(domain => domain.featuresByLevel.filter(lvl => v1CoreDomainLevels.includes(lvl.level)).flatMap(lvl => authoredNodes(lvl.features)))
+		.flatMap(domain => domain.featuresByLevel.filter(lvl => v1CoreDomainLevels.includes(lvl.level)).flatMap(lvl => playerFacingNodes(lvl.features)))
 		.find(candidate => (candidate.id === id) && (candidate.type === FeatureType.Ability));
 	if (!node || (node.type !== FeatureType.Ability)) {
 		throw new Error(`Domain ability '${id}' is missing`);
@@ -169,6 +173,13 @@ const clickPage = (container: HTMLElement, label: string) => {
 	fireEvent.click(option);
 };
 
+/** Opens every collapsed Expander, including ones only revealed by opening an outer one. */
+const expandAll = (container: HTMLElement) => {
+	for (let pass = 0; pass < 3; pass++) {
+		Array.from(container.querySelectorAll('.ant-collapse-item:not(.ant-collapse-item-active) > .ant-collapse-header')).forEach(header => fireEvent.click(header));
+	}
+};
+
 const fieldReading = (container: HTMLElement, label: string) => {
 	const field = Array.from(container.querySelectorAll('.field')).find(node => node.querySelector('.field-label')?.textContent?.trim() === label);
 	return field?.querySelector('.field-value')?.textContent?.trim();
@@ -177,47 +188,92 @@ const fieldReading = (container: HTMLElement, label: string) => {
 afterEach(cleanup);
 
 describe('V1 Core Domain Level 1-3 manifest', () => {
-	it('enumerates exactly the approved 12-Domain, 147-identity slice and its catalog entries', () => {
+	it('enumerates exactly the approved 12-Domain, 195-identity slice and its catalog entries', () => {
 		expect(domains.map(domain => domain.id)).toEqual([ ...v1CoreDomainIDs ]);
 		expect(v1CoreDomainIDs).toHaveLength(12);
 		expect(v1CoreDomainLevels).toEqual([ 1, 2, 3 ]);
-		expect(Object.keys(required)).toHaveLength(147);
-		expect(domainCatalogEntries).toHaveLength(147);
+		expect(Object.keys(required)).toHaveLength(195);
+		expect(domainCatalogEntries).toHaveLength(195);
 
 		const catalogIdentities = domainCatalogEntries.map(getEntryIdentity);
-		expect(new Set(catalogIdentities).size).toBe(147);
+		expect(new Set(catalogIdentities).size).toBe(195);
 		expect(catalogIdentities.slice().sort()).toEqual(Object.keys(required).sort());
 		expect(domainCatalogEntries.every(entry => entry.approval === 'approved')).toBe(true);
 		expect(domainCatalogEntries.every(entry => entry.canonicalEnglish === required[getEntryIdentity(entry)])).toBe(true);
 	});
 
-	it('splits those 147 identities into the approved content breakdown', () => {
+	it('splits those 195 identities into the approved content breakdown', () => {
 		expect(domainMetadataIdentities).toHaveLength(24);
-		expect(level1Identities).toHaveLength(30);
+		// 30 authored Level 1 fields plus the 48 composed container and Skill-choice fields.
+		expect(level1Identities).toHaveLength(78);
 		expect(level2Identities).toHaveLength(57);
 		expect(resourceGainIdentities).toHaveLength(12);
 		expect(prayerIdentities).toHaveLength(24);
 
 		const all = [ ...domainMetadataIdentities, ...level1Identities, ...level2Identities, ...resourceGainIdentities, ...prayerIdentities ];
-		expect(new Set(all).size).toBe(147);
+		expect(new Set(all).size).toBe(195);
 		expect(all.every(identity => required[identity] !== undefined)).toBe(true);
 
-		// Level 3 authors no content in any of the twelve Domains, which is why 147 is the total.
+		// Level 3 authors no content in any of the twelve Domains, which is why 195 is the total.
 		expect(domains.every(domain => domain.featuresByLevel.filter(lvl => lvl.level === 3).every(lvl => lvl.features.length === 0))).toBe(true);
 	});
 
-	it('contributes all 147 of its identities to the manifest denominator', () => {
+	it('enumerates the 12 Level 1 containers and their 12 Skill choices as 48 derived identities', () => {
+		expect(level1ContainerNodes).toHaveLength(12);
+		expect(level1SkillChoiceNodes).toHaveLength(12);
+		// One container per Domain, holding exactly that Domain's own Level 1 content.
+		expect(level1ContainerNodes.map(node => node.id)).toEqual(v1CoreDomainIDs.map(id => `${id}-1`));
+		expect(derivedIdentities).toHaveLength(48);
+
+		// Every one of the 48 canonical values is the live object's own reading, not a restatement.
+		derivedNodes.forEach(node => {
+			expect(required[elementFieldIdentity(node.id, 'name')]).toBe(node.name);
+			expect(required[elementFieldIdentity(node.id, 'description')]).toBe(node.description);
+			expect(node.name).not.toBe('');
+			expect(node.description).not.toBe('');
+		});
+
+		// A container's reading is composed by FactoryLogic from its children's names, and is the
+		// same for both of its fields; a Skill choice's prompt names the list it offers.
+		expect(level1ContainerNodes.every(node => node.name === node.description)).toBe(true);
+		expect(level1SkillChoiceNodes.every(node => node.description.startsWith('Choose a skill from '))).toBe(true);
+	});
+
+	it('gives all 48 derived identities an approved zh-TW reading with none missing', () => {
+		const byIdentity = new Map(domainCatalogEntries.map(entry => [ getEntryIdentity(entry), entry ]));
+
+		expect(derivedIdentities).toHaveLength(48);
+		derivedIdentities.forEach(identity => {
+			const entry = byIdentity.get(identity);
+			expect(entry).toBeDefined();
+			expect(entry?.approval).toBe('approved');
+			expect(entry?.canonicalEnglish).toBe(required[identity]);
+			// A derived reading still has to be Chinese: no canonical English survives in it.
+			expect(entry?.zhTW).not.toMatch(/[A-Za-z]/);
+		});
+
+		// The container reading is composed from the child readings already approved in this
+		// slice and from the Career Skill-choice precedent, joined with the same mechanical 、.
+		const sunContainer = elementFieldIdentity('domain-sun-1', 'name');
+		const sunAbility = byIdentity.get(elementFieldIdentity('domain-sun-1-1', 'name'))?.zhTW;
+		const sunSkill = byIdentity.get(elementFieldIdentity('domain-sun-1-2', 'name'))?.zhTW;
+		expect(byIdentity.get(sunContainer)?.zhTW).toBe(`${sunAbility}、${sunSkill}`);
+		expect(byIdentity.get(elementFieldIdentity('domain-sun-1-2', 'name'))?.zhTW).toBe('學識類技能');
+		expect(byIdentity.get(elementFieldIdentity('domain-sun-1-2', 'description'))?.zhTW).toBe('從學識類技能中選擇 1 項技能。');
+	});
+
+	it('contributes all 195 of its identities to the manifest denominator', () => {
 		const manifestIdentities = Object.keys(v1LocalizationManifest.requiredCanonicalEnglish);
 		const domainIdentities = Object.keys(required);
 
-		expect(domainIdentities).toHaveLength(147);
+		expect(domainIdentities).toHaveLength(195);
 		expect(domainIdentities.every(identity => manifestIdentities.includes(identity))).toBe(true);
 		expect(domainIdentities.every(identity => v1LocalizationManifest.requiredCanonicalEnglish[identity] === required[identity])).toBe(true);
 	});
 
 	it('leaves Domain Levels 4-10 outside this slice', () => {
 		const identities = Object.keys(required);
-		const laterLevelNodes = domains.flatMap(domain => authoredNodes(domain.featuresByLevel.filter(lvl => lvl.level > 3).flatMap(lvl => lvl.features)));
+		const laterLevelNodes = domains.flatMap(domain => playerFacingNodes(domain.featuresByLevel.filter(lvl => lvl.level > 3).flatMap(lvl => lvl.features)));
 
 		expect(laterLevelNodes.length).toBeGreaterThan(0);
 		laterLevelNodes.forEach(node => {
@@ -279,6 +335,26 @@ describe('Domain panel presentation', () => {
 		expect(fieldReading(container, '2 級')).toBe('晨光燒灼');
 		expect(container.textContent).toContain('1 級');
 		expect(container.textContent).not.toContain('Level 2');
+
+		// The Level 1 summary is the container's composed reading, and it is no longer English.
+		expect(fieldReading(container, '1 級')).toBe('晨光庇護、學識類技能');
+		expect(container.textContent).not.toContain('Inner Light');
+		expect(container.textContent).not.toContain('Lore Skill');
+	});
+
+	it('renders every Domain Level 1 summary without any derived canonical English', () => {
+		domains.forEach(domain => {
+			const { container } = renderDomain(domain, PanelMode.Full);
+			clickPage(container, '特性');
+
+			const summary = fieldReading(container, '1 級');
+			const container1 = level1ContainerNodes.find(node => node.id === `${domain.id}-1`);
+
+			expect(summary).toBeDefined();
+			expect(summary).not.toBe(container1?.name);
+			expect(summary).not.toMatch(/[A-Za-z]/);
+			cleanup();
+		});
 	});
 
 	it('renders the Additional page: the Conduit note, Resource Gains and the default prayer', () => {
@@ -430,6 +506,23 @@ describe('Domain feature selection presentation', () => {
 		expect(container.textContent).not.toContain('Choose 2:');
 	});
 
+	it('renders a selected Level 1 Domain Feature and its Skill choice in zh-TW', () => {
+		const sun = getDomain('domain-sun');
+		const { container } = renderConfig(featureData({ level: 1, selected: level1FeaturesOf(sun) }), heroWithDomain(sun));
+
+		// The container's own composed reading, shown as the panel header and description.
+		expect(container.textContent).toContain('晨光庇護、學識類技能');
+		expect(container.textContent).not.toContain('Inner Light, Lore Skill');
+
+		expandAll(container);
+
+		// Its children: the authored Level 1 Feature and the composed Skill-choice reading.
+		expect(container.textContent).toContain('晨光庇護');
+		expect(container.textContent).toContain('學識類技能');
+		expect(container.textContent).toContain('從學識類技能中選擇 1 項技能。');
+		expect(container.textContent).not.toContain('Choose a skill from Lore skills.');
+	});
+
 	it('renders a selected Domain Feature through a zh-TW FeaturePanel', () => {
 		const nature = getDomain('domain-nature');
 		const level2 = nature.featuresByLevel.find(lvl => lvl.level === 2)?.features || [];
@@ -438,6 +531,57 @@ describe('Domain feature selection presentation', () => {
 		expect(container.textContent).toContain('自然審判');
 		expect(container.textContent).toContain('神祕的尖刺藤蔓應你召喚，纏縛你的敵人。');
 		expect(container.textContent).not.toContain('Nature Judges Thee');
+	});
+});
+
+describe('Domain Level 1 container presentation', () => {
+	const renderFeature = (feature: Feature, hero?: Hero) => render(
+		createElement(
+			LocalizationProvider,
+			null,
+			createElement(LocaleToggle),
+			createElement(FeaturePanel, { feature: feature, hero: hero, sourcebooks: [ core ], mode: PanelMode.Full })
+		)
+	);
+
+	it('reads the container and its nested Skill choice in zh-TW', () => {
+		const level1Container = level1FeaturesOf(getDomain('domain-trickery'))[0];
+		const { container } = renderFeature(level1Container);
+
+		expect(container.textContent).toContain('靈光詐現、隱密類技能');
+		expect(container.textContent).not.toContain('Inspired Deception, Intrigue Skill');
+
+		expandAll(container);
+
+		expect(container.textContent).toContain('隱密類技能');
+		expect(container.textContent).toContain('從隱密類技能中選擇 1 項技能。');
+		expect(container.textContent).not.toContain('Intrigue Skill');
+		expect(container.textContent).not.toContain('Choose a skill from Intrigue skills.');
+	});
+
+	it('falls back to canonical English in the English locale', () => {
+		const level1Container = level1FeaturesOf(getDomain('domain-trickery'))[0];
+		const { container } = renderFeature(level1Container);
+
+		fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
+		expandAll(container);
+
+		expect(container.textContent).toContain('Inspired Deception, Intrigue Skill');
+		expect(container.textContent).toContain('Choose a skill from Intrigue skills.');
+		expect(container.textContent).not.toMatch(/[一-鿿]/);
+	});
+
+	it('does not mutate the container or its children when switching locale', () => {
+		const level1Container = level1FeaturesOf(getDomain('domain-love'))[0];
+		const serialized = JSON.stringify(level1Container);
+		const { container } = renderFeature(level1Container, heroWithCharacteristics());
+
+		expandAll(container);
+		fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
+
+		expect(JSON.stringify(level1Container)).toBe(serialized);
+		expect(level1Container.id).toBe('domain-love-1');
+		expect(level1Container.name).toBe('Blessing of Compassion, Interpersonal Skill');
 	});
 });
 

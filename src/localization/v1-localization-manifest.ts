@@ -980,34 +980,35 @@ export const getV1CoreDomains = (sourcebooks: Sourcebook[]): Domain[] => {
 };
 
 /**
- * Adds the authored content of one Domain Feature node.
+ * Adds the player-facing fields of one Domain Feature node.
  *
- * A Multiple node is only a container: its own name and description are composed by
- * FactoryLogic from its children's names, so it carries no authored text of its own and only
- * its children are descended into. A SkillChoice node is likewise labelled and described by
- * FactoryLogic from the Skill lists it offers, and the Skills themselves already belong to the
- * Skill denominator, so it adds nothing here either. Everything else - an Ability node, and the
- * Text and PackageContent Features the Domains author directly - contributes its own fields.
+ * An Ability node contributes its ability's authored content. Every other node contributes its
+ * own name and description, including the two whose readings FactoryLogic composes rather than
+ * authors: a Multiple container, whose name and description are both built from its children's
+ * names, and a SkillChoice, whose label and prompt are built from the Skill lists it offers.
+ * Both are shown to the player, so both need a reading of their own.
+ *
+ * A Multiple is the only node descended into. A SkillChoice's Skills are not walked: they
+ * already belong to the Skill denominator, addressed by their own names.
  */
 const addRequiredDomainFeatureFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
-	switch (feature.type) {
-		case FeatureType.Ability:
-			addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability);
-			return;
-		case FeatureType.Multiple:
-			feature.data.features.forEach(child => addRequiredDomainFeatureFields(requiredCanonicalEnglish, child));
-			return;
-		case FeatureType.SkillChoice:
-			return;
-		default:
-			addRequiredElementFields(requiredCanonicalEnglish, feature);
+	if (feature.type === FeatureType.Ability) {
+		addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability);
+		return;
+	}
+
+	addRequiredElementFields(requiredCanonicalEnglish, feature);
+
+	if (feature.type === FeatureType.Multiple) {
+		feature.data.features.forEach(child => addRequiredDomainFeatureFields(requiredCanonicalEnglish, child));
 	}
 };
 
 /**
- * Builds the bounded 147-identity Core Domain Level 1-3 denominator from live canonical data:
- * 24 Domain name/description fields, the authored content of their Level 1-3 Features, the 12
- * Piety resource-gain triggers and the 24 default prayer Feature fields.
+ * Builds the bounded 195-identity Core Domain Level 1-3 denominator from live canonical data:
+ * 24 Domain name/description fields, the player-facing content of their Level 1-3 Features
+ * (including the 24 Level 1 container fields and the 24 Skill-choice fields), the 12 Piety
+ * resource-gain triggers and the 24 default prayer Feature fields.
  */
 export const createV1CoreDomainLevel1To3RequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
