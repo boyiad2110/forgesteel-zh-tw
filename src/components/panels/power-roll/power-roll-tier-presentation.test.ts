@@ -33,6 +33,33 @@ describe('localized calculated Power Roll tier presentation', () => {
 		expect(localize()).toBe('4 神聖傷害；`氣場` < 0，**緩速**（豁免解除）');
 	});
 
+	it('projects a calculator-owned characteristic choice with potency and condition emphasis', () => {
+		resolver.result = '7 + `理智`、`直覺`或`氣場`傷害；推動 2；`力量` < [強]，伏地';
+
+		expect(localize({
+			canonicalEnglish: '7 + R, I, or P damage; push 2; M < [strong] prone',
+			calculatedEnglish: '10 damage; push 2; `M < 3` **prone**'
+		})).toBe('10 傷害；推動 2；`力量` < 3，**伏地**');
+	});
+
+	it('keeps an unresolved characteristic choice in approved zh-TW while projecting condition emphasis', () => {
+		resolver.result = '7 + `理智`、`直覺`或`氣場`傷害；推動 2；`力量` < [強]，伏地';
+
+		expect(localize({
+			canonicalEnglish: '7 + R, I, or P damage; push 2; M < [strong] prone',
+			calculatedEnglish: '7 + R, I, or P damage; push 2; `M < [strong]` **prone**'
+		})).toBe('7 + `理智`、`直覺`或`氣場`傷害；推動 2；`力量` < [強]，**伏地**');
+	});
+
+	it('projects a characteristic-choice psychic damage result with forced movement', () => {
+		resolver.result = '2 + `理智`、`直覺`或`氣場`心靈傷害；滑動 1';
+
+		expect(localize({
+			canonicalEnglish: '2 + R, I, or P psychic damage; slide 1',
+			calculatedEnglish: '5 psychic damage; slide 1'
+		})).toBe('5 心靈傷害；滑動 1');
+	});
+
 	it('projects a calculated fixed damage value without changing the translated effect', () => {
 		resolver.result = '2 神聖傷害；推動 1';
 
@@ -76,6 +103,12 @@ describe('localized calculated Power Roll tier presentation', () => {
 	it('keeps calculated English when the rewrite is outside the supported projection grammar', () => {
 		expect(localize({ calculatedEnglish: '4 holy damage; `P < 0` **slowed** until the end of the encounter' }))
 			.toBe('4 holy damage; `P < 0` **slowed** until the end of the encounter');
+
+		resolver.result = '2 + `理智`、`直覺`或`氣場`傷害；滑動 1';
+		expect(localize({
+			canonicalEnglish: '2 + R, I, or P damage; slide 1',
+			calculatedEnglish: '5 damage; slide 1 until the end of the encounter'
+		})).toBe('5 damage; slide 1 until the end of the encounter');
 	});
 
 	it('returns the approved raw reading when calculation made no change', () => {

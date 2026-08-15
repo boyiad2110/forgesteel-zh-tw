@@ -2568,6 +2568,39 @@ const languageLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'language-field', languageName: 'Zaliac', field: 'description', canonicalEnglish: 'Spoken by dwarves; the language of engineering.', zhTW: '矮人的語言；工程學的語言。', approval: 'approved' }
 ];
 
+// Orden ancestry Ability authored content: the approved 28-entry packet is reproduced verbatim.
+// These are presentation-only snapshots; canonical English stays in Orden ancestry data.
+const ordenAncestryAbilityLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'memonek-feature-3-5', field: 'name', canonicalEnglish: 'Keeper of Order', zhTW: '秩序守護者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'memonek-feature-3-5', field: 'description', canonicalEnglish: 'Your connection to Axiom, the plane of Uttermost Law, allows you to manage chaos around you.', zhTW: '你與「至律位面」公理界的連結能讓你控制周圍的混亂。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'memonek-feature-3-5', field: 'type.trigger', canonicalEnglish: 'You, or a creature adjacent to you, makes a power roll', zhTW: '當你自己或 1 個與你相鄰的生物進行檢定時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'memonek-feature-3-5', field: 'sections.0.text', canonicalEnglish: 'You can remove an edge or a bane on the roll, turn a double edge into an edge, or turn a double bane into a bane. You can only use this benefit once per round.', zhTW: '你可以移除該次檢定的 1 個優勢或劣勢、將雙優勢轉為單優勢，或將雙劣勢轉為單劣勢。你每輪只能使用此效果 1 次。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-1', field: 'name', canonicalEnglish: 'Beyondsight', zhTW: '透視力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-1', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-1', field: 'description', canonicalEnglish: 'You adjust your vision to allow you to see through mundane obstructions.', zhTW: '你調整自己的視覺來看穿尋常障礙物。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-1', field: 'sections.0.text', canonicalEnglish: 'You can see through mundane obstructions that are 1 square thick or less. While your vision is adjusted this way, you can’t see the area within 1 square of you and you don’t have line of effect to any creature or object in that area. You can restore your usual vision as a maneuver.', zhTW: '你可以看穿厚度不超過 1 格的尋常障礙物。在你啟動透視力的期間，你無法看到 1 格內的區域，而且對 1 格內的任何生物或物體都沒有效果線。你可以使用機動動作恢復成正常視覺。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-2b', field: 'name', canonicalEnglish: 'Foresight', zhTW: '預視力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-2b', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-2b', field: 'type.trigger', canonicalEnglish: 'You are targeted with a strike', zhTW: '當你成為打擊的目標時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-2b', field: 'sections.0.text', canonicalEnglish: 'You impose a bane on the power roll.', zhTW: '你讓該次檢定承受 1 個劣勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-1', field: 'name', canonicalEnglish: 'Concussive Slam', zhTW: '猛力衝擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-1', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-1', field: 'description', canonicalEnglish: 'You slam an invisible force down upon the target.', zhTW: '你將一股無形的力量猛烈砸向目標。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-1', field: 'sections.0.roll.tier1', canonicalEnglish: '2 + R, I, or P damage', zhTW: '2 + `理智`、`直覺`或`氣場`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-1', field: 'sections.0.roll.tier2', canonicalEnglish: '5 + R, I, or P damage; push 1', zhTW: '5 + `理智`、`直覺`或`氣場`傷害；推動 1', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-1', field: 'sections.0.roll.tier3', canonicalEnglish: '7 + R, I, or P damage; push 2; M < [strong] prone', zhTW: '7 + `理智`、`直覺`或`氣場`傷害；推動 2；`力量` < [強]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-2', field: 'name', canonicalEnglish: 'Psionic Bolt', zhTW: '靈能箭', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-2', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-2', field: 'description', canonicalEnglish: 'You shoot forth a purple beam of psychic force that grips your target.', zhTW: '你射出一道能強制移動目標的紫色靈能光束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-2', field: 'sections.0.roll.tier1', canonicalEnglish: '2 + R, I, or P psychic damage; slide 1', zhTW: '2 + `理智`、`直覺`或`氣場`心靈傷害；滑動 1', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-2', field: 'sections.0.roll.tier2', canonicalEnglish: '5 + R, I, or P psychic damage; slide 2', zhTW: '5 + `理智`、`直覺`或`氣場`心靈傷害；滑動 2', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-2', field: 'sections.0.roll.tier3', canonicalEnglish: '7 + R, I, or P psychic damage; slide 3', zhTW: '7 + `理智`、`直覺`或`氣場`心靈傷害；滑動 3', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-3', field: 'name', canonicalEnglish: 'Minor Acceleration', zhTW: '微幅加速', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-3', field: 'target', canonicalEnglish: 'Self or one ally', zhTW: '自身或 1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-3', field: 'description', canonicalEnglish: 'You fill yourself or an ally with a burst of speed.', zhTW: '你讓自己或盟友瞬間爆發出更快的速度。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'time-raider-feature-2-5-3', field: 'sections.0.text', canonicalEnglish: 'The target gains a bonus to speed equal to your Reason, Intuition, or Presence score (your choice) until the start of your next turn.', zhTW: '目標的速度獲得等於你`理智`、`直覺`或`氣場`的加值（由你選擇），直到你下個回合開始。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -2580,5 +2613,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...tacticianLevel1AbilityLocalizationEntries,
 	...talentLevel1AbilityLocalizationEntries,
 	...troubadourLevel1AbilityLocalizationEntries,
-	...languageLocalizationEntries
+	...languageLocalizationEntries,
+	...ordenAncestryAbilityLocalizationEntries
 ];
