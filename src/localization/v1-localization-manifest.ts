@@ -21,6 +21,7 @@ import { Element } from '@/models/element';
 import { Ability } from '@/models/ability';
 import { Feature, FeatureAbility, FeatureChoice, FeatureMultiple } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
+import { Kit } from '@/models/kit';
 import { Language } from '@/models/language';
 import { Skill } from '@/models/skill';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
@@ -874,6 +875,70 @@ export const createV1OrdenAncestryAbilityRequiredCanonicalEnglish = (): Canonica
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Core standard Kit slice. The four Stormwight Kits (Boren, Corven,
+ * Raden, Vuken) carry a Kit type and their own animal-form content, and stay outside this
+ * batch.
+ */
+export const v1CoreStandardKitIDs = [
+	'kit-arcane-archer',
+	'kit-battlemind',
+	'kit-cloak-and-dagger',
+	'kit-dual-wielder',
+	'kit-guisarmier',
+	'kit-martial-artist',
+	'kit-mountain',
+	'kit-panther',
+	'kit-pugilist',
+	'kit-raider',
+	'kit-ranger',
+	'kit-rapid-fire',
+	'kit-retiarius',
+	'kit-shining-armor',
+	'kit-sniper',
+	'kit-spellsword',
+	'kit-stick-and-robe',
+	'kit-swashbuckler',
+	'kit-sword-and-board',
+	'kit-warrior-priest',
+	'kit-whirlwind'
+] as const;
+
+const isKitSignatureFeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/**
+ * Enumerates only the 21 standard Kits named above, read from the same Core Kit list every
+ * other Kit call site already draws from. The ID list is the bound: a Kit that is not named
+ * here is never reached, and no arbitrary Sourcebook content is traversed.
+ */
+export const getV1CoreStandardKits = (sourcebooks: Sourcebook[]): Kit[] => {
+	const kitsByID = new Map(SourcebookLogic.getKits(sourcebooks.filter(isV1HeroCreationSourcebook)).map(kit => [ kit.id, kit ]));
+
+	return v1CoreStandardKitIDs.map(id => {
+		const kit = kitsByID.get(id);
+		if (!kit) {
+			throw new Error(`Core standard Kit '${id}' is missing`);
+		}
+		return kit;
+	});
+};
+
+/** The one signature Ability each standard Kit grants, taken from that Kit's own top-level features. */
+export const getV1CoreStandardKitSignatureAbilities = (sourcebooks: Sourcebook[]): Ability[] => {
+	return getV1CoreStandardKits(sourcebooks).flatMap(kit => kit.features.filter(isKitSignatureFeatureAbility).map(feature => feature.data.ability));
+};
+
+/**
+ * Builds the bounded 181-identity Core standard Kit denominator from live canonical data:
+ * 42 Kit name/description fields plus the 139 authored fields of their signature Abilities.
+ */
+export const createV1CoreStandardKitRequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1CoreStandardKits(sourcebooks).forEach(kit => addRequiredElementFields(requiredCanonicalEnglish, kit));
+	getV1CoreStandardKitSignatureAbilities(sourcebooks).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -894,7 +959,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
-		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish()
+		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),
+		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).

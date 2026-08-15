@@ -554,6 +554,54 @@ const projectTroubadourAsymmetricCondition = (elementID: string, field: string, 
 };
 
 /**
+ * The two Kit signature readings whose canonical calculation resolves an authored
+ * characteristic-score reference in place. The rest of each sentence is untouched by the
+ * calculator, so only that verified value is carried into the Owner-approved zh-TW, and
+ * Library keeps the approved unresolved raw wording.
+ *
+ * Mountain's Power Roll tiers are deliberately absent. There the calculator rewrites
+ * '3 damage + M or A damage' into a single '6 damage', which merges two authored clauses;
+ * that is a structural rewrite, not a resolved value, so it is left to fall back to
+ * calculated English rather than restated in Chinese.
+ */
+const projectKitCharacteristicScoreValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'kit-mountain-signature',
+			field: 'sections.1.text',
+			canonical: 'this strike deals additional damage equal to your Might or Agility score (your choice).',
+			calculated: /this strike deals additional damage equal to (-?\d+) \(your choice\)\./,
+			localized: '此次打擊會額外造成等於你`力量`或`敏捷`（由你選擇）的傷害。',
+			replacement: (value: string) => `此次打擊會額外造成 ${value} 點傷害（由你選擇）。`
+		},
+		{
+			elementID: 'kit-sniper-signature',
+			field: 'sections.1.text',
+			canonical: 'this strike deals extra damage equal to your Might or Agility score (your choice).',
+			calculated: /this strike deals extra damage equal to (-?\d+) \(your choice\)\./,
+			localized: '此打擊會額外造成等於你`力量`或`敏捷`的傷害（由你選擇）。',
+			replacement: (value: string) => `此打擊會額外造成 ${value} 點傷害（由你選擇）。`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, calculatedMatch[0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(projection.localized, projection.replacement(calculatedMatch[1]));
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -620,6 +668,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const troubadourAsymmetricCondition = projectTroubadourAsymmetricCondition(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (troubadourAsymmetricCondition) {
 		return troubadourAsymmetricCondition;
+	}
+
+	const kitCharacteristicScoreValue = projectKitCharacteristicScoreValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (kitCharacteristicScoreValue) {
+		return kitCharacteristicScoreValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
