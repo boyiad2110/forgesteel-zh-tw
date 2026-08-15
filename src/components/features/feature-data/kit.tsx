@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Button, Drawer, Select, Space } from 'antd';
 import { Feature, FeatureKitData } from '@/models/feature';
 import { Collections } from '@/utils/collections';
@@ -21,6 +23,8 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -98,6 +102,7 @@ interface ConfigProps {
 }
 
 export const ConfigKit = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ kitSelectorOpen, setKitSelectorOpen ] = useState<boolean>(false);
 	const [ selectedKit, setSelectedKit ] = useState<Kit | null>(null);
 
@@ -118,14 +123,20 @@ export const ConfigKit = (props: ConfigProps) => {
 
 		return (
 			<Button className='status-warning' block={true} onClick={() => setKitSelectorOpen(true)}>
-				Choose a kit
+				{localizeUIString(locale, 'feature-kit.choose', 'Choose a kit')}
 			</Button>
 		);
 	};
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			{props.data.count > 1 ? <div className='ds-text'>Choose {props.data.count}:</div> : null}
+			{
+				props.data.count > 1 ?
+					<div className='ds-text'>
+						{localizeMessage(locale, 'feature-kit.choose-count', { count: `${props.data.count}` }, 'Choose {count}:')}
+					</div>
+					: null
+			}
 			{
 				props.data.selected.map(kit => {
 					const features = FeatureLogic.getFeaturesFromKit(kit, props.hero.class?.level || 1, TutorialMode.Complete);
@@ -136,8 +147,8 @@ export const ConfigKit = (props: ConfigProps) => {
 							content={
 								<Field
 									style={{ flex: '1 1 0' }}
-									label={kit.name}
-									value={<Markdown text={kit.description} useSpan={true} />}
+									label={localizeElementField(locale, kit.id, 'name', kit.name)}
+									value={<Markdown text={localizeElementField(locale, kit.id, 'description', kit.description)} useSpan={true} />}
 								/>
 							}
 							customizeContent={
