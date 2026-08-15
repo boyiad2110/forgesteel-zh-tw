@@ -288,6 +288,20 @@ describe('V1 Core Domain Level 1-3 manifest', () => {
 		expect(domainUIEntries.every(entry => entry.approval === 'approved')).toBe(true);
 	});
 
+	it('reads every Domain description as the Domain name without title quotes', () => {
+		const byIdentity = new Map(domainCatalogEntries.map(entry => [ getEntryIdentity(entry), entry ]));
+
+		v1CoreDomainIDs.forEach(id => {
+			const name = byIdentity.get(elementFieldIdentity(id, 'name'))?.zhTW;
+			const description = byIdentity.get(elementFieldIdentity(id, 'description'))?.zhTW;
+
+			expect(name).toBeDefined();
+			expect(description).toBe(`${name}領域。`);
+			expect(description).not.toContain('「');
+			expect(description).not.toContain('」');
+		});
+	});
+
 	it('records exactly the approved glossary delta', () => {
 		const rows = glossaryCsv.split(/\r?\n/).filter(row => row.trim() !== '');
 
@@ -325,7 +339,7 @@ describe('Domain panel presentation', () => {
 		const { container } = renderDomain(getDomain('domain-sun'), PanelMode.Full);
 
 		expect(container.textContent).toContain('太陽');
-		expect(container.textContent).toContain('「太陽」領域。');
+		expect(container.textContent).toContain('太陽領域。');
 		expect(Array.from(container.querySelectorAll('.ant-segmented-item-label')).map(node => node.textContent)).toEqual([ '概述', '特性', '額外內容' ]);
 
 		clickPage(container, '特性');
@@ -457,7 +471,7 @@ describe('Domain selection presentation', () => {
 		const { container } = renderConfig(domainData({ selected: [ getDomain('domain-knowledge') ] }));
 
 		expect(container.textContent).toContain('知識');
-		expect(container.textContent).toContain('「知識」領域。');
+		expect(container.textContent).toContain('知識領域。');
 		expect(container.textContent).not.toContain('The Knowledge domain.');
 	});
 
