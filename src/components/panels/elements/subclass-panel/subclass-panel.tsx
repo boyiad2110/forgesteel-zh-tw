@@ -1,5 +1,5 @@
 import { CSSProperties, useState } from 'react';
-import { localizeMessage, localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
@@ -37,11 +37,14 @@ export const SubclassPanel = (props: Props) => {
 	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
 
-	const subclassName = props.subclass.name || localizeUIString(locale, 'subclass-panel.unnamed', 'Unnamed Subclass');
+	const subclassName = props.subclass.name
+		? localizeElementField(locale, props.subclass.id, 'name', props.subclass.name)
+		: localizeUIString(locale, 'subclass-panel.unnamed', 'Unnamed Subclass');
+	const subclassDescription = localizeElementField(locale, props.subclass.id, 'description', props.subclass.description);
 
 	const getOverview = () => {
 		return (
-			<Markdown text={props.subclass.description} />
+			<Markdown text={subclassDescription} />
 		);
 	};
 
@@ -58,7 +61,7 @@ export const SubclassPanel = (props: Props) => {
 										// The heading names the level the subclass already carries; the
 										// level itself is the number it always was.
 										label={localizeMessage(locale, 'subclass-panel.level', { level: lvl.level.toString() }, levelTemplate)}
-										value={lvl.features.map(f => f.name).join(', ')}
+										value={lvl.features.map(f => localizeElementField(locale, f.id, 'name', f.name)).join(', ')}
 									/>
 								}
 							>
@@ -175,7 +178,7 @@ export const SubclassPanel = (props: Props) => {
 				<HeaderText level={1} tags={tags}>
 					{subclassName}
 				</HeaderText>
-				<Markdown text={props.subclass.description} />
+				<Markdown text={subclassDescription} />
 			</div>
 		);
 	}

@@ -23,6 +23,7 @@ import { Domain } from '@/models/domain';
 import { Feature, FeatureAbility, FeatureChoice, FeatureMultiple } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
 import { Kit } from '@/models/kit';
+import { SubClass } from '@/models/subclass';
 import { Language } from '@/models/language';
 import { Skill } from '@/models/skill';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
@@ -1040,6 +1041,93 @@ export const createV1CoreDomainLevel1To3RequiredCanonicalEnglish = (sourcebooks:
 	return requiredCanonicalEnglish;
 };
 
+/** The three Censor Orders. Their Level 2+ content stays outside this batch. */
+export const v1CensorOrderIDs = [
+	'censor-sub-1',
+	'censor-sub-2',
+	'censor-sub-3'
+] as const;
+
+/**
+ * Adds the player-facing fields of one Censor or Order Feature node.
+ *
+ * An Ability node contributes nothing here: Censor's Level 1 authored Ability content is
+ * already enumerated by its own slice above, and an Order's Abilities belong to Levels 2+.
+ * Every other node contributes its own name and description, including the ones FactoryLogic
+ * labels rather than authors - the Bonus, SkillChoice, DomainChoice, KitChoice, DomainFeature
+ * and ClassAbilityChoice Features a player sees on the class page. A heroic resource also
+ * contributes the trigger of each way it is gained; its tag and value are canonical wiring the
+ * Hero's own resource calculation reads, and are not display text.
+ *
+ * Nothing is descended into: Censor Level 1 has no nested container Feature.
+ */
+const addRequiredCensorFeatureFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
+	if (feature.type === FeatureType.Ability) {
+		return;
+	}
+
+	addRequiredElementFields(requiredCanonicalEnglish, feature);
+
+	if (feature.type === FeatureType.HeroicResource) {
+		feature.data.gains.forEach((gain, index) => {
+			if (gain.trigger === '') {
+				return;
+			}
+
+			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
+			if (requiredCanonicalEnglish[identity] !== undefined) {
+				throw new Error(`duplicate localization identity '${identity}'`);
+			}
+			requiredCanonicalEnglish[identity] = gain.trigger;
+		});
+	}
+};
+
+/** The Level 1 features of the three Orders, read from the explicit Order ID list. */
+export const getV1CensorOrders = (): SubClass[] => {
+	const subclassesByID = new Map(censor.subclasses.map(subclass => [ subclass.id, subclass ]));
+
+	return v1CensorOrderIDs.map(id => {
+		const subclass = subclassesByID.get(id);
+		if (!subclass) {
+			throw new Error(`Censor Order '${id}' is missing`);
+		}
+		return subclass;
+	});
+};
+
+const getLevelOneFeatures = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelOne = featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error(`${owner} Level 1 features are missing`);
+	}
+	return levelOne.features;
+};
+
+/**
+ * Builds the bounded 34-identity Censor Level 1 + Order denominator from live canonical data:
+ * the Censor's own subclass-category name, the player-facing fields of its Level 1 non-Ability
+ * Features including the three Wrath gain triggers, and each Order's name, description and
+ * Level 1 Features. Only Level 1 and only these three Orders are reached, so this stays a
+ * bounded, reviewable slice rather than a recursive class/subclass crawler.
+ */
+export const createV1CensorLevel1AndOrderRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	// The category a Censor's subclasses are called by. The class's own name and description
+	// already belong to the Hero creation denominator; only this field is added here.
+	requiredCanonicalEnglish[elementFieldIdentity(censor.id, 'subclassName')] = censor.subclassName;
+
+	getLevelOneFeatures(censor.featuresByLevel, 'Censor').forEach(feature => addRequiredCensorFeatureFields(requiredCanonicalEnglish, feature));
+
+	getV1CensorOrders().forEach(order => {
+		addRequiredElementFields(requiredCanonicalEnglish, order);
+		getLevelOneFeatures(order.featuresByLevel, `Censor Order '${order.id}'`).forEach(feature => addRequiredCensorFeatureFields(requiredCanonicalEnglish, feature));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -1062,7 +1150,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),
 		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
-		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks)
+		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).

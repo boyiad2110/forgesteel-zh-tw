@@ -41,6 +41,12 @@ export const ClassPanel = (props: Props) => {
 		? localizeElementField(locale, props.heroClass.id, 'name', props.heroClass.name)
 		: localizeUIString(locale, 'class-panel.unnamed', 'Unnamed Class');
 	const classDescription = localizeElementField(locale, props.heroClass.id, 'description', props.heroClass.description);
+	// The category a class calls its subclasses by. English pluralizes it for the overview
+	// heading; a zh-TW reading is already the word it is, so no plural morphology is applied
+	// to it. A class with no approved reading falls back to the canonical English behavior.
+	const canonicalSubclassName = props.heroClass.subclassName;
+	const subclassName = localizeElementField(locale, props.heroClass.id, 'subclassName', canonicalSubclassName);
+	const subclassCategoryLabel = subclassName === canonicalSubclassName ? Format.pluralize(canonicalSubclassName) : subclassName;
 
 	const getOverview = () => {
 		return (
@@ -48,7 +54,7 @@ export const ClassPanel = (props: Props) => {
 				<Markdown text={classDescription} />
 				{
 					props.heroClass.subclasses.length > 0 ?
-						<Field label={Format.pluralize(props.heroClass.subclassName)} value={props.heroClass.subclasses.map(c => c.name).join(', ')} />
+						<Field label={subclassCategoryLabel} value={props.heroClass.subclasses.map(c => localizeElementField(locale, c.id, 'name', c.name)).join(', ')} />
 						: null
 				}
 				<Field label={localizeUIString(locale, 'class-panel.primary-characteristics', 'Primary Characteristics')} value={props.heroClass.primaryCharacteristics.join(', ') || props.heroClass.primaryCharacteristicsOptions.map(array => array.join(', ') || 'None').join(' or ') || 'None'} />
@@ -67,7 +73,7 @@ export const ClassPanel = (props: Props) => {
 								title={
 									<Field
 										label={localizeMessage(locale, 'class-panel.level', { level: lvl.level.toString() }, levelTemplate)}
-										value={lvl.features.map(f => f.name).join(', ')}
+										value={lvl.features.map(f => localizeElementField(locale, f.id, 'name', f.name)).join(', ')}
 									/>
 								}
 							>
@@ -132,7 +138,7 @@ export const ClassPanel = (props: Props) => {
 			<div className='class-subclasses-list'>
 				{
 					props.heroClass.subclasses.map(sc => (
-						<Expander key={sc.id} title={sc.name}>
+						<Expander key={sc.id} title={localizeElementField(locale, sc.id, 'name', sc.name)}>
 							<SubclassPanel key={sc.id} subclass={sc} sourcebooks={props.sourcebooks} hero={props.hero} mode={PanelMode.Full} style={{ padding: '5px' }} />
 						</Expander>
 					))
