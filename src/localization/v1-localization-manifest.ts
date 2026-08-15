@@ -440,6 +440,49 @@ export const createV1ConduitLevel1AbilityRequiredCanonicalEnglish = (): Canonica
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * Adds only the bounded Conduit Level 1 non-Ability Feature tree. Ability nodes stop here:
+ * that authored content belongs to the existing Conduit ability slice. Choice options and
+ * Multiple children remain player-facing FeaturePanel content, so their own stable fields
+ * are included without turning this into a generic class crawler.
+ */
+const addRequiredConduitLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
+	if (feature.type === FeatureType.Ability) {
+		return;
+	}
+
+	addRequiredElementFields(requiredCanonicalEnglish, feature);
+
+	if (feature.type === FeatureType.HeroicResource) {
+		feature.data.gains.forEach((gain, index) => {
+			if (gain.trigger === '') {
+				return;
+			}
+
+			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
+			if (requiredCanonicalEnglish[identity] !== undefined) {
+				throw new Error(`duplicate localization identity '${identity}'`);
+			}
+			requiredCanonicalEnglish[identity] = gain.trigger;
+		});
+	}
+
+	if (feature.type === FeatureType.Choice) {
+		feature.data.options.forEach(option => addRequiredConduitLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
+	}
+
+	if (feature.type === FeatureType.Multiple) {
+		feature.data.features.forEach(child => addRequiredConduitLevel1NonAbilityFields(requiredCanonicalEnglish, child));
+	}
+};
+
+/** Builds the bounded 42-identity Conduit Level 1 non-Ability denominator from live data. */
+export const createV1ConduitLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getLevelOneFeatures(conduit.featuresByLevel, 'Conduit').forEach(feature => addRequiredConduitLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Elementalist Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
 export const v1ElementalistLevel1AbilityIDs = [
 	'elementalist-1-4',
@@ -1141,6 +1184,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1LanguageRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CensorLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1ConduitLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
