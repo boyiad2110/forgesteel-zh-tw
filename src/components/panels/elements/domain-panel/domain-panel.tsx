@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Alert, Flex, Segmented } from 'antd';
 import { Domain } from '@/models/domain';
 import { Empty } from '@/components/controls/empty/empty';
@@ -14,6 +16,8 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './domain-panel.scss';
@@ -26,11 +30,17 @@ interface Props {
 }
 
 export const DomainPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ page, setPage ] = useState<string>('overview');
+
+	const domainName = props.domain.name
+		? localizeElementField(locale, props.domain.id, 'name', props.domain.name)
+		: localizeUIString(locale, 'domain-panel.unnamed', 'Unnamed Domain');
+	const domainDescription = localizeElementField(locale, props.domain.id, 'description', props.domain.description);
 
 	const getOverview = () => {
 		return (
-			<Markdown text={props.domain.description} />
+			<Markdown text={domainDescription} />
 		);
 	};
 
@@ -44,8 +54,8 @@ export const DomainPanel = (props: Props) => {
 								key={lvl.level}
 								title={
 									<Field
-										label={`Level ${lvl.level.toString()}`}
-										value={lvl.features.map(f => f.name).join(', ')}
+										label={localizeMessage(locale, 'domain-panel.level', { level: lvl.level.toString() }, 'Level {level}')}
+										value={lvl.features.map(f => localizeElementField(locale, f.id, 'name', f.name)).join(', ')}
 									/>
 								}
 							>
@@ -68,18 +78,20 @@ export const DomainPanel = (props: Props) => {
 				<Alert
 					type='info'
 					showIcon={true}
-					title='The features on this page are used by the Conduit class.'
+					title={localizeUIString(locale, 'domain-panel.conduit-only-note', 'The features on this page are used by the Conduit class.')}
 				/>
 				{
 					props.domain.resourceGains.length > 0 ?
 						<>
-							<HeaderText>Resource Gains</HeaderText>
+							<HeaderText>{localizeUIString(locale, 'domain-panel.resource-gains', 'Resource Gains')}</HeaderText>
 							<ul>
 								{
 									props.domain.resourceGains.map((g, n) => (
 										<li key={n}>
 											<Flex align='center' justify='space-between' gap={10}>
-												<div className='ds-text compact-text'>{g.trigger}</div>
+												<div className='ds-text compact-text'>
+													{localizeElementField(locale, props.domain.id, `resourceGains.${n}.trigger`, g.trigger)}
+												</div>
 												<Pill>+{g.value}</Pill>
 											</Flex>
 										</li>
@@ -119,10 +131,11 @@ export const DomainPanel = (props: Props) => {
 				break;
 		}
 
+		// The value is what the panel is on; the label beside it is only how that page reads.
 		const pages = [
-			{ value: 'overview', label: 'Overview' },
-			{ value: 'features', label: 'Features' },
-			{ value: 'additional', label: 'Additional' }
+			{ value: 'overview', label: localizeUIString(locale, 'domain-panel.page.overview', 'Overview') },
+			{ value: 'features', label: localizeUIString(locale, 'domain-panel.page.features', 'Features') },
+			{ value: 'additional', label: localizeUIString(locale, 'domain-panel.page.additional', 'Additional') }
 		];
 
 		return (
@@ -152,9 +165,9 @@ export const DomainPanel = (props: Props) => {
 		return (
 			<div className='domain-panel compact'>
 				<HeaderText level={1} tags={tags}>
-					{props.domain.name || 'Unnamed Domain'}
+					{domainName}
 				</HeaderText>
-				<Markdown text={props.domain.description} />
+				<Markdown text={domainDescription} />
 			</div>
 		);
 	}
@@ -163,7 +176,7 @@ export const DomainPanel = (props: Props) => {
 		<ErrorBoundary>
 			<div className='domain-panel' id={SheetFormatter.getPageId('domain', props.domain.id)}>
 				<HeaderText level={1} tags={tags}>
-					{props.domain.name || 'Unnamed Domain'}
+					{domainName}
 				</HeaderText>
 				{getContent()}
 			</div>

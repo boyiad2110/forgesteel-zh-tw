@@ -19,6 +19,7 @@ import { orden } from '@/data/sourcebooks/official/orden';
 import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 import { Element } from '@/models/element';
 import { Ability } from '@/models/ability';
+import { Domain } from '@/models/domain';
 import { Feature, FeatureAbility, FeatureChoice, FeatureMultiple } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
 import { Kit } from '@/models/kit';
@@ -939,6 +940,106 @@ export const createV1CoreStandardKitRequiredCanonicalEnglish = (sourcebooks: Sou
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Core Domain slice: the 12 Core Domains a Conduit chooses from. Only
+ * Levels 1-3 are in this batch; Levels 4-10 stay outside it.
+ */
+export const v1CoreDomainIDs = [
+	'domain-creation',
+	'domain-death',
+	'domain-fate',
+	'domain-knowledge',
+	'domain-life',
+	'domain-love',
+	'domain-nature',
+	'domain-protection',
+	'domain-storm',
+	'domain-sun',
+	'domain-trickery',
+	'domain-war'
+] as const;
+
+/** The Domain levels this batch covers. Level 3 authors no content in any of the 12 Domains. */
+export const v1CoreDomainLevels = [ 1, 2, 3 ];
+
+/**
+ * Enumerates only the 12 Core Domains named above, read from the same Domain list every other
+ * Domain call site already draws from. The ID list is the bound: a Domain that is not named
+ * here is never reached, and no arbitrary Sourcebook content is traversed.
+ */
+export const getV1CoreDomains = (sourcebooks: Sourcebook[]): Domain[] => {
+	const domainsByID = new Map(SourcebookLogic.getDomains(sourcebooks.filter(isV1HeroCreationSourcebook)).map(domain => [ domain.id, domain ]));
+
+	return v1CoreDomainIDs.map(id => {
+		const domain = domainsByID.get(id);
+		if (!domain) {
+			throw new Error(`Core Domain '${id}' is missing`);
+		}
+		return domain;
+	});
+};
+
+/**
+ * Adds the player-facing fields of one Domain Feature node.
+ *
+ * An Ability node contributes its ability's authored content. Every other node contributes its
+ * own name and description, including the two whose readings FactoryLogic composes rather than
+ * authors: a Multiple container, whose name and description are both built from its children's
+ * names, and a SkillChoice, whose label and prompt are built from the Skill lists it offers.
+ * Both are shown to the player, so both need a reading of their own.
+ *
+ * A Multiple is the only node descended into. A SkillChoice's Skills are not walked: they
+ * already belong to the Skill denominator, addressed by their own names.
+ */
+const addRequiredDomainFeatureFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
+	if (feature.type === FeatureType.Ability) {
+		addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability);
+		return;
+	}
+
+	addRequiredElementFields(requiredCanonicalEnglish, feature);
+
+	if (feature.type === FeatureType.Multiple) {
+		feature.data.features.forEach(child => addRequiredDomainFeatureFields(requiredCanonicalEnglish, child));
+	}
+};
+
+/**
+ * Builds the bounded 195-identity Core Domain Level 1-3 denominator from live canonical data:
+ * 24 Domain name/description fields, the player-facing content of their Level 1-3 Features
+ * (including the 24 Level 1 container fields and the 24 Skill-choice fields), the 12 Piety
+ * resource-gain triggers and the 24 default prayer Feature fields.
+ */
+export const createV1CoreDomainLevel1To3RequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	getV1CoreDomains(sourcebooks).forEach(domain => {
+		addRequiredElementFields(requiredCanonicalEnglish, domain);
+
+		domain.featuresByLevel
+			.filter(level => v1CoreDomainLevels.includes(level.level))
+			.forEach(level => level.features.forEach(feature => addRequiredDomainFeatureFields(requiredCanonicalEnglish, feature)));
+
+		// The trigger is the only player-facing prose a resource gain carries; its resource and
+		// tag are canonical identifiers the Conduit's own resource wiring reads.
+		domain.resourceGains.forEach((gain, index) => {
+			if (gain.trigger === '') {
+				return;
+			}
+
+			const identity = elementFieldIdentity(domain.id, `resourceGains.${index}.trigger`);
+			if (requiredCanonicalEnglish[identity] !== undefined) {
+				throw new Error(`duplicate localization identity '${identity}'`);
+			}
+			requiredCanonicalEnglish[identity] = gain.trigger;
+		});
+
+		domain.defaultFeatures.forEach(feature => addRequiredDomainFeatureFields(requiredCanonicalEnglish, feature));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -960,7 +1061,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),
-		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks)
+		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks)
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
