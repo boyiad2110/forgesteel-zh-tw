@@ -10,6 +10,8 @@ import { shadow } from '@/data/classes/shadow/shadow';
 import { tactician } from '@/data/classes/tactician/tactician';
 import { talent } from '@/data/classes/talent/talent';
 import { troubadour } from '@/data/classes/troubadour/troubadour';
+import { memonek } from '@/data/ancestries/memonek';
+import { timeRaider } from '@/data/ancestries/time-raider';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
@@ -823,6 +825,55 @@ export const createV1TroubadourLevel1AbilityRequiredCanonicalEnglish = (): Canon
 	return requiredCanonicalEnglish;
 };
 
+/** The exact approved Orden ancestry Ability slice; all other ancestry Ability content remains unresolved. */
+export const v1OrdenAncestryAbilityIDs = [
+	'memonek-feature-3-5',
+	'time-raider-feature-2-1',
+	'time-raider-feature-2-2b',
+	'time-raider-feature-2-5-1',
+	'time-raider-feature-2-5-2',
+	'time-raider-feature-2-5-3'
+] as const;
+
+const collectAncestryAbilities = (features: Feature[], abilities: Ability[] = []): Ability[] => {
+	features.forEach(feature => {
+		if (feature.type === FeatureType.Ability) {
+			abilities.push(feature.data.ability);
+			return;
+		}
+
+		if (feature.type === FeatureType.Choice) {
+			collectAncestryAbilities(feature.data.options.map(option => option.feature), abilities);
+		}
+
+		if (feature.type === FeatureType.Multiple) {
+			collectAncestryAbilities(feature.data.features, abilities);
+		}
+	});
+
+	return abilities;
+};
+
+/** Enumerates only the six approved nested Memonek and Time Raider Ability nodes. */
+export const getV1OrdenAncestryAbilities = (): Ability[] => {
+	const abilitiesByID = new Map(collectAncestryAbilities([ ...memonek.features, ...timeRaider.features ]).map(ability => [ ability.id, ability ]));
+
+	return v1OrdenAncestryAbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Orden ancestry ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 28-identity Orden ancestry Ability denominator from live canonical data. */
+export const createV1OrdenAncestryAbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1OrdenAncestryAbilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -842,7 +893,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
-		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish()
+		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).

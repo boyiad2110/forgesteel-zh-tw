@@ -11,13 +11,18 @@ interface PowerRollTierPresentation {
 }
 
 const characteristicToken = '(?:might|agility|reason|intuition|presence|m|a|r|i|p)';
+// A characteristic choice is still one calculator-owned operand. The presentation layer
+// recognizes its authored structure but never selects or evaluates a characteristic itself.
+const characteristicChoice = `(?:${characteristicToken}\\s*,\\s*)+or\\s*${characteristicToken}`;
+const characteristicExpression = `(?:\\d*${characteristicToken}|${characteristicChoice})`;
 // A tier may open with a dice term the calculator never resolves, e.g. '2d6 + 7 + A damage'.
 // It is matched as part of the leading prefix so it is carried through untouched and only
 // the arithmetic the calculator did resolve is projected.
 const dicePrefix = '(?:\\d*d\\d+\\s*\\+\\s*)?';
-const canonicalDamagePattern = new RegExp(`((?:^|;\\s*)${dicePrefix})(\\d+(?:\\s*\\+\\s*\\d*${characteristicToken})?)(?=\\s+(?:(?:[a-z]+(?:\\s+or\\s+[a-z]+)*)\\s+)?damage\\b)`, 'gi');
+const canonicalDamagePattern = new RegExp(`((?:^|;\\s*)${dicePrefix})(\\d+(?:\\s*\\+\\s*${characteristicExpression})?)(?=\\s+(?:(?:[a-z]+(?:\\s+or\\s+[a-z]+)*)\\s+)?damage\\b)`, 'gi');
 const calculatedDamagePattern = new RegExp(`((?:^|;\\s*)${dicePrefix})(-?\\d+)(?=\\s+(?:(?:[a-z]+(?:\\s+or\\s+[a-z]+)*)\\s+)?damage\\b)`, 'gi');
-const localizedDamagePattern = new RegExp(`((?:^|[；;]\\s*)${dicePrefix})(\\d+(?:\\s*\\+\\s*\`[^\`]+\`)?)[ \\t]*(?=[^；;]*傷害)`, 'g');
+const localizedCharacteristicChoice = '`[^`]+`(?:、`[^`]+`)+或`[^`]+`';
+const localizedDamagePattern = new RegExp(`((?:^|[；;]\\s*)${dicePrefix})(\\d+(?:\\s*\\+\\s*(?:${localizedCharacteristicChoice}|\`[^\`]+\`))?)[ \\t]*(?=[^；;]*傷害)`, 'g');
 const canonicalPotencyPattern = /\b(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*\[(?:weak|average|avg|strong)\]/gi;
 const calculatedPotencyPattern = /`?(?:might|agility|reason|intuition|presence|m|a|r|i|p)\s*<\s*(-?\d+)`?/gi;
 const localizedPotencyPattern = /(`[^`]+`\s*<\s*)\[(?:弱|中|強)\]/g;
