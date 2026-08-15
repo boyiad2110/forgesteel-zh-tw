@@ -66,6 +66,14 @@ remote branch 已存在、PR 已建立或已 merge、或 local history 與 remot
 
 任何一項不符：停止並回報。不要先修歷史。
 
+## Approved Evidence Inheritance
+
+Reviewer PASS 且已取得 exact approved HEAD 或完整 reviewed patch 時，Stage 3 Contract 的 expected changed-files、commit count 與其他機械 evidence，直接從已審 evidence 與 actual Git state 取得；不要人工重新抄寫另一套預期值。
+
+PR actual state 與 approved HEAD／reviewed patch 不符，才是異常，仍依既有 Pre-write、Push／PR 與 CI gate STOP。若只有 Stage 3 Contract 的人工文字寫錯檔名，但 PR HEAD 未變且 actual files 與已審 patch 一致，這是 clerical mismatch：修正 Contract／gate 後繼續，不得要求改 code、amend、重建 PR 或停止整個成果。
+
+本節不放寬 repository、base、head、SHA、diff、commit count、CI、mergeability 或 ancestry 的既有 safety checks；這些 actual-state checks 仍以本文件各 gate 為準。
+
 ## Push / PR Gate
 
 Push feature branch 後確認 remote branch HEAD 仍等於 approved HEAD，沒有額外 commit。

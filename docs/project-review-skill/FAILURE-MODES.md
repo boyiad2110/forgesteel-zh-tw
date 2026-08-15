@@ -285,3 +285,33 @@ Agent 自動修失敗 PR、改寫 history、建立第二個 PR，或在新 green
 修正：
 
 只依 Reviewer 授權的 bounded recovery，在同 branch／PR 加一般 correction commit，取得 exact-HEAD evidence 與 CI，再由 Reviewer 固定新的 approved HEAD。
+
+## 29. 未查 Precedent 就誤判新 Architecture
+
+錯誤：
+
+看到 shared component、presenter、calculated grammar 或 fallback，就未查近期 merged precedent、現行 code 與 tests，直接稱為未知 architecture 並 STOP。
+
+修正：
+
+先依 `PROJECT-REVIEW-SKILL.md` 的 Precedent Gate 查足以判定本批的最近相關前例，再依實際 extension risk 固定 Contract。
+
+## 30. Stage 3 重抄 Approved Evidence 製造假 Mismatch
+
+錯誤：
+
+已審 patch 是 `.test.tsx`，但 Stage 3 Contract 人工寫成 `.test.ts`，於是把這個文字錯誤當成 PR／code 異常。
+
+修正：
+
+依 `GIT-SAFETY.md` 的 Approved Evidence Inheritance 比對 approved HEAD／reviewed patch 與 actual Git state；只有 actual state 不符才 STOP。純 clerical mismatch 修正 Contract／gate 後繼續。
+
+## 31. 未讀 Repository Tooling Evidence 就換 Package Manager
+
+錯誤：
+
+因 global pnpm 可用就執行 `pnpm install`，沒有先讀 `package.json`、lockfile 與 config。
+
+修正：
+
+依 `AGENT-TASK-CONTRACT.md` 的 Tooling / Skill repository evidence 選擇 manager；只有 evidence 真正衝突且影響安全執行時才 STOP。

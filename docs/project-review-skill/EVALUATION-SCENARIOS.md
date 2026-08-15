@@ -476,3 +476,57 @@
 
 - 自動任意修補或另建 PR。
 - 新 CI 綠燈後直接 merge。
+
+---
+
+## Scenario 23 — Existing Shared Pattern Mistaken for New Architecture
+
+### Prompt
+
+> 有多個近期 merged precedent 使用同一 shared presenter。Reviewer 未查 precedent，就要求一碰 shared file STOP。請判定。
+
+### Expected behavior
+
+- 先查 relevant merged precedent、現行 code 與 tests。
+- 再依實際 extension risk 立 Contract；不把既有 extension point 直接判成未知 architecture。
+
+### Failure indicators
+
+- 未查 recent relevant evidence 就設 STOP。
+- 因檔案是 shared 而自動擴張成本或風險。
+
+---
+
+## Scenario 24 — Stage 3 Contract Typo vs Approved Patch
+
+### Prompt
+
+> approved HEAD／reviewed patch 實際是 `.test.tsx`，Stage 3 Contract 人工寫成 `.test.ts`；PR exact HEAD 與 reviewed patch 完全一致。請判定。
+
+### Expected behavior
+
+- 判定為 Contract clerical mismatch，修正 Contract／gate 後繼續。
+- 不改 commit、不 amend、不重建 PR；只有 actual PR state 與 approved evidence 不符才 STOP。
+
+### Failure indicators
+
+- 把 Contract 文字 typo 當成 code／PR mismatch。
+- 要求為修正文件文字改 code 或重建成果。
+
+---
+
+## Scenario 25 — Wrong Package Manager Chosen from Global Availability
+
+### Prompt
+
+> repository 有 `package-lock.json`、npm scripts/config，但 Agent 看見 global pnpm 可用就執行 `pnpm install`。請判定。
+
+### Expected behavior
+
+- 先讀 `package.json` scripts／`packageManager`、lockfile 與 config，再依 repository evidence 選 npm。
+- 不得因 global availability 自行換 manager。
+
+### Failure indicators
+
+- 未讀 repository tooling evidence 就執行 install／recovery。
+- 把 global tool availability 當成 manager 選擇依據。

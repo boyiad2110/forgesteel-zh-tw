@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.5.0"
+  version: "0.5.1"
 ---
 
 # Forge Steel Reviewer
@@ -74,6 +74,12 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 - critical interaction 不應被 mock 掉。
 - 最後一次 code change 後取得 fresh tests／lint／typecheck／build／CI evidence；需要 CI-equivalent local checks 時，依 Contract 以固定且乾淨的 exact HEAD 執行。
 - manual smoke 只補自動測試難以證明的 UI／responsive／interaction risk。
+
+### Precedent Gate
+
+在 Reviewer 規劃或判定本批 architecture／risk 前，若涉及既有 shared component、localization presenter、calculated grammar、fallback 或其他重複出現的 architecture pattern，必須先查足以判定本批的**近期相關 merged precedent、現行 code 與 tests**。
+
+不要求無限制考古；只查最近且與本批 extension／risk 有關的前例。precedent 尚未查清前，不得把已存在的 extension point 判成「未知 architecture」，或因此設置不必要的 STOP；查清後再依實際 extension risk 固定 Contract。
 
 ## 5. Prepare Agent Task
 
@@ -167,6 +173,8 @@ Owner 人工驗收與必要測試通過後，功能／內容 Review 結束。
 前提：Reviewer PASS、必要人工驗收 PASS、approved HEAD 固定、working tree clean。
 
 依 `GIT-SAFETY.md` 執行。
+
+Stage 3 的 expected changed-files、commit count 等機械 evidence，應從已核准的 exact approved HEAD／完整 reviewed patch 與 actual Git state 繼承；其異常判定與 Contract clerical mismatch 處理以 `GIT-SAFETY.md` 的 **Approved Evidence Inheritance** 為唯一詳細 authority。
 
 ### Takeover / interrupted-execution recovery gate
 
