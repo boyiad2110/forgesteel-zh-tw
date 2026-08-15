@@ -35,6 +35,8 @@ Batch 預設應是 coherent、可獨立驗收的 UI／功能 slice；不要因�
 - 若 installer 在 repository 產生未知檔案，停止並回報；不要用 `git clean`、reset 或修改 `.gitignore` 掩蓋。
 - execution skill 只輔助實作／驗證，不得覆蓋 Batch Contract、Owner decision 或 repository authority。
 
+執行 package-manager-dependent command、dependency install 或 recovery 前，先讀 repository 的 `package.json` scripts／`packageManager`（若有）、lockfile 與 `.npmrc`／相關 config，並依這些 repository evidence 選擇 npm、pnpm 或 yarn。global 可用的 package manager 不構成自行換工具的理由；例如有 `package-lock.json` 且 scripts／config 指向 npm 時，不得改用 pnpm。只有 evidence 真正衝突且會影響安全執行時才 STOP。
+
 ## Translation Boundary
 
 Agent 不得自行建立新的中文遊戲術語或改變已核准語意。
@@ -178,6 +180,10 @@ Manual smoke 應使用少量代表性 flow，不把每一批都升級成全站�
 - branch cleanup 出現不符合預期的安全警訊。
 
 不得為了繼續流程自行 rebase、reset、amend、force push 或改 code。
+
+### Approved Evidence Inheritance
+
+Reviewer PASS 且已取得 exact approved HEAD 或完整 reviewed patch 時，Stage 3 Contract 的 expected changed-files、commit count 等機械欄位直接從該已審 evidence 與 actual Git state 取得，不人工另抄一套。詳細異常判定與 clerical mismatch 處理以 `GIT-SAFETY.md` 的 **Approved Evidence Inheritance** 為準。
 
 Stage 3 詳細 Git safety 依 `GIT-SAFETY.md`。
 
