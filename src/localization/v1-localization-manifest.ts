@@ -9,6 +9,7 @@ import { nullClass } from '@/data/classes/null/null';
 import { shadow } from '@/data/classes/shadow/shadow';
 import { tactician } from '@/data/classes/tactician/tactician';
 import { talent } from '@/data/classes/talent/talent';
+import { troubadour } from '@/data/classes/troubadour/troubadour';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
@@ -769,6 +770,59 @@ export const createV1TalentLevel1AbilityRequiredCanonicalEnglish = (): Canonical
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Troubadour Level 1 base-class ability slice: the two direct Level 1
+ * Performance abilities plus the signature, cost 3 and cost 5 class abilities 55-66. Abilities
+ * 67+, later levels and the Class Act subclasses stay unresolved.
+ */
+export const v1TroubadourLevel1AbilityIDs = [
+	'troubadour-10',
+	'troubadour-11',
+	'troubadour-55',
+	'troubadour-56',
+	'troubadour-57',
+	'troubadour-58',
+	'troubadour-59',
+	'troubadour-60',
+	'troubadour-61',
+	'troubadour-62',
+	'troubadour-63',
+	'troubadour-64',
+	'troubadour-65',
+	'troubadour-66'
+] as const;
+
+const isTroubadourLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only Troubadour's two direct Level 1 Performance abilities and abilities 55-66. */
+export const getV1TroubadourLevel1Abilities = (): Ability[] => {
+	const levelOne = troubadour.featuresByLevel.find(level => level.level === 1);
+	if (!levelOne) {
+		throw new Error('Troubadour Level 1 features are missing');
+	}
+
+	const abilities = [
+		...levelOne.features.filter(isTroubadourLevel1FeatureAbility).map(feature => feature.data.ability),
+		...troubadour.abilities
+	];
+	const abilitiesByID = new Map(abilities.map(ability => [ ability.id, ability ]));
+
+	return v1TroubadourLevel1AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Troubadour Level 1 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 89-identity Troubadour Level 1 denominator from live canonical data. */
+export const createV1TroubadourLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1TroubadourLevel1Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -787,7 +841,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
-		...createV1TalentLevel1AbilityRequiredCanonicalEnglish()
+		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).

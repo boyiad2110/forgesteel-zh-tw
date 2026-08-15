@@ -499,6 +499,60 @@ const projectTalentCharacteristicValue = (elementID: string, field: string, cano
 	});
 };
 
+// Troubadour's two authored characteristic readings. AbilityLogic resolves the Presence count
+// and the Speed in canonical English first; only that verified number is carried into the
+// approved zh-TW, which keeps its 最多 ('up to') wording. Library keeps the raw approved text.
+const projectTroubadourCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{ elementID: 'troubadour-11', field: 'sections.0.text', canonical: 'you can choose up to a number of targets equal to your Presence score.', calculated: /you can choose up to a number of targets equal to (-?\d+)\./, localized: '你可以選擇最多等於你`氣場`數量的目標。', replacement: (value: string) => `你可以選擇最多 ${value} 個目標。` },
+		{ elementID: 'troubadour-62', field: 'sections.0.text', canonical: 'You shift up to your speed.', calculated: /You shift up to (-?\d+) squares\./, localized: '你遁移最多等於你速度的距離。', replacement: (value: string) => `你遁移最多 ${value} 格。` }
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: canonicalEnglish.replace(projection.canonical, calculatedMatch[0]),
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: localizedRaw.replace(projection.localized, projection.replacement(calculatedMatch[1]))
+	});
+};
+
+/**
+ * Flip the Script is the one approved reading whose condition cardinality is deliberately
+ * asymmetric: canonical names 'slowed' twice, while the Owner-approved zh-TW names 緩速 once
+ * and refers back to it as 該狀態. The shared projector requires one-to-one cardinality and
+ * must stay that way, so this identity carries its own structural check instead: the whole
+ * calculated reading has to be the canonical text with emphasis added around those two
+ * occurrences and nothing else, and the approved reading has to hold exactly one 緩速.
+ */
+const projectTroubadourAsymmetricCondition = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'troubadour-65') || (field !== 'sections.0.text')) {
+		return undefined;
+	}
+
+	const condition = /\bslowed\b/gi;
+	if (matchAll(canonicalEnglish, condition).length !== 2) {
+		return undefined;
+	}
+	if (calculatedEnglish !== canonicalEnglish.replace(condition, '**$&**')) {
+		return undefined;
+	}
+
+	const localizedCondition = /緩速/g;
+	if (matchAll(localizedRaw, localizedCondition).length !== 1) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(localizedCondition, '**$&**');
+};
+
 /**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
@@ -556,6 +610,16 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const talentCharacteristicValue = projectTalentCharacteristicValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (talentCharacteristicValue) {
 		return talentCharacteristicValue;
+	}
+
+	const troubadourCalculatedValue = projectTroubadourCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (troubadourCalculatedValue) {
+		return troubadourCalculatedValue;
+	}
+
+	const troubadourAsymmetricCondition = projectTroubadourAsymmetricCondition(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (troubadourAsymmetricCondition) {
+		return troubadourAsymmetricCondition;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
