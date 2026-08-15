@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Drawer, Select, Space } from 'antd';
 import { Feature, FeatureDomainData } from '@/models/feature';
 import { Characteristic } from '@/enums/characteristic';
@@ -17,6 +19,8 @@ import { SelectionBox } from '@/components/panels/feature-config-panel/feature-c
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -27,6 +31,8 @@ interface InfoProps {
 }
 
 export const InfoDomain = (props: InfoProps) => {
+	const { locale } = useLocalization();
+
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
@@ -38,7 +44,13 @@ export const InfoDomain = (props: InfoProps) => {
 	}
 
 	return (
-		<div className='ds-text'>Choose {props.data.count > 1 ? props.data.count : 'a'} {props.data.count > 1 ? 'domains' : 'domain'}.</div>
+		<div className='ds-text'>
+			{
+				props.data.count > 1 ?
+					localizeMessage(locale, 'feature-domain.choose-many', { count: `${props.data.count}` }, 'Choose {count} domains.')
+					: localizeUIString(locale, 'feature-domain.choose-one', 'Choose a domain.')
+			}
+		</div>
 	);
 };
 
@@ -106,6 +118,7 @@ interface ConfigProps {
 }
 
 export const ConfigDomain = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const [ selectedDomain, setSelectedDomain ] = useState<Domain | null>(null);
 
 	const domains = SourcebookLogic.getDomains(props.sourcebooks);
@@ -119,15 +132,30 @@ export const ConfigDomain = (props: ConfigProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			{props.data.count > 1 ? <div className='ds-text'>Choose {props.data.count}:</div> : null}
+			{
+				props.data.count > 1 ?
+					<div className='ds-text'>
+						{localizeMessage(locale, 'feature-domain.choose-count', { count: `${props.data.count}` }, 'Choose {count}:')}
+					</div>
+					: null
+			}
 			<Select
 				style={{ width: '100%' }}
 				status={props.data.selected.length < props.data.count ? 'warning' : ''}
 				mode={props.data.count === 1 ? undefined : 'multiple'}
 				maxCount={props.data.count === 1 ? undefined : props.data.count}
 				allowClear={true}
-				placeholder={props.data.count === 1 ? 'Select a domain' : 'Select domains'}
-				options={sortedDomains.map(a => ({ value: a.id, label: a.name, desc: a.description }))}
+				placeholder={
+					props.data.count === 1 ?
+						localizeUIString(locale, 'feature-domain.select-one', 'Select a domain')
+						: localizeUIString(locale, 'feature-domain.select-many', 'Select domains')
+				}
+				// The option value stays the canonical Domain ID; only its reading is localized.
+				options={sortedDomains.map(a => ({
+					value: a.id,
+					label: localizeElementField(locale, a.id, 'name', a.name),
+					desc: localizeElementField(locale, a.id, 'description', a.description)
+				}))}
 				optionRender={option => <Field label={option.data.label} value={option.data.desc} />}
 				value={props.data.count === 1 ? (props.data.selected.length > 0 ? props.data.selected[0].id : null) : props.data.selected.map(k => k.id)}
 				onChange={value => {
@@ -158,8 +186,8 @@ export const ConfigDomain = (props: ConfigProps) => {
 						content={
 							<Field
 								style={{ flex: '1 1 0' }}
-								label={domain.name}
-								value={<Markdown text={domain.description} useSpan={true} />}
+								label={localizeElementField(locale, domain.id, 'name', domain.name)}
+								value={<Markdown text={localizeElementField(locale, domain.id, 'description', domain.description)} useSpan={true} />}
 							/>
 						}
 						onSelect={() => setSelectedDomain(domain)}

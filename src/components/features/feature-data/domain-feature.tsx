@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Alert, Select, Space } from 'antd';
 import { Feature, FeatureDomainFeatureData } from '@/models/feature';
 import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
@@ -9,6 +11,8 @@ import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { PanelMode } from '@/enums/panel-mode';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -74,6 +78,7 @@ interface ConfigProps {
 }
 
 export const ConfigDomainFeature = (props: ConfigProps) => {
+	const { locale } = useLocalization();
 	const options: Feature[] = [];
 	HeroLogic.getDomains(props.hero).forEach(d => {
 		d.featuresByLevel
@@ -86,22 +91,37 @@ export const ConfigDomainFeature = (props: ConfigProps) => {
 			<Alert
 				type='info'
 				showIcon={true}
-				title='Choose a domain to enable this feature.'
+				title={localizeUIString(locale, 'feature-domain-feature.choose-domain-first', 'Choose a domain to enable this feature.')}
 			/>
 		);
 	}
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			{props.data.count > 1 ? <div className='ds-text'>Choose {props.data.count}:</div> : null}
+			{
+				props.data.count > 1 ?
+					<div className='ds-text'>
+						{localizeMessage(locale, 'feature-domain-feature.choose-count', { count: `${props.data.count}` }, 'Choose {count}:')}
+					</div>
+					: null
+			}
 			<Select
 				style={{ width: '100%' }}
 				status={props.data.selected.length < props.data.count ? 'warning' : ''}
 				mode={props.data.count === 1 ? undefined : 'multiple'}
 				maxCount={props.data.count === 1 ? undefined : props.data.count}
 				allowClear={true}
-				placeholder={props.data.count === 1 ? 'Select an option' : 'Select options'}
-				options={options.map(o => ({ label: o.name, value: o.id, desc: o.description }))}
+				placeholder={
+					props.data.count === 1 ?
+						localizeUIString(locale, 'feature-domain-feature.select-one', 'Select an option')
+						: localizeUIString(locale, 'feature-domain-feature.select-many', 'Select options')
+				}
+				// The option value stays the canonical Feature ID; only its reading is localized.
+				options={options.map(o => ({
+					label: localizeElementField(locale, o.id, 'name', o.name),
+					value: o.id,
+					desc: localizeElementField(locale, o.id, 'description', o.description)
+				}))}
 				optionRender={option => <Field label={option.data.label} value={option.data.desc} />}
 				value={props.data.count === 1 ? (props.data.selected.length > 0 ? props.data.selected[0].id : null) : props.data.selected.map(f => f.id)}
 				onChange={value => {

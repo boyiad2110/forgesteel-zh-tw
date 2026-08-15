@@ -602,6 +602,60 @@ const projectKitCharacteristicScoreValue = (elementID: string, field: string, ca
 };
 
 /**
+ * The three Core Domain Level 1-2 readings whose canonical calculation resolves an authored
+ * Intuition expression in place. Everything else in each sentence is left alone by the
+ * calculator, so only that one verified value is carried into the Owner-approved zh-TW, and
+ * Library keeps the approved unresolved raw wording.
+ *
+ * The other Domain readings in this slice are deliberately absent: the calculator leaves them
+ * as authored, so both surfaces already show the approved raw zh-TW without any projection.
+ */
+const projectCoreDomainIntuitionValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'domain-creation-1-1',
+			field: 'sections.0.text',
+			canonical: 'You can maintain a number of objects created this way equal to your Intuition score.',
+			calculated: /You can maintain a number of objects created this way equal to (-?\d+)\./,
+			localized: '你可以同時維持的自創物體數量等於你的`直覺`。',
+			replacement: (value: string) => `你可以同時維持的自創物體數量為 ${value}。`
+		},
+		{
+			elementID: 'domain-death-2',
+			field: 'sections.0.text',
+			canonical: 'they regain Stamina equal to 5 + your Intuition score.',
+			calculated: /they regain Stamina equal to (-?\d+)\./,
+			localized: '目標會恢復等於 5 + 你`直覺`的體力。',
+			replacement: (value: string) => `目標會恢復 ${value} 點體力。`
+		},
+		{
+			elementID: 'domain-sun-2',
+			field: 'sections.1.text',
+			canonical: 'deals fire damage equal to your Intuition score with their next strike',
+			calculated: /deals fire damage equal to (-?\d+) with their next strike/,
+			localized: '會額外造成等於你`直覺`的火焰傷害。',
+			replacement: (value: string) => `會額外造成 ${value} 點火焰傷害。`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, calculatedMatch[0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(projection.localized, projection.replacement(calculatedMatch[1]));
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -673,6 +727,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const kitCharacteristicScoreValue = projectKitCharacteristicScoreValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (kitCharacteristicScoreValue) {
 		return kitCharacteristicScoreValue;
+	}
+
+	const coreDomainIntuitionValue = projectCoreDomainIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (coreDomainIntuitionValue) {
+		return coreDomainIntuitionValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
