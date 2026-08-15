@@ -457,9 +457,40 @@ describe('Censor Hero Builder subclass selection', () => {
 		renderClassSection(heroWithCensor());
 
 		expect(isDrawn('教團')).toBe(true);
-		expect(isDrawn('選擇 1 個 教團。')).toBe(true);
-		expect(screen.getByRole('button', { name: '選擇 1 個 教團' })).toBeTruthy();
+		// The 個 classifier binds directly to the Chinese reading; the English-style space
+		// zh-TW keeps in front of Latin text does not belong between two Chinese words.
+		expect(isDrawn('選擇 1 個教團。')).toBe(true);
+		expect(screen.getByRole('button', { name: '選擇 1 個教團' })).toBeTruthy();
+		expect(isDrawn('選擇 1 個 教團。')).toBe(false);
+		expect(screen.queryByRole('button', { name: '選擇 1 個 教團' })).toBeNull();
 		expect(isDrawn('Choose an Order.')).toBe(false);
+	});
+
+	it('binds the classifier to a Chinese reading in the plural prompt too', () => {
+		const hero = heroWithCensor();
+		hero.class = { ...censor, level: 1, subclassCount: 2, characteristics: FactoryLogic.createCharacteristics(2, 0, 0, 0, 2) };
+
+		renderClassSection(hero);
+
+		expect(isDrawn('選擇 2 個教團。')).toBe(true);
+		expect(isDrawn('選擇 2 個 教團。')).toBe(false);
+
+		switchLocale();
+
+		expect(isDrawn('Choose 2 Orders.')).toBe(true);
+	});
+
+	it('keeps the separator in front of a canonical English fallback in the zh-TW locale', () => {
+		// A class with no approved reading for its own subclass category falls back to canonical
+		// English inside the zh-TW sentence, where the space between Chinese and Latin belongs.
+		const hero = heroWithCensor();
+		hero.class = { ...censor, id: 'class-unlocalized', level: 1, characteristics: FactoryLogic.createCharacteristics(2, 0, 0, 0, 2) };
+
+		renderClassSection(hero);
+
+		expect(isDrawn('選擇 1 個 Order。')).toBe(true);
+		expect(screen.getByRole('button', { name: '選擇 1 個 Order' })).toBeTruthy();
+		expect(isDrawn('選擇 1 個Order。')).toBe(false);
 	});
 
 	it('picks the English article from the canonical name, not the zh-TW reading', () => {
@@ -471,7 +502,7 @@ describe('Censor Hero Builder subclass selection', () => {
 		// even though the zh-TW reading it interpolates starts with no vowel at all.
 		expect(isDrawn('Choose an Order.')).toBe(true);
 		expect(screen.getByRole('button', { name: 'Choose an Order' })).toBeTruthy();
-		expect(isDrawn('選擇 1 個 教團。')).toBe(false);
+		expect(isDrawn('選擇 1 個教團。')).toBe(false);
 	});
 
 	it('reads a selected Order name and description in zh-TW without mutating the hero class', () => {
@@ -501,7 +532,7 @@ describe('Censor Hero Builder subclass selection', () => {
 	it('opens the Order selector with canonical values from the approved zh-TW button', () => {
 		renderClassSection(heroWithCensor());
 
-		fireEvent.click(screen.getByRole('button', { name: '選擇 1 個 教團' }));
+		fireEvent.click(screen.getByRole('button', { name: '選擇 1 個教團' }));
 
 		expect(screen.getByTestId('subclass-selector').textContent).toBe(`class-censor:${v1CensorOrderIDs.join(',')}`);
 	});

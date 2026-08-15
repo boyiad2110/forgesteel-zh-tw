@@ -97,20 +97,35 @@ export const ClassSection = (props: Props) => {
 		};
 	};
 
+	// zh-TW writes a space between Chinese and Latin text but never between two Chinese words,
+	// so the 個 classifier in the approved template sits directly against a Chinese reading and
+	// keeps its space in front of a canonical English one. Only the separator immediately
+	// before the reading that was actually interpolated is closed up, so a reading that is not
+	// Chinese - the English locale, or a class with no approved reading - is left exactly as
+	// its own template wrote it.
+	const bindClassifier = (message: string, reading: string) => {
+		return /^[一-鿿]/.test(reading) ? message.replace(`個 ${reading}`, `個${reading}`) : message;
+	};
+
 	const getSubclassPrompt = (heroClass: HeroClass) => {
 		if (heroClass.subclassCount === 1) {
 			const subclassName = getSubclassName(heroClass, 'subclass');
-			return Format.startsWithVowel(subclassName.canonical) ?
+			const message = Format.startsWithVowel(subclassName.canonical) ?
 				localizeMessage(locale, 'hero-edit.class.choose-subclass-an', { subclassName: subclassName.reading }, 'Choose an {subclassName}.')
 				:
 				localizeMessage(locale, 'hero-edit.class.choose-subclass-a', { subclassName: subclassName.reading }, 'Choose a {subclassName}.');
+			return bindClassifier(message, subclassName.reading);
 		}
 
-		return localizeMessage(
-			locale,
-			'hero-edit.class.choose-subclasses',
-			{ count: `${heroClass.subclassCount}`, subclassName: getSubclassName(heroClass, 'subclasse').reading },
-			'Choose {count} {subclassName}s.'
+		const subclassName = getSubclassName(heroClass, 'subclasse');
+		return bindClassifier(
+			localizeMessage(
+				locale,
+				'hero-edit.class.choose-subclasses',
+				{ count: `${heroClass.subclassCount}`, subclassName: subclassName.reading },
+				'Choose {count} {subclassName}s.'
+			),
+			subclassName.reading
 		);
 	};
 
@@ -118,10 +133,11 @@ export const ClassSection = (props: Props) => {
 	// and picks its English article from the same canonical name for the same reason.
 	const getSubclassButtonLabel = (heroClass: HeroClass) => {
 		const subclassName = getSubclassName(heroClass, 'subclass');
-		return Format.startsWithVowel(subclassName.canonical) ?
+		const message = Format.startsWithVowel(subclassName.canonical) ?
 			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-an', { subclassName: subclassName.reading }, 'Choose an {subclassName}')
 			:
 			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-a', { subclassName: subclassName.reading }, 'Choose a {subclassName}');
+		return bindClassifier(message, subclassName.reading);
 	};
 
 	const getClassOptions = (heroClass: HeroClass) => {
