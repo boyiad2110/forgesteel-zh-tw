@@ -1,6 +1,6 @@
 import { Button, Drawer, Flex, Segmented, Select, Space } from 'antd';
 import { Feature, FeatureSkillChoiceData } from '@/models/feature';
-import { localizeSkillField, localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeSkillField, localizeUIString } from '@/localization/resolver';
 import { Collections } from '@/utils/collections';
 import { FeatureType } from '@/enums/feature-type';
 import { Field } from '@/components/controls/field/field';
@@ -37,8 +37,15 @@ export const InfoSkillChoice = (props: InfoProps) => {
 			})
 			.join(', ');
 
+		// The Feature's own name is what this choice is called, so it is the label - already
+		// localized by its own element identity rather than by a second translation of the
+		// word. A Feature with no name of its own keeps the generic canonical reading.
+		const label = props.feature.name
+			? localizeElementField(locale, props.feature.id, 'name', props.feature.name)
+			: 'Skill';
+
 		return (
-			<Field label='Skill' value={display} />
+			<Field label={label} value={display} />
 		);
 	}
 

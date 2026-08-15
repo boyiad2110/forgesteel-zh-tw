@@ -34,7 +34,7 @@ import { useIsSmall } from '@/hooks/use-is-small';
 import { useLocalization } from '@/contexts/localization-context';
 import { useOptions } from '@/contexts/data-context';
 
-import { localizeMessage, localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 
 import './class-section.scss';
 
@@ -85,34 +85,59 @@ export const ClassSection = (props: Props) => {
 	const [ selectedSubClass, setSelectedSubClass ] = useState<SubClass | null>(null);
 	const [ subclassSelectorOpen, setSubclassSelectorOpen ] = useState<boolean>(false);
 
-	// The subclass name is the class's own data and is interpolated as it is; only the
-	// sentence around it is presentation. English needs an article that depends on that name,
-	// so each English form has its own approved entry.
+	// The category a class calls its subclasses by. Only its reading is localized; the class's
+	// own subclassName is never written to. Which English article the sentence needs still
+	// depends on the canonical English name, so that choice is made before the reading is
+	// substituted in - a zh-TW reading must not decide between 'a' and 'an'.
+	const getSubclassName = (heroClass: HeroClass, fallback: string) => {
+		const canonical = heroClass.subclassName || fallback;
+		return {
+			canonical: canonical,
+			reading: heroClass.subclassName ? localizeElementField(locale, heroClass.id, 'subclassName', heroClass.subclassName) : fallback
+		};
+	};
+
+	// zh-TW writes a space between Chinese and Latin text but never between two Chinese words,
+	// so the 個 classifier in the approved template sits directly against a Chinese reading and
+	// keeps its space in front of a canonical English one. Only the separator immediately
+	// before the reading that was actually interpolated is closed up, so a reading that is not
+	// Chinese - the English locale, or a class with no approved reading - is left exactly as
+	// its own template wrote it.
+	const bindClassifier = (message: string, reading: string) => {
+		return /^[一-鿿]/.test(reading) ? message.replace(`個 ${reading}`, `個${reading}`) : message;
+	};
+
 	const getSubclassPrompt = (heroClass: HeroClass) => {
 		if (heroClass.subclassCount === 1) {
-			const subclassName = heroClass.subclassName || 'subclass';
-			return Format.startsWithVowel(subclassName) ?
-				localizeMessage(locale, 'hero-edit.class.choose-subclass-an', { subclassName: subclassName }, 'Choose an {subclassName}.')
+			const subclassName = getSubclassName(heroClass, 'subclass');
+			const message = Format.startsWithVowel(subclassName.canonical) ?
+				localizeMessage(locale, 'hero-edit.class.choose-subclass-an', { subclassName: subclassName.reading }, 'Choose an {subclassName}.')
 				:
-				localizeMessage(locale, 'hero-edit.class.choose-subclass-a', { subclassName: subclassName }, 'Choose a {subclassName}.');
+				localizeMessage(locale, 'hero-edit.class.choose-subclass-a', { subclassName: subclassName.reading }, 'Choose a {subclassName}.');
+			return bindClassifier(message, subclassName.reading);
 		}
 
-		return localizeMessage(
-			locale,
-			'hero-edit.class.choose-subclasses',
-			{ count: `${heroClass.subclassCount}`, subclassName: heroClass.subclassName || 'subclasse' },
-			'Choose {count} {subclassName}s.'
+		const subclassName = getSubclassName(heroClass, 'subclasse');
+		return bindClassifier(
+			localizeMessage(
+				locale,
+				'hero-edit.class.choose-subclasses',
+				{ count: `${heroClass.subclassCount}`, subclassName: subclassName.reading },
+				'Choose {count} {subclassName}s.'
+			),
+			subclassName.reading
 		);
 	};
 
 	// The selector button says the same thing as the singular prompt, without the full stop,
-	// and picks its English article from the same name for the same reason.
+	// and picks its English article from the same canonical name for the same reason.
 	const getSubclassButtonLabel = (heroClass: HeroClass) => {
-		const subclassName = heroClass.subclassName || 'subclass';
-		return Format.startsWithVowel(subclassName) ?
-			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-an', { subclassName: subclassName }, 'Choose an {subclassName}')
+		const subclassName = getSubclassName(heroClass, 'subclass');
+		const message = Format.startsWithVowel(subclassName.canonical) ?
+			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-an', { subclassName: subclassName.reading }, 'Choose an {subclassName}')
 			:
-			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-a', { subclassName: subclassName }, 'Choose a {subclassName}');
+			localizeMessage(locale, 'hero-edit.class.choose-subclass-button-a', { subclassName: subclassName.reading }, 'Choose a {subclassName}');
+		return bindClassifier(message, subclassName.reading);
 	};
 
 	const getClassOptions = (heroClass: HeroClass) => {
@@ -161,7 +186,7 @@ export const ClassSection = (props: Props) => {
 		if (heroClass.subclassCount > 0) {
 			options.choices.push(
 				<SelectablePanel key='subclass'>
-					<HeaderText>{heroClass.subclassName}</HeaderText>
+					<HeaderText>{getSubclassName(heroClass, '').reading}</HeaderText>
 					<div className='ds-text'>{getSubclassPrompt(heroClass)}</div>
 					{
 						heroClass.subclasses
@@ -170,8 +195,8 @@ export const ClassSection = (props: Props) => {
 								<Flex key={sc.id} align='center'>
 									<Field
 										style={{ flex: '1 1 0' }}
-										label={sc.name}
-										value={sc.description}
+										label={localizeElementField(locale, sc.id, 'name', sc.name)}
+										value={localizeElementField(locale, sc.id, 'description', sc.description)}
 									/>
 									<Flex vertical={true}>
 										<Button

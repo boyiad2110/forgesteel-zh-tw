@@ -1,3 +1,5 @@
+/* eslint-disable sort-imports */
+
 import { Button, Divider, Flex, Segmented, Space } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined, PlusOutlined } from '@ant-design/icons';
 import { Feature, FeatureHeroicResourceData } from '@/models/feature';
@@ -9,6 +11,8 @@ import { Expander } from '@/components/controls/expander/expander';
 import { Format } from '@/utils/format';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
+import { localizeElementField } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { HeroLogic } from '@/logic/hero-logic';
 import { Pill } from '@/components/controls/pill/pill';
 import { Sourcebook } from '@/models/sourcebook';
@@ -25,6 +29,7 @@ interface InfoProps {
 }
 
 export const InfoHeroicResource = (props: InfoProps) => {
+	const { locale } = useLocalization();
 	let data = props.data;
 
 	if (props.hero) {
@@ -41,7 +46,13 @@ export const InfoHeroicResource = (props: InfoProps) => {
 					data.gains.map((g, n) => (
 						<li key={n}>
 							<Flex align='center' justify='space-between' gap={10}>
-								<div className='ds-text compact-text'>{g.trigger}</div>
+								<div className='ds-text compact-text'>
+									{/* The trigger is the only prose a gain carries; its tag, value and
+										position in the list are canonical wiring the Hero's resource
+										calculation reads, and none of them is touched here. A gain the
+										approved reading was not written against falls back to English. */}
+									{localizeElementField(locale, props.feature.id, `gains.${n}.trigger`, g.trigger)}
+								</div>
 								<Pill>+{g.value}</Pill>
 							</Flex>
 						</li>

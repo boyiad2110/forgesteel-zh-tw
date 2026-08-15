@@ -3047,6 +3047,47 @@ const coreDomainLevel1To3LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'domain-war-1-2', field: 'description', canonicalEnglish: 'Choose a skill from Exploration skills.', zhTW: '從探索類技能中選擇 1 項技能。', approval: 'approved' }
 ];
 
+// Core Censor Level 1 + Order localization: the approved core-censor-l1-orders-r1 packet is
+// reproduced verbatim. These are presentation-only snapshots; the canonical English stays in
+// the Censor and Order data, and the heroic resource's tags, values and gain order are
+// untouched by this batch.
+const coreCensorLevel1AndOrderLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'class-censor', field: 'subclassName', canonicalEnglish: 'Order', zhTW: '教團', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-resource', field: 'name', canonicalEnglish: 'Wrath', zhTW: '怒火', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-resource', field: 'gains.0.trigger', canonicalEnglish: 'Start of your turn', zhTW: '每當你的回合開始時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-resource', field: 'gains.1.trigger', canonicalEnglish: 'The first time each round that a creature judged by you deals damage to you', zhTW: '每輪中，當 1 個被你審判的生物首次對你造成傷害時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-resource', field: 'gains.2.trigger', canonicalEnglish: 'The first time each round that you deal damage to a creature judged by you', zhTW: '每輪中，當你首次對 1 個被你審判的生物造成傷害時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-1', field: 'name', canonicalEnglish: 'Interpersonal / Lore Skills', zhTW: '交涉類 / 學識類技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-1', field: 'description', canonicalEnglish: 'Choose 2 from Interpersonal skills, Lore skills.', zhTW: '從交涉類技能或學識類技能中選擇 2 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-2', field: 'name', canonicalEnglish: 'Domain', zhTW: '領域', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-5', field: 'name', canonicalEnglish: 'Kit', zhTW: '套裝', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-7', field: 'name', canonicalEnglish: '1st-Level Domain Feature', zhTW: '1 級領域特性', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-7', field: 'description', canonicalEnglish: 'Choose a level 1 domain feature.', zhTW: '選擇 1 個 1 級領域特性。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-8', field: 'name', canonicalEnglish: 'Signature Ability', zhTW: '招牌招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-9', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-1-10', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1', field: 'name', canonicalEnglish: 'Exorcist', zhTW: '驅邪', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1', field: 'description', canonicalEnglish: 'You specialize in hunting your order’s hidden enemies, knowing that an open mind is an unguarded fortress.', zhTW: '你擅長獵捕潛藏的教團之敵，深知敞開的心靈就如同毫無防備的堡壘。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-1-2', field: 'name', canonicalEnglish: 'Judgment Order Benefit', zhTW: '審判：教團益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-1-2', field: 'description', canonicalEnglish: 'The first time on a turn that you use your Judgment ability to judge a creature, you can teleport up to a number of squares equal to twice your Presence score. This movement must take you closer to the judged creature. You do not need line of effect to your destination.', zhTW: '當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以傳送最多等於你`氣場` ×2 的格數。此移動必須讓你更接近被審判的生物。你與終點之間不需要有效果線。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2', field: 'name', canonicalEnglish: 'Oracle', zhTW: '神諭', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2', field: 'description', canonicalEnglish: 'Corruption has deep tendrils that can be missed, leading you to specialize in uncovering clandestine threats to your order.', zhTW: '腐敗如同深入骨髓的觸鬚，容易被忽視，因此你擅長揭露教團所面臨的潛藏威脅。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-1-2', field: 'name', canonicalEnglish: 'Judgment Order Benefit', zhTW: '審判：教團益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-1-2', field: 'description', canonicalEnglish: 'The first time on a turn that you use your Judgment ability to judge a creature, you can deal holy damage equal to twice your Presence score to the judged creature.', zhTW: '當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以對被審判的生物造成等於你`氣場` ×2 的神聖傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3', field: 'name', canonicalEnglish: 'Paragon', zhTW: '典範', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3', field: 'description', canonicalEnglish: 'Without a strong example and a firm hand, the weak will be corrupted. You specialize in setting an example for your order.', zhTW: '若沒有堅定的榜樣與嚴格的管束，弱者必定墮落腐化。你擅長為教團樹立典範。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-1-2', field: 'name', canonicalEnglish: 'Judgment Order Benefit', zhTW: '審判：教團益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-1-2', field: 'description', canonicalEnglish: 'The first time on a turn that you use your Judgment ability to judge a creature, you can vertical pull the judged creature up to a number of squares equal to twice your Presence score.', zhTW: '當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以將被審判的生物垂直拉動最多等於你`氣場` ×2 的格數。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -3062,5 +3103,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...languageLocalizationEntries,
 	...ordenAncestryAbilityLocalizationEntries,
 	...coreStandardKitLocalizationEntries,
-	...coreDomainLevel1To3LocalizationEntries
+	...coreDomainLevel1To3LocalizationEntries,
+	...coreCensorLevel1AndOrderLocalizationEntries
 ];
