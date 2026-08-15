@@ -261,6 +261,10 @@ V1 requirements 仍要求：
 10. repository 正式 progress evidence 仍然是：manifest、catalog、completeness；glossary 仍只是 curated terminology evidence。
 11. `docs/translation/TRANSLATION-GLOSSARY.csv` 是 curated reusable terminology evidence，不要求把每一筆 Skill／Language／authored-content record 全部 mirror 進 glossary。
 
+### Packet Source-Integrity Rule
+
+試算表 render、visual preview 或 inspection output 只可作 review evidence；只要工具可能截斷或縮寫字串，它們就不是 packet generation 的 authority input。Reviewer 必須從 direct full cell values、lossless machine-readable worksheet export 或其他可取得完整值的來源產生 packet；canonical snapshot 與 Owner-approved zh-TW 都必須來自該完整值來源。snapshot 必須保留 leading／trailing whitespace、Markdown、punctuation、escaping 與 structured text，不得讓 synthetic ellipsis 或 abbreviated display value 成為 authority。`canonicalSha256` 必須由完整 canonical value 計算；packet approval 前，Reviewer 必須將每一筆 packet identity、canonical snapshot 與 hash 對 live canonical source 作 machine comparison。alignment declaration 不得只以 packet 內部 self-consistency 為依據。
+
 ### Packet Canonical Alignment Gate
 
 approved implementation packet 交付 Agent 前，Reviewer 必須將**全部** packet canonical identities／snapshots 與 live canonical extraction／manifest authority 做 machine-verifiable comparison，並回報 `N/N aligned` 與 zero drift。比較須保留 identity-sensitive 的 leading／trailing newline、whitespace、Markdown、punctuation、escaped 與 structured text；不得只靠目視比對。
