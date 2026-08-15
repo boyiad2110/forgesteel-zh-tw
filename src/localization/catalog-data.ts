@@ -3088,6 +3088,78 @@ const coreCensorLevel1AndOrderLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'censor-sub-3-1-2', field: 'description', canonicalEnglish: 'The first time on a turn that you use your Judgment ability to judge a creature, you can vertical pull the judged creature up to a number of squares equal to twice your Presence score.', zhTW: '當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以將被審判的生物垂直拉動最多等於你`氣場` ×2 的格數。', approval: 'approved' }
 ];
 
+const coreConduitLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'conduit-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-resource', field: 'name', canonicalEnglish: 'Piety', zhTW: '虔誠', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-resource', field: 'gains.0.trigger', canonicalEnglish: 'Start of your turn', zhTW: '每當你的回合開始時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-1', field: 'name', canonicalEnglish: 'Interpersonal / Lore Skills', zhTW: '交涉類 / 學識類技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-1', field: 'description', canonicalEnglish: 'Choose 2 from Interpersonal skills, Lore skills.', zhTW: '從交涉類技能或學識類技能中選擇 2 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-2', field: 'name', canonicalEnglish: 'Domain', zhTW: '領域', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-3b', field: 'name', canonicalEnglish: 'Prayer', zhTW: '祈禱', approval: 'approved' },
+	{
+		kind: 'element-field',
+		elementID: 'conduit-1-3b',
+		field: 'description',
+		canonicalEnglish: `
+You can gain more piety by praying to the gods—but beware! Doing so can easily draw their ire, as the gods hate to be annoyed. Before you roll to gain piety at the start of your turn, you can pray (no action required). If you do, your roll gains the following additional effects:
+
+* If the roll is a 1, you gain 1 additional piety but anger the gods! You take psychic damage equal to 1d6 + your level, which can’t be reduced in any way.
+* If the roll is a 2, you gain 1 additional piety.
+* If the roll is a 3, you gain 2 additional piety and can activate a domain effect of your choice.`,
+		zhTW: '你可以向神明祈禱來獲得更多虔誠，但要注意！神明討厭被打擾，這麼做很容易觸怒祂們。當你回合開始擲骰獲得虔誠時，你可以先祈禱（無需動作）。若你這麼做，你的擲骰會額外獲得以下效果：\n\n* 若擲出 1，你額外獲得 1 點虔誠，但也激怒了神明！你受到 1d6 + 你等級的心靈傷害（無法被任何方式減免）。  \n* 若擲出 2，你額外獲得 1 點虔誠。\n* 若擲出 3，你額外獲得 2 點虔誠，而且可以啟動 1 個由你選擇的領域祈禱效果。',
+		approval: 'approved'
+	},
+	{ kind: 'element-field', elementID: 'conduit-1-4', field: 'name', canonicalEnglish: '1st-Level Domain Feature', zhTW: '1 級領域特性', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-4', field: 'description', canonicalEnglish: 'Choose a level 1 domain feature.', zhTW: '選擇 1 個 1 級領域特性。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-7', field: 'name', canonicalEnglish: 'Triggered Action', zhTW: '反應動作', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8', field: 'name', canonicalEnglish: 'Prayer', zhTW: '禱詞', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8a', field: 'name', canonicalEnglish: 'Prayer of Destruction', zhTW: '毀滅禱詞', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8a', field: 'description', canonicalEnglish: 'Your god infuses wrath within your being.', zhTW: '你的神明在你體內灌注憤怒之力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8b', field: 'name', canonicalEnglish: 'Prayer of Distance', zhTW: '遠距禱詞', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8b', field: 'description', canonicalEnglish: 'Your god blesses you with the ability to stretch your divine magic farther.', zhTW: '神明賜福於你，讓你的神聖魔法可以延伸得更遠。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8c', field: 'name', canonicalEnglish: 'Prayer of Soldier\'s Skill', zhTW: '戰技禱詞', approval: 'approved' },
+	{
+		kind: 'element-field',
+		elementID: 'conduit-1-8c',
+		field: 'description',
+		canonicalEnglish: `
+Your god gives your mind the training of a soldier. You can wear light armor and wield light weapons effectively, even though you don’t have a kit.
+
+* While you wear light armor, you gain a +3 bonus to Stamina, and that bonus increases by 3 at 4th, 7th, and 10th levels.
+* While you wield
+a light weapon, you gain a +1 damage bonus with weapon abilities, including free strikes.
+* You can use light armor treasures and light weapon treasures.
+
+If you have a kit, you can’t take this blessing.`,
+		zhTW: '你的神明賦予你戰士般的心智。即使你沒有套裝，你也能有效地穿戴輕甲和持用輕型武器。\n\n* 當你穿戴輕甲時，你的體力會獲得 +3 加值。此加值會在 4 級、7 級和 10 級時各增加 3 點。\n* 當你持用輕型武器時，你武器招式的傷害會獲得 +1 加值（包括基礎打擊）。\n* 你可以使用輕甲寶物和輕型武器寶物。\n\n若你擁有套裝，你不能選擇此禱詞。',
+		approval: 'approved'
+	},
+	{ kind: 'element-field', elementID: 'conduit-1-8da', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8db', field: 'name', canonicalEnglish: 'Ability damage modifier', zhTW: '招式傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8dc', field: 'name', canonicalEnglish: 'Proficiency', zhTW: '熟練項目', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8d', field: 'name', canonicalEnglish: 'Prayer of Speed', zhTW: '速度禱詞', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8d', field: 'description', canonicalEnglish: 'Your god blesses your flesh and infuses it with divine quickness.', zhTW: '你的神明祝福你的身體，灌注了神聖的迅捷之力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8ca', field: 'name', canonicalEnglish: 'Speed', zhTW: '速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8cb', field: 'name', canonicalEnglish: 'Disengage', zhTW: '撤離', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8e', field: 'name', canonicalEnglish: 'Prayer of Steel', zhTW: '鋼鐵禱詞', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8e', field: 'description', canonicalEnglish: 'Your god fills your body with the light of creation, making you harder to hurt and move.', zhTW: '你的神明將創生之光注入你的身軀，讓你更加強健與穩固。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8ea', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-8eb', field: 'name', canonicalEnglish: 'Stability', zhTW: '穩度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9', field: 'name', canonicalEnglish: 'Conduit Ward', zhTW: '神導士護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9a', field: 'name', canonicalEnglish: 'Bastion Ward', zhTW: '堡壘護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9a', field: 'description', canonicalEnglish: 'Your god grants you a holy countenance that protects you at all times. You gain a +1 bonus to saving throws.', zhTW: '神明賜予你神聖的氣息，時刻保護著你。你的豁免獲得 +1 加值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9b', field: 'name', canonicalEnglish: 'Quickness Ward', zhTW: '靈敏護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9b', field: 'description', canonicalEnglish: 'The gods imbue a divine swiftness within you. Whenever an adjacent creature deals damage to you, you can shift up to a number of squares equal to your Intuition score after the damage is dealt.', zhTW: '神明在你體內灌注神聖的迅捷之力。每當 1 個相鄰的生物對你造成傷害時，你可以在傷害結算後遁移最多等於你`直覺`的格數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9c', field: 'name', canonicalEnglish: 'Sanctuary Ward', zhTW: '聖域護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9c', field: 'description', canonicalEnglish: 'In response to a foe’s aggression, your god protects you. Whenever another creature damages you, that creature can’t target you with a strike until you harm them or one of their allies, or until the end of their next turn.', zhTW: '當敵人來犯時，你的神明會庇護你。在 1 個生物對你造成傷害後，該生物無法再對你發動打擊，直到你傷害他或他的 1 個盟友，或直到他下個回合結束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9d', field: 'name', canonicalEnglish: 'Spirit Ward', zhTW: '靈體護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-9d', field: 'description', canonicalEnglish: 'Invisible spirits surround you if you are harmed. Whenever an adjacent creature deals damage to you, they take corruption damage equal to your Intuition score.', zhTW: '無形的靈體會在你受到傷害時環繞在你身邊。每當 1 個相鄰的生物對你造成傷害時，他會受到等於你`直覺`的腐朽傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-10', field: 'name', canonicalEnglish: 'Signature Ability', zhTW: '招牌招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-11', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-1-12', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -3104,5 +3176,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...ordenAncestryAbilityLocalizationEntries,
 	...coreStandardKitLocalizationEntries,
 	...coreDomainLevel1To3LocalizationEntries,
-	...coreCensorLevel1AndOrderLocalizationEntries
+	...coreCensorLevel1AndOrderLocalizationEntries,
+	...coreConduitLevel1RemainingLocalizationEntries
 ];
