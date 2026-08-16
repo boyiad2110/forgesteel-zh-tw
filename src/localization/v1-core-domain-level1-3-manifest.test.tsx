@@ -568,6 +568,7 @@ describe('Domain Level 1 container presentation', () => {
 			assertZhTW: () => {
 				expect(container.textContent).toContain('靈光詐現、隱密類技能');
 				expect(container.textContent).not.toContain('Inspired Deception, Intrigue Skill');
+				expect(container.textContent).not.toContain('Intrigue Skill');
 				expandAll(container);
 				expect(container.textContent).toContain('從隱密類技能中選擇 1 項技能。');
 				expect(container.textContent).not.toContain('Choose a skill from Intrigue skills.');
@@ -583,6 +584,7 @@ describe('Domain Level 1 container presentation', () => {
 				expect(container.textContent).toContain('靈光詐現、隱密類技能');
 				expect(container.textContent).toContain('從隱密類技能中選擇 1 項技能。');
 				expect(container.textContent).not.toContain('Inspired Deception, Intrigue Skill');
+				expect(container.textContent).not.toContain('Intrigue Skill');
 			}
 		});
 
