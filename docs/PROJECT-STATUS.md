@@ -98,16 +98,16 @@
 - player-facing display／search 使用中文；Hero／Feature selection 與 save data 仍保留 canonical English selection／save values。
 - `skills-and-languages` unresolved domain 已移除。
 
-### 3.9 Core standard Class Level 1 ability-authored-content（PR #60、#63–#64、#66–#67、#69–#72、#79）
+### 3.9 Core standard Class Level 1 ability-authored-content（PR #60、#63–#64、#66–#67、#69–#72）
 
 - Censor、Fury、Conduit、Elementalist、Null、Shadow、Tactician、Talent 與 Troubadour 九個 Core standard Class 的 Level 1 ability-authored-content 已完成 localization slice。
 - Class ability calculated presentation 維持 canonical-English-first：canonical calculator 先完成計算，再僅在 presentation boundary 投影可安全證明的 approved zh-TW；中文不進入 calculator、parser 或 canonical data。
 - 此 milestone 不代表所有 V1 Class Level 1 abilities 完成：Official Beastheart 與 Summoner 的 Level 1 Class ability-authored-content 尚未完整 enumerate 或 localized，仍屬 `official-ability-authored-content` unresolved domain。
 
-### 3.10 Core／Orden content expansion after the earlier Level 1 milestone（PR #74、#76–#78）
+### 3.10 Core／Orden content expansion after the earlier Level 1 milestone（PR #74、#76–#79）
 
-- Orden Ancestry abilities、Core standard Kits、Core Domains Level 1–3 與 Censor Level 1 Orders 已加入 production localization、manifest coverage 與其各自的 representative presentation evidence。
-- Censor Orders 與 Conduit remaining content 的完成擴充既有 Core Level 1 progress，但不改變 V1 scope：V1 仍包含 Core、Orden、Beastheart 與 Summoner；目前 sequencing 可優先處理 Core／Orden。
+- Orden Ancestry abilities（#74）、Core standard Kits（#76）、Core Domains Level 1–3（#77）、Censor Level 1 與 Orders（#78），以及 Conduit Level 1 remaining non-Ability player-facing content（#79）已加入 production localization、manifest coverage 與其各自的 representative presentation evidence。
+- 這些 Core／Orden expansion 不改變 V1 scope：V1 仍包含 Core、Orden、Beastheart 與 Summoner；目前 sequencing 可優先處理 Core／Orden。
 
 ## 4. 現行 translation／decision 規則
 
