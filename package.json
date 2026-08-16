@@ -13,8 +13,10 @@
 		"update": "npx npm-check-updates --peer --interactive --format group",
 		"lint": "eslint \"src/**/*.{ts,tsx}\" --concurrency auto",
 		"lint:fix": "eslint \"src/**/*.{ts,tsx}\" --concurrency auto --fix",
+		"loc:status": "node tooling/localization-status.mjs",
+		"loc:verify": "node tooling/localization-status.mjs --json",
 		"test": "vitest",
-		"check": "npm run lint && tsc -p tsconfig.json && vitest run && npm audit",
+		"check": "npm run lint && tsc -p tsconfig.json && vitest run && npm run loc:verify && npm audit",
 		"build": "vite build"
 	},
 	"overrides": {
