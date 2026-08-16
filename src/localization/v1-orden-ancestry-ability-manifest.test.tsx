@@ -17,6 +17,7 @@ import { AbilityLogic } from '@/logic/ability-logic';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { localizeCalculatedAuthoredTextPresentation } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 import { localizePowerRollTierPresentation } from '@/components/panels/power-roll/power-roll-tier-presentation';
+import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { PanelMode } from '@/enums/panel-mode';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { createElement, ReactNode } from 'react';
@@ -122,49 +123,63 @@ describe('V1 Orden ancestry Ability manifest', () => {
 		expect(textReading('time-raider-feature-2-5-3', 'sections.0.text')).toBe('目標的速度獲得等於你`理智`、`直覺`或`氣場`的加值（由你選擇），直到你下個回合開始。');
 	});
 
-	it('calculates canonical English first, then projects its resolved Power Roll presentation', () => {
+	it('preserves calculated Ability and Hero state across the zh-TW to English round-trip', () => {
 		const hero = FactoryLogic.createHero();
 		hero.class = FactoryLogic.createClass();
 		hero.class.characteristics = FactoryLogic.createCharacteristics(0, 0, 3, 2, 1);
-		const ability = getAbility('time-raider-feature-2-5-2');
-		const serializedAbility = JSON.stringify(ability);
-		const serializedHero = JSON.stringify(hero);
+		const renderedAbility = getAbility('time-raider-feature-2-5-1');
+		const calculatedAbility = getAbility('time-raider-feature-2-5-2');
 		const getTierEffectCreature = vi.spyOn(AbilityLogic, 'getTierEffectCreature');
-
-		expect(tierReading('time-raider-feature-2-5-1', 'sections.0.roll.tier1', 1, hero)).toBe('5 傷害');
-		expect(tierReading('time-raider-feature-2-5-1', 'sections.0.roll.tier2', 2, hero)).toBe('8 傷害；推動 1');
-		expect(tierReading('time-raider-feature-2-5-1', 'sections.0.roll.tier3', 3, hero)).toBe('10 傷害；推動 2；`力量` < 3，**伏地**');
-		expect(tierReading('time-raider-feature-2-5-2', 'sections.0.roll.tier1', 1, hero)).toBe('5 心靈傷害；滑動 1');
-		expect(tierReading('time-raider-feature-2-5-2', 'sections.0.roll.tier2', 2, hero)).toBe('8 心靈傷害；滑動 2');
-		expect(tierReading('time-raider-feature-2-5-2', 'sections.0.roll.tier3', 3, hero)).toBe('10 心靈傷害；滑動 3');
-		expect(textReading('time-raider-feature-2-5-3', 'sections.0.text', hero)).toBe('目標的速度獲得等於你`理智`、`直覺`或`氣場`的加值（由你選擇），直到你下個回合開始。');
-		expect(getTierEffectCreature.mock.calls.every(([ input ]) => !/[一-鿿]/.test(input))).toBe(true);
-		expect(getTierEffectCreature.mock.calls.map(([ input ]) => input)).toContain('7 + R, I, or P damage; push 2; M < [strong] prone');
-		expect(JSON.stringify(ability)).toBe(serializedAbility);
-		expect(JSON.stringify(hero)).toBe(serializedHero);
-
-		getTierEffectCreature.mockRestore();
-	});
-
-	it('renders representative ability presentation through the production panel', () => {
 		const { container } = renderAbility('time-raider-feature-2-5-1');
 
-		expect(container.textContent).toContain('猛力衝擊');
-		expect(container.textContent).toContain('你將一股無形的力量猛烈砸向目標。');
-		expect(tierTexts(container)).toEqual([
-			'2 + 理智、直覺或氣場傷害',
-			'5 + 理智、直覺或氣場傷害；推動 1',
-			'7 + 理智、直覺或氣場傷害；推動 2；力量 < [強]，伏地'
-		]);
-		expect(Array.from(container.querySelectorAll('.power-roll-row .effect strong')).map(node => node.textContent)).toEqual([ '伏地' ]);
-		expect(Array.from(container.querySelectorAll('code')).map(node => node.textContent)).toEqual([ '理智', '直覺', '氣場', '理智', '直覺', '氣場', '理智', '直覺', '氣場', '力量' ]);
+		try {
+			verifyLocaleDifferentialInvariants({
+				protectedStates: [
+					protectCanonicalState({ label: 'rendered Orden Ability', capture: () => JSON.stringify(renderedAbility) }),
+					protectCanonicalState({ label: 'calculated Orden Ability', capture: () => JSON.stringify(calculatedAbility) }),
+					protectCanonicalState({ label: 'Hero', capture: () => JSON.stringify(hero) })
+				],
+				assertZhTW: () => {
+					expect(tierReading('time-raider-feature-2-5-1', 'sections.0.roll.tier1', 1, hero)).toBe('5 傷害');
+					expect(tierReading('time-raider-feature-2-5-1', 'sections.0.roll.tier2', 2, hero)).toBe('8 傷害；推動 1');
+					expect(tierReading('time-raider-feature-2-5-1', 'sections.0.roll.tier3', 3, hero)).toBe('10 傷害；推動 2；`力量` < 3，**伏地**');
+					expect(tierReading('time-raider-feature-2-5-2', 'sections.0.roll.tier1', 1, hero)).toBe('5 心靈傷害；滑動 1');
+					expect(tierReading('time-raider-feature-2-5-2', 'sections.0.roll.tier2', 2, hero)).toBe('8 心靈傷害；滑動 2');
+					expect(tierReading('time-raider-feature-2-5-2', 'sections.0.roll.tier3', 3, hero)).toBe('10 心靈傷害；滑動 3');
+					expect(textReading('time-raider-feature-2-5-3', 'sections.0.text', hero)).toBe('目標的速度獲得等於你`理智`、`直覺`或`氣場`的加值（由你選擇），直到你下個回合開始。');
+					expect(container.textContent).toContain('猛力衝擊');
+					expect(container.textContent).toContain('你將一股無形的力量猛烈砸向目標。');
+					expect(tierTexts(container)).toEqual([
+						'2 + 理智、直覺或氣場傷害',
+						'5 + 理智、直覺或氣場傷害；推動 1',
+						'7 + 理智、直覺或氣場傷害；推動 2；力量 < [強]，伏地'
+					]);
+					expect(Array.from(container.querySelectorAll('.power-roll-row .effect strong')).map(node => node.textContent)).toEqual([ '伏地' ]);
+					expect(Array.from(container.querySelectorAll('code')).map(node => node.textContent)).toEqual([ '理智', '直覺', '氣場', '理智', '直覺', '氣場', '理智', '直覺', '氣場', '力量' ]);
+				},
+				switchToEnglish: () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / })),
+				assertEnglish: () => {
+					expect(tierTexts(container)).toEqual([
+						'2 + R, I, or P damage',
+						'5 + R, I, or P damage; push 1',
+						'7 + R, I, or P damage; push 2; M < [strong] prone'
+					]);
+					expect(container.textContent).not.toMatch(/[一-鿿]/);
+				},
+				switchToZhTW: () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / })),
+				assertZhTWAfterRoundTrip: () => {
+					expect(tierTexts(container)).toEqual([
+						'2 + 理智、直覺或氣場傷害',
+						'5 + 理智、直覺或氣場傷害；推動 1',
+						'7 + 理智、直覺或氣場傷害；推動 2；力量 < [強]，伏地'
+					]);
+				}
+			});
 
-		fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
-		expect(tierTexts(container)).toEqual([
-			'2 + R, I, or P damage',
-			'5 + R, I, or P damage; push 1',
-			'7 + R, I, or P damage; push 2; M < [strong] prone'
-		]);
-		expect(container.textContent).not.toMatch(/[一-鿿]/);
+			getTierEffectCreature.mock.calls.forEach(([ input ]) => assertCanonicalEnglishCalculationInput(input));
+			expect(getTierEffectCreature.mock.calls.map(([ input ]) => input)).toContain('7 + R, I, or P damage; push 2; M < [strong] prone');
+		} finally {
+			getTierEffectCreature.mockRestore();
+		}
 	});
 });
