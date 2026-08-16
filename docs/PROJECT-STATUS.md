@@ -1,6 +1,6 @@
 # Forge Steel 繁體中文化專案進度
 
-> 最後更新：2026-08-15
+> 最後更新：2026-08-16
 > 本文件是 handoff 摘要，不取代 GitHub PR／commit、`docs/REVIEWER-PRINCIPLES.md`、V1 requirements、現行 code／tests／CI 或人工驗收 evidence。
 
 ## 1. Current Baseline
@@ -8,8 +8,8 @@
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active integration branch：`develop`
 - Current integration baseline：
-  `80fcb2dd0648b7dbe58890c27fbca60cf86c8ca1`
-- Latest substantive merged PR：`#72 feat: localize Troubadour level 1 abilities`
+  `6a121f5488331f35a795343e81ccd353ad974e8f`
+- Latest substantive merged PR：`#79 feat: localize Core Conduit Level 1 remaining content`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
 - Current phase：**已從 denominator foundation 進入 coherent player-facing translation slices，並持續以 manifest／completeness 逐批擴充。** manifest／completeness 是進度的權威 machine evidence；目前沒有 missing、unapproved 或 catalog issues，仍有 5 個 unresolved domains，`complete = false`。在所有 V1 domains 都完整 enumerate 前，任何已知 denominator 數字都不是完整 V1 翻譯百分比。
@@ -98,11 +98,16 @@
 - player-facing display／search 使用中文；Hero／Feature selection 與 save data 仍保留 canonical English selection／save values。
 - `skills-and-languages` unresolved domain 已移除。
 
-### 3.9 Core standard Class Level 1 ability-authored-content（PR #60、#63–#64、#66–#67、#69–#72）
+### 3.9 Core standard Class Level 1 ability-authored-content（PR #60、#63–#64、#66–#67、#69–#72、#79）
 
 - Censor、Fury、Conduit、Elementalist、Null、Shadow、Tactician、Talent 與 Troubadour 九個 Core standard Class 的 Level 1 ability-authored-content 已完成 localization slice。
 - Class ability calculated presentation 維持 canonical-English-first：canonical calculator 先完成計算，再僅在 presentation boundary 投影可安全證明的 approved zh-TW；中文不進入 calculator、parser 或 canonical data。
 - 此 milestone 不代表所有 V1 Class Level 1 abilities 完成：Official Beastheart 與 Summoner 的 Level 1 Class ability-authored-content 尚未完整 enumerate 或 localized，仍屬 `official-ability-authored-content` unresolved domain。
+
+### 3.10 Core／Orden content expansion after the earlier Level 1 milestone（PR #74、#76–#78）
+
+- Orden Ancestry abilities、Core standard Kits、Core Domains Level 1–3 與 Censor Level 1 Orders 已加入 production localization、manifest coverage 與其各自的 representative presentation evidence。
+- Censor Orders 與 Conduit remaining content 的完成擴充既有 Core Level 1 progress，但不改變 V1 scope：V1 仍包含 Core、Orden、Beastheart 與 Summoner；目前 sequencing 可優先處理 Core／Orden。
 
 ## 4. 現行 translation／decision 規則
 
@@ -129,7 +134,7 @@
 - Level 2／3 level-up player flow 所需 UI／game content localization 與 canonical-safety regression evidence。
 - 在所有 V1 domains 已完整 enumerate 前，持續將 completeness 明確報為已納入 denominator 的內容進度，而非完整 V1 翻譯百分比。
 - 依 V1 requirements 完成 save／reopen／original-save compatibility、Official／Homebrew、locale switching、Hero Sheet／output 等剩餘 required verification。
-- Beastheart／Summoner 的 Level 1 Class ability-authored-content，以及所有 Level 2／3、subclass／class-level content，仍待完整 enumerate、取得核准譯文並完成 localized presentation evidence。
+- Beastheart／Summoner 的 Level 1 Class ability-authored-content，以及尚未納入目前 slices 的 Level 2／3、subclass／class-level content，仍待完整 enumerate、取得核准譯文並完成 localized presentation evidence。
 - 專案負責人與團員的封閉 Beta。
 - 發布前 dependency/security risk decision、GPL／Draw Steel licensing／legal notice、免費 deployment 與正式發布批准。
 

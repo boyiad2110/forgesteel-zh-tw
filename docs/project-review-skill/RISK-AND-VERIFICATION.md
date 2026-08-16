@@ -90,6 +90,10 @@
 - shared／delegated component 若含 fallback、default label 或 mode-dependent presentation，必須驗證最終 rendered public behavior，不能只檢查直接 call site 傳入的 argument。
 - 只有在該 branch 無法可靠自動測試時，才補最小 manual smoke。
 
+## Dynamic zh-TW Interpolation
+
+共享的 zh-TW template 若插入值可能是 localized Chinese 或 canonical-English fallback，且邊界會影響量詞空格、標點或語法，屬 Level B presentation risk 時，代表性 public-behavior evidence 必須覆蓋兩種值族：例如 `選擇 1 個教團` 與 `選擇 1 個 Order`。這不是全域 whitespace transformation rule，也不是每個 localization batch 的必跑測試；只適用於實際存在的 dynamic interpolation risk。
+
 ## Intermittent / Flaky Verification
 
 - failure 必須如實回報。

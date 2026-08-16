@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.5.1"
+  version: "0.5.2"
 ---
 
 # Forge Steel Reviewer
@@ -83,7 +83,7 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 
 ## 5. Prepare Agent Task
 
-依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。
+依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。穩定 generic rules 應引用本 Skill、`AGENT-TASK-CONTRACT.md`、`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md` 與 `TRANSLATION-WORKFLOW.md`，不必在每份 handoff 重貼完整 Git 禁止或 Stage workflow；但本批特有 risk、禁止事項、SHA、merge method、scope boundary、acceptance 與 STOP rule 仍須明列。
 
 至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。
 
@@ -151,12 +151,15 @@ Verdict 與 Findings 直接依 `docs/REVIEWER-PRINCIPLES.md`。
 
 ## 8. Stage 2 — Focused Correction
 
-只有第一輪有 blocker 時使用：
+第一輪 Review 有 blocker 時使用。若 Reviewer PASS 後、進入 Stage 3 前的 Owner manual acceptance 發現真正 blocker，也採用同樣的 focused-correction 方式：
 
 - 只修 blocker，不夾帶重構或 Non-blocking Observation。
-- 重新驗證受影響範圍與必要 regression。
-- 第二輪只審 correction 與新重大問題。
-- 第二輪仍有結構性 blocker 時停止 patch loop。
+- 正常建立新 correction commit；不得 amend 已核准 commit。
+- tracked correction 使舊 exact-HEAD evidence 失效，必須對新 HEAD 重新執行受影響範圍與必要 regression 的 fresh verification。
+- Reviewer 只 focused verify correction 與新重大問題，並固定新的 approved HEAD。
+- 不重開完成的 full Review，也不建立第三輪 full Review；新 HEAD 獲核准後才回到 Stage 3。
+
+第二輪仍有結構性 blocker 時停止 patch loop。
 
 已核准譯文的 singular／plural、`a/an`、大小寫、標點等純機械變體依 Principles 直接處理，不重新要求 Owner approval。
 
@@ -166,7 +169,7 @@ Reviewer PASS 後依 Risk 決定是否需要 Owner manual smoke。
 
 Smoke 只驗自動測試難以證明的視覺、responsive 或真實 interaction，用少量代表性 flow；不要無目的全站巡覽。
 
-Owner 人工驗收與必要測試通過後，功能／內容 Review 結束。
+Owner 人工驗收與必要測試通過後，功能／內容 Review 結束。若 acceptance 發現 blocker，依 Stage 2 的 post-PASS focused correction path 處理；不得因先前 PASS 忽略 finding，也不得帶著 stale exact-HEAD evidence 進入 Stage 3。
 
 ## 10. Stage 3 — Git / PR Closeout
 
