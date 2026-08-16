@@ -28,6 +28,7 @@
 	},
 	"include": [
 		"src",
+		"tooling",
 		"vite.config.ts"
 	]
 }

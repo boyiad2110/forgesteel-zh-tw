@@ -65,6 +65,18 @@ Runtime 可用的 Official / Patreon / Playtest / Homebrew 範圍是另一件事
 
 ---
 
+## 2.1 Repository-native Localization Pipeline Gate
+
+Translation batch 必須使用 current repository pipeline，完成適用的 deterministic validation。Reviewer 的 Batch Contract 應列出適用 command 與 evidence；Agent final report 應回報 pipeline result。
+
+`npm run loc:status` 從 live V1 manifest、production catalog 與既有 completeness / validation implementation 產生 status；`npm run loc:status -- --json` 提供同一份 machine-readable report；`npm run loc:verify` 則在 missing、unapproved 或 catalog issue 存在時失敗。這些 output 是 manifest / catalog / canonical authority 的衍生 report，不是第二個 translation denominator，也不得以 committed generated status artifact 取代 live analysis。
+
+`unresolvedDomains` 與 integrity failure 不同：前者表示尚未完整 enumerate 的 V1 範圍，因此會使 V1 complete 為 false，但不會使已知 denominator 的 `loc:verify` 失敗。pipeline 不會自動判斷中文語意品質或授予 Owner approval；新術語、正式譯名與其他 semantic Chinese decisions 仍屬專案負責人 authority。
+
+CLI/report 不取代 packet canonical-alignment、Glossary Delta 或其他 workflow-specific gate，除非未來該功能明確由 pipeline 實作並成為該 gate 的正式執行方式。
+
+---
+
 ## 3. 從現在開始的翻譯方式
 
 不再把工作硬拆成：
