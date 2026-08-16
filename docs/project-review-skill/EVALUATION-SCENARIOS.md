@@ -530,3 +530,44 @@
 
 - 未讀 repository tooling evidence 就執行 install／recovery。
 - 把 global tool availability 當成 manager 選擇依據。
+
+---
+
+## Scenario 26 — Manual Acceptance Blocker after Reviewer PASS
+
+### Prompt
+
+> Reviewer 已對 exact HEAD 判定 PASS。進入 Stage 3 前，Owner manual smoke 發現真實 display blocker；Agent 主張既然 full Review 已完成，可以忽略 finding 或直接 amend 已核准 commit。
+
+### Expected behavior
+
+- 接受 Owner finding，僅處理該 acceptance blocker。
+- 以正常新 correction commit 固定新 HEAD；舊 exact-HEAD evidence 隨 tracked change 失效。
+- 對受影響範圍取得 fresh verification，Reviewer 只 focused verify correction 與新重大問題，並固定新的 approved HEAD。
+- 新 HEAD 核准後才進入 Stage 3；不重開 whole feature Review，也不建立第三輪 full Review。
+
+### Failure indicators
+
+- 因 Reviewer 已 PASS 而忽略 Owner finding。
+- amend approved commit，或帶著 stale exact-HEAD evidence 進入 Stage 3。
+- 將 focused correction 擴張成整個功能的 full re-review。
+
+---
+
+## Scenario 27 — CJK Interpolation with English Fallback
+
+### Prompt
+
+> 同一 zh-TW template 插入已本地化的教團名稱時應顯示 `選擇 1 個教團`，但未翻譯的值會以 canonical-English `Order` fallback。Agent 想全域移除空格，且只測試中文輸入。
+
+### Expected behavior
+
+- 將此視為 dynamic interpolation 的 bounded Level B presentation risk。
+- representative rendered behavior 同時測試中文值的量詞／空格，以及 English fallback 的可讀分隔，例如 `選擇 1 個 Order`。
+- 不建立全域 space-collapse rule；只處理實際 template boundary。
+
+### Failure indicators
+
+- 只驗證 localized Chinese path。
+- English fallback 緊黏、不可讀，或以全域 whitespace transform 修正。
+- 因此要求每個 localization batch 都跑同一測試。

@@ -6,7 +6,7 @@
 
 Reviewer 的權限、Findings、User Decision 與翻譯決策邊界以 `docs/REVIEWER-PRINCIPLES.md` 為準；本文件不重複維護第二套政策。
 
-Agent 任務應以「本批差異」為主，穩定的專案規則優先引用既有文件，不重寫完整專案歷史。
+Agent 任務應以「本批差異」為主，穩定的專案規則優先引用既有文件，不重寫完整專案歷史。應引用 `PROJECT-REVIEW-SKILL.md`、本 Contract、`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md` 與 `TRANSLATION-WORKFLOW.md`；本批特有 risk、禁止事項、SHA、merge method、scope、acceptance 與 STOP rule 仍須明列。
 
 ## 任務必備欄位
 
@@ -65,6 +65,12 @@ translation approval 依 surface、localization identity 與 semantic context �
 - 只有 Owner 明確要求全域統一時才合併。
 - 發現疑似不一致時列為回報事項，不自行處理。
 
+### Worksheet Identity and Owner Override
+
+相同 `canonicalEnglish` 不自動構成可機械重用的關係。只有 rows 的相關 semantic／presentation context 相同，且既有 authority 支持時才可重用；同一 canonical label 可因不同 Feature identity 或 presentation role 而有不同 Owner-approved reading。
+
+`Reviewer-derived／mechanical` classification 表示該 row 不需要 Owner action，不限制 Owner 編輯 `Final zh-TW`。Owner 明確改動 Final value 時，最新 Owner value 即為 authority；後續 worksheet normalization／packet generation 必須依 identity 記錄該 override，不得靜默還原先前 mechanical suggestion。
+
 ## Reviewer Patch Handoff
 
 當 Reviewer 無法直接存取 Agent local workspace，且 Contract 不允許 push／PR 時，Stage 1／Stage 2 收尾必須附上可審查的 patch evidence：
@@ -118,7 +124,7 @@ Reviewer：
 
 ## Stage 2 — Focused Correction
 
-只有第一輪 Review 有 blocker 時使用。
+第一輪 Review 有 blocker 時使用；Reviewer PASS 後、Stage 3 前的 Owner manual acceptance 若發現真正 blocker，也使用同樣的 focused correction，不重開 full Review。
 
 Agent：
 
@@ -126,6 +132,7 @@ Agent：
 - 不夾帶 Non-blocking Observation、重構或下一批內容。
 - 重新執行受影響範圍與必要 regression 的 fresh verification。
 - correction commit／history 依 Contract 執行，不自行 amend／rebase 已核准 commit。
+- tracked correction 使舊 exact-HEAD evidence 失效；以正常新 commit 固定新 HEAD 後，重跑受影響 fresh verification。
 - 回報後停止。
 
 Reviewer：
@@ -133,6 +140,7 @@ Reviewer：
 - 第二輪只檢查 correction 與是否產生新的重大問題。
 - 第二輪仍有結構性 blocker 時停止 patch loop，重新評估方案／scope。
 - 不因非阻擋觀察要求第三輪。
+- post-PASS correction 只 focused verify acceptance finding 與新重大問題，固定新 approved HEAD 後回到 Stage 3。
 
 ## Manual Acceptance
 
