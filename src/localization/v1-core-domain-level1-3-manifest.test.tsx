@@ -28,6 +28,7 @@ import { Hero } from '@/models/hero';
 import { core } from '@/data/sourcebooks/official/core';
 import { localizeCalculatedAuthoredTextPresentation } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 import { localizePowerRollTierPresentation } from '@/components/panels/power-roll/power-roll-tier-presentation';
+import { protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { PanelMode } from '@/enums/panel-mode';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { ReactNode, createElement } from 'react';
@@ -558,44 +559,37 @@ describe('Domain Level 1 container presentation', () => {
 		)
 	);
 
-	it('reads the container and its nested Skill choice in zh-TW', () => {
+	it('preserves the container while presenting zh-TW, English, then zh-TW again', () => {
 		const level1Container = level1FeaturesOf(getDomain('domain-trickery'))[0];
 		const { container } = renderFeature(level1Container);
 
-		expect(container.textContent).toContain('靈光詐現、隱密類技能');
-		expect(container.textContent).not.toContain('Inspired Deception, Intrigue Skill');
+		verifyLocaleDifferentialInvariants({
+			protectedStates: [ protectCanonicalState({ label: 'Domain Feature container and children', capture: () => JSON.stringify(level1Container) }) ],
+			assertZhTW: () => {
+				expect(container.textContent).toContain('靈光詐現、隱密類技能');
+				expect(container.textContent).not.toContain('Inspired Deception, Intrigue Skill');
+				expect(container.textContent).not.toContain('Intrigue Skill');
+				expandAll(container);
+				expect(container.textContent).toContain('從隱密類技能中選擇 1 項技能。');
+				expect(container.textContent).not.toContain('Choose a skill from Intrigue skills.');
+			},
+			switchToEnglish: () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / })),
+			assertEnglish: () => {
+				expect(container.textContent).toContain('Inspired Deception, Intrigue Skill');
+				expect(container.textContent).toContain('Choose a skill from Intrigue skills.');
+				expect(container.textContent).not.toMatch(/[一-鿿]/);
+			},
+			switchToZhTW: () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / })),
+			assertZhTWAfterRoundTrip: () => {
+				expect(container.textContent).toContain('靈光詐現、隱密類技能');
+				expect(container.textContent).toContain('從隱密類技能中選擇 1 項技能。');
+				expect(container.textContent).not.toContain('Inspired Deception, Intrigue Skill');
+				expect(container.textContent).not.toContain('Intrigue Skill');
+			}
+		});
 
-		expandAll(container);
-
-		expect(container.textContent).toContain('隱密類技能');
-		expect(container.textContent).toContain('從隱密類技能中選擇 1 項技能。');
-		expect(container.textContent).not.toContain('Intrigue Skill');
-		expect(container.textContent).not.toContain('Choose a skill from Intrigue skills.');
-	});
-
-	it('falls back to canonical English in the English locale', () => {
-		const level1Container = level1FeaturesOf(getDomain('domain-trickery'))[0];
-		const { container } = renderFeature(level1Container);
-
-		fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
-		expandAll(container);
-
-		expect(container.textContent).toContain('Inspired Deception, Intrigue Skill');
-		expect(container.textContent).toContain('Choose a skill from Intrigue skills.');
-		expect(container.textContent).not.toMatch(/[一-鿿]/);
-	});
-
-	it('does not mutate the container or its children when switching locale', () => {
-		const level1Container = level1FeaturesOf(getDomain('domain-love'))[0];
-		const serialized = JSON.stringify(level1Container);
-		const { container } = renderFeature(level1Container, heroWithCharacteristics());
-
-		expandAll(container);
-		fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
-
-		expect(JSON.stringify(level1Container)).toBe(serialized);
-		expect(level1Container.id).toBe('domain-love-1');
-		expect(level1Container.name).toBe('Blessing of Compassion, Interpersonal Skill');
+		expect(level1Container.id).toBe('domain-trickery-1');
+		expect(level1Container.name).toBe('Inspired Deception, Intrigue Skill');
 	});
 });
 
