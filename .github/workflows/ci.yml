@@ -27,17 +27,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
-      - name: TypeScript check
-        run: npx tsc -p tsconfig.json
-
-      - name: Localization integrity
-        run: npm run loc:verify
-
-      - name: Test
-        run: npx vitest run
-
-      - name: Build
-        run: npm run build
+      - name: Verify (lint, TypeScript, localization integrity, test, build)
+        run: npm run verify:ci
