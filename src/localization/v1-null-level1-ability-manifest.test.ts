@@ -32,7 +32,12 @@ vi.mock('@/components/panels/sash/sash-panel', () => ({ SashPanel: () => null })
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
 const required = createV1NullLevel1AbilityRequiredCanonicalEnglish();
-const nullEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => entry.kind === 'element-field' && entry.elementID.startsWith('null-'));
+// Scoped to this slice's own ability IDs, following the Conduit/Elementalist/Fury/Shadow
+// precedent, so the separate Null Level 1 non-Ability slice stays out of this denominator.
+const nullEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
+	entry.kind === 'element-field'
+		&& v1NullLevel1AbilityIDs.includes(entry.elementID as typeof v1NullLevel1AbilityIDs[number])
+));
 
 const getAbility = (id: typeof v1NullLevel1AbilityIDs[number]) => {
 	const ability = getV1NullLevel1Abilities().find(candidate => candidate.id === id);
