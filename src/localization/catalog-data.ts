@@ -3178,6 +3178,53 @@ const coreFuryLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'fury-1-7', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
 ];
 
+const coreElementalistLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'elementalist-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-resource', field: 'name', canonicalEnglish: 'Essence', zhTW: '精髓', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-resource', field: 'gains.0.trigger', canonicalEnglish: 'Start of your turn', zhTW: '每當你的回合開始時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-resource', field: 'gains.1.trigger', canonicalEnglish: 'The first time in a round that you or a creature within 10 of you takes damage that isn’t untyped or holy', zhTW: '每輪中，當你自己或 10 格內的 1 個生物首次受到無類型或神聖以外的傷害時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-2', field: 'name', canonicalEnglish: 'Crafting / Lore Skills', zhTW: '工藝類 / 學識類技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-2', field: 'description', canonicalEnglish: 'Choose 3 from Crafting skills, Lore skills.', zhTW: '從工藝類技能、學識類技能中選擇 3 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-5', field: 'name', canonicalEnglish: 'Persistent Magic', zhTW: '續發魔法', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-5', field: 'description', canonicalEnglish: '\nSome of your heroic abilities have a persistent effect entry. For example, the Instantaneous Excavation ability has an effect noted as “Persistent 1.” Whenever you use a persistent ability, you decide whether you want to maintain it, and start doing so immediately after you first use the ability. If you maintain a persistent ability in combat, you reduce the amount of essence you earn at the start of your turn by an amount equal to the ability’s persistent value, which enables the ability’s persistent effect. All your active persistent abilities end at the end of the encounter.\n\nYou can’t maintain any abilities that would make you earn a negative amount of essence at the start of your turn. You can stop maintaining an ability at any time (no action required).\n\nIf you maintain the same ability on several targets and the effect includes a power roll, you make that roll once and apply the same effect to all targets. A creature can’t be affected by multiple instances of a persistent ability.\n\nIf you take damage equal to or greater than 5 times your Reason score in one turn, you stop maintaining any persistent abilities. For instance, if you have a Reason score of 2 and are maintaining Instantaneous Excavation, taking 10 or more damage in one turn causes you to stop maintaining the ability.', zhTW: '你的某些英雄招式具有「續發」欄位。例如，【瞬間陷落】招式有個標記為「續發 1」的效果。每當你首次發動具有續發效果的招式時，你必須立刻決定是否維持該招式，若決定維持，招式會在發動後立刻開始維持。若你在戰鬥中維持 1 個續發型招式，你在回合開始時獲得的精髓會減少等於該招式的續發值，然後啟動該招式的續發效果。你所有正在維持的續發型招式都會在遭遇結束時終止。\n\n若維持某個招式會導致你在回合開始時獲得負數的精髓，你就無法維持該招式。你可以隨時停止維持 1 個招式（無需動作）。\n\n若你對多個目標維持相同的招式，而且續發效果需要你進行檢定，你只需要檢定 1 次，並將相同結果套用到所有目標。1 個生物不能同時受到多個相同續發效果的影響。\n\n若你在 1 個回合內受到的傷害 ≧ 你的`理智` ×5，你會停止維持所有續發型招式。例如，若你的`理智`為 2，並正在維持【瞬間陷落】，那麼你在 1 回合內受到 10 點以上的傷害就會停止維持該招式。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7', field: 'name', canonicalEnglish: 'Enchantment', zhTW: '附魔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7a', field: 'name', canonicalEnglish: 'Enchantment of Battle', zhTW: '戰鬥附魔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7a', field: 'description', canonicalEnglish: '\nYou can wear light armor and wield light weapons effectively, even though you don’t have a kit.\n\n* While you wear light armor, you gain a +3 bonus to Stamina, and that bonus increases by 3 at 4th, 7th, and 10th levels.\n* While you wield a light weapon, you gain a +1 damage bonus with weapon abilities, including free strikes.\n* You can use light armor treasures and light weapon treasures.\n\nIf you have a kit, you can’t take this enchantment.', zhTW: '即使你沒有套裝，你也能有效地穿戴輕甲和持用輕型武器。\n\n* 當你穿戴輕甲時，你的體力會獲得 +3 加值。此加值會在 4 級、7 級和 10 級時各增加 3 點。\n* 當你持用輕型武器時，你武器招式的傷害會獲得 +1 加值（包括基礎打擊）。\n* 你可以使用輕甲寶物和輕型武器寶物。\n\n若你擁有套裝，你不能選擇此附魔。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7aa', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7ab', field: 'name', canonicalEnglish: 'Ability damage modifier', zhTW: '招式傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7ac', field: 'name', canonicalEnglish: 'Proficiency', zhTW: '熟練項目', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7b', field: 'name', canonicalEnglish: 'Enchantment of Celerity', zhTW: '迅捷附魔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7b', field: 'description', canonicalEnglish: 'You gain a bonus to speed and to the distance you can shift when you take the Disengage move action.', zhTW: '你的速度，以及當你執行撤離移動動作時的遁移距離，都會獲得加值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7ba', field: 'name', canonicalEnglish: 'Speed', zhTW: '速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7bb', field: 'name', canonicalEnglish: 'Disengage', zhTW: '撤離', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7c', field: 'name', canonicalEnglish: 'Enchantment of Destruction', zhTW: '毀滅附魔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7c', field: 'description', canonicalEnglish: 'You gain a bonus to rolled damage with magic abilities.', zhTW: '你魔法招式的檢定傷害會獲得加值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7d', field: 'name', canonicalEnglish: 'Enchantment of Distance', zhTW: '遠距附魔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7d', field: 'description', canonicalEnglish: 'You have a bonus to the distance of your ranged magic abilities.', zhTW: '你遠程魔法招式的射程會獲得加值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7e', field: 'name', canonicalEnglish: 'Enchantment of Permanence', zhTW: '耐久附魔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7e', field: 'description', canonicalEnglish: 'Stamina, Stability', zhTW: '體力、穩度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7e-1', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-7e-2', field: 'name', canonicalEnglish: 'Stability', zhTW: '穩度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8', field: 'name', canonicalEnglish: 'Elementalist Ward', zhTW: '元素師護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8a', field: 'name', canonicalEnglish: 'Ward of Delightful Consequences', zhTW: '因果報應護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8a', field: 'description', canonicalEnglish: 'A protective field of void magic absorbs violence aimed at you, then lets you hurl it back at your enemies. The first time each round that you take damage, you gain 1 surge.', zhTW: '虛冥魔法的防護罩會吸收外力的衝擊，並讓你反彈回敵人身上。每輪中，當你首次受到傷害時，你獲得 1 點鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8b', field: 'name', canonicalEnglish: 'Ward of Excellent Protection', zhTW: '卓越防禦護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8b', field: 'description', canonicalEnglish: 'You weave a shield of all the elements around yourself, channeling their full protective power. You have immunity to acid, cold, corruption, fire, lightning, poison, or sonic damage equal to your Reason score.', zhTW: '你在自身周圍編織出全元素護盾，引導完整的防護力量。你對酸蝕、寒冷、腐朽、火焰、閃電、劇毒或音波傷害具有等於你`理智`的免疫。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8ba', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8bb', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8bc', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8bd', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8be', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8bf', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-8bg', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-9', field: 'name', canonicalEnglish: 'Signature Ability', zhTW: '招牌招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-10', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'elementalist-1-11', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -3196,5 +3243,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreDomainLevel1To3LocalizationEntries,
 	...coreCensorLevel1AndOrderLocalizationEntries,
 	...coreConduitLevel1RemainingLocalizationEntries,
-	...coreFuryLevel1RemainingLocalizationEntries
+	...coreFuryLevel1RemainingLocalizationEntries,
+	...coreElementalistLevel1RemainingLocalizationEntries
 ];

@@ -284,6 +284,18 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 
 	const projections = [
 		{
+			// Persistent Magic is a FeatureType.Text Feature, not an ability section, so this is
+			// the FeaturePanel auto-calc path. The calculator resolves the '5 times your Reason
+			// score' threshold; the worked example's own authored '10' is left alone by the
+			// calculator and is never recomputed here.
+			elementID: 'elementalist-1-5',
+			field: 'description',
+			canonical: 'equal to or greater than 5 times your Reason score',
+			calculated: /equal to or greater than (-?\d+)/,
+			localized: '傷害 ≧ 你的`理智` ×5',
+			localizedReplacement: (value: string) => `傷害 ≧ ${value}`
+		},
+		{
 			elementID: 'elementalist-1-8c',
 			field: 'type.trigger',
 			canonical: 'A creature within a number of squares equal to your Reason score deals damage to you,',

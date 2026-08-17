@@ -551,6 +551,49 @@ export const createV1ElementalistLevel1AbilityRequiredCanonicalEnglish = (): Can
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * Adds only the bounded Elementalist Level 1 non-Ability Feature tree. Ability nodes stop
+ * here: that authored content belongs to the existing Elementalist ability slice. Choice
+ * options and Multiple children remain player-facing FeaturePanel content, so their own
+ * stable fields are included without turning this into a generic class crawler.
+ */
+const addRequiredElementalistLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
+	if (feature.type === FeatureType.Ability) {
+		return;
+	}
+
+	addRequiredElementFields(requiredCanonicalEnglish, feature);
+
+	if (feature.type === FeatureType.HeroicResource) {
+		feature.data.gains.forEach((gain, index) => {
+			if (gain.trigger === '') {
+				return;
+			}
+
+			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
+			if (requiredCanonicalEnglish[identity] !== undefined) {
+				throw new Error(`duplicate localization identity '${identity}'`);
+			}
+			requiredCanonicalEnglish[identity] = gain.trigger;
+		});
+	}
+
+	if (feature.type === FeatureType.Choice) {
+		feature.data.options.forEach(option => addRequiredElementalistLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
+	}
+
+	if (feature.type === FeatureType.Multiple) {
+		feature.data.features.forEach(child => addRequiredElementalistLevel1NonAbilityFields(requiredCanonicalEnglish, child));
+	}
+};
+
+/** Builds the bounded 44-identity Elementalist Level 1 non-Ability denominator from live data. */
+export const createV1ElementalistLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getLevelOneFeatures(elementalist.featuresByLevel, 'Elementalist').forEach(feature => addRequiredElementalistLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Null Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
 export const v1NullLevel1AbilityIDs = [
 	'null-1-4',
@@ -1224,6 +1267,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ConduitLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1ElementalistLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),

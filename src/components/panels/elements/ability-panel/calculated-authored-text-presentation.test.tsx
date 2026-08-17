@@ -9,6 +9,8 @@ import { FactoryLogic } from '@/logic/factory-logic';
 import { LocalizationProvider } from '@/contexts/localization-context';
 import { PanelMode } from '@/enums/panel-mode';
 import { AbilityLogic } from '@/logic/ability-logic';
+import { ElementFieldEntry } from '@/localization/catalog';
+import { productionLocalizationEntries } from '@/localization/catalog-data';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { ReactNode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -18,7 +20,11 @@ const boundary = vi.hoisted(() => ({ calls: [] as string[] }));
 
 vi.mock('@/localization/resolver', async importActual => {
 	const actual = await importActual<typeof import('@/localization/resolver')>();
+	// Persistent Magic is taken from the production catalog rather than restated here, so the
+	// identity-bound projection is exercised against the approved packet bytes themselves.
+	const { productionLocalizationEntries } = await import('@/localization/catalog-data');
 	const resolver = actual.createLocalizationResolver([
+		...productionLocalizationEntries.filter(entry => (entry.kind === 'element-field') && (entry.elementID === 'elementalist-1-5') && (entry.field === 'description')),
 		{ kind: 'element-field', elementID: 'projection-rolls', field: 'sections.0.roll.tier1', canonicalEnglish: 'P < [weak], slowed (save ends)', zhTW: '`氣場` < [弱]，緩速（豁免解除）', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'projection-rolls', field: 'sections.0.roll.tier2', canonicalEnglish: 'P < [average], dazed (save ends)', zhTW: '`氣場` < [中]，暈眩（豁免解除）', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'projection-text', field: 'sections.0.text', canonicalEnglish: 'You deal holy damage equal to twice your Presence score to them.', zhTW: '你對他造成等於你氣場 ×2 的神聖傷害。', approval: 'approved' },
@@ -150,5 +156,29 @@ describe('calculated authored content presentation', () => {
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'conduit-ability-7', field: 'sections.1.text', canonicalEnglish: 'You or one ally within distance gains temporary Stamina equal to your Intuition score.', calculatedEnglish: 'You or one ally within distance gains temporary Stamina equal to 2.' })).toBe('你或射程內的 1 個盟友獲得 2 點臨時體力。');
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'conduit-ability-10', field: 'sections.0.text', canonicalEnglish: 'An enemy takes holy damage equal to your Intuition score.', calculatedEnglish: 'An enemy takes holy damage equal to 2.' })).toBe('敵人受到 2 點神聖傷害。');
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'en', elementID: 'projection-text', field: 'sections.0.text', canonicalEnglish, calculatedEnglish })).toBe(calculatedEnglish);
+	});
+
+	it('projects only the calculated Persistent Magic threshold and falls back on an unsupported rewrite', () => {
+		const approved = productionLocalizationEntries.find((entry): entry is ElementFieldEntry => (
+			(entry.kind === 'element-field') && (entry.elementID === 'elementalist-1-5') && (entry.field === 'description')
+		));
+		if (!approved) {
+			throw new Error('the approved Persistent Magic description is missing from the production catalog');
+		}
+
+		const canonicalEnglish = approved.canonicalEnglish;
+		const calculatedEnglish = canonicalEnglish.replace('equal to or greater than 5 times your Reason score', 'equal to or greater than 10');
+		expect(calculatedEnglish).not.toBe(canonicalEnglish);
+
+		const projected = localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-5', field: 'description', canonicalEnglish, calculatedEnglish });
+		expect(projected).toContain('若你在 1 個回合內受到的傷害 ≧ 10，你會停止維持所有續發型招式。');
+		expect(projected).toContain('1 個生物不能同時受到多個相同續發效果的影響。');
+		expect(projected).not.toContain('×5');
+		expect(projected).not.toMatch(/equal to or greater than/);
+
+		// The worked example's authored '2' is not a calculated value; rewriting it is a
+		// structural change this identity does not authorize, so the whole reading falls back.
+		const unsupported = calculatedEnglish.replace('a Reason score of 2', 'a Reason score of 5');
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-5', field: 'description', canonicalEnglish, calculatedEnglish: unsupported })).toBe(unsupported);
 	});
 });
