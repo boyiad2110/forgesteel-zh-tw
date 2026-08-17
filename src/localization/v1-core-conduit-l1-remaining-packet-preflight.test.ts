@@ -11,6 +11,7 @@ import { FeatureType } from '@/enums/feature-type';
 import { PanelMode } from '@/enums/panel-mode';
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { createV1ConduitLevel1RemainingRequiredCanonicalEnglish, v1LocalizationManifest } from '@/localization/v1-localization-manifest';
+import { verifyPacketCanonicalAlignment } from '@/localization/test-support/packet-canonical-alignment';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
@@ -111,12 +112,6 @@ const getLiveConduitLevel1NonAbilityFields = () => {
 	return fields;
 };
 
-const canonicalHash = async (value: string) => {
-	const bytes = new TextEncoder().encode(value);
-	const digest = await globalThis.crypto.subtle.digest('SHA-256', bytes);
-	return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
-};
-
 const conduitLevelOneFeatures = conduit.featuresByLevel.find(level => level.level === 1)?.features || [];
 const required = createV1ConduitLevel1RemainingRequiredCanonicalEnglish();
 const conduitCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
@@ -151,13 +146,14 @@ afterEach(cleanup);
 describe('Core Conduit L1 remaining approved packet preflight', () => {
 	it('aligns all 42 canonical snapshots, including generated and whitespace-sensitive values, to the live exact-base source', async () => {
 		const liveFields = getLiveConduitLevel1NonAbilityFields();
+		const result = await verifyPacketCanonicalAlignment({
+			packetRecords: Object.entries(approvedPacketCanonicalHashes).map(([ identity, canonicalSha256 ]) => ({ identity, canonicalSha256 })),
+			liveCanonicalEnglish: liveFields
+		});
 
 		expect(Object.keys(approvedPacketCanonicalHashes)).toHaveLength(42);
 		expect(Object.keys(liveFields)).toHaveLength(42);
-		expect(Object.keys(liveFields).sort()).toEqual(Object.keys(approvedPacketCanonicalHashes).sort());
-		for (const [ identity, canonicalEnglish ] of Object.entries(liveFields)) {
-			expect(await canonicalHash(canonicalEnglish)).toBe(approvedPacketCanonicalHashes[identity]);
-		}
+		expect(result).toEqual({ packetRecordCount: 42, liveCanonicalCount: 42, alignedCount: 42, issues: [] });
 	});
 });
 
