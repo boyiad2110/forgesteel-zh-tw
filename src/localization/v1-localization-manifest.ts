@@ -441,45 +441,42 @@ export const createV1ConduitLevel1AbilityRequiredCanonicalEnglish = (): Canonica
 };
 
 /**
- * Adds only the bounded Conduit Level 1 non-Ability Feature tree. Ability nodes stop here:
- * that authored content belongs to the existing Conduit ability slice. Choice options and
- * Multiple children remain player-facing FeaturePanel content, so their own stable fields
- * are included without turning this into a generic class crawler.
+ * Adds the bounded non-Ability Feature fields reachable from one class's own caller-supplied
+ * Level 1 feature roots, in the traversal order `collectNonAbilityFeatureNodes` above defines:
+ * Ability nodes stop the walk, and only Choice options and Multiple children are descended
+ * into. Ability authored content belongs to each class's own ability slice; Choice options and
+ * Multiple children remain player-facing FeaturePanel content, so their own stable fields are
+ * included without turning this into a generic class crawler.
+ *
+ * A heroic resource also contributes the trigger of each way it is gained, addressed by its
+ * position in the gains list. An empty trigger carries no reading and is skipped; the gain's
+ * tag and value are canonical wiring the Hero's own resource calculation reads, not display
+ * text. Each class's Level 1 slice below shares this one walk rather than repeating it.
  */
-const addRequiredConduitLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
-	if (feature.type === FeatureType.Ability) {
-		return;
-	}
+const addRequiredBoundedNonAbilityFeatureFields = (requiredCanonicalEnglish: CanonicalEnglishSource, features: Feature[]) => {
+	collectNonAbilityFeatureNodes(features).forEach(feature => {
+		addRequiredElementFields(requiredCanonicalEnglish, feature);
 
-	addRequiredElementFields(requiredCanonicalEnglish, feature);
+		if (feature.type === FeatureType.HeroicResource) {
+			feature.data.gains.forEach((gain, index) => {
+				if (gain.trigger === '') {
+					return;
+				}
 
-	if (feature.type === FeatureType.HeroicResource) {
-		feature.data.gains.forEach((gain, index) => {
-			if (gain.trigger === '') {
-				return;
-			}
-
-			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
-			if (requiredCanonicalEnglish[identity] !== undefined) {
-				throw new Error(`duplicate localization identity '${identity}'`);
-			}
-			requiredCanonicalEnglish[identity] = gain.trigger;
-		});
-	}
-
-	if (feature.type === FeatureType.Choice) {
-		feature.data.options.forEach(option => addRequiredConduitLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
-	}
-
-	if (feature.type === FeatureType.Multiple) {
-		feature.data.features.forEach(child => addRequiredConduitLevel1NonAbilityFields(requiredCanonicalEnglish, child));
-	}
+				const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
+				if (requiredCanonicalEnglish[identity] !== undefined) {
+					throw new Error(`duplicate localization identity '${identity}'`);
+				}
+				requiredCanonicalEnglish[identity] = gain.trigger;
+			});
+		}
+	});
 };
 
 /** Builds the bounded 42-identity Conduit Level 1 non-Ability denominator from live data. */
 export const createV1ConduitLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
-	getLevelOneFeatures(conduit.featuresByLevel, 'Conduit').forEach(feature => addRequiredConduitLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getLevelOneFeatures(conduit.featuresByLevel, 'Conduit'));
 	return requiredCanonicalEnglish;
 };
 
@@ -551,46 +548,10 @@ export const createV1ElementalistLevel1AbilityRequiredCanonicalEnglish = (): Can
 	return requiredCanonicalEnglish;
 };
 
-/**
- * Adds only the bounded Elementalist Level 1 non-Ability Feature tree. Ability nodes stop
- * here: that authored content belongs to the existing Elementalist ability slice. Choice
- * options and Multiple children remain player-facing FeaturePanel content, so their own
- * stable fields are included without turning this into a generic class crawler.
- */
-const addRequiredElementalistLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
-	if (feature.type === FeatureType.Ability) {
-		return;
-	}
-
-	addRequiredElementFields(requiredCanonicalEnglish, feature);
-
-	if (feature.type === FeatureType.HeroicResource) {
-		feature.data.gains.forEach((gain, index) => {
-			if (gain.trigger === '') {
-				return;
-			}
-
-			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
-			if (requiredCanonicalEnglish[identity] !== undefined) {
-				throw new Error(`duplicate localization identity '${identity}'`);
-			}
-			requiredCanonicalEnglish[identity] = gain.trigger;
-		});
-	}
-
-	if (feature.type === FeatureType.Choice) {
-		feature.data.options.forEach(option => addRequiredElementalistLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
-	}
-
-	if (feature.type === FeatureType.Multiple) {
-		feature.data.features.forEach(child => addRequiredElementalistLevel1NonAbilityFields(requiredCanonicalEnglish, child));
-	}
-};
-
 /** Builds the bounded 44-identity Elementalist Level 1 non-Ability denominator from live data. */
 export const createV1ElementalistLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
-	getLevelOneFeatures(elementalist.featuresByLevel, 'Elementalist').forEach(feature => addRequiredElementalistLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getLevelOneFeatures(elementalist.featuresByLevel, 'Elementalist'));
 	return requiredCanonicalEnglish;
 };
 
@@ -647,46 +608,10 @@ export const createV1NullLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEn
 	return requiredCanonicalEnglish;
 };
 
-/**
- * Adds only the bounded Null Level 1 non-Ability Feature tree. Ability nodes stop here: that
- * authored content belongs to the existing Null ability slice. Choice options and Multiple
- * children remain player-facing FeaturePanel content, so their own stable fields are included
- * without turning this into a generic class crawler.
- */
-const addRequiredNullLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
-	if (feature.type === FeatureType.Ability) {
-		return;
-	}
-
-	addRequiredElementFields(requiredCanonicalEnglish, feature);
-
-	if (feature.type === FeatureType.HeroicResource) {
-		feature.data.gains.forEach((gain, index) => {
-			if (gain.trigger === '') {
-				return;
-			}
-
-			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
-			if (requiredCanonicalEnglish[identity] !== undefined) {
-				throw new Error(`duplicate localization identity '${identity}'`);
-			}
-			requiredCanonicalEnglish[identity] = gain.trigger;
-		});
-	}
-
-	if (feature.type === FeatureType.Choice) {
-		feature.data.options.forEach(option => addRequiredNullLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
-	}
-
-	if (feature.type === FeatureType.Multiple) {
-		feature.data.features.forEach(child => addRequiredNullLevel1NonAbilityFields(requiredCanonicalEnglish, child));
-	}
-};
-
 /** Builds the bounded 36-identity Null Level 1 non-Ability denominator from live data. */
 export const createV1NullLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
-	getLevelOneFeatures(nullClass.featuresByLevel, 'Null').forEach(feature => addRequiredNullLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getLevelOneFeatures(nullClass.featuresByLevel, 'Null'));
 	return requiredCanonicalEnglish;
 };
 
@@ -726,41 +651,10 @@ export const createV1FuryLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEn
 	return requiredCanonicalEnglish;
 };
 
-/** Adds only Fury's bounded Level 1 non-Ability Feature content; Ability nodes stay in its existing slice. */
-const addRequiredFuryLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
-	if (feature.type === FeatureType.Ability) {
-		return;
-	}
-
-	addRequiredElementFields(requiredCanonicalEnglish, feature);
-
-	if (feature.type === FeatureType.HeroicResource) {
-		feature.data.gains.forEach((gain, index) => {
-			if (gain.trigger === '') {
-				return;
-			}
-
-			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
-			if (requiredCanonicalEnglish[identity] !== undefined) {
-				throw new Error(`duplicate localization identity '${identity}'`);
-			}
-			requiredCanonicalEnglish[identity] = gain.trigger;
-		});
-	}
-
-	if (feature.type === FeatureType.Choice) {
-		feature.data.options.forEach(option => addRequiredFuryLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
-	}
-
-	if (feature.type === FeatureType.Multiple) {
-		feature.data.features.forEach(child => addRequiredFuryLevel1NonAbilityFields(requiredCanonicalEnglish, child));
-	}
-};
-
 /** Builds the bounded 15-identity Fury Level 1 non-Ability denominator from live data. */
 export const createV1FuryLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
-	getLevelOneFeatures(fury.featuresByLevel, 'Fury').forEach(feature => addRequiredFuryLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getLevelOneFeatures(fury.featuresByLevel, 'Fury'));
 	return requiredCanonicalEnglish;
 };
 
