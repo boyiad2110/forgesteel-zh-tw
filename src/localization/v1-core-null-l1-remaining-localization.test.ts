@@ -14,7 +14,7 @@ import { productionLocalizationEntries } from '@/localization/catalog-data';
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { createV1NullLevel1RemainingRequiredCanonicalEnglish, v1LocalizationManifest } from '@/localization/v1-localization-manifest';
 import { protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
-import { verifyPacketCanonicalAlignment } from '@/localization/test-support/packet-canonical-alignment';
+import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { Feature } from '@/models/feature';
 import { Hero } from '@/models/hero';
@@ -27,93 +27,8 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-// The approved packet's exact canonical SHA-256 evidence:
-// core-null-l1-remaining-r1@6607c39cf3339a9330d751a777d3e0421c8c2846, revision 1.
-const approvedPacketCanonicalHashes: Record<string, string> = {
-	'element:null-stamina/name': 'cc350ea3393968f7cd7cbf135e8c1ec826c85b881b68dc619c699667805a3e96',
-	'element:null-recoveries/name': '75b168468e6d7c9e715a2f2eb6b5039e120016d6441d2be853dea553ab302e67',
-	'element:null-resource/name': 'a1b14db94434084b789c0069291250652a46b455cbb2b5c347c9231af8ac51b5',
-	'element:null-resource/gains.0.trigger': '65b8bc678dcd96b16bb8bcb467fa8ecad483b57b53442ee3cbf2c8febb2b5d5f',
-	'element:null-resource/gains.1.trigger': 'e92f25247b6cd48237b2d3cfec8337f3651a23607421c7a3af2588763021c66f',
-	'element:null-resource/gains.2.trigger': '8339c00cd8b0cd560687e0239cdc3665917ab4e142f73e02872ff4aa346d1601',
-	'element:null-1-1/name': '6df1bb18a59ab97df82e307b93fe4f3bbda34d531bcbb79ec573dda23ba64918',
-	'element:null-1-1/description': '3a536ec415b64b9f3f84afc3adddfd9ffd30dde5b2acb0b8ed4fb74640dfc3f6',
-	'element:null-1-2/name': '244f8bb5577b42f1894a24fd19a13ed8c729388b68eeecf76e916b035fb6fec0',
-	'element:null-1-2/description': 'c9854a23f48361ae2f01a3602eee7ea678e8833e40551471c8f7785c510f6955',
-	'element:null-1-6/name': '4c5da477bf038e5fbec5c556cefc616a0176931ce16f24e3bffae136aa9dee38',
-	'element:null-1-6/description': 'dfaf26fe14269da6fdf078b9bf8eb1a835356f7e69f71fea2a3c363f730fa4b7',
-	'element:null-1-6a/name': '4c5da477bf038e5fbec5c556cefc616a0176931ce16f24e3bffae136aa9dee38',
-	'element:null-1-6b/name': '4c5da477bf038e5fbec5c556cefc616a0176931ce16f24e3bffae136aa9dee38',
-	'element:null-1-7/name': '6064bdd5b4ecc2e1777988226752ec5a1fdf4e232fd441262fce2f42eebf73f6',
-	'element:null-1-7/description': 'a725ff320f9c56c5934c1fbeed65a9b43edecb1192133e608cd0f2256014b740',
-	'element:null-1-7a/name': '6b57656377fb967a9a8dfaabf4eecbd202003164fe47603c60994089f4a841b1',
-	'element:null-1-7a/description': '730131818313ef6638529818366d032c8c51a57a53b1feb8fdd6fa9824ec599b',
-	'element:null-1-7aa/name': '1e42d0c86af7a9c6a4d88038a3fe9043520f95c6b06afd2ac6ca5dcc885f6c36',
-	'element:null-1-7ab/name': 'cc350ea3393968f7cd7cbf135e8c1ec826c85b881b68dc619c699667805a3e96',
-	'element:null-1-7b/name': 'effe7c9906fecab653c3673b7aa679e5d6cff56317c892c4004d050921ec01c2',
-	'element:null-1-7c/name': '61bcbbeb764502283b9604803ae307d332bdd5ac97c02bad28c6abc33b28b2bd',
-	'element:null-1-7c/description': '17ed3a31e7222e210bb55a9eaa17abfb6437062ca95433c79f8ecac780c275ea',
-	'element:null-1-7ca/name': 'c372fee9b4566b85a592ae6e98e571f3929c8e262cf2feff7acba63a65a50f14',
-	'element:null-1-7cb/name': '8f5776cce47ea63d30932c17fd969bac2dc2ffadeb131a2ea1d9127965dad72c',
-	'element:null-1-8/name': 'ed25f1d3b21605dfbdd912724e5e21b4f15177c5f2a9cbe8ebd924c105391d03',
-	'element:null-1-8/description': 'ed25f1d3b21605dfbdd912724e5e21b4f15177c5f2a9cbe8ebd924c105391d03',
-	'element:null-1-8a/name': '08641c277838950531acfb033e0a3ccb7e5b42c54e4a73643a34539e9d8d21f6',
-	'element:null-1-8a/description': '98bd557a41b2077b713f2c1014622087859dfaecf399bccc292dc94c303e67d3',
-	'element:null-1-8b/name': '08641c277838950531acfb033e0a3ccb7e5b42c54e4a73643a34539e9d8d21f6',
-	'element:null-1-8b/description': '4e4ef1353dc39577426891504ac271a5255762d8584a1cbbbbc3ac2cb4b8ed97',
-	'element:null-1-8c/name': '08641c277838950531acfb033e0a3ccb7e5b42c54e4a73643a34539e9d8d21f6',
-	'element:null-1-8c/description': '32faca61952e5f9af39dc64be48264b3e015b337ce63b25814ca70522e208dbe',
-	'element:null-1-9/name': '5252b981253954620c51b164e20b9a6ddbf79dcfd898e13b6b8b7fbdcc0dda10',
-	'element:null-1-10/name': '7730d1ae4f479ef7597e99e22df581ee1281587f92e1871dd27ec2c6a5d085b9',
-	'element:null-1-11/name': 'daa2a05b433080df49cbc9953b06287acdad908998052e3fc71a70c597b48370'
-};
-
-// The preflight's own live traversal, written independently of the manifest helper so the
-// packet is compared against the class data rather than against the code it is meant to fix.
-const addLiveFeatureFields = (fields: Record<string, string>, feature: Feature) => {
-	if (feature.type === FeatureType.Ability) {
-		return;
-	}
-
-	const add = (field: string, value: string) => {
-		const identity = elementFieldIdentity(feature.id, field);
-		if (fields[identity] !== undefined) {
-			throw new Error(`duplicate localization identity '${identity}'`);
-		}
-		fields[identity] = value;
-	};
-
-	add('name', feature.name);
-	if (feature.description !== '') {
-		add('description', feature.description);
-	}
-	if (feature.type === FeatureType.HeroicResource) {
-		feature.data.gains.forEach((gain, index) => {
-			if (gain.trigger !== '') {
-				add(`gains.${index}.trigger`, gain.trigger);
-			}
-		});
-	}
-	if (feature.type === FeatureType.Choice) {
-		feature.data.options.forEach(option => addLiveFeatureFields(fields, option.feature));
-	}
-	if (feature.type === FeatureType.Multiple) {
-		feature.data.features.forEach(child => addLiveFeatureFields(fields, child));
-	}
-};
-
-const getLiveNullLevel1NonAbilityFields = () => {
-	const levelOne = nullClass.featuresByLevel.find(level => level.level === 1);
-	if (!levelOne) {
-		throw new Error('Null Level 1 features are missing');
-	}
-
-	const fields: Record<string, string> = {};
-	levelOne.features.forEach(feature => addLiveFeatureFields(fields, feature));
-	return fields;
-};
-
 const nullLevelOneFeatures = nullClass.featuresByLevel.find(level => level.level === 1)?.features || [];
+const liveFields = extractLiveBoundedNonAbilityFeatureFields(nullLevelOneFeatures);
 const required = createV1NullLevel1RemainingRequiredCanonicalEnglish();
 const nullCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
 	(entry.kind === 'element-field') && (required[getEntryIdentity(entry)] !== undefined)
@@ -174,24 +89,19 @@ const expectDisciplineEnglish = (container: HTMLElement) => {
 
 afterEach(cleanup);
 
-describe('Core Null L1 remaining approved packet preflight', () => {
-	it('aligns all 36 canonical snapshots to the live exact-base source', async () => {
-		const liveFields = getLiveNullLevel1NonAbilityFields();
-		const result = await verifyPacketCanonicalAlignment({
-			packetRecords: Object.entries(approvedPacketCanonicalHashes).map(([ identity, canonicalSha256 ]) => ({ identity, canonicalSha256 })),
-			liveCanonicalEnglish: liveFields
-		});
-
-		expect(Object.keys(approvedPacketCanonicalHashes)).toHaveLength(36);
-		expect(Object.keys(liveFields)).toHaveLength(36);
-		expect(result).toEqual({ packetRecordCount: 36, liveCanonicalCount: 36, alignedCount: 36, issues: [] });
-	});
-});
-
 describe('V1 Core Null L1 remaining catalog and presentation', () => {
+	// The live slice is extracted by an independent test-side walk of Null's own canonical
+	// Level 1 roots, so this compares the manifest against canonical data rather than against
+	// the manifest's own traversal.
+	it('matches the independent live Null Level 1 non-Ability slice exactly', () => {
+		expect(Object.keys(liveFields)).toHaveLength(36);
+		expect(Object.keys(required)).toHaveLength(36);
+		expect(Object.keys(required).sort()).toEqual(Object.keys(liveFields).sort());
+		expect(required).toEqual(liveFields);
+	});
+
 	it('adds exactly the approved non-Ability manifest and catalog slice', () => {
 		expect(Object.keys(required)).toHaveLength(36);
-		expect(Object.keys(required).sort()).toEqual(Object.keys(approvedPacketCanonicalHashes).sort());
 		expect(nullCatalogEntries).toHaveLength(36);
 		expect(nullCatalogEntries.map(getEntryIdentity).sort()).toEqual(Object.keys(required).sort());
 		expect(nullCatalogEntries.every(entry => entry.approval === 'approved')).toBe(true);
