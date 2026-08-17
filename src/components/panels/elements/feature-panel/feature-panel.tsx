@@ -21,6 +21,7 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { localizeCalculatedAuthoredTextPresentation } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 import { localizeElementField, localizeUIString } from '@/localization/resolver';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useLocalization } from '@/contexts/localization-context';
@@ -141,6 +142,23 @@ export const FeaturePanel = (props: Props) => {
 		AbilityLogic.getTextEffect(descriptionSource, props.hero)
 		: null;
 
+	// AbilityLogic only ever sees canonical English (or the player's own text). When a genuine
+	// calculation delta exists on canonical content, the calculated English and its raw canonical
+	// snapshot go through the shared presenter, which projects only authorized, identity-bound
+	// values into the approved zh-TW and otherwise falls back to the complete calculated English.
+	// A player customization stays player-owned and is never routed through localization.
+	const presentedDescription = (calculatedDescription === null) || (calculatedDescription === descriptionSource) ?
+		featureDescription
+		: customization?.description ?
+			calculatedDescription
+			: localizeCalculatedAuthoredTextPresentation({
+				locale,
+				elementID: props.feature.id,
+				field: 'description',
+				canonicalEnglish: props.feature.description,
+				calculatedEnglish: calculatedDescription
+			});
+
 	return (
 		<ErrorBoundary>
 			<div className={props.mode === PanelMode.Full ? 'feature-panel' : 'feature-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('feaure', props.feature.id) : undefined} style={props.style}>
@@ -174,14 +192,7 @@ export const FeaturePanel = (props: Props) => {
 				>
 					{featureName}
 				</HeaderText>
-				<Markdown
-					text={
-						(calculatedDescription !== null) && (calculatedDescription !== descriptionSource) ?
-							calculatedDescription
-							:
-							featureDescription
-					}
-				/>
+				<Markdown text={presentedDescription} />
 				{
 					props.mode === PanelMode.Full ?
 						<InfoFeature
