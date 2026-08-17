@@ -135,7 +135,11 @@ export const FeaturePanel = (props: Props) => {
 	const featureName = customization?.name
 		|| (props.feature.name ? localizeElementField(locale, props.feature.id, 'name', props.feature.name) : '')
 		|| localizeUIString(locale, 'feature-panel.unnamed', 'Unnamed Feature');
+	const descriptionSource = customization?.description || props.feature.description;
 	const featureDescription = customization?.description || localizeElementField(locale, props.feature.id, 'description', props.feature.description);
+	const calculatedDescription = (props.feature.type === FeatureType.Text) && autoCalc && props.hero ?
+		AbilityLogic.getTextEffect(descriptionSource, props.hero)
+		: null;
 
 	return (
 		<ErrorBoundary>
@@ -172,8 +176,8 @@ export const FeaturePanel = (props: Props) => {
 				</HeaderText>
 				<Markdown
 					text={
-						(props.feature.type === FeatureType.Text) && autoCalc && props.hero ?
-							AbilityLogic.getTextEffect(customization?.description || props.feature.description, props.hero)
+						(calculatedDescription !== null) && (calculatedDescription !== descriptionSource) ?
+							calculatedDescription
 							:
 							featureDescription
 					}

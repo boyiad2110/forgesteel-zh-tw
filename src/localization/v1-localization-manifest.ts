@@ -640,6 +640,44 @@ export const createV1FuryLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEn
 	return requiredCanonicalEnglish;
 };
 
+/** Adds only Fury's bounded Level 1 non-Ability Feature content; Ability nodes stay in its existing slice. */
+const addRequiredFuryLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
+	if (feature.type === FeatureType.Ability) {
+		return;
+	}
+
+	addRequiredElementFields(requiredCanonicalEnglish, feature);
+
+	if (feature.type === FeatureType.HeroicResource) {
+		feature.data.gains.forEach((gain, index) => {
+			if (gain.trigger === '') {
+				return;
+			}
+
+			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
+			if (requiredCanonicalEnglish[identity] !== undefined) {
+				throw new Error(`duplicate localization identity '${identity}'`);
+			}
+			requiredCanonicalEnglish[identity] = gain.trigger;
+		});
+	}
+
+	if (feature.type === FeatureType.Choice) {
+		feature.data.options.forEach(option => addRequiredFuryLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
+	}
+
+	if (feature.type === FeatureType.Multiple) {
+		feature.data.features.forEach(child => addRequiredFuryLevel1NonAbilityFields(requiredCanonicalEnglish, child));
+	}
+};
+
+/** Builds the bounded 15-identity Fury Level 1 non-Ability denominator from live data. */
+export const createV1FuryLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getLevelOneFeatures(fury.featuresByLevel, 'Fury').forEach(feature => addRequiredFuryLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Shadow Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
 export const v1ShadowLevel1AbilityIDs = [
 	'shadow-1-5',
@@ -1188,6 +1226,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),

@@ -3160,6 +3160,24 @@ If you have a kit, you can’t take this blessing.`,
 	{ kind: 'element-field', elementID: 'conduit-1-12', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
 ];
 
+const coreFuryLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'fury-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-resource', field: 'name', canonicalEnglish: 'Ferocity', zhTW: '狠勁', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-resource', field: 'gains.0.trigger', canonicalEnglish: 'Start of your turn', zhTW: '每當你的回合開始時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-resource', field: 'gains.1.trigger', canonicalEnglish: 'The first time each combat round that you take damage', zhTW: '每輪中，當你首次受到傷害時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-resource', field: 'gains.2.trigger', canonicalEnglish: 'The first time you become winded or are dying in an encounter', zhTW: '每場遭遇中，當你首次陷入疲態或瀕死時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-2', field: 'name', canonicalEnglish: 'Exploration / Intrigue Skills', zhTW: '探索類 / 隱密類技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-2', field: 'description', canonicalEnglish: 'Choose 2 from Exploration skills, Intrigue skills.', zhTW: '從探索類技能、隱密類技能中選擇 2 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-4', field: 'name', canonicalEnglish: 'Mighty Leaps', zhTW: '強力飛躍', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-4', field: 'description', canonicalEnglish: 'You can’t obtain lower than a tier 2 outcome on any Might test made to jump.', zhTW: '當你進行跳躍的`力量`考驗時，結果不會低於 T2。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-5', field: 'name', canonicalEnglish: 'Signature Ability', zhTW: '招牌招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-6', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-1-7', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -3177,5 +3195,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreStandardKitLocalizationEntries,
 	...coreDomainLevel1To3LocalizationEntries,
 	...coreCensorLevel1AndOrderLocalizationEntries,
-	...coreConduitLevel1RemainingLocalizationEntries
+	...coreConduitLevel1RemainingLocalizationEntries,
+	...coreFuryLevel1RemainingLocalizationEntries
 ];
