@@ -77,6 +77,18 @@ CLI/report 不取代 packet canonical-alignment、Glossary Delta 或其他 workf
 
 ---
 
+## 2.2 Repository-native Verification Primitives
+
+repository 提供三層、各自解決不同問題的 verification primitive：
+
+1. **Manifest／catalog integrity：**`npm run loc:status`、`npm run loc:status -- --json`、`npm run loc:verify`，以 live manifest／catalog／既有 completeness validation 提供 evidence。
+2. **Locale／canonical-state differential safety：**`src/localization/test-support/localization-differential-invariants.ts`，只在 batch 實際有 locale、state 或 calculation risk 時使用。
+3. **Approved packet canonical alignment：**`src/localization/test-support/packet-canonical-alignment.ts`，在 approved packet handoff／implementation preflight 時使用。
+
+三者不互相取代：`loc:verify` green 不代表 packet canonical alignment 已完成；packet alignment PASS 不代表 locale switching／Hero state safety 已證明；differential harness PASS 也不代表 manifest completeness 或 packet authority 正確。manifest、catalog 與 completeness 仍是正式 translation denominator evidence，helper 不建立第二套 denominator；Owner 仍決定 semantic Chinese。不要為了工具而要求不相關 batch 使用不適用的 gate。
+
+---
+
 ## 3. 從現在開始的翻譯方式
 
 不再把工作硬拆成：
