@@ -3225,6 +3225,45 @@ const coreElementalistLevel1RemainingLocalizationEntries: LocalizationEntry[] = 
 	{ kind: 'element-field', elementID: 'elementalist-1-11', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
 ];
 
+const coreNullLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'null-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-resource', field: 'name', canonicalEnglish: 'Discipline', zhTW: '紀律', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-resource', field: 'gains.0.trigger', canonicalEnglish: 'Start of your turn', zhTW: '每當你的回合開始時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-resource', field: 'gains.1.trigger', canonicalEnglish: 'The first time each combat round that an enemy in the area of your Null Field ability uses a main action', zhTW: '每輪中，當位於你【無念場】內的 1 個敵人首次使用主要動作時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-resource', field: 'gains.2.trigger', canonicalEnglish: 'The first time each combat round that the Director uses an ability that costs Malice', zhTW: '每輪中，當 GM 首次發動 1 個需要花費惡意的招式時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-2', field: 'name', canonicalEnglish: 'Interpersonal / Lore Skills', zhTW: '交涉類 / 學識類技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-2', field: 'description', canonicalEnglish: 'Choose 2 from Interpersonal skills, Lore skills.', zhTW: '從交涉類技能或學識類技能中選擇 2 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-6', field: 'name', canonicalEnglish: 'Null Speed', zhTW: '無念速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-6', field: 'description', canonicalEnglish: 'The flow of psionic power through you allows you to achieve high velocity.', zhTW: '靈能力量流淌於你體內，讓你能夠達到極高的速度。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-6a', field: 'name', canonicalEnglish: 'Null Speed', zhTW: '無念速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-6b', field: 'name', canonicalEnglish: 'Null Speed', zhTW: '無念速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7', field: 'name', canonicalEnglish: 'Psionic Augmentation', zhTW: '靈能鍛體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7', field: 'description', canonicalEnglish: 'Your training has turned your body into the perfect psionic weapon, shaping pathways in your mind that enhance your physical form. Choose one of the following augmentations. You can change your augmentation by undergoing a psionic meditation as a respite activity.', zhTW: '你的訓練將身體鍛造成完美的靈能兵器，用心靈的力量塑造出強化的肉體。選擇以下 1 種鍛體。作為休整活動，你可以進行靈能冥想來更換你的鍛體。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7a', field: 'name', canonicalEnglish: 'Density Augmentation', zhTW: '密度鍛體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7a', field: 'description', canonicalEnglish: 'Stability, Stamina', zhTW: '穩度、體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7aa', field: 'name', canonicalEnglish: 'Stability', zhTW: '穩度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7ab', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7b', field: 'name', canonicalEnglish: 'Force Augmentation', zhTW: '力量鍛體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7c', field: 'name', canonicalEnglish: 'Speed Augmentation', zhTW: '速度鍛體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7c', field: 'description', canonicalEnglish: 'Speed, Disengage', zhTW: '速度、撤離', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7ca', field: 'name', canonicalEnglish: 'Speed', zhTW: '速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-7cb', field: 'name', canonicalEnglish: 'Disengage', zhTW: '撤離', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8', field: 'name', canonicalEnglish: 'Psionic Martial Arts, Psionic Martial Arts, Psionic Martial Arts', zhTW: '靈能武術、靈能武術、靈能武術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8', field: 'description', canonicalEnglish: 'Psionic Martial Arts, Psionic Martial Arts, Psionic Martial Arts', zhTW: '靈能武術、靈能武術、靈能武術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8a', field: 'name', canonicalEnglish: 'Psionic Martial Arts', zhTW: '靈能武術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8a', field: 'description', canonicalEnglish: 'Whenever you use the Knockback or Grab maneuver, you use Intuition instead of Might for the power roll and for determining if you can target creatures larger than you. Additionally, whenever you use the Knockback maneuver, you can choose to slide the target instead of pushing them.', zhTW: '每當你使用擊退或擒抱機動動作時，你可以使用`直覺`取代`力量`來進行檢定，以及判斷是否可以指定體型比你大的生物。此外，每當你使用擊退機動動作時，你可以選擇讓目標滑動，而非推動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8b', field: 'name', canonicalEnglish: 'Psionic Martial Arts', zhTW: '靈能武術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8b', field: 'description', canonicalEnglish: 'You use Intuition instead of Might for the power roll and for determining if you can target creatures larger than you.', zhTW: '你可以使用`直覺`取代`力量`來進行檢定，以及判斷是否可以指定體型比你大的生物。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8c', field: 'name', canonicalEnglish: 'Psionic Martial Arts', zhTW: '靈能武術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-8c', field: 'description', canonicalEnglish: 'You use Intuition instead of Might for the power roll and you can choose to slide the target instead of pushing them.', zhTW: '你可以使用`直覺`取代`力量`來進行檢定，而且可以選擇讓目標滑動，而非推動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-9', field: 'name', canonicalEnglish: 'Signature Ability', zhTW: '招牌招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-10', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-1-11', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -3244,5 +3283,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreCensorLevel1AndOrderLocalizationEntries,
 	...coreConduitLevel1RemainingLocalizationEntries,
 	...coreFuryLevel1RemainingLocalizationEntries,
-	...coreElementalistLevel1RemainingLocalizationEntries
+	...coreElementalistLevel1RemainingLocalizationEntries,
+	...coreNullLevel1RemainingLocalizationEntries
 ];

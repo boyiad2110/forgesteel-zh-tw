@@ -647,6 +647,49 @@ export const createV1NullLevel1AbilityRequiredCanonicalEnglish = (): CanonicalEn
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * Adds only the bounded Null Level 1 non-Ability Feature tree. Ability nodes stop here: that
+ * authored content belongs to the existing Null ability slice. Choice options and Multiple
+ * children remain player-facing FeaturePanel content, so their own stable fields are included
+ * without turning this into a generic class crawler.
+ */
+const addRequiredNullLevel1NonAbilityFields = (requiredCanonicalEnglish: CanonicalEnglishSource, feature: Feature) => {
+	if (feature.type === FeatureType.Ability) {
+		return;
+	}
+
+	addRequiredElementFields(requiredCanonicalEnglish, feature);
+
+	if (feature.type === FeatureType.HeroicResource) {
+		feature.data.gains.forEach((gain, index) => {
+			if (gain.trigger === '') {
+				return;
+			}
+
+			const identity = elementFieldIdentity(feature.id, `gains.${index}.trigger`);
+			if (requiredCanonicalEnglish[identity] !== undefined) {
+				throw new Error(`duplicate localization identity '${identity}'`);
+			}
+			requiredCanonicalEnglish[identity] = gain.trigger;
+		});
+	}
+
+	if (feature.type === FeatureType.Choice) {
+		feature.data.options.forEach(option => addRequiredNullLevel1NonAbilityFields(requiredCanonicalEnglish, option.feature));
+	}
+
+	if (feature.type === FeatureType.Multiple) {
+		feature.data.features.forEach(child => addRequiredNullLevel1NonAbilityFields(requiredCanonicalEnglish, child));
+	}
+};
+
+/** Builds the bounded 36-identity Null Level 1 non-Ability denominator from live data. */
+export const createV1NullLevel1RemainingRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getLevelOneFeatures(nullClass.featuresByLevel, 'Null').forEach(feature => addRequiredNullLevel1NonAbilityFields(requiredCanonicalEnglish, feature));
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Fury Level 1 base-class ability slice; later Fury levels stay unresolved. */
 export const v1FuryLevel1AbilityIDs = [
 	'fury-ability-1',
@@ -1269,6 +1312,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1NullLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
