@@ -71,6 +71,12 @@ translation approval 依 surface、localization identity 與 semantic context �
 
 `Reviewer-derived／mechanical` classification 表示該 row 不需要 Owner action，不限制 Owner 編輯 `Final zh-TW`。Owner 明確改動 Final value 時，最新 Owner value 即為 authority；後續 worksheet normalization／packet generation 必須依 identity 記錄該 override，不得靜默還原先前 mechanical suggestion。
 
+### Repository-native Localization Verification Primitives
+
+若 Batch Contract 涉及相應 requirement，Agent 先檢查並沿用目前 repository 的 reusable helper，不自行建立新的 generic localization framework。`src/localization/test-support/localization-differential-invariants.ts` 提供 locale round-trip differential assertion、protected canonical state，以及 canonical-English calculation boundary 的 primitives；`src/localization/test-support/packet-canonical-alignment.ts` 提供 approved packet 與 live canonical 的 machine alignment、exact identity／snapshot／hash evidence。
+
+這些 helper 只在 Contract 的實際 risk 適用時使用，不取代 Contract-specific public-behavior tests，也不因存在就自行增加 batch scope。Agent 不得自行新增 npm command、變更 manifest denominator，或以文件中可能過期的 command assumption 覆蓋 current package scripts／current repository code。
+
 ## Reviewer Patch Handoff
 
 當 Reviewer 無法直接存取 Agent local workspace，且 Contract 不允許 push／PR 時，Stage 1／Stage 2 收尾必須附上可審查的 patch evidence：
@@ -115,7 +121,7 @@ preflight 成功後，Agent 連續完成已授權的 implementation、verificati
 
 ### Translation Packet Preflight
 
-從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）都必須在 implementation 前 STOP；不得靜默修補 Reviewer translation authority。最新 authorized packet revision 取代較舊 revision。
+從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。適用時優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 current repository primitive，取得 machine-verifiable exact identity／snapshot／hash evidence。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）或 alignment issue 都必須在 implementation 前 STOP；不得自行重建、修補或 normalize Reviewer packet authority。最新 authorized packet revision 取代較舊 revision。
 
 Reviewer：
 
