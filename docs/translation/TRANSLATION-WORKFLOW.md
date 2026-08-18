@@ -375,3 +375,69 @@ Agent Task 前，Reviewer 必須辨識 live source 中 materially distinct 的 d
 - 所需 representative production evidence。
 
 只分類實際存在於該 batch 的 family；例如 characteristic-based values、half／twice Speed、potency、damage、condition Markdown emphasis、push／pull／slide、`vertical pull` 等 modified movement phrase、calculated content 周圍需保留的 structural phrase，或 unsupported calculated rewrite fallback。不得把此清單變成每批必跑的 checklist。
+
+## 14. Class／Subclass Level 1 Non-Ability Required Identity
+
+本節固定「這個 slice 的 required identities 要怎麼可靠 enumerate」。它不建立第二套 denominator：正式 translation denominator 仍然是 manifest + catalog + completeness，依第 2 節與第 7 節。
+
+### Default：shared bounded walk
+
+Class／Subclass 的 Level 1 non-Ability Feature tree，預設依 **current repository shared bounded-walk semantics** enumerate。production 與 test 端各有一份實作，兩者是刻意分離的獨立 evidence，不可互相取代。
+
+current semantics 以 live code 為準；本文件不複製一份可能過期的完整型別實作，只固定 stable contract：
+
+- **Ability boundary**：Ability 節點不貢獻 identity，也不被下探；其 authored content 屬各 class 自己的 ability slice。
+- **non-Ability player-facing fields**：其餘每個節點貢獻自己的 name，以及非空的 description。
+- **HeroicResource gain triggers**：HeroicResource 另外貢獻每個 gain 的 trigger，以該 gain 在 list 中的位置定址；空 trigger 不帶讀值而跳過，其餘 trigger 維持原 index。
+- **bounded descent**：只從 Choice 的 options 各自的 feature 與 Multiple 的 features 下探；不走其他 Feature type 的 selection 或 child data。
+
+canonical values 依原樣記錄，不 trim、不 normalize、不改寫。
+
+### 不得做 class-specific arbitrary exclusion
+
+identity 只要落在 shared bounded walk 內，就是 required。不得因為某個 class 覺得它是 generated、composed、grouping wrapper 或「看起來重複」而自行排除。
+
+**已合併 precedent：Tactician 的 Mark Multiple grouping（`tactician-1-5`）。** 它的 description 由 Feature factory 從兩個 ability 子節點的名稱組成，而不是直接 authored；即使如此，FeaturePanel 仍把它 render 成這個 grouping 自己的 player-facing 文字，因此它與其他讀值一樣 required。canonical English 是直接寫的還是 factory 組的，不改變它是否 player-facing。
+
+判準是**實際 rendered player-facing presentation**，不是 canonical 值的產生方式。
+
+### Explicit supplemental fields
+
+若 current model 加上實際 player-facing presentation 證明某 canonical field 是 required，但 shared bounded walk 本身不涵蓋它，該 field 可作為 **supplemental identity，明確加入該 slice 自己的 denominator**。
+
+supplemental 必須具備：
+
+- stable localization identity；
+- live canonical source；
+- 支持「它確實 player-facing」的最小足夠 evidence。
+
+不得以「這個 class 比較特殊」這類模糊理由加入。
+
+**已合併 precedent：Shadow Insight 與 Talent Clarity 的 HeroicResource `details`。** 兩者都在各自的 completion denominator 明列 `details` 並帶 duplicate-identity guard；shared walker 沒有因此被擴張。
+
+這兩筆只是 precedent：`details` 不是唯一合法的 supplemental field，所有 HeroicResource 的 `details` 也不自動 required。仍以該 field 實際的 player-facing presentation contract 為準。
+
+### 不為單一 class 擴張 shared walk
+
+出現 supplemental field 時，不得只為了消掉那一筆 explicit supplement 就改 shared walker。多一筆明列的 supplement 是 bounded 且可審查的；擴張 shared traversal 則會同時改變所有既有 slice 的 denominator。
+
+只有在 evidence 顯示該 field 是**跨 class 的共同 traversal contract**，而且該 Batch 明確授權 shared-architecture change 時，才納入或另開適當的 technical batch。在 translation batch 中途改 shared traversal semantics，不是本節允許的路徑。
+
+### 與其他 identity family 的邊界
+
+本節只管 Class／Subclass Level 1 **non-Ability** slice。下列各有既有 identity 與 workflow，不被本節取代：
+
+- subclass metadata，例如 `subclassName` 與 subclass 自身的 element fields；
+- Class／Subclass 的 authored Ability fields；
+- calculated presentation，依第 13 節。
+
+manifest + catalog + completeness 仍是唯一正式 translation denominator。bounded walk 與 supplemental rule 只回答「這個 slice 要怎麼可靠 enumerate」，不建立平行 inventory，也不改變第 6 節對 `unresolvedDomains` 的處理。
+
+### 不 retroactive churn
+
+不為了形式一致回頭重開已完成且 frozen 的 slice。本規則適用於：
+
+- 未來的新 batch；以及
+- 既有 slice 因其他 substantive work 被重新觸及時。
+
+若人工驗收或後續 review 發現既有 slice 真的漏掉 V1 required content，依第 6 節處理：承認 denominator 不完整、補回 required identity、重跑 completeness。那是實質缺漏修補，不是形式一致性重構。
