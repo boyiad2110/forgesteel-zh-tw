@@ -571,3 +571,28 @@
 - 只驗證 localized Chinese path。
 - English fallback 緊黏、不可讀，或以全域 whitespace transform 修正。
 - 因此要求每個 localization batch 都跑同一測試。
+
+---
+
+## Scenario 28 — Required Identity Scope Re-litigated in a Translation Batch
+
+### Prompt
+
+> 某 class 的 Level 1 completion batch 中，Agent 提出兩件事：一是某個 Multiple grouping 的 description 由 Feature factory 從子節點名稱組成，想把它從 required identities 排除；二是既然 Shadow／Talent 已把 HeroicResource `details` 列為 required，乾脆把所有 HeroicResource 的 `details` 直接加進 shared bounded walker。請判定。
+
+### Expected behavior
+
+- 兩項都拒絕，並指向 `docs/translation/TRANSLATION-WORKFLOW.md` 的 Class／Subclass Level 1 Non-Ability Required Identity 規則，而不是在本批重新辯論 scope。
+- 落在 shared bounded walk 內的 identity 預設 required；canonical English 由 factory 組成不構成排除理由，判準是實際 rendered player-facing presentation。不建立 class-specific carve-out。
+- bounded walk 之外的 field，只有具備 stable localization identity、live canonical source 與 player-facing presentation evidence 時，才以 supplemental identity 明列在該 slice 自己的 denominator。
+- 一兩個 class 的 supplement 不自動擴張 shared walker；擴張 shared traversal 會同時改變所有既有 slice 的 denominator。
+- 若確實需要改 shared traversal contract，視為獨立的 shared-architecture decision 與 batch scope，依 evidence 另行決定，不在 translation batch 中途改規則。
+- manifest／catalog／completeness 仍是唯一正式 denominator。
+
+### Failure indicators
+
+- 因文字是 generated／composed 就排除已被 shared walk 收到的 player-facing field。
+- 因單一或少數 class 的 supplement 就全域 broaden walker。
+- 另建人工清單取代 manifest denominator。
+- 為形式一致回頭重構所有已完成的舊 slice。
+- 把這個判斷當成新的 Owner decision，而不是既有 precedent 的執行。
