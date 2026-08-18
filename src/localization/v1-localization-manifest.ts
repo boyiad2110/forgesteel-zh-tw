@@ -935,6 +935,68 @@ export const createV1TalentLevel1AbilityRequiredCanonicalEnglish = (): Canonical
 	return requiredCanonicalEnglish;
 };
 
+/** The three Talent Traditions; later Tradition levels remain outside this Level 1 slice. */
+export const v1TalentTraditionIDs = [
+	'talent-sub-1',
+	'talent-sub-2',
+	'talent-sub-3'
+] as const;
+
+export const getV1TalentTraditions = (): SubClass[] => {
+	const traditionsByID = new Map(talent.subclasses.map(tradition => [ tradition.id, tradition ]));
+	return v1TalentTraditionIDs.map(id => {
+		const tradition = traditionsByID.get(id);
+		if (!tradition) {
+			throw new Error(`Talent Tradition '${id}' is missing`);
+		}
+		return tradition;
+	});
+};
+
+/**
+ * Builds the bounded 84-identity Talent Level 1 completion denominator: the base class's
+ * remaining non-Ability fields plus its Heroic Resource details, and each Talent Tradition's
+ * metadata and Level 1 Feature content. The existing 131-identity base Ability slice stays
+ * separate, and these two slices do not overlap.
+ *
+ * The whole base Level 1 feature tree goes through the one shared bounded walk, with no
+ * per-feature exception: the Psionic Augmentation and Talent Ward Choice groupings contribute
+ * their own readings and are descended into, while the Ability options they carry
+ * (`talent-1-6b`) and the class's direct Level 1 ability (`talent-1-2`) belong to the base
+ * Ability slice and are neither counted nor walked here.
+ */
+export const createV1TalentLevel1CompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const talentLevelOneFeatures = getLevelOneFeatures(talent.featuresByLevel, 'Talent');
+	requiredCanonicalEnglish[elementFieldIdentity(talent.id, 'subclassName')] = talent.subclassName;
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, talentLevelOneFeatures);
+
+	// The bounded walk supplies a Heroic Resource's name and gain triggers. Clarity's `details`
+	// is the remaining player-facing reading FeaturePanel renders for it, so it is required here
+	// explicitly rather than by widening the shared walk for every class.
+	const clarity = talentLevelOneFeatures.find(feature => feature.id === 'talent-resource');
+	if (clarity?.type !== FeatureType.HeroicResource) {
+		throw new Error('Talent Clarity resource is missing');
+	}
+	const clarityDetailsIdentity = elementFieldIdentity(clarity.id, 'details');
+	if (requiredCanonicalEnglish[clarityDetailsIdentity] !== undefined) {
+		throw new Error(`duplicate localization identity '${clarityDetailsIdentity}'`);
+	}
+	requiredCanonicalEnglish[clarityDetailsIdentity] = clarity.data.details;
+
+	getV1TalentTraditions().forEach(tradition => {
+		addRequiredElementFields(requiredCanonicalEnglish, tradition);
+		const traditionLevelOneFeatures = getLevelOneFeatures(tradition.featuresByLevel, `Talent Tradition '${tradition.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, traditionLevelOneFeatures);
+		traditionLevelOneFeatures
+			.filter((feature): feature is FeatureAbility => feature.type === FeatureType.Ability)
+			.forEach(feature => addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /**
  * The exact approved Troubadour Level 1 base-class ability slice: the two direct Level 1
  * Performance abilities plus the signature, cost 3 and cost 5 class abilities 55-66. Abilities
@@ -1313,6 +1375,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1TalentLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),
 		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),

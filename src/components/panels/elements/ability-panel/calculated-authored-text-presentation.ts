@@ -538,7 +538,38 @@ const projectTalentCharacteristicValue = (elementID: string, field: string, cano
 		});
 	}
 
+	// Repel resolves two separate Reason-derived forced-movement values in one authored
+	// paragraph. Both calculated occurrences and both approved zh-TW phrasings are verified
+	// before either is projected, so a partially-proven reading can never produce a mixed
+	// Chinese/English sentence - it falls back to the whole calculated English instead.
+	if ((elementID === 'talent-sub-2-1-2') && (field === 'sections.0.text')) {
+		const reduceCanonical = 'the distance of the triggering forced movement is reduced by a number of squares equal to your Reason score.';
+		const pushCanonical = 'the target can push the source of the forced movement a number of squares equal to your Reason score.';
+		const reduceCalculated = calculatedEnglish.match(/the distance of the triggering forced movement is reduced by a number of squares equal to (-?\d+)\./);
+		const pushCalculated = calculatedEnglish.match(/the target can push the source of the forced movement a number of squares equal to (-?\d+)\./);
+		const reduceLocalized = '或將觸發的強制移動距離減少等於你`理智`的格數。';
+		const pushLocalized = '目標可以將強制移動的來源推動等於你`理智`的格數。';
+
+		if (!reduceCalculated || !pushCalculated || !localizedRaw.includes(reduceLocalized) || !localizedRaw.includes(pushLocalized)) {
+			return undefined;
+		}
+
+		return projectCalculatedConditionEmphasis({
+			canonicalEnglish: canonicalEnglish
+				.replace(reduceCanonical, reduceCalculated[0])
+				.replace(pushCanonical, pushCalculated[0]),
+			calculatedEnglish: calculatedEnglish,
+			localizedRaw: localizedRaw
+				.replace(reduceLocalized, `或將觸發的強制移動距離減少 ${reduceCalculated[1]} 格。`)
+				.replace(pushLocalized, `目標可以將強制移動的來源推動 ${pushCalculated[1]} 格。`)
+		});
+	}
+
 	const projections = [
+		{ elementID: 'talent-1-6a', field: 'description', canonical: 'their speed is reduced by an amount equal to your Reason score', calculated: /their speed is reduced by an amount equal to (-?\d+)/, localized: '他的速度會減少等於你`理智`的數值，', replacement: (value: string) => `他的速度會減少 ${value}，` },
+		{ elementID: 'talent-1-6c', field: 'description', canonical: 'you gain damage immunity equal to your Reason score', calculated: /you gain damage immunity equal to (-?\d+)/, localized: '你會獲得等於你`理智`的傷害免疫，', replacement: (value: string) => `你會獲得 ${value} 點傷害免疫，` },
+		{ elementID: 'talent-sub-1-1-1', field: 'sections.0.text', canonical: 'The target shifts up to a number of squares equal to your Reason score.', calculated: /The target shifts up to a number of squares equal to (-?\d+)\./, localized: '目標可以遁移最多等於你`理智`的格數。', replacement: (value: string) => `目標可以遁移最多 ${value} 格。` },
+		{ elementID: 'talent-sub-2-1-1', field: 'sections.0.text', canonical: 'You slide the target up to a number of squares equal to your Reason score.', calculated: /You slide the target up to a number of squares equal to (-?\d+)\./, localized: '你將目標滑動最多等於你`理智`的格數。', replacement: (value: string) => `你將目標滑動最多 ${value} 格。` },
 		{ elementID: 'talent-1-6b', field: 'sections.0.text', canonical: 'You can push your attacker up to a number of squares equal to your Reason score.', calculated: /You can push your attacker up to a number of squares equal to (-?\d+)\./, localized: '你可以將攻擊者推動最多等於你`理智`的格數。', replacement: (value: string) => `你可以將攻擊者推動最多 ${value} 格。` },
 		{ elementID: 'talent-ability-7', field: 'sections.2.effect', canonical: 'you take damage equal to your Reason score that can’t be reduced in any way.', calculated: /you take damage equal to (-?\d+) that can’t be reduced in any way\./, localized: '但你也會受到等於你`理智`的傷害（無法被任何方式減免）。', replacement: (value: string) => `但你也會受到 ${value} 點傷害（無法被任何方式減免）。` },
 		{ elementID: 'talent-ability-9', field: 'sections.0.text', canonical: 'they gain temporary Stamina equal to three times your Presence score,', calculated: /they gain temporary Stamina equal to (-?\d+),/, localized: '他會獲得等於你`氣場` ×3 的臨時體力，', replacement: (value: string) => `他會獲得 ${value} 點臨時體力，` },
