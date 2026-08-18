@@ -451,33 +451,61 @@ const projectShadowAgilityValue = (elementID: string, field: string, canonicalEn
 // condition projection. Squad! Forward! is deliberately absent: its 'their speed' is
 // target-relative, so the calculator leaves it alone and Hero keeps the approved raw wording.
 const projectTacticianReasonValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
-	if ((elementID !== 'tactician-1-5b') || (field !== 'sections.0.text')) {
-		return undefined;
+	if ((elementID === 'tactician-1-5b') && (field === 'sections.0.text')) {
+		const damageCanonical = 'The ability deals extra damage equal to twice your Reason score.';
+		const shiftCanonical = 'The creature dealing the damage can shift up to a number of squares equal to your Reason score.';
+		const damageCalculated = calculatedEnglish.match(/The ability deals extra damage equal to (-?\d+)\./);
+		const shiftCalculated = calculatedEnglish.match(/The creature dealing the damage can shift up to a number of squares equal to (-?\d+)\./);
+		const damageLocalized = '該招式額外造成你`理智` × 2 的傷害。';
+		const shiftLocalized = '造成傷害的生物可以遁移最多等於你`理智`的格數。';
+
+		if (!damageCalculated || !shiftCalculated || !localizedRaw.includes(damageLocalized) || !localizedRaw.includes(shiftLocalized)) {
+			return undefined;
+		}
+
+		const projectedCanonical = canonicalEnglish
+			.replace(damageCanonical, damageCalculated[0])
+			.replace(shiftCanonical, shiftCalculated[0]);
+		const projectedLocalized = localizedRaw
+			.replace(damageLocalized, `該招式額外造成 ${damageCalculated[1]} 點傷害。`)
+			.replace(shiftLocalized, `造成傷害的生物可以遁移最多 ${shiftCalculated[1]} 格。`);
+
+		return projectCalculatedConditionEmphasis({
+			canonicalEnglish: projectedCanonical,
+			calculatedEnglish: calculatedEnglish,
+			localizedRaw: projectedLocalized
+		});
 	}
 
-	const damageCanonical = 'The ability deals extra damage equal to twice your Reason score.';
-	const shiftCanonical = 'The creature dealing the damage can shift up to a number of squares equal to your Reason score.';
-	const damageCalculated = calculatedEnglish.match(/The ability deals extra damage equal to (-?\d+)\./);
-	const shiftCalculated = calculatedEnglish.match(/The creature dealing the damage can shift up to a number of squares equal to (-?\d+)\./);
-	const damageLocalized = '該招式額外造成你`理智` × 2 的傷害。';
-	const shiftLocalized = '造成傷害的生物可以遁移最多等於你`理智`的格數。';
+	// Parry's Spend text resolves two Reason-score expressions: the ability's own distance and
+	// its shift distance. Both are verified in canonical English first and only their resolved
+	// values are carried into the approved zh-TW; the static '，而且'/'，而非 1 格。' wording
+	// around them is untouched.
+	if ((elementID === 'tactician-sub-3-1-3') && (field === 'sections.1.effect')) {
+		const distanceCanonical = 'This ability’s distance becomes Melee 1 + your Reason score,';
+		const shiftCanonical = 'you can shift up to a number of squares equal to your Reason score instead of 1 square.';
+		const distanceCalculated = calculatedEnglish.match(/This ability’s distance becomes Melee (-?\d+),/);
+		const shiftCalculated = calculatedEnglish.match(/you can shift up to a number of squares equal to (-?\d+) instead of 1 square\./);
+		const distanceLocalized = '此招式的射程改為近戰 1 + 你的`理智`，';
+		const shiftLocalized = '你可以遁移最多等於`理智`的格數，而非 1 格。';
 
-	if (!damageCalculated || !shiftCalculated || !localizedRaw.includes(damageLocalized) || !localizedRaw.includes(shiftLocalized)) {
-		return undefined;
+		if (!distanceCalculated || !shiftCalculated || !localizedRaw.includes(distanceLocalized) || !localizedRaw.includes(shiftLocalized)) {
+			return undefined;
+		}
+
+		const projectedCanonical = canonicalEnglish
+			.replace(distanceCanonical, distanceCalculated[0])
+			.replace(shiftCanonical, shiftCalculated[0]);
+		if (projectedCanonical !== calculatedEnglish) {
+			return undefined;
+		}
+
+		return localizedRaw
+			.replace(distanceLocalized, `此招式的射程改為近戰 ${distanceCalculated[1]}，`)
+			.replace(shiftLocalized, `你可以遁移最多 ${shiftCalculated[1]} 格，而非 1 格。`);
 	}
 
-	const projectedCanonical = canonicalEnglish
-		.replace(damageCanonical, damageCalculated[0])
-		.replace(shiftCanonical, shiftCalculated[0]);
-	const projectedLocalized = localizedRaw
-		.replace(damageLocalized, `該招式額外造成 ${damageCalculated[1]} 點傷害。`)
-		.replace(shiftLocalized, `造成傷害的生物可以遁移最多 ${shiftCalculated[1]} 格。`);
-
-	return projectCalculatedConditionEmphasis({
-		canonicalEnglish: projectedCanonical,
-		calculatedEnglish: calculatedEnglish,
-		localizedRaw: projectedLocalized
-	});
+	return undefined;
 };
 
 // Talent's authored Reason and Presence readings are identity-bound snapshots. AbilityLogic

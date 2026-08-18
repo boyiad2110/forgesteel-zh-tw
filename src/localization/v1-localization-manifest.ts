@@ -817,6 +817,63 @@ export const createV1TacticianLevel1AbilityRequiredCanonicalEnglish = (): Canoni
 	return requiredCanonicalEnglish;
 };
 
+/** The three Tactical Doctrines; later Doctrine levels remain outside this Level 1 slice. */
+export const v1TacticianDoctrineIDs = [
+	'tactician-sub-1',
+	'tactician-sub-2',
+	'tactician-sub-3'
+] as const;
+
+export const getV1TacticianDoctrines = (): SubClass[] => {
+	const doctrinesByID = new Map(tactician.subclasses.map(doctrine => [ doctrine.id, doctrine ]));
+	return v1TacticianDoctrineIDs.map(id => {
+		const doctrine = doctrinesByID.get(id);
+		if (!doctrine) {
+			throw new Error(`Tactician Doctrine '${id}' is missing`);
+		}
+		return doctrine;
+	});
+};
+
+const isTacticianMarkMultipleFeature = (feature: Feature): feature is FeatureMultiple => (
+	(feature.type === FeatureType.Multiple) && (feature.id === 'tactician-1-5')
+);
+
+/**
+ * Builds the bounded 55-identity Tactician Level 1 completion denominator: the base class's
+ * remaining non-Ability fields, plus each Tactical Doctrine's metadata and Level 1 Feature
+ * content. The existing 59-identity base Ability slice stays separate.
+ *
+ * The Mark Multiple grouping (`tactician-1-5`) is a special case within the base walk: its own
+ * `name` is required (it is the approved 'Mark' reading already used by the ability slice), but
+ * its default-computed `description` - a plain join of its two ability children's names - is a
+ * data-model artifact rather than authored content, so it is excluded from this bounded slice.
+ */
+export const createV1TacticianLevel1CompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const tacticianLevelOneFeatures = getLevelOneFeatures(tactician.featuresByLevel, 'Tactician');
+	requiredCanonicalEnglish[elementFieldIdentity(tactician.id, 'subclassName')] = tactician.subclassName;
+
+	const mark = tacticianLevelOneFeatures.find(isTacticianMarkMultipleFeature);
+	if (!mark) {
+		throw new Error('Tactician Mark feature is missing');
+	}
+	requiredCanonicalEnglish[elementFieldIdentity(mark.id, 'name')] = mark.name;
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, tacticianLevelOneFeatures.filter(feature => !isTacticianMarkMultipleFeature(feature)));
+
+	getV1TacticianDoctrines().forEach(doctrine => {
+		addRequiredElementFields(requiredCanonicalEnglish, doctrine);
+		const doctrineLevelOneFeatures = getLevelOneFeatures(doctrine.featuresByLevel, `Tactician Doctrine '${doctrine.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, doctrineLevelOneFeatures);
+		doctrineLevelOneFeatures
+			.filter((feature): feature is FeatureAbility => feature.type === FeatureType.Ability)
+			.forEach(feature => addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /**
  * The exact approved Talent Level 1 base-class ability slice. Level 1 selects signature, cost 3
  * and cost 5 class abilities, so only abilities 1-16 belong here; abilities 17+, later levels and
@@ -1263,6 +1320,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1TacticianLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),

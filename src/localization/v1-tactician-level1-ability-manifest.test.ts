@@ -37,8 +37,11 @@ vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getP
 const chinese = /[一-鿿]/;
 
 const required = createV1TacticianLevel1AbilityRequiredCanonicalEnglish();
+// Identity-precise (matching this slice's own required identities), not a raw elementID
+// prefix match: the Tactician Level 1 completion batch also owns many 'tactician-'-prefixed
+// identities, and a loose prefix filter would sweep those into this ability-only slice too.
 const tacticianCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
-	entry.kind === 'element-field' && entry.elementID.startsWith('tactician-')
+	(entry.kind === 'element-field') && (required[getEntryIdentity(entry)] !== undefined)
 ));
 
 const getAbility = (id: typeof v1TacticianLevel1AbilityIDs[number]) => {
