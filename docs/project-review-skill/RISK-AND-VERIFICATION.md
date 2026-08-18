@@ -4,6 +4,19 @@
 
 驗證必須與實際風險相稱。Fresh evidence 是「最後變更後重新執行的必要證據」，不等於每批都執行完整 test、build、smoke 與人工驗收。
 
+### Stage 1 預設驗證範圍
+
+Stage 1 預設只執行 **risk-matched minimum sufficient evidence**：本批 Risk Level 的最低證據，加上本批實際觸及範圍所需的 lint、typecheck 與 localization verification。
+
+一般 localization Stage 1 **不預設**執行完整 local `verify:ci`，也不預設執行 production build。PR required CI 本來就會執行完整 suite 與 build，而且是在 Reviewer 已核准的 exact HEAD 上獨立執行；在 Stage 1 先跑一次同一套並不會提高 evidence 品質，只會讓每批固定成本上升。
+
+只有下列情況執行 local full CI mirror：
+
+- Batch Contract 明確要求 CI-equivalent local evidence；或
+- 本批實際風險需要，例如改動 bundling、runtime integration、build-time shared behavior，或 Reviewer 判定該 regression 若留到 PR CI 才揭露的代價過高。
+
+本節不新增任何「所有 localization batch 必跑」的固定大型 verifier，也不降低 Level A／B／C 的最低證據要求：適用的 targeted tests、lint、typecheck 與 localization verification 仍然要跑，也仍須取自最後一次 code change 之後的狀態。exact-HEAD evidence 語意依本文件 **Fresh Evidence Gate**，實際執行順序依 `AGENT-TASK-CONTRACT.md`。
+
 ## Level A — 低風險
 
 適用：

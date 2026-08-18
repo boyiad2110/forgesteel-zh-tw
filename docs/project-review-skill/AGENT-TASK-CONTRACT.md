@@ -99,7 +99,7 @@ Agent：
 
 - 從核准的 `develop`／base 建立 feature branch。
 - 只修改 Batch Contract In Scope。
-- 依 Risk Level 執行最低足夠驗證。
+- 依 Risk Level 執行最低足夠驗證；預設不跑完整 local `verify:ci` 或 build，範圍依 `RISK-AND-VERIFICATION.md` 的 **Stage 1 預設驗證範圍**。
 - 使用 public-behavior tests 保護本批 requirement；不要為 coverage 擴張成不必要的 E2E／Level C。
 - 最後一次 code change 後取得 fresh verification。
 - 依 Git permission 建立 local commit；未明確授權時，不 push、不建 PR、不 merge。
@@ -122,6 +122,27 @@ preflight 成功後，Agent 連續完成已授權的 implementation、verificati
 ### Translation Packet Preflight
 
 從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。適用時優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 current repository primitive，取得 machine-verifiable exact identity／snapshot／hash evidence。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）或 alignment issue 都必須在 implementation 前 STOP；不得自行重建、修補或 normalize Reviewer packet authority。最新 authorized packet revision 取代較舊 revision。
+
+### Stage 1 Remote Reviewer Branch（需 Contract 明確授權）
+
+Reviewer 無法直接存取 Agent workspace 時，預設的 local cumulative patch 可用但昂貴。Batch Contract 可改為明確授權 **Stage 1 remote reviewer branch**，讓 Reviewer 直接 review exact remote HEAD。
+
+取得該授權後，Agent 在 implementation、targeted verification、final local commit 與 clean tree 都完成之後：
+
+- 只可 push 該 feature branch。
+- 仍不可建立 PR、merge、rebase、reset、amend、force push 或任何 history rewrite。
+- push 後必須確認 remote feature HEAD 等於 local final HEAD，且沒有額外 commit。
+- final report 回報 remote branch 名稱與完整 40-character HEAD。
+
+Reviewer 直接 review 該 exact remote HEAD／diff。Reviewer 能可靠存取 exact remote HEAD 時，不另外要求 cumulative patch。
+
+下列任一情況回到 local-only cumulative patch fallback：
+
+- Contract 未授權 push；
+- remote 不可用，或 push 無法完成；
+- Reviewer 無法可靠存取該 remote HEAD。
+
+本 mode 不是所有 batch 的預設，也不預先授權 Stage 3：Stage 3 仍需獨立 Contract。Git target、frozen `main`、upstream 禁止 write 與 Stage 3 對這個 branch 的 reconciliation 處理，依 `GIT-SAFETY.md`。
 
 Reviewer：
 
@@ -220,7 +241,7 @@ Agent 只能執行 Contract 明確授權的 Git 動作。
 - 可建 feature branch。
 - 可 local edit／test。
 - 可依 Contract local commit。
-- 不可 push／PR／merge。
+- 不可 push／PR／merge；只有 Contract 明確授權 Stage 1 remote reviewer branch 時可 push 該 feature branch，仍不可 PR／merge。
 
 典型完整 Stage 3：
 
@@ -259,7 +280,7 @@ Agent 只能執行 Contract 明確授權的 Git 動作。
 
 每個 Stage 完成本身授權的工作後停止。
 
-- Stage 1：停止在 local implementation／verification report。
+- Stage 1：停止在 local implementation／verification report；Contract 授權 remote reviewer branch 時，停止在 push 該 feature branch 並確認 remote HEAD 之後。
 - Stage 2：停止在 focused correction／verification report。
 - 完整 Stage 3：停止在 merge／sync／cleanup／final report。
 

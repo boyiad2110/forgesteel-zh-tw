@@ -1,13 +1,8 @@
 // @vitest-environment jsdom
 /* eslint-disable sort-imports */
-import { createElement } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
-import { LocalizationProvider } from '@/contexts/localization-context';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
+import { cleanup, fireEvent } from '@testing-library/react';
 import { FeatureType } from '@/enums/feature-type';
-import { PanelMode } from '@/enums/panel-mode';
 import { nullClass } from '@/data/classes/null/null';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
@@ -15,9 +10,8 @@ import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localizatio
 import { createV1NullLevel1RemainingRequiredCanonicalEnglish, v1LocalizationManifest } from '@/localization/v1-localization-manifest';
 import { protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
+import { createHeroWithClass, levelOneFeatures, renderFeaturePanel, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
 import { FactoryLogic } from '@/logic/factory-logic';
-import { Feature } from '@/models/feature';
-import { Hero } from '@/models/hero';
 
 vi.mock('@/contexts/data-context', () => ({
 	useDataManager: () => ({ saveOptions: vi.fn().mockResolvedValue(undefined) }),
@@ -27,7 +21,7 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-const nullLevelOneFeatures = nullClass.featuresByLevel.find(level => level.level === 1)?.features || [];
+const nullLevelOneFeatures = levelOneFeatures(nullClass);
 const liveFields = extractLiveBoundedNonAbilityFeatureFields(nullLevelOneFeatures);
 const required = createV1NullLevel1RemainingRequiredCanonicalEnglish();
 const nullCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
@@ -42,22 +36,7 @@ const getFeature = (id: string) => {
 	return feature;
 };
 
-const makeHero = () => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...nullClass, level: 1, characteristics: FactoryLogic.createCharacteristics(0, 2, 2, 0, 0) };
-	return hero;
-};
-
-const renderFeature = (feature: Feature, hero?: Hero) => render(
-	createElement(
-		LocalizationProvider,
-		null,
-		createElement(LocaleToggle),
-		createElement(FeaturePanel, { feature, hero, mode: PanelMode.Full })
-	)
-);
-
-const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
+const makeHero = () => createHeroWithClass(nullClass, 1, FactoryLogic.createCharacteristics(0, 2, 2, 0, 0));
 
 // Nested Choice options and Multiple children are mounted behind collapsed Expanders, so the
 // nested player-facing content is revealed the same way a player reveals it.
@@ -145,12 +124,12 @@ describe('V1 Core Null L1 remaining catalog and presentation', () => {
 			throw new Error('Discipline is not a Heroic Resource');
 		}
 
-		const noHero = renderFeature(discipline);
+		const noHero = renderFeaturePanel(discipline);
 		expectDisciplineZhTW(noHero.container);
 		noHero.unmount();
 
 		const hero = makeHero();
-		const withHero = renderFeature(discipline, hero);
+		const withHero = renderFeaturePanel(discipline, { hero });
 		verifyLocaleDifferentialInvariants({
 			protectedStates: [
 				protectCanonicalState({ label: 'Discipline Feature', capture: () => JSON.stringify(discipline) }),
@@ -172,7 +151,7 @@ describe('V1 Core Null L1 remaining catalog and presentation', () => {
 	it('resolves the Null Speed parent and both of its bonus children', () => {
 		const nullSpeed = getFeature('null-1-6');
 		const hero = makeHero();
-		const withHero = renderFeature(nullSpeed, hero);
+		const withHero = renderFeaturePanel(nullSpeed, { hero });
 		expandNestedContent(withHero.container);
 
 		// The parent and both children share one canonical label, so all three renders are counted.
@@ -203,7 +182,7 @@ describe('V1 Core Null L1 remaining catalog and presentation', () => {
 	it('resolves the Psionic Augmentation choice and its Density, Force and Speed options', () => {
 		const augmentation = getFeature('null-1-7');
 		const hero = makeHero();
-		const withHero = renderFeature(augmentation, hero);
+		const withHero = renderFeaturePanel(augmentation, { hero });
 		expandNestedContent(withHero.container);
 
 		const expectAugmentationZhTW = () => {
@@ -242,7 +221,7 @@ describe('V1 Core Null L1 remaining catalog and presentation', () => {
 	it('resolves the Psionic Martial Arts parent, children and retained Owner prose', () => {
 		const martialArts = getFeature('null-1-8');
 		const hero = makeHero();
-		const withHero = renderFeature(martialArts, hero);
+		const withHero = renderFeaturePanel(martialArts, { hero });
 		expandNestedContent(withHero.container);
 
 		// Markdown renders the approved backtick-emphasised characteristics as code, so the

@@ -1,22 +1,12 @@
 // @vitest-environment jsdom
 /* eslint-disable sort-imports */
-import { createElement } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
-import { ClassPanel } from '@/components/panels/elements/class-panel/class-panel';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
-import { SubclassPanel } from '@/components/panels/elements/subclass-panel/subclass-panel';
 import { FeatureType } from '@/enums/feature-type';
-import { LocalizationProvider } from '@/contexts/localization-context';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
-import { PanelMode } from '@/enums/panel-mode';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { Ability } from '@/models/ability';
-import { Hero } from '@/models/hero';
 import { Feature } from '@/models/feature';
-import { SubClass } from '@/models/subclass';
 import { core } from '@/data/sourcebooks/official/core';
 import { talent } from '@/data/classes/talent/talent';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
@@ -26,6 +16,7 @@ import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localizatio
 import { createV1TalentLevel1AbilityRequiredCanonicalEnglish, createV1TalentLevel1CompletionRequiredCanonicalEnglish, getV1TalentTraditions, v1LocalizationManifest, v1TalentTraditionIDs } from '@/localization/v1-localization-manifest';
 import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
+import { createClassPresentationHarness, createHeroWithClass, expectRendered, installResizeObserverStub, levelOneFeatures, readFieldByLabelPrefix, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
 import glossaryCsv from '../../docs/translation/TRANSLATION-GLOSSARY.csv?raw';
 
 vi.mock('@/contexts/data-context', () => ({
@@ -36,14 +27,8 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-class ResizeObserverStub {
-	observe() {}
-	unobserve() {}
-	disconnect() {}
-}
-globalThis.ResizeObserver = ResizeObserverStub;
+installResizeObserverStub();
 
-const levelOneFeatures = (owner: { featuresByLevel: { level: number, features: Feature[] }[] }) => owner.featuresByLevel.find(level => level.level === 1)?.features || [];
 const talentLevelOne = levelOneFeatures(talent);
 const traditions = getV1TalentTraditions();
 const required = createV1TalentLevel1CompletionRequiredCanonicalEnglish();
@@ -89,31 +74,9 @@ const getClarity = () => {
 	return clarity;
 };
 
-const makeReasonHero = (reason: number) => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...talent, level: 1, characteristics: FactoryLogic.createCharacteristics(0, 0, reason, 0, 0) };
-	return hero;
-};
+const makeReasonHero = (reason: number) => createHeroWithClass(talent, 1, FactoryLogic.createCharacteristics(0, 0, reason, 0, 0));
 
-const renderFeature = (feature: Feature, hero?: Hero) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(FeaturePanel, { feature, hero, mode: PanelMode.Full, sourcebooks: [ core ] })
-));
-const renderClassPanel = () => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(ClassPanel, { heroClass: talent, sourcebooks: [ core ], mode: PanelMode.Full })
-));
-const renderSubclass = (subclass: SubClass) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(SubclassPanel, { subclass, sourcebooks: [ core ], mode: PanelMode.Full })
-));
-const renderAbility = (ability: Ability, hero?: Hero) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(AbilityPanel, { ability, hero, mode: PanelMode.Full })
-));
-const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
-const fieldReading = (container: HTMLElement, label: string) => {
-	const field = Array.from(container.querySelectorAll('.field')).find(node => node.querySelector('.field-label')?.textContent?.trim().startsWith(label));
-	return field?.querySelector('.field-value')?.textContent?.trim();
-};
-const normalizedText = (container: HTMLElement) => container.textContent?.replace(/\s+/g, ' ').trim() || '';
-const expectRendered = (container: HTMLElement, expected: string) => expect(normalizedText(container)).toContain(expected.replace(/\s+/g, ' ').trim());
+const { renderFeature, renderClassPanel, renderSubclass, renderAbility } = createClassPresentationHarness(talent, [ core ]);
 
 const traditionMetadata = [
 	{
@@ -226,12 +189,12 @@ describe('V1 Core Talent Level 1 completion catalog and presentation', () => {
 		const serialized = JSON.stringify(talent);
 		const { container } = renderClassPanel();
 
-		expect(fieldReading(container, '流派')).toBe('御劫, 念動, 傳心');
+		expect(readFieldByLabelPrefix(container, '流派')).toBe('御劫, 念動, 傳心');
 		traditionMetadata.forEach(tradition => expectRendered(container, tradition.name));
 
 		switchLocale();
 
-		expect(fieldReading(container, 'Tradition')).toBe('Chronopathy, Telekinesis, Telepathy');
+		expect(readFieldByLabelPrefix(container, 'Tradition')).toBe('Chronopathy, Telekinesis, Telepathy');
 		expect(JSON.stringify(talent)).toBe(serialized);
 	});
 
@@ -391,7 +354,7 @@ describe('V1 Core Talent Level 1 completion catalog and presentation', () => {
 
 		expectRendered(container, name);
 		expectRendered(container, description);
-		expect(fieldReading(container, '目標')).toBe(target);
+		expect(readFieldByLabelPrefix(container, '目標')).toBe(target);
 		expectRendered(container, trigger);
 		expectRendered(container, section);
 
@@ -406,13 +369,13 @@ describe('V1 Core Talent Level 1 completion catalog and presentation', () => {
 		expectRendered(remote.container, '遠端支援');
 		expectRendered(remote.container, '一名盟友獲得你智慧的加持。');
 		expectRendered(remote.container, '直到你的下個回合開始前，1 個盟友針對目標進行的下次招式檢定會獲得 1 個優勢。');
-		expect(fieldReading(remote.container, '花費')).toBe('你可以額外指定 1 個生物或物體作為目標。');
+		expect(readFieldByLabelPrefix(remote.container, '花費')).toBe('你可以額外指定 1 個生物或物體作為目標。');
 		remote.unmount();
 
 		const minor = renderAbility(getTraditionAbility('talent-sub-2-1-1'));
 		expectRendered(minor.container, '微量念動');
 		expectRendered(minor.container, '當你僅憑意念強制移動目標時，肉眼可見的靈能波紋從你的大腦散發而出。');
-		expect(fieldReading(minor.container, '目標')).toBe('自身或 1 個體型 1 的生物或物體');
+		expect(readFieldByLabelPrefix(minor.container, '目標')).toBe('自身或 1 個體型 1 的生物或物體');
 		expectRendered(minor.container, '每花費 2 點明晰，你可以指定的生物或物體體型上限增加 1 級。');
 		expectRendered(minor.container, '你可以垂直滑動目標。');
 		minor.unmount();
@@ -420,7 +383,7 @@ describe('V1 Core Talent Level 1 completion catalog and presentation', () => {
 		const accelerate = renderAbility(getTraditionAbility('talent-sub-1-1-1'));
 		expectRendered(accelerate.container, '加速');
 		expectRendered(accelerate.container, '在盟友眼中，彷彿整個世界都變慢了。');
-		expect(fieldReading(accelerate.container, '花費')).toBe('目標可以使用 1 個機動動作。');
+		expect(readFieldByLabelPrefix(accelerate.container, '花費')).toBe('目標可以使用 1 個機動動作。');
 		accelerate.unmount();
 
 		const repel = renderAbility(getTraditionAbility('talent-sub-2-1-2'));

@@ -1,13 +1,8 @@
 // @vitest-environment jsdom
 /* eslint-disable sort-imports */
-import { createElement } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
-import { LocalizationProvider } from '@/contexts/localization-context';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
+import { cleanup, fireEvent, screen } from '@testing-library/react';
 import { FeatureType } from '@/enums/feature-type';
-import { PanelMode } from '@/enums/panel-mode';
 import { elementalist } from '@/data/classes/elementalist/elementalist';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
@@ -15,10 +10,9 @@ import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localizatio
 import { createV1ElementalistLevel1RemainingRequiredCanonicalEnglish, v1LocalizationManifest } from '@/localization/v1-localization-manifest';
 import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
+import { createHeroWithClass, levelOneFeatures, renderFeaturePanel, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { Feature } from '@/models/feature';
-import { Hero } from '@/models/hero';
 
 vi.mock('@/contexts/data-context', () => ({
 	useDataManager: () => ({ saveOptions: vi.fn().mockResolvedValue(undefined) }),
@@ -28,7 +22,7 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-const elementalistLevelOneFeatures = elementalist.featuresByLevel.find(level => level.level === 1)?.features || [];
+const elementalistLevelOneFeatures = levelOneFeatures(elementalist);
 const liveFields = extractLiveBoundedNonAbilityFeatureFields(elementalistLevelOneFeatures);
 const required = createV1ElementalistLevel1RemainingRequiredCanonicalEnglish();
 const elementalistCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
@@ -43,22 +37,7 @@ const getFeature = (id: string) => {
 	return feature;
 };
 
-const makeHero = () => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...elementalist, level: 1, characteristics: FactoryLogic.createCharacteristics(0, 0, 2, 0, 0) };
-	return hero;
-};
-
-const renderFeature = (feature: Feature, hero?: Hero) => render(
-	createElement(
-		LocalizationProvider,
-		null,
-		createElement(LocaleToggle),
-		createElement(FeaturePanel, { feature, hero, mode: PanelMode.Full })
-	)
-);
-
-const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
+const makeHero = () => createHeroWithClass(elementalist, 1, FactoryLogic.createCharacteristics(0, 0, 2, 0, 0));
 
 const approvedPersistentMagicThresholdZhTW = '若你在 1 個回合內受到的傷害 ≧ 你的理智 ×5，你會停止維持所有續發型招式。';
 const calculatedPersistentMagicThresholdZhTW = '若你在 1 個回合內受到的傷害 ≧ 10，你會停止維持所有續發型招式。';
@@ -123,12 +102,12 @@ describe('V1 Core Elementalist L1 remaining catalog and presentation', () => {
 			throw new Error('Essence is not a Heroic Resource');
 		}
 
-		const noHero = renderFeature(essence);
+		const noHero = renderFeaturePanel(essence);
 		expectEssenceZhTW(noHero.container);
 		noHero.unmount();
 
 		const hero = makeHero();
-		const withHero = renderFeature(essence, hero);
+		const withHero = renderFeaturePanel(essence, { hero });
 		verifyLocaleDifferentialInvariants({
 			protectedStates: [
 				protectCanonicalState({ label: 'Essence Feature', capture: () => JSON.stringify(essence) }),
@@ -150,14 +129,14 @@ describe('V1 Core Elementalist L1 remaining catalog and presentation', () => {
 		const persistentMagic = getFeature('elementalist-1-5');
 		const getTextEffect = vi.spyOn(AbilityLogic, 'getTextEffect');
 
-		const noHero = renderFeature(persistentMagic);
+		const noHero = renderFeaturePanel(persistentMagic);
 		expect(noHero.container.textContent).toContain('續發魔法');
 		expect(noHero.container.textContent).toContain(approvedPersistentMagicThresholdZhTW);
 		expect(noHero.container.textContent).not.toContain('傷害 ≧ 10');
 		noHero.unmount();
 
 		const hero = makeHero();
-		const withHero = renderFeature(persistentMagic, hero);
+		const withHero = renderFeaturePanel(persistentMagic, { hero });
 		verifyLocaleDifferentialInvariants({
 			protectedStates: [
 				protectCanonicalState({ label: 'Persistent Magic Feature', capture: () => JSON.stringify(persistentMagic) }),
@@ -185,7 +164,7 @@ describe('V1 Core Elementalist L1 remaining catalog and presentation', () => {
 
 	it('returns to the approved raw zh-TW when auto-calc is switched off', () => {
 		const persistentMagic = getFeature('elementalist-1-5');
-		const withHero = renderFeature(persistentMagic, makeHero());
+		const withHero = renderFeaturePanel(persistentMagic, { hero: makeHero() });
 
 		expect(withHero.container.textContent).toContain(calculatedPersistentMagicThresholdZhTW);
 		fireEvent.click(screen.getByTitle('Auto-calculate damage, potency, etc'));
