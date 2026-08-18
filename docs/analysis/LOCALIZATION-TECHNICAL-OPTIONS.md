@@ -2,10 +2,10 @@
 
 - 文件分類：現行權威（核心架構與安全邊界）＋歷史方案比較
 - 初始核准日期：2026-08-06
-- 最近對齊日期：2026-08-12
+- 最近對齊日期：2026-08-18
 - 核准者：專案負責人
 - 原始分析基準：`34890a3b420d3067caa91474c9ca52afc5e39c4d`
-- 現行實作 evidence baseline：`develop` @ `712d45cebc3e654ec69f75b1a91d3b9d04afef82`（PR #55 後）
+- 現行實作 evidence：以 current `develop` 及其 code／tests／PR／CI 為準。本文件保存的是架構與安全邊界，不維護 volatile integration SHA，也不保存 current translation denominator snapshot。
 - 需求依據：`docs/requirements/V1-REQUIREMENTS.md`
 - 歷史 codebase 盤點：`docs/analysis/CODEBASE-SUMMARY.md`
 
@@ -74,7 +74,7 @@
 
 ## 4. 現行 production localization architecture
 
-截至 `develop` @ `712d45cebc3e654ec69f75b1a91d3b9d04afef82`，下列不再只是 prototype 候選，而是現行 production evidence：
+下列不再只是 prototype 候選，而是現行 production evidence；實際 implementation state 一律以 current `develop` 的 code／tests／PR／CI 為準：
 
 ### 4.1 Locale state
 
@@ -127,7 +127,7 @@ build／test-time validation 用來阻擋至少下列風險：
 - malformed entry／invalid approval state。
 - composed-message placeholder mismatch。
 
-V1 player-content manifest／completeness foundation 已建立：目前已知 `requiredCount = 1092`，仍有 5 個 unresolved domains，尚未成為完整 V1 denominator。foundation 已建立不等於 V1 completeness 已完成；V1 發布前仍需要完整、涵蓋所有 domain 的 translation completeness gate。
+V1 player-content manifest／completeness foundation 已建立。live translation denominator（`requiredCount`）、`missing`、`unapproved`、catalog issues 與 `unresolvedDomains` state 一律以 current manifest + catalog + `npm run loc:status` evidence 為準；本文件不保存這些數字的 snapshot。只要 `unresolvedDomains` 尚未歸零，已知 denominator 就不是完整 V1 denominator。foundation 已建立不等於 V1 completeness 已完成；V1 發布前仍需要完整、涵蓋所有 domain 的 translation completeness gate。
 
 ## 5. 已被後續實作證據解決的早期事項
 

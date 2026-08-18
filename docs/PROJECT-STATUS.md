@@ -1,18 +1,18 @@
 # Forge Steel 繁體中文化專案進度
 
-> 最後更新：2026-08-16
+> 最後更新：2026-08-18
 > 本文件是 handoff 摘要，不取代 GitHub PR／commit、`docs/REVIEWER-PRINCIPLES.md`、V1 requirements、現行 code／tests／CI 或人工驗收 evidence。
 
 ## 1. Current Baseline
 
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active integration branch：`develop`
-- Current integration baseline：
-  `6a121f5488331f35a795343e81ccd353ad974e8f`
-- Latest substantive merged PR：`#79 feat: localize Core Conduit Level 1 remaining content`
+- Reconciliation snapshot（本文件最後 reconcile 時的 `develop`，僅供對照，**不是 reset target**）：
+  `6057348a5616b332ca3ace9a133c795200dd3bf9`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
-- Current phase：**已從 denominator foundation 進入 coherent player-facing translation slices，並持續以 manifest／completeness 逐批擴充。** manifest／completeness 是進度的權威 machine evidence；目前沒有 missing、unapproved 或 catalog issues，仍有 5 個 unresolved domains，`complete = false`。在所有 V1 domains 都完整 enumerate 前，任何已知 denominator 數字都不是完整 V1 翻譯百分比。
+- 最近已 merge 的工作以 `git log develop` 與 GitHub PR 為準；本文件不維護「最新 PR」欄位，避免每次 merge 後立即 stale。
+- Current phase：**已從 denominator foundation 進入 coherent player-facing translation slices，並持續以 manifest／completeness 逐批擴充。** manifest／completeness 是進度的權威 machine evidence，current required／missing／unapproved／unresolved state 一律以 live manifest + catalog + `npm run loc:status` evidence 為準，本文件不保存該數字的 snapshot。目前 `unresolvedDomains` 尚未歸零，`complete = false`；在所有 V1 domains 都完整 enumerate 前，任何已知 denominator 數字都不是完整 V1 翻譯百分比。
 
 實際 repository state 永遠優先於本摘要。若 `develop` 已前進，先依 Git／GitHub evidence 更新判斷，不把本文件中的 SHA 當成 reset 目標。
 
@@ -104,10 +104,21 @@
 - Class ability calculated presentation 維持 canonical-English-first：canonical calculator 先完成計算，再僅在 presentation boundary 投影可安全證明的 approved zh-TW；中文不進入 calculator、parser 或 canonical data。
 - 此 milestone 不代表所有 V1 Class Level 1 abilities 完成：Official Beastheart 與 Summoner 的 Level 1 Class ability-authored-content 尚未完整 enumerate 或 localized，仍屬 `official-ability-authored-content` unresolved domain。
 
-### 3.10 Core／Orden content expansion after the earlier Level 1 milestone（PR #74、#76–#79）
+### 3.10 Core／Orden content expansion after the earlier Level 1 milestone（PR #74、#76–#79、#85–#87）
 
-- Orden Ancestry abilities（#74）、Core standard Kits（#76）、Core Domains Level 1–3（#77）、Censor Level 1 與 Orders（#78），以及 Conduit Level 1 remaining non-Ability player-facing content（#79）已加入 production localization、manifest coverage 與其各自的 representative presentation evidence。
+- Orden Ancestry abilities（#74）、Core standard Kits（#76）、Core Domains Level 1–3（#77）已加入 production localization、manifest coverage 與其各自的 representative presentation evidence。
+- Core standard Class 的 **base Level 1 remaining（非 Ability）player-facing content** 已完成：Censor Level 1 與其 Orders（#78）、Conduit（#79）、Fury（#85）、Elementalist（#86）、Null（#87）。Conduit 沒有 subclass。
+- 尚未完成 base Level 1 remaining 的 Core standard Class：Shadow、Tactician、Talent、Troubadour。
+- **這不代表 Core Class Level 1 已完成。** 有 subclass 的 Core Class，其 Level 1 subclass player content 仍須依 live code／manifest 完整 enumerate；base-class remaining 完成不等於整個 Class Level 1 complete。上述 Class 清單只是 handoff 導覽，不是第二套 denominator——實際 required／missing 一律以 live manifest + catalog + `npm run loc:status` 為準。
 - 這些 Core／Orden expansion 不改變 V1 scope：V1 仍包含 Core、Orden、Beastheart 與 Summoner；目前 sequencing 可優先處理 Core／Orden。
+
+### 3.11 Localization workflow／implementation 優化（PR #88–#90）
+
+三批 architecture optimization 的長期成果摘要；逐批細節以 Git history／PR 為準，本節不保存 test count、hash 或 Agent report。
+
+- **Shared verification entry point（#88）：** local CI-equivalent verification 與 GitHub CI 已收斂到 repository 自身定義的單一 verification entry point。後續 workflow 應讀 current `package.json` scripts 與 current CI workflow 決定實際 command，不把 command 細節硬編成永久文件規則。
+- **Bounded traversal 去重（#89）：** Conduit／Elementalist／Fury／Null remaining-content 的 production bounded non-Ability traversal 由多份重複實作收斂為單一共用 implementation，既有 bounded semantics、denominator 與 canonical values 不變。這是 implementation precedent，不新增 localization scope，也不是 generic content crawler。
+- **Packet preflight 與 permanent regression 分離（#90）：** translation packet canonical alignment 明確定位為 future implementation preflight evidence；已 merge localization 的 permanent regression 不再永久重播 historical packet revision／hash map，改由 independent live canonical evidence 驗證 manifest／catalog／presentation behavior，降低 self-validating false green 風險。對應的永久規則已寫入 `docs/translation/TRANSLATION-WORKFLOW.md` 與 `docs/project-review-skill/RISK-AND-VERIFICATION.md`。
 
 ## 4. 現行 translation／decision 規則
 
@@ -152,11 +163,18 @@ Complication top-level localization 已完成。進一步 Complication-related c
 - 不做與 V1 localization 無關的大型 storage／schema／shared architecture refactor。
 - local full-suite 曾觀察到 intermittent timeout；required CI PASS 仍為必要條件。在取得 reproducible evidence 前不視為 localization blocker；若持續出現，另做獨立的 test-stability inventory。
 
-## 7. Next Work
+## 7. Current sequencing / Next Work
 
-文件 reconciliation 完成後，由 Reviewer 根據剩餘 5 個 unresolved domains、現行 Owner sequencing 與 `docs/translation/TRANSLATION-WORKFLOW.md` 建立下一個 coherent Batch Contract。
+現行 Owner sequencing：
 
-開始前先核對 manifest coverage 與 slice 邊界；若 identity、traversal 或 scope 形成 blocker，才依 Reviewer Batch Contract 另開 focused technical denominator batch。
+- **Core + Orden 優先。**
+- Beastheart／Summoner 仍屬 V1 scope，但 sequencing 延後；deferred 不等於移出 V1 requirements。
+- 下一個 substantive milestone 是 **Core Class Level 1 completion**。
+- 下一個預定 translation target 是 **Core Shadow Level 1 completion 的評估與 translation workflow**。
+
+Shadow batch 的 exact base + subclasses slice 必須在正式 Batch Contract 前，依 live repository code／manifest 與 `docs/project-review-skill/PROJECT-REVIEW-SKILL.md` 的 Precedent Gate 再確認。本節記錄的是現行 sequencing 意圖，不預先固定該 slice 內容，也不固定其後所有 batch 的順序，更不建立第二套 denominator。
+
+由 Reviewer 依剩餘 unresolved domains、現行 Owner sequencing 與 `docs/translation/TRANSLATION-WORKFLOW.md` 建立下一個 coherent Batch Contract。開始前先核對 manifest coverage 與 slice 邊界；若 identity、traversal 或 scope 形成 blocker，才依 Reviewer Batch Contract 另開 focused technical denominator batch。
 
 ## 8. Update Rules
 

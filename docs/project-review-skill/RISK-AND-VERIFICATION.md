@@ -84,6 +84,14 @@
 - 只 snapshot 大型 UI 而沒有行為 assertion。
 - 為了 coverage 加入無法保護 requirement 的測試。
 
+### Independent Expected Evidence
+
+當 regression 的 claim 是「generated enumeration、manifest slice、traversal、identity set 或 canonical extraction 正確」時，expected evidence 應盡可能來自獨立 authority、獨立 extraction 或明確 hard evidence。
+
+不應只重用被測的 production helper，或以同一條 implementation path 產生 expected result 再拿兩者比較。那樣 production implementation 與 expected result 會一起錯，形成 false green，而測試仍然顯示綠燈。
+
+這不表示每批都要重寫一套獨立 framework，也不是所有 tests 的硬性 requirement。只在該 correctness claim 實際需要時，使用最低足夠的獨立 evidence；其餘 tests 仍依上述 public-behavior 原則。
+
 ## Responsive / Delegated Fallback
 
 - 若 responsive、compact、mobile 或 icon-only 走的是 materially relevant 的不同 render path，targeted behavior test 應覆蓋代表性 branch，而不是只測 desktop。

@@ -87,6 +87,22 @@ repository 提供三層、各自解決不同問題的 verification primitive：
 
 三者不互相取代：`loc:verify` green 不代表 packet canonical alignment 已完成；packet alignment PASS 不代表 locale switching／Hero state safety 已證明；differential harness PASS 也不代表 manifest completeness 或 packet authority 正確。manifest、catalog 與 completeness 仍是正式 translation denominator evidence，helper 不建立第二套 denominator；Owner 仍決定 semantic Chinese。不要為了工具而要求不相關 batch 使用不適用的 gate。
 
+### Packet Preflight 與 Permanent Regression 的分工
+
+approved packet canonical alignment 預設是 **handoff／implementation preflight evidence**。它回答的問題只有一個：
+
+> 這份 approved packet 是否仍對應目前 live canonical source？
+
+該 translation slice 已 merge 之後，permanent regression 的主要 evidence 應改為來自 live canonical source／independent expected evidence，並依序驗證：
+
+> live canonical source／independent expected evidence → manifest → catalog → 適用的 public presentation behavior／locale／canonical-state assertions。
+
+除非 Batch Contract 指出具體、可說明的特殊風險，否則不要求 permanent tests 永久保存或重播 historical packet revision 或 canonical hash map；該 evidence 的作用在 merge 當下已經實現，長期保留只會讓 regression 綁在一份歷史 snapshot 上，而不是綁在目前的 canonical truth。
+
+packet verifier 本身保留，供 future packet preflight 使用。
+
+本規則不降低 Owner semantic approval、manifest／catalog integrity、locale safety，或任何其他適用的 verification gate；expected evidence 的獨立性原則見 `docs/project-review-skill/RISK-AND-VERIFICATION.md`。
+
 ---
 
 ## 3. 從現在開始的翻譯方式
