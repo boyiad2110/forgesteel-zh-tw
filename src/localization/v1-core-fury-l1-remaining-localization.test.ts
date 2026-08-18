@@ -1,13 +1,8 @@
 // @vitest-environment jsdom
 /* eslint-disable sort-imports */
-import { createElement } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
-import { LocalizationProvider } from '@/contexts/localization-context';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
+import { cleanup } from '@testing-library/react';
 import { FeatureType } from '@/enums/feature-type';
-import { PanelMode } from '@/enums/panel-mode';
 import { fury } from '@/data/classes/fury/fury';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
@@ -15,10 +10,9 @@ import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localizatio
 import { createV1FuryLevel1RemainingRequiredCanonicalEnglish, v1LocalizationManifest } from '@/localization/v1-localization-manifest';
 import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
+import { createHeroWithClass, levelOneFeatures, renderFeaturePanel, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { Feature } from '@/models/feature';
-import { Hero } from '@/models/hero';
 
 vi.mock('@/contexts/data-context', () => ({
 	useDataManager: () => ({ saveOptions: vi.fn().mockResolvedValue(undefined) }),
@@ -28,7 +22,7 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-const furyLevelOneFeatures = fury.featuresByLevel.find(level => level.level === 1)?.features || [];
+const furyLevelOneFeatures = levelOneFeatures(fury);
 const liveFields = extractLiveBoundedNonAbilityFeatureFields(furyLevelOneFeatures);
 const required = createV1FuryLevel1RemainingRequiredCanonicalEnglish();
 const furyCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
@@ -43,22 +37,7 @@ const getFeature = (id: string) => {
 	return feature;
 };
 
-const makeHero = () => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...fury, level: 1, characteristics: FactoryLogic.createCharacteristics(2, 0, 0, 0, 0) };
-	return hero;
-};
-
-const renderFeature = (feature: Feature, hero?: Hero) => render(
-	createElement(
-		LocalizationProvider,
-		null,
-		createElement(LocaleToggle),
-		createElement(FeaturePanel, { feature, hero, mode: PanelMode.Full })
-	)
-);
-
-const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
+const makeHero = () => createHeroWithClass(fury, 1, FactoryLogic.createCharacteristics(2, 0, 0, 0, 0));
 
 const expectFerocityZhTW = (container: HTMLElement) => {
 	expect(container.textContent).toContain('狠勁');
@@ -114,12 +93,12 @@ describe('V1 Core Fury L1 remaining catalog and presentation', () => {
 			throw new Error('Ferocity is not a Heroic Resource');
 		}
 
-		const noHero = renderFeature(ferocity);
+		const noHero = renderFeaturePanel(ferocity);
 		expectFerocityZhTW(noHero.container);
 		noHero.unmount();
 
 		const hero = makeHero();
-		const withHero = renderFeature(ferocity, hero);
+		const withHero = renderFeaturePanel(ferocity, { hero });
 		verifyLocaleDifferentialInvariants({
 			protectedStates: [
 				protectCanonicalState({ label: 'Ferocity Feature', capture: () => JSON.stringify(ferocity) }),
@@ -141,13 +120,13 @@ describe('V1 Core Fury L1 remaining catalog and presentation', () => {
 	it('keeps Mighty Leaps localized with a Hero when canonical calculation has no delta', () => {
 		const mightyLeaps = getFeature('fury-1-4');
 		const getTextEffect = vi.spyOn(AbilityLogic, 'getTextEffect');
-		const noHero = renderFeature(mightyLeaps);
+		const noHero = renderFeaturePanel(mightyLeaps);
 		expect(noHero.container.textContent).toContain('強力飛躍');
 		expect(noHero.container.textContent).toContain('當你進行跳躍的力量考驗時，結果不會低於 T2。');
 		noHero.unmount();
 
 		const hero = makeHero();
-		const withHero = renderFeature(mightyLeaps, hero);
+		const withHero = renderFeaturePanel(mightyLeaps, { hero });
 		verifyLocaleDifferentialInvariants({
 			protectedStates: [
 				protectCanonicalState({ label: 'Mighty Leaps Feature', capture: () => JSON.stringify(mightyLeaps) }),

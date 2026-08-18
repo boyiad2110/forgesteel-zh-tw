@@ -9,14 +9,18 @@ import {
 	v1LocalizationManifest
 } from '@/localization/v1-localization-manifest';
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
-import { ClassPanel } from '@/components/panels/elements/class-panel/class-panel';
 import { ClassSection } from '@/components/pages/heroes/hero-edit/class-section/class-section';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
-import { LocalizationProvider } from '@/contexts/localization-context';
-import { SubclassPanel } from '@/components/panels/elements/subclass-panel/subclass-panel';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
+import {
+	createClassPresentationHarness,
+	createHeroWithClass,
+	installResizeObserverStub,
+	levelOneFeatures,
+	readFieldByExactLabel,
+	renderLocalized,
+	switchLocale
+} from '@/localization/test-support/localization-presentation-test-harness';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { Feature } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
@@ -27,7 +31,7 @@ import { SubClass } from '@/models/subclass';
 import { censor } from '@/data/classes/censor/censor';
 import { core } from '@/data/sourcebooks/official/core';
 import glossaryCsv from '../../docs/translation/TRANSLATION-GLOSSARY.csv?raw';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 const testOptions: Options = { ...FactoryLogic.createOptions(), locale: 'zh-TW' };
@@ -48,13 +52,7 @@ vi.mock('@/components/modals/select/subclass-select/subclass-select-modal', () =
 	)
 }));
 
-// jsdom has no ResizeObserver, which antd's popups need before they will draw.
-class ResizeObserverStub {
-	observe() {}
-	unobserve() {}
-	disconnect() {}
-}
-globalThis.ResizeObserver = ResizeObserverStub;
+installResizeObserverStub();
 
 const required = createV1CensorLevel1AndOrderRequiredCanonicalEnglish();
 const censorAbilityRequired = createV1CensorLevel1AbilityRequiredCanonicalEnglish();
@@ -68,11 +66,9 @@ const getOrder = (id: string) => {
 	return order;
 };
 
-const levelOneFeatures = (featuresByLevel: { level: number, features: Feature[] }[]) => featuresByLevel.find(lvl => lvl.level === 1)?.features || [];
-
-const censorLevel1Features = levelOneFeatures(censor.featuresByLevel);
+const censorLevel1Features = levelOneFeatures(censor);
 const censorLevel1NonAbility = censorLevel1Features.filter(feature => feature.type !== FeatureType.Ability);
-const orderLevel1Features = orders.flatMap(order => levelOneFeatures(order.featuresByLevel));
+const orderLevel1Features = orders.flatMap(order => levelOneFeatures(order));
 
 const findFeature = (features: Feature[], id: string) => {
 	const feature = features.find(candidate => candidate.id === id);
@@ -86,32 +82,9 @@ const censorCatalogEntries = productionLocalizationEntries.filter((entry): entry
 	(entry.kind === 'element-field') && (required[getEntryIdentity(entry)] !== undefined)
 ));
 
-const heroWithCensor = (level = 1) => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...censor, level: level, characteristics: FactoryLogic.createCharacteristics(2, 0, 0, 0, 2) };
-	return hero;
-};
+const heroWithCensor = (level = 1) => createHeroWithClass(censor, level, FactoryLogic.createCharacteristics(2, 0, 0, 0, 2));
 
-const renderClassPanel = (hero?: Hero) => render(
-	<LocalizationProvider>
-		<LocaleToggle />
-		<ClassPanel heroClass={censor} sourcebooks={[ core ]} hero={hero} mode={PanelMode.Full} />
-	</LocalizationProvider>
-);
-
-const renderSubclass = (subclass: SubClass, mode: PanelMode) => render(
-	<LocalizationProvider>
-		<LocaleToggle />
-		<SubclassPanel subclass={subclass} sourcebooks={[ core ]} mode={mode} />
-	</LocalizationProvider>
-);
-
-const renderFeature = (feature: Feature, hero?: Hero) => render(
-	<LocalizationProvider>
-		<LocaleToggle />
-		<FeaturePanel feature={feature} hero={hero} sourcebooks={[ core ]} mode={PanelMode.Full} />
-	</LocalizationProvider>
-);
+const { renderClassPanel, renderSubclass, renderFeature } = createClassPresentationHarness(censor, [ core ]);
 
 const classSectionCallbacks = {
 	selectClass: vi.fn(),
@@ -126,15 +99,10 @@ const classSectionCallbacks = {
 const renderClassSection = (hero: Hero) => {
 	Object.values(classSectionCallbacks).forEach(callback => callback.mockClear());
 
-	return render(
-		<LocalizationProvider>
-			<LocaleToggle />
-			<ClassSection hero={hero} sourcebooks={[ core ]} searchTerm='' {...classSectionCallbacks} />
-		</LocalizationProvider>
+	return renderLocalized(
+		<ClassSection hero={hero} sourcebooks={[ core ]} searchTerm='' {...classSectionCallbacks} />
 	);
 };
-
-const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
 
 const clickPage = (container: HTMLElement, label: string) => {
 	const option = Array.from(container.querySelectorAll('.ant-segmented-item-label')).find(node => node.textContent?.trim() === label);
@@ -142,11 +110,6 @@ const clickPage = (container: HTMLElement, label: string) => {
 		throw new Error(`Panel page '${label}' is missing`);
 	}
 	fireEvent.click(option);
-};
-
-const fieldReading = (container: HTMLElement, label: string) => {
-	const field = Array.from(container.querySelectorAll('.field')).find(node => node.querySelector('.field-label')?.textContent?.trim() === label);
-	return field?.querySelector('.field-value')?.textContent?.trim();
 };
 
 const isDrawn = (text: string) => screen.queryAllByText(text).length > 0;
@@ -254,7 +217,7 @@ describe('Censor class panel presentation', () => {
 		const { container } = renderClassPanel();
 
 		// 'Order' pluralizes to 'Orders' in English; the zh-TW reading is the word it is.
-		expect(fieldReading(container, '教團')).toBe('驅邪, 神諭, 典範');
+		expect(readFieldByExactLabel(container, '教團')).toBe('驅邪, 神諭, 典範');
 		expect(container.textContent).not.toContain('教團s');
 		expect(container.textContent).not.toContain('Orders');
 	});
@@ -263,7 +226,7 @@ describe('Censor class panel presentation', () => {
 		const { container } = renderClassPanel();
 
 		clickPage(container, '特性');
-		const summary = fieldReading(container, '1 級');
+		const summary = readFieldByExactLabel(container, '1 級');
 
 		expect(summary).toContain('體力');
 		expect(summary).toContain('復元力');
@@ -284,7 +247,7 @@ describe('Censor class panel presentation', () => {
 
 		switchLocale();
 
-		expect(fieldReading(container, 'Orders')).toBe('Exorcist, Oracle, Paragon');
+		expect(readFieldByExactLabel(container, 'Orders')).toBe('Exorcist, Oracle, Paragon');
 		expect(container.textContent).not.toContain('教團');
 	});
 
@@ -329,7 +292,7 @@ describe('Order subclass panel presentation', () => {
 		const full = renderSubclass(getOrder('censor-sub-2'), PanelMode.Full);
 		clickPage(full.container, '特性');
 
-		expect(fieldReading(full.container, '1 級')).toBe('技能, 審判：教團益處');
+		expect(readFieldByExactLabel(full.container, '1 級')).toBe('技能, 審判：教團益處');
 		expect(full.container.textContent).not.toContain('Judgment Order Benefit');
 	});
 
@@ -351,7 +314,7 @@ describe('Order Level 1 Feature presentation', () => {
 
 		// The label is the Feature's own approved name; the selected Skill keeps using the
 		// shared Skill catalog, which is where its reading has always come from.
-		expect(fieldReading(container, '技能')).toBe('觀色');
+		expect(readFieldByExactLabel(container, '技能')).toBe('觀色');
 		expect(container.textContent).toContain('從任意列表中選擇 1 項技能。');
 		expect(container.textContent).not.toContain('Read Person');
 	});
@@ -362,7 +325,7 @@ describe('Order Level 1 Feature presentation', () => {
 	])('resolves the default Skill selection for %s', (id, skillReading) => {
 		const { container } = renderFeature(findFeature(orderLevel1Features, id));
 
-		expect(fieldReading(container, '技能')).toBe(skillReading);
+		expect(readFieldByExactLabel(container, '技能')).toBe(skillReading);
 	});
 
 	it('reads the Judgment Order Benefit as approved raw zh-TW, with and without a Hero', () => {

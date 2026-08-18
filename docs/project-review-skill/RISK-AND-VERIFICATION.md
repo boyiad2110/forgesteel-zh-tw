@@ -4,6 +4,24 @@
 
 驗證必須與實際風險相稱。Fresh evidence 是「最後變更後重新執行的必要證據」，不等於每批都執行完整 test、build、smoke 與人工驗收。
 
+### Stage 1 預設驗證範圍
+
+Stage 1 預設只執行 **risk-matched minimum sufficient evidence**：本批 Risk Level 的最低證據，加上本批實際觸及範圍所需的 lint、typecheck 與 localization verification。
+
+Stage 1 是否重複執行 full suite／build，以**目前 repository CI workflow 實際涵蓋的範圍**為準，不以任何寫死的 command 清單為準：
+
+- 若 PR required CI 實際涵蓋本批依 Risk 所需的 full suite／build，Stage 1 **不重複執行**。該 gate 會在 Reviewer 已核准的 exact HEAD 上獨立執行；Stage 1 先跑一次同一套不會提高 evidence 品質，只會墊高每批固定成本。
+- 若目前 CI **未**涵蓋某個依 Risk 必要的 gate，該 evidence 不會因為「反正有 CI」而消失：Stage 1 或 Batch Contract 必須補足它，並在 final report 指出補的是哪一項。
+
+因此判定 Stage 1 範圍前，必須先讀**目前**的 CI workflow 與本批相關 commands，而不是沿用上一批的結論；CI workflow 涵蓋範圍改變時，Stage 1 的預設範圍隨之改變。
+
+即使 CI 已涵蓋，下列情況仍執行 local full CI mirror：
+
+- Batch Contract 明確要求 CI-equivalent local evidence；或
+- 本批實際風險需要，例如改動 bundling、runtime integration、build-time shared behavior，或 Reviewer 判定該 regression 若留到 PR CI 才揭露的代價過高。
+
+本節不新增任何「所有 localization batch 必跑」的固定大型 verifier，也不降低 Level A／B／C 的最低證據要求：適用的 targeted tests、lint、typecheck 與 localization verification 仍然要跑，也仍須取自最後一次 code change 之後的狀態。exact-HEAD evidence 語意依本文件 **Fresh Evidence Gate**，實際執行順序依 `AGENT-TASK-CONTRACT.md`。
+
 ## Level A — 低風險
 
 適用：

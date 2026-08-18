@@ -3,21 +3,17 @@
 import { createElement } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
 import { ConfigChoice } from '@/components/features/feature-data/choice';
 import { LocalizationProvider } from '@/contexts/localization-context';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
 import { FeatureType } from '@/enums/feature-type';
-import { PanelMode } from '@/enums/panel-mode';
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { createV1ConduitLevel1RemainingRequiredCanonicalEnglish, v1LocalizationManifest } from '@/localization/v1-localization-manifest';
 import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
+import { createHeroWithClass, levelOneFeatures, renderFeaturePanel } from '@/localization/test-support/localization-presentation-test-harness';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
 import { conduit } from '@/data/classes/conduit/conduit';
-import { Feature } from '@/models/feature';
-import { Hero } from '@/models/hero';
 import glossaryCsv from '../../docs/translation/TRANSLATION-GLOSSARY.csv?raw';
 
 vi.mock('@/contexts/data-context', () => ({
@@ -28,7 +24,7 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-const conduitLevelOneFeatures = conduit.featuresByLevel.find(level => level.level === 1)?.features || [];
+const conduitLevelOneFeatures = levelOneFeatures(conduit);
 const liveFields = extractLiveBoundedNonAbilityFeatureFields(conduitLevelOneFeatures);
 const required = createV1ConduitLevel1RemainingRequiredCanonicalEnglish();
 const conduitCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
@@ -43,20 +39,7 @@ const getFeature = (id: string) => {
 	return feature;
 };
 
-const makeHero = () => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...conduit, level: 3, characteristics: FactoryLogic.createCharacteristics(0, 0, 0, 2, 0) };
-	return hero;
-};
-
-const renderFeature = (feature: Feature, hero?: Hero) => render(
-	createElement(
-		LocalizationProvider,
-		null,
-		createElement(LocaleToggle),
-		createElement(FeaturePanel, { feature, hero, mode: PanelMode.Full })
-	)
-);
+const makeHero = () => createHeroWithClass(conduit, 3, FactoryLogic.createCharacteristics(0, 0, 0, 2, 0));
 
 afterEach(cleanup);
 
@@ -108,7 +91,7 @@ describe('V1 Core Conduit L1 remaining catalog and presentation', () => {
 	it('renders context-specific Prayers, nested Choice/Multiple children, and canonical English without mutating Feature data', () => {
 		const packageFeature = getFeature('conduit-1-3b');
 		const packageSerialized = JSON.stringify(packageFeature);
-		const packagePanel = renderFeature(packageFeature);
+		const packagePanel = renderFeaturePanel(packageFeature);
 		expect(packagePanel.container.textContent).toContain('祈禱');
 		expect(packagePanel.container.textContent).not.toContain('Prayer');
 		fireEvent.click(screen.getByRole('button', { name: 'Switch to English' }));
@@ -118,7 +101,7 @@ describe('V1 Core Conduit L1 remaining catalog and presentation', () => {
 
 		const prayerChoice = getFeature('conduit-1-8');
 		const choiceSerialized = JSON.stringify(prayerChoice);
-		const choicePanel = renderFeature(prayerChoice);
+		const choicePanel = renderFeaturePanel(prayerChoice);
 		expect(choicePanel.container.textContent).toContain('禱詞');
 		expect(choicePanel.container.textContent).toContain('戰技禱詞');
 		fireEvent.click(screen.getByText('戰技禱詞'));
@@ -162,12 +145,12 @@ describe('V1 Core Conduit L1 remaining catalog and presentation', () => {
 			throw new Error('Piety is not a Heroic Resource');
 		}
 		const serialized = JSON.stringify(piety);
-		const noHero = renderFeature(piety);
+		const noHero = renderFeaturePanel(piety);
 		expect(noHero.container.textContent).toContain('每當你的回合開始時');
 		expect(noHero.container.textContent).toContain('+1d3');
 		noHero.unmount();
 
-		const withHero = renderFeature(piety, makeHero());
+		const withHero = renderFeaturePanel(piety, { hero: makeHero() });
 		expect(withHero.container.textContent).toContain('每當你的回合開始時');
 		expect(withHero.container.textContent).toContain('+1d3');
 		fireEvent.click(screen.getByRole('button', { name: 'Switch to English' }));

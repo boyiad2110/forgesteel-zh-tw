@@ -50,6 +50,22 @@ Merge method 屬一般 Git 技術決策時，可由 Reviewer 依 `docs/REVIEWER-
 
 remote branch 已存在、PR 已建立或已 merge、或 local history 與 remote history 不同時，停止正常 Stage 3 假設並先選擇 recovery path。此時不得直接 push、force push、rebase、reset、amend、重建 branch、建立第二個 PR 或重複 merge。
 
+### 合法的 Stage 1 Remote Review Branch
+
+若 Batch Contract 已明確授權 Stage 1 remote reviewer branch，remote feature branch 在 Stage 3 開始前**本來就會存在**，這不是 takeover anomaly。
+
+reconciliation 後同時滿足下列條件時，視為正常 Stage 3 起點，可繼續 Pre-write Gate：
+
+- remote feature branch HEAD 等於 approved HEAD；
+- 該 branch 尚未有 PR；
+- remote 沒有 approved HEAD 以外的額外 commit；
+- `origin/develop` 仍等於核准 base；
+- `main` 未改。
+
+任一項不符——HEAD 不等於 approved HEAD、PR 已存在、出現非預期 commit，或 local 與 remote history 不一致——仍依上一段走 recovery path。
+
+本節不取消 read-only reconciliation：即使 Contract 曾授權 Stage 1 push，仍必須先實際查 remote branch HEAD、PR 是否存在、required CI 與 `origin/develop`，再決定 path。本節也不放寬任何既有 Pre-write、Push／PR、CI 或 merge gate。
+
 只有 reconciliation 證明尚未開始 closeout，才可繼續下列 Pre-write Gate。若 PR 已 merge，先驗證 `develop`、CI、merge result 與 ancestry；local 與 merged commit SHA 不同時，以零 diff 的 tree equivalence 作為 cleanup 前的必要證據。
 
 ## Pre-write Gate

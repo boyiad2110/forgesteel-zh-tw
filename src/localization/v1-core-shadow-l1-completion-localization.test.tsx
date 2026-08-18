@@ -1,31 +1,21 @@
 // @vitest-environment jsdom
 /* eslint-disable sort-imports */
-import { createElement } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
-import { ClassPanel } from '@/components/panels/elements/class-panel/class-panel';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
-import { SubclassPanel } from '@/components/panels/elements/subclass-panel/subclass-panel';
 import { FeatureType } from '@/enums/feature-type';
-import { LocalizationProvider } from '@/contexts/localization-context';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
-import { PanelMode } from '@/enums/panel-mode';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { Ability } from '@/models/ability';
-import { Hero } from '@/models/hero';
 import { Feature } from '@/models/feature';
-import { SubClass } from '@/models/subclass';
 import { core } from '@/data/sourcebooks/official/core';
 import { shadow } from '@/data/classes/shadow/shadow';
-import { ElementFieldEntry, getEntryIdentity } from '@/localization/catalog';
+import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
 import { productionLocalizationEntries } from '@/localization/catalog-data';
 import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localization-completeness';
 import { createV1ShadowLevel1AbilityRequiredCanonicalEnglish, createV1ShadowLevel1CompletionRequiredCanonicalEnglish, getV1ShadowColleges, v1LocalizationManifest, v1ShadowCollegeIDs } from '@/localization/v1-localization-manifest';
 import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
-import { elementFieldIdentity } from '@/localization/catalog';
+import { createClassPresentationHarness, createHeroWithClass, expectRendered, installResizeObserverStub, levelOneFeatures, normalizedText, readFieldByLabelPrefix, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
 
 vi.mock('@/contexts/data-context', () => ({
 	useDataManager: () => ({ saveOptions: vi.fn().mockResolvedValue(undefined) }),
@@ -35,14 +25,8 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-class ResizeObserverStub {
-	observe() {}
-	unobserve() {}
-	disconnect() {}
-}
-globalThis.ResizeObserver = ResizeObserverStub;
+installResizeObserverStub();
 
-const levelOneFeatures = (owner: { featuresByLevel: { level: number, features: Feature[] }[] }) => owner.featuresByLevel.find(level => level.level === 1)?.features || [];
 const shadowLevelOne = levelOneFeatures(shadow);
 const colleges = getV1ShadowColleges();
 const required = createV1ShadowLevel1CompletionRequiredCanonicalEnglish();
@@ -57,31 +41,9 @@ const getFeature = (features: Feature[], id: string) => {
 	return feature;
 };
 
-const makeHero = () => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...shadow, level: 1, characteristics: FactoryLogic.createCharacteristics(0, 2, 0, 0, 0) };
-	return hero;
-};
+const makeHero = () => createHeroWithClass(shadow, 1, FactoryLogic.createCharacteristics(0, 2, 0, 0, 0));
 
-const renderFeature = (feature: Feature, hero?: Hero) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(FeaturePanel, { feature, hero, mode: PanelMode.Full, sourcebooks: [ core ] })
-));
-const renderClassPanel = () => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(ClassPanel, { heroClass: shadow, sourcebooks: [ core ], mode: PanelMode.Full })
-));
-const renderSubclass = (subclass: SubClass) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(SubclassPanel, { subclass, sourcebooks: [ core ], mode: PanelMode.Full })
-));
-const renderAbility = (ability: Ability, hero?: Hero) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(AbilityPanel, { ability, hero, mode: PanelMode.Full })
-));
-const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
-const fieldReading = (container: HTMLElement, label: string) => {
-	const field = Array.from(container.querySelectorAll('.field')).find(node => node.querySelector('.field-label')?.textContent?.trim().startsWith(label));
-	return field?.querySelector('.field-value')?.textContent?.trim();
-};
-const normalizedText = (container: HTMLElement) => container.textContent?.replace(/\s+/g, ' ').trim() || '';
-const expectRendered = (container: HTMLElement, expected: string) => expect(normalizedText(container)).toContain(expected.replace(/\s+/g, ' ').trim());
+const { renderFeature, renderClassPanel, renderSubclass, renderAbility } = createClassPresentationHarness(shadow, [ core ]);
 
 const getCollegeAbility = (id: string): Ability => {
 	for (const college of colleges) {
@@ -213,12 +175,12 @@ describe('V1 Core Shadow Level 1 completion catalog and presentation', () => {
 		const serialized = JSON.stringify(shadow);
 		const { container } = renderClassPanel();
 
-		expect(fieldReading(container, '影舞學院')).toBe('黑燼學院, 蝕鍊學院, 丑面學院');
+		expect(readFieldByLabelPrefix(container, '影舞學院')).toBe('黑燼學院, 蝕鍊學院, 丑面學院');
 		collegeMetadata.forEach(college => expectRendered(container, college.name));
 
 		switchLocale();
 
-		expect(fieldReading(container, 'Shadow Colleges')).toBe('College of Black Ash, College of Caustic Alchemy, College of the Harlequin Mask');
+		expect(readFieldByLabelPrefix(container, 'Shadow Colleges')).toBe('College of Black Ash, College of Caustic Alchemy, College of the Harlequin Mask');
 		expect(JSON.stringify(shadow)).toBe(serialized);
 	});
 
@@ -244,7 +206,7 @@ describe('V1 Core Shadow Level 1 completion catalog and presentation', () => {
 		const skillChoice = getFeature(levelOneFeatures(colleges[0]), 'shadow-sub-1-1-1');
 		const { container } = renderFeature(skillChoice);
 
-		expect(fieldReading(container, '技能')).toBe('魔法');
+		expect(readFieldByLabelPrefix(container, '技能')).toBe('魔法');
 		expectRendered(container, '從任意列表中選擇 1 項技能。');
 		expectRendered(container, '技能');
 		expect(normalizedText(container)).not.toContain('Magic');
@@ -304,7 +266,7 @@ describe('V1 Core Shadow Level 1 completion catalog and presentation', () => {
 			expectRendered(container, trigger);
 		}
 		if (spend) {
-			expect(fieldReading(container, '花費')).toBe(spend);
+			expect(readFieldByLabelPrefix(container, '花費')).toBe(spend);
 		}
 
 		switchLocale();

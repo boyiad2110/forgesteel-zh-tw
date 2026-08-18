@@ -1,22 +1,12 @@
 // @vitest-environment jsdom
 /* eslint-disable sort-imports */
-import { createElement } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
 import { AbilityLogic } from '@/logic/ability-logic';
-import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
-import { ClassPanel } from '@/components/panels/elements/class-panel/class-panel';
-import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
-import { SubclassPanel } from '@/components/panels/elements/subclass-panel/subclass-panel';
 import { FeatureType } from '@/enums/feature-type';
-import { LocalizationProvider } from '@/contexts/localization-context';
-import { LocaleToggle } from '@/components/controls/locale-toggle/locale-toggle';
-import { PanelMode } from '@/enums/panel-mode';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { Ability } from '@/models/ability';
-import { Hero } from '@/models/hero';
 import { Feature } from '@/models/feature';
-import { SubClass } from '@/models/subclass';
 import { core } from '@/data/sourcebooks/official/core';
 import { tactician } from '@/data/classes/tactician/tactician';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
@@ -25,6 +15,7 @@ import { analyzeV1LocalizationCompleteness } from '@/localization/v1-localizatio
 import { createV1TacticianLevel1AbilityRequiredCanonicalEnglish, createV1TacticianLevel1CompletionRequiredCanonicalEnglish, getV1TacticianDoctrines, v1LocalizationManifest, v1TacticianDoctrineIDs } from '@/localization/v1-localization-manifest';
 import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 import { extractLiveBoundedNonAbilityFeatureFields } from '@/localization/test-support/bounded-non-ability-feature-fields';
+import { createClassPresentationHarness, createHeroWithClass, expectRendered, installResizeObserverStub, levelOneFeatures, readFieldByLabelPrefix, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
 import glossaryCsv from '../../docs/translation/TRANSLATION-GLOSSARY.csv?raw';
 
 vi.mock('@/contexts/data-context', () => ({
@@ -35,14 +26,8 @@ vi.mock('@/contexts/data-context', () => ({
 vi.mock('@/hooks/use-clipboard', () => ({ useClipboard: () => ({ setData: vi.fn() }) }));
 vi.mock('@/logic/classic-sheet/sheet-formatter', () => ({ SheetFormatter: { getPageId: (prefix: string, id: string) => `${prefix}-${id}` } }));
 
-class ResizeObserverStub {
-	observe() {}
-	unobserve() {}
-	disconnect() {}
-}
-globalThis.ResizeObserver = ResizeObserverStub;
+installResizeObserverStub();
 
-const levelOneFeatures = (owner: { featuresByLevel: { level: number, features: Feature[] }[] }) => owner.featuresByLevel.find(level => level.level === 1)?.features || [];
 const tacticianLevelOne = levelOneFeatures(tactician);
 const doctrines = getV1TacticianDoctrines();
 const required = createV1TacticianLevel1CompletionRequiredCanonicalEnglish();
@@ -57,31 +42,9 @@ const getFeature = (features: Feature[], id: string) => {
 	return feature;
 };
 
-const makeReasonHero = (reason: number) => {
-	const hero = FactoryLogic.createHero();
-	hero.class = { ...tactician, level: 1, characteristics: FactoryLogic.createCharacteristics(0, 0, reason, 0, 0) };
-	return hero;
-};
+const makeReasonHero = (reason: number) => createHeroWithClass(tactician, 1, FactoryLogic.createCharacteristics(0, 0, reason, 0, 0));
 
-const renderFeature = (feature: Feature, hero?: Hero) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(FeaturePanel, { feature, hero, mode: PanelMode.Full, sourcebooks: [ core ] })
-));
-const renderClassPanel = () => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(ClassPanel, { heroClass: tactician, sourcebooks: [ core ], mode: PanelMode.Full })
-));
-const renderSubclass = (subclass: SubClass) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(SubclassPanel, { subclass, sourcebooks: [ core ], mode: PanelMode.Full })
-));
-const renderAbility = (ability: Ability, hero?: Hero) => render(createElement(LocalizationProvider, null,
-	createElement(LocaleToggle), createElement(AbilityPanel, { ability, hero, mode: PanelMode.Full })
-));
-const switchLocale = () => fireEvent.click(screen.getByRole('button', { name: /^Switch to / }));
-const fieldReading = (container: HTMLElement, label: string) => {
-	const field = Array.from(container.querySelectorAll('.field')).find(node => node.querySelector('.field-label')?.textContent?.trim().startsWith(label));
-	return field?.querySelector('.field-value')?.textContent?.trim();
-};
-const normalizedText = (container: HTMLElement) => container.textContent?.replace(/\s+/g, ' ').trim() || '';
-const expectRendered = (container: HTMLElement, expected: string) => expect(normalizedText(container)).toContain(expected.replace(/\s+/g, ' ').trim());
+const { renderFeature, renderClassPanel, renderSubclass, renderAbility } = createClassPresentationHarness(tactician, [ core ]);
 
 const getDoctrineAbility = (id: string): Ability => {
 	for (const doctrine of doctrines) {
@@ -162,12 +125,12 @@ describe('V1 Core Tactician Level 1 completion catalog and presentation', () => 
 		const serialized = JSON.stringify(tactician);
 		const { container } = renderClassPanel();
 
-		expect(fieldReading(container, '戰術準則')).toBe('游擊, 謀策, 先鋒');
+		expect(readFieldByLabelPrefix(container, '戰術準則')).toBe('游擊, 謀策, 先鋒');
 		doctrineMetadata.forEach(doctrine => expectRendered(container, doctrine.name));
 
 		switchLocale();
 
-		expect(fieldReading(container, 'Tactical Doctrines')).toBe('Insurgent, Mastermind, Vanguard');
+		expect(readFieldByLabelPrefix(container, 'Tactical Doctrines')).toBe('Insurgent, Mastermind, Vanguard');
 		expect(JSON.stringify(tactician)).toBe(serialized);
 	});
 
@@ -337,7 +300,7 @@ describe('V1 Core Tactician Level 1 completion catalog and presentation', () => 
 		expectRendered(container, description);
 		expectRendered(container, trigger);
 		expectRendered(container, section);
-		expect(fieldReading(container, '花費')).toBe(spend);
+		expect(readFieldByLabelPrefix(container, '花費')).toBe(spend);
 
 		switchLocale();
 
@@ -348,7 +311,7 @@ describe('V1 Core Tactician Level 1 completion catalog and presentation', () => 
 	it('resolves Parry’s Reason-derived distance and shift with a Hero, and keeps the approved raw wording without one', () => {
 		const parry = getDoctrineAbility('tactician-sub-3-1-3');
 		const noHero = renderAbility(parry);
-		expect(fieldReading(noHero.container, '花費')).toBe('此招式的射程改為近戰 1 + 你的理智，而且你可以遁移最多等於理智的格數，而非 1 格。');
+		expect(readFieldByLabelPrefix(noHero.container, '花費')).toBe('此招式的射程改為近戰 1 + 你的理智，而且你可以遁移最多等於理智的格數，而非 1 格。');
 		expect(Array.from(noHero.container.querySelectorAll('code')).map(node => node.textContent)).toEqual([ '理智', '理智' ]);
 		expect(noHero.container.textContent).not.toContain('Reason score');
 		noHero.unmount();
@@ -362,16 +325,16 @@ describe('V1 Core Tactician Level 1 completion catalog and presentation', () => 
 		verifyLocaleDifferentialInvariants({
 			protectedStates: [ protectCanonicalState({ label: 'Parry Ability', capture: () => JSON.stringify(parry) }), protectCanonicalState({ label: 'Tactician Hero', capture: () => JSON.stringify(hero) }) ],
 			assertZhTW: () => {
-				expect(fieldReading(withHero.container, '花費')).toBe('此招式的射程改為近戰 4，而且你可以遁移最多 3 格，而非 1 格。');
+				expect(readFieldByLabelPrefix(withHero.container, '花費')).toBe('此招式的射程改為近戰 4，而且你可以遁移最多 3 格，而非 1 格。');
 				expect(withHero.container.textContent).not.toContain('Reason score');
 				expect(withHero.container.textContent).not.toContain('理智');
 			},
 			switchToEnglish: switchLocale,
 			assertEnglish: () => {
-				expect(fieldReading(withHero.container, 'Spend')).toBe('This ability’s distance becomes Melee 4, and you can shift up to a number of squares equal to 3 instead of 1 square.');
+				expect(readFieldByLabelPrefix(withHero.container, 'Spend')).toBe('This ability’s distance becomes Melee 4, and you can shift up to a number of squares equal to 3 instead of 1 square.');
 			},
 			switchToZhTW: switchLocale,
-			assertZhTWAfterRoundTrip: () => expect(fieldReading(withHero.container, '花費')).toBe('此招式的射程改為近戰 4，而且你可以遁移最多 3 格，而非 1 格。')
+			assertZhTWAfterRoundTrip: () => expect(readFieldByLabelPrefix(withHero.container, '花費')).toBe('此招式的射程改為近戰 4，而且你可以遁移最多 3 格，而非 1 格。')
 		});
 
 		getTextEffect.mock.calls.forEach(([ input ]) => assertCanonicalEnglishCalculationInput(input));
@@ -383,7 +346,7 @@ describe('V1 Core Tactician Level 1 completion catalog and presentation', () => 
 	it('projects Overwatch condition emphasis generically without a Hero, and falls back to full calculated English once the potency resolves with one', () => {
 		const overwatch = getDoctrineAbility('tactician-sub-2-1-3');
 		const noHero = renderAbility(overwatch);
-		expect(fieldReading(noHero.container, '花費')).toBe('若目標的理智 < [中]，目標陷入緩速狀態（EoT）。');
+		expect(readFieldByLabelPrefix(noHero.container, '花費')).toBe('若目標的理智 < [中]，目標陷入緩速狀態（EoT）。');
 		expect(Array.from(noHero.container.querySelectorAll('code')).map(node => node.textContent)).toEqual([ '理智' ]);
 		expect(Array.from(noHero.container.querySelectorAll('strong')).map(node => node.textContent)).toEqual([ '緩速' ]);
 		noHero.unmount();
@@ -398,7 +361,7 @@ describe('V1 Core Tactician Level 1 completion catalog and presentation', () => 
 		// English fallback is expected here for this one field - a full English sentence, never a
 		// mixed reading. The ability's other approved zh-TW fields (name, description, target,
 		// trigger) are untouched, since only this field's calculation actually changed.
-		const spendReading = fieldReading(withHero.container, '花費');
+		const spendReading = readFieldByLabelPrefix(withHero.container, '花費');
 		expect(spendReading).toBe('If the target has R < 2 they are slowed (EoT).');
 		expect(spendReading).not.toMatch(/[一-鿿]/);
 		expectRendered(withHero.container, '伺機攻擊');

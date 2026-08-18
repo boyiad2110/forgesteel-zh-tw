@@ -72,7 +72,7 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 - 不把所有批次升成 Level C。
 - 測 public behavior，不只測 implementation detail。
 - critical interaction 不應被 mock 掉。
-- 最後一次 code change 後取得 fresh tests／lint／typecheck／build／CI evidence；需要 CI-equivalent local checks 時，依 Contract 以固定且乾淨的 exact HEAD 執行。
+- 最後一次 code change 後取得 fresh evidence。Stage 1 預設只跑 risk-matched minimum sufficient evidence，不預設完整 local `verify:ci` 或 build；需要 CI-equivalent local checks 時，依 Contract 以固定且乾淨的 exact HEAD 執行。範圍以 `RISK-AND-VERIFICATION.md` 的 **Stage 1 預設驗證範圍** 為準。
 - manual smoke 只補自動測試難以證明的 UI／responsive／interaction risk。
 
 ### Precedent Gate
@@ -127,7 +127,13 @@ Agent 回報只需：
 - working tree。
 - deviations／risks／需要決策事項。
 
-### Local-only Reviewer Patch Handoff
+### Stage 1 Remote Reviewer Branch（Contract 選用）
+
+Reviewer 無法直接存取 Agent workspace 時，Batch Contract 可明確授權 Stage 1 只 push feature branch，讓 Reviewer review exact remote HEAD；此時不另外要求 cumulative patch。Stage 1 仍不得建立 PR、merge 或改寫 history，Stage 3 仍需獨立授權。
+
+未授權 push、remote 不可用，或 Reviewer 無法可靠存取該 remote HEAD 時，回到下列 local patch handoff。詳細執行規則依 `AGENT-TASK-CONTRACT.md`；Stage 3 如何辨識這個合法 remote branch 依 `GIT-SAFETY.md`。
+
+### Local-only Reviewer Patch Handoff（fallback）
 
 當 Reviewer 無法直接存取 Agent local workspace，且本批不允許 push／PR 時，local commit 不足以構成可審查 evidence。此時 Stage 1 收尾必須：
 
