@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.5.3"
+  version: "0.5.4"
 ---
 
 # Forge Steel Reviewer
@@ -93,6 +93,10 @@ translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRA
 
 交付 translation implementation 前，Reviewer 完成 `TRANSLATION-WORKFLOW.md` 對該 batch 適用的 gate：使用 approved implementation packet 時的 packet canonical-alignment、適用的 Class ability authored content／calculated presentation 的 grammar matrix，以及 translation batch 必要的明確 glossary-delta decision。本 Skill 只編排 gate，不重複其細節。
 
+### Class／Subclass Level 1 Non-Ability Required Identity
+
+這個 scope 已由 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Class／Subclass Level 1 Non-Ability Required Identity` 定義。Reviewer 與 Agent 對這類 batch 直接依該節與 current live code 執行，不在每個 class batch 重新推導哪些 bounded-walk identities 算 required。若確實需要改 shared traversal contract，必須由 Batch Contract 明確授權為 shared-architecture change。本 Skill 不重複該節內容。
+
 ### Repository-native Localization Verification
 
 translation batch 的 pipeline command 與完整語意以 `docs/translation/TRANSLATION-WORKFLOW.md` 及目前 `package.json` scripts 為準；適用時使用 `npm run loc:status`、`npm run loc:status -- --json` 與 `npm run loc:verify`，不在本 Skill 重複維護 command semantics。
@@ -100,6 +104,8 @@ translation batch 的 pipeline command 與完整語意以 `docs/translation/TRAN
 當 batch 實際有 locale round trip、locale switching 不得改變 protected canonical／Hero state，或已知 canonical-English calculation boundary 不得收到 zh-TW 的風險時，Reviewer 應優先考慮 `src/localization/test-support/localization-differential-invariants.ts` 的既有 primitives，而非重寫 batch-local equivalent：`protectCanonicalState`、`verifyLocaleDifferentialInvariants`、`assertCanonicalEnglishCalculationInput`。這些是 opt-in 的 risk-matched helper，不是每個 translation batch 的必跑 checklist；也不建立全域「English mode 不可含 CJK」規則，因 player-entered text 等合法內容仍可能包含 CJK。helper 不取代 scenario-specific public-behavior assertions。
 
 使用 approved implementation packet 時，Reviewer 應優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 `verifyPacketCanonicalAlignment`、`calculateCanonicalSha256`，或明確等價的現行 repository primitive，而非每批重寫 identity／hash loop。它比較 packet identity set 與 caller-supplied live canonical slice，檢查 duplicate、missing、unexpected identity、提供 snapshot 時的 exact canonical drift，以及完整 UTF-8 SHA-256 drift；不 trim 或 normalize。成功 evidence 為 `N/N aligned` 且 zero issues/drift。此 helper 不自行決定 translation scope 或第二套 V1 denominator，live canonical extraction 仍由 caller／batch 負責，Owner semantic approval 也不由 helper 決定。
+
+Class localization presentation test 需要 provider／toggle wrapper、panel render、locale switch 或共通 field-reading scaffolding 時，Reviewer 應先要求檢查並重用 `src/localization/test-support/localization-presentation-test-harness.tsx`，而不是為每個 class 重建等價的 batch-local generic harness。它只是 shared scaffolding，不定義 denominator、translation scope 或 class-specific assertions；class-specific `vi.mock`、resource／grammar／interaction assertions 與 class-specific flow 仍依實際 test risk 留在各 class test，不得為了共用而強迫移入。
 
 ### Tooling / Skill
 
