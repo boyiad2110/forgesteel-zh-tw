@@ -56,6 +56,12 @@ Agent 不得自行建立新的中文遊戲術語或改變已核准語意。
 
 Class ability authored-content task 必須依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Class Ability Authored Content` 規格。若同一內容同時出現在 Hero 與 no-Hero surface，Batch Contract 必須分別列出兩條 presentation path 的 Acceptance，不得以其中一條 PASS 推定另一條 PASS。新 calculated grammar 若沒有現行 authority 或安全 projection，不得自行建立中文 parser／calculator 或新翻譯；依 Workflow fallback 或 STOP。
 
+### Class／Subclass Level 1 Non-Ability Required Identity
+
+task 若涉及 Class／Subclass Level 1 non-Ability denominator 或 required identities，先讀 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Class／Subclass Level 1 Non-Ability Required Identity`。該節已是這個 scope 的 workflow authority，依它與 current live code 執行即可，不必重新推導哪些 identity 算 required。
+
+Agent 不得自行建立 class-specific exclusion、平行 inventory，或擴張 shared traversal。若 task 確實需要改 shared traversal contract，只有 Batch Contract 明確授權該 shared-architecture change 時才可進行；否則 STOP 並回報 Reviewer。
+
 ### Approval 的作用範圍
 
 translation approval 依 surface、localization identity 與 semantic context 生效，不是依 canonical English 字面生效。
@@ -76,6 +82,8 @@ translation approval 依 surface、localization identity 與 semantic context �
 若 Batch Contract 涉及相應 requirement，Agent 先檢查並沿用目前 repository 的 reusable helper，不自行建立新的 generic localization framework。`src/localization/test-support/localization-differential-invariants.ts` 提供 locale round-trip differential assertion、protected canonical state，以及 canonical-English calculation boundary 的 primitives；`src/localization/test-support/packet-canonical-alignment.ts` 提供 approved packet 與 live canonical 的 machine alignment、exact identity／snapshot／hash evidence。
 
 這些 helper 只在 Contract 的實際 risk 適用時使用，不取代 Contract-specific public-behavior tests，也不因存在就自行增加 batch scope。Agent 不得自行新增 npm command、變更 manifest denominator，或以文件中可能過期的 command assumption 覆蓋 current package scripts／current repository code。
+
+Class localization presentation test 需要 provider／toggle wrapper、panel render、locale switch 或共通 field-reading scaffolding 時，先檢查並重用 `src/localization/test-support/localization-presentation-test-harness.tsx`，不重建等價的 batch-local generic harness。它只是 shared scaffolding：不定義 denominator 或 translation scope，也不取代 class-specific public-behavior assertions。class-specific `vi.mock`、resource／grammar／interaction assertions 與 class-specific flow 仍依實際 test risk 留在各 class test，不得為了共用而強迫移入。
 
 ## Reviewer Patch Handoff
 
