@@ -67,12 +67,14 @@ afterEach(cleanup);
 describe('V1 Core Shadow Level 1 completion catalog and presentation', () => {
 	it('adds the exact bounded 66-identity manifest and catalog slice without overlapping the approved base Ability slice', () => {
 		const independentlyWalkedBase = extractLiveBoundedNonAbilityFeatureFields(shadowLevelOne);
+		const insight = getFeature(shadowLevelOne, 'shadow-resource');
+		if (insight.type !== FeatureType.HeroicResource) throw new Error('Insight is not a Heroic Resource');
 		expect(v1ShadowCollegeIDs).toEqual([ 'shadow-sub-1', 'shadow-sub-2', 'shadow-sub-3' ]);
 		expect(Object.keys(required)).toHaveLength(66);
 		expect(Object.keys(catalogEntries)).toHaveLength(66);
 		expect(catalogEntries.map(getEntryIdentity).sort()).toEqual(Object.keys(required).sort());
 		expect(catalogEntries.every(entry => entry.approval === 'approved' && entry.canonicalEnglish === required[getEntryIdentity(entry)])).toBe(true);
-		expect(required[elementFieldIdentity('shadow-resource', 'details')]).toBe(getFeature(shadowLevelOne, 'shadow-resource').data.details);
+		expect(required[elementFieldIdentity('shadow-resource', 'details')]).toBe(insight.data.details);
 		expect(Object.keys(required).some(identity => Object.prototype.hasOwnProperty.call(existingAbilityRequired, identity))).toBe(false);
 		expect(Object.keys(independentlyWalkedBase).every(identity => required[identity] === independentlyWalkedBase[identity])).toBe(true);
 		expect(Object.keys(required).some(identity => /shadow-(?:2|3|4|5|6|7|8|9|10)-/.test(identity))).toBe(false);
