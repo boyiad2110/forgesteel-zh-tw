@@ -3348,6 +3348,10 @@ const coreTacticianLevel1CompletionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'tactician-1-4', field: 'name', canonicalEnglish: 'Field Arsenal', zhTW: '戰地軍庫', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'tactician-1-4', field: 'description', canonicalEnglish: 'You have drilled with a broad array of arms and armor, and have developed techniques to optimize their use. You can use and gain the benefits of two kits, including both their signature abilities. Whenever you would choose or change one kit, you can choose or change your second kit as well.', zhTW: '你精通多種武器和防具，並發展出能充分發揮其效用的技術。你可以同時使用並獲得 2 件套裝的所有益處，包括它們各自的招牌招式。每當你選擇或更換 1 件套裝時，你可以同時選擇或更換第 2 件套裝。', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'tactician-1-5', field: 'name', canonicalEnglish: 'Mark', zhTW: '標記', approval: 'approved' },
+	// The Mark grouping's description is composed by the Feature factory from its two ability
+	// children's names, so this reading is the mechanical composition of two readings already
+	// approved on those abilities' own identities: 'Mark' -> 標記 and 'Mark: Trigger' -> 標記：反應動作.
+	{ kind: 'element-field', elementID: 'tactician-1-5', field: 'description', canonicalEnglish: 'Mark, Mark: Trigger', zhTW: '標記、標記：反應動作', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'tactician-1-7', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'tactician-1-8', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'tactician-sub-1', field: 'name', canonicalEnglish: 'Insurgent', zhTW: '游擊', approval: 'approved' },

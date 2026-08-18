@@ -120,25 +120,22 @@ const doctrineMetadata = [
 afterEach(cleanup);
 
 describe('V1 Core Tactician Level 1 completion catalog and presentation', () => {
-	it('adds the exact bounded 55-identity manifest and catalog slice without overlapping the approved base Ability slice', () => {
+	it('adds the exact bounded 56-identity manifest and catalog slice without overlapping the approved base Ability slice', () => {
 		const independentlyWalkedBase = extractLiveBoundedNonAbilityFeatureFields(tacticianLevelOne);
-		const markDescriptionIdentity = elementFieldIdentity('tactician-1-5', 'description');
 
 		expect(v1TacticianDoctrineIDs).toEqual([ 'tactician-sub-1', 'tactician-sub-2', 'tactician-sub-3' ]);
-		expect(Object.keys(required)).toHaveLength(55);
-		expect(Object.keys(catalogEntries)).toHaveLength(55);
+		expect(Object.keys(required)).toHaveLength(56);
+		expect(Object.keys(catalogEntries)).toHaveLength(56);
 		expect(catalogEntries.map(getEntryIdentity).sort()).toEqual(Object.keys(required).sort());
 		expect(catalogEntries.every(entry => entry.approval === 'approved' && entry.canonicalEnglish === required[getEntryIdentity(entry)])).toBe(true);
 		expect(Object.keys(required).some(identity => Object.prototype.hasOwnProperty.call(existingAbilityRequired, identity))).toBe(false);
 
-		// The Mark grouping's own `name` is required and must match the independent walk, but its
-		// default-computed `description` (a plain join of its two ability children's names) is
-		// intentionally excluded from this bounded slice; see the manifest's own comment.
-		expect(required[elementFieldIdentity('tactician-1-5', 'name')]).toBe(independentlyWalkedBase[elementFieldIdentity('tactician-1-5', 'name')]);
-		expect(required[markDescriptionIdentity]).toBeUndefined();
-		expect(independentlyWalkedBase[markDescriptionIdentity]).toBe('Mark, Mark: Trigger');
-		const independentlyWalkedBaseWithoutMarkDescription = Object.fromEntries(Object.entries(independentlyWalkedBase).filter(([ identity ]) => identity !== markDescriptionIdentity));
-		expect(Object.keys(independentlyWalkedBaseWithoutMarkDescription).every(identity => required[identity] === independentlyWalkedBaseWithoutMarkDescription[identity])).toBe(true);
+		// The independent bounded walk of the base Level 1 tree aligns with the manifest directly:
+		// every identity it finds is required with the same canonical English, with no per-feature
+		// exception carved out on either side. The Mark grouping's composed description is part of
+		// that alignment rather than an exclusion.
+		expect(Object.keys(independentlyWalkedBase).every(identity => required[identity] === independentlyWalkedBase[identity])).toBe(true);
+		expect(required[elementFieldIdentity('tactician-1-5', 'description')]).toBe('Mark, Mark: Trigger');
 
 		doctrines.forEach(doctrine => {
 			const independentlyWalkedDoctrine = extractLiveBoundedNonAbilityFeatureFields(levelOneFeatures(doctrine));
@@ -241,9 +238,18 @@ describe('V1 Core Tactician Level 1 completion catalog and presentation', () => 
 		expectRendered(arsenal.container, '你精通多種武器和防具，並發展出能充分發揮其效用的技術。你可以同時使用並獲得 2 件套裝的所有益處，包括它們各自的招牌招式。每當你選擇或更換 1 件套裝時，你可以同時選擇或更換第 2 件套裝。');
 		arsenal.unmount();
 
+		// The Mark grouping renders both its name and its composed description; the description
+		// must show the approved zh-TW composition rather than falling back to canonical English.
 		const mark = getFeature(tacticianLevelOne, 'tactician-1-5');
 		const markPanel = renderFeature(mark);
 		expectRendered(markPanel.container, '標記');
+		expectRendered(markPanel.container, '標記、標記：反應動作');
+		expect(markPanel.container.textContent).not.toContain('Mark, Mark: Trigger');
+		expect(markPanel.container.textContent).not.toContain('Mark: Trigger');
+
+		switchLocale();
+
+		expectRendered(markPanel.container, 'Mark, Mark: Trigger');
 		markPanel.unmount();
 
 		const cost3 = renderFeature(getFeature(tacticianLevelOne, 'tactician-1-7'));

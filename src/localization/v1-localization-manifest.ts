@@ -835,32 +835,23 @@ export const getV1TacticianDoctrines = (): SubClass[] => {
 	});
 };
 
-const isTacticianMarkMultipleFeature = (feature: Feature): feature is FeatureMultiple => (
-	(feature.type === FeatureType.Multiple) && (feature.id === 'tactician-1-5')
-);
-
 /**
- * Builds the bounded 55-identity Tactician Level 1 completion denominator: the base class's
+ * Builds the bounded 56-identity Tactician Level 1 completion denominator: the base class's
  * remaining non-Ability fields, plus each Tactical Doctrine's metadata and Level 1 Feature
  * content. The existing 59-identity base Ability slice stays separate.
  *
- * The Mark Multiple grouping (`tactician-1-5`) is a special case within the base walk: its own
- * `name` is required (it is the approved 'Mark' reading already used by the ability slice), but
- * its default-computed `description` - a plain join of its two ability children's names - is a
- * data-model artifact rather than authored content, so it is excluded from this bounded slice.
+ * The whole base Level 1 feature tree goes through the one shared bounded walk, with no
+ * per-feature exception. The Mark Multiple grouping (`tactician-1-5`) therefore contributes both
+ * its `name` and its `description`: FeaturePanel renders that description as this grouping's own
+ * player-facing text, so it is a required reading like any other, whether the canonical English
+ * was authored directly or composed by the Feature factory from its children's names.
  */
 export const createV1TacticianLevel1CompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
 	const tacticianLevelOneFeatures = getLevelOneFeatures(tactician.featuresByLevel, 'Tactician');
 	requiredCanonicalEnglish[elementFieldIdentity(tactician.id, 'subclassName')] = tactician.subclassName;
 
-	const mark = tacticianLevelOneFeatures.find(isTacticianMarkMultipleFeature);
-	if (!mark) {
-		throw new Error('Tactician Mark feature is missing');
-	}
-	requiredCanonicalEnglish[elementFieldIdentity(mark.id, 'name')] = mark.name;
-
-	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, tacticianLevelOneFeatures.filter(feature => !isTacticianMarkMultipleFeature(feature)));
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, tacticianLevelOneFeatures);
 
 	getV1TacticianDoctrines().forEach(doctrine => {
 		addRequiredElementFields(requiredCanonicalEnglish, doctrine);
