@@ -706,6 +706,57 @@ export const createV1ShadowLevel1AbilityRequiredCanonicalEnglish = (): Canonical
 	return requiredCanonicalEnglish;
 };
 
+/** The three Shadow Colleges; later College levels remain outside this Level 1 slice. */
+export const v1ShadowCollegeIDs = [
+	'shadow-sub-1',
+	'shadow-sub-2',
+	'shadow-sub-3'
+] as const;
+
+export const getV1ShadowColleges = (): SubClass[] => {
+	const collegesByID = new Map(shadow.subclasses.map(college => [ college.id, college ]));
+	return v1ShadowCollegeIDs.map(id => {
+		const college = collegesByID.get(id);
+		if (!college) {
+			throw new Error(`Shadow College '${id}' is missing`);
+		}
+		return college;
+	});
+};
+
+/**
+ * Builds the bounded 66-identity Shadow Level 1 completion denominator: the base class's
+ * remaining non-Ability fields and Insight details, plus each Shadow College's metadata and
+ * Level 1 Feature content. The existing 82-identity base Ability slice stays separate.
+ */
+export const createV1ShadowLevel1CompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const shadowLevelOneFeatures = getLevelOneFeatures(shadow.featuresByLevel, 'Shadow');
+	requiredCanonicalEnglish[elementFieldIdentity(shadow.id, 'subclassName')] = shadow.subclassName;
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, shadowLevelOneFeatures);
+
+	const insight = shadowLevelOneFeatures.find(feature => feature.id === 'shadow-resource');
+	if (!insight || (insight.type !== FeatureType.HeroicResource)) {
+		throw new Error('Shadow Insight resource is missing');
+	}
+	const insightDetailsIdentity = elementFieldIdentity(insight.id, 'details');
+	if (requiredCanonicalEnglish[insightDetailsIdentity] !== undefined) {
+		throw new Error(`duplicate localization identity '${insightDetailsIdentity}'`);
+	}
+	requiredCanonicalEnglish[insightDetailsIdentity] = insight.data.details;
+
+	getV1ShadowColleges().forEach(college => {
+		addRequiredElementFields(requiredCanonicalEnglish, college);
+		const collegeLevelOneFeatures = getLevelOneFeatures(college.featuresByLevel, `Shadow College '${college.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, collegeLevelOneFeatures);
+		collegeLevelOneFeatures
+			.filter((feature): feature is FeatureAbility => feature.type === FeatureType.Ability)
+			.forEach(feature => addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /**
  * The exact approved Tactician Level 1 base-class ability slice. Level 1 selects cost 3 and
  * cost 5 class abilities, so only abilities 1-8 belong here; cost 7+ abilities, later levels
@@ -1210,6 +1261,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1ShadowLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),

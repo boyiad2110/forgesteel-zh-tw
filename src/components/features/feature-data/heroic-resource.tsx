@@ -59,7 +59,7 @@ export const InfoHeroicResource = (props: InfoProps) => {
 					))
 				}
 			</ul>
-			<Markdown text={data.details} />
+			<Markdown text={localizeElementField(locale, props.feature.id, 'details', data.details)} />
 		</>
 	);
 };

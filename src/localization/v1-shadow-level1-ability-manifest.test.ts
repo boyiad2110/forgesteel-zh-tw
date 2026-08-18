@@ -37,7 +37,7 @@ const chinese = /[一-鿿]/;
 
 const required = createV1ShadowLevel1AbilityRequiredCanonicalEnglish();
 const shadowCatalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => (
-	entry.kind === 'element-field' && entry.elementID.startsWith('shadow-')
+	(entry.kind === 'element-field') && (required[getEntryIdentity(entry)] !== undefined)
 ));
 
 const getAbility = (id: typeof v1ShadowLevel1AbilityIDs[number]) => {

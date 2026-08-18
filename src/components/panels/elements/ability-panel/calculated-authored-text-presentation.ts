@@ -422,6 +422,29 @@ const projectShadowSpeedValue = (elementID: string, field: string, canonicalEngl
 	return localizedRaw.replace(localizedSpeed, `遁移最多 ${calculatedMatch[1]} 格`);
 };
 
+// Smoke Bomb resolves one self Agility expression in canonical English first. The projection
+// only carries that verified number into its Owner-approved zh-TW wording; without a Hero the
+// approved raw expression remains intact.
+const projectShadowAgilityValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'shadow-sub-2-1-3') || (field !== 'description')) {
+		return undefined;
+	}
+
+	const canonicalExpression = 'shift a number of squares equal to your Agility score';
+	const calculatedMatch = calculatedEnglish.match(/shift a number of squares equal to (-?\d+)/);
+	const localizedExpression = '遁移等於`敏捷`的格數';
+	if (!calculatedMatch || !canonicalEnglish.includes(canonicalExpression) || !localizedRaw.includes(localizedExpression)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(canonicalExpression, calculatedMatch[0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(localizedExpression, `遁移 ${calculatedMatch[1]} 格`);
+};
+
 // Mark: Trigger is the one Tactician reading whose canonical grammar the calculator rewrites.
 // Both Reason-score expressions are resolved in English first and only their verified values
 // are carried into the approved zh-TW; the taunted emphasis is then added by the shared
@@ -714,6 +737,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const shadowSpeedValue = projectShadowSpeedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (shadowSpeedValue) {
 		return shadowSpeedValue;
+	}
+
+	const shadowAgilityValue = projectShadowAgilityValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (shadowAgilityValue) {
+		return shadowAgilityValue;
 	}
 
 	const tacticianReasonValue = projectTacticianReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
