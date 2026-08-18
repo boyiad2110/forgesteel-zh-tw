@@ -117,7 +117,17 @@ const collegeMetadata = [
 	}
 ] as const;
 
-const collegeAbilityReadings = [
+type CollegeAbilityReading = {
+	id: string;
+	name: string;
+	description: string;
+	trigger?: string;
+	section: string;
+	spend?: string;
+	canonicalName: string;
+};
+
+const collegeAbilityReadings: CollegeAbilityReading[] = [
 	{
 		id: 'shadow-sub-1-1-2',
 		name: '黑燼瞬移',
@@ -168,7 +178,7 @@ const collegeAbilityReadings = [
 		section: '選擇 1 個位於觸發打擊射程內的敵人（也可以選擇攻擊者）。他會變成這次打擊的目標。',
 		canonicalName: 'Clever Trick'
 	}
-] as const;
+];
 
 afterEach(cleanup);
 
