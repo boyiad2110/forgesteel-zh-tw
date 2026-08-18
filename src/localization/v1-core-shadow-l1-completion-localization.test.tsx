@@ -47,7 +47,9 @@ const catalogEntries = productionLocalizationEntries.filter((entry): entry is El
 
 const getFeature = (features: Feature[], id: string) => {
 	const feature = features.find(candidate => candidate.id === id);
-	if (!feature) throw new Error(`Shadow Feature '${id}' is missing`);
+	if (!feature) {
+		throw new Error(`Shadow Feature '${id}' is missing`);
+	}
 	return feature;
 };
 
@@ -68,7 +70,9 @@ describe('V1 Core Shadow Level 1 completion catalog and presentation', () => {
 	it('adds the exact bounded 66-identity manifest and catalog slice without overlapping the approved base Ability slice', () => {
 		const independentlyWalkedBase = extractLiveBoundedNonAbilityFeatureFields(shadowLevelOne);
 		const insight = getFeature(shadowLevelOne, 'shadow-resource');
-		if (insight.type !== FeatureType.HeroicResource) throw new Error('Insight is not a Heroic Resource');
+		if (insight.type !== FeatureType.HeroicResource) {
+			throw new Error('Insight is not a Heroic Resource');
+		}
 		expect(v1ShadowCollegeIDs).toEqual([ 'shadow-sub-1', 'shadow-sub-2', 'shadow-sub-3' ]);
 		expect(Object.keys(required)).toHaveLength(66);
 		expect(Object.keys(catalogEntries)).toHaveLength(66);
@@ -106,7 +110,9 @@ describe('V1 Core Shadow Level 1 completion catalog and presentation', () => {
 
 	it('renders Insight details on no-Hero and Hero paths without mutating canonical state', () => {
 		const insight = getFeature(shadowLevelOne, 'shadow-resource');
-		if (insight.type !== FeatureType.HeroicResource) throw new Error('Insight is not a Heroic Resource');
+		if (insight.type !== FeatureType.HeroicResource) {
+			throw new Error('Insight is not a Heroic Resource');
+		}
 		const noHero = renderFeature(insight);
 		expect(noHero.container.textContent).toContain('若你的檢定帶有優勢，該招式的洞察費用會減少 1 點。');
 		noHero.unmount();
