@@ -42,6 +42,15 @@ const kitWeaponUIKeys: Record<KitWeapon, string> = {
 	[KitWeapon.Whip]: 'kit-weapon.whip'
 };
 
+// A Kit's `type` is free canonical text rather than an enum, so only the exact authored
+// values this project has an approved reading for are mapped. Stormwight is the one such
+// value today; anything else - homebrew, imported, or a type no batch has covered yet -
+// keeps its authored text. This is deliberately a lookup, not a translator for arbitrary
+// `kit.type` content.
+const kitTypeUIKeys: Record<string, string> = {
+	Stormwight: 'kit-type.stormwight'
+};
+
 // A value outside the enum can only have come from imported or homebrew content, so it is
 // shown as authored rather than dropped.
 const localizeKitArmor = (locale: AppLocale, armor: KitArmor) => {
@@ -52,6 +61,11 @@ const localizeKitArmor = (locale: AppLocale, armor: KitArmor) => {
 const localizeKitWeapon = (locale: AppLocale, weapon: KitWeapon) => {
 	const key = kitWeaponUIKeys[weapon];
 	return key ? localizeUIString(locale, key, weapon) : weapon;
+};
+
+const localizeKitType = (locale: AppLocale, type: string) => {
+	const key = kitTypeUIKeys[type];
+	return key ? localizeUIString(locale, key, type) : type;
 };
 
 interface Props {
@@ -156,7 +170,9 @@ export const KitPanel = (props: Props) => {
 
 	const tags = [];
 	if (props.kit.type) {
-		tags.push(props.kit.type);
+		// Display only. props.kit.type keeps its canonical value, which is what sorting,
+		// filtering and save data read.
+		tags.push(localizeKitType(locale, props.kit.type));
 	}
 	if (props.sourcebooks.length > 0) {
 		const sourcebookType = SourcebookLogic.getKitSourcebook(props.sourcebooks, props.kit)?.type || SourcebookType.Official;

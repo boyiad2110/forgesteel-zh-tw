@@ -1400,6 +1400,67 @@ export const createV1CoreStandardKitRequiredCanonicalEnglish = (sourcebooks: Sou
 };
 
 /**
+ * The four Stormwight Kits a Fury's Level 1 Beast Shape choice selects from. They are
+ * deliberately kept out of `v1CoreStandardKitIDs`: a standard Kit is chosen by a Kit-using
+ * class, while these four are Stormwight-only content with their own approved slice, and the
+ * two denominators stay disjoint.
+ */
+export const v1StormwightKitIDs = [
+	'kit-boren',
+	'kit-corven',
+	'kit-raden',
+	'kit-vuken'
+] as const;
+
+/**
+ * Enumerates only the four Stormwight Kits named above, read from the same Core Kit list
+ * every other Kit call site already draws from. The ID list is the bound: a Kit that is not
+ * named here is never reached, and no arbitrary Sourcebook content is traversed.
+ */
+export const getV1StormwightKits = (sourcebooks: Sourcebook[]): Kit[] => {
+	const kitsByID = new Map(SourcebookLogic.getKits(sourcebooks.filter(isV1HeroCreationSourcebook)).map(kit => [ kit.id, kit ]));
+
+	return v1StormwightKitIDs.map(id => {
+		const kit = kitsByID.get(id);
+		if (!kit) {
+			throw new Error(`Stormwight Kit '${id}' is missing`);
+		}
+		return kit;
+	});
+};
+
+/**
+ * Builds the bounded 74-identity Stormwight Kit denominator from live canonical data: each
+ * Kit's own name/description pair, the five direct non-Ability Features it grants, and the
+ * authored fields of its one signature Ability.
+ *
+ * A Stormwight Kit's `features` array is walked one level only, exactly as the standard Kit
+ * slice reads its signature Ability. A Feature that carries an Ability contributes that
+ * Ability's authored fields; every other Feature contributes its own name and description.
+ * Nothing nested inside a Feature is descended into, so this stays a reviewable slice rather
+ * than a recursive Kit crawler.
+ *
+ * A `Growing Ferocity` description is one canonical field even though its Markdown bullets
+ * mention later levels, so it is required whole rather than sliced by level.
+ */
+export const createV1StormwightKitRequiredCanonicalEnglish = (sourcebooks: Sourcebook[]): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	getV1StormwightKits(sourcebooks).forEach(kit => {
+		addRequiredElementFields(requiredCanonicalEnglish, kit);
+		kit.features.forEach(feature => {
+			if (isKitSignatureFeatureAbility(feature)) {
+				addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability);
+				return;
+			}
+			addRequiredElementFields(requiredCanonicalEnglish, feature);
+		});
+	});
+
+	return requiredCanonicalEnglish;
+};
+
+/**
  * The exact approved Core Domain slice: the 12 Core Domains a Conduit chooses from. Only
  * Levels 1-3 are in this batch; Levels 4-10 stay outside it.
  */
@@ -1619,6 +1680,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TroubadourLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),
 		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
+		...createV1StormwightKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish()
 	},
