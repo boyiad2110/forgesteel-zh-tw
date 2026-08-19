@@ -283,6 +283,28 @@ V1 requirements 仍要求：
 - 建立平行的正式 progress denominator
 - 把與本批無關的 shared architecture 重構一起做
 
+### Batch Cost Checkpoint
+
+Reviewer 在固定 Batch Contract 前執行一次；目的是讓 batch 邊界反映實際成本與風險，而不是憑感覺切分。checkpoint 至少考慮：
+
+- 本批需要的 Owner semantic decision 量；
+- 涉及的 calculated／dynamic grammar families；
+- 是否需要 presenter extension；
+- class-specific public-behavior test 的成本；
+- 鄰近 slice 是否真正共享 authority、risk 與 presentation architecture；
+- artifact、Review、PR 等每批都會重複付出的固定成本。
+
+明確界線：
+
+- **不設 identity count、LOC、changed files 等硬數字門檻。** 「identities 太少」本身不是錯誤 batch 的判準。
+- 小 slice 若有 risk、authority 或 dependency 隔離理由，仍可獨立成批。
+- 不得為了攤平固定成本，把不相關內容或 shared architecture 硬塞進 translation batch。
+- 「需要改 presenter」本身**不自動要求拆出 technical batch**：
+  - existing bounded／identity-bound extension point 的擴充可留在同一個 translation batch；
+  - 只有真正新增 cross-cutting shared architecture、parser／calculator boundary 或 fallback policy 時，才考慮 separate technical batch。
+
+checkpoint 的產出是 Contract 中的 batch 邊界理由，不是新的 progress denominator。
+
 ---
 
 ## 11. Translation Worksheet / Approval Packet
@@ -310,6 +332,19 @@ V1 requirements 仍要求：
 approved implementation packet 交付 Agent 前，Reviewer 必須將**全部** packet canonical identities／snapshots 與 live canonical extraction／manifest authority 做 machine-verifiable comparison，並回報 `N/N aligned` 與 zero drift。比較須保留 identity-sensitive 的 leading／trailing newline、whitespace、Markdown、punctuation、escaped 與 structured text；不得只靠目視比對。
 
 若有 mismatch，先修正 Reviewer artifact authority，Agent 不得開始 implementation 或靜默重建內容。
+
+#### Alignment timing（三層）
+
+alignment 不是流程末端的一次性檢查，固定在以下三個時點執行：
+
+1. **Reviewer → Owner worksheet handoff 前。**
+   對 intended live canonical slice 與 worksheet／packet canonical evidence 做 machine alignment。任何 newline／whitespace／Markdown／snapshot／hash drift 先修 Reviewer artifact，再交 Owner。Reviewer artifact defect 屬 Reviewer 自行修正範圍，不得包裝成 Owner decision 或 semantic question。
+2. **Owner finalization 後、approved implementation packet freeze／Agent handoff 前。**
+   對 final packet 再做一次 alignment，涵蓋 normalization、Owner override 記錄與 packet generation 可能引入的 drift。這是 packet freeze 的前置條件。
+3. **Agent implementation preflight。**
+   保留現有 preflight（見 `docs/project-review-skill/AGENT-TASK-CONTRACT.md` 的 Translation Packet Preflight）作 defense in depth。它是最後一道防線，**不應**是正常流程第一次發現 Reviewer packet defect 的地方；若 preflight 首次發現 drift，除了依既有規則 STOP，還代表前兩層 timing 未被執行。
+
+三層都可使用現行的 `src/localization/test-support/packet-canonical-alignment.ts`，或明確等價的 machine comparison。本 gate 不新增 CLI、npm script 或新 helper；發現的 mechanical drift 依 **Packet Revision Rule** 處理。
 
 ### Packet Revision Rule
 

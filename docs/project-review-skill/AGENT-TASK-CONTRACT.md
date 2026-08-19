@@ -10,7 +10,7 @@ Agent 任務應以「本批差異」為主，穩定的專案規則優先引用�
 
 ## 任務必備欄位
 
-每份 Agent 任務至少包含：
+**Stage 1 full task**（本批第一份 Agent 任務）至少包含：
 
 1. **Goal**：唯一、可驗證的使用者可見或工程結果。
 2. **Authority**：支持本批的現行需求／Owner decision。
@@ -24,6 +24,36 @@ Agent 任務應以「本批差異」為主，穩定的專案規則優先引用�
 10. **Stop**：完成後停止，不開始下一批。
 
 Batch 預設應是 coherent、可獨立驗收的 UI／功能 slice；不要因為單一詞彙、單一 call site 或單一小檔案而無必要拆成獨立批次。
+
+## Compact Stage Handoff Profiles
+
+上列必備欄位只適用於 Stage 1 full task。Stage 2 與 Stage 3 是同一批的後續回合，Reviewer 與 Agent 已共享前一輪 context，因此 handoff 改用下列 compact profile，只寫本輪決策所需 delta，不重建完整 Stage 1 任務書，也不因缺少 Stage 1 欄位而視為 contract 不完整。
+
+### Stage 2 — focused correction profile
+
+只需：
+
+- original batch 識別；current base；current HEAD。
+- blocker（本輪要修的唯一內容）。
+- allowed files 與 forbidden collateral。
+- focused acceptance 與需要重跑的 fresh verification 範圍。
+- Git permission。
+- Report／Stop。
+
+### Stage 3 — closeout profile
+
+只需：
+
+- approved HEAD 與 base。
+- expected mechanical evidence 來源：從 approved review evidence inheritance 取得，不人工另抄。
+- merge method。
+- required CI 與其他 mutable pre-merge gate。
+- Git permission。
+- Report／Stop。
+
+### 兩種 profile 共同禁止
+
+不得重貼完整翻譯 packet、Owner prose、歷史調查、stable Git 禁止事項或整套 Stage workflow。stable safety 與 evidence 語意以 pointer 表示：`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md`、`PROJECT-REVIEW-SKILL.md`、本 Contract。只有本批特有的 gate、SHA、scope boundary、merge method 或禁止事項才須明列；delta-only 不降低任何既有 safety authority 的效力。
 
 ## Tooling / Skill
 

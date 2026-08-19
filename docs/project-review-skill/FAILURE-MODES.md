@@ -315,3 +315,32 @@ Agent 自動修失敗 PR、改寫 history、建立第二個 PR，或在新 green
 修正：
 
 依 `AGENT-TASK-CONTRACT.md` 的 Tooling / Skill repository evidence 選擇 manager；只有 evidence 真正衝突且影響安全執行時才 STOP。
+## 32. 把最新 Precedent 直接 Copy-forward 到不同 Scope
+
+錯誤：
+
+上一批完成的是某 class 的 Ability slice，下一批是另一個 class 的 non-Ability slice；因為前者是最近 merged precedent，就直接沿用它的 Ability collector／enumerator 與 identity 假設，未比較兩批的 scope boundary。
+
+修正：
+
+依 `PROJECT-REVIEW-SKILL.md` Precedent Gate 的 **Scope-equivalence check**：reuse 前先比較 base class／subclass、Ability／non-Ability、identity／traversal contract、supplemental fields 與 presenter extension point。只重用真正 shared 的 architecture，batch-specific boundary 仍依本批 Contract 判定。scope 不同不代表 precedent 無效，也不自動 STOP；「它是最新的」不是 reuse 理由。
+
+## 33. 把 Agent Preflight 當成第一次 Packet Alignment
+
+錯誤：
+
+Reviewer 未在 worksheet 交 Owner 前、也未在 packet freeze 前做 machine alignment，直到 Agent implementation preflight 才第一次發現 leading newline／whitespace／hash drift，於是 Stage 1 重來，或把 Reviewer artifact defect 當成 Owner 待決事項。
+
+修正：
+
+依 `TRANSLATION-WORKFLOW.md` **Packet Canonical Alignment Gate** 的三層 timing：Owner handoff 前先驗一次、Owner finalization 後 packet freeze 前再驗一次，Agent preflight 只作 defense in depth。Reviewer artifact drift 由 Reviewer 依 Packet Revision Rule 自行修正，不變成 Owner decision。preflight 首次發現 drift 時，除了 STOP，也應視為前兩層 timing 未執行。
+
+## 34. Stage 2／Stage 3 Contract 重貼完整歷史
+
+錯誤：
+
+focused correction 或 closeout 的 handoff 重貼完整翻譯 packet、Owner prose、歷史調查與整套 Stage workflow 與 stable Git 禁止事項，使每一輪都付出接近完整 Stage 1 任務書的固定成本，真正的 delta（blocker、approved HEAD、merge method）反而被淹沒。
+
+修正：
+
+依 `AGENT-TASK-CONTRACT.md` 的 **Compact Stage Handoff Profiles** 只寫本輪 delta；stable safety 以 pointer 引用既有文件。只有本批特有 gate、SHA、scope boundary 或禁止事項才明列。delta-only 不降低任何既有 safety authority 的效力。
