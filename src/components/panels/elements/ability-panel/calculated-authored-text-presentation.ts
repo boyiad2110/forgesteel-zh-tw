@@ -648,6 +648,50 @@ const projectTroubadourAsymmetricCondition = (elementID: string, field: string, 
 };
 
 /**
+ * The two Class Act completion readings whose canonical calculation resolves a level- or
+ * Presence-derived reference in place. Scene Partner is a FeatureType.Text Feature, so it
+ * arrives through the FeaturePanel auto-calc path; Blocking is an authored ability section.
+ * The rest of each reading is left alone by the calculator, so only that one verified value
+ * is carried into the Owner-approved zh-TW, and Library keeps the approved raw wording.
+ */
+const projectTroubadourCompletionCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'troubadour-8',
+			field: 'description',
+			canonical: 'You can have a number of bonds active equal to your level.',
+			calculated: /You can have a number of bonds active equal to (-?\d+)\./,
+			localized: '你可以同時維持的羈絆數量等於你的等級。',
+			replacement: (value: string) => `你可以同時維持的羈絆數量為 ${value}。`
+		},
+		{
+			elementID: 'troubadour-auteur-2',
+			field: 'sections.0.text',
+			canonical: 'you can choose up to a number of targets equal to your Presence score',
+			calculated: /you can choose up to a number of targets equal to (-?\d+)/,
+			localized: '你可以選擇數量最多等於你`氣場`的目標',
+			replacement: (value: string) => `你可以選擇最多 ${value} 個目標`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || !canonicalEnglish.includes(projection.canonical) || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, calculatedMatch[0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(projection.localized, projection.replacement(calculatedMatch[1]));
+};
+
+/**
  * The two Kit signature readings whose canonical calculation resolves an authored
  * characteristic-score reference in place. The rest of each sentence is untouched by the
  * calculator, so only that verified value is carried into the Owner-approved zh-TW, and
@@ -821,6 +865,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const troubadourAsymmetricCondition = projectTroubadourAsymmetricCondition(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (troubadourAsymmetricCondition) {
 		return troubadourAsymmetricCondition;
+	}
+
+	const troubadourCompletionCalculatedValue = projectTroubadourCompletionCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (troubadourCompletionCalculatedValue) {
+		return troubadourCompletionCalculatedValue;
 	}
 
 	const kitCharacteristicScoreValue = projectKitCharacteristicScoreValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);

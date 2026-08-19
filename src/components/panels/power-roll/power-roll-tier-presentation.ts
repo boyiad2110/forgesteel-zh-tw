@@ -58,6 +58,39 @@ const localizedForcedMovementType = (verb: string) => {
 const countMatches = (value: string, pattern: RegExp) => Array.from(value.matchAll(pattern)).length;
 
 /**
+ * Thunder Mother's three tiers are the one approved Power Roll reading in this slice whose
+ * canonical grammar states its damage as a level-derived expression ('Lightning damage equal
+ * to 5 + your level') rather than the leading '<number> damage' arithmetic the general damage
+ * projection above recognizes. AbilityLogic resolves the level in canonical English first,
+ * and only that verified value is carried into the Owner-approved zh-TW, which then reads
+ * with the same compact 'N 傷害' grammar every other approved tier uses.
+ *
+ * This is deliberately identity-bound and exact-match on both readings: nothing is projected
+ * unless the canonical tier and the approved zh-TW are the ones snapshotted here and the
+ * calculator produced the fully resolved form. Without a Hero the calculator leaves the
+ * expression authored, so Library keeps the approved raw zh-TW untouched.
+ */
+const troubadourLevelDamageTiers = [
+	{ abilityID: 'troubadour-virtuoso-4', field: 'sections.1.roll.tier1', canonical: 'Lightning damage equal to your level', localized: '等於你等級的閃電傷害' },
+	{ abilityID: 'troubadour-virtuoso-4', field: 'sections.1.roll.tier2', canonical: 'Lightning damage equal to 5 + your level', localized: '等於 5 + 你等級的閃電傷害' },
+	{ abilityID: 'troubadour-virtuoso-4', field: 'sections.1.roll.tier3', canonical: 'Lightning damage equal to 10 + your level', localized: '等於 10 + 你等級的閃電傷害' }
+];
+
+const projectTroubadourLevelDamageTier = (abilityID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const tier = troubadourLevelDamageTiers.find(candidate => (candidate.abilityID === abilityID) && (candidate.field === field));
+	if (!tier || (canonicalEnglish !== tier.canonical) || (localizedRaw !== tier.localized)) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(/^Lightning damage equal to (-?\d+)$/);
+	if (!calculatedMatch) {
+		return undefined;
+	}
+
+	return `${calculatedMatch[1]} 閃電傷害`;
+};
+
+/**
  * Projects calculated canonical values onto an approved zh-TW Power Roll tier.
  *
  * The resolver lookup deliberately uses the raw canonical English, which preserves its
@@ -82,6 +115,11 @@ export const localizePowerRollTierPresentation = ({
 
 	if (calculatedEnglish === canonicalEnglish) {
 		return localizedRaw;
+	}
+
+	const troubadourLevelDamage = projectTroubadourLevelDamageTier(abilityID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (troubadourLevelDamage) {
+		return troubadourLevelDamage;
 	}
 
 	const damageValues = Array.from(calculatedEnglish.matchAll(calculatedDamagePattern), match => match[2]);

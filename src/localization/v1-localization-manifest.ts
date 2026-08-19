@@ -1050,6 +1050,90 @@ export const createV1TroubadourLevel1AbilityRequiredCanonicalEnglish = (): Canon
 	return requiredCanonicalEnglish;
 };
 
+/** The three Class Acts; later Class Act levels remain outside this Level 1 slice. */
+export const v1TroubadourClassActIDs = [
+	'troubadour-auteur',
+	'troubadour-duelist',
+	'troubadour-virtuoso'
+] as const;
+
+export const getV1TroubadourClassActs = (): SubClass[] => {
+	const classActsByID = new Map(troubadour.subclasses.map(classAct => [ classAct.id, classAct ]));
+	return v1TroubadourClassActIDs.map(id => {
+		const classAct = classActsByID.get(id);
+		if (!classAct) {
+			throw new Error(`Troubadour Class Act '${id}' is missing`);
+		}
+		return classAct;
+	});
+};
+
+/**
+ * Collects the Ability nodes a Class Act's Level 1 Feature list carries, following the same
+ * bounded descent the shared non-Ability walk uses: a Choice only through its options' own
+ * Features and a Multiple only through its child Features. Virtuoso authors its two
+ * performance abilities inside the `troubadour-virtuoso-3` Multiple rather than at the top
+ * level, so a top-level-only filter would silently drop them.
+ */
+const collectBoundedLevel1Abilities = (features: Feature[], abilities: Ability[] = []): Ability[] => {
+	features.forEach(feature => {
+		switch (feature.type) {
+			case FeatureType.Ability:
+				abilities.push(feature.data.ability);
+				break;
+			case FeatureType.Choice:
+				collectBoundedLevel1Abilities(feature.data.options.map(option => option.feature), abilities);
+				break;
+			case FeatureType.Multiple:
+				collectBoundedLevel1Abilities(feature.data.features, abilities);
+				break;
+		}
+	});
+
+	return abilities;
+};
+
+/**
+ * Builds the bounded 94-identity Troubadour Level 1 completion denominator: the base class's
+ * remaining non-Ability fields plus Drama's details, and each Class Act's metadata, Level 1
+ * non-Ability content and Level 1 authored Ability content. The existing 89-identity base
+ * Ability slice stays separate, and these two slices do not overlap.
+ *
+ * The whole base Level 1 feature tree goes through the one shared bounded walk, with no
+ * per-feature exception: the two direct Performance abilities (`troubadour-10`,
+ * `troubadour-11`) belong to the base Ability slice and are neither counted nor walked here.
+ */
+export const createV1TroubadourLevel1CompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const troubadourLevelOneFeatures = getLevelOneFeatures(troubadour.featuresByLevel, 'Troubadour');
+	requiredCanonicalEnglish[elementFieldIdentity(troubadour.id, 'subclassName')] = troubadour.subclassName;
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, troubadourLevelOneFeatures);
+
+	// The bounded walk supplies a Heroic Resource's name and gain triggers. Drama's `details`
+	// is the remaining player-facing reading FeaturePanel renders for it, so it is required here
+	// explicitly rather than by widening the shared walk for every class.
+	const drama = troubadourLevelOneFeatures.find(feature => feature.id === 'troubadour-6');
+	if (drama?.type !== FeatureType.HeroicResource) {
+		throw new Error('Troubadour Drama resource is missing');
+	}
+	const dramaDetailsIdentity = elementFieldIdentity(drama.id, 'details');
+	if (requiredCanonicalEnglish[dramaDetailsIdentity] !== undefined) {
+		throw new Error(`duplicate localization identity '${dramaDetailsIdentity}'`);
+	}
+	requiredCanonicalEnglish[dramaDetailsIdentity] = drama.data.details;
+
+	getV1TroubadourClassActs().forEach(classAct => {
+		addRequiredElementFields(requiredCanonicalEnglish, classAct);
+		const classActLevelOneFeatures = getLevelOneFeatures(classAct.featuresByLevel, `Troubadour Class Act '${classAct.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, classActLevelOneFeatures);
+		collectBoundedLevel1Abilities(classActLevelOneFeatures)
+			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Orden ancestry Ability slice; all other ancestry Ability content remains unresolved. */
 export const v1OrdenAncestryAbilityIDs = [
 	'memonek-feature-3-5',
@@ -1377,6 +1461,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
+		...createV1TroubadourLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),
 		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks),
