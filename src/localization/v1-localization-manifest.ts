@@ -615,6 +615,55 @@ export const createV1NullLevel1RemainingRequiredCanonicalEnglish = (): Canonical
 	return requiredCanonicalEnglish;
 };
 
+/** The three Null Traditions; later Tradition levels remain outside this Level 1 slice. */
+export const v1NullTraditionIDs = [
+	'null-sub-1',
+	'null-sub-2',
+	'null-sub-3'
+] as const;
+
+export const getV1NullTraditions = (): SubClass[] => {
+	const traditionsByID = new Map(nullClass.subclasses.map(tradition => [ tradition.id, tradition ]));
+	return v1NullTraditionIDs.map(id => {
+		const tradition = traditionsByID.get(id);
+		if (!tradition) {
+			throw new Error(`Null Tradition '${id}' is missing`);
+		}
+		return tradition;
+	});
+};
+
+/**
+ * Builds the bounded 31-identity Null Level 1 subclass completion denominator: the class's
+ * `subclassName` category plus each Tradition's own metadata and Level 1 Feature content.
+ *
+ * Unlike the Tactician, Talent and Troubadour completion slices, this one deliberately leaves
+ * the base class alone. Null's Level 1 base content already has two merged, independently
+ * tested slices - the 36-identity non-Ability slice above and the frozen 115-identity Ability
+ * slice - so folding either into this one would move identities between denominators rather
+ * than add the subclass content this batch is for. All three stay disjoint.
+ *
+ * Each Tradition's Level 1 tree goes through the one shared bounded walk, with no per-feature
+ * exception. Authored Ability content is collected through the same bounded descent the walk
+ * uses, so an ability authored inside a Multiple could not be silently dropped; the current
+ * Level 1 Traditions author none, and each contributes exactly its skill choice, its Mastery
+ * grouping and that grouping's two children.
+ */
+export const createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	requiredCanonicalEnglish[elementFieldIdentity(nullClass.id, 'subclassName')] = nullClass.subclassName;
+
+	getV1NullTraditions().forEach(tradition => {
+		addRequiredElementFields(requiredCanonicalEnglish, tradition);
+		const traditionLevelOneFeatures = getLevelOneFeatures(tradition.featuresByLevel, `Null Tradition '${tradition.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, traditionLevelOneFeatures);
+		collectBoundedLevel1Abilities(traditionLevelOneFeatures)
+			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Fury Level 1 base-class ability slice; later Fury levels stay unresolved. */
 export const v1FuryLevel1AbilityIDs = [
 	'fury-ability-1',
@@ -1452,6 +1501,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ElementalistLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1RemainingRequiredCanonicalEnglish(),
+		...createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
