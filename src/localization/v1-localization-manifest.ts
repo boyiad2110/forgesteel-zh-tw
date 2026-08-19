@@ -480,6 +480,39 @@ export const createV1ConduitLevel1RemainingRequiredCanonicalEnglish = (): Canoni
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The Conduit's own Level 2 progression roots. This deliberately reads only Conduit's level 2
+ * entry rather than generalizing the Level 1 accessor the other class slices share: no other
+ * slice reaches past Level 1 yet, and widening that shared accessor would quietly invite a
+ * generic level crawler. Conduit Level 3+ stays out of the denominator, so
+ * 'class-and-subclass-level-content' remains unresolved.
+ */
+const getV1ConduitLevel2Features = (): Feature[] => {
+	const levelTwo = conduit.featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error('Conduit Level 2 features are missing');
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 7-identity Conduit Level 2 denominator from live canonical data, through
+ * the same bounded non-Ability walk the Level 1 slices use. Conduit's four Level 2 roots are a
+ * Text feature, a Perk choice and two Domain Feature choices; none of them is a Choice or
+ * Multiple, so the walk contributes exactly their four names plus their three non-empty
+ * descriptions. Two of those canonical values are Feature-factory output rather than authored
+ * prose - the Perk's composed 'Crafting / Lore / Supernatural Perk' name, and the Level 2 Domain
+ * Ability's default 'Choose a level 2 domain feature.' description - and both are recorded
+ * exactly as the factory produces them, because FeaturePanel renders them as this Feature's own
+ * player-facing text. The Domain features these two choices lead to carry their own already
+ * approved Core Domain identities and are not re-enumerated here.
+ */
+export const createV1ConduitLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1ConduitLevel2Features());
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Elementalist Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
 export const v1ElementalistLevel1AbilityIDs = [
 	'elementalist-1-4',
@@ -1661,6 +1694,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CensorLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ConduitLevel1RemainingRequiredCanonicalEnglish(),
+		...createV1ConduitLevel2RequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglish(),
