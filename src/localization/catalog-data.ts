@@ -3485,6 +3485,120 @@ const coreTalentLevel1CompletionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'talent-sub-3-1-2', field: 'sections.1.effect', canonicalEnglish: 'You target one additional creature or object.', zhTW: '你可以額外指定 1 個生物或物體作為目標。', approval: 'approved' }
 ];
 
+/**
+ * The Core Troubadour Level 1 completion slice: the base class's remaining non-Ability
+ * readings including Drama's details, plus all three Class Acts' metadata, Level 1
+ * non-Ability content and Level 1 authored Ability content. The base class's own frozen
+ * Level 1 Ability slice above is untouched by this batch.
+ */
+const coreTroubadourLevel1CompletionLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'class-troubadour', field: 'subclassName', canonicalEnglish: 'Class Act', zhTW: '才華', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-1', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-2', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-3', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-3', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-4', field: 'name', canonicalEnglish: 'Interpersonal Skills', zhTW: '交涉類技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-4', field: 'description', canonicalEnglish: 'Choose 2 from Interpersonal skills.', zhTW: '從交涉類技能中選擇 2 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-5', field: 'name', canonicalEnglish: 'Intrigue / Lore Skill', zhTW: '隱密類／學識類技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-5', field: 'description', canonicalEnglish: 'Choose a skill from Intrigue skills, Lore skills.', zhTW: '從隱密類技能、學識類技能中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-6', field: 'name', canonicalEnglish: 'Drama', zhTW: '張力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-6', field: 'details', canonicalEnglish: 'When you are dead, you continue to gain drama during combat as long as your body is intact. If you have 30 drama during the encounter in which you died, you can come back to life with 1 Stamina and 0 drama (no action required). If you are still dead after the encounter in which you died, you can’t gain drama during future encounters.', zhTW: '在你死亡後，只要屍體完整，你仍然可以在戰鬥期間獲得張力。若你在死亡的該場遭遇中擁有 30 點張力，你可以立刻復活（無需動作），恢復 1 點體力，但張力歸零。若你在該場遭遇結束時仍然處於死亡，你在之後的遭遇中就無法再獲得張力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-6', field: 'gains.0.trigger', canonicalEnglish: 'Start of your turn', zhTW: '每當你的回合開始時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-6', field: 'gains.1.trigger', canonicalEnglish: 'The first time three or more heroes use an ability on the same turn', zhTW: '當首次有 3 個以上的英雄在同個回合中發動招式時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-6', field: 'gains.2.trigger', canonicalEnglish: 'The first time any hero is made winded during the encounter', zhTW: '當首次有英雄在遭遇中陷入疲態時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-6', field: 'gains.3.trigger', canonicalEnglish: 'Whenever a creature within your line of effect rolls a natural 19 or 20', zhTW: '每當你效果線內的 1 個生物擲出天然 19 或 20 時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-6', field: 'gains.4.trigger', canonicalEnglish: 'When you or another hero dies', zhTW: '當你自己或其他英雄死亡時', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-7', field: 'name', canonicalEnglish: 'Kit', zhTW: '套裝', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-8', field: 'name', canonicalEnglish: 'Scene Partner', zhTW: '場景搭檔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-8', field: 'description', canonicalEnglish: `Whenever you obtain a success on a test to interact with an NPC using a skill from the interpersonal group, you can form a bond with that NPC. When you enter into a negotiation with a bonded NPC, their patience increases by 1 (to a maximum of 5). Additionally, the first time during a negotiation that you personally make an argument that would increase a bonded NPC’s interest by 1, you instead increase their interest by 2 (to a maximum of 5).
+
+You can have a number of bonds active equal to your level. When you form a bond with a new NPC that would exceed the limit, you must choose which of your active bonds to lose.`, zhTW: `當你使用交涉類技能與 NPC 互動時，若考驗成功，你可以與該 NPC 建立羈絆。與羈絆 NPC 進行談判時，他的耐心會 +1（上限為 5）。此外，在談判期間，當你首次親自提出能讓羈絆 NPC 的興趣 +1 的論點時，他的興趣會改為 +2（上限為 5）。
+
+你可以同時維持的羈絆數量等於你的等級。若與新的 NPC 建立羈絆會超出數量上限，你必須放棄 1 個現有的羈絆。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-9', field: 'name', canonicalEnglish: 'Routines', zhTW: '例行表演', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-9', field: 'description', canonicalEnglish: 'You enter every battle with a set of performance abilities at the ready. Performances are magical presentations (such as songs, dances, poems, or gymnastic feats) that your allies can participate in. These abilities have the Performance keyword. At the start of each combat round, as long as you are not dazed, dead, or surprised, you can either choose a new performance or maintain your current performance (no action required). Your performance lasts until you are unable to maintain it or until the end of the encounter.', zhTW: '每場戰鬥開始時，你都會準備好一組表演招式。表演是一種可以讓你的盟友參與其中的魔法演出（例如歌曲、舞蹈、詩詞或體操）。這些招式都帶有「表演」關鍵詞。每輪開始時，只要你沒有處於暈眩、死亡或措手不及，你可以選擇開始新的表演或維持目前的表演（無需動作）。你的表演會持續到無法維持為止，或直到遭遇結束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-12', field: 'name', canonicalEnglish: 'Signature Ability', zhTW: '招牌招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-13', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-14', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur', field: 'name', canonicalEnglish: 'Auteur', zhTW: '編劇', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur', field: 'description', canonicalEnglish: 'You seek drama from story and recount, using your magic to manipulate the sequence of events unfolding before you.', zhTW: '你從故事和敘述中發掘戲劇張力，運用魔法來操控在你眼前展開的一系列事件。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-2', field: 'name', canonicalEnglish: 'Blocking', zhTW: '走位', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-2', field: 'description', canonicalEnglish: 'No, no, no, you lose the audience that way. Try it like this …', zhTW: '不不不，那樣會失去觀眾的注意力。試試這樣……', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-2', field: 'target', canonicalEnglish: 'Each creature in the area', zhTW: '區域內每個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-2', field: 'sections.0.text', canonicalEnglish: 'At the end of each of your turns while this performance is active, you can choose up to a number of targets equal to your Presence score and teleport those targets to unoccupied spaces in the area. A target can’t be teleported in a way that would harm them (such as over a cliff), leave them dying, or result in them suffering a condition or other negative effect. ', zhTW: '在此表演生效期間，每當你的回合結束時，你可以選擇數量最多等於你`氣場`的目標，並將這些目標傳送至區域內的未占據空間。目標不能被傳送到會讓他受到傷害（例如懸崖外）、陷入瀕死，或承受狀態或其他負面效果的位置。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-3', field: 'name', canonicalEnglish: 'Dramatic Monologue', zhTW: '動人獨白', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-3', field: 'description', canonicalEnglish: 'It doesn’t need to make sense. Just say it with emotion.', zhTW: '你不需要言之有理，只需要擁有充沛感情。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-3', field: 'target', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-3', field: 'sections.0.text', canonicalEnglish: ` Choose one of the following effects:
+* You orate a rousing tale of victory. One ally within distance gains an edge on the next power roll they make before the start of your next turn.
+* You weave a tale of high-stakes heroics. One ally within distance gains 1 surge.
+* You insult a foe where they’re most vulnerable. One enemy within distance takes a bane on the next power roll they make before the end of their next turn.`, zhTW: ` 選擇以下 1 種效果：
+* 你講述一段激勵人心的勝利故事。直到你的下個回合開始前，射程內 1 個盟友的下次檢定會獲得 1 個優勢。
+* 你編織一則驚心動魄的英雄傳奇。射程內的 1 個盟友獲得 1 點鬥志。
+* 你直戳敵人的痛處。直到對方的下個回合結束前，射程內 1 個敵人的下次檢定會承受 1 個劣勢。`, approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-3', field: 'sections.1.effect', canonicalEnglish: 'You can choose two targets for the chosen effect.', zhTW: '你可以為該效果選擇 2 個目標。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-3', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-4', field: 'name', canonicalEnglish: 'Turnabout Is Fair Play', zhTW: '將計就計', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-4', field: 'description', canonicalEnglish: 'All’s fair in love and whatever.', zhTW: '戰場如情場，任何手段都可以。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-4', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-4', field: 'type.trigger', canonicalEnglish: 'The target makes an ability roll that has an edge, a double edge, a bane, or a double bane.', zhTW: '當目標進行帶有 1 個優勢、雙優勢、1 個劣勢或雙劣勢的檢定時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-4', field: 'sections.0.text', canonicalEnglish: 'An edge on the triggering roll becomes a bane, or a double edge becomes an edge. A bane becomes an edge, or a double bane becomes a bane.', zhTW: '將觸發檢定的 1 個優勢變成 1 個劣勢，或將雙優勢變成 1 個優勢；將 1 個劣勢變成 1 個優勢，或將雙劣勢變成 1 個劣勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-4', field: 'sections.1.effect', canonicalEnglish: 'An edge on the triggering roll becomes a double bane, or a double edge is negated. A bane becomes a double edge, or a double bane is negated.', zhTW: '將觸發檢定的 1 個優勢變成雙劣勢，或將雙優勢完全抵消；將 1 個劣勢變成雙優勢，或將雙劣勢完全抵消。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-auteur-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist', field: 'name', canonicalEnglish: 'Duelist', zhTW: '決鬥', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist', field: 'description', canonicalEnglish: 'Drama infuses your every movement done in tandem with another. You perform dances of death, putting trust in your opponent to return your passion in kind.', zhTW: '戲劇張力巧妙地融入你與他人配合的一舉一動。你跳著死亡之舞，相信你的對手能以同樣的熱情給予回應。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-2', field: 'name', canonicalEnglish: 'Acrobatics', zhTW: '特技表演', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-2', field: 'description', canonicalEnglish: 'Folks love a good tumble.', zhTW: '大家都愛精彩的翻滾特技。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-2', field: 'target', canonicalEnglish: 'Self and each ally in the area', zhTW: '自身與區域內每個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-2', field: 'sections.0.text', canonicalEnglish: 'While this performance is active, each target who starts their turn in the area can automatically obtain a tier 3 outcome on one test made to jump, tumble, or climb as part of their movement before the end of their turn.', zhTW: '在此表演生效期間，每個在區域內開始回合的目標，直到他的回合結束前，他在移動過程中進行的 1 次跳躍、翻滾或攀爬考驗會自動獲得 T3 結果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-3', field: 'name', canonicalEnglish: 'Star Power', zhTW: '巨星風采', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-3', field: 'description', canonicalEnglish: 'Your years of practicing fencing and dancing pay off on the battlefield.', zhTW: '你多年苦練的劍術與舞蹈技巧終於在戰場上得到回報。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-3', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-3', field: 'sections.0.text', canonicalEnglish: 'You gain a +2 bonus to speed until the end of your turn. Additionally, the next power roll you make this turn can’t have an outcome lower than tier 2.', zhTW: '你的速度 +2，直到你當前回合結束。此外，你在本回合進行的下次檢定不會低於 T2 結果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-3', field: 'sections.1.effect', canonicalEnglish: 'You gain a +4 bonus to speed instead.', zhTW: '你的速度改為 +4。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-3', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-4', field: 'name', canonicalEnglish: 'Riposte', zhTW: '回擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-4', field: 'description', canonicalEnglish: '“I’d have brought treats had I known I’d be fighting a dog.”', zhTW: '「早知道對手是條狗，我就帶點零食來了。」', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-4', field: 'target', canonicalEnglish: 'Self or one ally', zhTW: '自身或 1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-4', field: 'type.trigger', canonicalEnglish: 'The target takes damage from a melee strike.', zhTW: '當目標受到近戰打擊的傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-duelist-4', field: 'sections.0.text', canonicalEnglish: 'The target makes a free strike against the creature who made the triggering strike.', zhTW: '目標對攻擊者發動 1 次基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso', field: 'name', canonicalEnglish: 'Virtuoso', zhTW: '演奏', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso', field: 'description', canonicalEnglish: 'You find drama in music and song, weaving magic between vibrations and filling the audience with your pathos.', zhTW: '你從音樂與歌曲中發掘戲劇張力，在音符之間編織魔法，用真摯的情感打動觀眾。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-2', field: 'name', canonicalEnglish: 'Power Chord', zhTW: '強力和弦', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-2', field: 'description', canonicalEnglish: 'Your instrument rings true and your music blows everyone away.', zhTW: '你的樂器發出強烈的共鳴，奏出震撼全場的音浪。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-2', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-2', field: 'sections.0.roll.tier1', canonicalEnglish: 'Push 1', zhTW: '推動 1 格', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-2', field: 'sections.0.roll.tier2', canonicalEnglish: 'Push 2', zhTW: '推動 2 格', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-2', field: 'sections.0.roll.tier3', canonicalEnglish: 'Push 3', zhTW: '推動 3 格', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-3', field: 'name', canonicalEnglish: 'Virtuoso Performances', zhTW: '演奏家表演', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-3', field: 'description', canonicalEnglish: `You have the following performance abilities, which are usable with
+your Routines feature.`, zhTW: '你擁有以下表演招式，可以透過【例行表演】特性發動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-4', field: 'name', canonicalEnglish: '“Thunder Mother”', zhTW: '《雷霆之母》', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-4', field: 'description', canonicalEnglish: 'All for thunder motherrr! ♪ Run and hide for coverrr! ♪', zhTW: '雷霆之母來啦！♪ 快找掩護吧！♫', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-4', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-4', field: 'sections.0.text', canonicalEnglish: 'At the end of each combat round while this performance is active, you can make a power roll against the target that ignores cover. You can’t target the same creature twice with this effect.', zhTW: '在此表演生效期間，每輪結束時，你可以對目標進行 1 次無視掩護的檢定。此效果不能重複指定同個生物。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-4', field: 'sections.1.roll.tier1', canonicalEnglish: 'Lightning damage equal to your level', zhTW: '等於你等級的閃電傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-4', field: 'sections.1.roll.tier2', canonicalEnglish: 'Lightning damage equal to 5 + your level', zhTW: '等於 5 + 你等級的閃電傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-4', field: 'sections.1.roll.tier3', canonicalEnglish: 'Lightning damage equal to 10 + your level', zhTW: '等於 10 + 你等級的閃電傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-5', field: 'name', canonicalEnglish: '“Ballad of the Beast”', zhTW: '《野獸之歌》', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-5', field: 'description', canonicalEnglish: 'Teeth are bare! ♪ Eyes black! ♪ No escaping the beast! ♪', zhTW: '尖銳的獠牙！♫ 漆黑的目光！♫ ♪ 誰都逃不出野獸的利爪！♫', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-5', field: 'target', canonicalEnglish: 'Self and each ally in the area', zhTW: '自身與區域內每個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-5', field: 'sections.0.text', canonicalEnglish: 'While this performance is active, each target who starts their turn in the area gains 1 surge.', zhTW: '在此表演生效期間，每個在區域內開始回合的目標都會獲得 1 點鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-6', field: 'name', canonicalEnglish: 'Harmonize', zhTW: '和聲', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-6', field: 'description', canonicalEnglish: 'Give the chorus a little punch.', zhTW: '讓副歌更帶勁。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-6', field: 'target', canonicalEnglish: 'One ally', zhTW: '1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-6', field: 'type.trigger', canonicalEnglish: 'The target uses an ability that targets only one enemy and costs 3 or fewer of their Heroic Resource.', zhTW: '當目標發動只指定 1 個敵人且英雄資源費用為 3 以下的 1 個招式時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-6', field: 'sections.0.text', canonicalEnglish: 'The target can choose one additional target for the triggering ability. Any damage dealt to the additional target is sonic damage.', zhTW: '目標可以為觸發招式額外指定 1 個目標。對額外目標造成的所有傷害都會變成音波傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-6', field: 'sections.1.effect', canonicalEnglish: 'You can trigger this ability when a target uses an ability that has a Heroic Resource cost of 3 + each additional drama spent.', zhTW: '每額外花費 1 點張力，你可以將觸發招式的英雄資源費用條件增加 1 點。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'troubadour-virtuoso-6', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -3507,5 +3621,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreElementalistLevel1RemainingLocalizationEntries,
 	...coreNullLevel1RemainingLocalizationEntries,
 	...coreTacticianLevel1CompletionLocalizationEntries,
-	...coreTalentLevel1CompletionLocalizationEntries
+	...coreTalentLevel1CompletionLocalizationEntries,
+	...coreTroubadourLevel1CompletionLocalizationEntries
 ];
