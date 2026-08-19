@@ -3704,6 +3704,61 @@ const coreElementalistLevel1SubclassCompletionLocalizationEntries: LocalizationE
 	{ kind: 'element-field', elementID: 'elementalist-sub-4-1-4', field: 'sections.1.effect', canonicalEnglish: 'You teleport the target up to a number of squares equal to twice your Reason score instead.', zhTW: '你改為將目標傳送最多等於你`理智` ×2 的格數。', approval: 'approved' }
 ];
 
+// Core Fury Level 1 subclass completion: the class subclassName category, each of the
+// three Primordial Aspects' own metadata, and their Level 1 non-Ability and authored
+// Ability content. Stormwight's four kits are Level 2 nested content and stay unresolved.
+const coreFuryLevel1SubclassCompletionLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'class-fury', field: 'subclassName', canonicalEnglish: 'Primordial Aspect', zhTW: '原初相態', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1', field: 'name', canonicalEnglish: 'Berserker', zhTW: '狂戰', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1', field: 'description', canonicalEnglish: 'You channel your rage into expressions of physical might, acting as a living version of the forces that reshape the world.', zhTW: '你將狠勁注入身體之中，化身為塑造世界的活體原始之力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-2', field: 'name', canonicalEnglish: 'Kit', zhTW: '套裝', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-3', field: 'name', canonicalEnglish: 'Primordial Strength', zhTW: '原初蠻力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-3', field: 'description', canonicalEnglish: '\nWhenever you damage an object with a weapon strike, the strike deals extra damage equal to your Might score. Additionally, whenever you push another creature into an object, the creature takes extra damage equal to your Might score.\n\nAs your ferocity grows, you gain benefits as noted on the Berserker Growing Ferocity table. Benefits are cumulative except where an improved benefit replaces a lesser benefit.\n\n* **Ferocity 2**: Whenever you use the Knockback maneuver, the forced movement distance gains a bonus equal to your Might score.\n* **Ferocity 4**: The first time you push a creature on a turn, you gain 1 surge.\n* **Ferocity 6**: You gain an edge on Might tests and the Knockback maneuver.', zhTW: '每當你使用武器打擊對物體造成傷害時，你會額外造成等於你`力量`的傷害。此外，每當你推動其他生物撞上物體時，該生物會額外受到等於你`力量`的傷害。\n\n隨著你累積狠勁，你會獲得「狂戰遞增狠勁」表格中所列的各種益處。益處提供的效果可以疊加，但相同效果的加強版本會取代較弱的版本。\n\n* **狠勁 2**：每當你使用擊退機動動作時，強制移動的距離會獲得等於你`力量`的加值。\n* **狠勁 4**：當你在 1 個回合中首次推動 1 個生物時，你獲得 1 點鬥志。\n* **狠勁 6**：你的`力量`考驗和擊退機動動作會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-4', field: 'name', canonicalEnglish: 'Lines of Force', zhTW: '導力流轉', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-4', field: 'target', canonicalEnglish: 'Self or one creature', zhTW: '自身或 1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-4', field: 'description', canonicalEnglish: 'You redirect the energy of motion.', zhTW: '你重新引導動能的流動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-4', field: 'type.trigger', canonicalEnglish: 'The target would be force moved.', zhTW: '當目標即將被強制移動時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-4', field: 'sections.0.text', canonicalEnglish: 'You can select a new target of the same size or smaller within distance to be force moved instead. You become the source of the forced movement, determine the new target’s destination, and can push the target instead of using the original forced movement type. Additionally, the forced movement distance gains a bonus equal to your Might score.', zhTW: '你可以選擇射程內 1 個體型相同或更小的新目標來承受原本的強制移動。你會成為這次強制移動的來源，可以決定新目標的終點位置，而且可以將原本的強制移動方式改為推動。此外，強制移動的距離會獲得等於你`力量`的加值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-1-4', field: 'sections.1.effect', canonicalEnglish: 'The forced movement distance gains a bonus equal to twice your Might score instead.', zhTW: '強制移動的距離改為獲得等於你`力量` ×2 的加值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2', field: 'name', canonicalEnglish: 'Reaver', zhTW: '狡獵', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2', field: 'description', canonicalEnglish: 'You channel your rage into instinct and cunning, challenging the false order of civilization.', zhTW: '你將狠勁轉化為直覺與狡黠，挑戰文明的虛假秩序。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-2', field: 'name', canonicalEnglish: 'Kit', zhTW: '套裝', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-3', field: 'name', canonicalEnglish: 'Primordial Cunning', zhTW: '原初狡黠', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-3', field: 'description', canonicalEnglish: '\nYou are never surprised. Additionally, whenever you would push a target with forced movement, you can slide them instead.\n\nAs your ferocity grows, you gain benefits as noted on the Reaver Growing Ferocity table. Benefits are cumulative except where an improved benefit replaces a lesser benefit.\n\n* **Ferocity 2**: Whenever you use the Knockback maneuver, the forced movement distance gains a bonus equal to your Agility score.\n* **Ferocity 4**: The first time you slide a creature on a turn, you gain 1 surge.\n* **Ferocity 6**: You gain an edge on Agility tests and the Knockback maneuver.', zhTW: '你永遠不會措手不及。此外，每當你即將推動目標時，你可以改為滑動目標。\n\n隨著你累積狠勁，你會獲得「狡獵遞增狠勁」表格中所列的各種益處。益處提供的效果可以疊加，但相同效果的加強版本會取代較弱的版本。\n\n* **狠勁 2**：每當你使用擊退機動動作時，強制移動的距離會獲得等於你`敏捷`的加值。\n* **狠勁 4**：當你在 1 個回合中首次滑動 1 個生物時，你獲得 1 點鬥志。\n* **狠勁 6**：你的`敏捷`考驗和擊退機動動作會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-4', field: 'name', canonicalEnglish: 'Unearthly Reflexes', zhTW: '超群反應', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-4', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-4', field: 'description', canonicalEnglish: 'You are as elusive as a hummingbird.', zhTW: '你如蜂鳥般難以捉摸。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-4', field: 'type.trigger', canonicalEnglish: 'You take damage.', zhTW: '當你受到傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-4', field: 'sections.0.text', canonicalEnglish: 'You take half the damage from the triggering effect and can shift up to a number of squares equal to your Agility score.', zhTW: '你受到的觸發傷害減半，而且可以遁移最多等於你`敏捷`的格數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-1-4', field: 'sections.1.effect', canonicalEnglish: 'If the damage has any potency effects associated with it, the potency is reduced by 1 for you.', zhTW: '若觸發的傷害具有任何效力效果，該效力會減少 1 點。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3', field: 'name', canonicalEnglish: 'Stormwight', zhTW: '颶魂', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3', field: 'description', canonicalEnglish: 'You channel your rage into the form of animals and primordial storms.', zhTW: '你將狠勁注入動物形態與原初風暴之中。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-2', field: 'name', canonicalEnglish: 'Beast Shape', zhTW: '野獸形態', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-3', field: 'name', canonicalEnglish: 'Relentless Hunter', zhTW: '無情獵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-3', field: 'description', canonicalEnglish: 'You gain an edge on tests made using the Track skill.', zhTW: '當你使用追蹤技能進行考驗時，你獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-4', field: 'name', canonicalEnglish: 'Furious Change', zhTW: '狂怒化形', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-4', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-4', field: 'description', canonicalEnglish: 'In your anger, you revert to a more bestial form.', zhTW: '你在憤怒中化為野獸的形態。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-4', field: 'type.trigger', canonicalEnglish: 'You lose Stamina and are not dying.', zhTW: '當你失去體力而未處於瀕死時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-4', field: 'sections.0.text', canonicalEnglish: 'You gain temporary Stamina equal to your Might score and can enter your animal form or hybrid form.', zhTW: '你獲得等於你`力量`的臨時體力，而且你可以變成動物形態或混合形態。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-4', field: 'sections.1.effect', canonicalEnglish: 'If you are not dying, you can spend a Recovery.', zhTW: '若你未處於瀕死，你可以花費 1 點復元力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-5', field: 'name', canonicalEnglish: 'Aspect of the Wild', zhTW: '荒野相態', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-5', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-5', field: 'description', canonicalEnglish: 'You assume the form of the animal who channels your ferocity.', zhTW: '你引導狠勁化身為動物的形態。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-5', field: 'sections.0.text', canonicalEnglish: 'You can shapeshift into the animal defined by your stormwight kit, into a hybrid form, or back into your true form. While in animal form or hybrid form, you can speak as you usually do, and you can also speak to animals who share your form. If you are in a negotiation with an animal while in animal form, you treat your Renown as 2 higher than usual.', zhTW: '你可以變形為你颶魂套裝定義的動物形態、混合形態，或變回真身。當你處於動物或混合形態時，你可以正常說話，也可以與同種類的動物交流。若你以動物形態與動物進行談判，你的聲望會視為比平常高 2 點。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-5', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-1-5', field: 'sections.1.effect', canonicalEnglish: 'As a free maneuver, you can shapeshift a second time, either into another animal form, into your hybrid form, or back into your true form.', zhTW: '你可以使用免費機動動作再次變形，轉變為動物形態、混合形態，或變回真身。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -3727,6 +3782,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreNullLevel1RemainingLocalizationEntries,
 	...coreNullLevel1SubclassCompletionLocalizationEntries,
 	...coreElementalistLevel1SubclassCompletionLocalizationEntries,
+	...coreFuryLevel1SubclassCompletionLocalizationEntries,
 	...coreTacticianLevel1CompletionLocalizationEntries,
 	...coreTalentLevel1CompletionLocalizationEntries,
 	...coreTroubadourLevel1CompletionLocalizationEntries
