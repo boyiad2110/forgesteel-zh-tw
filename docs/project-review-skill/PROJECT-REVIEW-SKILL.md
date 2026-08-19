@@ -99,7 +99,7 @@ scope 不完全相同不代表 precedent 無效：只重用真正 shared 的 arc
 
 依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。穩定 generic rules 應引用本 Skill、`AGENT-TASK-CONTRACT.md`、`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md` 與 `TRANSLATION-WORKFLOW.md`，不必在每份 handoff 重貼完整 Git 禁止或 Stage workflow；但本批特有 risk、禁止事項、SHA、merge method、scope boundary、acceptance 與 STOP rule 仍須明列。
 
-至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。
+**Stage 1 full task**（本批第一份 Agent 任務）至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。Stage 2 與 Stage 3 是同一批的後續回合，改用下述 compact profile，不必重建這份完整欄位清單。
 
 ### Compact Stage 2／Stage 3 Handoff
 

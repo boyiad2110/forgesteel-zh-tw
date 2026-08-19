@@ -10,7 +10,7 @@ Agent 任務應以「本批差異」為主，穩定的專案規則優先引用�
 
 ## 任務必備欄位
 
-每份 Agent 任務至少包含：
+**Stage 1 full task**（本批第一份 Agent 任務）至少包含：
 
 1. **Goal**：唯一、可驗證的使用者可見或工程結果。
 2. **Authority**：支持本批的現行需求／Owner decision。
@@ -27,7 +27,7 @@ Batch 預設應是 coherent、可獨立驗收的 UI／功能 slice；不要因�
 
 ## Compact Stage Handoff Profiles
 
-上列必備欄位是 **Stage 1 full task** 的基準。Stage 2 與 Stage 3 是同一批的後續回合，Reviewer 與 Agent 已共享前一輪 context，因此 handoff 只寫本輪決策所需 delta，不重建完整 Stage 1 任務書。
+上列必備欄位只適用於 Stage 1 full task。Stage 2 與 Stage 3 是同一批的後續回合，Reviewer 與 Agent 已共享前一輪 context，因此 handoff 改用下列 compact profile，只寫本輪決策所需 delta，不重建完整 Stage 1 任務書，也不因缺少 Stage 1 欄位而視為 contract 不完整。
 
 ### Stage 2 — focused correction profile
 
