@@ -326,6 +326,52 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			calculated: /You can teleport up to a number of squares equal to (-?\d+)\./,
 			localized: '你可以傳送最多等於你`理智`的格數。',
 			localizedReplacement: (value: string) => `你可以傳送最多 ${value} 格。`
+		},
+		// The five subclass completion readings the canonical calculator resolves. Fire's two
+		// forced-movement bonuses and Void's two teleport distances are authored ability
+		// sections, one normal and one Spend each; Acolyte of the Green is a FeatureType.Text
+		// Feature and so arrives through the FeaturePanel auto-calc path. The '×2' in each
+		// Spend reading is never redone here - the calculator resolves twice-Reason in English
+		// first and only that one verified number is carried into the approved zh-TW.
+		{
+			elementID: 'elementalist-sub-2-1-3',
+			field: 'sections.0.text',
+			canonical: 'The forced movement distance gains a bonus equal to your Reason score.',
+			calculated: /The forced movement distance gains a bonus equal to (-?\d+)\./,
+			localized: '強制移動的距離會獲得等於你`理智`的加值。',
+			localizedReplacement: (value: string) => `強制移動的距離會獲得 ${value} 點加值。`
+		},
+		{
+			elementID: 'elementalist-sub-2-1-3',
+			field: 'sections.1.effect',
+			canonical: 'The forced movement distance gains a bonus equal to twice your Reason score instead.',
+			calculated: /The forced movement distance gains a bonus equal to (-?\d+) instead\./,
+			localized: '強制移動的距離改為獲得等於你`理智` ×2 的加值。',
+			localizedReplacement: (value: string) => `強制移動的距離改為獲得 ${value} 點加值。`
+		},
+		{
+			elementID: 'elementalist-sub-3-1-1',
+			field: 'description',
+			canonical: 'gains temporary Stamina equal to your Reason score.',
+			calculated: /gains temporary Stamina equal to (-?\d+)\./,
+			localized: '會獲得等於你`理智`的臨時體力。',
+			localizedReplacement: (value: string) => `會獲得 ${value} 點臨時體力。`
+		},
+		{
+			elementID: 'elementalist-sub-4-1-4',
+			field: 'sections.0.text',
+			canonical: 'You teleport the target up to a number of squares equal to your Reason score.',
+			calculated: /You teleport the target up to a number of squares equal to (-?\d+)\./,
+			localized: '你將目標傳送最多等於你`理智`的格數。',
+			localizedReplacement: (value: string) => `你將目標傳送最多 ${value} 格。`
+		},
+		{
+			elementID: 'elementalist-sub-4-1-4',
+			field: 'sections.1.effect',
+			canonical: 'You teleport the target up to a number of squares equal to twice your Reason score instead.',
+			calculated: /You teleport the target up to a number of squares equal to (-?\d+) instead\./,
+			localized: '你改為將目標傳送最多等於你`理智` ×2 的格數。',
+			localizedReplacement: (value: string) => `你改為將目標傳送最多 ${value} 格。`
 		}
 	];
 	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
