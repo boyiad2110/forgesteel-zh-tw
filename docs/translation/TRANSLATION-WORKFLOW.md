@@ -283,6 +283,22 @@ V1 requirements 仍要求：
 - 建立平行的正式 progress denominator
 - 把與本批無關的 shared architecture 重構一起做
 
+### In-scope Nested Reachability 與 Canonical Field Atomicity
+
+batch scope 依**實際的 in-scope player-facing reachability**判定，不只看 model 命名、檔案位置或假設的「record level」。
+
+- 若某個 nested record 在 in-scope 的 Level 1 flow 中**直接被呈現或直接可選**，它可以是 coherent 的 in-scope slice——但必須由 Batch Contract **明確固定該邊界**。
+- 這**不授權**遞迴走訪任意 descendant，也不授權 generic content crawling。沒有被 Contract 固定的 nested content 不因為「可以走到」就進 scope。
+- 反過來，也不得只因為某筆 content 名義上掛在較深或較「後面」的 model 位置，就把 Batch Contract 已判定為直接 reachable 的 in-scope content 排除。
+
+**一個 localization identity 的 canonical field 對 translation scope 而言是 atomic 的：**
+
+- 若某個 visible canonical description 內含較高 level 的 threshold／bullet，該 field 仍以**整筆**翻譯與驗證；
+- 不得只因為 prose 提到後續 level，就把同一個 canonical field 拆成部分翻譯、部分保留英文的混合結果；
+- 這也**不會**把後續 level 的 sibling record 拉進 scope——atomicity 只作用在同一個 canonical field 之內。
+
+近期已合併 precedent：Fury Stormwight 的 Level 1 Beast Shape 直接可選的四個 Kit。該 precedent 只作例子，穩定規則仍是上述通則。
+
 ### Batch Cost Checkpoint
 
 Reviewer 在固定 Batch Contract 前執行一次；目的是讓 batch 邊界反映實際成本與風險，而不是憑感覺切分。checkpoint 至少考慮：
@@ -317,7 +333,7 @@ checkpoint 的產出是 Contract 中的 batch 邊界理由，不是新的 progre
 4. 工作表應清楚分開 canonical English、AI／Reviewer suggestion、Owner-editable finalized zh-TW，並讓 Owner 辨識需要 action 的 rows 與已由 Reviewer 依 authority 處理的 rows。mechanical rows 不得維持為空白的「Owner finalized required」狀態、不得計入 Owner 尚待完成數量，且 instructions 不得預設要求 Owner 完成全部 rows；handoff summary 應回報實際需要 Owner 決定的 row count。可使用 decision／status column、分區／filter 或同等清楚的方法，不固定永久欄位名稱。
 5. AI suggestion 不是正式譯文；Owner-required rows 的 finalized zh-TW 仍由 Owner 決定。Reviewer-derived mechanical rows 的 authority 來自底層已核准 translation／Owner decision 加上 Reviewer Principles 的 mechanical-variant permission，不需要 Owner 再逐 row 輸入。Owner 仍可覆寫預先分類為 mechanical 的 Final value；最新 Owner Final zh-TW 依 identity 成為後續 packet authority。
 6. Owner 回傳後，Reviewer 仍負責 completeness／blank、duplicate identity、row／identity alignment 與 clerical mapping 檢查，並可依新取得的 Owner 核心譯文補齊其衍生 mechanical variants；不得因此自行改變 Owner translation semantics。context-specific readings 不得壓縮為全域 glossary mapping，除非 Owner 已核准可重用的 standalone mapping。
-7. 經確認後，可產生 machine-readable approved JSON／packet，包含：record count、canonical identity、approved zh-TW、SHA-256，給 Agent 作 exact implementation authority。
+7. 經確認後，可產生 machine-readable approved JSON／packet，包含：record count、canonical identity、approved zh-TW，以及每筆的 `canonicalSha256`，給 Agent 作 exact implementation authority。packet 內外各種 hash 的分工與 blocking 條件依下述 **Packet Hash Semantics**。
 8. **Glossary Delta Gate：**本批 translation authority 收斂後，Reviewer 檢查本批是否產生新的 reusable approved terminology；若本批需要新的 Owner approval，於該 approval 收斂後作此決定。只有已有明確 Owner／approved authority 的詞才同步至 `docs/translation/TRANSLATION-GLOSSARY.csv`。個別 ability／feature 名稱、一次性 authored prose、target sentence／template 不要求 mirror；真正新術語尚未核准時仍交 Owner 決定，不得自行加入。
 9. XLSX／JSON 都是 handoff working material：不建立第二套正式 V1 denominator；不預設 commit 到 repository。
 10. repository 正式 progress evidence 仍然是：manifest、catalog、completeness；glossary 仍只是 curated terminology evidence。
@@ -326,6 +342,23 @@ checkpoint 的產出是 Contract 中的 batch 邊界理由，不是新的 progre
 ### Packet Source-Integrity Rule
 
 試算表 render、visual preview 或 inspection output 只可作 review evidence；只要工具可能截斷或縮寫字串，它們就不是 packet generation 的 authority input。Reviewer 必須從 direct full cell values、lossless machine-readable worksheet export 或其他可取得完整值的來源產生 packet；canonical snapshot 與 Owner-approved zh-TW 都必須來自該完整值來源。snapshot 必須保留 leading／trailing whitespace、Markdown、punctuation、escaping 與 structured text，不得讓 synthetic ellipsis 或 abbreviated display value 成為 authority。`canonicalSha256` 必須由完整 canonical value 計算；packet approval 前，Reviewer 必須將每一筆 packet identity、canonical snapshot 與 hash 對 live canonical source 作 machine comparison。alignment declaration 不得只以 packet 內部 self-consistency 為依據。
+
+### Packet Hash Semantics
+
+packet 相關的 hash 有三個彼此不可互換的概念。混用會造成假 alignment 或假 blocker。
+
+1. **packet artifact SHA-256** — 對「那個 serialized packet 檔案」的 bytes 計算。它只證明 Reviewer 產出的 artifact 與 Agent 收到的 artifact 是同一份，屬 **transfer-integrity evidence**。由 Contract／sidecar 提供時使用；它不證明內容對齊 live canonical。
+2. **per-record `canonicalSha256`** — 對每一筆 **exact UTF-8 canonical value** 計算，不 trim、不 normalize。這是 record-level machine alignment 的主要 evidence，與現行 `src/localization/test-support/packet-canonical-alignment.ts` 相容，也是 Packet Source-Integrity Rule 要求的那個 hash。
+3. **aggregate canonical-slice hash** — 把整個 slice 的 canonical values 合併成單一 hash。**預設不要求，也不是預設 gate。**
+
+aggregate canonical-slice hash 只有在 Batch Contract **同時**做到下列兩件事時，才構成 blocking gate：
+
+- 明確宣告該 aggregate hash 值；且
+- 明確定義**可重現的 deterministic recipe**——至少包含 identity ordering，以及 serialization／separator／encoding 規則，足以讓另一方獨立重算出同一個值。
+
+recipe 不存在時：**不得要求 Agent 反推或發明 recipe**，也不得把「算不出相同值」當成 alignment failure。改用 packet-file SHA（若有）加上 exact record-level alignment，即為足夠的 packet evidence。
+
+本節只釐清既有 hash 的語意，不新增 packet format、helper、CLI 或 npm command。
 
 ### Packet Canonical Alignment Gate
 
@@ -348,7 +381,7 @@ alignment 不是流程末端的一次性檢查，固定在以下三個時點執�
 
 ### Packet Revision Rule
 
-Reviewer packet 的 canonical snapshot／transcription 若有機械錯誤，而 approved zh-TW semantics 未變，必須發行新 packet revision、將舊 revision 標記為 superseded、記錄改變的 canonical snapshot，並更新 packet identity／hash。不得靜默改舊 approved artifact；也不得只因這種 mechanical Reviewer correction 重開 Owner translation approval。若 zh-TW semantics 會變，仍依正常 Owner authority。
+Reviewer packet 的 canonical snapshot／transcription 若有機械錯誤，而 approved zh-TW semantics 未變，必須發行新 packet revision、將舊 revision 標記為 superseded、記錄改變的 canonical snapshot，並更新 packet identity、受影響的 per-record `canonicalSha256`，以及（提供時）該 packet 的 artifact SHA-256。不得靜默改舊 approved artifact；也不得只因這種 mechanical Reviewer correction 重開 Owner translation approval。若 zh-TW semantics 會變，仍依正常 Owner authority。
 
 ### Mandatory Glossary Delta Decision
 
@@ -381,11 +414,15 @@ implementation handoff 另須列出 current packet revision／identity、canonic
 
 **由 Reviewer 依 Batch Contract 拆出必要的 technical denominator batch。**
 
-## 13. Class Ability Authored Content
+## 13. Calculated Authored Content Presentation
 
-Class ability 的 calculated localization 一律 canonical-English-first：raw canonical English 經 canonical calculator 取得 calculated English，再以 raw canonical identity 取得 approved zh-TW，僅投影可安全證明的 calculated presentation change。zh-TW 不得送入 `AbilityLogic`、parser 或 calculator。
+本節管的是 **calculated authored content 的 presentation**，適用範圍是：任何 in-scope 的 player-facing authored field，只要其**實際 production presentation 會讓 canonical English 通過 canonical calculator**。
 
-同一 ability 出現在 Hero Builder 與 Library 時，是兩條不同的 presentation path。Hero context 可使用 calculator 實際解析出的數值；Library／no-Hero 的 characteristic、potency、Presence、Recovery、Speed 等 expression 未解析時，保留 approved raw zh-TW，不得因缺少數值 fallback English。
+Ability 是最常見的情況，不是型別邊界。Power Roll tier text、non-Ability Feature 的 description／prose，只要 production rendering 實際把它送進 calculator，同樣適用本節。反之，名義上屬於 Ability 但 production 並不做 calculated transform 的欄位，不因型別而落入本節。
+
+calculated localization 一律 canonical-English-first：raw canonical English 經 canonical calculator 取得 calculated English，再以 raw canonical identity 取得 approved zh-TW，僅投影可安全證明的 calculated presentation change。zh-TW 不得送入 `AbilityLogic`、parser 或 calculator。
+
+同一 authored field 出現在 Hero Builder 與 Library 時，是兩條不同的 presentation path。Hero context 可使用 calculator 實際解析出的數值；Library／no-Hero 的 characteristic、potency、Presence、Recovery、Speed 等 expression 未解析時，保留 approved raw zh-TW，不得因缺少數值 fallback English。
 
 projection 的結果限於三種：
 
@@ -397,11 +434,23 @@ projection 的結果限於三種：
 
 已核准的 presentation 慣例為：ability section heading 中 `Spend` 譯為「花費」；authored prose 的 calculated damage／Stamina 寫作「N 點神聖傷害」、「N 點心靈傷害」、「恢復 N 點體力」。compact Power Roll 維持「N 神聖傷害」，不強制加入「點」。raw approved 中文中的「等於你氣場…／復元值／速度」等 expression 在 no-Hero 未解析時維持原文；解析後使用 calculator 實際數值，不寫成「等於 N」。
 
-若 Hero Builder 與 Library 都 render，automated evidence 至少涵蓋代表性的 Hero 與 no-Hero production behavior、實際 production Class data／localization 與 rendered presentation／Markdown，並證明 English、canonical state／serialization 未變，且沒有 zh-TW 進入 calculator。slice-specific manifest test 只固定本 slice 的 identities、delta 或 domain contract，不得寫死不相關的 global `requiredCount` 或完整 `unresolvedDomains`；若 batch 改動 manifest denominator，最後變更後跑 full suite。完成單一 Class 不代表 `official-ability-authored-content` 完成，僅在整個 domain 完整 enumerate 後才能移除 unresolved。
+同一 authored field／presentation 若在 Hero Builder 與 Library 都 render，automated evidence 至少涵蓋該欄位代表性的 Hero 與 no-Hero production behavior、實際 production data／localization 與 rendered presentation／Markdown，並證明 English、canonical state／serialization 未變，且沒有 zh-TW 進入 calculator。slice-specific manifest test 只固定本 slice 的 identities、delta 或 domain contract，不得寫死不相關的 global `requiredCount` 或完整 `unresolvedDomains`；若 batch 改動 manifest denominator，最後變更後跑 full suite。完成單一 Class 不代表 `official-ability-authored-content` 完成，僅在整個 domain 完整 enumerate 後才能移除 unresolved。
+
+### Calculated Path Discovery Gate
+
+在建立下面的 matrix 之前，Reviewer 先固定「本批哪些 identity 屬於 calculated presentation」：
+
+- 來源是**本批已固定的 in-scope identities**，加上這些 identity 在 production 的實際 render／call path；
+- **不得只以 `FeatureType` 或「Ability／non-Ability」標籤分類。** non-Ability Feature 的 description／prose 若 production 實際送進 calculator，就屬於 calculated；Ability 型別的欄位若 production 不做 calculated transform，就不屬於。
+- 只有**實際在 production 通過 calculator／發生 calculated transform**的 identity 才進 matrix；「看起來像動態語法」不算。
+
+這個 gate 只在已固定的 in-scope identities 之中做分類：它**不擴張 translation denominator**、不新增 required identity、也不授權任何額外 traversal 或 content crawling。denominator 仍依第 2、7 節與第 14 節。
+
+若無法從現行 code 判定某 identity 的實際 calculated path，依第 5 節與本節 fallback 處理或 STOP，不得以猜測填 matrix。
 
 ### Calculated Presentation Matrix
 
-Agent Task 前，Reviewer 必須辨識 live source 中 materially distinct 的 dynamic presentation grammar families。matrix 可輕量、毋須成為 repository artifact，但每個 family 至少記錄：
+Agent Task 前，Reviewer 必須依上述 Discovery Gate 的結果，辨識 live source 中 materially distinct 的 dynamic presentation grammar families。matrix 可輕量、毋須成為 repository artifact，但每個 family 至少記錄：
 
 - representative localization identity；
 - canonical dynamic grammar family；
@@ -409,7 +458,7 @@ Agent Task 前，Reviewer 必須辨識 live source 中 materially distinct 的 d
 - 預期安全 zh-TW projection 或 fallback；
 - 所需 representative production evidence。
 
-只分類實際存在於該 batch 的 family；例如 characteristic-based values、half／twice Speed、potency、damage、condition Markdown emphasis、push／pull／slide、`vertical pull` 等 modified movement phrase、calculated content 周圍需保留的 structural phrase，或 unsupported calculated rewrite fallback。不得把此清單變成每批必跑的 checklist。
+只分類 Discovery Gate 判定為 calculated、且實際存在於該 batch 的 family；例如 characteristic-based values、half／twice Speed、potency、damage、condition Markdown emphasis、push／pull／slide、`vertical pull` 等 modified movement phrase、calculated content 周圍需保留的 structural phrase，或 unsupported calculated rewrite fallback。不得把此清單變成每批必跑的 checklist。
 
 ## 14. Class／Subclass Level 1 Non-Ability Required Identity
 

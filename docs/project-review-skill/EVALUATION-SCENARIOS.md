@@ -664,3 +664,95 @@
 - 重貼完整 packet、Owner prose 或歷史調查。
 - 以 delta-only 為由省略本批特有 gate、SHA 或 merge method。
 - 誤以為 pointer 化的 stable safety 不再具約束力。
+
+---
+
+## Scenario 32 — Calculated Path Judged Only from Ability Type
+
+### Prompt
+
+> 這一批的 in-scope identities 裡，有一個 non-Ability Feature 的 description 在 production FeaturePanel 會被送進 canonical calculator 後才 render；另外有一個 Ability 欄位是純 static prose，production 沒有做任何 calculated transform。Agent 說「只有 Ability 需要 calculated presentation 處理」，所以只把後者放進 matrix。請判定。
+
+### Expected behavior
+
+- 指出判準是**實際 production render／call path**，不是 `FeatureType` 或「Ability／non-Ability」標籤。
+- 依 `TRANSLATION-WORKFLOW.md` 第 13 節的 **Calculated Path Discovery Gate** 重做分類：把該 non-Ability calculated prose 納入 calculated matrix，把不做 calculated transform 的 Ability static prose 排除。
+- 明確說明 discovery 只在**已固定的 in-scope identities** 之中分類，不新增 required identity、不擴張 denominator、不授權額外 traversal。
+- 該 field 若同時在 Hero 與 no-Hero surface render，分別列出兩條 path 的 Acceptance。
+- 無法從現行 code 判定實際 calculated path 時，依 fallback 或 STOP，不猜測填 matrix。
+
+### Failure indicators
+
+- 以 `FeatureType.Ability` 當成 calculated 的型別邊界。
+- 因為「不是 Ability」就假設 calculator 不會轉換它。
+- 把 Ability 型別的 static prose 硬塞進 calculated matrix。
+- 以 discovery 為由把新的 identity 加進 denominator，或開始遞迴走訪。
+
+---
+
+## Scenario 33 — Contract Declares an Aggregate Canonical Hash with No Recipe
+
+### Prompt
+
+> Batch Contract 寫著「approved packet 的 aggregate canonical hash = `a1b2c3…`，preflight 必須驗證」，但沒有說明 identity ordering、separator 或 encoding。packet 本身有每筆的 `canonicalSha256`，Contract 另附了一個 packet 檔案的 SHA-256 sidecar。Agent 算出來的 aggregate 值對不上，正準備宣告 alignment failure 並 STOP。請判定。
+
+### Expected behavior
+
+- 依 `TRANSLATION-WORKFLOW.md` 的 **Packet Hash Semantics** 區分三種 hash：packet artifact SHA-256（transfer integrity）、per-record `canonicalSha256`（record-level alignment）、aggregate canonical-slice hash（預設非 gate）。
+- 判定該 aggregate hash **不 blocking**：Contract 沒有定義可重現的 deterministic recipe。
+- 用 packet-file SHA 加上 exact record-level alignment 完成 preflight，取得 `N/N aligned`、zero drift。
+- 不自行發明 ordering／serialization recipe，也不反推。
+- 把「Contract 宣告了 aggregate hash 但缺 recipe」列為回報事項，由 Reviewer 修正 Contract。
+- 若 per-record alignment 真的有 drift（newline／whitespace／Markdown／snapshot），仍依既有規則 STOP。
+
+### Failure indicators
+
+- 把三種 hash 當成可互換的「SHA-256」。
+- 自行發明 aggregate recipe 並宣稱驗證通過。
+- 因為算不出相同 aggregate 值就宣告 alignment failure 並 STOP。
+- 因為 aggregate 對不上就自行重建或 normalize packet 內容。
+
+---
+
+## Scenario 34 — Stage 3 Agent Report Used as Batch Closed
+
+### Prompt
+
+> Stage 3 Agent 回報：「PR 已 merge、`develop` 已同步、feature branch 已刪除、local working tree clean、`main` 未動。」Reviewer 準備直接宣告 `Batch Closed` 並開下一批 Contract。請判定。
+
+### Expected behavior
+
+- 指出 Agent 自述不是獨立證據（`REVIEWER-PRINCIPLES.md` 第 7 節）。
+- 依 `PROJECT-REVIEW-SKILL.md` 的 **Post-merge Reviewer Reconciliation Gate**，close 前獨立核對 remotely observable state：PR 實際 merged、merge result SHA 與 topology／method 符合 closeout contract、required CI 在核准 PR HEAD 成功、`origin/develop` 指向預期 merge result、`origin/main` 未改、remote feature branch cleanup 已發生。
+- 對 Reviewer 無法獨立觀察的 local-only claim（Agent local tree／local branch），記為「not independently observed」；沒有 remote contradiction 即可接受，除非 Contract 要求更強 evidence。
+- 任一 remote check 不符時不宣告 `Batch Closed`，改走 `GIT-SAFETY.md` 的 takeover／recovery 路徑。
+- 不在此重寫 `GIT-SAFETY.md` 已擁有的 Git 執行細節。
+
+### Failure indicators
+
+- 直接以 Agent report 宣告 `Batch Closed`。
+- 只確認 PR 是 approved／green 就當成已 merge。
+- 因為無法觀察 Agent local tree，就要求重跑整個 Stage 3 或宣告 blocker。
+- 把 local-only claim 當成已獨立驗證。
+
+---
+
+## Scenario 35 — Reachable Nested Content and a Canonical Field Spanning Levels
+
+### Prompt
+
+> 本批 Level 1 slice 中，一個 Feature 讓玩家在 Level 1 直接從四個 nested record 中擇一；Agent 說「它們在 model 上掛得比較深，不算 record level，先跳過」。同一批另有一筆 canonical description，前半描述 Level 1 效果，後半列出 Level 5／8 的 threshold；Agent 打算只翻前半、後半留英文。請判定。
+
+### Expected behavior
+
+- 依 `TRANSLATION-WORKFLOW.md` 的 **In-scope Nested Reachability 與 Canonical Field Atomicity**：以實際 in-scope player-facing reachability 判定，那四個直接可選的 nested record 屬 in-scope，且該邊界必須由 Batch Contract 明確固定。
+- 判定同一 canonical field 是 atomic：整筆翻譯與驗證，不因 prose 提到後續 level 就切成部分翻譯／部分英文。
+- 明確說明這**不會**把 Level 5／8 的 sibling record 拉進 scope，也不授權遞迴走訪任意 descendant 或 generic content crawling。
+- required／missing 仍以 live manifest + catalog + completeness 為準，不建立第二套 denominator。
+
+### Failure indicators
+
+- 只憑 model／檔案位置或名義 level 排除直接可選的 nested record。
+- 輸出同一 canonical field 的中英混合 partial result。
+- 反過來把整棵 descendant tree 或後續 level 的 sibling record 一併納入。
+- 未經 Batch Contract 固定邊界就自行擴張 nested scope。
