@@ -395,6 +395,51 @@ const projectNullCalculatedValue = (elementID: string, field: string, canonicalE
 	});
 };
 
+/**
+ * The three Tradition Mastery tables. Their only calculated reading is the Intuition-derived
+ * forced movement bonus: Chronokinetic and Cryokinetic carry it once, in their Discipline 12
+ * row, and Metakinetic carries it twice, in its Discipline 2 and Discipline 12 rows. The rest
+ * of each Markdown table is left alone by the calculator, so only those verified values are
+ * carried into the Owner-approved zh-TW, and Library keeps the approved unresolved wording.
+ *
+ * The expected count has to hold on all three sides - canonical, calculated and approved
+ * localized - before anything is projected, and the canonical text with those values put back
+ * has to reproduce the calculated English exactly. Any other rewrite the calculator made, or
+ * any drift in the approved snapshot, returns undefined so the shared presenter falls back to
+ * the whole calculated English instead of mixing the two languages.
+ */
+const projectNullTraditionMasteryBonus = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const expectedOccurrencesByElementID: Record<string, number> = {
+		'null-sub-1-1-2a': 1,
+		'null-sub-2-1-2a': 1,
+		'null-sub-3-1-2a': 2
+	};
+	const expectedOccurrences = expectedOccurrencesByElementID[elementID];
+	if ((expectedOccurrences === undefined) || (field !== 'description')) {
+		return undefined;
+	}
+
+	const canonicalBonus = /the forced movement distance gains a bonus equal to your Intuition score/g;
+	const calculatedBonus = /the forced movement distance gains a bonus equal to (-?\d+)/g;
+	const localizedBonus = /強制移動的距離會獲得等於你`直覺`的加值/g;
+
+	const calculatedMatches = matchAll(calculatedEnglish, calculatedBonus);
+	if ((matchAll(canonicalEnglish, canonicalBonus).length !== expectedOccurrences)
+		|| (calculatedMatches.length !== expectedOccurrences)
+		|| (matchAll(localizedRaw, localizedBonus).length !== expectedOccurrences)) {
+		return undefined;
+	}
+
+	let canonicalIndex = 0;
+	const projectedCanonical = canonicalEnglish.replace(canonicalBonus, () => calculatedMatches[canonicalIndex++][0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	let localizedIndex = 0;
+	return localizedRaw.replace(localizedBonus, () => `強制移動的距離會獲得 ${calculatedMatches[localizedIndex++][1]} 點加值`);
+};
+
 // Shadow's two authored Speed readings. AbilityLogic resolves the canonical English speed
 // first; this only carries that verified value into the Owner-approved zh-TW grammar, and
 // Library keeps the approved unresolved raw wording.
@@ -835,6 +880,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const nullCalculatedValue = projectNullCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (nullCalculatedValue) {
 		return nullCalculatedValue;
+	}
+
+	const nullTraditionMasteryBonus = projectNullTraditionMasteryBonus(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (nullTraditionMasteryBonus) {
+		return nullTraditionMasteryBonus;
 	}
 
 	const shadowSpeedValue = projectShadowSpeedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
