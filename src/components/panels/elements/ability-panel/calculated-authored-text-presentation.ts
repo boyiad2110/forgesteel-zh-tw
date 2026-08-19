@@ -392,6 +392,116 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
 };
 
+/** Counts non-overlapping occurrences of a literal snippet, for exact-occurrence guards. */
+const occurrenceCount = (text: string, snippet: string) => text.split(snippet).length - 1;
+
+// These Fury Primordial Aspect readings are identity-bound snapshots. The canonical
+// calculator resolves the English value first; this only projects that one verified number
+// into the Owner-approved zh-TW grammar. Nothing here recomputes a characteristic, and the
+// Berserker Spend's 'twice your Might score' is never doubled on the Chinese side - the
+// calculator resolves it in English and only the result is carried across.
+//
+// Lines of Force's own effect text is deliberately absent: its approved zh-TW carries no
+// forced-movement bonus clause to project into, so it stays on the shared fail-closed path.
+const projectFurySubclassCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	// Primordial Strength resolves three separate Might readings in one Feature description:
+	// the two extra-damage clauses and the Ferocity 2 Knockback bonus. Each is matched and
+	// counted on its own, and the whole calculated English is reconstructed before any
+	// Chinese text is touched.
+	if ((elementID === 'fury-sub-1-1-3') && (field === 'description')) {
+		const clauses = [
+			{
+				canonical: 'the strike deals extra damage equal to your Might score.',
+				calculated: /the strike deals extra damage equal to (-?\d+)\./g,
+				localized: '你會額外造成等於你`力量`的傷害。',
+				replacement: (value: string) => `你會額外造成 ${value} 點傷害。`
+			},
+			{
+				canonical: 'the creature takes extra damage equal to your Might score.',
+				calculated: /the creature takes extra damage equal to (-?\d+)\./g,
+				localized: '該生物會額外受到等於你`力量`的傷害。',
+				replacement: (value: string) => `該生物會額外受到 ${value} 點傷害。`
+			},
+			{
+				canonical: 'the forced movement distance gains a bonus equal to your Might score.',
+				calculated: /the forced movement distance gains a bonus equal to (-?\d+)\./g,
+				localized: '強制移動的距離會獲得等於你`力量`的加值。',
+				replacement: (value: string) => `強制移動的距離會獲得 ${value} 點加值。`
+			}
+		];
+
+		const matches = clauses.map(clause => Array.from(calculatedEnglish.matchAll(clause.calculated)));
+		const occurrencesAgree = clauses.every((clause, index) => (
+			(occurrenceCount(canonicalEnglish, clause.canonical) === 1)
+			&& (matches[index].length === 1)
+			&& (occurrenceCount(localizedRaw, clause.localized) === 1)
+		));
+		if (!occurrencesAgree) {
+			return undefined;
+		}
+
+		const projectedCanonical = clauses.reduce((text, clause, index) => text.replace(clause.canonical, matches[index][0][0]), canonicalEnglish);
+		if (projectedCanonical !== calculatedEnglish) {
+			return undefined;
+		}
+
+		return clauses.reduce((text, clause, index) => text.replace(clause.localized, clause.replacement(matches[index][0][1])), localizedRaw);
+	}
+
+	const projections = [
+		{
+			// Primordial Cunning is a Feature description, so this arrives through the
+			// FeaturePanel auto-calc path rather than an ability section.
+			elementID: 'fury-sub-2-1-3',
+			field: 'description',
+			canonical: 'the forced movement distance gains a bonus equal to your Agility score.',
+			calculated: /the forced movement distance gains a bonus equal to (-?\d+)\./,
+			localized: '強制移動的距離會獲得等於你`敏捷`的加值。',
+			localizedReplacement: (value: string) => `強制移動的距離會獲得 ${value} 點加值。`
+		},
+		{
+			elementID: 'fury-sub-1-1-4',
+			field: 'sections.1.effect',
+			canonical: 'The forced movement distance gains a bonus equal to twice your Might score instead.',
+			calculated: /The forced movement distance gains a bonus equal to (-?\d+) instead\./,
+			localized: '強制移動的距離改為獲得等於你`力量` ×2 的加值。',
+			localizedReplacement: (value: string) => `強制移動的距離改為獲得 ${value} 點加值。`
+		},
+		{
+			elementID: 'fury-sub-2-1-4',
+			field: 'sections.0.text',
+			canonical: 'can shift up to a number of squares equal to your Agility score.',
+			calculated: /can shift up to a number of squares equal to (-?\d+)\./,
+			localized: '遁移最多等於你`敏捷`的格數。',
+			localizedReplacement: (value: string) => `遁移最多 ${value} 格。`
+		},
+		{
+			elementID: 'fury-sub-3-1-4',
+			field: 'sections.0.text',
+			canonical: 'You gain temporary Stamina equal to your Might score',
+			calculated: /You gain temporary Stamina equal to (-?\d+)/,
+			localized: '你獲得等於你`力量`的臨時體力',
+			localizedReplacement: (value: string) => `你獲得 ${value} 點臨時體力`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || !localizedRaw.includes(projection.localized)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, calculatedMatch[0]);
+	if (projectedCanonical !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
+};
+
 const projectNullCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
 	if ((elementID === 'null-ability-10') && (field === 'sections.0.text')) {
 		const calculatedMatches = Array.from(calculatedEnglish.matchAll(/takes psychic damage equal to (-?\d+)/g));
@@ -911,6 +1021,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const furyTideOfDeath = projectFuryTideOfDeathSpeed(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (furyTideOfDeath) {
 		return furyTideOfDeath;
+	}
+
+	const furySubclassCalculatedValue = projectFurySubclassCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (furySubclassCalculatedValue) {
+		return furySubclassCalculatedValue;
 	}
 
 	const conduitIntuitionValue = projectConduitIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);

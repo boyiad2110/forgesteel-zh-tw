@@ -1233,6 +1233,59 @@ export const createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglis
 	return requiredCanonicalEnglish;
 };
 
+export const v1FurySubclassIDs = [
+	'fury-sub-1',
+	'fury-sub-2',
+	'fury-sub-3'
+] as const;
+
+/** Enumerates only Fury's three Primordial Aspects, in their canonical order. */
+export const getV1FurySubclasses = (): SubClass[] => {
+	const subclassesByID = new Map(fury.subclasses.map(subclass => [ subclass.id, subclass ]));
+	return v1FurySubclassIDs.map(id => {
+		const subclass = subclassesByID.get(id);
+		if (!subclass) {
+			throw new Error(`Fury subclass '${id}' is missing`);
+		}
+		return subclass;
+	});
+};
+
+/**
+ * Builds the bounded 49-identity Fury Level 1 subclass completion denominator: the class's
+ * `subclassName` category plus each of the three Primordial Aspects' own metadata, Level 1
+ * non-Ability content and Level 1 authored Ability content.
+ *
+ * The base class is deliberately untouched. Fury's Level 1 base content already has two
+ * merged, independently tested slices - the 80-identity Ability slice and the 15-identity
+ * non-Ability remaining slice - so this one only adds the subclass content the batch is for.
+ * All three stay disjoint.
+ *
+ * Each Aspect's Level 1 tree goes through the one shared bounded non-Ability walk and the
+ * same bounded Ability collector, with no per-Aspect exception. Nothing is descended into
+ * beyond a Choice's options and a Multiple's children, so this stays a reviewable slice
+ * rather than a generic subclass crawler.
+ *
+ * Stormwight's four kits (Boren, Corven, Raden, Vuken) are Level 2 content and so fall
+ * outside this Level 1 slice by the bound itself, not by a class-specific exclusion. Its
+ * Level 1 `Beast Shape` kit choice contributes only its own name, exactly as the shared
+ * walk treats every other kit choice.
+ */
+export const createV1FuryLevel1SubclassCompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	requiredCanonicalEnglish[elementFieldIdentity(fury.id, 'subclassName')] = fury.subclassName;
+
+	getV1FurySubclasses().forEach(subclass => {
+		addRequiredElementFields(requiredCanonicalEnglish, subclass);
+		const levelOneFeatures = getLevelOneFeatures(subclass.featuresByLevel, `Fury subclass '${subclass.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelOneFeatures);
+		collectBoundedLevel1Abilities(levelOneFeatures)
+			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Orden ancestry Ability slice; all other ancestry Ability content remains unresolved. */
 export const v1OrdenAncestryAbilityIDs = [
 	'memonek-feature-3-5',
@@ -1555,6 +1608,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),
+		...createV1FuryLevel1SubclassCompletionRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
