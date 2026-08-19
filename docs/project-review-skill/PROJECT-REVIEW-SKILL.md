@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.5.5"
+  version: "0.5.6"
 ---
 
 # Forge Steel Reviewer
@@ -109,7 +109,7 @@ Stage 2 focused correction 與 Stage 3 closeout 的 handoff 只寫本輪決策�
 
 translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRANSLATION-WORKFLOW.md` 的 Worksheet 規格。交付 worksheet 前，必須先依既有 authority 處理 mechanical／derived rows；Owner request 只包含真正的新術語、新譯名、新 prose 或語意取捨。不得因 worksheet 有 N rows 就要求 Owner 逐筆 finalize N rows；handoff 必須告知真正需要決定的 row count。若 Reviewer 無法判斷某 row 是否 mechanical，先依現行 authority 判斷；只有真的涉及語意選擇才交 Owner。
 
-交付 translation implementation 前，Reviewer 完成 `TRANSLATION-WORKFLOW.md` 對該 batch 適用的 gate：使用 approved implementation packet 時的 packet canonical-alignment、適用的 Class ability authored content／calculated presentation 的 grammar matrix，以及 translation batch 必要的明確 glossary-delta decision。本 Skill 只編排 gate，不重複其細節。
+交付 translation implementation 前，Reviewer 完成 `TRANSLATION-WORKFLOW.md` 對該 batch 適用的 gate：使用 approved implementation packet 時的 packet canonical-alignment、依 `TRANSLATION-WORKFLOW.md` 的 **Calculated Authored Content Presentation** 執行 Calculated Path Discovery Gate 與其 grammar matrix，以及 translation batch 必要的明確 glossary-delta decision。calculated presentation 的判準是**實際 production render／call path 是否讓 canonical English 通過 canonical calculator**，不是 `FeatureType.Ability` 或「Ability／non-Ability」標籤；non-Ability Feature prose 若實際被 calculator 轉換，同樣適用。本 Skill 只編排 gate，不重複其細節。
 
 packet canonical alignment 的 timing 已左移，依 `TRANSLATION-WORKFLOW.md` 的 **Packet Canonical Alignment Gate** 執行三層：worksheet 交 Owner 前、Owner finalization 後的 packet freeze／Agent handoff 前，以及 Agent implementation preflight 作 defense in depth。Reviewer artifact 的 newline／whitespace／Markdown／snapshot／hash drift 屬 Reviewer 自行修正範圍，不得變成 Owner decision，正常流程也不應由 Agent preflight 第一次發現。本 Skill 只固定 timing，不複製 verifier semantics。
 
@@ -252,9 +252,30 @@ Reviewer 依 Principles 與本批 history 選擇適合方式，並在 Stage 3 Co
 - merge 後同步 local／origin `develop`，安全清理 feature branch。
 - 最終確認 working tree clean、`main` 未改。
 
+### Post-merge Reviewer Reconciliation Gate
+
+Agent 回報 Stage 3 completion **不等於** `Batch Closed`。依 `docs/REVIEWER-PRINCIPLES.md`，Agent 自述不是獨立證據；Reviewer 必須在宣告 `Batch Closed` 前，自行以 remotely observable authoritative state 做一次 reconciliation。
+
+適用時的最低 remote checks：
+
+- PR 確實已 merge（不是只有 approved／green）。
+- merge result SHA 與 merge topology／method 符合已核准的 closeout contract。
+- required CI 在已核准的 PR HEAD 上成功。
+- `origin/develop` 指向預期的 merge result。
+- `origin/main` 未改、維持 frozen。
+- 預期的 remote feature branch cleanup 已發生。
+
+Reviewer 無法獨立觀察的 local-only cleanup claim（例如 Agent local working tree、local branch 狀態），記為「not independently observed」即可；只要沒有 remote contradiction 就足夠，除非 Batch Contract 明確要求更強的 evidence。
+
+任一 remote check 與核准 contract 不符時，不得宣告 `Batch Closed`，改依 `GIT-SAFETY.md` 的 takeover／recovery 路徑處理。
+
+本 gate 只固定「Reviewer 在 close 前必須獨立核對什麼」，不重複 `GIT-SAFETY.md` 已擁有的 Git 執行細節。
+
 ## 11. Completion / Handoff
 
 完成條件：Reviewer PASS、必要 CI／manual acceptance PASS、PR 依核准方式進 `develop`、local = origin/develop、feature branch 清理、working tree clean、`main` 未改、未開始下一批。
+
+宣告 `Batch Closed` 前，先完成上節的 **Post-merge Reviewer Reconciliation Gate**。
 
 `docs/PROJECT-STATUS.md` 只在狀態真的需要維護時更新，不複製 PR body 或 test log。
 
@@ -294,6 +315,6 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、已完成摘�
 - `GIT-SAFETY.md` — Git／PR／merge／cleanup safety。
 - `FAILURE-MODES.md` — 常見失敗模式。
 - `EVALUATION-SCENARIOS.md` — workflow evaluation。
-- `docs/translation/TRANSLATION-WORKFLOW.md` — 翻譯工作表與 Class authored-content workflow。
+- `docs/translation/TRANSLATION-WORKFLOW.md` — 翻譯工作表與 calculated authored content presentation workflow。
 
 修改本 Skill 時，至少重新執行與變更規則相關的 evaluation scenarios。

@@ -82,9 +82,21 @@ Agent 不得自行建立新的中文遊戲術語或改變已核准語意。
 
 若出現新的詞義、術語或真正翻譯取捨，停止並回報 Reviewer。
 
-### Class Ability Authored Content
+### Calculated Authored Content Presentation
 
-Class ability authored-content task 必須依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Class Ability Authored Content` 規格。若同一內容同時出現在 Hero 與 no-Hero surface，Batch Contract 必須分別列出兩條 presentation path 的 Acceptance，不得以其中一條 PASS 推定另一條 PASS。新 calculated grammar 若沒有現行 authority 或安全 projection，不得自行建立中文 parser／calculator 或新翻譯；依 Workflow fallback 或 STOP。
+calculated authored-content task 必須依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Calculated Authored Content Presentation` 規格。
+
+適用範圍是**任何實際會通過 canonical calculator 的 in-scope player-facing authored field**，不以 Ability 為型別邊界，至少包含：
+
+- Ability authored fields；
+- Power Roll tier text；
+- non-Ability Feature 的 description／prose，當 production rendering 實際把它送進 calculator 時。
+
+Agent 依該 Workflow 的 **Calculated Path Discovery Gate**、Hero／no-Hero path 規則與 fallback policy 判定，不得只依 `FeatureType.Ability` 決定哪些欄位屬於 calculated presentation；也不得反過來因為某欄位不是 Ability，就假設它不會被 calculator 轉換。
+
+若同一內容同時出現在 Hero 與 no-Hero surface，Batch Contract 必須分別列出兩條 presentation path 的 Acceptance，不得以其中一條 PASS 推定另一條 PASS。新 calculated grammar 若沒有現行 authority 或安全 projection，不得自行建立中文 parser／calculator 或新翻譯；依 Workflow fallback 或 STOP。
+
+calculated path discovery 只決定「哪些已在 scope 內的 identity 需要 calculated presentation 處理」，不擴張 translation denominator，也不授權額外 traversal。
 
 ### Class／Subclass Level 1 Non-Ability Required Identity
 
@@ -160,6 +172,16 @@ preflight 成功後，Agent 連續完成已授權的 implementation、verificati
 ### Translation Packet Preflight
 
 從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。適用時優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 current repository primitive，取得 machine-verifiable exact identity／snapshot／hash evidence。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）或 alignment issue 都必須在 implementation 前 STOP；不得自行重建、修補或 normalize Reviewer packet authority。最新 authorized packet revision 取代較舊 revision。
+
+#### Packet SHA 語意（三種，不可混用）
+
+依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 **Packet Hash Semantics**：
+
+1. **packet artifact SHA-256**：Contract／sidecar 提供時，驗證的是「交給 Agent 的那個 serialized packet 檔案」本身，屬 transfer-integrity evidence。
+2. **per-record `canonicalSha256`**：驗證每一筆 exact UTF-8 canonical value，與現行 `src/localization/test-support/packet-canonical-alignment.ts` 的 packet-alignment primitive 相容，是 record-level alignment 的主要 machine evidence。
+3. **aggregate canonical-slice hash**：**不是預設 gate。**
+
+只有當 Contract 同時宣告該 aggregate hash **並定義可重現的 deterministic recipe**（至少 ordering 與 serialization／separators／encoding，足以重算出同一個值）時，它才是 blocking gate。Contract 只給一個 aggregate 數值而沒有 recipe 時，Agent **不得自行發明 recipe**、不得反推、也不得因為算不出相同值就宣稱 alignment 失敗；改以 packet-file SHA（若有）加上 exact record-level alignment 完成 preflight，並把缺少 recipe 這件事列入回報。
 
 ### Stage 1 Remote Reviewer Branch（需 Contract 明確授權）
 

@@ -1,6 +1,6 @@
 # Forge Steel 繁體中文化專案進度
 
-> 最後更新：2026-08-18
+> 最後更新：2026-08-20
 > 本文件是 handoff 摘要，不取代 GitHub PR／commit、`docs/REVIEWER-PRINCIPLES.md`、V1 requirements、現行 code／tests／CI 或人工驗收 evidence。
 
 ## 1. Current Baseline
@@ -8,7 +8,7 @@
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active integration branch：`develop`
 - Reconciliation snapshot（本文件最後 reconcile 時的 `develop`，僅供對照，**不是 reset target**）：
-  `6057348a5616b332ca3ace9a133c795200dd3bf9`
+  `23eabd3a18e9396963d90554366ae22afacc9633`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
 - 最近已 merge 的工作以 `git log develop` 與 GitHub PR 為準；本文件不維護「最新 PR」欄位，避免每次 merge 後立即 stale。
@@ -108,8 +108,8 @@
 
 - Orden Ancestry abilities（#74）、Core standard Kits（#76）、Core Domains Level 1–3（#77）已加入 production localization、manifest coverage 與其各自的 representative presentation evidence。
 - Core standard Class 的 **base Level 1 remaining（非 Ability）player-facing content** 已完成：Censor Level 1 與其 Orders（#78）、Conduit（#79）、Fury（#85）、Elementalist（#86）、Null（#87）。Conduit 沒有 subclass。
-- 尚未完成 base Level 1 remaining 的 Core standard Class：Shadow、Tactician、Talent、Troubadour。
-- **這不代表 Core Class Level 1 已完成。** 有 subclass 的 Core Class，其 Level 1 subclass player content 仍須依 live code／manifest 完整 enumerate；base-class remaining 完成不等於整個 Class Level 1 complete。上述 Class 清單只是 handoff 導覽，不是第二套 denominator——實際 required／missing 一律以 live manifest + catalog + `npm run loc:status` 為準。
+- 本節只涵蓋這個 PR 區間；其餘 Core standard Class 的 base Level 1 remaining 與各 Class 的 Level 1 subclass content 由 3.12 記錄。
+- 上述 Class 清單只是 handoff 導覽，不是第二套 denominator——實際 required／missing 一律以 live manifest + catalog + `npm run loc:status` 為準。
 - 這些 Core／Orden expansion 不改變 V1 scope：V1 仍包含 Core、Orden、Beastheart 與 Summoner；目前 sequencing 可優先處理 Core／Orden。
 
 ### 3.11 Localization workflow／implementation 優化（PR #88–#90）
@@ -119,6 +119,22 @@
 - **Shared verification entry point（#88）：** local CI-equivalent verification 與 GitHub CI 已收斂到 repository 自身定義的單一 verification entry point。後續 workflow 應讀 current `package.json` scripts 與 current CI workflow 決定實際 command，不把 command 細節硬編成永久文件規則。
 - **Bounded traversal 去重（#89）：** Conduit／Elementalist／Fury／Null remaining-content 的 production bounded non-Ability traversal 由多份重複實作收斂為單一共用 implementation，既有 bounded semantics、denominator 與 canonical values 不變。這是 implementation precedent，不新增 localization scope，也不是 generic content crawler。
 - **Packet preflight 與 permanent regression 分離（#90）：** translation packet canonical alignment 明確定位為 future implementation preflight evidence；已 merge localization 的 permanent regression 不再永久重播 historical packet revision／hash map，改由 independent live canonical evidence 驗證 manifest／catalog／presentation behavior，降低 self-validating false green 風險。對應的永久規則已寫入 `docs/translation/TRANSLATION-WORKFLOW.md` 與 `docs/project-review-skill/RISK-AND-VERIFICATION.md`。
+
+### 3.12 Core standard Class Level 1 player-facing localization milestone
+
+- 九個 Core standard Class 的 **Level 1 player-facing localization 已完成**，涵蓋 base Level 1 non-Ability content、各 Class 適用的 Level 1 subclass content，以及 Fury Stormwight Level 1 Beast Shape 直接可選的 Kit content。Conduit 沒有 subclass。
+- 這個 milestone 由 3.9（Level 1 ability-authored-content）、3.10（先行完成的 base Level 1 remaining）與其後的 Shadow／Tactician／Talent／Troubadour base remaining、Null／Elementalist／Fury subclass、Stormwight Kit 各批共同構成；逐批細節以 Git history／GitHub PR 為準。
+- **這是 Core standard Class Level 1 的 milestone，不是 V1 完成，也不代表任何 unresolved domain 已收斂。** `official-ability-authored-content` 與 `class-and-subclass-level-content` 仍為 unresolved；Beastheart／Summoner、Level 2–3 content、Hero Sheet、Hero Edit semantic keys、nested Hero creation authored content 等 V1 工作仍未完成。
+- 本節是 handoff 導覽，不是第二套 denominator。實際 required／missing／unapproved／unresolved 一律以 live manifest + catalog + `npm run loc:status` evidence 為準。
+
+### 3.13 Reviewer／translation workflow throughput 優化（PR #95–#97、#100）
+
+這一段是這批 workflow 變更的長期成果摘要，不維護 PR-by-PR 流水帳；逐批細節以 Git history／PR 為準。
+
+- **Stage 1 fixed cost 下降：** Class localization presentation test 收斂到共用的 repository test harness，Stage 1 預設只跑 risk-matched minimum sufficient evidence，不預設完整 local `verify:ci` 或 build；Batch Contract 另可明確授權 Stage 1 remote reviewer branch，讓 Reviewer 直接 review exact remote HEAD，取代昂貴的 cumulative patch handoff。
+- **Class／Subclass Level 1 non-Ability required identity 已固定：** 該 slice 的 required identities 如何可靠 enumerate（shared bounded walk、不得 class-specific arbitrary exclusion、explicit supplemental fields、不為單一 class 擴張 shared walk）已寫入 `docs/translation/TRANSLATION-WORKFLOW.md`，不再每個 class batch 重新推導。
+- **Entry-point routing：** `CLAUDE.md` 與 Reviewer／Agent 文件的入口一律導向現行 authority 文件與現行 repository primitives，避免每份 handoff 重建規格。
+- **Reviewer workflow 收斂：** Precedent Gate 增加 scope-equivalence check、packet canonical alignment timing 左移為三層、Batch Cost Checkpoint 取代硬數字門檻、Stage 2／Stage 3 改用 compact delta-only handoff profile。
 
 ## 4. 現行 translation／decision 規則
 
@@ -169,10 +185,10 @@ Complication top-level localization 已完成。進一步 Complication-related c
 
 - **Core + Orden 優先。**
 - Beastheart／Summoner 仍屬 V1 scope，但 sequencing 延後；deferred 不等於移出 V1 requirements。
-- 下一個 substantive milestone 是 **Core Class Level 1 completion**。
-- 下一個預定 translation target 是 **Core Shadow Level 1 completion 的評估與 translation workflow**。
+- **Core standard Class Level 1 player-facing localization milestone 已達成**（見 3.12）；下一個 substantive milestone 尚未由 Owner 固定。
+- 候選方向仍在剩餘 unresolved domains 與既有 V1 工作之內：Core／Orden 的 Level 2–3 class／subclass content、nested Hero creation authored content、Hero Sheet、Hero Edit semantic keys，以及 Beastheart／Summoner。由 Reviewer 提案並取得 Owner 的 sequencing decision 後才固定。
 
-Shadow batch 的 exact base + subclasses slice 必須在正式 Batch Contract 前，依 live repository code／manifest 與 `docs/project-review-skill/PROJECT-REVIEW-SKILL.md` 的 Precedent Gate 再確認。本節記錄的是現行 sequencing 意圖，不預先固定該 slice 內容，也不固定其後所有 batch 的順序，更不建立第二套 denominator。
+任何下一批的 exact slice 都必須在正式 Batch Contract 前，依 live repository code／manifest 與 `docs/project-review-skill/PROJECT-REVIEW-SKILL.md` 的 Precedent Gate 再確認。本節記錄的是現行 sequencing 意圖，不預先固定 slice 內容，也不固定其後所有 batch 的順序，更不建立第二套 denominator。
 
 由 Reviewer 依剩餘 unresolved domains、現行 Owner sequencing 與 `docs/translation/TRANSLATION-WORKFLOW.md` 建立下一個 coherent Batch Contract。開始前先核對 manifest coverage 與 slice 邊界；若 identity、traversal 或 scope 形成 blocker，才依 Reviewer Batch Contract 另開 focused technical denominator batch。
 

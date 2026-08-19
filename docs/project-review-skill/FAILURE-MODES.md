@@ -344,3 +344,43 @@ focused correction 或 closeout 的 handoff 重貼完整翻譯 packet、Owner pr
 修正：
 
 依 `AGENT-TASK-CONTRACT.md` 的 **Compact Stage Handoff Profiles** 只寫本輪 delta；stable safety 以 pointer 引用既有文件。只有本批特有 gate、SHA、scope boundary 或禁止事項才明列。delta-only 不降低任何既有 safety authority 的效力。
+
+## 35. 只從 Ability 型別判定 Calculated Path
+
+錯誤：
+
+以 `FeatureType.Ability` 當成 calculated presentation 的判準，於是漏掉 production calculator 實際會轉換的 non-Ability Feature description／prose；或反過來，把 production 並不做 calculated transform 的 Ability 欄位硬塞進 calculated matrix。
+
+修正：
+
+依 `TRANSLATION-WORKFLOW.md` 第 13 節 **Calculated Authored Content Presentation** 的 **Calculated Path Discovery Gate**：從本批已固定的 in-scope identities 加上實際 production render／call path 判定，Ability 是常見情況而非型別邊界。discovery 不擴張 denominator，也不授權額外 traversal。
+
+## 36. Packet SHA 概念混用／未定義的 Aggregate Hash
+
+錯誤：
+
+把 packet 檔案 SHA、per-record `canonicalSha256` 與一個無法重現的 aggregate canonical-slice hash 當成可互換的「SHA-256」；或 Contract 只給 aggregate 數值沒給 recipe，Agent 就自行發明 ordering／serialization 反推，並在算不出相同值時宣稱 alignment failure。
+
+修正：
+
+依 `TRANSLATION-WORKFLOW.md` 的 **Packet Hash Semantics** 區分三者。aggregate hash 預設不是 gate；只有 Contract 同時宣告數值**並**定義 deterministic recipe 時才 blocking。recipe 缺席時改用 packet-file SHA 加 exact record-level alignment，不得反推 recipe。
+
+## 37. 把 Stage 3 Agent 自述當成 Batch Closed
+
+錯誤：
+
+Agent 回報 Stage 3 已 merge、已清理、已同步，Reviewer 未做任何獨立 remote 核對就宣告 `Batch Closed`。
+
+修正：
+
+依 `PROJECT-REVIEW-SKILL.md` 的 **Post-merge Reviewer Reconciliation Gate**，close 前獨立核對 remotely observable state（PR 實際 merged、merge SHA／topology、required CI、`origin/develop`、frozen `origin/main`、remote branch cleanup）。Reviewer 無法獨立觀察的 local-only claim 記為「not independently observed」，不因此阻擋，但也不當成已驗證。
+
+## 38. 排除可 Reach 的巢狀內容／把 Canonical Field 切一半
+
+錯誤：
+
+某 nested record 在 in-scope Level 1 flow 中直接可選，卻因為它在 model／檔案上掛得比較深或名義 level 不同就排除；或某 canonical description 內含較高 level 的 threshold，就只翻譯前半段、後半段留英文。
+
+修正：
+
+依 `TRANSLATION-WORKFLOW.md` 的 **In-scope Nested Reachability 與 Canonical Field Atomicity**：以實際 in-scope player-facing reachability 判定，且該邊界必須由 Batch Contract 明確固定；同一 canonical field 整筆翻譯與驗證，不產生部分翻譯的混合結果。這不授權遞迴走訪任意 descendant，也不把後續 level 的 sibling record 拉進 scope。
