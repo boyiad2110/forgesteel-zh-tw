@@ -509,6 +509,107 @@ const projectFurySubclassCalculatedValue = (elementID: string, field: string, ca
 	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
 };
 
+/**
+ * The five Stormwight Kit Feature descriptions the canonical calculator resolves a value in.
+ * Each is identity-bound to one Kit: Corven and Raden share the same canonical grammar and
+ * the same approved Chinese, but neither identity authorizes the other.
+ *
+ * These are FeatureType.Text Features, so they arrive through the FeaturePanel auto-calc
+ * path. The calculator resolves the English first; only that one verified number is carried
+ * into the approved zh-TW, and no potency or characteristic arithmetic happens here.
+ *
+ * Reconstruction is compared with `removeCalculationFormatting` because the calculator also
+ * adds its own presentation-only markup to these fields - code marks around a resolved
+ * potency, and bold around condition names. Stripping exactly that markup from both sides
+ * proves nothing but the intended value changed, without this code having to reproduce the
+ * calculator's formatting.
+ *
+ * Boren's Growing Ferocity is the one reading whose conditions are deliberately not
+ * emphasized: its approved Chinese uses 擒制 for both the Grab maneuver and the grabbed
+ * condition, so the occurrence counts cannot line up and the shared condition presenter
+ * would rightly refuse. Only its Ferocity 12 potency value is projected.
+ */
+const projectStormwightKitCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			// Aspect Benefits: the pull-and-grab potency threshold, plus grabbed emphasis.
+			elementID: 'kit-boren-feature-1',
+			canonical: 'M < [average]',
+			calculated: /M\s*<\s*(-?\d+)/,
+			localized: '`力量` < [中]',
+			localizedReplacement: (value: string) => `\`力量\` < ${value}`,
+			emphasizeConditions: true
+		},
+		{
+			// Growing Ferocity 12: the potency bonus equal to Might.
+			elementID: 'kit-boren-feature-4',
+			canonical: 'gains a bonus to its potency equal to your Might score.',
+			calculated: /gains a bonus to its potency equal to (-?\d+)\./,
+			localized: '其效力都會獲得等於你`力量`的加值。',
+			localizedReplacement: (value: string) => `其效力都會獲得 ${value} 點加值。`,
+			emphasizeConditions: false
+		},
+		{
+			// Growing Ferocity 2: the Disengage shift bonus equal to Agility.
+			elementID: 'kit-corven-feature-4',
+			canonical: 'the distance you can shift gains a bonus equal to your Agility score.',
+			calculated: /the distance you can shift gains a bonus equal to (-?\d+)\./,
+			localized: '你可以遁移的距離會獲得等於你`敏捷`的加值。',
+			localizedReplacement: (value: string) => `你可以遁移的距離會獲得 ${value} 點加值。`,
+			emphasizeConditions: false
+		},
+		{
+			// Raden's Growing Ferocity reads identically to Corven's, and is bound separately.
+			elementID: 'kit-raden-feature-4',
+			canonical: 'the distance you can shift gains a bonus equal to your Agility score.',
+			calculated: /the distance you can shift gains a bonus equal to (-?\d+)\./,
+			localized: '你可以遁移的距離會獲得等於你`敏捷`的加值。',
+			localizedReplacement: (value: string) => `你可以遁移的距離會獲得 ${value} 點加值。`,
+			emphasizeConditions: false
+		},
+		{
+			// Growing Ferocity 12: the forced movement bonus equal to Agility, plus prone.
+			elementID: 'kit-vuken-feature-4',
+			canonical: 'the forced movement distance gains a bonus equal to your Agility score.',
+			calculated: /the forced movement distance gains a bonus equal to (-?\d+)\./,
+			localized: '強制移動的距離會獲得等於你`敏捷`的加值。',
+			localizedReplacement: (value: string) => `強制移動的距離會獲得 ${value} 點加值。`,
+			emphasizeConditions: true
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (field === 'description'));
+	if (!projection) {
+		return undefined;
+	}
+
+	if ((occurrenceCount(canonicalEnglish, projection.canonical) !== 1) || (occurrenceCount(localizedRaw, projection.localized) !== 1)) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch) {
+		// Without a Hero the calculator resolves no value here but still adds its own condition
+		// emphasis, so the calculated English differs from the canonical by presentation markup
+		// alone. Boren's Growing Ferocity is the reading that cannot go through the shared
+		// condition presenter, so it would otherwise drop to English on the Library path. When
+		// nothing but that markup changed, the approved reading is already correct as authored.
+		return removeCalculationFormatting(canonicalEnglish) === removeCalculationFormatting(calculatedEnglish) ? localizedRaw : undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, calculatedMatch[0].replace(/\s+/g, ' '));
+	const projectedLocalized = localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
+
+	if (projection.emphasizeConditions) {
+		return projectCalculatedConditionEmphasis({
+			canonicalEnglish: projectedCanonical,
+			calculatedEnglish: calculatedEnglish,
+			localizedRaw: projectedLocalized
+		});
+	}
+
+	return removeCalculationFormatting(projectedCanonical) === removeCalculationFormatting(calculatedEnglish) ? projectedLocalized : undefined;
+};
+
 const projectNullCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
 	if ((elementID === 'null-ability-10') && (field === 'sections.0.text')) {
 		const calculatedMatches = Array.from(calculatedEnglish.matchAll(/takes psychic damage equal to (-?\d+)/g));
@@ -1033,6 +1134,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const furySubclassCalculatedValue = projectFurySubclassCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (furySubclassCalculatedValue) {
 		return furySubclassCalculatedValue;
+	}
+
+	const stormwightKitCalculatedValue = projectStormwightKitCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (stormwightKitCalculatedValue) {
+		return stormwightKitCalculatedValue;
 	}
 
 	const conduitIntuitionValue = projectConduitIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
