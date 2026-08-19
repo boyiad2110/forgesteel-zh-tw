@@ -413,11 +413,15 @@
 - 在 implementation 前以 machine comparison 發現 drift 並停止。
 - Reviewer 發行新 revision、標記舊 packet superseded、更新 identity/hash，保留既有 approved zh-TW。
 - 不只為 mechanical snapshot correction 重開 Owner translation approval。
+- 同時判定這是 timing failure：alignment 本應在 worksheet 交 Owner 前與 packet freeze 前各執行一次，Agent preflight 只是 defense in depth，不該是第一次發現的地方。
+- 修正 Reviewer artifact，不把 newline drift 當成 Owner 待決事項。
 
 ### Failure indicators
 
 - 視覺看起來相近就繼續。
 - 靜默修改舊 approved artifact。
+- 把 Agent preflight 視為這類 drift 的正常且唯一檢查點。
+- 把 Reviewer artifact 的 mechanical drift 交回 Owner 決定。
 
 ---
 
@@ -596,3 +600,67 @@
 - 另建人工清單取代 manifest denominator。
 - 為形式一致回頭重構所有已完成的舊 slice。
 - 把這個判斷當成新的 Owner decision，而不是既有 precedent 的執行。
+---
+
+## Scenario 29 — Latest Precedent Reused Across a Different Scope
+
+### Prompt
+
+> 上一批剛 merge 的是某 class 的 Ability slice。本批是另一個 class 的 Level 1 non-Ability slice。Agent 說：「直接沿用上一批的 collector，因為那是最新的 precedent。」請判定。
+
+### Expected behavior
+
+- 承認該 precedent 相關，但在 reuse 前先比較 scope boundary：base class／subclass、Ability／non-Ability、identity／traversal contract、supplemental fields、presenter／calculated extension point。
+- 指出 Ability collector 與 non-Ability identity 邊界不同，只重用真正 shared 的 architecture；本批 boundary 依本批 Contract 與現行 authority 判定。
+- 不因 scope mismatch 就宣告 precedent 無效或 STOP，也不因此展開無限制 archaeology。
+
+### Failure indicators
+
+- 以「它是最新 merged precedent」作為 copy-forward 的理由。
+- 未比較 scope 就沿用上一批的 enumerator／identity 假設。
+- 因 scope 不完全相同就整批 STOP 或要求新的 Owner decision。
+- 為了比對 scope 而回溯所有歷史 batch。
+
+---
+
+## Scenario 30 — Small Slice Judged Wrong by Identity Count
+
+### Prompt
+
+> 某 translation batch 是 31 個 identities，並且需要對既有 bounded、identity-bound presenter extension point 做一處擴充。有人主張：「identities 太少，應該合併鄰近 slice」，另有人主張「有 presenter edit，一律拆成第二個 technical PR」。請判定。
+
+### Expected behavior
+
+- 執行 `TRANSLATION-WORKFLOW.md` 的 **Batch Cost Checkpoint**，依 Owner decision 量、grammar families、presenter extension、test 成本、鄰近 slice 是否真正共享 authority／risk／presentation architecture 與固定成本判斷。
+- 明確拒絕以 identity count／LOC／file count 作判準；31 這個數字本身不決定 batch 對錯。
+- 既有 bounded／identity-bound extension 的擴充可留在 translation batch；只有真正新增 cross-cutting shared architecture、parser／calculator boundary 或 fallback policy 才考慮 separate technical batch。
+- 若小 slice 有 risk／authority／dependency 隔離理由，維持獨立成批。
+
+### Failure indicators
+
+- 用數字門檻直接判定 batch 過小或過大。
+- 因為出現任何 presenter edit 就機械拆成第二個 PR。
+- 為攤平固定成本，把不相關內容或 shared architecture 併進 translation batch。
+- 把 checkpoint 結果變成新的 progress denominator。
+
+---
+
+## Scenario 31 — Stage 3 Handoff Repeats the Whole Batch History
+
+### Prompt
+
+> Reviewer 準備 Stage 3 closeout 任務，草稿重貼了完整 approved translation packet、Owner 定稿討論、precedent 調查過程與整套 Git 禁止事項清單，approved HEAD 與 merge method 夾在中間。請判定。
+
+### Expected behavior
+
+- 依 `AGENT-TASK-CONTRACT.md` 的 **Compact Stage Handoff Profiles** 收斂為 delta-only：approved HEAD／base、從 approved review evidence inheritance 取得的 expected mechanical evidence、merge method、required CI 與 mutable pre-merge gate、Git permission、Report／Stop。
+- stable safety 以 pointer 引用 `GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md`、`PROJECT-REVIEW-SKILL.md`，不重貼。
+- 只保留本批特有的 gate 或禁止事項。
+- Stage 2 focused correction 同理：original batch／current base／current HEAD、blocker、allowed files／forbidden collateral、focused acceptance／fresh verification、Git permission、Report／Stop。
+
+### Failure indicators
+
+- 每一輪都重建接近完整 Stage 1 任務書。
+- 重貼完整 packet、Owner prose 或歷史調查。
+- 以 delta-only 為由省略本批特有 gate、SHA 或 merge method。
+- 誤以為 pointer 化的 stable safety 不再具約束力。

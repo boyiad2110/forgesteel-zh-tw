@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.5.4"
+  version: "0.5.5"
 ---
 
 # Forge Steel Reviewer
@@ -45,6 +45,8 @@ Authority 衝突時依 Principles 處理，不自行補規格。
 
 Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 slice。
 
+固定 Batch Contract 前，Reviewer 必須先執行 `docs/translation/TRANSLATION-WORKFLOW.md` 的 **Batch Cost Checkpoint**（translation batch 適用；其他 batch 在 scope 可比時比照其考量項目）。本 Skill 只要求執行該 checkpoint 並在 Contract 中反映結果，不在此維護第二套 batch-sizing 規則，也不引入 identity count、LOC 或 file count 等硬數字門檻。
+
 缺少 Goal、scope、Acceptance 或 Stop，不開始實作。
 
 ## 3. V1 Blocker Gate
@@ -81,17 +83,35 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 
 不要求無限制考古；只查最近且與本批 extension／risk 有關的前例。precedent 尚未查清前，不得把已存在的 extension point 判成「未知 architecture」，或因此設置不必要的 STOP；查清後再依實際 extension risk 固定 Contract。
 
+#### Scope-equivalence check（reuse 前）
+
+查到 recent merged precedent 之後，**不得因為它最新就直接 copy-forward 其 implementation pattern**。reuse 前先比較 precedent 與本批實際相關的 scope boundary，至少包含適用者：
+
+- base class／subclass；
+- Ability／non-Ability；
+- identity／traversal contract；
+- supplemental fields；
+- presenter／calculated extension point。
+
+scope 不完全相同不代表 precedent 無效：只重用真正 shared 的 architecture，batch-specific boundary 仍依本批 Contract 與現行 authority 判定。這個 check 不擴張 archaeology 範圍，也不因 scope mismatch 自動 STOP；它只要求在 reuse 前說明哪一部分 shared、哪一部分本批自行判定。
+
 ## 5. Prepare Agent Task
 
 依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。穩定 generic rules 應引用本 Skill、`AGENT-TASK-CONTRACT.md`、`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md` 與 `TRANSLATION-WORKFLOW.md`，不必在每份 handoff 重貼完整 Git 禁止或 Stage workflow；但本批特有 risk、禁止事項、SHA、merge method、scope boundary、acceptance 與 STOP rule 仍須明列。
 
 至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。
 
+### Compact Stage 2／Stage 3 Handoff
+
+Stage 2 focused correction 與 Stage 3 closeout 的 handoff 只寫本輪決策所需 delta，欄位清單依 `AGENT-TASK-CONTRACT.md` 的 **Compact Stage Handoff Profiles**。Reviewer 不在這兩種 handoff 重貼完整翻譯 packet、Owner prose、歷史調查、stable Git 禁止事項或整套 Stage workflow；stable safety 以指向 `GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md` 與本 Skill 的 pointer 表示。只有本批特有的 gate、SHA、merge method 或禁止事項才明列。
+
 ### Translation Worksheet Gate
 
 translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRANSLATION-WORKFLOW.md` 的 Worksheet 規格。交付 worksheet 前，必須先依既有 authority 處理 mechanical／derived rows；Owner request 只包含真正的新術語、新譯名、新 prose 或語意取捨。不得因 worksheet 有 N rows 就要求 Owner 逐筆 finalize N rows；handoff 必須告知真正需要決定的 row count。若 Reviewer 無法判斷某 row 是否 mechanical，先依現行 authority 判斷；只有真的涉及語意選擇才交 Owner。
 
 交付 translation implementation 前，Reviewer 完成 `TRANSLATION-WORKFLOW.md` 對該 batch 適用的 gate：使用 approved implementation packet 時的 packet canonical-alignment、適用的 Class ability authored content／calculated presentation 的 grammar matrix，以及 translation batch 必要的明確 glossary-delta decision。本 Skill 只編排 gate，不重複其細節。
+
+packet canonical alignment 的 timing 已左移，依 `TRANSLATION-WORKFLOW.md` 的 **Packet Canonical Alignment Gate** 執行三層：worksheet 交 Owner 前、Owner finalization 後的 packet freeze／Agent handoff 前，以及 Agent implementation preflight 作 defense in depth。Reviewer artifact 的 newline／whitespace／Markdown／snapshot／hash drift 屬 Reviewer 自行修正範圍，不得變成 Owner decision，正常流程也不應由 Agent preflight 第一次發現。本 Skill 只固定 timing，不複製 verifier semantics。
 
 ### Class／Subclass Level 1 Non-Ability Required Identity
 
