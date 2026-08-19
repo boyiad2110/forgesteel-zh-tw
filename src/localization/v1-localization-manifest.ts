@@ -1180,6 +1180,59 @@ export const createV1TroubadourLevel1CompletionRequiredCanonicalEnglish = (): Ca
 	return requiredCanonicalEnglish;
 };
 
+export const v1ElementalistSubclassIDs = [
+	'elementalist-sub-1',
+	'elementalist-sub-2',
+	'elementalist-sub-3',
+	'elementalist-sub-4'
+] as const;
+
+export const getV1ElementalistSubclasses = (): SubClass[] => {
+	const subclassesByID = new Map(elementalist.subclasses.map(subclass => [ subclass.id, subclass ]));
+	return v1ElementalistSubclassIDs.map(id => {
+		const subclass = subclassesByID.get(id);
+		if (!subclass) {
+			throw new Error(`Elementalist subclass '${id}' is missing`);
+		}
+		return subclass;
+	});
+};
+
+/**
+ * Builds the bounded 59-identity Elementalist Level 1 subclass completion denominator: the
+ * class's `subclassName` category plus each of the four elements' own metadata, Level 1
+ * non-Ability content and Level 1 authored Ability content.
+ *
+ * The base class is deliberately untouched. Elementalist's Level 1 base content already has
+ * two merged, independently tested slices - the frozen 133-identity Ability slice and the
+ * 44-identity non-Ability remaining slice - so this one only adds the subclass content the
+ * batch is for. All three stay disjoint.
+ *
+ * Unlike the Null subclass completion, which is non-Ability only, this slice follows the
+ * Shadow/Tactician/Talent/Troubadour completion boundary and includes each element's Level 1
+ * authored Ability content: an element's own two or three signature abilities are the player-
+ * facing content that choosing it grants, and they belong to no other slice.
+ *
+ * Each element's Level 1 tree goes through the one shared bounded non-Ability walk and the
+ * same bounded Ability collector, with no per-feature exception. Nothing is descended into
+ * beyond a Choice's options and a Multiple's children, so this stays a reviewable slice
+ * rather than a generic subclass crawler.
+ */
+export const createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	requiredCanonicalEnglish[elementFieldIdentity(elementalist.id, 'subclassName')] = elementalist.subclassName;
+
+	getV1ElementalistSubclasses().forEach(subclass => {
+		addRequiredElementFields(requiredCanonicalEnglish, subclass);
+		const levelOneFeatures = getLevelOneFeatures(subclass.featuresByLevel, `Elementalist subclass '${subclass.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelOneFeatures);
+		collectBoundedLevel1Abilities(levelOneFeatures)
+			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Orden ancestry Ability slice; all other ancestry Ability content remains unresolved. */
 export const v1OrdenAncestryAbilityIDs = [
 	'memonek-feature-3-5',
@@ -1496,6 +1549,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ConduitLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1RemainingRequiredCanonicalEnglish(),
+		...createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish(),
