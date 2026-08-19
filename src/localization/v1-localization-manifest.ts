@@ -643,11 +643,11 @@ export const getV1NullTraditions = (): SubClass[] => {
  * slice - so folding either into this one would move identities between denominators rather
  * than add the subclass content this batch is for. All three stay disjoint.
  *
- * Each Tradition's Level 1 tree goes through the one shared bounded walk, with no per-feature
- * exception. Authored Ability content is collected through the same bounded descent the walk
- * uses, so an ability authored inside a Multiple could not be silently dropped; the current
- * Level 1 Traditions author none, and each contributes exactly its skill choice, its Mastery
- * grouping and that grouping's two children.
+ * Each Tradition's Level 1 tree goes through the one shared bounded non-Ability walk, with no
+ * per-feature exception. Ability nodes contribute no identity here and are not descended into:
+ * authored Ability content belongs to the class's own Ability slice and its Ability workflow,
+ * not to this non-Ability denominator. Each Tradition therefore contributes exactly its skill
+ * choice, its Mastery grouping and that grouping's two children.
  */
 export const createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
 	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
@@ -655,10 +655,7 @@ export const createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish = (): 
 
 	getV1NullTraditions().forEach(tradition => {
 		addRequiredElementFields(requiredCanonicalEnglish, tradition);
-		const traditionLevelOneFeatures = getLevelOneFeatures(tradition.featuresByLevel, `Null Tradition '${tradition.id}'`);
-		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, traditionLevelOneFeatures);
-		collectBoundedLevel1Abilities(traditionLevelOneFeatures)
-			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getLevelOneFeatures(tradition.featuresByLevel, `Null Tradition '${tradition.id}'`));
 	});
 
 	return requiredCanonicalEnglish;
