@@ -400,9 +400,6 @@ const occurrenceCount = (text: string, snippet: string) => text.split(snippet).l
 // into the Owner-approved zh-TW grammar. Nothing here recomputes a characteristic, and the
 // Berserker Spend's 'twice your Might score' is never doubled on the Chinese side - the
 // calculator resolves it in English and only the result is carried across.
-//
-// Lines of Force's own effect text is deliberately absent: its approved zh-TW carries no
-// forced-movement bonus clause to project into, so it stays on the shared fail-closed path.
 const projectFurySubclassCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
 	// Primordial Strength resolves three separate Might readings in one Feature description:
 	// the two extra-damage clauses and the Ferocity 2 Knockback bonus. Each is matched and
@@ -457,6 +454,16 @@ const projectFurySubclassCalculatedValue = (elementID: string, field: string, ca
 			canonical: 'the forced movement distance gains a bonus equal to your Agility score.',
 			calculated: /the forced movement distance gains a bonus equal to (-?\d+)\./,
 			localized: '強制移動的距離會獲得等於你`敏捷`的加值。',
+			localizedReplacement: (value: string) => `強制移動的距離會獲得 ${value} 點加值。`
+		},
+		{
+			// Lines of Force's own effect text. The bonus clause is the last of three approved
+			// sentences; the other two carry no calculated value and are preserved verbatim.
+			elementID: 'fury-sub-1-1-4',
+			field: 'sections.0.text',
+			canonical: 'the forced movement distance gains a bonus equal to your Might score.',
+			calculated: /the forced movement distance gains a bonus equal to (-?\d+)\./,
+			localized: '強制移動的距離會獲得等於你`力量`的加值。',
 			localizedReplacement: (value: string) => `強制移動的距離會獲得 ${value} 點加值。`
 		},
 		{

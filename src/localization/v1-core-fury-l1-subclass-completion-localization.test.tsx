@@ -514,34 +514,50 @@ describe('V1 Core Fury Level 1 subclass completion catalog and presentation', ()
 		getTextEffect.mockRestore();
 	});
 
-	/**
-	 * OPEN BLOCKER, reported to the Reviewer rather than worked around.
-	 *
-	 * The r2 packet requires `element:fury-sub-1-1-4/sections.0.text` to project
-	 * `強制移動的距離會獲得 N 點加值。`, but the Owner-final F-13 zh-TW is a single sentence
-	 * that carries no forced-movement bonus clause at all - the Reviewer's own three-sentence
-	 * suggestion did, and the override dropped it along with two other canonical sentences.
-	 *
-	 * There is therefore nothing to project into, and authoring the missing Chinese here would
-	 * be inventing Owner text. The reading stays on the shared fail-closed path instead. This
-	 * test pins that actual behaviour - whole calculated English, never mixed language - so the
-	 * gap is visible and cannot regress silently while the decision is outstanding.
-	 */
-	it('fails closed to whole calculated English for the Lines of Force effect the approved zh-TW cannot express', () => {
-		const canonicalEnglish = required[elementFieldIdentity('fury-sub-1-1-4', 'sections.0.text')];
-		const calculatedEnglish = canonicalEnglish.replace('equal to your Might score.', 'equal to 2.');
-		expect(calculatedEnglish).not.toBe(canonicalEnglish);
+	it('projects Lines of Force’s Might bonus into the approved effect text, preserving its other two sentences', () => {
+		const linesOfForce = getAbility('fury-sub-1-1-4');
+		// All three approved sentences: the redirect, the source/destination/push rules, and the
+		// bonus clause the calculator resolves. Only the last one changes with a Hero attached.
+		const rawRedirect = '你可以選擇射程內 1 個體型相同或更小的新目標來承受原本的強制移動。';
+		const rawRules = '你會成為這次強制移動的來源，可以決定新目標的終點位置，而且可以將原本的強制移動方式改為推動。';
+		const rawBonus = '此外，強制移動的距離會獲得等於你力量的加值。';
+		const heroBonus = '此外，強制移動的距離會獲得 2 點加值。';
 
-		const presented = localizeCalculatedAuthoredTextPresentation({
-			locale: 'zh-TW',
-			elementID: 'fury-sub-1-1-4',
-			field: 'sections.0.text',
-			canonicalEnglish: canonicalEnglish,
-			calculatedEnglish: calculatedEnglish
+		const noHero = renderAbility(linesOfForce);
+		expectRendered(noHero.container, rawRedirect);
+		expectRendered(noHero.container, rawRules);
+		expectRendered(noHero.container, rawBonus);
+		expect(Array.from(noHero.container.querySelectorAll('code')).map(node => node.textContent)).toContain('力量');
+		expect(noHero.container.textContent).not.toContain('Might score');
+		noHero.unmount();
+
+		const hero = makeHero();
+		const getTextEffect = vi.spyOn(AbilityLogic, 'getTextEffect');
+		const withHero = renderAbility(linesOfForce, hero);
+
+		verifyLocaleDifferentialInvariants({
+			protectedStates: [
+				protectCanonicalState({ label: 'Lines of Force Ability', capture: () => JSON.stringify(linesOfForce) }),
+				protectCanonicalState({ label: 'Fury Hero', capture: () => JSON.stringify(hero) })
+			],
+			assertZhTW: () => {
+				expectRendered(withHero.container, heroBonus);
+				// The two non-calculated sentences survive the projection untouched.
+				expectRendered(withHero.container, rawRedirect);
+				expectRendered(withHero.container, rawRules);
+				expect(withHero.container.textContent).not.toContain('等於你力量的加值');
+			},
+			switchToEnglish: switchLocale,
+			assertEnglish: () => expectRendered(withHero.container, 'Additionally, the forced movement distance gains a bonus equal to 2.'),
+			switchToZhTW: switchLocale,
+			assertZhTWAfterRoundTrip: () => {
+				expectRendered(withHero.container, heroBonus);
+				expectRendered(withHero.container, rawRules);
+			}
 		});
 
-		expect(presented).toBe(calculatedEnglish);
-		expect(presented).not.toMatch(/[一-鿿]/);
+		getTextEffect.mock.calls.forEach(([ input ]) => assertCanonicalEnglishCalculationInput(input));
+		getTextEffect.mockRestore();
 	});
 
 	it('falls back to the whole calculated English when any implemented grammar family is structurally rewritten', () => {
@@ -570,7 +586,8 @@ describe('V1 Core Fury Level 1 subclass completion catalog and presentation', ()
 		// Reaver's Agility Feature family.
 		expectWholeCalculatedEnglish('fury-sub-2-1-3', 'description', canonical => canonical.replace('the forced movement distance gains a bonus equal to your Agility score.', 'the forced movement distance gains 3 extra squares.'));
 
-		// Berserker's twice-Might Spend family.
+		// Berserker's own Might bonus and twice-Might Spend families.
+		expectWholeCalculatedEnglish('fury-sub-1-1-4', 'sections.0.text', canonical => canonical.replace('the forced movement distance gains a bonus equal to your Might score.', 'the forced movement distance gains 2 extra squares.'));
 		expectWholeCalculatedEnglish('fury-sub-1-1-4', 'sections.1.effect', canonical => canonical.replace('gains a bonus equal to twice your Might score instead.', 'gains 4 extra squares instead.'));
 
 		// Reaver's shift-distance family.
