@@ -205,9 +205,12 @@ describe('V1 Core Censor L2 manifest, catalog and presentation', () => {
 		// contribute their own label, and exactly the six Abilities they offer directly.
 		expect(orders.map(order => order.id)).toEqual([ 'censor-sub-1', 'censor-sub-2', 'censor-sub-3' ]);
 		expect(orders.flatMap(order => choiceAbilities(levelTwoFeatures(order))).map(ability => ability.id)).toEqual([
-			'censor-sub-1-2-3a', 'censor-sub-1-2-3b',
-			'censor-sub-2-2-3a', 'censor-sub-2-2-3b',
-			'censor-sub-3-2-3a', 'censor-sub-3-2-3b'
+			'censor-sub-1-2-3a',
+			'censor-sub-1-2-3b',
+			'censor-sub-2-2-3a',
+			'censor-sub-2-2-3b',
+			'censor-sub-3-2-3a',
+			'censor-sub-3-2-3b'
 		]);
 		// Level 1 Order content and Order metadata stay with the Level 1 slice; Level 3+ stays out.
 		expect(Object.keys(required).some(identity => /censor-sub-\d-(1|3)-/.test(identity))).toBe(false);
@@ -262,7 +265,7 @@ describe('V1 Core Censor L2 manifest, catalog and presentation', () => {
 	it('reads the base Censor and all three Orders in zh-TW and back in canonical English', () => {
 		const readings: { id: string, zhTW: string[], english: string[] }[] = [
 			{ id: 'censor-2-1', zhTW: [ '交涉類 / 學識類 / 超常類專長' ], english: [ 'Interpersonal / Lore / Supernatural Perk' ] },
-			{ id: 'censor-sub-1-2-1', zhTW: [ '聖者警覺', '任何被你審判的生物都無法使用躲藏機動動作。' ], english: [ "Saint's Vigilance", 'Any creature judged by you can’t use the Hide maneuver.' ] },
+			{ id: 'censor-sub-1-2-1', zhTW: [ '聖者警覺', '任何被你審判的生物都無法使用躲藏機動動作。' ], english: [ 'Saint\'s Vigilance', 'Any creature judged by you can’t use the Hide maneuver.' ] },
 			{ id: 'censor-sub-1-2-2', zhTW: [ '明辨真偽' ], english: [ 'A Sense for Truth' ] },
 			{ id: 'censor-sub-2-2-1', zhTW: [ '預言之兆', '蒙太奇考驗' ], english: [ 'It Was Foretold', 'montage test' ] },
 			{ id: 'censor-sub-2-2-2', zhTW: [ '洞察之眼' ], english: [ 'Judge of Character' ] },
@@ -593,7 +596,7 @@ describe('V1 Core Censor L2 manifest, catalog and presentation', () => {
 			},
 			switchToEnglish: switchLocale,
 			assertEnglish: () => {
-				expectRendered(container, "Saint's Vigilance");
+				expectRendered(container, 'Saint\'s Vigilance');
 				expectRendered(container, 'A Sense for Truth');
 				expectRendered(container, '2nd-Level Exorcist Ability');
 			},
