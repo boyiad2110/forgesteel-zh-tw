@@ -3154,6 +3154,59 @@ const coreCensorLevel1AndOrderLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'censor-sub-3-1-2', field: 'description', canonicalEnglish: 'The first time on a turn that you use your Judgment ability to judge a creature, you can vertical pull the judged creature up to a number of squares equal to twice your Presence score.', zhTW: '當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以將被審判的生物垂直拉動最多等於你`氣場` ×2 的格數。', approval: 'approved' }
 ];
 
+// The Censor's Level 2 progression: the class's own Perk reading, and for each of the three
+// Orders its two Level 2 features, its ability-choice label, and the two Abilities that choice
+// offers. Order metadata and Level 1 Order content keep their existing Level 1 entries.
+const coreCensorLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'censor-2-1', field: 'name', canonicalEnglish: 'Interpersonal / Lore / Supernatural Perk', zhTW: '交涉類 / 學識類 / 超常類專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-1', field: 'name', canonicalEnglish: 'Saint\'s Vigilance', zhTW: '聖者警覺', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-1', field: 'description', canonicalEnglish: 'You have honed your ability to detect sin and can use it to find those who hide from justice. Any creature judged by you can’t use the Hide maneuver. Additionally, you gain an edge when searching for hidden creatures. If you find a hidden creature, you can use your Judgment ability against them as a free triggered action.', zhTW: '你已精通探測罪惡的能力，能夠找出任何躲避正義制裁的惡徒。任何被你審判的生物都無法使用躲藏機動動作。此外，當你搜索隱藏生物時，你的考驗會獲得 1 個優勢。若你找到隱藏的生物，你可以使用免費反應動作對他發動【審判】招式。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-2', field: 'name', canonicalEnglish: 'A Sense for Truth', zhTW: '明辨真偽', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-2', field: 'description', canonicalEnglish: 'You are trained in secret techniques from your order that allow you to discern the truth with supernatural precision. If a creature is of a lower level than you, you automatically know when they are lying, though you don’t necessarily know the actual truth behind their lie. Additionally, you gain an edge on tests made to detect lies or hidden motives.', zhTW: '你接受過教團的祕密訓練，讓你能夠以超自然的精準度辨別真偽。若某個生物的等級比你低，你會自動知道他是否在說謊，但你不一定知道謊言背後的真相。此外，當你試圖識破對方的謊言或隱藏動機時，你的考驗會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3', field: 'name', canonicalEnglish: '2nd-Level Exorcist Ability', zhTW: '2 級驅邪招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3a', field: 'name', canonicalEnglish: 'It Is Justice You Fear', zhTW: '天理昭彰', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3a', field: 'description', canonicalEnglish: 'I am but a vessel. Your own deeds weigh upon you.', zhTW: '我只是個媒介，壓垮你的是你自己的行為。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3a', field: 'sections.0.roll.tier1', canonicalEnglish: '8 + M holy damage; P < [weak], frightened (save ends)', zhTW: '8 + `力量`神聖傷害；`氣場` < [弱]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3a', field: 'sections.0.roll.tier2', canonicalEnglish: '12 + M holy damage; P < [average], frightened (save ends)', zhTW: '12 + `力量`神聖傷害；`氣場` < [中]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3a', field: 'sections.0.roll.tier3', canonicalEnglish: '15 + M holy damage; P < [strong], frightened (save ends)', zhTW: '15 + `力量`神聖傷害；`氣場` < [強]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3a', field: 'sections.1.text', canonicalEnglish: 'If the target is already frightened of you or another creature and this ability would frighten them again, they instead take psychic damage equal to twice your Presence score.', zhTW: '若目標已經對你或其他生物陷入畏縮，而此招式會讓他再次陷入畏縮，則目標改為受到等於你`氣場` ×2 的心靈傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3b', field: 'name', canonicalEnglish: 'Revelator', zhTW: '聖光揭示', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3b', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3b', field: 'description', canonicalEnglish: 'You channel holy energy to harm unbelievers and reveal those hidden from your judgment.', zhTW: '你引導神聖能量傷害褻瀆者，並揭露那些躲避你審判的敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-1-2-3b', field: 'sections.0.text', canonicalEnglish: 'Each target takes holy damage equal to twice your Presence score. Additionally, each hidden target is automatically revealed and can’t become hidden again until the start of your next turn. You can then use your Judgment ability against one target as a free triggered action.', zhTW: '每個目標都會受到等於你`氣場` ×2 的神聖傷害。此外，每個處於隱藏的目標會自動被揭露，直到你下個回合開始前都無法再次隱藏。然後，你可以使用免費反應動作對其中 1 個目標發動【審判】招式。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-1', field: 'name', canonicalEnglish: 'It Was Foretold', zhTW: '預言之兆', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-1', field: 'description', canonicalEnglish: 'Your order has trained you to understand fragments of the visions granted to you by your deity, giving you a momentary advantage in challenging situations. At the start of an encounter, you can take one main action before any other creature and before your first turn. Additionally, whenever the Director calls for a montage test, you can make one free test before the montage begins, which counts as an earned success or failure as usual.', zhTW: '你的教團訓練你解讀神明賜予的神諭片段，讓你在面對挑戰時獲得短暫的優勢。在遭遇開始時，你可以在任何生物行動前（以及在你的第 1 個回合之前）執行 1 個主要動作。此外，每當 GM 要求進行蒙太奇考驗時，你可以在蒙太奇開始前免費進行 1 次考驗，該結果會正常計入成功或失敗次數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-2', field: 'name', canonicalEnglish: 'Judge of Character', zhTW: '洞察之眼', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-2', field: 'description', canonicalEnglish: 'Your focus on your fragmentary visions grants divine insight into the world and its creatures beyond your usual senses. Whenever you would make an Intuition test, you can make a Presence test instead.', zhTW: '你能夠專注於零碎的異象，獲得超越常人感官的神聖洞察力，進而深入理解周遭的世界與其中的居民。每當你需要進行`直覺`考驗時，你可以改為進行`氣場`考驗。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3', field: 'name', canonicalEnglish: '2nd-Level Oracle Ability', zhTW: '2 級神諭招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3a', field: 'name', canonicalEnglish: 'Prescient Grace', zhTW: '預知恩典', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3a', field: 'target', canonicalEnglish: 'Self or one ally', zhTW: '自身或 1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3a', field: 'description', canonicalEnglish: 'Gifted by a prescient vision, you warn an ally of an impending attack.', zhTW: '你透過預知的異象警告盟友即將襲來的攻擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3a', field: 'type.trigger', canonicalEnglish: 'An enemy within 10 squares starts their turn.', zhTW: '當 10 格內的 1 個敵人開始回合時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3a', field: 'sections.0.text', canonicalEnglish: 'You can spend a Recovery to allow the target to regain Stamina equal to your recovery value. The target can then take their turn immediately before the triggering enemy.', zhTW: '你可以花費 1 點復元力，讓目標恢復等於你復元值的體力。然後，目標可以在觸發敵人之前立刻進行自己的回合。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3b', field: 'name', canonicalEnglish: 'With My Blessing', zhTW: '吾之祝福', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3b', field: 'target', canonicalEnglish: 'Self or one ally', zhTW: '自身或 1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3b', field: 'description', canonicalEnglish: 'A word in prayer, and the gods show the way.', zhTW: '只要誠心禱告，諸神就會指引道路。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-2-2-3b', field: 'sections.0.text', canonicalEnglish: 'The target can use a free triggered action to use a strike signature ability or a strike heroic ability, and has a double edge on that ability. If a heroic ability is chosen, reduce its Heroic Resource cost by 3 (to a minimum cost of 0).', zhTW: '目標可以使用免費反應動作發動 1 個打擊招牌招式或打擊英雄招式，而且該招式會獲得雙優勢。若發動英雄招式，英雄資源費用會減少 3 點（最低為 0）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-1', field: 'name', canonicalEnglish: 'Lead by Example', zhTW: '以身作則', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-1', field: 'description', canonicalEnglish: 'Your devotion to your deity allows you to take command of the battlefield, letting your allies benefit from your wisdom. While you are adjacent to a creature, your allies gain the benefits of flanking against that creature. Additionally, your allies gain an edge on tests made to aid other creatures with their tests.', zhTW: '你對神明的虔誠讓你能夠掌控戰場，讓盟友從你的智慧中獲益。只要你與某個生物相鄰，你的盟友對該生物就會獲得夾擊的益處。此外，當你的盟友試圖協助其他生物進行考驗時，他的協助考驗會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-2', field: 'name', canonicalEnglish: 'Stalwart Example', zhTW: '堅定象徵', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-2', field: 'description', canonicalEnglish: 'You exhibit a small spark of your deity’s power, causing creatures to trust or fear you, depending on what you need. You gain an edge on tests made to intimidate or persuade others.', zhTW: '你展現神明力量的微小火花，讓生物信任你或懼怕你（取決於你的需求）。當你試圖威嚇或遊說他人時，你的考驗會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3', field: 'name', canonicalEnglish: '2nd-Level Paragon Ability', zhTW: '2 級典範招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3a', field: 'name', canonicalEnglish: 'Blessing of the Faithful', zhTW: '虔信祝福', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3a', field: 'target', canonicalEnglish: 'Self and each ally in the area', zhTW: '自身與區域內每個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3a', field: 'description', canonicalEnglish: 'The gods reward your faith.', zhTW: '諸神會獎勵你的虔誠。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3a', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, each target in the aura gains 1 surge at the end of each of your turns.', zhTW: '直到遭遇結束或你陷入瀕死前，靈光中的每個目標在你每個回合結束時都會獲得 1 點鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'name', canonicalEnglish: 'Sentenced', zhTW: '裁決', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'description', canonicalEnglish: 'The shock of your condemnation freezes your enemy in their boots.', zhTW: '你的譴責讓敵人太過震驚，在原地動彈不得。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'sections.0.roll.tier1', canonicalEnglish: '5 + P damage; P < [weak], restrained (save ends)', zhTW: '5 + `氣場`傷害；`氣場` < [弱]，束縛（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'sections.0.roll.tier2', canonicalEnglish: '9 + P damage; P < [average], restrained (save ends)', zhTW: '9 + `氣場`傷害；`氣場` < [中]，束縛（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'sections.0.roll.tier3', canonicalEnglish: '12 + P damage; P < [strong], restrained (save ends)', zhTW: '12 + `氣場`傷害；`氣場` < [強]，束縛（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'sections.1.text', canonicalEnglish: 'While the target is restrained this way, your abilities that impose forced movement can still move them.', zhTW: '若目標以此方式陷入束縛，你那些具有強制移動效果的招式仍然可以移動對方。', approval: 'approved' }
+];
+
 const coreConduitLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'conduit-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'conduit-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
@@ -3880,6 +3933,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreStormwightKitTypeLocalizationEntries,
 	...coreDomainLevel1To3LocalizationEntries,
 	...coreCensorLevel1AndOrderLocalizationEntries,
+	...coreCensorLevel2LocalizationEntries,
 	...coreConduitLevel1RemainingLocalizationEntries,
 	...coreConduitLevel2LocalizationEntries,
 	...coreFuryLevel1RemainingLocalizationEntries,
