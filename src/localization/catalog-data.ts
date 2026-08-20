@@ -3226,6 +3226,21 @@ If you have a kit, you can’t take this blessing.`,
 	{ kind: 'element-field', elementID: 'conduit-1-12', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
 ];
 
+// The Conduit's Level 2 class progression. Two of these canonical readings are Feature-factory
+// output rather than authored prose: the Perk choice's composed name, and the Level 2 Domain
+// Ability's default description, which stays 'Choose a level 2 domain feature.' even though the
+// Feature is named '2nd-Level Domain Ability'. Both are recorded as the factory produces them.
+// The Domain content these two choices lead to keeps its own approved Core Domain translations.
+const coreConduitLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'conduit-2-1', field: 'name', canonicalEnglish: 'The Lists of Heaven', zhTW: '天界名冊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-2-1', field: 'description', canonicalEnglish: 'Your deity is aware of your growing influence, making it easier to draw their attention and power when you heal your allies. Whenever you allow another creature to spend a Recovery, you can also spend a Recovery.', zhTW: '你的神明注意到你日益增長的影響力，讓你在治療盟友時更容易引導祂的力量。每當你讓其他生物花費 1 點復元力時，你自己也可以花費 1 點復元力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-2-2', field: 'name', canonicalEnglish: 'Crafting / Lore / Supernatural Perk', zhTW: '工藝類 / 學識類 / 超常類專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-2-3', field: 'name', canonicalEnglish: '2nd-Level Domain Feature', zhTW: '2 級領域特性', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-2-3', field: 'description', canonicalEnglish: 'You gain the 1st-level domain feature and ability to choose a skill for the domain you selected at 1st level but whose domain feature you didn’t take at that level.', zhTW: '你獲得你在 1 級時沒有選擇的另 1 個 1 級領域特性，並為該領域選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-2-4', field: 'name', canonicalEnglish: '2nd-Level Domain Ability', zhTW: '2 級領域招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'conduit-2-4', field: 'description', canonicalEnglish: 'Choose a level 2 domain feature.', zhTW: '選擇 1 個 2 級領域特性。', approval: 'approved' }
+];
+
 const coreFuryLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'fury-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'fury-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
@@ -3866,6 +3881,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreDomainLevel1To3LocalizationEntries,
 	...coreCensorLevel1AndOrderLocalizationEntries,
 	...coreConduitLevel1RemainingLocalizationEntries,
+	...coreConduitLevel2LocalizationEntries,
 	...coreFuryLevel1RemainingLocalizationEntries,
 	...coreElementalistLevel1RemainingLocalizationEntries,
 	...coreNullLevel1RemainingLocalizationEntries,
