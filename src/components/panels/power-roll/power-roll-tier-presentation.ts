@@ -91,6 +91,28 @@ const projectTroubadourLevelDamageTier = (abilityID: string, field: string, cano
 };
 
 /**
+ * `No Dying on My Watch` tier 2 is authored with one leading ASCII space that tiers 1 and 3 do
+ * not carry. That space is real canonical authority - the manifest and the catalog snapshot it
+ * exactly, and nothing here trims the stored reading - but the canonical calculator drops it,
+ * so the shared exact-replay comparison below sees two readings that differ only by that space
+ * and refuses to project, leaving this one tier in English while its siblings localize.
+ *
+ * This is deliberately identity-bound: only the reading this exact ability field carries is
+ * compared without its authored leading space, and only when the space is actually there. Every
+ * other identity keeps the strict comparison unchanged, and the approved zh-TW is still produced
+ * by the same shared projection, not by a tier-specific Chinese rewrite.
+ */
+const authoredLeadingSpaceTiers = [
+	{ abilityID: 'tactician-sub-3-2-2a', field: 'sections.1.roll.tier2' }
+];
+
+const projectionCanonicalEnglish = (abilityID: string, field: string, canonicalEnglish: string) => (
+	authoredLeadingSpaceTiers.some(tier => (tier.abilityID === abilityID) && (tier.field === field)) && canonicalEnglish.startsWith(' ')
+		? canonicalEnglish.slice(1)
+		: canonicalEnglish
+);
+
+/**
  * Projects calculated canonical values onto an approved zh-TW Power Roll tier.
  *
  * The resolver lookup deliberately uses the raw canonical English, which preserves its
@@ -122,13 +144,17 @@ export const localizePowerRollTierPresentation = ({
 		return troubadourLevelDamage;
 	}
 
+	// The canonical reading this batch's replay comparison uses. It differs from the stored
+	// canonical English only for the identity-bound authored leading space above.
+	const replayCanonical = projectionCanonicalEnglish(abilityID, field, canonicalEnglish);
+
 	const damageValues = Array.from(calculatedEnglish.matchAll(calculatedDamagePattern), match => match[2]);
-	const canonicalDamage = Array.from(canonicalEnglish.matchAll(canonicalDamagePattern));
+	const canonicalDamage = Array.from(replayCanonical.matchAll(canonicalDamagePattern));
 	const localizedDamage = Array.from(localizedRaw.matchAll(localizedDamagePattern));
 	const potencyValues = Array.from(calculatedEnglish.matchAll(calculatedPotencyPattern), match => match[1]);
-	const canonicalPotencies = Array.from(canonicalEnglish.matchAll(canonicalPotencyPattern));
+	const canonicalPotencies = Array.from(replayCanonical.matchAll(canonicalPotencyPattern));
 	const localizedPotencies = Array.from(localizedRaw.matchAll(localizedPotencyPattern));
-	const canonicalForcedMovement = Array.from(canonicalEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
+	const canonicalForcedMovement = Array.from(replayCanonical.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
 	const calculatedForcedMovement = Array.from(calculatedEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
 	const localizedForcedMovement = Array.from(localizedRaw.matchAll(localizedForcedMovementPattern), match => localizedForcedMovementType(match[1]));
 	const hasUnchangedCanonicalGrammar = (pattern: RegExp, canonicalMatches: RegExpMatchArray[]) => (
@@ -160,7 +186,7 @@ export const localizePowerRollTierPresentation = ({
 	let damageIndex = 0;
 	let potencyIndex = 0;
 	let forcedMovementIndex = 0;
-	let projectedCanonical = canonicalEnglish;
+	let projectedCanonical = replayCanonical;
 	if (damageValues.length > 0) {
 		projectedCanonical = projectedCanonical.replace(canonicalDamagePattern, (_match, prefix: string) => `${prefix}${damageValues[damageIndex++]}`);
 	}
