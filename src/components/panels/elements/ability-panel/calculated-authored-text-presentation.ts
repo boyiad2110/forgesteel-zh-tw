@@ -489,6 +489,47 @@ const projectFurySubclassCalculatedValue = (elementID: string, field: string, ca
 			calculated: /You gain temporary Stamina equal to (-?\d+)/,
 			localized: '你獲得等於你`力量`的臨時體力',
 			localizedReplacement: (value: string) => `你獲得 ${value} 點臨時體力`
+		},
+		// Level 2. Special Delivery's Might clause is worded differently from the Level 1
+		// extra-damage clauses above ('that deals' rather than 'the strike deals'), so it needs
+		// its own entry rather than widening theirs.
+		{
+			elementID: 'fury-sub-1-2-2a',
+			field: 'sections.0.text',
+			canonical: 'deals extra damage equal to your Might score.',
+			calculated: /deals extra damage equal to (-?\d+)\./,
+			localized: '並額外造成等於你`力量`的傷害。',
+			localizedReplacement: (value: string) => `並額外造成 ${value} 點傷害。`
+		},
+		{
+			// Tooth and Claw is a non-Ability Feature description, so this arrives through the
+			// FeaturePanel auto-calc path rather than an ability section.
+			elementID: 'fury-sub-3-2-1',
+			field: 'description',
+			canonical: 'takes damage equal to your Might score.',
+			calculated: /takes damage equal to (-?\d+)\./,
+			localized: '都會受到等於你`力量`的傷害。',
+			localizedReplacement: (value: string) => `都會受到 ${value} 點傷害。`
+		},
+		{
+			// Wrecking Ball resolves the same speed clause Tide of Death does, but its canonical
+			// text opens with an authored newline and continues into two more paragraphs. Only the
+			// clause is rewritten, so the leading newline and both paragraph breaks are preserved
+			// exactly; Tide of Death's own projector stays bound to its own identity.
+			elementID: 'fury-sub-1-2-2b',
+			field: 'sections.0.text',
+			canonical: 'You move up to your speed in a straight line',
+			calculated: /You move up to (-?\d+) squares in a straight line/,
+			localized: '你直線移動最多等於你速度的距離',
+			localizedReplacement: (value: string) => `你直線移動最多 ${value} 格`
+		},
+		{
+			elementID: 'fury-sub-2-2-2b',
+			field: 'sections.0.text',
+			canonical: 'You shift up to your speed',
+			calculated: /You shift up to (-?\d+) squares/,
+			localized: '你遁移最多等於你速度的距離',
+			localizedReplacement: (value: string) => `你遁移最多 ${value} 格`
 		}
 	];
 	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));

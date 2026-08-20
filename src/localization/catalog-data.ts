@@ -3312,6 +3312,64 @@ const coreFuryLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'fury-1-7', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
 ];
 
+// The Fury's Level 2 progression: the class's own Perk reading, and for each of the three
+// Primordial Aspects its Level 2 features - including Reaver's factory-composed Inescapable
+// Wrath Multiple - its ability-choice label, and the two Abilities that choice offers.
+// Wrecking Ball's canonical section text keeps its authored leading newline.
+const coreFuryLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'fury-2-1', field: 'name', canonicalEnglish: 'Crafting / Exploration / Intrigue Perk', zhTW: '工藝類 / 探索類 / 隱密類專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-1', field: 'name', canonicalEnglish: 'Unstoppable Force', zhTW: '勢不可當', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-1', field: 'description', canonicalEnglish: 'Whenever you use the Charge main action, you can use a strike signature ability or a strike heroic ability instead of a free strike. Additionally, you can jump as part of your charge.', zhTW: '每當你使用衝鋒主要動作時，你可以使用打擊招牌招式或打擊英雄招式來取代原本的基礎打擊。此外，你也可以在衝鋒期間跳躍。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2', field: 'name', canonicalEnglish: '2nd-Level Aspect Ability', zhTW: '2 級相態招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2a', field: 'name', canonicalEnglish: 'Special Delivery', zhTW: '飛身快遞', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2a', field: 'target', canonicalEnglish: 'One willing ally', zhTW: '1 個自願盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2a', field: 'description', canonicalEnglish: 'You ready?', zhTW: '準備好了嗎？', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2a', field: 'sections.0.text', canonicalEnglish: 'You vertically push the target up to 4 squares. This forced movement ignores the target’s stability, and the target takes no damage from colliding with creatures or objects. At the end of this movement, the target can make a free strike that deals extra damage equal to your Might score.', zhTW: '你將目標垂直推動最多 4 格。此強制移動無視目標的穩度，而且目標不會因為碰撞生物或物體而受到傷害。此強制移動結束時，目標可以發動 1 次基礎打擊，並額外造成等於你`力量`的傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2b', field: 'name', canonicalEnglish: 'Wrecking Ball', zhTW: '毀滅衝車', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2b', field: 'target', canonicalEnglish: 'Self; see below', zhTW: '自身；見說明', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2b', field: 'description', canonicalEnglish: 'It’s easier to destroy than to create. Much easier, in fact!', zhTW: '破壞比創造簡單多了，根本小菜一碟！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2b', field: 'sections.0.text', canonicalEnglish: '\nYou move up to your speed in a straight line. During this movement, you can move through mundane structures, including walls, which are difficult terrain for you. You automatically destroy each square of structure you move through and leave behind a square of difficult terrain.\n\nAdditionally, you make one power roll that targets each enemy you move adjacent to during this movement.', zhTW: '你直線移動最多等於你速度的距離。在此移動期間，你可以穿越尋常結構物，包括牆壁（這些結構物對你而言視為困難地形）。你每穿越 1 格結構物，就會自動摧毀該格，並留下 1 格困難地形。\n\n此外，你進行 1 次檢定，目標是你在此移動期間相鄰過的每個敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2b', field: 'sections.1.roll.tier1', canonicalEnglish: 'Push 1', zhTW: '推動 1', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2b', field: 'sections.1.roll.tier2', canonicalEnglish: 'Push 2', zhTW: '推動 2', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-1-2-2b', field: 'sections.1.roll.tier3', canonicalEnglish: 'Push 3', zhTW: '推動 3', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-1', field: 'name', canonicalEnglish: 'Inescapable Wrath', zhTW: '無赦狂怒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-1', field: 'description', canonicalEnglish: 'Inescapable Wrath, Speed', zhTW: '無赦狂怒、速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-1a', field: 'name', canonicalEnglish: 'Inescapable Wrath', zhTW: '無赦狂怒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-1a', field: 'description', canonicalEnglish: 'You ignore difficult terrain.', zhTW: '你無視困難地形。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-1b', field: 'name', canonicalEnglish: 'Speed', zhTW: '速度', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2', field: 'name', canonicalEnglish: '2nd-Level Aspect Ability', zhTW: '2 級相態招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2a', field: 'name', canonicalEnglish: 'Death ... Deeaaath!', zhTW: '死兆宣告！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2a', field: 'description', canonicalEnglish: 'Your unbridled rage strikes terror in their hearts.', zhTW: '你那毫不收斂的怒火，嚇得他們心裡發寒。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '3 + M damage; P < [weak], dazed and frightened (save ends)', zhTW: '3 + `力量`傷害；`氣場` < [弱]，暈眩且畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '5 + M damage; P < [average], dazed and frightened (save ends)', zhTW: '5 + `力量`傷害；`氣場` < [中]，暈眩且畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '8 + M damage; P < [strong], dazed and frightened (save ends)', zhTW: '8 + `力量`傷害；`氣場` < [強]，暈眩且畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2b', field: 'name', canonicalEnglish: 'Phalanx-Breaker', zhTW: '破陣衝擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2b', field: 'target', canonicalEnglish: 'Self; see below', zhTW: '自身；見說明', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2b', field: 'description', canonicalEnglish: 'Organizing your forces like feckless creatures of Law. Pitiful.', zhTW: '居然像懦弱無能的守序生物一樣排兵布陣，真可悲。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2b', field: 'sections.0.text', canonicalEnglish: 'You shift up to your speed and make one power roll that targets up to three enemies you move adjacent to during this shift.', zhTW: '你遁移最多等於你速度的距離，並進行 1 次檢定，目標是你在此移動期間相鄰過的最多 3 個敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2b', field: 'sections.1.roll.tier1', canonicalEnglish: '2 damage; A < [weak], dazed (save ends)', zhTW: '2 傷害；`敏捷` < [弱]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2b', field: 'sections.1.roll.tier2', canonicalEnglish: '4 damage; A < [average], dazed (save ends)', zhTW: '4 傷害；`敏捷` < [中]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-2-2-2b', field: 'sections.1.roll.tier3', canonicalEnglish: '6 damage; A < [strong], dazed (save ends)', zhTW: '6 傷害；`敏捷` < [強]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-1', field: 'name', canonicalEnglish: 'Tooth and Claw', zhTW: '尖牙利爪', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-1', field: 'description', canonicalEnglish: 'At the end of each of your turns, each enemy adjacent to you takes damage equal to your Might score.', zhTW: '每當你的回合結束時，與你相鄰的每個敵人都會受到等於你`力量`的傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2', field: 'name', canonicalEnglish: '2nd-Level Aspect Ability', zhTW: '2 級相態招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2a', field: 'name', canonicalEnglish: 'Apex Predator', zhTW: '終極獵殺', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2a', field: 'description', canonicalEnglish: 'I will hunt you down.', zhTW: '你無處可逃。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '4 + M damage; I < [weak], slowed (save ends)', zhTW: '4 + `力量`傷害；`直覺` < [弱]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '6 + M damage; I < [average], slowed (save ends)', zhTW: '6 + `力量`傷害；`直覺` < [中]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '10 + M damage; I < [strong], slowed (save ends)', zhTW: '10 + `力量`傷害；`直覺` < [強]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2a', field: 'sections.1.text', canonicalEnglish: 'The target can’t be hidden from you for 24 hours. Until the end of the encounter, whenever the target willingly moves, you can use a free triggered action to move.', zhTW: '目標在 24 小時內無法對你隱藏。直到遭遇結束前，每當目標主動移動時，你也可以使用免費反應動作來移動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2b', field: 'name', canonicalEnglish: 'Visceral Roar', zhTW: '震腑咆哮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2b', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2b', field: 'description', canonicalEnglish: 'The sound of the storm within you staggers your opponents.', zhTW: '你體內風暴般的吼聲，震得對手踉蹌不穩。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: '2 damage; push 1; M < [weak], dazed (save ends)', zhTW: '2 傷害；推動 1；`力量` < [弱]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: '5 damage; push 2; M < [average], dazed (save ends)', zhTW: '5 傷害；推動 2；`力量` < [中]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: '7 damage; push 3; M < [strong], dazed (save ends)', zhTW: '7 傷害；推動 3；`力量` < [強]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'fury-sub-3-2-2b', field: 'sections.1.text', canonicalEnglish: 'This ability deals your primordial damage type.', zhTW: '此招式造成的傷害類型為你的原初傷害類型。', approval: 'approved' }
+];
+
 const coreElementalistLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'elementalist-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'elementalist-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
@@ -3937,6 +3995,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreConduitLevel1RemainingLocalizationEntries,
 	...coreConduitLevel2LocalizationEntries,
 	...coreFuryLevel1RemainingLocalizationEntries,
+	...coreFuryLevel2LocalizationEntries,
 	...coreElementalistLevel1RemainingLocalizationEntries,
 	...coreNullLevel1RemainingLocalizationEntries,
 	...coreNullLevel1SubclassCompletionLocalizationEntries,

@@ -1148,23 +1148,23 @@ export const getV1TroubadourClassActs = (): SubClass[] => {
 };
 
 /**
- * Collects the Ability nodes a Class Act's Level 1 Feature list carries, following the same
+ * Collects the Ability nodes a caller-supplied Feature list carries, following the same
  * bounded descent the shared non-Ability walk uses: a Choice only through its options' own
  * Features and a Multiple only through its child Features. Virtuoso authors its two
  * performance abilities inside the `troubadour-virtuoso-3` Multiple rather than at the top
  * level, so a top-level-only filter would silently drop them.
  */
-const collectBoundedLevel1Abilities = (features: Feature[], abilities: Ability[] = []): Ability[] => {
+const collectBoundedAbilities = (features: Feature[], abilities: Ability[] = []): Ability[] => {
 	features.forEach(feature => {
 		switch (feature.type) {
 			case FeatureType.Ability:
 				abilities.push(feature.data.ability);
 				break;
 			case FeatureType.Choice:
-				collectBoundedLevel1Abilities(feature.data.options.map(option => option.feature), abilities);
+				collectBoundedAbilities(feature.data.options.map(option => option.feature), abilities);
 				break;
 			case FeatureType.Multiple:
-				collectBoundedLevel1Abilities(feature.data.features, abilities);
+				collectBoundedAbilities(feature.data.features, abilities);
 				break;
 		}
 	});
@@ -1206,7 +1206,7 @@ export const createV1TroubadourLevel1CompletionRequiredCanonicalEnglish = (): Ca
 		addRequiredElementFields(requiredCanonicalEnglish, classAct);
 		const classActLevelOneFeatures = getLevelOneFeatures(classAct.featuresByLevel, `Troubadour Class Act '${classAct.id}'`);
 		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, classActLevelOneFeatures);
-		collectBoundedLevel1Abilities(classActLevelOneFeatures)
+		collectBoundedAbilities(classActLevelOneFeatures)
 			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
 	});
 
@@ -1259,7 +1259,7 @@ export const createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglis
 		addRequiredElementFields(requiredCanonicalEnglish, subclass);
 		const levelOneFeatures = getLevelOneFeatures(subclass.featuresByLevel, `Elementalist subclass '${subclass.id}'`);
 		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelOneFeatures);
-		collectBoundedLevel1Abilities(levelOneFeatures)
+		collectBoundedAbilities(levelOneFeatures)
 			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
 	});
 
@@ -1312,8 +1312,50 @@ export const createV1FuryLevel1SubclassCompletionRequiredCanonicalEnglish = (): 
 		addRequiredElementFields(requiredCanonicalEnglish, subclass);
 		const levelOneFeatures = getLevelOneFeatures(subclass.featuresByLevel, `Fury subclass '${subclass.id}'`);
 		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelOneFeatures);
-		collectBoundedLevel1Abilities(levelOneFeatures)
+		collectBoundedAbilities(levelOneFeatures)
 			.forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
+/**
+ * Fury's own, or one Primordial Aspect's, Level 2 progression roots. Like the Conduit and
+ * Censor Level 2 slices this reads a single named level rather than generalizing the shared
+ * Level 1 accessor, so no arbitrary-level traversal API appears for other slices to inherit.
+ */
+const getV1FuryLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 51-identity Fury Level 2 denominator from live canonical data: the Fury's
+ * own Level 2 Perk reading, and for each of the three Primordial Aspects its Level 2
+ * non-Ability Feature readings plus the authored fields of the two Abilities its Level 2
+ * ability Choice offers.
+ *
+ * Both halves go through the one shared bounded walk with no per-Aspect exception. Reaver's
+ * `Inescapable Wrath` Multiple therefore contributes its own factory-composed name and
+ * description alongside its two children, exactly as the shared walk treats every other
+ * Multiple - a composed canonical value is still the reading FeaturePanel shows the player.
+ *
+ * Aspect metadata and Level 1 content already belong to the Fury Level 1 slices, Stormwight's
+ * kits have their own completed slice, and Level 3+ stays out, so
+ * `class-and-subclass-level-content` remains unresolved.
+ */
+export const createV1FuryLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1FuryLevel2Features(fury.featuresByLevel, 'Fury'));
+
+	getV1FurySubclasses().forEach(subclass => {
+		const levelTwoFeatures = getV1FuryLevel2Features(subclass.featuresByLevel, `Fury subclass '${subclass.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelTwoFeatures);
+		collectBoundedAbilities(levelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
 	});
 
 	return requiredCanonicalEnglish;
@@ -1756,6 +1798,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1FuryLevel1SubclassCompletionRequiredCanonicalEnglish(),
+		...createV1FuryLevel2RequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
