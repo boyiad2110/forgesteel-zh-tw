@@ -205,11 +205,36 @@ describe('V1 Core Conduit L2 manifest, catalog and presentation', () => {
 		});
 		expect(levelTwoFeatures.filter(feature => feature.type === FeatureType.Text).map(feature => feature.id)).toEqual([ 'conduit-2-1' ]);
 
-		const serialized = JSON.stringify(levelTwoFeatures);
+		// The Hero the panel renders against is protected as its own state, not just the class
+		// data: the Hero-context path is the one that reaches the calculator, so a locale switch
+		// mutating Hero state there would be a serialization-relevant regression.
+		const protectedFeatures = protectCanonicalState({
+			label: 'Conduit Level 2 canonical Feature data (Hero context)',
+			capture: () => JSON.stringify(levelTwoFeatures)
+		});
+		const protectedHero = protectCanonicalState({
+			label: 'Hero state (Hero-context calculated path)',
+			capture: () => JSON.stringify(hero)
+		});
+
 		const { container } = renderFeature(getFeature('conduit-2-1'), hero);
-		expectRendered(container, '天界名冊');
-		expectRendered(container, '每當你讓其他生物花費 1 點復元力時');
-		expect(JSON.stringify(levelTwoFeatures)).toBe(serialized);
+		const expectZhTW = () => {
+			expectRendered(container, '天界名冊');
+			expectRendered(container, '每當你讓其他生物花費 1 點復元力時');
+			expect(normalizedText(container)).not.toContain('The Lists of Heaven');
+		};
+
+		verifyLocaleDifferentialInvariants({
+			protectedStates: [ protectedFeatures, protectedHero ],
+			assertZhTW: expectZhTW,
+			switchToEnglish: switchLocale,
+			assertEnglish: () => {
+				expectRendered(container, 'The Lists of Heaven');
+				expectRendered(container, 'Whenever you allow another creature to spend a Recovery, you can also spend a Recovery.');
+			},
+			switchToZhTW: switchLocale,
+			assertZhTWAfterRoundTrip: expectZhTW
+		});
 	});
 
 	it('delegates a selected Domain feature to its already-approved Domain translation', () => {
@@ -243,9 +268,23 @@ describe('V1 Core Conduit L2 manifest, catalog and presentation', () => {
 		expect(JSON.stringify(levelTwoFeatures)).toBe(serialized);
 	});
 
-	it('reads the Conduit Level 1 and Level 2 progression together in the class panel', () => {
+	it('reads the Conduit Level 1 and Level 2 progression together in the class panel across a full locale round trip', () => {
 		const hero = makeHero();
-		const serialized = JSON.stringify(conduit);
+		const heroBefore = JSON.stringify(hero);
+
+		// Two protected states, checked at every phase of the round trip. The class data guards
+		// the canonical content the panel reads; the Hero guards the player's own serializable
+		// state, which is what a save actually carries. Switching locale is a presentation
+		// action, so neither may differ before, between or after the two switches.
+		const protectedClass = protectCanonicalState({
+			label: 'Conduit canonical class data (class panel)',
+			capture: () => JSON.stringify(conduit)
+		});
+		const protectedHero = protectCanonicalState({
+			label: 'Hero state (class panel Level 1 to 2 progression)',
+			capture: () => JSON.stringify(hero)
+		});
+
 		const { container } = renderClassPanel(hero);
 
 		clickPage(container, '特性');
@@ -253,24 +292,38 @@ describe('V1 Core Conduit L2 manifest, catalog and presentation', () => {
 		// The Level 1 summary is the earlier Conduit slice's already-approved reading; the Level 2
 		// summary is this batch's. Reading them from the same rendered progression is the minimum
 		// useful evidence that the Level 1 -> 2 player content is continuous in zh-TW.
-		const levelOneSummary = readFieldByExactLabel(container, '1 級');
-		const levelTwoSummary = readFieldByExactLabel(container, '2 級');
+		const expectZhTW = () => {
+			const levelOneSummary = readFieldByExactLabel(container, '1 級');
+			const levelTwoSummary = readFieldByExactLabel(container, '2 級');
 
-		expect(levelOneSummary).toContain('虔誠');
-		expect(levelTwoSummary).toContain('天界名冊');
-		expect(levelTwoSummary).toContain('工藝類 / 學識類 / 超常類專長');
-		expect(levelTwoSummary).toContain('2 級領域特性');
-		expect(levelTwoSummary).toContain('2 級領域招式');
-		expect(levelTwoSummary).not.toContain('The Lists of Heaven');
+			expect(levelOneSummary).toContain('虔誠');
+			expect(levelTwoSummary).toContain('天界名冊');
+			expect(levelTwoSummary).toContain('工藝類 / 學識類 / 超常類專長');
+			expect(levelTwoSummary).toContain('2 級領域特性');
+			expect(levelTwoSummary).toContain('2 級領域招式');
+			expect(levelTwoSummary).not.toContain('The Lists of Heaven');
+		};
 
-		switchLocale();
+		verifyLocaleDifferentialInvariants({
+			protectedStates: [ protectedClass, protectedHero ],
+			assertZhTW: expectZhTW,
+			switchToEnglish: switchLocale,
+			assertEnglish: () => {
+				expect(readFieldByExactLabel(container, 'Level 1')).toContain('Piety');
+				const englishLevelTwo = readFieldByExactLabel(container, 'Level 2');
+				expect(englishLevelTwo).toContain('The Lists of Heaven');
+				expect(englishLevelTwo).toContain('Crafting / Lore / Supernatural Perk');
+				expect(englishLevelTwo).toContain('2nd-Level Domain Feature');
+				expect(englishLevelTwo).toContain('2nd-Level Domain Ability');
+			},
+			switchToZhTW: switchLocale,
+			assertZhTWAfterRoundTrip: expectZhTW
+		});
 
-		expect(readFieldByExactLabel(container, 'Level 1')).toContain('Piety');
-		const englishLevelTwo = readFieldByExactLabel(container, 'Level 2');
-		expect(englishLevelTwo).toContain('The Lists of Heaven');
-		expect(englishLevelTwo).toContain('Crafting / Lore / Supernatural Perk');
-		expect(englishLevelTwo).toContain('2nd-Level Domain Feature');
-		expect(englishLevelTwo).toContain('2nd-Level Domain Ability');
-		expect(JSON.stringify(conduit)).toBe(serialized);
+		// The Hero is unchanged byte for byte after both switches, and still carries the canonical
+		// class identity and level the progression was read at.
+		expect(JSON.stringify(hero)).toBe(heroBefore);
+		expect(hero.class?.id).toBe(conduit.id);
+		expect(hero.class?.level).toBe(2);
 	});
 });
