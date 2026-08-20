@@ -372,6 +372,17 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 			calculated: /You teleport the target up to a number of squares equal to (-?\d+) instead\./,
 			localized: '你改為將目標傳送最多等於你`理智` ×2 的格數。',
 			localizedReplacement: (value: string) => `你改為將目標傳送最多 ${value} 格。`
+		},
+		{
+			// O Flower Aid, O Earth Defend is a Level 2 5-cost class ability. Only the third of
+			// its three authored Markdown bullets carries a calculated value; the leading newline
+			// and the other two bullets are untouched by both the calculator and this projection.
+			elementID: 'elementalist-ability-17',
+			field: 'sections.0.text',
+			canonical: 'takes damage equal to your Reason score.',
+			calculated: /takes damage equal to (-?\d+)\./,
+			localized: '他會受到等於你`理智`的傷害。',
+			localizedReplacement: (value: string) => `他會受到 ${value} 點傷害。`
 		}
 	];
 	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
@@ -394,6 +405,90 @@ const projectElementalistReasonValue = (elementID: string, field: string, canoni
 
 /** Counts non-overlapping occurrences of a literal snippet, for exact-occurrence guards. */
 const occurrenceCount = (text: string, snippet: string) => text.split(snippet).length - 1;
+
+// The two Elementalist Level 2 Feature descriptions the canonical calculator rewrites. Both
+// arrive through the FeaturePanel auto-calc path, which only runs in Hero context, so Library
+// keeps the approved raw zh-TW untouched. Each projection is identity-bound and is applied
+// only when replaying it onto the canonical English reproduces the calculator's output
+// exactly; nothing here recomputes a level, a speed or a characteristic.
+const projectElementalistLevel2FeatureValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	// Disciple of Fire states its immunity as a level-derived expression. The Owner-approved
+	// zh-TW reads the resolved value with the same 'N 點' grammar the rest of the slice uses.
+	if ((elementID === 'elementalist-sub-2-2-1') && (field === 'description')) {
+		const canonical = 'You have fire immunity equal to 5 plus your level.';
+		const localized = '你擁有等於 5 + 你等級的火焰免疫。';
+		const calculatedMatch = calculatedEnglish.match(/You have fire immunity equal to (-?\d+)\./);
+
+		if (!calculatedMatch || (occurrenceCount(canonicalEnglish, canonical) !== 1) || (occurrenceCount(localizedRaw, localized) !== 1)) {
+			return undefined;
+		}
+
+		if (canonicalEnglish.replace(canonical, calculatedMatch[0]) !== calculatedEnglish) {
+			return undefined;
+		}
+
+		return localizedRaw.replace(localized, `你擁有 ${calculatedMatch[1]} 點火焰免疫。`);
+	}
+
+	// Disciple of the Green is one atomic canonical field whose Animal Forms table runs through
+	// the Level 10 rows. The calculator touches it in two ways: it emphasizes the five condition
+	// readings the table names, and it resolves the one authored jump distance the Giant frog
+	// and Kangaroo rows share. Every other row, and the whole Markdown table structure, is
+	// carried through untouched.
+	if ((elementID === 'elementalist-sub-3-2-1') && (field === 'description')) {
+		const jumpCanonical = 'you can high jump or long jump up to half your speed.';
+		const jumpLocalized = '你可以跳高或跳遠最多等於你速度一半的距離。';
+		const jumpMatches = Array.from(calculatedEnglish.matchAll(/you can high jump or long jump up to (-?\d+) squares\./g));
+
+		let projectedCanonical = canonicalEnglish;
+		let projectedLocalized = localizedRaw;
+
+		if (jumpMatches.length > 0) {
+			const resolvedValues = new Set(jumpMatches.map(match => match[1]));
+			const agrees = (jumpMatches.length === occurrenceCount(canonicalEnglish, jumpCanonical))
+				&& (jumpMatches.length === occurrenceCount(localizedRaw, jumpLocalized))
+				&& (resolvedValues.size === 1);
+			if (!agrees) {
+				return undefined;
+			}
+
+			const value = jumpMatches[0][1];
+			projectedCanonical = projectedCanonical.split(jumpCanonical).join(`you can high jump or long jump up to ${value} squares.`);
+			projectedLocalized = projectedLocalized.split(jumpLocalized).join(`你可以跳高或跳遠最多 ${value} 格。`);
+		}
+
+		// The approved zh-TW uses 擒制 for both the 'grab' verb and the 'grabbed' condition, so
+		// the shared condition-emphasis helper cannot count them apart. These clauses carry the
+		// exact reading each emphasis belongs to instead, one occurrence each.
+		const emphasisClauses = [
+			{ canonical: 'knocked prone', calculated: 'knocked **prone**', localized: '被擊倒伏地', emphasized: '被擊倒**伏地**' },
+			{ canonical: 'While grabbed this way', calculated: 'While **grabbed** this way', localized: '若目標以此方式被擒制', emphasized: '若目標以此方式被**擒制**' },
+			{ canonical: 'the target is dazed (save ends)', calculated: 'the target is **dazed** (save ends)', localized: '目標會陷入暈眩（豁免解除）', emphasized: '目標會陷入**暈眩**（豁免解除）' },
+			{ canonical: 'targets who are bleeding or winded', calculated: 'targets who are **bleeding** or winded', localized: '你對陷入出血或疲態的目標', emphasized: '你對陷入**出血**或疲態的目標' },
+			{ canonical: 'up to eight creatures grabbed.', calculated: 'up to eight creatures **grabbed**.', localized: '你最多可以同時擒制 8 個生物。', emphasized: '你最多可以同時**擒制** 8 個生物。' }
+		];
+
+		for (const clause of emphasisClauses) {
+			if (occurrenceCount(calculatedEnglish, clause.calculated) === 0) {
+				continue;
+			}
+
+			const agrees = (occurrenceCount(canonicalEnglish, clause.canonical) === 1)
+				&& (occurrenceCount(calculatedEnglish, clause.calculated) === 1)
+				&& (occurrenceCount(localizedRaw, clause.localized) === 1);
+			if (!agrees) {
+				return undefined;
+			}
+
+			projectedCanonical = projectedCanonical.replace(clause.canonical, clause.calculated);
+			projectedLocalized = projectedLocalized.replace(clause.localized, clause.emphasized);
+		}
+
+		return projectedCanonical === calculatedEnglish ? projectedLocalized : undefined;
+	}
+
+	return undefined;
+};
 
 // These Fury Primordial Aspect readings are identity-bound snapshots. The canonical
 // calculator resolves the English value first; this only projects that one verified number
@@ -1268,6 +1363,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const elementalistReasonValue = projectElementalistReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (elementalistReasonValue) {
 		return elementalistReasonValue;
+	}
+
+	const elementalistLevel2FeatureValue = projectElementalistLevel2FeatureValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (elementalistLevel2FeatureValue) {
+		return elementalistLevel2FeatureValue;
 	}
 
 	const nullCalculatedValue = projectNullCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
