@@ -1593,7 +1593,7 @@ export const createV1CoreDomainLevel1To3RequiredCanonicalEnglish = (sourcebooks:
 	return requiredCanonicalEnglish;
 };
 
-/** The three Censor Orders. Their Level 2+ content stays outside this batch. */
+/** The three Censor Orders. Their Level 3+ content stays outside the denominator. */
 export const v1CensorOrderIDs = [
 	'censor-sub-1',
 	'censor-sub-2',
@@ -1680,6 +1680,58 @@ export const createV1CensorLevel1AndOrderRequiredCanonicalEnglish = (): Canonica
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The Censor's own, or one Order's, Level 2 progression roots. Like the Conduit Level 2 slice
+ * this reads a single named level rather than generalizing the shared Level 1 accessor, so no
+ * arbitrary-level traversal API is introduced for the other slices to inherit.
+ */
+const getV1CensorLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * The Abilities an Order's Level 2 ability Choice offers directly. Only a Choice's own options
+ * are read: these six Abilities are what the player picks between on the Level 2 page, so their
+ * authored content is player-facing here rather than in some later ability slice. Nothing else
+ * is descended into, so this stays the bounded reachability the batch fixed rather than a
+ * general nested-content crawl.
+ */
+const getV1CensorLevel2ChoiceAbilities = (features: Feature[]): Ability[] => (
+	features
+		.filter((feature): feature is FeatureChoice => feature.type === FeatureType.Choice)
+		.flatMap(choice => choice.data.options
+			.map(option => option.feature)
+			.filter((feature): feature is FeatureAbility => feature.type === FeatureType.Ability)
+			.map(feature => feature.data.ability))
+);
+
+/**
+ * Builds the bounded 47-identity Censor Level 2 denominator from live canonical data: the
+ * Censor's own Level 2 Perk reading, and for each of the three Orders its Level 2 non-Ability
+ * Feature readings - including the ability-choice root's own player-facing label - plus the
+ * authored fields of the two Abilities that choice offers.
+ *
+ * Order metadata and Level 1 Order content already belong to the Level 1 Censor slice, and
+ * Level 3+ stays out, so `class-and-subclass-level-content` remains unresolved.
+ */
+export const createV1CensorLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1CensorLevel2Features(censor.featuresByLevel, 'Censor'));
+
+	getV1CensorOrders().forEach(order => {
+		const orderLevelTwoFeatures = getV1CensorLevel2Features(order.featuresByLevel, `Censor Order '${order.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, orderLevelTwoFeatures);
+		getV1CensorLevel2ChoiceAbilities(orderLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -1716,7 +1768,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1StormwightKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks),
-		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish()
+		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish(),
+		...createV1CensorLevel2RequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).

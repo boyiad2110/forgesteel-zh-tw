@@ -1103,6 +1103,84 @@ const projectCoreDomainIntuitionValue = (elementID: string, field: string, canon
 };
 
 /**
+ * The two Censor Level 2 Exorcist readings whose canonical prose spends `twice your Presence
+ * score` inline. The shared `authorizedRewrites` table above cannot carry them: its Presence
+ * entries are bound to different surrounding canonical phrasing, and `It Is Justice You Fear`
+ * additionally reads the condition twice in Chinese while AbilityLogic emphasises it only once
+ * in English, which makes the shared condition-emphasis projector fail closed on a count
+ * mismatch. Both are therefore projected here, bound to their exact approved identities.
+ *
+ * Each part is applied only when the calculated English actually shows it, because these two
+ * fields differ in what the calculator does to them. `It Is Justice You Fear` gains its
+ * condition emphasis with or without a Hero but resolves the damage value only in Hero context,
+ * so its Library reading keeps the approved raw `等於你`氣場` ×2` wording and adds nothing but
+ * the emphasis. `Revelator` has no condition at all and changes only in Hero context.
+ *
+ * The final identity check is the fail-closed gate the rest of this module uses: the projection
+ * is returned only when the authorized rewrites, replayed onto the raw canonical English,
+ * reproduce the calculator's output exactly. Anything else - a new sentence, a second value, a
+ * changed phrase - leaves the canonical projection different and falls back to calculated
+ * English rather than guessing at Chinese.
+ */
+const projectCensorLevel2PresenceDamage = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'censor-sub-1-2-3a',
+			field: 'sections.1.text',
+			// AbilityLogic emphasises the condition state, not the later verb 'frighten', so only
+			// the matching first Chinese reading is emphasised.
+			emphasis: {
+				canonical: 'is already frightened of',
+				calculated: 'is already **frightened** of',
+				localized: '已經對你或其他生物陷入畏縮',
+				localizedReplacement: '已經對你或其他生物陷入**畏縮**'
+			},
+			canonical: 'they instead take psychic damage equal to twice your Presence score.',
+			calculated: /they instead take psychic damage equal to (-?\d+)\./,
+			localized: '則目標改為受到等於你`氣場` ×2 的心靈傷害。',
+			replacement: (value: string) => `則目標改為受到 ${value} 點心靈傷害。`
+		},
+		{
+			elementID: 'censor-sub-1-2-3b',
+			field: 'sections.0.text',
+			emphasis: undefined,
+			canonical: 'Each target takes holy damage equal to twice your Presence score.',
+			calculated: /Each target takes holy damage equal to (-?\d+)\./,
+			localized: '每個目標都會受到等於你`氣場` ×2 的神聖傷害。',
+			replacement: (value: string) => `每個目標都會受到 ${value} 點神聖傷害。`
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	const emphasis = projection.emphasis;
+	if (emphasis && calculatedEnglish.includes(emphasis.calculated)) {
+		if (!projectedCanonical.includes(emphasis.canonical) || !projectedLocalized.includes(emphasis.localized)) {
+			return undefined;
+		}
+		projectedCanonical = projectedCanonical.replace(emphasis.canonical, emphasis.calculated);
+		projectedLocalized = projectedLocalized.replace(emphasis.localized, emphasis.localizedReplacement);
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (calculatedMatch) {
+		if (!projectedCanonical.includes(projection.canonical) || !projectedLocalized.includes(projection.localized)) {
+			return undefined;
+		}
+		projectedCanonical = projectedCanonical.replace(projection.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(projection.localized, () => projection.replacement(calculatedMatch[1]));
+	}
+
+	return projectedCanonical === calculatedEnglish ? projectedLocalized : undefined;
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -1204,6 +1282,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const coreDomainIntuitionValue = projectCoreDomainIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (coreDomainIntuitionValue) {
 		return coreDomainIntuitionValue;
+	}
+
+	const censorLevel2PresenceDamage = projectCensorLevel2PresenceDamage(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (censorLevel2PresenceDamage) {
+		return censorLevel2PresenceDamage;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
