@@ -694,6 +694,56 @@ export const createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish = (): 
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The Null's own, or one Tradition's, Level 2 progression roots. Like the Conduit, Censor,
+ * Fury, Elementalist and Tactician Level 2 slices this reads a single named level rather than
+ * generalizing the shared Level 1 accessor, so no arbitrary-level traversal API appears for
+ * the other slices to inherit.
+ */
+const getV1NullLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 44-identity Null Level 2 denominator from live canonical data: the Null's
+ * own Level 2 Perk reading, and for each of the three Traditions its Level 2 non-Ability
+ * Feature readings plus the authored fields of the Abilities reachable from those exact Level 2
+ * roots.
+ *
+ * Both halves go through the one shared bounded walk and the same bounded Ability collector,
+ * with no per-Tradition exception. Cryokinetic's `null-sub-2-2-1b` Damage Modifier contributes
+ * its Feature-factory 'Damage Modifier' name exactly as the factory produces it, on the same
+ * rule the Tactician's Mark grouping precedent settled: FeaturePanel renders it as this
+ * Feature's own player-facing text, so how the canonical value was produced does not change
+ * whether it is required.
+ *
+ * All three Traditions author their Level 2 ability choice under the same
+ * '2nd-Level Tradition Ability' label. Those are three separate identities carrying the same
+ * canonical English, and they stay separate: nothing here deduplicates by canonical value.
+ *
+ * Like the Tactician Level 2 slice, no class-ability ID list appears: the Null's own Level 2
+ * progression authors only the Perk, and its class abilities all belong to the completed
+ * Level 1 slice. Tradition metadata and Level 1 content already belong to the Null Level 1
+ * slices, and Level 3+ stays out, so `class-and-subclass-level-content` remains unresolved.
+ */
+export const createV1NullLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1NullLevel2Features(nullClass.featuresByLevel, 'Null'));
+
+	getV1NullTraditions().forEach(tradition => {
+		const traditionLevelTwoFeatures = getV1NullLevel2Features(tradition.featuresByLevel, `Null Tradition '${tradition.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, traditionLevelTwoFeatures);
+		collectBoundedAbilities(traditionLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Fury Level 1 base-class ability slice; later Fury levels stay unresolved. */
 export const v1FuryLevel1AbilityIDs = [
 	'fury-ability-1',
@@ -1915,6 +1965,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish(),
+		...createV1NullLevel2RequiredCanonicalEnglish(),
 		...createV1FuryLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1FuryLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1FuryLevel1SubclassCompletionRequiredCanonicalEnglish(),

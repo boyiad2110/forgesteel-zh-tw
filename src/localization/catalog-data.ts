@@ -3584,6 +3584,60 @@ const coreTacticianLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2b', field: 'sections.0.text', canonicalEnglish: 'Until the start of your next turn, each target has a bonus to stability equal to your Might score. Additionally, each target gains 2 surges.', zhTW: '直到你的下個回合開始前，每個目標的穩度都會獲得等於你`力量`的加值。此外，每個目標都會獲得 2 點鬥志。', approval: 'approved' }
 ];
 
+// Core Null Level 2: the class's own Level 2 Perk reading, and for each of the three Traditions
+// its Level 2 Features - including Cryokinetic's factory-named Damage Modifier - each
+// Tradition's ability-choice root label, and the authored fields of the two Abilities each of
+// those Choices offers. All three Traditions label that Choice '2nd-Level Tradition Ability';
+// those stay three separate identities and are never deduplicated by canonical value. Inertial
+// Sink's canonical description begins with one authored newline and is snapshotted exactly.
+// The approved 44-record r2 packet is reproduced verbatim; canonical English stays in class data.
+const coreNullLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'null-2-1', field: 'name', canonicalEnglish: 'Exploration / Interpersonal / Intrigue Perk', zhTW: '探索類 / 交涉類 / 隱密類專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-1', field: 'name', canonicalEnglish: 'Rapid Processing', zhTW: '快速解析', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-1', field: 'description', canonicalEnglish: 'As a maneuver, you can read an entire book or process a similar amount of information. Additionally, during any respite, you can take an additional respite activity.', zhTW: '你可以使用機動動作讀完整本書或消化等量的資訊。此外，你可以在休整期間額外進行 1 項休整活動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2', field: 'name', canonicalEnglish: '2nd-Level Tradition Ability', zhTW: '2 級流派招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2a', field: 'name', canonicalEnglish: 'Blur', zhTW: '殘像疊影', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2a', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2a', field: 'description', canonicalEnglish: 'You release stored time, allowing you to act twice.', zhTW: '你釋放儲存的時間，讓自己行動兩次。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2a', field: 'sections.0.text', canonicalEnglish: 'You can use a signature or heroic ability. You gain an edge on that ability’s power rolls.', zhTW: '你可以發動 1 個招牌招式或英雄招式，而且該招式的檢定會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2b', field: 'name', canonicalEnglish: 'Force Redirected', zhTW: '逆勢偏轉', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2b', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2b', field: 'description', canonicalEnglish: 'The force of your strike moves your target in a surprising direction.', zhTW: '你的打擊力道將目標推向意想不到的方向。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: '8 + A damage; slide 1', zhTW: '8 + `敏捷`傷害；滑動 1', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: '12 + A damage; slide 3', zhTW: '12 + `敏捷`傷害；滑動 3', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-1-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: '16 + A damage; slide 5', zhTW: '16 + `敏捷`傷害；滑動 5', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-1', field: 'name', canonicalEnglish: 'Entropic Adaptability', zhTW: '熵能適性', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-1', field: 'description', canonicalEnglish: 'You ignore difficult terrain related to cold and ice, and you can automatically climb at full speed while moving.', zhTW: '你無視寒冷和冰雪造成的困難地形，而且可以在移動時以全速自動攀爬。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-1b', field: 'name', canonicalEnglish: 'Damage Modifier', zhTW: '傷害調整', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2', field: 'name', canonicalEnglish: '2nd-Level Tradition Ability', zhTW: '2 級流派招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2a', field: 'name', canonicalEnglish: 'Entropic Field', zhTW: '熵蝕場域', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2a', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2a', field: 'description', canonicalEnglish: 'You drastically increase the local entropy.', zhTW: '你大幅提高周遭區域的熵能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '6 cold damage; A < [weak], slowed (save ends)', zhTW: '6 寒冷傷害；`敏捷` < [弱]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '9 cold damage; A < [average], slowed (save ends)', zhTW: '9 寒冷傷害；`敏捷` < [中]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '13 cold damage; A < [strong], slowed (save ends)', zhTW: '13 寒冷傷害；`敏捷` < [強]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2b', field: 'name', canonicalEnglish: 'Heat Sink', zhTW: '吸熱成霜', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2b', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2b', field: 'description', canonicalEnglish: 'You absorb ambient heat, coating the ground in frost and precipitating snow from the air', zhTW: '你吸收周遭的熱量，讓地面瞬間結霜，讓空氣凝結飄雪。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-2-2-2b', field: 'sections.0.text', canonicalEnglish: 'Until the start of your next turn, the size of your Null Field ability increases by 1, and you and any ally benefit from concealment while in the area. At the end of this turn, each enemy in the area takes cold damage equal to your Intuition score.', zhTW: '直到你的下個回合開始前，你【無念場】招式的區域增加 1 格，而且你和位於無念場內的任何盟友都會獲得遮蔽的益處。當本回合結束時，無念場內的每個敵人都會受到等於你`直覺`的寒冷傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-1', field: 'name', canonicalEnglish: 'Inertial Sink', zhTW: '慣性沉體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-1', field: 'description', canonicalEnglish: '\nYou add your Intuition score to your effective size for the purpose of interacting with creatures and objects, such as for determining whether you can lift an object, whether you are affected by forced movement, and so forth. This has no effect on whether you can be grabbed.\n\nAdditionally, when you fall, you reduce the effective height of the fall by 5 squares in addition to any other reductions. Whenever you take damage from being force moved, you reduce that damage by an amount equal to your level.', zhTW: '當你與生物和物體互動時（例如判斷能不能舉起物體、被強制移動等等，但不包括你是否能被擒制），你的有效體型會視為加上你的`直覺`。\n\n此外，當你墜落時，除了其他減免外，你的有效墜落高度還會減少 5 格。每當你因為強制移動而受到傷害時，傷害量會減少等於你等級的數值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2', field: 'name', canonicalEnglish: '2nd-Level Tradition Ability', zhTW: '2 級流派招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2a', field: 'name', canonicalEnglish: 'Gravitic Strike', zhTW: '牽引重拳', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2a', field: 'description', canonicalEnglish: 'Your fist emanates gravitic force that pulls a distant enemy closer.', zhTW: '你的拳頭釋放一道引力，將遠處的敵人拉近。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '8 + A psychic damage; vertical pull 3', zhTW: '8 + `敏捷`心靈傷害；垂直拉動 3', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '12 + A psychic damage; vertical pull 5', zhTW: '12 + `敏捷`心靈傷害；垂直拉動 5', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '16 + A psychic damage; vertical pull 7', zhTW: '16 + `敏捷`心靈傷害；垂直拉動 7', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'name', canonicalEnglish: 'Kinetic Shield', zhTW: '動能護盾', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'description', canonicalEnglish: 'You manifest a force barrier that absorbs incoming kinetic energy.', zhTW: '你顯現出一道力場屏障，吸收來襲的動能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: 'You gain 10 temporary Stamina', zhTW: '你獲得 10 點臨時體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: 'You gain 15 temporary Stamina', zhTW: '你獲得 15 點臨時體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: 'You gain 20 temporary Stamina', zhTW: '你獲得 20 點臨時體力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'sections.1.text', canonicalEnglish: 'While you have temporary Stamina from this ability, you can’t be made bleeding even while dying.', zhTW: '只要你擁有此招式賦予的臨時體力，你不會陷入出血（即使瀕死也不會）。', approval: 'approved' }
+];
+
 // Talent Level 1 completion: the base class's remaining non-Ability fields plus its Heroic
 // Resource details, and each Talent Tradition's metadata and Level 1 Feature content. The
 // existing 131-entry Talent Level 1 Ability packet stays separate.
@@ -4111,6 +4165,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreElementalistLevel1RemainingLocalizationEntries,
 	...coreNullLevel1RemainingLocalizationEntries,
 	...coreNullLevel1SubclassCompletionLocalizationEntries,
+	...coreNullLevel2LocalizationEntries,
 	...coreElementalistLevel1SubclassCompletionLocalizationEntries,
 	...coreElementalistLevel2LocalizationEntries,
 	...coreFuryLevel1SubclassCompletionLocalizationEntries,

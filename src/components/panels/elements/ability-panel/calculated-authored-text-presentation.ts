@@ -840,6 +840,70 @@ const projectNullTraditionMasteryBonus = (elementID: string, field: string, cano
 	return localizedRaw.replace(localizedBonus, () => `強制移動的距離會獲得 ${calculatedMatches[localizedIndex++][1]} 點加值`);
 };
 
+/**
+ * The two Null Level 2 readings the canonical calculator rewrites. Heat Sink is an authored
+ * ability section that resolves an Intuition-derived damage value; Inertial Sink is a
+ * FeatureType.Text Feature description, so it arrives through the FeaturePanel auto-calc path.
+ *
+ * Inertial Sink is the reason each part is applied only when the calculated English actually
+ * shows it. The calculator does two independent things to that description: it emphasizes the
+ * `grabbed` condition in the first paragraph with or without a Hero, and it resolves the
+ * closing `equal to your level` reduction only in Hero context. Its opening `You add your
+ * Intuition score to your effective size` does not match the calculator's equal-to-characteristic
+ * grammar and is left authored on both surfaces, so the approved raw zh-TW keeps its
+ * `視為加上你的`直覺`` wording untouched. Nothing here recomputes a level or a characteristic.
+ *
+ * The condition emphasis is delegated to the shared projector, which also performs the
+ * fail-closed gate the rest of this module uses: the projection is returned only when the
+ * authorized rewrites, replayed onto the raw canonical English, reproduce the calculator's
+ * output exactly. Anything else falls back to the whole calculated English rather than
+ * producing a mixed Chinese/English reading.
+ */
+const projectNullLevel2CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'null-sub-2-2-2b',
+			field: 'sections.0.text',
+			// The authored 'increases by 1' earlier in the same sentence is a literal the
+			// calculator never touches, so only the Intuition damage below is projected.
+			canonical: 'takes cold damage equal to your Intuition score.',
+			calculated: /takes cold damage equal to (-?\d+)\./,
+			localized: '都會受到等於你`直覺`的寒冷傷害。',
+			localizedReplacement: (value: string) => `都會受到 ${value} 點寒冷傷害。`
+		},
+		{
+			elementID: 'null-sub-3-2-1',
+			field: 'description',
+			canonical: 'you reduce that damage by an amount equal to your level.',
+			calculated: /you reduce that damage by an amount equal to (-?\d+)\./,
+			localized: '傷害量會減少等於你等級的數值。',
+			localizedReplacement: (value: string) => `傷害量會減少 ${value} 點。`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (calculatedMatch) {
+		if ((occurrenceCount(canonicalEnglish, projection.canonical) !== 1) || (occurrenceCount(localizedRaw, projection.localized) !== 1)) {
+			return undefined;
+		}
+		projectedCanonical = projectedCanonical.replace(projection.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(projection.localized, () => projection.localizedReplacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
 // Shadow's two authored Speed readings. AbilityLogic resolves the canonical English speed
 // first; this only carries that verified value into the Owner-approved zh-TW grammar, and
 // Library keeps the approved unresolved raw wording.
@@ -1431,6 +1495,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const nullTraditionMasteryBonus = projectNullTraditionMasteryBonus(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (nullTraditionMasteryBonus) {
 		return nullTraditionMasteryBonus;
+	}
+
+	const nullLevel2CalculatedValue = projectNullLevel2CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (nullLevel2CalculatedValue) {
+		return nullLevel2CalculatedValue;
 	}
 
 	const shadowSpeedValue = projectShadowSpeedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
