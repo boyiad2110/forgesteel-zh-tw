@@ -1266,6 +1266,77 @@ export const createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglis
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Elementalist Level 2 base-class ability slice: the four 5-cost class
+ * abilities the Level 2 `elementalist-2-2` choice newly makes available. Abilities 13-16 are
+ * also 5-cost, but they already belong to the completed Level 1 slice and are deliberately
+ * not re-enumerated here; the two denominators stay disjoint.
+ */
+export const v1ElementalistLevel2AbilityIDs = [
+	'elementalist-ability-17',
+	'elementalist-ability-18',
+	'elementalist-ability-19',
+	'elementalist-ability-20'
+] as const;
+
+/** Enumerates only the four Elementalist abilities named above, read from the class's own list. */
+export const getV1ElementalistLevel2Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(elementalist.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1ElementalistLevel2AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Elementalist Level 2 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/**
+ * The Elementalist's own, or one element's, Level 2 progression roots. Like the Conduit,
+ * Censor and Fury Level 2 slices this reads a single named level rather than generalizing the
+ * shared Level 1 accessor, so no arbitrary-level traversal API appears for other slices to
+ * inherit.
+ */
+const getV1ElementalistLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 39-identity Elementalist Level 2 denominator from live canonical data:
+ * the Elementalist's own two Level 2 progression roots, each of the four elements' Level 2
+ * non-Ability Feature readings plus the authored fields of the Ability the Void's Level 2
+ * grants, and the authored fields of the four 5-cost class abilities Level 2 unlocks.
+ *
+ * Both feature halves go through the one shared bounded walk and the same bounded Ability
+ * collector, with no per-element exception. The Green's `Disciple of the Green` description is
+ * one canonical field even though its Animal Forms table runs through Level 10 rows, so it is
+ * required whole rather than sliced by level; that atomicity does not pull any Level 3+ sibling
+ * Feature into this slice.
+ *
+ * Element metadata and Level 1 content already belong to the Elementalist Level 1 slices, and
+ * Level 3+ stays out, so `class-and-subclass-level-content` remains unresolved.
+ */
+export const createV1ElementalistLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1ElementalistLevel2Features(elementalist.featuresByLevel, 'Elementalist'));
+
+	getV1ElementalistSubclasses().forEach(subclass => {
+		const levelTwoFeatures = getV1ElementalistLevel2Features(subclass.featuresByLevel, `Elementalist subclass '${subclass.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelTwoFeatures);
+		collectBoundedAbilities(levelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	getV1ElementalistLevel2Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	return requiredCanonicalEnglish;
+};
+
 export const v1FurySubclassIDs = [
 	'fury-sub-1',
 	'fury-sub-2',
@@ -1792,6 +1863,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglish(),
+		...createV1ElementalistLevel2RequiredCanonicalEnglish(),
 		...createV1NullLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1NullLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1NullLevel1SubclassCompletionRequiredCanonicalEnglish(),
