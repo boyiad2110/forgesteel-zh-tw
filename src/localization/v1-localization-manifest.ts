@@ -945,6 +945,54 @@ export const createV1TacticianLevel1CompletionRequiredCanonicalEnglish = (): Can
 };
 
 /**
+ * The Tactician's own, or one Tactical Doctrine's, Level 2 progression roots. Like the Conduit,
+ * Censor, Fury and Elementalist Level 2 slices this reads a single named level rather than
+ * generalizing the shared Level 1 accessor, so no arbitrary-level traversal API appears for the
+ * other slices to inherit.
+ */
+const getV1TacticianLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 53-identity Tactician Level 2 denominator from live canonical data: the
+ * Tactician's own Level 2 Perk reading, and for each of the three Tactical Doctrines its Level 2
+ * non-Ability Feature readings - the Doctrine's own Level 2 Features, Vanguard's Mark Benefit
+ * package content and each Doctrine's ability-choice root label - plus the authored fields of
+ * the Abilities reachable from those exact Level 2 roots.
+ *
+ * Both halves go through the one shared bounded walk and the same bounded Ability collector,
+ * with no per-Doctrine exception. Mastermind authors `Goaded` as a Level 2 root Ability rather
+ * than inside its Choice, and the same collector reaches it exactly as it reaches the two
+ * Abilities each Doctrine's Choice offers; nothing is descended into beyond a Choice's options
+ * and a Multiple's children.
+ *
+ * Unlike the Elementalist Level 2 slice, no class-ability ID list appears here: the Tactician's
+ * own Level 2 progression authors only the Perk, and its class abilities all belong to the
+ * completed Level 1 slice.
+ *
+ * Doctrine metadata and Level 1 content already belong to the Tactician Level 1 slices, and
+ * Level 3+ stays out, so `class-and-subclass-level-content` remains unresolved.
+ */
+export const createV1TacticianLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1TacticianLevel2Features(tactician.featuresByLevel, 'Tactician'));
+
+	getV1TacticianDoctrines().forEach(doctrine => {
+		const doctrineLevelTwoFeatures = getV1TacticianLevel2Features(doctrine.featuresByLevel, `Tactician Doctrine '${doctrine.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, doctrineLevelTwoFeatures);
+		collectBoundedAbilities(doctrineLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
+/**
  * The exact approved Talent Level 1 base-class ability slice. Level 1 selects signature, cost 3
  * and cost 5 class abilities, so only abilities 1-16 belong here; abilities 17+, later levels and
  * the Talent Tradition subclasses stay unresolved.
@@ -1875,6 +1923,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ShadowLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1CompletionRequiredCanonicalEnglish(),
+		...createV1TacticianLevel2RequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),

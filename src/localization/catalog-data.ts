@@ -3521,6 +3521,69 @@ const coreTacticianLevel1CompletionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'tactician-sub-3-1-3', field: 'sections.1.effect', canonicalEnglish: 'This ability’s distance becomes Melee 1 + your Reason score, and you can shift up to a number of squares equal to your Reason score instead of 1 square.', zhTW: '此招式的射程改為近戰 1 + 你的`理智`，而且你可以遁移最多等於`理智`的格數，而非 1 格。', approval: 'approved' }
 ];
 
+// Core Tactician Level 2: the class's own Level 2 Perk reading, and for each of the three
+// Tactical Doctrines its Level 2 Features, Vanguard's Mark Benefit package content, each
+// Doctrine's ability-choice root label, and the authored fields of the Abilities those Level 2
+// roots reach - including Mastermind's Goaded, which is authored as a root Ability rather than
+// inside its Choice. No Dying on My Watch's tier 2 canonical value intentionally begins with
+// one ASCII space and is snapshotted exactly as authored, never trimmed.
+// The approved 53-record packet is reproduced verbatim; canonical English stays in class data.
+const coreTacticianLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'tactician-2-1', field: 'name', canonicalEnglish: 'Exploration / Interpersonal / Intrigue Perk', zhTW: '探索類 / 交涉類 / 隱密類專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-1', field: 'name', canonicalEnglish: 'Infiltration Tactics', zhTW: '滲透戰術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-1', field: 'description', canonicalEnglish: 'You have trained your squad to work together, stay silent, and wait for the opportune time to strike. Whenever you or any ally within 10 squares of you becomes hidden, that creature gains 1 surge.', zhTW: '你訓練你的隊伍協同合作，保持靜默，等待出擊的最佳時機。每當你自己或 10 格內的任何盟友成功隱藏時，該生物會獲得 1 點鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2', field: 'name', canonicalEnglish: '2nd-Level Doctrine Ability', zhTW: '2 級準則招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2a', field: 'name', canonicalEnglish: 'Fog of War', zhTW: '戰爭迷霧', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2a', field: 'target', canonicalEnglish: 'Two creatures', zhTW: '2 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2a', field: 'description', canonicalEnglish: 'Your unorthodox strategy causes enemies to lash out in fear, heedless of who they might be attacking.', zhTW: '你的特殊戰術讓敵人心生恐懼並盲目出手，完全不顧攻擊的對象。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2a', field: 'sections.0.text', canonicalEnglish: 'Each target is marked by you, and must immediately make a free strike against a creature of your choice within 5 squares of them.', zhTW: '每個目標都會被你標記，而且必須立刻對他們 5 格內由你選擇的 1 個生物發動 1 次基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2a', field: 'sections.1.name', canonicalEnglish: 'Mark Benefit', zhTW: '標記益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2a', field: 'sections.1.effect', canonicalEnglish: 'Until the end of the encounter, whenever you or any ally makes a strike against a creature marked by you, you can spend 2 focus to force that target to make a free strike against a creature of your choice within 5 squares of them.', zhTW: '直到遭遇結束前，每當你自己或任何盟友對被你標記的生物發動打擊時，你可以花費 2 點專注，強迫目標對他 5 格內由你選擇的 1 個生物發動 1 次基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2b', field: 'name', canonicalEnglish: 'Try Me Instead', zhTW: '衝著我來', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2b', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2b', field: 'description', canonicalEnglish: '“Try picking on someone my size.”', zhTW: '「有種就來對付我。」', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2b', field: 'sections.0.text', canonicalEnglish: 'You shift up to your speed directly toward an ally, ending adjacent to them, then swapping locations with that ally as long as you can fit into each other’s spaces. The ally can spend a Recovery, and you can make the following weapon strike with a distance of melee 1 against a creature.', zhTW: '你朝 1 個盟友遁移最多等於你速度的距離，在他相鄰的空間停下，然後與該盟友交換位置（前提是雙方都能進入彼此的空間）。該盟友可以花費 1 點復元力，而你可以對近戰 1 射程內的 1 個生物發動以下武器打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2b', field: 'sections.1.roll.tier1', canonicalEnglish: '2 + R damage; R < [weak], frightened (save ends)', zhTW: '2 + `理智`傷害；`理智` < [弱]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2b', field: 'sections.1.roll.tier2', canonicalEnglish: '3 + R damage; R < [average], frightened (save ends)', zhTW: '3 + `理智`傷害；`理智` < [中]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-1-2-2b', field: 'sections.1.roll.tier3', canonicalEnglish: '4 + R damage; R < [strong], frightened (save ends)', zhTW: '4 + `理智`傷害；`理智` < [強]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-1', field: 'name', canonicalEnglish: 'Goaded', zhTW: '挑釁', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-1', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-1', field: 'description', canonicalEnglish: 'You have learned to leverage your marked foes’ psychology and goad them into acting before they’re tactically ready.', zhTW: '你能夠掌握敵人的心理，刺激對方在考慮不周的情況下貿然行動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-1', field: 'type.trigger', canonicalEnglish: 'A creature marked by you uses a strike that targets you or any ally within your line of effect.', zhTW: '當 1 個被你標記的生物對你或你效果線內的任何盟友發動打擊時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-1', field: 'sections.0.text', canonicalEnglish: 'You can change one target of the strike to you or another ally within your line of effect. The new target must be within distance of the ability and within line of effect of the creature using it.', zhTW: '你可以將該次打擊的其中 1 個目標改為你自己或你效果線內的其他盟友。新目標必須位於該招式的射程內，而且必須在招式發動者的效果線內。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2', field: 'name', canonicalEnglish: '2nd-Level Doctrine Ability', zhTW: '2 級準則招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2a', field: 'name', canonicalEnglish: 'I\'ve Got Your Back', zhTW: '我掩護你', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2a', field: 'description', canonicalEnglish: 'Your enemy will think twice about attacking your friend.', zhTW: '若想對你的朋友出手，最好再三考慮。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '5 + R damage; taunted (EoT)', zhTW: '5 + `理智`傷害；嘲諷（EoT）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '9 + R damage; taunted (EoT)', zhTW: '9 + `理智`傷害；嘲諷（EoT）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '12 + R damage; taunted (EoT)', zhTW: '12 + `理智`傷害；嘲諷（EoT）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2a', field: 'sections.1.text', canonicalEnglish: 'One ally adjacent to the target can spend a Recovery.', zhTW: '與目標相鄰的 1 個盟友可以花費 1 點復元力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2b', field: 'name', canonicalEnglish: 'Targets of Opportunity', zhTW: '可乘之機', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2b', field: 'target', canonicalEnglish: 'Two creatures', zhTW: '2 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2b', field: 'description', canonicalEnglish: 'You point out easy targets to your friends, allowing them to include more enemies in their attacks.', zhTW: '你向盟友指出容易下手的目標，讓他們可以攻擊更多敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2b', field: 'sections.0.text', canonicalEnglish: 'Each target is marked by you, and you gain two surges.', zhTW: '每個目標都會被你標記，而且你獲得 2 點鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2b', field: 'sections.1.name', canonicalEnglish: 'Mark Benefit', zhTW: '標記益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-2-2-2b', field: 'sections.1.effect', canonicalEnglish: 'Until the end of the encounter, whenever you or any ally makes a strike against a creature marked by you, you can spend 2 focus to add one additional target to the strike.', zhTW: '直到遭遇結束前，每當你自己或任何盟友對被你標記的生物發動打擊時，你可以花費 2 點專注，讓該次打擊額外增加 1 個目標。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-1', field: 'name', canonicalEnglish: 'Melee Superiority', zhTW: '近戰制敵', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-1', field: 'description', canonicalEnglish: 'After constant drills, you can more accurately anticipate an enemy’s plan and thwart their attempts to move across the battlefield. Whenever you make an opportunity attack, the target’s speed is reduced to 0 until the end of the current turn.', zhTW: '透過反覆訓練，你能精準預測敵人的行動，並阻礙他們在戰場上的移動。每當你發動藉機攻擊時，目標的速度會歸 0，直到當前回合結束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-1a', field: 'name', canonicalEnglish: 'Mark Benefit', zhTW: '標記益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-1a', field: 'description', canonicalEnglish: 'When a creature marked by you attempts to move or shift within distance of your melee free strike, you can use a free triggered action and spend 2 focus to make a melee free strike against that creature.', zhTW: '當 1 個被你標記的生物試圖在你近戰基礎打擊射程內移動或遁移時，你可以使用免費反應動作並花費 2 點專注，對該生物發動 1 次近戰基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2', field: 'name', canonicalEnglish: '2nd-Level Doctrine Ability', zhTW: '2 級準則招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'name', canonicalEnglish: 'No Dying on My Watch', zhTW: '誓死守護', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'target', canonicalEnglish: 'One enemy', zhTW: '1 個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'description', canonicalEnglish: 'You prioritize saving an ally over your own safety.', zhTW: '你不顧自身安全也要拯救盟友。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'type.trigger', canonicalEnglish: 'The target deals damage to an ally.', zhTW: '當目標對 1 個盟友造成傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'sections.0.text', canonicalEnglish: 'You move up to your speed toward the triggering ally, ending this movement adjacent to them or in the nearest square if you can’t reach an adjacent square. The triggering ally can spend a Recovery and gains 5 temporary Stamina for each enemy you came adjacent to during the move. You then make a power roll against the target.', zhTW: '你朝觸發盟友移動最多等於你速度的距離，並在他相鄰的空間停下（若無法抵達相鄰空間則停在最近的方格）。觸發盟友可以花費 1 點復元力，而且你在移動期間每相鄰過 1 個敵人，該盟友就會獲得 5 點臨時體力。然後，你對目標進行 1 次檢定。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'sections.1.roll.tier1', canonicalEnglish: 'R < [weak], the target is frightened of the triggering ally (save ends)', zhTW: '`理智` < [弱]，目標對觸發盟友陷入畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'sections.1.roll.tier2', canonicalEnglish: ' R < [average], the target is frightened of the triggering ally (save ends)', zhTW: '`理智` < [中]，目標對觸發盟友陷入畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2a', field: 'sections.1.roll.tier3', canonicalEnglish: 'R < [strong], the target is frightened of the triggering ally (save ends)', zhTW: '`理智` < [強]，目標對觸發盟友陷入畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2b', field: 'name', canonicalEnglish: 'Squad! On Me!', zhTW: '全員集合！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2b', field: 'target', canonicalEnglish: 'Self and each ally in the area', zhTW: '自身與區域內每個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2b', field: 'description', canonicalEnglish: 'Together we are invincible!', zhTW: '團結就是力量！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2b', field: 'sections.0.text', canonicalEnglish: 'Until the start of your next turn, each target has a bonus to stability equal to your Might score. Additionally, each target gains 2 surges.', zhTW: '直到你的下個回合開始前，每個目標的穩度都會獲得等於你`力量`的加值。此外，每個目標都會獲得 2 點鬥志。', approval: 'approved' }
+];
+
 // Talent Level 1 completion: the base class's remaining non-Ability fields plus its Heroic
 // Resource details, and each Talent Tradition's metadata and Level 1 Feature content. The
 // existing 131-entry Talent Level 1 Ability packet stays separate.
@@ -4052,6 +4115,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreElementalistLevel2LocalizationEntries,
 	...coreFuryLevel1SubclassCompletionLocalizationEntries,
 	...coreTacticianLevel1CompletionLocalizationEntries,
+	...coreTacticianLevel2LocalizationEntries,
 	...coreTalentLevel1CompletionLocalizationEntries,
 	...coreTroubadourLevel1CompletionLocalizationEntries
 ];

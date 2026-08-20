@@ -895,6 +895,59 @@ const projectShadowAgilityValue = (elementID: string, field: string, canonicalEn
 // are carried into the approved zh-TW; the taunted emphasis is then added by the shared
 // condition projection. Squad! Forward! is deliberately absent: its 'their speed' is
 // target-relative, so the calculator leaves it alone and Hero keeps the approved raw wording.
+
+// The three Tactician Level 2 ability texts the canonical calculator rewrites. Two Doctrine
+// abilities resolve `your speed` and one resolves a stability bonus `equal to your Might score`.
+// Each is identity-bound and applied only when replaying the calculator's own value onto the
+// canonical English reproduces its output exactly; nothing here recomputes a speed or a
+// characteristic, and the approved zh-TW around each clause is untouched. Without a Hero the
+// calculator leaves all three authored, so Library keeps the approved raw reading.
+const projectTacticianLevel2CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'tactician-sub-1-2-2b',
+			field: 'sections.0.text',
+			canonical: 'You shift up to your speed directly toward an ally,',
+			calculated: /You shift up to (-?\d+) squares directly toward an ally,/,
+			localized: '你朝 1 個盟友遁移最多等於你速度的距離，',
+			localizedReplacement: (value: string) => `你朝 1 個盟友遁移最多 ${value} 格，`
+		},
+		{
+			elementID: 'tactician-sub-3-2-2a',
+			field: 'sections.0.text',
+			canonical: 'You move up to your speed toward the triggering ally,',
+			calculated: /You move up to (-?\d+) squares toward the triggering ally,/,
+			localized: '你朝觸發盟友移動最多等於你速度的距離，',
+			localizedReplacement: (value: string) => `你朝觸發盟友移動最多 ${value} 格，`
+		},
+		{
+			// The authored '5 temporary Stamina' in the same sentence is a literal the calculator
+			// never touches, so only the stability bonus below is projected.
+			elementID: 'tactician-sub-3-2-2b',
+			field: 'sections.0.text',
+			canonical: 'each target has a bonus to stability equal to your Might score.',
+			calculated: /each target has a bonus to stability equal to (-?\d+)\./,
+			localized: '每個目標的穩度都會獲得等於你`力量`的加值。',
+			localizedReplacement: (value: string) => `每個目標的穩度都會獲得 ${value} 點加值。`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch || (occurrenceCount(canonicalEnglish, projection.canonical) !== 1) || (occurrenceCount(localizedRaw, projection.localized) !== 1)) {
+		return undefined;
+	}
+
+	if (canonicalEnglish.replace(projection.canonical, calculatedMatch[0]) !== calculatedEnglish) {
+		return undefined;
+	}
+
+	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
+};
+
 const projectTacticianReasonValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
 	if ((elementID === 'tactician-1-5b') && (field === 'sections.0.text')) {
 		const damageCanonical = 'The ability deals extra damage equal to twice your Reason score.';
@@ -1393,6 +1446,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const tacticianReasonValue = projectTacticianReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (tacticianReasonValue) {
 		return tacticianReasonValue;
+	}
+
+	const tacticianLevel2CalculatedValue = projectTacticianLevel2CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (tacticianLevel2CalculatedValue) {
+		return tacticianLevel2CalculatedValue;
 	}
 
 	const talentCharacteristicValue = projectTalentCharacteristicValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
