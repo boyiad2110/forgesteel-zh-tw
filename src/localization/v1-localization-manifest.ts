@@ -1411,6 +1411,59 @@ export const createV1TroubadourLevel1CompletionRequiredCanonicalEnglish = (): Ca
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The Troubadour's own, or one Class Act's, Level 2 progression roots. Like the Conduit,
+ * Censor, Fury, Elementalist, Tactician, Null, Shadow and Talent Level 2 slices this reads a
+ * single named level rather than generalizing the shared Level 1 accessor, so no
+ * arbitrary-level traversal API appears for the other slices to inherit.
+ */
+const getV1TroubadourLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 45-identity Troubadour Level 2 denominator from live canonical data: the
+ * base class's own Level 2 non-Ability readings plus the Ability its Level 2 Choice offers,
+ * and for each of the three Class Acts its Level 2 non-Ability readings plus the authored
+ * fields of the Abilities reachable from those exact Level 2 roots.
+ *
+ * Both halves go through the one shared bounded walk and the same bounded Ability collector,
+ * with no per-Class-Act exception. The base class's `Invocation` Choice mixes kinds: one of
+ * its three options is an Ability (`Allow Me to Introduce Tonight's Players`) while the other
+ * two are Text Features, and each side is read by the collector that owns it rather than by a
+ * Troubadour-specific rule. The Level 2 Perk carries no description, so it contributes one
+ * identity.
+ *
+ * All three Class Acts label their Level 2 ability choice '2nd-Level Class Act Ability'.
+ * Those are three separate identities carrying the same canonical English, and they stay
+ * separate; the same holds for the repeated `Special` target readings. Nothing here
+ * deduplicates by canonical value.
+ *
+ * No class-ability ID list appears: the Troubadour's own Level 2 progression authors no class
+ * ability, and its class abilities all belong to the completed Level 1 slice. Class Act
+ * metadata and Level 1 content already belong to the Troubadour Level 1 slices, and Level 3+
+ * stays out, so `class-and-subclass-level-content` remains unresolved.
+ */
+export const createV1TroubadourLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const troubadourLevelTwoFeatures = getV1TroubadourLevel2Features(troubadour.featuresByLevel, 'Troubadour');
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, troubadourLevelTwoFeatures);
+	collectBoundedAbilities(troubadourLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	getV1TroubadourClassActs().forEach(classAct => {
+		const classActLevelTwoFeatures = getV1TroubadourLevel2Features(classAct.featuresByLevel, `Troubadour Class Act '${classAct.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, classActLevelTwoFeatures);
+		collectBoundedAbilities(classActLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 export const v1ElementalistSubclassIDs = [
 	'elementalist-sub-1',
 	'elementalist-sub-2',
@@ -2081,6 +2134,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TalentLevel2RequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1CompletionRequiredCanonicalEnglish(),
+		...createV1TroubadourLevel2RequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),
 		...createV1CoreStandardKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1StormwightKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
