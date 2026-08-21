@@ -326,11 +326,14 @@ describe('V1 Core Talent L2 manifest, catalog and presentation', () => {
 	it('moves completeness by exactly this slice while class level content stays unresolved', () => {
 		const result = analyzeV1LocalizationCompleteness({ ...v1LocalizationManifest, catalogEntries: productionLocalizationEntries });
 
-		// This batch's own completeness movement: none of the 63 collided with an identity that
-		// already existed, so the denominator grows by exactly this slice.
+		// This batch's own completeness movement, stated as a relation rather than a global
+		// total: exactly these 63 identities, and no fewer, are the part of the live denominator
+		// this slice contributes. It would fail if the slice were unregistered or if any of its
+		// identities were dropped, and it stays true as later batches grow the denominator
+		// around it, so no unrelated global baseline is pinned here.
 		expect(Object.keys(required)).toHaveLength(63);
-		expect(result.requiredCount - Object.keys(required).length).toBe(3376);
-		expect(result.requiredCount).toBe(3439);
+		const identitiesOutsideThisSlice = Object.keys(v1LocalizationManifest.requiredCanonicalEnglish).filter(identity => required[identity] === undefined);
+		expect(result.requiredCount - identitiesOutsideThisSlice.length).toBe(63);
 
 		expect(result.missing).toEqual([]);
 		expect(result.unapproved).toEqual([]);
