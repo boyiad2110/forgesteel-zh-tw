@@ -1224,6 +1224,57 @@ export const createV1TalentLevel1CompletionRequiredCanonicalEnglish = (): Canoni
 };
 
 /**
+ * The Talent's own, or one Tradition's, Level 2 progression roots. Like the Conduit, Censor,
+ * Fury, Elementalist, Tactician, Null and Shadow Level 2 slices this reads a single named level
+ * rather than generalizing the shared Level 1 accessor, so no arbitrary-level traversal API
+ * appears for the other slices to inherit.
+ */
+const getV1TalentLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 63-identity Talent Level 2 denominator from live canonical data: the
+ * Talent's own Level 2 Perk reading, and for each of the three Traditions its Level 2
+ * non-Ability Feature readings plus the authored fields of the Abilities reachable from those
+ * exact Level 2 roots.
+ *
+ * Both halves go through the one shared bounded walk and the same bounded Ability collector,
+ * with no per-Tradition exception. Telekinesis authors `Ease their Fall` as a Level 2 root
+ * Ability rather than inside a Choice, and the same collector reaches it exactly as it reaches
+ * the two Abilities each Tradition's Choice offers; a Feature's type never decides whether its
+ * rendered player-facing content is required. That Ability carries an empty description, which
+ * the shared Ability reader skips, so it contributes no description identity.
+ *
+ * All three Traditions author their Level 2 ability choice under the same
+ * '2nd-Level Tradition Ability' label. Those are three separate identities carrying the same
+ * canonical English, and they stay separate: nothing here deduplicates by canonical value.
+ *
+ * Like the Tactician, Null and Shadow Level 2 slices, no class-ability ID list appears: the
+ * Talent's own Level 2 progression authors only the Perk, and its class abilities all belong to
+ * the completed Level 1 slice. Tradition metadata and Level 1 content already belong to the
+ * Talent Level 1 slices, and Level 3+ stays out, so `class-and-subclass-level-content` remains
+ * unresolved.
+ */
+export const createV1TalentLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1TalentLevel2Features(talent.featuresByLevel, 'Talent'));
+
+	getV1TalentTraditions().forEach(tradition => {
+		const traditionLevelTwoFeatures = getV1TalentLevel2Features(tradition.featuresByLevel, `Talent Tradition '${tradition.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, traditionLevelTwoFeatures);
+		collectBoundedAbilities(traditionLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
+/**
  * The exact approved Troubadour Level 1 base-class ability slice: the two direct Level 1
  * Performance abilities plus the signature, cost 3 and cost 5 class abilities 55-66. Abilities
  * 67+, later levels and the Class Act subclasses stay unresolved.
@@ -2027,6 +2078,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TacticianLevel2RequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1CompletionRequiredCanonicalEnglish(),
+		...createV1TalentLevel2RequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TroubadourLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1OrdenAncestryAbilityRequiredCanonicalEnglish(),

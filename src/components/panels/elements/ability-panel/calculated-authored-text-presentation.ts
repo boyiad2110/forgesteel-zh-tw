@@ -1208,7 +1208,12 @@ const projectTalentCharacteristicValue = (elementID: string, field: string, cano
 		{ elementID: 'talent-ability-7', field: 'sections.2.effect', canonical: 'you take damage equal to your Reason score that can’t be reduced in any way.', calculated: /you take damage equal to (-?\d+) that can’t be reduced in any way\./, localized: '但你也會受到等於你`理智`的傷害（無法被任何方式減免）。', replacement: (value: string) => `但你也會受到 ${value} 點傷害（無法被任何方式減免）。` },
 		{ elementID: 'talent-ability-9', field: 'sections.0.text', canonical: 'they gain temporary Stamina equal to three times your Presence score,', calculated: /they gain temporary Stamina equal to (-?\d+),/, localized: '他會獲得等於你`氣場` ×3 的臨時體力，', replacement: (value: string) => `他會獲得 ${value} 點臨時體力，` },
 		{ elementID: 'talent-ability-14', field: 'sections.0.text', canonical: 'they can push one adjacent creature up to a number of squares equal to your Reason score.', calculated: /they can push one adjacent creature up to a number of squares equal to (-?\d+)\./, localized: '他可以將 1 個相鄰的生物推動最多等於你`理智`的格數。', replacement: (value: string) => `他可以將 1 個相鄰的生物推動最多 ${value} 格。` },
-		{ elementID: 'talent-ability-15', field: 'sections.0.text', canonical: 'The target’s stability increases by an amount equal to your Reason score,', calculated: /The target’s stability increases by an amount equal to (-?\d+),/, localized: '目標的穩度增加等於你`理智`的數值，', replacement: (value: string) => `目標的穩度增加 ${value}，` }
+		{ elementID: 'talent-ability-15', field: 'sections.0.text', canonical: 'The target’s stability increases by an amount equal to your Reason score,', calculated: /The target’s stability increases by an amount equal to (-?\d+),/, localized: '目標的穩度增加等於你`理智`的數值，', replacement: (value: string) => `目標的穩度增加 ${value}，` },
+		// Ease their Fall is the one Talent Level 2 reading AbilityLogic resolves. Its authored
+		// '2 + your Reason score' is summed by the calculator in canonical English first, and
+		// only that verified total is carried into the approved zh-TW. Library keeps the
+		// approved unresolved reading, because without a Hero the calculator changes nothing.
+		{ elementID: 'talent-sub-2-2-1', field: 'sections.0.text', canonical: 'You reduce the falling damage by an amount equal to 2 + your Reason score.', calculated: /You reduce the falling damage by an amount equal to (-?\d+)\./, localized: '你將墜落傷害減少等於 2 + 你`理智`的數值。', replacement: (value: string) => `你將墜落傷害減少 ${value} 點。` }
 	];
 	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
 	if (!projection) {

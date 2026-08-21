@@ -3697,6 +3697,81 @@ const coreShadowLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'shadow-sub-3-2-2', field: 'description', canonicalEnglish: '\nYour illusions make your enemies believe you are their friend in critical moments. Whenever an enemy uses an ability or trait that targets multiple allies and you are within distance of the effect, you can choose to be a target of the effect as well.\n\nAdditionally, when you use your I’m No Threat ability, you can take the Disengage move action as part of that ability.', zhTW: '你的幻象讓敵人在關鍵時刻將你誤認成他的朋友。每當敵人發動指定多個盟友的招式或特性時，只要你在該效果的射程內，你可以自願成為該效果的目標。\n\n此外，當你發動【我毫無威脅】招式時，你可以在該招式的發動過程中執行撤離移動動作。', approval: 'approved' }
 ];
 
+// Core Talent Level 2: the class's own Level 2 Perk reading, and for each of the three
+// Traditions its Level 2 non-Ability Feature readings plus the authored fields of the Abilities
+// reachable from those exact Level 2 roots. Chronopathy and Telepathy each author one Level 2
+// Feature plus an ability Choice offering two nested Abilities; Telekinesis authors `Ease their
+// Fall` as a Level 2 root Ability of its own alongside its Choice. All three Traditions label
+// that Choice '2nd-Level Tradition Ability'; those stay three separate identities and are never
+// deduplicated by canonical value, as do the repeated `Strained` field labels. `Ease their Fall`
+// carries an empty canonical description, so it has no description entry.
+// The approved 63-record r1 packet is reproduced verbatim; canonical English stays in class data.
+const coreTalentLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'talent-2-1', field: 'name', canonicalEnglish: 'Interpersonal / Lore / Supernatural Perk', zhTW: '交涉類 / 學識類 / 超常類專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-1', field: 'name', canonicalEnglish: 'Ease the Hours', zhTW: '放緩時間', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-1', field: 'description', canonicalEnglish: 'You can increase the number of rounds in a montage test by 1 if the test would end before the heroes hit the success limit.', zhTW: '若蒙太奇考驗會在英雄達到成功上限前結束，你可以將考驗的輪數增加 1 輪。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2', field: 'name', canonicalEnglish: '2nd-Level Tradition Ability', zhTW: '2 級流派招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'name', canonicalEnglish: 'Applied Chronometrics', zhTW: '時序演算', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'target', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'description', canonicalEnglish: 'Time slows down around you. Your heartbeat is the only gauge of the extra moments you’ve gained.', zhTW: '你周圍的時間慢了下來，只有你的心跳可以衡量這額外獲得的片刻。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: 'You target two creatures, one of which can be you', zhTW: '你指定 2 個生物，其中 1 個可以是你自己', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: 'You target three creatures, one of which can be you', zhTW: '你指定 3 個生物，其中 1 個可以是你自己', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: 'You target four creatures, one of which can be you', zhTW: '你指定 4 個生物，其中 1 個可以是你自己', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'sections.1.text', canonicalEnglish: 'Until the start of your next turn, each target gains a +5 bonus to speed, they can’t be made dazed, and they can use an additional maneuver on their turn. If a target is already dazed, that condition ends for them.', zhTW: '直到你的下個回合開始前，每個目標的速度都會獲得 +5 加值、不會陷入暈眩狀態，而且可以在自己的回合中額外使用 1 次機動動作。若目標本來就處於暈眩狀態，該狀態會立刻解除。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'sections.2.name', canonicalEnglish: 'Strained', zhTW: '焦慮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2a', field: 'sections.2.effect', canonicalEnglish: 'Your speed is halved until the end of the encounter.', zhTW: '你的速度減半，直到遭遇結束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'name', canonicalEnglish: 'Slow', zhTW: '減速', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'target', canonicalEnglish: 'Three creatures or objects', zhTW: '3 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'description', canonicalEnglish: 'Perhaps they wonder why everyone else is moving so quickly?', zhTW: '也許他們會納悶為什麼其他人都動那麼快？', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: 'The target’s speed is halved (save ends), or if P < [weak], the target is slowed (save ends).', zhTW: '目標的速度減半（豁免解除），或是若 `氣場` < [弱]，目標陷入緩速（豁免解除）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: 'The target is slowed (save ends), or if P < [average], the target’s speed is 0 (save ends).', zhTW: '目標陷入緩速（豁免解除），或是若 `氣場` < [中]，目標的速度歸 0（豁免解除）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: 'The target is slowed (save ends), or if P < [strong], the target’s speed is 0 (save ends).', zhTW: '目標陷入緩速（豁免解除），或是若 `氣場` < [強]，目標的速度歸 0（豁免解除）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'sections.1.text', canonicalEnglish: 'A target can’t use triggered actions while their speed is reduced this way.', zhTW: '若目標以此方式降低速度，則無法使用反應動作。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'sections.2.name', canonicalEnglish: 'Strained', zhTW: '焦慮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-1-2-2b', field: 'sections.2.effect', canonicalEnglish: 'The potency of this ability increases by 1 and you take 1d6 damage. At the start of each combat round while any target is affected by this ability, you take 1d6 damage. You can end the effect on all affected targets at any time (no action required).', zhTW: '此招式的效力提高 1 點，但你受到 1d6 點傷害。每輪開始時，只要有任何目標仍然受到此招式影響，你會再受到 1d6 點傷害。你可以隨時解除所有受影響目標的效果（無需動作）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-1', field: 'name', canonicalEnglish: 'Ease their Fall', zhTW: '減緩墜落', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-1', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-1', field: 'type.trigger', canonicalEnglish: 'You land after a fall, or any falling creature lands within 2 squares of you.', zhTW: '當你自己墜落著地，或任何墜落生物在你 2 格內著地時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-1', field: 'sections.0.text', canonicalEnglish: 'You reduce the falling damage by an amount equal to 2 + your Reason score.', zhTW: '你將墜落傷害減少等於 2 + 你`理智`的數值。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2', field: 'name', canonicalEnglish: '2nd-Level Tradition Ability', zhTW: '2 級流派招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'name', canonicalEnglish: 'Gravitic Burst', zhTW: '重力爆發', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'description', canonicalEnglish: 'Everyone get away from me!', zhTW: '全都給我滾開！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '3 damage; vertical push 2', zhTW: '3 傷害；垂直推動 2', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '6 damage; vertical push 4', zhTW: '6 傷害；垂直推動 4', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '9 damage; vertical push 6', zhTW: '9 傷害；垂直推動 6', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'sections.1.name', canonicalEnglish: 'Strained', zhTW: '焦慮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2a', field: 'sections.1.effect', canonicalEnglish: 'The size of the burst increases by 1, and you are weakened until the end of your turn.', zhTW: '爆發區域 +1，但你會陷入虛弱，直到你的回合結束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'name', canonicalEnglish: 'Levity and Gravity', zhTW: '載浮載沉', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'description', canonicalEnglish: 'You raise the target into the air, then smother them against the ground.', zhTW: '你將目標稍微抬至空中，然後猛力砸回地面。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: '6 + R damage; M < [weak], prone', zhTW: '6 + `理智`傷害；`力量` < [弱]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: '10 + R damage; M < [average], prone', zhTW: '10 + `理智`傷害；`力量` < [中]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: '14 + R damage; M < [strong], prone and can’t stand (save ends)', zhTW: '14 + `理智`傷害；`力量` < [強]，伏地且無法起身（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'sections.1.name', canonicalEnglish: 'Strained', zhTW: '焦慮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-2-2-2b', field: 'sections.1.effect', canonicalEnglish: 'You take half the damage the target takes.', zhTW: '你受到目標所受傷害的一半。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-1', field: 'name', canonicalEnglish: 'Ease the Mind', zhTW: '舒緩心靈', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-1', field: 'description', canonicalEnglish: 'You gain an edge on tests made to stop combat and start a negotiation. Additionally, if you are present during a negotiation, any NPC who has a hostile or suspicious starting attitude has their patience increased by 1 (to a maximum of 5).', zhTW: '當你進行提議停戰談判的考驗時，你獲得 1 個優勢。此外，在談判期間，若你在場，任何初始態度為敵對或懷疑的 NPC 之耐心會增加 1 點（上限為 5）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2', field: 'name', canonicalEnglish: '2nd-Level Tradition Ability', zhTW: '2 級流派招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'name', canonicalEnglish: 'Overwhelm', zhTW: '崩潰', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'description', canonicalEnglish: 'You overload their senses, turning all their subconscious thoughts into conscious ones.', zhTW: '你讓目標的感官過載，將他所有的潛意識一併挖出來。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '6 + R psychic damage; I < [weak], slowed (save ends)', zhTW: '6 + `理智`心靈傷害；`直覺` < [弱]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '10 + R psychic damage; I < [average], weakened (save ends)', zhTW: '10 + `理智`心靈傷害；`直覺` < [中]，虛弱（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '14 + R psychic damage; I < [strong], dazed (save ends)', zhTW: '14 + `理智`心靈傷害；`直覺` < [強]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'sections.1.name', canonicalEnglish: 'Strained', zhTW: '焦慮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2a', field: 'sections.1.effect', canonicalEnglish: 'You start crying, and you can’t use triggered actions or make free strikes until the end of the target’s next turn.', zhTW: '你開始哭泣，而且在目標的下個回合結束前，你無法使用反應動作或發動基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'name', canonicalEnglish: 'Synaptic Override', zhTW: '突觸超控', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'target', canonicalEnglish: 'One enemy', zhTW: '1 個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'description', canonicalEnglish: 'You gain control over an enemy’s nervous system. How pleasant for them.', zhTW: '你控制敵人的神經系統。他們一定超開心的。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: 'The target makes a free strike against one enemy of your choice.', zhTW: '目標對你選擇的 1 個敵人發動 1 次基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: 'The target shifts up to their speed and uses their signature ability against any enemies of your choice.', zhTW: '目標遁移最多等於他速度的距離，然後對你選擇的任何敵人發動招牌招式。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: 'The target moves up to their speed and uses their signature ability against any enemies of your choice.', zhTW: '目標移動最多等於他速度的距離，然後對你選擇的任何敵人發動招牌招式。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'sections.1.text', canonicalEnglish: '**Effect** You control the target’s movement. The target can’t be moved in a way that would harm them (such as over a cliff), leave them dying, or result in them suffering a condition or other negative effect. However, you can move them to provoke opportunity attacks.', zhTW: '**效果** 由你控制目標的移動。目標不能被移動到會讓他受到傷害（例如懸崖外）、陷入瀕死，或承受狀態或其他負面效果的位置，但你可以移動目標來引發藉機攻擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'sections.2.name', canonicalEnglish: 'Strained', zhTW: '焦慮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'talent-sub-3-2-2b', field: 'sections.2.effect', canonicalEnglish: 'You take 1d6 damage and are weakened until the end of your turn.', zhTW: '你受到 1d6 點傷害，並陷入虛弱狀態，直到你的回合結束。', approval: 'approved' }
+];
+
 // Talent Level 1 completion: the base class's remaining non-Ability fields plus its Heroic
 // Resource details, and each Talent Tradition's metadata and Level 1 Feature content. The
 // existing 131-entry Talent Level 1 Ability packet stays separate.
@@ -4232,5 +4307,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreTacticianLevel1CompletionLocalizationEntries,
 	...coreTacticianLevel2LocalizationEntries,
 	...coreTalentLevel1CompletionLocalizationEntries,
+	...coreTalentLevel2LocalizationEntries,
 	...coreTroubadourLevel1CompletionLocalizationEntries
 ];
