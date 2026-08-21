@@ -887,6 +887,55 @@ export const createV1ShadowLevel1CompletionRequiredCanonicalEnglish = (): Canoni
 };
 
 /**
+ * The Shadow's own, or one College's, Level 2 progression roots. Like the Conduit, Censor,
+ * Fury, Elementalist, Tactician and Null Level 2 slices this reads a single named level rather
+ * than generalizing the shared Level 1 accessor, so no arbitrary-level traversal API appears
+ * for the other slices to inherit.
+ */
+const getV1ShadowLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 47-identity Shadow Level 2 denominator from live canonical data: the
+ * Shadow's own Level 2 Perk reading, and for each of the three Colleges its Level 2 non-Ability
+ * Feature readings plus the authored fields of the Abilities reachable from those exact Level 2
+ * roots.
+ *
+ * Each College authors the same two Level 2 roots: an ability Choice offering two nested
+ * Abilities, and one Text Feature of its own. Both halves go through the one shared bounded
+ * walk and the same bounded Ability collector, with no per-College exception.
+ *
+ * All three Colleges label their Choice '2nd-Level College Ability'. Those are three separate
+ * identities carrying the same canonical English, and they stay separate; the same holds for
+ * the repeated `Self`, `One creature` and `Each enemy in the area` target readings. Nothing
+ * here deduplicates by canonical value.
+ *
+ * Like the Tactician and Null Level 2 slices, no class-ability ID list appears: the Shadow's
+ * own Level 2 progression authors only the Perk, and its class abilities all belong to the
+ * completed Level 1 slice. College metadata and Level 1 content already belong to the Shadow
+ * Level 1 slices, and Level 3+ stays out, so `class-and-subclass-level-content` remains
+ * unresolved.
+ */
+export const createV1ShadowLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1ShadowLevel2Features(shadow.featuresByLevel, 'Shadow'));
+
+	getV1ShadowColleges().forEach(college => {
+		const collegeLevelTwoFeatures = getV1ShadowLevel2Features(college.featuresByLevel, `Shadow College '${college.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, collegeLevelTwoFeatures);
+		collectBoundedAbilities(collegeLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
+/**
  * The exact approved Tactician Level 1 base-class ability slice. Level 1 selects cost 3 and
  * cost 5 class abilities, so only abilities 1-8 belong here; cost 7+ abilities, later levels
  * and the Tactical Doctrine subclasses stay unresolved.
@@ -1972,6 +2021,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1FuryLevel2RequiredCanonicalEnglish(),
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1CompletionRequiredCanonicalEnglish(),
+		...createV1ShadowLevel2RequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel2RequiredCanonicalEnglish(),
