@@ -4332,6 +4332,104 @@ const coreTroubadourLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'troubadour-virtuoso-9', field: 'sections.1.roll.tier3', canonicalEnglish: '12 corruption damage; M < [strong], pull 3 toward the center of the area', zhTW: '12 腐朽傷害；`力量` < [強]，朝區域中心拉動 3 格', approval: 'approved' }
 ];
 
+/**
+ * The Owner-approved Beastheart Level 1 selectable base-class ability slice: abilities 1-12,
+ * frozen as packet `beastheart-l1-base-ability-localization-r1` and reproduced verbatim.
+ *
+ * `契獸` is the Owner-approved reading of `companion` inside these Beastheart identities, and
+ * only there: the Owner overrode three `Hungry like the Wolf` tiers back to it after review.
+ * No reusable Companion terminology mapping was approved with it, so the glossary is unchanged
+ * and no other approved content is rewritten to match.
+ *
+ * The two Level 1 feature abilities (`beastheart-1-3a` / `beastheart-1-3b`), every Beastheart
+ * Companion and Summon record, the Wild Nature subclasses and abilities 13+ all stay outside
+ * this slice, so the class-level and authored-content domains remain unresolved.
+ */
+const beastheartLevel1BaseAbilityLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'beastheart-ability-1', field: 'name', canonicalEnglish: 'Bodyswap', zhTW: '移形換位', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-1', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-1', field: 'description', canonicalEnglish: 'You and your ally morph into each other, magically switching places.', zhTW: '你和盟友透過魔法交換位置，彷彿彼此變形成對方。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-1', field: 'sections.0.text', canonicalEnglish: 'If you and a willing ally are standing on the ground within 10 squares of each other, you can teleport to swap places. If you do, you gain an edge on this ability.', zhTW: '若你與 1 個自願盟友都站在地面上，而且彼此相距 10 格內，你們可以傳送並交換位置。若你這麼做，此招式獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-1', field: 'sections.1.roll.tier1', canonicalEnglish: '3 + I damage', zhTW: '3 + `直覺`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-1', field: 'sections.1.roll.tier2', canonicalEnglish: '5 + I damage', zhTW: '5 + `直覺`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-1', field: 'sections.1.roll.tier3', canonicalEnglish: '7 + I damage', zhTW: '7 + `直覺`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-2', field: 'name', canonicalEnglish: 'Come On!', zhTW: '跟上！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-2', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-2', field: 'description', canonicalEnglish: 'You launch a flurry of attacks to cover your movement.', zhTW: '你以一連串攻勢掩護自己的移動。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-2', field: 'sections.0.roll.tier1', canonicalEnglish: '2 + M damage', zhTW: '2 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-2', field: 'sections.0.roll.tier2', canonicalEnglish: '3 + M damage', zhTW: '3 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-2', field: 'sections.0.roll.tier3', canonicalEnglish: '4 + M damage', zhTW: '4 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-2', field: 'sections.1.text', canonicalEnglish: 'Your companion can make a melee free strike. You both shift up to a number of squares equal to your Intuition score.', zhTW: '你的契獸可以發動 1 次近戰基礎打擊。你和契獸都可以遁移最多等於你`直覺`的距離。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-3', field: 'name', canonicalEnglish: 'Covering Fire', zhTW: '掩護射擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-3', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-3', field: 'description', canonicalEnglish: 'Keep your head down, or I’ll shoot it off!', zhTW: '低頭，不然會被射成蜂窩！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-3', field: 'sections.0.roll.tier1', canonicalEnglish: '2 + I damage', zhTW: '2 + `直覺`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-3', field: 'sections.0.roll.tier2', canonicalEnglish: '4 + I damage', zhTW: '4 + `直覺`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-3', field: 'sections.0.roll.tier3', canonicalEnglish: '6 + I damage', zhTW: '6 + `直覺`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-3', field: 'sections.1.text', canonicalEnglish: 'If the target is not prone, they must use a free triggered action to fall prone or take extra damage equal to twice your Intuition score. Your companion can shift up to a number of squares equal to their Intuition score.', zhTW: '若目標沒有處於伏地，他必須使用免費反應動作進入伏地，否則會額外受到等於你`直覺` ×2 的傷害。你的契獸可以遁移最多等於其`直覺`的距離。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-4', field: 'name', canonicalEnglish: 'Stormrage', zhTW: '風暴狂怒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-4', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-4', field: 'description', canonicalEnglish: 'Lances of primordial energy leap from you and your companion to sear, crush, or freeze your foe.', zhTW: '原初能量化為長矛，從你與契獸身上躍出，灼燒、重擊或凍結敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-4', field: 'sections.0.roll.tier1', canonicalEnglish: '2 + M cold, fire, lightning, or sonic damage', zhTW: '2 + `力量`寒冷、火焰、閃電或音波傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-4', field: 'sections.0.roll.tier2', canonicalEnglish: '4 + M cold, fire, lightning, or sonic damage', zhTW: '4 + `力量`寒冷、火焰、閃電或音波傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-4', field: 'sections.0.roll.tier3', canonicalEnglish: '6 + M cold, fire, lightning, or sonic damage', zhTW: '6 + `力量`寒冷、火焰、閃電或音波傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-4', field: 'sections.1.text', canonicalEnglish: 'You can spend 1 surge without gaining its benefits. If you do, your companion can use this ability as a free triggered action, targeting a different creature or object with the same power roll, but they don’t trigger this effect.', zhTW: '你可以花費 1 點鬥志，但不獲得鬥志的原本效果，而是讓你的契獸可以使用免費反應動作發動此招式，以相同的檢定結果指定另 1 個生物或物體，但不會再次觸發此效果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'name', canonicalEnglish: 'Bring the Thunder', zhTW: '震天雷霆', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'description', canonicalEnglish: 'Your companion unleashes a shattering roar, screech, or howl that terrifies your foes — or at least gets their attention.', zhTW: '你的契獸爆發出震耳欲聾的咆哮、尖嘯或嚎叫，嚇壞敵人或至少吸引他們的注意。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'sections.0.roll.tier1', canonicalEnglish: '3 sonic damage; push 1; P < [weak], taunted (save ends)', zhTW: '3 音波傷害；推動 1；`氣場` < [弱]，嘲諷（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'sections.0.roll.tier2', canonicalEnglish: '5 sonic damage; push 2; P < [average], taunted (save ends)', zhTW: '5 音波傷害；推動 2；`氣場` < [中]，嘲諷（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'sections.0.roll.tier3', canonicalEnglish: '7 sonic damage; push 3; P < [strong], frightened (save ends)', zhTW: '7 音波傷害；推動 3；`氣場` < [強]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-5', field: 'sections.1.effect', canonicalEnglish: 'This ability also affects a 2 burst originating from you. An enemy in both areas is only affected once.', zhTW: '此招式也會影響以你為源點的 2 格爆發區域。同時位於 2 個區域內的敵人只會受到 1 次效果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-6', field: 'name', canonicalEnglish: 'Herd the Sheep', zhTW: '驅趕羊群', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-6', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-6', field: 'description', canonicalEnglish: 'Your companion circles your foe, luring them out of position with fake openings and unpredictable attacks.', zhTW: '你的契獸繞著敵人打轉，以假動作和虛招引誘對方離開位置。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-6', field: 'sections.0.roll.tier1', canonicalEnglish: '5 + M damage; slide 1; I < [weak], weakened (save ends)', zhTW: '5 + `力量`傷害；滑動 1；`直覺` < [弱]，虛弱（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-6', field: 'sections.0.roll.tier2', canonicalEnglish: '8 + M damage; slide 2; I < [average], weakened (save ends)', zhTW: '8 + `力量`傷害；滑動 2；`直覺` < [中]，虛弱（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-6', field: 'sections.0.roll.tier3', canonicalEnglish: '11 + M damage; slide 4; I < [strong], weakened (save ends)', zhTW: '11 + `力量`傷害；滑動 4；`直覺` < [強]，虛弱（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-6', field: 'sections.1.text', canonicalEnglish: 'You and your companion can shift up to a number of squares equal to the number of squares the target was force moved.', zhTW: '你和契獸都可以遁移最多等於目標被強制移動格數的距離。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-7', field: 'name', canonicalEnglish: 'Hungry like the Wolf', zhTW: '狼吞虎咽', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-7', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-7', field: 'description', canonicalEnglish: 'The enemy’s blood flows like wine, invigorating your companion.', zhTW: '敵人的鮮血如美酒般流淌，讓你的契獸精神大振。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-7', field: 'sections.0.roll.tier1', canonicalEnglish: '4 + M damage; your companion can spend a Recovery', zhTW: '4 + `力量`傷害；你的契獸可以花費 1 點復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-7', field: 'sections.0.roll.tier2', canonicalEnglish: '7 + M damage; you and your companion can each spend a Recovery', zhTW: '7 + `力量`傷害；你和你的契獸都可以各花費 1 點復元力', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-7', field: 'sections.0.roll.tier3', canonicalEnglish: '11 + M damage; A < [strong], bleeding (EoT); you and your companion can each spend a Recovery and shift up to 2 squares', zhTW: '11 + `力量`傷害；`敏捷` < [強]，出血（EoT）；你和你的契獸都可以各花費 1 點復元力並遁移最多 2 格', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-8', field: 'name', canonicalEnglish: 'Pushover', zhTW: '順勢絆摔', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-8', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-8', field: 'description', canonicalEnglish: 'You and your companion surround your foe in order to bring them down.', zhTW: '你和契獸包夾敵人，準備放倒對方。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-8', field: 'sections.0.roll.tier1', canonicalEnglish: '5 + M damage; push 2', zhTW: '5 + `力量`傷害；推動 2', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-8', field: 'sections.0.roll.tier2', canonicalEnglish: '8 + M damage; push 4', zhTW: '8 + `力量`傷害；推動 4', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-8', field: 'sections.0.roll.tier3', canonicalEnglish: '11 + M damage; push 6', zhTW: '11 + `力量`傷害；推動 6', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-8', field: 'sections.1.text', canonicalEnglish: 'This forced movement can pass through your space but not end there. If the target passes through your space, they fall prone and take extra damage equal to your Intuition score.', zhTW: '此強制移動可以穿過你的方格，但不能在你的方格內結束。若目標穿過你的方格，目標會陷入伏地，並額外受到等於你`直覺`的傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-9', field: 'name', canonicalEnglish: 'All of You Versus All of Me', zhTW: '以寡敵眾', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-9', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-9', field: 'description', canonicalEnglish: 'Let all of them come forward and shatter yourselves against your might!', zhTW: '全都放馬過來，在我的力量面前粉身碎骨吧！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-9', field: 'sections.0.text', canonicalEnglish: 'You can spend a Recovery and gain 3 temporary Stamina for each target. Each target is taunted by you until the end of their next turn.', zhTW: '你可以花費 1 點復元力，並獲得目標數量 ×3 的臨時體力。每個目標都會被你嘲諷，直到各自的下個回合結束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-9', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-9', field: 'sections.1.effect', canonicalEnglish: 'This ability also affects a 3 burst originating from your companion. Targets in this second area are taunted by your companion. An enemy in both areas is taunted only by you.', zhTW: '此招式也會影響以你的契獸為源點的 3 格爆發區域。第 2 個區域內的目標會被你的契獸嘲諷。同時位於 2 個區域內的敵人只會被你嘲諷。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-10', field: 'name', canonicalEnglish: 'I Feed on your Pain!', zhTW: '我以痛苦為食！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-10', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-10', field: 'description', canonicalEnglish: 'Invigorated by the smell of blood, you strike a savage blow.', zhTW: '鮮血的氣味讓你精神振奮，揮出狂暴一擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-10', field: 'sections.0.roll.tier1', canonicalEnglish: '8 + M damage', zhTW: '8 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-10', field: 'sections.0.roll.tier2', canonicalEnglish: '12 + M damage', zhTW: '12 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-10', field: 'sections.0.roll.tier3', canonicalEnglish: '16 + M damage; M < [strong] bleeding (save ends)', zhTW: '16 + `力量`傷害；`力量` < [強]，出血（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-10', field: 'sections.1.text', canonicalEnglish: 'If the target is killed by this damage, or is winded or bleeding after taking this damage, you gain 2 surges.', zhTW: '若目標因為這次傷害而死亡，或在受到這次傷害後陷入疲態或出血，你會獲得 2 點鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-11', field: 'name', canonicalEnglish: 'Rain of Fire', zhTW: '傾盆火雨', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-11', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-11', field: 'description', canonicalEnglish: 'As your arrows rain down on your foes, flames spiral around your companion, setting the arrows ablaze.', zhTW: '當箭雨落向敵人時，火焰繞著你的契獸盤旋，將箭矢逐一點燃。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-11', field: 'sections.0.roll.tier1', canonicalEnglish: '3 fire damage', zhTW: '3 火焰傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-11', field: 'sections.0.roll.tier2', canonicalEnglish: '5 fire damage', zhTW: '5 火焰傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-11', field: 'sections.0.roll.tier3', canonicalEnglish: '8 fire damage', zhTW: '8 火焰傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-11', field: 'sections.1.text', canonicalEnglish: 'If your companion is in the area, they deal fire damage equal to their Intuition score to each target.', zhTW: '若你的契獸位於區域內，契獸會對每個目標造成等於其`直覺`的火焰傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-12', field: 'name', canonicalEnglish: 'You Let Me Get Too Close', zhTW: '寸步獵殺', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-12', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-12', field: 'description', canonicalEnglish: 'The wilderness has no concept of fair play.', zhTW: '荒野從不講求公平。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-12', field: 'sections.0.roll.tier1', canonicalEnglish: '8 + M damage; M < [weak] grabbed', zhTW: '8 + `力量`傷害；`力量` < [弱]，擒制', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-12', field: 'sections.0.roll.tier2', canonicalEnglish: '12 + M damage; M < [average] grabbed', zhTW: '12 + `力量`傷害；`力量` < [中]，擒制', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-12', field: 'sections.0.roll.tier3', canonicalEnglish: '16 + M damage; M < [strong] grabbed', zhTW: '16 + `力量`傷害；`力量` < [強]，擒制', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-12', field: 'sections.1.text', canonicalEnglish: 'If you grab the target while your companion is adjacent to them, your companion can make a melee free strike against the target.', zhTW: '當你擒制目標時，若你的契獸與目標相鄰，你的契獸可以對目標發動 1 次近戰基礎打擊。', approval: 'approved' }
+];
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4369,5 +4467,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreTalentLevel1CompletionLocalizationEntries,
 	...coreTalentLevel2LocalizationEntries,
 	...coreTroubadourLevel1CompletionLocalizationEntries,
-	...coreTroubadourLevel2LocalizationEntries
+	...coreTroubadourLevel2LocalizationEntries,
+	...beastheartLevel1BaseAbilityLocalizationEntries
 ];

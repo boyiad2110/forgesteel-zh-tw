@@ -91,6 +91,47 @@ const projectTroubadourLevelDamageTier = (abilityID: string, field: string, cano
 };
 
 /**
+ * Stormrage is the one approved Power Roll reading in this slice whose canonical damage names
+ * four alternative types as a comma-separated list - `2 + M cold, fire, lightning, or sonic
+ * damage`. The shared damage grammar above recognizes `<type> damage` and `<type> or <type>
+ * damage`, but deliberately not a comma-separated list, and widening it would change how every
+ * other class’s tiers are matched. AbilityLogic also rewrites the list itself here, dropping the
+ * authored `or` while it resolves the Might arithmetic, which is a structural change the shared
+ * replay comparison rightly refuses.
+ *
+ * So these three tiers are projected on their own identities instead, and only the one value the
+ * calculator actually resolved is carried across. The approved zh-TW keeps its own 「或」 reading of
+ * the type list exactly as the Owner approved it; nothing here restates the calculator’s English
+ * list in Chinese.
+ *
+ * Both readings are matched exactly before anything is projected. Without a Hero the calculator
+ * leaves the arithmetic authored, so Library keeps the approved raw zh-TW untouched.
+ */
+const beastheartStormrageTiers = [
+	{ field: 'sections.0.roll.tier1', canonical: '2 + M cold, fire, lightning, or sonic damage', localized: '2 + `力量`寒冷、火焰、閃電或音波傷害' },
+	{ field: 'sections.0.roll.tier2', canonical: '4 + M cold, fire, lightning, or sonic damage', localized: '4 + `力量`寒冷、火焰、閃電或音波傷害' },
+	{ field: 'sections.0.roll.tier3', canonical: '6 + M cold, fire, lightning, or sonic damage', localized: '6 + `力量`寒冷、火焰、閃電或音波傷害' }
+];
+
+const projectBeastheartStormrageTier = (abilityID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if (abilityID !== 'beastheart-ability-4') {
+		return undefined;
+	}
+
+	const tier = beastheartStormrageTiers.find(candidate => candidate.field === field);
+	if (!tier || (canonicalEnglish !== tier.canonical) || (localizedRaw !== tier.localized)) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(/^(-?\d+) cold, fire, lightning, sonic damage$/);
+	if (!calculatedMatch) {
+		return undefined;
+	}
+
+	return `${calculatedMatch[1]} 寒冷、火焰、閃電或音波傷害`;
+};
+
+/**
  * `No Dying on My Watch` tier 2 is authored with one leading ASCII space that tiers 1 and 3 do
  * not carry. That space is real canonical authority - the manifest and the catalog snapshot it
  * exactly, and nothing here trims the stored reading - but the canonical calculator drops it,
@@ -142,6 +183,11 @@ export const localizePowerRollTierPresentation = ({
 	const troubadourLevelDamage = projectTroubadourLevelDamageTier(abilityID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (troubadourLevelDamage) {
 		return troubadourLevelDamage;
+	}
+
+	const beastheartStormrage = projectBeastheartStormrageTier(abilityID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (beastheartStormrage) {
+		return beastheartStormrage;
 	}
 
 	// The canonical reading this batch's replay comparison uses. It differs from the stored

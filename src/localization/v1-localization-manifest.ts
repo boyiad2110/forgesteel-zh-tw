@@ -1,6 +1,7 @@
 /* eslint-disable sort-imports */
 
 import { CanonicalEnglishSource } from '@/localization/catalog-validator';
+import { beastheart } from '@/data/classes/beastheart/beastheart';
 import { censor } from '@/data/classes/censor/censor';
 import { conduit } from '@/data/classes/conduit/conduit';
 import { elementalist } from '@/data/classes/elementalist/elementalist';
@@ -2096,6 +2097,50 @@ export const createV1CensorLevel2RequiredCanonicalEnglish = (): CanonicalEnglish
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Beastheart Level 1 selectable base-class ability slice.
+ *
+ * Beastheart selects these twelve from the class’s own ability list at Level 1. The two Level 1
+ * feature abilities `beastheart-1-3a` (Heart of the Beast) and `beastheart-1-3b` (Feral Strike)
+ * are deliberately not read here, and neither is any Companion or Summon record, any Wild Nature
+ * subclass, or ability 13 and later: those stay inside the unresolved domains until their own
+ * batch enumerates them.
+ */
+export const v1BeastheartLevel1BaseAbilityIDs = [
+	'beastheart-ability-1',
+	'beastheart-ability-2',
+	'beastheart-ability-3',
+	'beastheart-ability-4',
+	'beastheart-ability-5',
+	'beastheart-ability-6',
+	'beastheart-ability-7',
+	'beastheart-ability-8',
+	'beastheart-ability-9',
+	'beastheart-ability-10',
+	'beastheart-ability-11',
+	'beastheart-ability-12'
+] as const;
+
+/** Enumerates only Beastheart abilities 1-12 from the class’s own live ability list. */
+export const getV1BeastheartLevel1BaseAbilities = (): Ability[] => {
+	const abilitiesByID = new Map(beastheart.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1BeastheartLevel1BaseAbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Beastheart Level 1 base ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 83-identity Beastheart Level 1 base-ability denominator from live canonical data. */
+export const createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1BeastheartLevel1BaseAbilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2140,7 +2185,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1StormwightKitRequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish(),
-		...createV1CensorLevel2RequiredCanonicalEnglish()
+		...createV1CensorLevel2RequiredCanonicalEnglish(),
+		...createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
