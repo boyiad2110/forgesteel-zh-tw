@@ -3638,6 +3638,65 @@ const coreNullLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'null-sub-3-2-2b', field: 'sections.1.text', canonicalEnglish: 'While you have temporary Stamina from this ability, you can’t be made bleeding even while dying.', zhTW: '只要你擁有此招式賦予的臨時體力，你不會陷入出血（即使瀕死也不會）。', approval: 'approved' }
 ];
 
+// Core Shadow Level 2: the class's own Level 2 Perk reading, and for each of the three Colleges
+// its Level 2 ability-choice root label, the authored fields of the two Abilities that Choice
+// offers, and the College's own Level 2 Text Feature. All three Colleges label that Choice
+// '2nd-Level College Ability'; those stay three separate identities and are never deduplicated
+// by canonical value, as do the repeated target readings. Friend!'s canonical description begins
+// with one authored newline and is snapshotted exactly. Sticky Bomb's approved final sentence
+// keeps the Owner-authorized bomb-centered referent: the power roll targets each enemy within
+// 2 squares of the bomb, not of the carrier.
+// The approved 47-record r3 packet is reproduced verbatim; canonical English stays in class data.
+const coreShadowLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'shadow-2-1', field: 'name', canonicalEnglish: 'Exploration / Interpersonal / Intrigue Perk', zhTW: '探索類 / 交涉類 / 隱密類專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1', field: 'name', canonicalEnglish: '2nd-Level College Ability', zhTW: '2 級學院招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1a', field: 'name', canonicalEnglish: 'In a Puff of Ash', zhTW: '黑燼一縷', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1a', field: 'description', canonicalEnglish: 'You enchant a strike with your teleportation magic.', zhTW: '你以傳送魔法增強打擊能力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1a', field: 'sections.0.roll.tier1', canonicalEnglish: '6 + A damage; you can teleport the target 1 square', zhTW: '6 + `敏捷`傷害；你可以將目標傳送 1 格', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1a', field: 'sections.0.roll.tier2', canonicalEnglish: '10 + A damage; you can teleport the target up to 3 squares', zhTW: '10 + `敏捷`傷害；你可以將目標傳送最多 3 格', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1a', field: 'sections.0.roll.tier3', canonicalEnglish: '14 + A damage; you can teleport the target up to 5 squares', zhTW: '14 + `敏捷`傷害；你可以將目標傳送最多 5 格', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1b', field: 'name', canonicalEnglish: 'Too Slow', zhTW: '太慢了', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1b', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1b', field: 'description', canonicalEnglish: 'Your foe made a big mistake.', zhTW: '你的敵人犯了天大的錯誤。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1b', field: 'type.trigger', canonicalEnglish: 'You use your In All This Confusion ability.', zhTW: '當你發動【趁亂閃現】招式時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-1b', field: 'sections.0.text', canonicalEnglish: 'You ignore any effects associated with the damage that triggered your In All This Confusion ability. Before you teleport, you can make a free strike against a creature who damaged you to trigger In All This Confusion. After you teleport, you can spend a Recovery.', zhTW: '你無視觸發【趁亂閃現】的傷害所附帶的任何效果。在你傳送前，你可以對傷害你並觸發【趁亂閃現】的生物發動 1 次基礎打擊。傳送後，你可以花費 1 點復元力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-2', field: 'name', canonicalEnglish: 'Burning Ash', zhTW: '燃燼', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-1-2-2', field: 'description', canonicalEnglish: 'The ash you leave behind burns your foes. The first time on a turn that you use a shadow ability to teleport away from or into a space adjacent to an enemy, that enemy takes fire damage equal to your Agility score.', zhTW: '你留下的黑燼會灼燒敵人。每回合中，當你首次發動影舞者招式從敵人的相鄰空間傳送離開，或傳送至敵人的相鄰空間時，該敵人會受到等於你`敏捷`的火焰傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1', field: 'name', canonicalEnglish: '2nd-Level College Ability', zhTW: '2 級學院招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1a', field: 'name', canonicalEnglish: 'Sticky Bomb', zhTW: '黏性炸彈', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1a', field: 'description', canonicalEnglish: 'Explosives are best when they’re attached to an enemy.', zhTW: '炸藥黏在敵人身上時的效果最佳。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1a', field: 'sections.0.text', canonicalEnglish: 'You attach a small bomb to a creature. If you are hidden from the creature, they don’t notice the bomb and you remain hidden. The creature otherwise notices the bomb and can disarm and remove it as a main action. If they don’t, at the end of your next turn, the bomb detonates. When the bomb detonates, you make a power roll targeting each enemy within 2 squares of it.', zhTW: '你將小型炸彈黏在 1 個生物身上。若你正對該生物隱藏，他不會察覺炸彈，而你也會保持隱藏。否則，該生物會發現炸彈，並可使用主要動作解除並移除炸彈。若他未這麼做，炸彈會在你的下個回合結束時引爆。炸彈引爆時，你對炸彈 2 格內的每個敵人進行 1 次檢定。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1a', field: 'sections.1.roll.tier1', canonicalEnglish: '4 + A fire damage', zhTW: '4 + `敏捷`火焰傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1a', field: 'sections.1.roll.tier2', canonicalEnglish: '7 + A fire damage', zhTW: '7 + `敏捷`火焰傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1a', field: 'sections.1.roll.tier3', canonicalEnglish: '11 + A fire damage', zhTW: '11 + `敏捷`火焰傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1b', field: 'name', canonicalEnglish: 'Stink Bomb', zhTW: '臭氣炸彈', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1b', field: 'target', canonicalEnglish: 'Each creature in the area', zhTW: '區域內每個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1b', field: 'description', canonicalEnglish: 'Putrid yellow gas explodes from a bomb you toss.', zhTW: '腐臭的黃色氣體從你投擲的炸彈中爆散而出。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1b', field: 'sections.0.roll.tier1', canonicalEnglish: '2 poison damage', zhTW: '2 劇毒傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1b', field: 'sections.0.roll.tier2', canonicalEnglish: '5 poison damage', zhTW: '5 劇毒傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1b', field: 'sections.0.roll.tier3', canonicalEnglish: '7 poison damage', zhTW: '7 劇毒傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-1b', field: 'sections.1.text', canonicalEnglish: 'The gas remains in the area until the end of the encounter. Any creature who starts their turn in the area and has M < [average] is weakened (save ends).', zhTW: '臭氣會停留在區域內，直到遭遇結束。任何在該區域內開始回合且`力量` < [中] 的生物都會陷入虛弱（豁免解除）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-2', field: 'name', canonicalEnglish: 'Trained Assassin', zhTW: '老練刺客', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-2-2-2', field: 'description', canonicalEnglish: 'You know just where to cut your enemies. Whenever you make a strike that has no bane or double bane, and that incorporates 1 or more surges, you gain 1 additional surge that you can use only on that strike.', zhTW: '你很清楚如何攻擊敵人的要害。每當你發動不帶任何劣勢的打擊時，若你決定在該次打擊中花費鬥志，你會額外獲得 1 點只能用於該次打擊的鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1', field: 'name', canonicalEnglish: '2nd-Level College Ability', zhTW: '2 級學院招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1a', field: 'name', canonicalEnglish: 'Machinations of Sound', zhTW: '惑敵幻音', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1a', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1a', field: 'description', canonicalEnglish: 'Illusory sounds make your foes reposition themselves as they cower or investigate the disturbance.', zhTW: '虛幻的聲音讓你的敵人害怕退縮或前去調查，因此重整站位。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1a', field: 'sections.0.roll.tier1', canonicalEnglish: 'Slide 4', zhTW: '滑動 4', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1a', field: 'sections.0.roll.tier2', canonicalEnglish: 'Slide 5', zhTW: '滑動 5', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1a', field: 'sections.0.roll.tier3', canonicalEnglish: 'Slide 7', zhTW: '滑動 7', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1a', field: 'sections.1.text', canonicalEnglish: 'This forced movement ignores stability. Instead, the forced movement is reduced by a number equal to the target’s Intuition score.', zhTW: '此強制移動無視穩度，但強制移動的距離會減少等於目標`直覺`的格數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1b', field: 'name', canonicalEnglish: 'So Gullible', zhTW: '太天真了', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1b', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1b', field: 'description', canonicalEnglish: 'When your enemy strikes, you reveal you were in a different place all along.', zhTW: '當敵人出手時，你揭露自己其實一直都在不同的位置。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1b', field: 'type.trigger', canonicalEnglish: 'Another creature targets you with a strike.', zhTW: '當其他生物針對你發動打擊時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-1b', field: 'sections.0.text', canonicalEnglish: 'You use your Clever Trick ability with no insight cost against the triggering creature and strike. You can teleport to an unoccupied space within 3 squares of that creature and can make a free strike against them. You can then spend a Recovery.', zhTW: '你對觸發生物發動【巧妙伎倆】招式，而且不需要花費洞察。你可以傳送至該生物 3 格內的未占據空間，並可以對他發動 1 次基礎打擊。之後，你可以花費 1 點復元力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-2', field: 'name', canonicalEnglish: 'Friend!', zhTW: '朋友！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-sub-3-2-2', field: 'description', canonicalEnglish: '\nYour illusions make your enemies believe you are their friend in critical moments. Whenever an enemy uses an ability or trait that targets multiple allies and you are within distance of the effect, you can choose to be a target of the effect as well.\n\nAdditionally, when you use your I’m No Threat ability, you can take the Disengage move action as part of that ability.', zhTW: '你的幻象讓敵人在關鍵時刻將你誤認成他的朋友。每當敵人發動指定多個盟友的招式或特性時，只要你在該效果的射程內，你可以自願成為該效果的目標。\n\n此外，當你發動【我毫無威脅】招式時，你可以在該招式的發動過程中執行撤離移動動作。', approval: 'approved' }
+];
+
 // Talent Level 1 completion: the base class's remaining non-Ability fields plus its Heroic
 // Resource details, and each Talent Tradition's metadata and Level 1 Feature content. The
 // existing 131-entry Talent Level 1 Ability packet stays separate.
@@ -4166,6 +4225,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreNullLevel1RemainingLocalizationEntries,
 	...coreNullLevel1SubclassCompletionLocalizationEntries,
 	...coreNullLevel2LocalizationEntries,
+	...coreShadowLevel2LocalizationEntries,
 	...coreElementalistLevel1SubclassCompletionLocalizationEntries,
 	...coreElementalistLevel2LocalizationEntries,
 	...coreFuryLevel1SubclassCompletionLocalizationEntries,

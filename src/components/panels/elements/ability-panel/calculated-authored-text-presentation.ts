@@ -954,6 +954,78 @@ const projectShadowAgilityValue = (elementID: string, field: string, canonicalEn
 	return localizedRaw.replace(localizedExpression, `遁移 ${calculatedMatch[1]} 格`);
 };
 
+/**
+ * The two Shadow Level 2 readings the canonical calculator rewrites. Burning Ash is a
+ * FeatureType.Text Feature description, so it arrives through the FeaturePanel auto-calc path;
+ * Stink Bomb's lingering-gas clause is an authored ability section.
+ *
+ * Neither can reuse an existing entry. `projectShadowAgilityValue` is bound to Smoke Bomb's own
+ * identity and a shift-distance grammar, not a fire-damage one; the shared `authorizedRewrites`
+ * table's damage entries are bound to different surrounding canonical phrasing. Stink Bomb's
+ * potency reads with the same grammar Boren's Aspect Benefits does, but that entry is bound to
+ * its own Kit identity and to `description`, so this is the same established grammar applied
+ * under Shadow's own identities rather than a widened shared rule.
+ *
+ * Each part is applied only when the calculated English actually shows it, because the two
+ * fields differ in what the calculator does to them. Stink Bomb gains its `weakened` emphasis
+ * and its potency code marks with or without a Hero but resolves the potency value only in Hero
+ * context, so its Library reading keeps the approved raw `[中]` and adds nothing but the
+ * emphasis. Burning Ash has no condition and changes only in Hero context.
+ *
+ * The condition emphasis and the final fail-closed gate are both delegated to the shared
+ * projector: the projection is returned only when these rewrites, replayed onto the raw
+ * canonical English, reproduce the calculator's output exactly. Nothing here recomputes a
+ * characteristic or a potency.
+ *
+ * Machinations of Sound is deliberately absent. Its `the target's Intuition score` is
+ * target-relative, so the calculator leaves it authored in both contexts and both surfaces
+ * already show the approved raw zh-TW without any projection.
+ */
+const projectShadowLevel2CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'shadow-sub-1-2-2',
+			field: 'description',
+			canonical: 'that enemy takes fire damage equal to your Agility score.',
+			calculated: /that enemy takes fire damage equal to (-?\d+)\./,
+			localized: '該敵人會受到等於你`敏捷`的火焰傷害。',
+			localizedReplacement: (value: string) => `該敵人會受到 ${value} 點火焰傷害。`
+		},
+		{
+			// The authored 'until the end of the encounter' clause carries no calculated value,
+			// so only the potency threshold below is projected.
+			elementID: 'shadow-sub-2-2-1b',
+			field: 'sections.1.text',
+			canonical: 'M < [average]',
+			calculated: /M\s*<\s*(-?\d+)/,
+			localized: '`力量` < [中]',
+			localizedReplacement: (value: string) => `\`力量\` < ${value}`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (calculatedMatch) {
+		if ((occurrenceCount(canonicalEnglish, projection.canonical) !== 1) || (occurrenceCount(localizedRaw, projection.localized) !== 1)) {
+			return undefined;
+		}
+		projectedCanonical = projectedCanonical.replace(projection.canonical, () => calculatedMatch[0].replace(/\s+/g, ' '));
+		projectedLocalized = projectedLocalized.replace(projection.localized, () => projection.localizedReplacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
 // Mark: Trigger is the one Tactician reading whose canonical grammar the calculator rewrites.
 // Both Reason-score expressions are resolved in English first and only their verified values
 // are carried into the approved zh-TW; the taunted emphasis is then added by the shared
@@ -1510,6 +1582,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const shadowAgilityValue = projectShadowAgilityValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (shadowAgilityValue) {
 		return shadowAgilityValue;
+	}
+
+	const shadowLevel2CalculatedValue = projectShadowLevel2CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (shadowLevel2CalculatedValue) {
+		return shadowLevel2CalculatedValue;
 	}
 
 	const tacticianReasonValue = projectTacticianReasonValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
