@@ -1511,6 +1511,82 @@ const projectCensorLevel2PresenceDamage = (elementID: string, field: string, can
 };
 
 /**
+ * The three Beastheart authored readings whose canonical calculation resolves an Intuition
+ * expression in place. All three are ability section text, so they arrive through AbilityPanel’s
+ * auto-calc path.
+ *
+ * None can reuse an existing entry. The shared `authorizedRewrites` table’s damage and shift
+ * entries are bound to different surrounding canonical phrasing, and `projectCoreDomainIntuitionValue`
+ * and `projectConduitIntuitionValue` are bound to their own class identities. These are therefore
+ * projected here, bound to their exact approved identities.
+ *
+ * Each part is applied only when the calculated English actually shows it, because the three
+ * fields differ in what the calculator does to them. `Covering Fire` and `Pushover` gain their
+ * `prone` emphasis with or without a Hero but resolve the Intuition value only in Hero context,
+ * so their Library readings keep the approved raw 「直覺」 wording and add nothing but the emphasis.
+ * `Come On!` has no condition at all and changes only in Hero context.
+ *
+ * `Covering Fire`’s second sentence reads `equal to their Intuition score` - the companion’s own
+ * score, not the Hero’s - and the calculator leaves it authored in both contexts, so the approved
+ * zh-TW keeps that expression untouched on both surfaces.
+ *
+ * The condition emphasis and the final fail-closed gate are both delegated to the shared
+ * projector: the projection is returned only when these rewrites, replayed onto the raw canonical
+ * English, reproduce the calculator’s output exactly. Nothing here recomputes a characteristic.
+ */
+const projectBeastheartIntuitionValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'beastheart-ability-2',
+			field: 'sections.1.text',
+			canonical: 'You both shift up to a number of squares equal to your Intuition score.',
+			calculated: /You both shift up to a number of squares equal to (-?\d+)\./,
+			localized: '你和契獸都可以遁移最多等於你`直覺`的距離。',
+			replacement: (value: string) => `你和契獸都可以遁移最多 ${value} 格。`
+		},
+		{
+			elementID: 'beastheart-ability-3',
+			field: 'sections.1.text',
+			canonical: 'take extra damage equal to twice your Intuition score.',
+			calculated: /take extra damage equal to (-?\d+)\./,
+			localized: '會額外受到等於你`直覺` ×2 的傷害。',
+			replacement: (value: string) => `會額外受到 ${value} 點傷害。`
+		},
+		{
+			elementID: 'beastheart-ability-8',
+			field: 'sections.1.text',
+			canonical: 'take extra damage equal to your Intuition score.',
+			calculated: /take extra damage equal to (-?\d+)\./,
+			localized: '並額外受到等於你`直覺`的傷害。',
+			replacement: (value: string) => `並額外受到 ${value} 點傷害。`
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (calculatedMatch) {
+		if (!projectedCanonical.includes(projection.canonical) || !projectedLocalized.includes(projection.localized)) {
+			return undefined;
+		}
+		projectedCanonical = projectedCanonical.replace(projection.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(projection.localized, () => projection.replacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -1637,6 +1713,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const censorLevel2PresenceDamage = projectCensorLevel2PresenceDamage(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (censorLevel2PresenceDamage) {
 		return censorLevel2PresenceDamage;
+	}
+
+	const beastheartIntuitionValue = projectBeastheartIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (beastheartIntuitionValue) {
+		return beastheartIntuitionValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
