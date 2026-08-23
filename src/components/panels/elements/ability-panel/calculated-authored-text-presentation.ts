@@ -1635,6 +1635,192 @@ const projectBeastheartRecoveryValue = (elementID: string, field: string, canoni
 };
 
 /**
+ * The nine Beastheart Wild Nature Level 1 authored readings the canonical calculator rewrites.
+ * All nine are subclass ability fields, so they arrive through AbilityPanel’s auto-calc path.
+ *
+ * None can reuse an existing entry. `projectBeastheartIntuitionValue` and
+ * `projectBeastheartRecoveryValue` are bound to the Beastheart base identities and to different
+ * surrounding canonical phrasing, and the shared `authorizedRewrites` table’s damage, potency
+ * and movement entries are each bound to their own clause wording. The Punisher potency clause
+ * reads with the same grammar the Shadow Level 2 entry does, but that one is bound to its own
+ * identity, so this is the established grammar applied under Beastheart’s own identities rather
+ * than a widened shared rule.
+ *
+ * `The Pack Defends` is deliberately absent: its `regains Stamina equal to your recovery value`
+ * clause is already covered by the shared `authorizedRewrites` recovery entry, whose canonical,
+ * calculated and localized forms reconstruct this reading exactly, so it needs no new binding.
+ *
+ * Each part is applied only when the calculated English actually shows it, because the fields
+ * differ in what the calculator does to them. The two Avalanche Rush readings gain their `prone`
+ * emphasis and potency code marks with or without a Hero but resolve their potency and
+ * characteristic values only in Hero context, so their Library readings keep the approved raw
+ * 「[中]」/「[強]」 wording and add nothing but the emphasis. The other seven change only in Hero
+ * context and keep the approved raw zh-TW on the Library surface.
+ *
+ * The condition emphasis and the final fail-closed gate are both delegated to the shared
+ * projector: the projection is returned only when these rewrites, replayed onto the raw
+ * canonical English, reproduce the calculator’s output exactly. Nothing here recomputes a
+ * characteristic, a potency or a distance.
+ *
+ * `Wild Nature Benefit` descriptions are deliberately absent. Their direct FeaturePanel surface
+ * carries no calculated transform, and the AbilityPanel package-injection surface renders raw
+ * canonical English without reaching any localization boundary at all - a pre-existing
+ * cross-class defect deferred to its own technical batch, not something this presenter can fix.
+ */
+const projectBeastheartWildNatureCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'beastheart-sub-2-1-3',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'The target takes damage equal to 3 + your Might score.',
+					calculated: /The target takes damage equal to (-?\d+)\./,
+					localized: '目標受到等於 3 + 你`力量`的傷害。',
+					replacement: (value: string) => `目標受到 ${value} 點傷害。`
+				},
+				{
+					canonical: 'jump up to a number of squares equal to your Intuition score in a straight line',
+					calculated: /jump up to a number of squares equal to (-?\d+) in a straight line/,
+					localized: '沿直線跳躍最多等於你`直覺`的格數',
+					replacement: (value: string) => `沿直線跳躍最多 ${value} 格`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-2-1-4',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'move up to a number of squares equal to your Intuition score before or after',
+					calculated: /move up to a number of squares equal to (-?\d+) before or after/,
+					localized: '移動最多等於你`直覺`的格數',
+					replacement: (value: string) => `移動最多 ${value} 格`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-2-1-4',
+			field: 'sections.1.effect',
+			parts: [
+				{
+					canonical: 'You can move up to a number of squares equal to twice your Intuition score and',
+					calculated: /You can move up to a number of squares equal to (-?\d+) and/,
+					localized: '你可以移動最多等於你`直覺` ×2 的格數，',
+					replacement: (value: string) => `你可以移動最多 ${value} 格，`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-3-1-3',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'The target takes damage equal to 3 + your Might score,',
+					calculated: /The target takes damage equal to (-?\d+),/,
+					localized: '目標受到等於 3 + 你`力量`的傷害；',
+					replacement: (value: string) => `目標受到 ${value} 點傷害；`
+				},
+				{
+					canonical: 'M<[average]',
+					calculated: /M<\s*(-?\d+)/,
+					localized: '`力量` < [中]',
+					replacement: (value: string) => `\`力量\` < ${value}`
+				},
+				{
+					canonical: 'that enemy takes cold damage equal to your Might score.',
+					calculated: /that enemy takes cold damage equal to (-?\d+)\./,
+					localized: '該敵人會受到等於你`力量`的寒冷傷害。',
+					replacement: (value: string) => `該敵人會受到 ${value} 點寒冷傷害。`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-3-1-3',
+			field: 'sections.1.effect',
+			parts: [
+				{
+					canonical: 'M<[strong]',
+					calculated: /M<\s*(-?\d+)/,
+					localized: '`力量` < [強]',
+					replacement: (value: string) => `\`力量\` < ${value}`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-3-1-4',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'You deal sonic damage equal to your Might score to the target',
+					calculated: /You deal sonic damage equal to (-?\d+) to the target/,
+					localized: '你對目標造成等於你`力量`的音波傷害',
+					replacement: (value: string) => `你對目標造成 ${value} 點音波傷害`
+				},
+				{
+					canonical: 'push them up to a number of squares equal to 1 + your Might score.',
+					calculated: /push them up to a number of squares equal to (-?\d+)\./,
+					localized: '將目標推動最多等於 1 + 你`力量`的格數。',
+					replacement: (value: string) => `將目標推動最多 ${value} 格。`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-4-1-3',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: '(your choice) equal to your Might score.',
+					calculated: /\(your choice\) equal to (-?\d+)\./,
+					localized: '每個目標受到等於你`力量`的寒冷、火焰、閃電或音波傷害',
+					replacement: (value: string) => `每個目標受到 ${value} 點寒冷、火焰、閃電或音波傷害`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-4-1-4',
+			field: 'sections.1.effect',
+			parts: [
+				{
+					canonical: '(your choice) equal to your Intuition score.',
+					calculated: /\(your choice\) equal to (-?\d+)\./,
+					localized: '都會受到等於你`直覺`的閃電或火焰傷害',
+					replacement: (value: string) => `都會受到 ${value} 點閃電或火焰傷害`
+				}
+			]
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	for (const part of projection.parts) {
+		const calculatedMatch = calculatedEnglish.match(part.calculated);
+		if (!calculatedMatch) {
+			continue;
+		}
+
+		if ((occurrenceCount(projectedCanonical, part.canonical) !== 1) || (occurrenceCount(projectedLocalized, part.localized) !== 1)) {
+			return undefined;
+		}
+
+		projectedCanonical = projectedCanonical.replace(part.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(part.localized, () => part.replacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -1771,6 +1957,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const beastheartRecoveryValue = projectBeastheartRecoveryValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (beastheartRecoveryValue) {
 		return beastheartRecoveryValue;
+	}
+
+	const beastheartWildNatureCalculatedValue = projectBeastheartWildNatureCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (beastheartWildNatureCalculatedValue) {
+		return beastheartWildNatureCalculatedValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
