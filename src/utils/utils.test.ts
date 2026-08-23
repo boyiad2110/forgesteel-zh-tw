@@ -98,6 +98,80 @@ describe('Utils', () => {
 			expect(html).toContain('=');
 		});
 
+		describe('code fence boundaries', () => {
+			const legacyDelimiter = '|:====|:====|';
+
+			test('a tilde line inside a backtick fence does not close it', () => {
+				const html = Utils.markdownToHtml([ '```text', '~~~', legacyDelimiter, '```' ].join('\n'));
+
+				// The whole block is still literal code, so the delimiter keeps its `=`.
+				expect(html).toContain(legacyDelimiter);
+				expect(html).not.toContain('|:----|:----|');
+				expect(html).not.toContain('<table>');
+			});
+
+			test('a backtick line inside a tilde fence does not close it', () => {
+				const html = Utils.markdownToHtml([ '~~~text', '```', legacyDelimiter, '~~~' ].join('\n'));
+
+				expect(html).toContain(legacyDelimiter);
+				expect(html).not.toContain('|:----|:----|');
+				expect(html).not.toContain('<table>');
+			});
+
+			test('a shorter fence line does not close a longer fence', () => {
+				const html = Utils.markdownToHtml([ '````', '```', legacyDelimiter, '````' ].join('\n'));
+
+				expect(html).toContain(legacyDelimiter);
+				expect(html).not.toContain('|:----|:----|');
+				expect(html).not.toContain('<table>');
+			});
+
+			test('a closing fence carrying an info string does not close the block', () => {
+				const html = Utils.markdownToHtml([ '```', '``` still code', legacyDelimiter, '```' ].join('\n'));
+
+				expect(html).toContain(legacyDelimiter);
+				expect(html).not.toContain('|:----|:----|');
+				expect(html).not.toContain('<table>');
+			});
+
+			test('a legacy table after a properly closed fence is still normalized', () => {
+				const html = Utils.markdownToHtml([
+					'````',
+					'~~~',
+					legacyDelimiter,
+					'````',
+					'',
+					'| Rampage | Effect |',
+					'|:============|:=======|',
+					'| 8 | Free maneuver |'
+				].join('\n'));
+
+				// The fenced content stayed literal ...
+				expect(html).toContain(legacyDelimiter);
+				// ... and the real table outside it still renders.
+				expect(html).toContain('<table>');
+				expect(html).toContain('<th align="left">Rampage</th>');
+				expect(html).toContain('<td align="left">Free maneuver</td>');
+				expect(html).not.toContain(':============');
+			});
+
+			test('a longer fence line closes a shorter fence, and normalization resumes after it', () => {
+				const html = Utils.markdownToHtml([
+					'```',
+					legacyDelimiter,
+					'````',
+					'',
+					'| Rampage | Effect |',
+					'|:============|:=======|',
+					'| 8 | Free maneuver |'
+				].join('\n'));
+
+				expect(html).toContain(legacyDelimiter);
+				expect(html).toContain('<table>');
+				expect(html).toContain('<td align="left">Free maneuver</td>');
+			});
+		});
+
 		test('does not weaken sanitization', () => {
 			expect(Utils.markdownToHtml('<img src=x onerror="alert(1)">')).not.toContain('onerror');
 			expect(Utils.markdownToHtml('<script>alert(1)</script>')).not.toContain('<script>');
