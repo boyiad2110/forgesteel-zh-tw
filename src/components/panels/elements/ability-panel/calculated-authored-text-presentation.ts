@@ -1587,6 +1587,54 @@ const projectBeastheartIntuitionValue = (elementID: string, field: string, canon
 };
 
 /**
+ * `Heart of the Beast` is the one Beastheart Level 1 feature-ability reading the canonical
+ * calculator rewrites: it resolves the Hero's own recovery value in place. Library and every
+ * other no-Hero surface leave the expression authored, so they keep the approved raw 復元值
+ * wording untouched.
+ *
+ * It cannot reuse an existing entry. The shared `authorizedRewrites` table's two recovery
+ * readings are bound to `regain(s) Stamina equal to your recovery value`, which is a different
+ * canonical phrase from this ability's `gains temporary Stamina`; `projectConduitIntuitionValue`
+ * carries that temporary-Stamina grammar but is bound to its own class identities. This is
+ * therefore projected here, bound to its exact approved identity.
+ *
+ * The ability's three remaining calculated-looking readings are deliberately absent. Its two
+ * Spend effects read `up to their speed` and `equal to their Might score` - the partner's own
+ * values, not the Hero's - and the calculator leaves both authored on either surface, so their
+ * approved zh-TW is never projected.
+ *
+ * The fail-closed gate is delegated to the shared projector: the projection is returned only
+ * when this one rewrite, replayed onto the raw canonical English, reproduces the calculator's
+ * output exactly. Nothing here recomputes a recovery value.
+ */
+const projectBeastheartRecoveryValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'beastheart-1-3a') || (field !== 'sections.0.text')) {
+		return undefined;
+	}
+
+	const canonical = 'gains temporary Stamina equal to your recovery value';
+	const localized = '獲得等於你復元值的臨時體力';
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	const calculatedMatch = calculatedEnglish.match(/gains temporary Stamina equal to (-?\d+)/);
+	if (calculatedMatch) {
+		if (!projectedCanonical.includes(canonical) || !projectedLocalized.includes(localized)) {
+			return undefined;
+		}
+		projectedCanonical = projectedCanonical.replace(canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(localized, () => `獲得 ${calculatedMatch[1]} 點臨時體力`);
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -1718,6 +1766,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const beastheartIntuitionValue = projectBeastheartIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (beastheartIntuitionValue) {
 		return beastheartIntuitionValue;
+	}
+
+	const beastheartRecoveryValue = projectBeastheartRecoveryValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (beastheartRecoveryValue) {
+		return beastheartRecoveryValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
