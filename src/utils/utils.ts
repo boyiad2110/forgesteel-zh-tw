@@ -6,9 +6,81 @@ import jspdf from 'jspdf';
 import { marked } from 'marked';
 import { v4 as uuidv4 } from 'uuid';
 
+// A table delimiter cell in the legacy `=` form the canonical source predates GFM with, and
+// the GFM `-` form `marked` actually understands. Both allow the optional alignment colons.
+const legacyTableDelimiterCell = /^\s*:?=+:?\s*$/;
+const gfmTableDelimiterCell = /^\s*:?-+:?\s*$/;
+
+// A code fence line: up to three spaces of indent, then a run of at least three backticks or
+// tildes, then the info string. Which of those runs actually opens or closes a fence is decided
+// against the currently active fence below, not by the shape alone.
+const codeFenceLine = /^ {0,3}(`{3,}|~{3,})(.*)$/;
+
+/**
+ * Rewrites legacy `=` table delimiter rows - `|:============|:=======|` - into their GFM
+ * equivalent so `marked` recognises the table instead of leaving the whole block as raw pipe
+ * text for the reader. Several canonical sources still carry that shape, notably the Beastheart
+ * Rampage table and the Summoner tables.
+ *
+ * This is deliberately a narrow compatibility shim, not a table dialect. A line is rewritten
+ * only when it is, on its own, a complete pipe-delimited row of delimiter cells: every cell must
+ * already be a delimiter cell in one of the two forms, and at least one must use the legacy one.
+ * Prose containing `=`, standard GFM tables, and any row carrying real content are all returned
+ * byte-identical, and nothing here changes what is later sanitized.
+ *
+ * Lines inside a fenced code block are left alone, since there the pipes are literal text the
+ * reader is meant to see. Tracking that boundary needs the fence's actual identity, not a
+ * boolean: an open fence is closed only by a fence of the *same* marker character, at least as
+ * long as the one that opened it, and carrying no info string. A `~~~` line inside a backtick
+ * fence, or a three-backtick line inside a four-backtick fence, is therefore ordinary code
+ * content and leaves the block open. A backtick fence's own info string may not contain a
+ * backtick, which is what keeps inline code such as `` `a` `` from reading as a fence.
+ */
+const normalizeLegacyTableDelimiters = (text: string): string => {
+	let activeFence: { marker: string, length: number } | undefined = undefined;
+
+	return text
+		.split('\n')
+		.map(line => {
+			const fence = line.match(codeFenceLine);
+			if (fence) {
+				const marker = fence[1][0];
+				const length = fence[1].length;
+				const info = fence[2];
+
+				if (activeFence) {
+					// Only a matching, long enough, bare closing fence ends the block.
+					if ((marker === activeFence.marker) && (length >= activeFence.length) && (info.trim() === '')) {
+						activeFence = undefined;
+					}
+					return line;
+				}
+
+				if ((marker !== '`') || !info.includes('`')) {
+					activeFence = { marker: marker, length: length };
+					return line;
+				}
+			}
+
+			const trimmed = line.trim();
+			if (activeFence || (trimmed.length < 2) || !trimmed.startsWith('|') || !trimmed.endsWith('|')) {
+				return line;
+			}
+
+			const cells = trimmed.slice(1, -1).split('|');
+			const isDelimiterRow = cells.every(cell => legacyTableDelimiterCell.test(cell) || gfmTableDelimiterCell.test(cell));
+			if (!isDelimiterRow || !cells.some(cell => legacyTableDelimiterCell.test(cell))) {
+				return line;
+			}
+
+			return line.replace(/=/g, '-');
+		})
+		.join('\n');
+};
+
 export class Utils {
 	static markdownToHtml = (text: string): string => {
-		const html = marked(text, { async: false, gfm: true, breaks: true });
+		const html = marked(normalizeLegacyTableDelimiters(text), { async: false, gfm: true, breaks: true });
 		return DOMPurify.sanitize(html);
 	};
 
