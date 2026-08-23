@@ -4470,7 +4470,7 @@ const beastheartLevel1BaseCompletionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'beastheart-1-7', field: 'name', canonicalEnglish: 'Signature Ability', zhTW: '招牌招式', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'beastheart-1-8', field: 'name', canonicalEnglish: '3pt Ability', zhTW: '3 費招式', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'beastheart-1-9', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' },
-	{ kind: 'element-field', elementID: 'beastheart-1-3a', field: 'name', canonicalEnglish: 'Heart of the Beast', zhTW: '獸之心', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-1-3a', field: 'name', canonicalEnglish: 'Heart of the Beast', zhTW: '野獸之心', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'beastheart-1-3a', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'beastheart-1-3a', field: 'description', canonicalEnglish: '“Better look away - this might not be pretty.”', zhTW: '「最好閉上眼睛，接下來的畫面可能不太好看。」', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'beastheart-1-3a', field: 'sections.0.text', canonicalEnglish: 'You must spend a Recovery without regaining Stamina. Your partner gains temporary Stamina equal to your recovery value as they leap out of your chest. Your partner teleports to your space from any distance, even if they don’t have line of effect to you.', zhTW: '你必須花費 1 點復元力（但不會恢復體力）。你的搭檔會從你的胸口躍出，獲得等於你復元值的臨時體力。無論距離多遠，即使你們之間沒有效果線，你的搭檔也會立刻傳送到你的方格。', approval: 'approved' },

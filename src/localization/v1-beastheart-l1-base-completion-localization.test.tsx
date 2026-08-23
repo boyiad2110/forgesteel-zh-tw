@@ -121,6 +121,18 @@ const makeHero = () => createHeroWithClass(beastheart, 1, FactoryLogic.createCha
 
 const { renderFeature, renderAbility } = createClassPresentationHarness(beastheart, [ core, beastheartSourcebook ]);
 
+/** The rendered ability or feature title, read exactly so a substring can never stand in for it. */
+const readTitle = (container: HTMLElement) => container.querySelector('.header-text')?.textContent?.trim();
+
+/**
+ * Reads a rendered Markdown table as public DOM structure. Cell prose alone is not evidence of a
+ * table: raw pipe syntax carries the same text, which is exactly the bug this guards.
+ */
+const readTables = (container: HTMLElement) => Array.from(container.querySelectorAll('table')).map(table => ({
+	headers: Array.from(table.querySelectorAll('thead th')).map(cell => cell.textContent?.trim()),
+	rows: Array.from(table.querySelectorAll('tbody tr')).map(row => Array.from(row.querySelectorAll('td')).map(cell => cell.textContent?.trim()))
+}));
+
 const heartTextReading = (hero?: ReturnType<typeof makeHero>) => {
 	const canonicalEnglish = required[elementFieldIdentity('beastheart-1-3a', 'sections.0.text')];
 	const calculatedEnglish = AbilityLogic.getTextEffect(canonicalEnglish, hero);
@@ -327,13 +339,38 @@ describe('V1 Beastheart Level 1 base completion catalog and presentation', () =>
 
 		const rampage = getRampage();
 		const hero = makeHero();
+
+		/**
+		 * The Rampage table is authored with the legacy `=` delimiter row, which `marked` does not
+		 * recognise; before the shared compatibility normalization it reached the reader as raw
+		 * pipe text. These assertions therefore read real DOM table structure, and check that the
+		 * legacy delimiter is never rendered, rather than only looking for the cell prose - which
+		 * the broken raw-pipe rendering contained just as much.
+		 */
+		const assertRampageTable = (container: HTMLElement, locale: 'zh-TW' | 'en') => {
+			const tables = readTables(container);
+			expect(tables).toHaveLength(1);
+			expect(tables[0].headers).toEqual(locale === 'zh-TW' ? [ '暴走', '效果' ] : [ 'Rampage', 'Effect' ]);
+			expect(tables[0].rows).toHaveLength(5);
+			expect(tables[0].rows.map(row => row[0])).toEqual(locale === 'zh-TW'
+				? [ '8', '12', '16（4 級）', '20（7 級）', '24（10 級）' ]
+				: [ '8', '12', '16 (lvl 4)', '20 (lvl 7)', '24 (lvl 10)' ]);
+			expect(tables[0].rows.every(row => row.length === 2)).toBe(true);
+
+			// Representative effect cells, one from each end of the table.
+			expect(tables[0].rows[1][1]).toBe(locale === 'zh-TW' ? '契獸擁有等於其直覺的傷害免疫。' : 'Your companion has damage immunity equal to their Intuition score.');
+			expect(tables[0].rows[4][1]).toContain(locale === 'zh-TW' ? '可以擲 3d10 並捨棄點數最低的 1 顆骰子。' : 'they can roll 3d10 and discard the lowest roll.');
+
+			// The legacy delimiter syntax itself never reaches the reader in either locale.
+			expect(container.textContent).not.toContain(':====');
+			expect(container.textContent).not.toContain('|:');
+		};
+
 		const assertZhTWRampage = (container: HTMLElement) => {
-			expectRendered(container, '暴走');
+			expect(readTitle(container)).toBe('暴走');
 			expectRendered(container, '狠勁會磨利你的殺戮本能，但也可能驅使契獸陷入暴走，在浴血戰鬥中不分敵我地狂亂攻擊。');
 			expectRendered(container, '契獸不會花費暴走來發動招式，但當契獸的暴走達到 8 時，牠就會陷入暴走。');
-			// The Rampage table is part of the same `details` reading and renders with it.
-			expectRendered(container, '契獸擁有等於其直覺的傷害免疫。');
-			expectRendered(container, '在此效果持續時間內，若契獸進行檢定，可以擲 3d10 並捨棄點數最低的 1 顆骰子。');
+			assertRampageTable(container, 'zh-TW');
 		};
 
 		const noHeroRampage = renderFeature(rampage);
@@ -347,11 +384,12 @@ describe('V1 Beastheart Level 1 base completion catalog and presentation', () =>
 			assertZhTW: () => assertZhTWRampage(withHero.container),
 			switchToEnglish: switchLocale,
 			assertEnglish: () => {
-				expectRendered(withHero.container, 'Rampage');
+				expect(readTitle(withHero.container)).toBe('Rampage');
 				expectRendered(withHero.container, 'Your companion has a resource called rampage.');
-				expectRendered(withHero.container, 'Your companion has damage immunity equal to their Intuition score.');
+				assertRampageTable(withHero.container, 'en');
 			},
 			switchToZhTW: switchLocale,
+			// The locale round trip restores the zh-TW table as real structure, not just its prose.
 			assertZhTWAfterRoundTrip: () => assertZhTWRampage(withHero.container)
 		});
 	});
@@ -361,7 +399,10 @@ describe('V1 Beastheart Level 1 base completion catalog and presentation', () =>
 		const serialized = JSON.stringify(heart);
 		const { container } = renderAbility(heart);
 
-		expectRendered(container, '獸之心');
+		// The Owner-final reading is 野獸之心. Read the title exactly: the superseded 獸之心 is a
+		// substring of it, so a `toContain` assertion could not tell the two apart.
+		expect(readTitle(container)).toBe('野獸之心');
+		expect(readTitle(container)).not.toBe('獸之心');
 		expectRendered(container, '「最好閉上眼睛，接下來的畫面可能不太好看。」');
 		expect(readFieldByLabelPrefix(container, '射程 / 目標')).toContain('自身');
 		expectRendered(container, '花費');
@@ -374,7 +415,7 @@ describe('V1 Beastheart Level 1 base completion catalog and presentation', () =>
 
 		switchLocale();
 
-		expectRendered(container, 'Heart of the Beast');
+		expect(readTitle(container)).toBe('Heart of the Beast');
 		expectRendered(container, 'Your partner can shift up to their speed.');
 		expectRendered(container, 'equal to their Might score');
 		expect(JSON.stringify(heart)).toBe(serialized);

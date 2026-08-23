@@ -6,9 +6,54 @@ import jspdf from 'jspdf';
 import { marked } from 'marked';
 import { v4 as uuidv4 } from 'uuid';
 
+// A table delimiter cell in the legacy `=` form the canonical source predates GFM with, and
+// the GFM `-` form `marked` actually understands. Both allow the optional alignment colons.
+const legacyTableDelimiterCell = /^\s*:?=+:?\s*$/;
+const gfmTableDelimiterCell = /^\s*:?-+:?\s*$/;
+
+/**
+ * Rewrites legacy `=` table delimiter rows - `|:============|:=======|` - into their GFM
+ * equivalent so `marked` recognises the table instead of leaving the whole block as raw pipe
+ * text for the reader. Several canonical sources still carry that shape, notably the Beastheart
+ * Rampage table and the Summoner tables.
+ *
+ * This is deliberately a narrow compatibility shim, not a table dialect. A line is rewritten
+ * only when it is, on its own, a complete pipe-delimited row of delimiter cells: every cell must
+ * already be a delimiter cell in one of the two forms, and at least one must use the legacy one.
+ * Lines inside a fenced code block are left alone, since there the pipes are literal text the
+ * reader is meant to see. Prose containing `=`, standard GFM tables, and any row carrying real
+ * content are all returned byte-identical, and nothing here changes what is later sanitized.
+ */
+const normalizeLegacyTableDelimiters = (text: string): string => {
+	let insideCodeFence = false;
+
+	return text
+		.split('\n')
+		.map(line => {
+			const trimmed = line.trim();
+			if (trimmed.startsWith('```') || trimmed.startsWith('~~~')) {
+				insideCodeFence = !insideCodeFence;
+				return line;
+			}
+
+			if (insideCodeFence || (trimmed.length < 2) || !trimmed.startsWith('|') || !trimmed.endsWith('|')) {
+				return line;
+			}
+
+			const cells = trimmed.slice(1, -1).split('|');
+			const isDelimiterRow = cells.every(cell => legacyTableDelimiterCell.test(cell) || gfmTableDelimiterCell.test(cell));
+			if (!isDelimiterRow || !cells.some(cell => legacyTableDelimiterCell.test(cell))) {
+				return line;
+			}
+
+			return line.replace(/=/g, '-');
+		})
+		.join('\n');
+};
+
 export class Utils {
 	static markdownToHtml = (text: string): string => {
-		const html = marked(text, { async: false, gfm: true, breaks: true });
+		const html = marked(normalizeLegacyTableDelimiters(text), { async: false, gfm: true, breaks: true });
 		return DOMPurify.sanitize(html);
 	};
 
