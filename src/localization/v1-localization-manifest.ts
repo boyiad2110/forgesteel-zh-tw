@@ -2141,6 +2141,65 @@ export const createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish = (): C
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The two Beastheart Level 1 feature abilities. Unlike the twelve selectable base abilities
+ * above, these two are authored directly in the class's own Level 1 feature list, so they are
+ * reached from there rather than from `beastheart.abilities`.
+ */
+export const v1BeastheartLevel1FeatureAbilityIDs = [ 'beastheart-1-3a', 'beastheart-1-3b' ] as const;
+
+const isBeastheartLevel1FeatureAbility = (feature: Feature): feature is FeatureAbility => feature.type === FeatureType.Ability;
+
+/** Enumerates only the two direct Level 1 feature abilities, in their authored order. */
+export const getV1BeastheartLevel1FeatureAbilities = (): Ability[] => {
+	const levelOne = getLevelOneFeatures(beastheart.featuresByLevel, 'Beastheart');
+	const abilitiesByID = new Map(levelOne.filter(isBeastheartLevel1FeatureAbility).map(feature => [ feature.data.ability.id, feature.data.ability ]));
+
+	return v1BeastheartLevel1FeatureAbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Beastheart Level 1 feature ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/**
+ * Builds the bounded 41-identity Beastheart Level 1 base-completion denominator: the base
+ * class's remaining Level 1 non-Ability fields plus Rampage's details, and the authored fields
+ * of the two Level 1 feature abilities `beastheart-1-3a` and `beastheart-1-3b`.
+ *
+ * The whole base Level 1 feature tree goes through the one shared bounded walk. That walk stops
+ * at Ability nodes and descends only through Choice options and Multiple children, so the
+ * Companion SummonChoice (`beastheart-1-2a`) contributes its own reading without pulling in any
+ * of the fourteen companion stat blocks, and the frozen 83-identity selectable base-ability
+ * slice stays disjoint from this one. Wild Nature, Level 2+ and abilities 13+ stay outside.
+ */
+export const createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const beastheartLevelOneFeatures = getLevelOneFeatures(beastheart.featuresByLevel, 'Beastheart');
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, beastheartLevelOneFeatures);
+
+	// The bounded walk supplies a Heroic Resource's name, description and gain triggers. Rampage
+	// has no gains at all, and its whole player-facing rules text - including the Rampage table
+	// FeaturePanel renders - lives in `details`, so that reading is required here explicitly
+	// rather than by widening the shared walk for every class.
+	const rampage = beastheartLevelOneFeatures.find(feature => feature.id === 'beastheart-1-4');
+	if (rampage?.type !== FeatureType.HeroicResource) {
+		throw new Error('Beastheart Rampage resource is missing');
+	}
+	const rampageDetailsIdentity = elementFieldIdentity(rampage.id, 'details');
+	if (requiredCanonicalEnglish[rampageDetailsIdentity] !== undefined) {
+		throw new Error(`duplicate localization identity '${rampageDetailsIdentity}'`);
+	}
+	requiredCanonicalEnglish[rampageDetailsIdentity] = rampage.data.details;
+
+	getV1BeastheartLevel1FeatureAbilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2186,7 +2245,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish(),
 		...createV1CensorLevel2RequiredCanonicalEnglish(),
-		...createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish()
+		...createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish(),
+		...createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
