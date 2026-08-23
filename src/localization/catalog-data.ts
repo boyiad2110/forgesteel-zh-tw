@@ -4488,6 +4488,99 @@ const beastheartLevel1BaseCompletionLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'beastheart-1-3b', field: 'sections.1.roll.tier2', canonicalEnglish: '3 + M damage', zhTW: '3 + `力量`傷害', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'beastheart-1-3b', field: 'sections.1.roll.tier3', canonicalEnglish: '4 + M damage', zhTW: '4 + `力量`傷害', approval: 'approved' }
 ];
+
+/**
+ * The Owner-approved Beastheart Level 1 Wild Nature subclass slice, frozen as packet
+ * `beastheart-l1-wild-nature-approved-r1` and reproduced verbatim: the class's `subclassName`
+ * reading, the four subclasses' metadata, their Level 1 non-Ability Feature readings and the
+ * authored fields of their two direct Level 1 abilities.
+ *
+ * `狂野天性` (Wild Nature) and the four subclass names stay Beastheart identity-scoped: the
+ * Owner approved them inside these identities without promoting standalone reusable glossary
+ * mappings, so the glossary is unchanged and no other approved content is rewritten to match.
+ *
+ * Beastheart Companion / Summon records, Level 2+ subclass content and abilities 13+ all stay
+ * outside this slice, so the class-level and authored-content domains remain unresolved.
+ */
+const beastheartLevel1WildNatureLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'class-beastheart', field: 'subclassName', canonicalEnglish: 'Wild Nature', zhTW: '狂野天性', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1', field: 'name', canonicalEnglish: 'Guardian', zhTW: '守護', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1', field: 'description', canonicalEnglish: 'You are the fearless defender of your pack - anyone who harms them must go through you.', zhTW: '你是獸群中的無畏守護者，任何想傷害你的同伴的人，都得先過你這一關。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-2', field: 'name', canonicalEnglish: 'Wild Nature Benefit', zhTW: '狂野天性益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-2', field: 'description', canonicalEnglish: 'Each enemy target is taunted by your companion until the start of your next turn.', zhTW: '每個敵方目標都會被你的契獸嘲諷，直到你的下個回合開始。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-3', field: 'name', canonicalEnglish: 'Living Arrow', zhTW: '破空箭影', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-3', field: 'target', canonicalEnglish: 'One unoccupied space', zhTW: '1 個未占據空間', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-3', field: 'description', canonicalEnglish: 'You point, and your companion appears.', zhTW: '你伸手一指，契獸瞬間現身。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-3', field: 'sections.0.text', canonicalEnglish: 'If your companion is within range and can fit into the target space, they teleport to the space. They can then make a melee free strike.', zhTW: '若你的契獸位於射程內且能容身於目標空間，牠會傳送到該處。然後，牠可以發動 1 次近戰基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-3', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-3', field: 'sections.1.effect', canonicalEnglish: 'The distance increases to ranged 15.', zhTW: '此招式的射程增加至遠程 15。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-4', field: 'name', canonicalEnglish: 'The Pack Defends', zhTW: '獸群守護', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-4', field: 'target', canonicalEnglish: 'One ally', zhTW: '1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-4', field: 'description', canonicalEnglish: 'You siphon away the pain and endure it yourself.', zhTW: '你將盟友的痛苦轉到自己身上代為承受。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-4', field: 'type.trigger', canonicalEnglish: 'The target takes damage.', zhTW: '當目標受到傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-4', field: 'sections.0.text', canonicalEnglish: 'The target takes half the damage.', zhTW: '目標受到的傷害減半。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-1-4', field: 'sections.1.effect', canonicalEnglish: 'You spend a Recovery without regaining Stamina, and the target regains Stamina equal to your recovery value.', zhTW: '你花費 1 點復元力（但不恢復體力），目標恢復等於你復元值的體力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2', field: 'name', canonicalEnglish: 'Prowler', zhTW: '獵殺', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2', field: 'description', canonicalEnglish: 'You are an unseen ambusher that strikes from the shadows. Your prey is dead before they even know you’re there.', zhTW: '你是躲藏在陰影中的伏擊者。獵物甚至還沒察覺你的存在就已命喪黃泉。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-2', field: 'name', canonicalEnglish: 'Wild Nature Benefit', zhTW: '狂野天性益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-2', field: 'description', canonicalEnglish: 'Each enemy target is weakened until the start of your next turn.', zhTW: '每個敵方目標都會陷入虛弱，直到你的下個回合開始。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-3', field: 'name', canonicalEnglish: 'Lightning Leap', zhTW: '馭雷躍擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-3', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-3', field: 'description', canonicalEnglish: 'You summon a lightning bolt and ride it into battle.', zhTW: '你召喚雷霆，乘著電光躍入戰局。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-3', field: 'sections.0.text', canonicalEnglish: 'The target takes damage equal to 3 + your Might score. Before you use this ability, you can jump up to a number of squares equal to your Intuition score in a straight line. During this jump, enemies’ spaces don’t count as difficult terrain for you. The target takes extra lightning damage equal to the number of squares you jumped this way.', zhTW: '目標受到等於 3 + 你`力量`的傷害。在發動此招式之前，你可以沿直線跳躍最多等於你`直覺`的格數。在此跳躍期間，敵人的方格對你不視為困難地形。目標會額外受到等於你以此方式跳躍格數的閃電傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-3', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-3', field: 'sections.1.effect', canonicalEnglish: 'Your jump doesn’t provoke opportunity attacks.', zhTW: '此跳躍不會引發藉機攻擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-4', field: 'name', canonicalEnglish: 'Shadow in the Mist', zhTW: '霧中暗影', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-4', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-4', field: 'description', canonicalEnglish: 'While everyone’s eyes are drawn to your foe, you wreathe yourself in obscuring mist.', zhTW: '當眾人的目光都被敵人吸引時，你以遮蔽視線的霧氣籠罩自身。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-4', field: 'type.trigger', canonicalEnglish: 'An enemy within 10 squares deals damage to a creature other than you.', zhTW: '當你 10 格內的 1 個敵人對你以外的生物造成傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-4', field: 'sections.0.text', canonicalEnglish: 'You become invisible until the end of your next turn or you deal damage. You can then use the Hide maneuver even if you are observed and can move up to a number of squares equal to your Intuition score before or after using that maneuver.', zhTW: '你變成隱形，直到你的下個回合結束或你造成傷害為止。然後，你即使正被觀察也可以使用躲藏機動動作，而且可以在使用該機動動作之前或之後，移動最多等於你`直覺`的格數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-1-4', field: 'sections.1.effect', canonicalEnglish: 'You can move up to a number of squares equal to twice your Intuition score and ignore difficult terrain during this movement.', zhTW: '你可以移動最多等於你`直覺` ×2 的格數，而且此移動期間無視困難地形。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3', field: 'name', canonicalEnglish: 'Punisher', zhTW: '制裁', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3', field: 'description', canonicalEnglish: 'Using brute force, you overwhelm anyone unwise enough to earn your wrath.', zhTW: '你憑藉蠻力擊潰任何膽敢招惹你的愚者。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-2', field: 'name', canonicalEnglish: 'Wild Nature Benefit', zhTW: '狂野天性益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-2', field: 'description', canonicalEnglish: 'Your companion slides each target up to a number of squares equal to their Might score.', zhTW: '你的契獸將每個目標滑動最多等於其`力量`的格數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-3', field: 'name', canonicalEnglish: 'Avalanche Rush', zhTW: '雪崩突襲', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-3', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-3', field: 'description', canonicalEnglish: 'You ride a cascade of ice over your foes.', zhTW: '你踏著奔湧的冰雪洪流碾壓敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-3', field: 'sections.0.text', canonicalEnglish: 'The target takes damage equal to 3 + your Might score, and if they have M<[average], they are knocked prone. You can move up to 3 squares before and after you use this ability. During this movement, a prone enemy’s space doesn’t count as difficult terrain, and the first time you enter a prone enemy’s space, that enemy takes cold damage equal to your Might score.', zhTW: '目標受到等於 3 + 你`力量`的傷害；若目標的`力量` < [中]，目標會被擊倒伏地。在發動此招式之前與之後，你都可以移動最多 3 格。在此移動期間，伏地敵人的方格對你而言不視為困難地形。當你首次進入 1 個伏地敵人的方格時，該敵人會受到等於你`力量`的寒冷傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-3', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-3', field: 'sections.1.effect', canonicalEnglish: 'If the target has M<[strong], they are knocked prone.', zhTW: '若目標的`力量` < [強]，目標會被擊倒伏地。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-4', field: 'name', canonicalEnglish: 'Thunderclap', zhTW: '霹靂衝擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-4', field: 'target', canonicalEnglish: 'One enemy', zhTW: '1 個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-4', field: 'description', canonicalEnglish: 'The force of your counterattack cracks the air.', zhTW: '你反擊的衝擊力足以震裂空氣。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-4', field: 'type.trigger', canonicalEnglish: 'The target deals damage to a creature.', zhTW: '當目標對 1 個生物造成傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-4', field: 'sections.0.text', canonicalEnglish: 'You deal sonic damage equal to your Might score to the target and push them up to a number of squares equal to 1 + your Might score. If this forced movement pushes the target away from the creature they damaged, the creature takes half the triggering damage.', zhTW: '你對目標造成等於你`力量`的音波傷害，並將目標推動最多等於 1 + 你`力量`的格數。若此強制移動將目標推離他剛才傷害的生物，該生物受到的觸發傷害會減半。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-1-4', field: 'sections.1.effect', canonicalEnglish: 'The forced movement distance is doubled.', zhTW: '強制移動的距離加倍。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4', field: 'name', canonicalEnglish: 'Spark', zhTW: '星火', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4', field: 'description', canonicalEnglish: 'Your connection with nature has imbued you and your companion with the raging magic of the elemental storm. Flame, frost, and lightning crackle from your hands and their claws.', zhTW: '你與大自然的連結，讓你和契獸都被注入元素風暴的狂烈魔力。烈焰、寒霜與閃電在你的雙手與牠的利爪之間劈啪迸裂。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-1', field: 'name', canonicalEnglish: 'Skill', zhTW: '技能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-1', field: 'description', canonicalEnglish: 'Choose a skill from any list.', zhTW: '從任意列表中選擇 1 項技能。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-2', field: 'name', canonicalEnglish: 'Wild Nature Benefit', zhTW: '狂野天性益處', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-2', field: 'description', canonicalEnglish: 'This strike deals cold, fire, lightning, or sonic damage. You gain 1 surge.', zhTW: '此打擊造成寒冷、火焰、閃電或音波傷害。你獲得 1 點鬥志。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-3', field: 'name', canonicalEnglish: 'Jaws of the Storm', zhTW: '風暴噬咬', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-3', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-3', field: 'description', canonicalEnglish: 'Your foes are torn by a tempest of primordial teeth and claws.', zhTW: '原初的尖牙與利爪化為風暴，將敵人撕裂。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-3', field: 'sections.0.text', canonicalEnglish: 'Each target takes cold, fire, lightning, or sonic damage (your choice) equal to your Might score.', zhTW: '每個目標受到等於你`力量`的寒冷、火焰、閃電或音波傷害（由你選擇）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-3', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-3', field: 'sections.1.effect', canonicalEnglish: 'The size of the cube increases by 1.', zhTW: '立方區域的邊長增加 1 格。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'name', canonicalEnglish: 'Pyre', zhTW: '焚身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'description', canonicalEnglish: 'You burn to ash before your foes’ eyes.', zhTW: '你在敵人眼前焚成灰燼。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'type.trigger', canonicalEnglish: 'You take damage.', zhTW: '當你受到傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'sections.0.text', canonicalEnglish: 'You take half the damage and teleport up to 5 squares.', zhTW: '你受到的傷害減半，並傳送最多 5 格。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'sections.1.effect', canonicalEnglish: 'When you teleport this way, each enemy adjacent to your original space takes lightning or fire damage (your choice) equal to your Intuition score.', zhTW: '當你以此方式傳送時，與你原本方格相鄰的每個敵人都會受到等於你`直覺`的閃電或火焰傷害（由你選擇）。', approval: 'approved' }
+];
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4527,5 +4620,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreTroubadourLevel1CompletionLocalizationEntries,
 	...coreTroubadourLevel2LocalizationEntries,
 	...beastheartLevel1BaseAbilityLocalizationEntries,
-	...beastheartLevel1BaseCompletionLocalizationEntries
+	...beastheartLevel1BaseCompletionLocalizationEntries,
+	...beastheartLevel1WildNatureLocalizationEntries
 ];

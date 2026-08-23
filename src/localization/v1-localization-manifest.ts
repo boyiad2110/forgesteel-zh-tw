@@ -2200,6 +2200,54 @@ export const createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish = ()
 	return requiredCanonicalEnglish;
 };
 
+/** The four Wild Nature subclasses; later subclass levels remain outside this Level 1 slice. */
+export const v1BeastheartWildNatureSubclassIDs = [
+	'beastheart-sub-1',
+	'beastheart-sub-2',
+	'beastheart-sub-3',
+	'beastheart-sub-4'
+] as const;
+
+export const getV1BeastheartWildNatureSubclasses = (): SubClass[] => {
+	const subclassesByID = new Map(beastheart.subclasses.map(subclass => [ subclass.id, subclass ]));
+	return v1BeastheartWildNatureSubclassIDs.map(id => {
+		const subclass = subclassesByID.get(id);
+		if (!subclass) {
+			throw new Error(`Beastheart Wild Nature subclass '${id}' is missing`);
+		}
+		return subclass;
+	});
+};
+
+/**
+ * Builds the bounded 77-identity Beastheart Level 1 Wild Nature denominator: the class's own
+ * `subclassName` reading, plus each of the four subclasses' metadata, their Level 1 non-Ability
+ * Feature readings and the authored fields of their two direct Level 1 abilities.
+ *
+ * Every subclass has the same shape - a SkillChoice, a PackageContent benefit and two Ability
+ * features - so the whole Level 1 tree goes through the one shared bounded walk, which stops at
+ * Ability nodes and descends only through Choice options and Multiple children. The two Level 1
+ * abilities are then collected by the shared authored-Ability collector. Level 2+ subclass
+ * content, the Beastheart base slices and abilities 13+ all stay outside, and this slice is
+ * disjoint from both prior Beastheart slices.
+ */
+export const createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	requiredCanonicalEnglish[elementFieldIdentity(beastheart.id, 'subclassName')] = beastheart.subclassName;
+
+	getV1BeastheartWildNatureSubclasses().forEach(subclass => {
+		addRequiredElementFields(requiredCanonicalEnglish, subclass);
+
+		const subclassLevelOneFeatures = getLevelOneFeatures(subclass.featuresByLevel, `Beastheart Wild Nature subclass '${subclass.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, subclassLevelOneFeatures);
+		subclassLevelOneFeatures
+			.filter((feature): feature is FeatureAbility => feature.type === FeatureType.Ability)
+			.forEach(feature => addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2246,7 +2294,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish(),
 		...createV1CensorLevel2RequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish(),
-		...createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish()
+		...createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish(),
+		...createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
