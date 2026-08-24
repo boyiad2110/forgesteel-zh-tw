@@ -25,6 +25,7 @@ import { Collections } from '@/utils/collections';
 import { ConditionType } from '@/enums/condition-type';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { FeatureType } from '@/enums/feature-type';
+import { FeaturePackageContent } from '@/models/feature';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
@@ -107,6 +108,24 @@ export const AbilityPanel = (props: Props) => {
 			field: field,
 			canonicalEnglish: text,
 			calculatedEnglish: parseText(text)
+		});
+	};
+
+	// PackageContent injected into a package section is authored on the Feature, not on the
+	// host ability, so it localizes under that Feature's own ID - props.ability.id identifies
+	// the section, never these fields. Calculation stays canonical-English-only, through the
+	// same autoCalc path the host ability's own authored text uses.
+	const localizePackageContentName = (feature: FeaturePackageContent) => {
+		return localizeElementField(locale, feature.id, 'name', feature.name);
+	};
+
+	const localizePackageContentDescription = (feature: FeaturePackageContent) => {
+		return localizeCalculatedAuthoredTextPresentation({
+			locale: locale,
+			elementID: feature.id,
+			field: 'description',
+			canonicalEnglish: feature.description,
+			calculatedEnglish: parseText(feature.description)
 		});
 	};
 
@@ -297,8 +316,8 @@ export const AbilityPanel = (props: Props) => {
 									.map(f => (
 										<Field
 											key={f.id}
-											label={f.name}
-											value={<Markdown text={parseText(f.description)} useSpan={true} />}
+											label={localizePackageContentName(f)}
+											value={<Markdown text={localizePackageContentDescription(f)} useSpan={true} />}
 										/>
 									))
 							}

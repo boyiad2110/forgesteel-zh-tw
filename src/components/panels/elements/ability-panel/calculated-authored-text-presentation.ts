@@ -1511,6 +1511,71 @@ const projectCensorLevel2PresenceDamage = (elementID: string, field: string, can
 };
 
 /**
+ * The three Censor Judgment Order Benefit readings the canonical calculator rewrites. They are
+ * PackageContent Feature descriptions, injected into the host Judgment ability’s package section,
+ * so they arrive through AbilityPanel’s auto-calc path under their own Feature identities. That
+ * section renders only in Hero context, so these three have no Library surface of their own; their
+ * direct FeaturePanel surface carries no calculated transform and keeps the approved raw zh-TW.
+ *
+ * None can reuse an existing entry. The shared `authorizedRewrites` table’s Presence entries are
+ * bound to different surrounding canonical phrasing - `to them` rather than `to the judged
+ * creature` - and `projectCensorLevel2PresenceDamage` is bound to the Level 2 Exorcist identities.
+ * These are therefore projected here, bound to their exact approved identities.
+ *
+ * All three resolve `twice your Presence score` only in Hero context, and none of them carries a
+ * condition, so the gate is the same fail-closed identity check the rest of this module uses: the
+ * projection is returned only when the rewrite, replayed onto the raw canonical English,
+ * reproduces the calculator’s output exactly. Nothing here recomputes a characteristic.
+ */
+const projectCensorJudgmentPackageBenefitValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'censor-sub-1-1-2',
+			field: 'description',
+			canonical: 'teleport up to a number of squares equal to twice your Presence score.',
+			calculated: /teleport up to a number of squares equal to (-?\d+)\./,
+			localized: '傳送最多等於你`氣場` ×2 的格數。',
+			replacement: (value: string) => `傳送最多 ${value} 格。`
+		},
+		{
+			elementID: 'censor-sub-2-1-2',
+			field: 'description',
+			canonical: 'deal holy damage equal to twice your Presence score to the judged creature.',
+			calculated: /deal holy damage equal to (-?\d+) to the judged creature\./,
+			localized: '對被審判的生物造成等於你`氣場` ×2 的神聖傷害。',
+			replacement: (value: string) => `對被審判的生物造成 ${value} 點神聖傷害。`
+		},
+		{
+			elementID: 'censor-sub-3-1-2',
+			field: 'description',
+			canonical: 'vertical pull the judged creature up to a number of squares equal to twice your Presence score.',
+			calculated: /vertical pull the judged creature up to a number of squares equal to (-?\d+)\./,
+			localized: '將被審判的生物垂直拉動最多等於你`氣場` ×2 的格數。',
+			replacement: (value: string) => `將被審判的生物垂直拉動最多 ${value} 格。`
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
+	if (!calculatedMatch) {
+		return undefined;
+	}
+
+	if ((occurrenceCount(canonicalEnglish, projection.canonical) !== 1) || (occurrenceCount(localizedRaw, projection.localized) !== 1)) {
+		return undefined;
+	}
+
+	const projectedCanonical = canonicalEnglish.replace(projection.canonical, () => calculatedMatch[0]);
+	const projectedLocalized = localizedRaw.replace(projection.localized, () => projection.replacement(calculatedMatch[1]));
+
+	return projectedCanonical === calculatedEnglish ? projectedLocalized : undefined;
+};
+
+/**
  * The three Beastheart authored readings whose canonical calculation resolves an Intuition
  * expression in place. All three are ability section text, so they arrive through AbilityPanel’s
  * auto-calc path.
@@ -1662,10 +1727,11 @@ const projectBeastheartRecoveryValue = (elementID: string, field: string, canoni
  * canonical English, reproduce the calculator’s output exactly. Nothing here recomputes a
  * characteristic, a potency or a distance.
  *
- * `Wild Nature Benefit` descriptions are deliberately absent. Their direct FeaturePanel surface
- * carries no calculated transform, and the AbilityPanel package-injection surface renders raw
- * canonical English without reaching any localization boundary at all - a pre-existing
- * cross-class defect deferred to its own technical batch, not something this presenter can fix.
+ * `Wild Nature Benefit` descriptions are deliberately absent, and still need nothing here. The
+ * AbilityPanel package-injection surface that renders them now reaches this presenter under each
+ * benefit's own Feature identity, and the only thing the calculator does to them is add condition
+ * emphasis, which the shared projector above already carries. Their direct FeaturePanel surface
+ * carries no calculated transform at all.
  */
 const projectBeastheartWildNatureCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
 	const projections = [
@@ -1947,6 +2013,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const censorLevel2PresenceDamage = projectCensorLevel2PresenceDamage(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (censorLevel2PresenceDamage) {
 		return censorLevel2PresenceDamage;
+	}
+
+	const censorJudgmentPackageBenefitValue = projectCensorJudgmentPackageBenefitValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (censorJudgmentPackageBenefitValue) {
+		return censorJudgmentPackageBenefitValue;
 	}
 
 	const beastheartIntuitionValue = projectBeastheartIntuitionValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
