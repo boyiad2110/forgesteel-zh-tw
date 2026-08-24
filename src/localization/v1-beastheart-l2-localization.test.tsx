@@ -542,52 +542,182 @@ describe('V1 Beastheart Level 2 catalog and presentation', () => {
 	});
 
 	/**
-	 * Discovery evidence, not blessed behaviour.
-	 *
-	 * Seven of this slice's calculated identities do not reach approved zh-TW on the surface the
-	 * packet's r2 matrix predicted. Each one fails closed to the complete calculated English -
-	 * never a mixed Chinese/English partial reconstruction - which is the required behaviour for
-	 * an unsupported structural rewrite, so nothing here is unsafe. Reaching them would need
-	 * bindings beyond the two bounded presenter extensions this batch is authorized to add, so
-	 * they are recorded for the Reviewer rather than silently widened.
-	 *
-	 * - `Omnomnom / sections.2.text` (matrix: condition emphasis, Hero + no-Hero) falls back on
-	 *   BOTH paths. The canonical reading says `grabbed` once and `the grab` once; the approved
-	 *   zh-TW reads both as 「擒制」, so the shared projector's occurrence-count check refuses. In
-	 *   Hero context the calculator additionally resolves `1 + your companion's Might score` to a
-	 *   number, which no authorized rewrite covers.
-	 * - `Burning Lash / sections.0.roll.tier{1,2,3}` (matrix: Power Roll, Hero + no-Hero) project
-	 *   without a Hero but fall back with one: the calculator rewrites the authored `fire or
-	 *   lightning` type list to `fire lightning`, the same structural change the identity-bound
-	 *   Stormrage projector exists for.
-	 * - `Howling Gale / sections.0.roll.tier{1,2,3}` (matrix: Power Roll, Hero-only numeric delta)
-	 *   carry no numeric delta at all - 6 / 9 / 13 are flat - and their only Hero-context change
-	 *   is the same `cold or sonic` list rewrite, so they too fall back.
+	 * `Omnomnom`'s swallowed-creature section, which the shared condition projector cannot take:
+	 * its canonical English says `grabbed` once and `the grab` once, and the approved zh-TW reads
+	 * both as 「擒制」. The identity-bound projection decides which one carries the emphasis, so
+	 * this test pins both - the emphasized reading and the deliberately unemphasized one.
 	 */
-	it('records the deferred calculated-presentation divergences from the r2 matrix', () => {
+	it('projects Omnomnom’s swallowed-creature section and emphasizes only the grabbed reading', () => {
+		const ability = getAbility('beastheart-sub-1-2-2a');
 		const hero = makeHero();
-		const isWholeEnglishReading = (value: string) => !/[一-鿿]/.test(value);
 
-		// Fails closed on both paths.
-		expect(isWholeEnglishReading(textReading('beastheart-sub-1-2-2a', 'sections.2.text'))).toBe(true);
-		expect(isWholeEnglishReading(textReading('beastheart-sub-1-2-2a', 'sections.2.text', hero))).toBe(true);
-		expect(required[elementFieldIdentity('beastheart-sub-1-2-2a', 'sections.2.text')]).toContain('escapes the grab');
-		const swallowedZhTW = catalogEntries.find(entry => (entry.elementID === 'beastheart-sub-1-2-2a') && (entry.field === 'sections.2.text'))?.zhTW ?? '';
-		expect(swallowedZhTW.split('擒制').length - 1).toBe(2);
+		// The canonical identity keeps its authored leading newline; the approved zh-TW never had
+		// one, and no part of the projection touches either.
+		const canonicalEnglish = required[elementFieldIdentity('beastheart-sub-1-2-2a', 'sections.2.text')];
+		expect(canonicalEnglish.startsWith('\n')).toBe(true);
+		expect(canonicalEnglish).toContain('escapes the grab');
 
-		// Project without a Hero, fail closed with one.
-		([ 'beastheart-sub-4-2-2a', 'beastheart-sub-4-2-2b' ] as const).forEach(abilityID => {
-			([ 1, 2, 3 ] as const).forEach(tier => {
-				const withHero = tierReading(abilityID, 0, tier, hero);
-				expect(isWholeEnglishReading(withHero)).toBe(true);
-				expect(withHero).toMatch(/(fire lightning|cold sonic) damage/);
-			});
+		const noHeroReading = textReading('beastheart-sub-1-2-2a', 'sections.2.text');
+		const heroReading = textReading('beastheart-sub-1-2-2a', 'sections.2.text', hero);
+
+		// Without a Hero the calculator leaves `1 + your companion’s Might score` authored, so the
+		// approved unresolved wording stands and only the emphasis is projected.
+		expect(noHeroReading).toBe('被吞噬的生物與你的契獸共享同個空間，並處於**擒制**與**束縛**，而且只對你的契獸具有效果線。任何東西都無法對被吞噬的生物形成效果線。\n\n每輪 1 次，當你的回合開始時，被吞噬的生物會受到等於 1 + 契獸`力量`的酸蝕傷害。若被吞噬的生物掙脫擒制，契獸會立刻吐出該生物，讓他落在與契獸相鄰的 1 個未占據空間並陷入**伏地**。你的契獸也可以使用免費機動動作吐出被吞噬的生物。你的契獸每次只能吞噬 1 個生物。');
+
+		// With a Hero the calculator's own acid damage result is projected, and nothing else moves.
+		expect(heroReading).toBe('被吞噬的生物與你的契獸共享同個空間，並處於**擒制**與**束縛**，而且只對你的契獸具有效果線。任何東西都無法對被吞噬的生物形成效果線。\n\n每輪 1 次，當你的回合開始時，被吞噬的生物會受到 3 點酸蝕傷害。若被吞噬的生物掙脫擒制，契獸會立刻吐出該生物，讓他落在與契獸相鄰的 1 個未占據空間並陷入**伏地**。你的契獸也可以使用免費機動動作吐出被吞噬的生物。你的契獸每次只能吞噬 1 個生物。');
+
+		// The `escapes the grab` reading is deliberately left unemphasized on both paths.
+		[ noHeroReading, heroReading ].forEach(reading => {
+			expect(reading).toContain('若被吞噬的生物掙脫擒制，');
+			expect(reading).not.toContain('掙脫**擒制**');
+			expect(reading.split('**擒制**').length - 1).toBe(1);
 		});
 
-		// Howling Gale is flat: the calculator resolves no number in it at all.
-		([ 1, 2, 3 ] as const).forEach(tier => {
-			expect(isWholeEnglishReading(tierReading('beastheart-sub-4-2-2b', 0, tier))).toBe(false);
+		const serializedAbility = JSON.stringify(ability);
+		const serializedHero = JSON.stringify(hero);
+		const getTextEffect = vi.spyOn(AbilityLogic, 'getTextEffect');
+
+		const withHero = renderAbility(ability, hero);
+		verifyLocaleDifferentialInvariants({
+			protectedStates: [ protectCanonicalState({ label: 'Omnomnom Ability', capture: () => JSON.stringify(ability) }), protectCanonicalState({ label: 'Beastheart Hero', capture: () => JSON.stringify(hero) }) ],
+			assertZhTW: () => expectRendered(withHero.container, '被吞噬的生物會受到 3 點酸蝕傷害。'),
+			switchToEnglish: switchLocale,
+			assertEnglish: () => expectRendered(withHero.container, 'takes acid damage equal to 3.'),
+			switchToZhTW: switchLocale,
+			assertZhTWAfterRoundTrip: () => expectRendered(withHero.container, '被吞噬的生物會受到 3 點酸蝕傷害。')
 		});
+
+		// Only canonical English ever reaches the calculator.
+		getTextEffect.mock.calls.forEach(([ input ]) => assertCanonicalEnglishCalculationInput(input));
+		expect(JSON.stringify(ability)).toBe(serializedAbility);
+		expect(JSON.stringify(hero)).toBe(serializedHero);
+		getTextEffect.mockRestore();
+	});
+
+	/**
+	 * Burning Lash's three tiers, whose authored `fire or lightning` type list the calculator
+	 * collapses to `fire lightning` in Hero context. Only that one authored word is restored
+	 * before the shared replay comparison; the damage value, the potency and the `prone` emphasis
+	 * are all still projected by the shared logic, and the approved 「火焰或閃電」 reading stands.
+	 */
+	it.each([
+		{ tier: 1, rawZhTW: '6 + `直覺`火焰或閃電傷害；`力量` < [弱]，**伏地**', heroZhTW: '9 火焰或閃電傷害；`力量` < 1，**伏地**', heroEnglish: '9 fire lightning damage' },
+		{ tier: 2, rawZhTW: '9 + `直覺`火焰或閃電傷害；`力量` < [中]，**伏地**', heroZhTW: '12 火焰或閃電傷害；`力量` < 2，**伏地**', heroEnglish: '12 fire lightning damage' },
+		{ tier: 3, rawZhTW: '14 + `直覺`火焰或閃電傷害；`力量` < [強]，**伏地**且無法站起（EoT）', heroZhTW: '17 火焰或閃電傷害；`力量` < 3，**伏地**且無法站起（EoT）', heroEnglish: '17 fire lightning damage' }
+	])('projects Burning Lash tier $tier with a Hero and keeps the approved arithmetic without one', ({ tier, rawZhTW, heroZhTW, heroEnglish }) => {
+		const ability = getAbility('beastheart-sub-4-2-2a');
+		const hero = makeHero();
+
+		expect(tierReading('beastheart-sub-4-2-2a', 0, tier)).toBe(rawZhTW);
+		expect(tierReading('beastheart-sub-4-2-2a', 0, tier, hero)).toBe(heroZhTW);
+
+		const serializedAbility = JSON.stringify(ability);
+		const serializedHero = JSON.stringify(hero);
+		const getTierEffectCreature = vi.spyOn(AbilityLogic, 'getTierEffectCreature');
+
+		const withHero = renderAbility(ability, hero);
+		verifyLocaleDifferentialInvariants({
+			protectedStates: [ protectCanonicalState({ label: 'Burning Lash Ability', capture: () => JSON.stringify(ability) }), protectCanonicalState({ label: 'Beastheart Hero', capture: () => JSON.stringify(hero) }) ],
+			assertZhTW: () => expectRendered(withHero.container, heroZhTW.replace(/[`*]/g, '')),
+			switchToEnglish: switchLocale,
+			assertEnglish: () => expectRendered(withHero.container, heroEnglish),
+			switchToZhTW: switchLocale,
+			assertZhTWAfterRoundTrip: () => expectRendered(withHero.container, heroZhTW.replace(/[`*]/g, ''))
+		});
+
+		// Only canonical English ever reaches the calculator.
+		getTierEffectCreature.mock.calls.forEach(([ input ]) => assertCanonicalEnglishCalculationInput(input));
+		expect(JSON.stringify(ability)).toBe(serializedAbility);
+		expect(JSON.stringify(hero)).toBe(serializedHero);
+		getTierEffectCreature.mockRestore();
+	});
+
+	/**
+	 * Howling Gale's three tiers carry no characteristic arithmetic at all - 6 / 9 / 13 damage and
+	 * slide 1 / 2 / 4 are flat canonical values - so the collapsed `cold or sonic` type list is the
+	 * calculator's only Hero-context change to them. Once that authored word is restored, both
+	 * paths read the approved zh-TW unprojected.
+	 */
+	it.each([
+		{ tier: 1, zhTW: '6 寒冷或音波傷害；滑動 1' },
+		{ tier: 2, zhTW: '9 寒冷或音波傷害；滑動 2' },
+		{ tier: 3, zhTW: '13 寒冷或音波傷害；滑動 4' }
+	])('reads Howling Gale tier $tier as approved zh-TW with and without a Hero', ({ tier, zhTW }) => {
+		const ability = getAbility('beastheart-sub-4-2-2b');
+		const hero = makeHero();
+
+		expect(tierReading('beastheart-sub-4-2-2b', 0, tier)).toBe(zhTW);
+		expect(tierReading('beastheart-sub-4-2-2b', 0, tier, hero)).toBe(zhTW);
+
+		// The approved reading is the catalog's own zh-TW, projected in neither direction.
+		expect(catalogEntries.find(entry => (entry.elementID === 'beastheart-sub-4-2-2b') && (entry.field === `sections.0.roll.tier${tier}`))?.zhTW).toBe(zhTW);
+
+		const serializedAbility = JSON.stringify(ability);
+		const serializedHero = JSON.stringify(hero);
+		const getTierEffectCreature = vi.spyOn(AbilityLogic, 'getTierEffectCreature');
+
+		const withHero = renderAbility(ability, hero);
+		verifyLocaleDifferentialInvariants({
+			protectedStates: [ protectCanonicalState({ label: 'Howling Gale Ability', capture: () => JSON.stringify(ability) }), protectCanonicalState({ label: 'Beastheart Hero', capture: () => JSON.stringify(hero) }) ],
+			assertZhTW: () => expectRendered(withHero.container, zhTW),
+			switchToEnglish: switchLocale,
+			assertEnglish: () => expectRendered(withHero.container, 'cold sonic damage'),
+			switchToZhTW: switchLocale,
+			assertZhTWAfterRoundTrip: () => expectRendered(withHero.container, zhTW)
+		});
+
+		// Only canonical English ever reaches the calculator.
+		getTierEffectCreature.mock.calls.forEach(([ input ]) => assertCanonicalEnglishCalculationInput(input));
+		expect(JSON.stringify(ability)).toBe(serializedAbility);
+		expect(JSON.stringify(hero)).toBe(serializedHero);
+		getTierEffectCreature.mockRestore();
+	});
+
+	it('fails closed to whole English for the corrected identities under a wrong identity or an unsupported rewrite', () => {
+		const hero = makeHero();
+		const swallowedCanonical = required[elementFieldIdentity('beastheart-sub-1-2-2a', 'sections.2.text')];
+		const isWholeEnglishReading = (value: string) => !/[\u4e00-\u9fff]/.test(value);
+
+		// The same reading under a different identity is not projected.
+		const wrongIdentity = localizeCalculatedAuthoredTextPresentation({
+			locale: 'zh-TW',
+			elementID: 'beastheart-sub-1-2-2b',
+			field: 'sections.2.text',
+			canonicalEnglish: swallowedCanonical,
+			calculatedEnglish: AbilityLogic.getTextEffect(swallowedCanonical, hero)
+		});
+		expect(isWholeEnglishReading(wrongIdentity)).toBe(true);
+
+		// A structural rewrite the Omnomnom projection cannot replay.
+		const unsupportedSwallowed = 'A swallowed creature is **grabbed**, **restrained** and takes 3 acid damage each round.';
+		expect(localizeCalculatedAuthoredTextPresentation({
+			locale: 'zh-TW',
+			elementID: 'beastheart-sub-1-2-2a',
+			field: 'sections.2.text',
+			canonicalEnglish: swallowedCanonical,
+			calculatedEnglish: unsupportedSwallowed
+		})).toBe(unsupportedSwallowed);
+
+		// The restored type list never rescues a tier whose surrounding grammar also changed.
+		const unsupportedTier = '9 fire lightning damage to each enemy; `M < 1` **prone**';
+		expect(localizePowerRollTierPresentation({
+			locale: 'zh-TW',
+			abilityID: 'beastheart-sub-4-2-2a',
+			field: 'sections.0.roll.tier1',
+			canonicalEnglish: required[elementFieldIdentity('beastheart-sub-4-2-2a', 'sections.0.roll.tier1')],
+			calculatedEnglish: unsupportedTier
+		})).toBe(unsupportedTier);
+
+		// And a different ability's tier keeps the untouched calculated reading it always had.
+		const foreignTier = '9 fire lightning damage; `M < 1` **prone**';
+		expect(localizePowerRollTierPresentation({
+			locale: 'zh-TW',
+			abilityID: 'beastheart-sub-3-2-2a',
+			field: 'sections.0.roll.tier1',
+			canonicalEnglish: required[elementFieldIdentity('beastheart-sub-3-2-2a', 'sections.0.roll.tier1')],
+			calculatedEnglish: foreignTier
+		})).toBe(foreignTier);
 	});
 
 	it('records no glossary change for this batch', () => {

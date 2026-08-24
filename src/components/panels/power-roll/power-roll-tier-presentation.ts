@@ -154,6 +154,51 @@ const projectionCanonicalEnglish = (abilityID: string, field: string, canonicalE
 );
 
 /**
+ * Burning Lash and Howling Gale author their damage type as a two-type alternative - `fire or
+ * lightning` and `cold or sonic`. In Hero context the canonical calculator drops that authored
+ * `or` while it resolves the rest of the tier, exactly as it drops the `or` from Stormrage's
+ * four-type list. That is a structural change to the type list itself, so the shared replay
+ * comparison below rightly refuses to project anything built on it and both readings fall back
+ * to whole calculated English.
+ *
+ * These six identities restore only that one authored word before the replay comparison runs.
+ * Nothing else about the calculated reading is touched: the damage value, the potency and the
+ * condition emphasis are still projected by the shared logic below from what the calculator
+ * actually produced, and the Owner-approved 「火焰或閃電」/「寒冷或音波」 readings stand as approved.
+ *
+ * This is deliberately the symmetric counterpart of `projectionCanonicalEnglish` above rather
+ * than a widened type-list regex: the shared damage grammar still recognizes exactly what it
+ * recognized before, and every other identity's calculated reading is compared untouched. It is
+ * also why Stormrage keeps its own standalone projector - its four-type list collapses to a form
+ * this exact-match restoration cannot express - and that projector is unchanged here.
+ *
+ * Howling Gale's tiers carry no characteristic arithmetic at all: 6 / 9 / 13 damage and slide
+ * 1 / 2 / 4 are flat canonical values, and the collapsed type list is the calculator's only
+ * change to them. So once the authored `or` is restored, its calculated reading is identical to
+ * its canonical one and the approved zh-TW is returned unprojected on both the Hero and the
+ * Library path.
+ */
+const collapsedDamageTypeListTiers = [
+	{ abilityID: 'beastheart-sub-4-2-2a', field: 'sections.0.roll.tier1', collapsed: 'fire lightning damage', authored: 'fire or lightning damage' },
+	{ abilityID: 'beastheart-sub-4-2-2a', field: 'sections.0.roll.tier2', collapsed: 'fire lightning damage', authored: 'fire or lightning damage' },
+	{ abilityID: 'beastheart-sub-4-2-2a', field: 'sections.0.roll.tier3', collapsed: 'fire lightning damage', authored: 'fire or lightning damage' },
+	{ abilityID: 'beastheart-sub-4-2-2b', field: 'sections.0.roll.tier1', collapsed: 'cold sonic damage', authored: 'cold or sonic damage' },
+	{ abilityID: 'beastheart-sub-4-2-2b', field: 'sections.0.roll.tier2', collapsed: 'cold sonic damage', authored: 'cold or sonic damage' },
+	{ abilityID: 'beastheart-sub-4-2-2b', field: 'sections.0.roll.tier3', collapsed: 'cold sonic damage', authored: 'cold or sonic damage' }
+];
+
+const projectionCalculatedEnglish = (abilityID: string, field: string, calculatedEnglish: string) => {
+	const tier = collapsedDamageTypeListTiers.find(candidate => (candidate.abilityID === abilityID) && (candidate.field === field));
+	// Only the one known rewrite, and only when it is there exactly once. Without a Hero the
+	// calculator leaves the authored list alone, so nothing is restored and nothing changes.
+	if (!tier || ((calculatedEnglish.split(tier.collapsed).length - 1) !== 1)) {
+		return calculatedEnglish;
+	}
+
+	return calculatedEnglish.replace(tier.collapsed, tier.authored);
+};
+
+/**
  * Projects calculated canonical values onto an approved zh-TW Power Roll tier.
  *
  * The resolver lookup deliberately uses the raw canonical English, which preserves its
@@ -176,16 +221,22 @@ export const localizePowerRollTierPresentation = ({
 		return calculatedEnglish;
 	}
 
-	if (calculatedEnglish === canonicalEnglish) {
+	// The calculated reading every comparison and projection below replays. It differs from what
+	// the calculator returned only for the identity-bound restoration above; every fallback still
+	// returns `calculatedEnglish`, so an unprojectable reading always shows the real calculator
+	// output rather than this replay form.
+	const replayCalculated = projectionCalculatedEnglish(abilityID, field, calculatedEnglish);
+
+	if (replayCalculated === canonicalEnglish) {
 		return localizedRaw;
 	}
 
-	const troubadourLevelDamage = projectTroubadourLevelDamageTier(abilityID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	const troubadourLevelDamage = projectTroubadourLevelDamageTier(abilityID, field, canonicalEnglish, replayCalculated, localizedRaw);
 	if (troubadourLevelDamage) {
 		return troubadourLevelDamage;
 	}
 
-	const beastheartStormrage = projectBeastheartStormrageTier(abilityID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	const beastheartStormrage = projectBeastheartStormrageTier(abilityID, field, canonicalEnglish, replayCalculated, localizedRaw);
 	if (beastheartStormrage) {
 		return beastheartStormrage;
 	}
@@ -194,17 +245,17 @@ export const localizePowerRollTierPresentation = ({
 	// canonical English only for the identity-bound authored leading space above.
 	const replayCanonical = projectionCanonicalEnglish(abilityID, field, canonicalEnglish);
 
-	const damageValues = Array.from(calculatedEnglish.matchAll(calculatedDamagePattern), match => match[2]);
+	const damageValues = Array.from(replayCalculated.matchAll(calculatedDamagePattern), match => match[2]);
 	const canonicalDamage = Array.from(replayCanonical.matchAll(canonicalDamagePattern));
 	const localizedDamage = Array.from(localizedRaw.matchAll(localizedDamagePattern));
-	const potencyValues = Array.from(calculatedEnglish.matchAll(calculatedPotencyPattern), match => match[1]);
+	const potencyValues = Array.from(replayCalculated.matchAll(calculatedPotencyPattern), match => match[1]);
 	const canonicalPotencies = Array.from(replayCanonical.matchAll(canonicalPotencyPattern));
 	const localizedPotencies = Array.from(localizedRaw.matchAll(localizedPotencyPattern));
 	const canonicalForcedMovement = Array.from(replayCanonical.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
-	const calculatedForcedMovement = Array.from(calculatedEnglish.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
+	const calculatedForcedMovement = Array.from(replayCalculated.matchAll(canonicalForcedMovementPattern), match => ({ type: match[1].toLowerCase(), expression: match[2] }));
 	const localizedForcedMovement = Array.from(localizedRaw.matchAll(localizedForcedMovementPattern), match => localizedForcedMovementType(match[1]));
 	const hasUnchangedCanonicalGrammar = (pattern: RegExp, canonicalMatches: RegExpMatchArray[]) => (
-		countMatches(calculatedEnglish, pattern) === canonicalMatches.length
+		countMatches(replayCalculated, pattern) === canonicalMatches.length
 	);
 	const damageIsProjected = damageValues.length === canonicalDamage.length;
 	const potencyIsProjected = potencyValues.length === canonicalPotencies.length;
@@ -257,7 +308,7 @@ export const localizePowerRollTierPresentation = ({
 	// expression stays as it is; only a reading the calculator actually resolved is projected.
 	const canonicalWeakness = Array.from(projectedCanonical.matchAll(canonicalWeaknessPattern));
 	if ((canonicalWeakness.length > 0) && !hasUnchangedCanonicalGrammar(canonicalWeaknessPattern, canonicalWeakness)) {
-		const calculatedWeakness = Array.from(calculatedEnglish.matchAll(calculatedWeaknessPattern));
+		const calculatedWeakness = Array.from(replayCalculated.matchAll(calculatedWeaknessPattern));
 		const localizedWeakness = Array.from(projectedLocalized.matchAll(localizedWeaknessPattern));
 		if ((canonicalWeakness.length !== 1) || (calculatedWeakness.length !== 1) || (localizedWeakness.length !== 1)) {
 			return calculatedEnglish;
@@ -269,7 +320,7 @@ export const localizePowerRollTierPresentation = ({
 
 	return projectCalculatedConditionEmphasis({
 		canonicalEnglish: projectedCanonical,
-		calculatedEnglish: calculatedEnglish,
+		calculatedEnglish: replayCalculated,
 		localizedRaw: projectedLocalized
 	}) ?? calculatedEnglish;
 };

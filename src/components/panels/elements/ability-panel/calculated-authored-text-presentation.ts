@@ -1963,6 +1963,79 @@ const projectBeastheartLevel2CalculatedValue = (elementID: string, field: string
 };
 
 /**
+ * `Omnomnom`'s swallowed-creature section is the one reading in this slice the shared condition
+ * projector cannot take. Its canonical English says `grabbed` once and `the grab` once, and the
+ * calculator emphasizes only the first; the Owner-approved zh-TW reads both as 「擒制」, so the
+ * shared occurrence-count check sees two localized readings against one canonical condition and
+ * refuses - correctly, because it has no way to know which 「擒制」 the emphasis belongs to.
+ *
+ * Relaxing that global count rule would let every other identity's emphasis land on the wrong
+ * word, so this identity states the answer itself instead. Each part is anchored on a phrase
+ * that occurs exactly once in all three readings, which is what decides that the 「擒制」 in
+ * 「並處於擒制與束縛」 takes the emphasis while the one in 「掙脫擒制」 - the reading of the
+ * unemphasized canonical `escapes the grab` - is left alone.
+ *
+ * The emphasis parts apply on both paths, because the calculator adds them with or without a
+ * Hero. The acid damage part applies only in Hero context, where the calculator resolves
+ * `1 + your companion’s Might score`; without a Hero it leaves that arithmetic authored and the
+ * approved unresolved 「1 + 契獸`力量`」 wording stands, exactly as the Library path requires.
+ * The authored leading newline is never touched by any part, so the canonical identity survives.
+ *
+ * The gate is the strictest one in this module: the projection is returned only when replaying
+ * these parts onto the raw canonical English reproduces the calculator's output byte for byte.
+ * Any other structural rewrite - or the same reading under a different identity - falls through
+ * to the whole calculated English, never a mixed Chinese/English partial reconstruction.
+ */
+const omnomnomSwallowedParts: ReadonlyArray<{ canonical: string, calculated: RegExp, localized: string, replacement: (match: RegExpMatchArray) => string }> = [
+	{
+		canonical: 'is grabbed and restrained,',
+		calculated: /is \*\*grabbed\*\* and \*\*restrained\*\*,/,
+		localized: '並處於擒制與束縛，',
+		replacement: () => '並處於**擒制**與**束縛**，'
+	},
+	{
+		canonical: 'who lands prone in an unoccupied square',
+		calculated: /who lands \*\*prone\*\* in an unoccupied square/,
+		localized: '並陷入伏地。',
+		replacement: () => '並陷入**伏地**。'
+	},
+	{
+		canonical: 'takes acid damage equal to 1 + your companion’s Might score.',
+		calculated: /takes acid damage equal to (-?\d+)\./,
+		localized: '會受到等於 1 + 契獸`力量`的酸蝕傷害。',
+		replacement: match => `會受到 ${match[1]} 點酸蝕傷害。`
+	}
+];
+
+const projectBeastheartOmnomnomSwallowedText = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'beastheart-sub-1-2-2a') || (field !== 'sections.2.text')) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	for (const part of omnomnomSwallowedParts) {
+		const calculatedMatch = calculatedEnglish.match(part.calculated);
+		if (!calculatedMatch) {
+			continue;
+		}
+
+		if ((occurrenceCount(projectedCanonical, part.canonical) !== 1) || (occurrenceCount(projectedLocalized, part.localized) !== 1)) {
+			return undefined;
+		}
+
+		projectedCanonical = projectedCanonical.replace(part.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(part.localized, () => part.replacement(calculatedMatch));
+	}
+
+	// Exact replay, not the formatting-tolerant comparison the shared projector uses: this reading
+	// carries no potency grammar, so nothing here needs that tolerance, and requiring the emphasis
+	// to match byte for byte is what proves the right 「擒制」 was the one emphasized.
+	return (projectedCanonical === calculatedEnglish) ? projectedLocalized : undefined;
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -2114,6 +2187,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const beastheartLevel2CalculatedValue = projectBeastheartLevel2CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (beastheartLevel2CalculatedValue) {
 		return beastheartLevel2CalculatedValue;
+	}
+
+	const omnomnomSwallowedText = projectBeastheartOmnomnomSwallowedText(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (omnomnomSwallowedText) {
+		return omnomnomSwallowedText;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
