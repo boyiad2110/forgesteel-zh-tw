@@ -2293,6 +2293,72 @@ export const createV1BeastheartLevel2RequiredCanonicalEnglish = (): CanonicalEng
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The Beastheart's own Level 3 progression roots. Like the Level 2 slice this reads a single
+ * named level rather than generalizing the shared Level 1 accessor, so no arbitrary-level
+ * Beastheart crawler is introduced.
+ */
+const getV1BeastheartLevel3Features = (): Feature[] => {
+	const levelThree = beastheart.featuresByLevel.find(level => level.level === 3);
+	if (!levelThree) {
+		throw new Error('Beastheart Level 3 features are missing');
+	}
+	return levelThree.features;
+};
+
+/**
+ * The exact approved Beastheart Level 3 base-class ability slice. Level 3 selects cost 7 class
+ * abilities, so only abilities 13-16 belong here; abilities 17+ and every later level stay
+ * outside, as do the Companion and Summon records and their Level 3 rampage upgrades.
+ */
+export const v1BeastheartLevel3AbilityIDs = [
+	'beastheart-ability-13',
+	'beastheart-ability-14',
+	'beastheart-ability-15',
+	'beastheart-ability-16'
+] as const;
+
+/** Enumerates only Beastheart abilities 13-16 from the class's own live ability list. */
+export const getV1BeastheartLevel3Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(beastheart.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1BeastheartLevel3AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Beastheart Level 3 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/**
+ * Builds the bounded 30-identity Beastheart Level 3 denominator from live canonical data: the
+ * class's own Level 3 `7pt Ability` choice reading, and the authored fields of the four cost 7
+ * abilities that choice selects between.
+ *
+ * The Level 3 feature list holds only that one root, a FeatureType.ClassAbility whose name the
+ * Feature factory composes as '7pt Ability' and whose description is empty. The shared bounded
+ * non-Ability walk therefore contributes exactly that one name reading, and it descends only
+ * through Choice options and Multiple children - a ClassAbility is neither - so the four
+ * abilities the player picks between are enumerated from the class's own ability list by their
+ * exact IDs, the same way every prior Beastheart ability slice does. Their canonical English is
+ * factory-composed rather than authored, which FeaturePanel still renders as this Feature's own
+ * player-facing text. All four Wild Nature subclasses author an empty Level 3 feature array, so
+ * nothing subclass-side belongs to this slice, and the Companion and Summon records - including
+ * their Level 3 rampage upgrades - stay outside as they did for every prior Beastheart slice.
+ *
+ * Level 4+ and abilities 17+ stay out, so `class-and-subclass-level-content` and
+ * `official-ability-authored-content` both remain unresolved.
+ */
+export const createV1BeastheartLevel3RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1BeastheartLevel3Features());
+	getV1BeastheartLevel3Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2341,7 +2407,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish(),
-		...createV1BeastheartLevel2RequiredCanonicalEnglish()
+		...createV1BeastheartLevel2RequiredCanonicalEnglish(),
+		...createV1BeastheartLevel3RequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
