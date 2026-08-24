@@ -1887,6 +1887,82 @@ const projectBeastheartWildNatureCalculatedValue = (elementID: string, field: st
 };
 
 /**
+ * The two Beastheart Level 2 authored readings this batch is authorized to project. Both are
+ * subclass ability fields, so they arrive through AbilityPanel's auto-calc path, and both change
+ * only in Hero context: the calculator resolves one characteristic expression each and leaves
+ * the sentence otherwise as authored. Without a Hero neither is touched at all, so the Library
+ * surface keeps the approved raw zh-TW and never sees a number this layer invented.
+ *
+ * Neither can reuse an existing entry. `projectBeastheartWildNatureCalculatedValue` is bound to
+ * the Wild Nature Level 1 identities and to different surrounding canonical phrasing, and the
+ * shared `authorizedRewrites` table's damage and movement entries are each bound to their own
+ * clause wording - `push the creature up to a number of squares equal to 1 + your Might score`
+ * and `dealing extra fire or lightning damage equal to your Intuition score` appear in neither.
+ * So these are the established grammar applied under Beastheart's own Level 2 identities rather
+ * than a widened shared rule; nothing here recomputes a characteristic or a distance.
+ *
+ * The fail-closed gate is delegated to the shared projector: the projection is returned only
+ * when this rewrite, replayed onto the raw canonical English, reproduces the calculator's output
+ * exactly. Any other structural rewrite falls through to the whole calculated English reading.
+ */
+const projectBeastheartLevel2CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'beastheart-sub-3-2-1b',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'push the creature up to a number of squares equal to 1 + your Might score.',
+					calculated: /push the creature up to a number of squares equal to (-?\d+)\./,
+					localized: '將該生物推動最多等於 1 + 你`力量`的格數。',
+					replacement: (value: string) => `將該生物推動最多 ${value} 格。`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-4-2-2a',
+			field: 'sections.1.effect',
+			parts: [
+				{
+					canonical: 'dealing extra fire or lightning damage equal to your Intuition score.',
+					calculated: /dealing extra fire or lightning damage equal to (-?\d+)\./,
+					localized: '額外造成等於你`直覺`的火焰或閃電傷害。',
+					replacement: (value: string) => `額外造成 ${value} 點火焰或閃電傷害。`
+				}
+			]
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	for (const part of projection.parts) {
+		const calculatedMatch = calculatedEnglish.match(part.calculated);
+		if (!calculatedMatch) {
+			continue;
+		}
+
+		if ((occurrenceCount(projectedCanonical, part.canonical) !== 1) || (occurrenceCount(projectedLocalized, part.localized) !== 1)) {
+			return undefined;
+		}
+
+		projectedCanonical = projectedCanonical.replace(part.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(part.localized, () => part.replacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -2033,6 +2109,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const beastheartWildNatureCalculatedValue = projectBeastheartWildNatureCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (beastheartWildNatureCalculatedValue) {
 		return beastheartWildNatureCalculatedValue;
+	}
+
+	const beastheartLevel2CalculatedValue = projectBeastheartLevel2CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (beastheartLevel2CalculatedValue) {
+		return beastheartLevel2CalculatedValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
