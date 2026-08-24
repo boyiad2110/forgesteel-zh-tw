@@ -604,7 +604,7 @@ describe('V1 Beastheart Level 2 catalog and presentation', () => {
 	it.each([
 		{ tier: 1, rawZhTW: '6 + `直覺`火焰或閃電傷害；`力量` < [弱]，**伏地**', heroZhTW: '9 火焰或閃電傷害；`力量` < 1，**伏地**', heroEnglish: '9 fire lightning damage' },
 		{ tier: 2, rawZhTW: '9 + `直覺`火焰或閃電傷害；`力量` < [中]，**伏地**', heroZhTW: '12 火焰或閃電傷害；`力量` < 2，**伏地**', heroEnglish: '12 fire lightning damage' },
-		{ tier: 3, rawZhTW: '14 + `直覺`火焰或閃電傷害；`力量` < [強]，**伏地**且無法站起（EoT）', heroZhTW: '17 火焰或閃電傷害；`力量` < 3，**伏地**且無法站起（EoT）', heroEnglish: '17 fire lightning damage' }
+		{ tier: 3, rawZhTW: '14 + `直覺`火焰或閃電傷害；`力量` < [強]，**伏地**且無法起身（EoT）', heroZhTW: '17 火焰或閃電傷害；`力量` < 3，**伏地**且無法起身（EoT）', heroEnglish: '17 fire lightning damage' }
 	])('projects Burning Lash tier $tier with a Hero and keeps the approved arithmetic without one', ({ tier, rawZhTW, heroZhTW, heroEnglish }) => {
 		const ability = getAbility('beastheart-sub-4-2-2a');
 		const hero = makeHero();
