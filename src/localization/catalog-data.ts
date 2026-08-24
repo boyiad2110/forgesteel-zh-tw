@@ -4581,6 +4581,103 @@ const beastheartLevel1WildNatureLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'beastheart-sub-4-1-4', field: 'sections.1.effect', canonicalEnglish: 'When you teleport this way, each enemy adjacent to your original space takes lightning or fire damage (your choice) equal to your Intuition score.', zhTW: '當你以此方式傳送時，與你原本方格相鄰的每個敵人都會受到等於你`直覺`的閃電或火焰傷害（由你選擇）。', approval: 'approved' }
 ];
+/**
+ * The Owner-approved Beastheart Level 2 slice, frozen as packet `beastheart-l2` revision r2 and
+ * reproduced verbatim: the base class's Level 2 Perk and `Everyone’s Best Friend` readings, and
+ * each Wild Nature subclass's Level 2 non-Ability Feature readings plus the authored fields of
+ * the two Abilities its Level 2 ability choice offers - and, for Punisher, of the root
+ * `This One's Yours` triggered Ability it authors directly.
+ *
+ * `Omnomnom`'s third section keeps the single leading newline its canonical English is authored
+ * with. That whitespace is canonical authority the resolver matches on, so it is snapshotted
+ * exactly; the approved zh-TW keeps its own authored shape, which does not carry it.
+ *
+ * The ability and feature names the Owner finalized here stay Beastheart identity-scoped: they
+ * were approved inside these exact identities without promoting standalone reusable glossary
+ * mappings, so this batch's glossary delta is empty and no other approved content is rewritten.
+ */
+const beastheartLevel2LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'beastheart-2-1', field: 'name', canonicalEnglish: 'Perk', zhTW: '專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-2-2', field: 'name', canonicalEnglish: 'Everyone’s Best Friend', zhTW: '最棒的朋友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-2-2', field: 'description', canonicalEnglish: 'Your companion may not be much of a talker, but they’ve got a lifetime of experience surviving the dangers of the wild. They can offer aid in nearly any circumstance: helping exhausted travelers find their way, leading panicked villagers out of a burning building, or even providing a comforting nuzzle at just the right time. Once per round during a montage test, when you or another character makes a test, your companion can increase the tier outcome by one tier (to a maximum of tier 3).', zhTW: '你的契獸也許不太健談，但牠有一輩子在荒野求生的經驗。牠在幾乎任何情況下都能提供幫助：協助筋疲力盡的旅人找到方向、帶領驚慌的村民逃離火場，甚至在最恰當的時候給人安慰的依靠。在蒙太奇考驗中，每輪 1 次，當你或其他角色進行考驗時，你的契獸可以讓檢定結果提高 1 階（最高至 T3）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-1b', field: 'name', canonicalEnglish: 'Watchdog', zhTW: '看門犬', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-1b', field: 'description', canonicalEnglish: 'You and your companion can’t be surprised.', zhTW: '你和契獸都不會陷入措手不及。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2', field: 'name', canonicalEnglish: 'Guardian Ability', zhTW: '守護招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'name', canonicalEnglish: 'Omnomnom', zhTW: '嗯姆嗯姆', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'description', canonicalEnglish: 'What do you have in your mouth? No! Bad boy!', zhTW: '你嘴裡叼著什麼？不行！壞孩子！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'sections.0.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'sections.0.effect', canonicalEnglish: 'This ability targets only creatures who are grabbed and are your companion’s size or smaller.', zhTW: '此招式只能指定處於擒制且體型 ≦ 契獸的生物為目標。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'sections.1.roll.tier1', canonicalEnglish: '6 + M damage; M < [weak] the target is swallowed', zhTW: '6 + `力量`傷害；`力量` < [弱]，目標被吞噬', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'sections.1.roll.tier2', canonicalEnglish: '10 + M damage; M < [average] the target is swallowed', zhTW: '10 + `力量`傷害；`力量` < [中]，目標被吞噬', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'sections.1.roll.tier3', canonicalEnglish: '14 + M damage; M < [strong] the target is swallowed', zhTW: '14 + `力量`傷害；`力量` < [強]，目標被吞噬', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2a', field: 'sections.2.text', canonicalEnglish: '\nA swallowed creature shares your companion’s space, is grabbed and restrained, and has line of effect only to your companion. Nothing has line of effect to the swallowed creature.\n\nOnce per round at the start of your turn, the swallowed creature takes acid damage equal to 1 + your companion’s Might score. If the swallowed creature escapes the grab, your companion immediately regurgitates the creature, who lands prone in an unoccupied square adjacent to your companion. Your companion can also regurgitate a swallowed creature as a free maneuver. Your companion can have only one creature swallowed at a time.', zhTW: '被吞噬的生物與你的契獸共享同個空間，並處於擒制與束縛，而且只對你的契獸具有效果線。任何東西都無法對被吞噬的生物形成效果線。\n\n每輪 1 次，當你的回合開始時，被吞噬的生物會受到等於 1 + 契獸`力量`的酸蝕傷害。若被吞噬的生物掙脫擒制，契獸會立刻吐出該生物，讓他落在與契獸相鄰的 1 個未占據空間並陷入伏地。你的契獸也可以使用免費機動動作吐出被吞噬的生物。你的契獸每次只能吞噬 1 個生物。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'name', canonicalEnglish: 'Fetch!', zhTW: '撿回來！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'description', canonicalEnglish: 'Your companion blinks out of existence, returning with a visitor you were particularly hoping to meet.', zhTW: '你的契獸瞬間消失，帶著一位你特別想見的訪客回來。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'sections.0.text', canonicalEnglish: 'Your companion can teleport up to 5 squares before and after making the power roll. Instead of grabbing the target, your companion can pick up a target object that is smaller than they are. You can forgo dealing damage with this ability.', zhTW: '在進行檢定之前與之後，契獸都可以傳送最多 5 格。除了擒制目標外，若目標物體的體型 < 契獸，契獸也可以拾取該物體。你可以選擇不讓此招式造成傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'sections.1.roll.tier1', canonicalEnglish: '6 + M damage; M < [weak], grabbed', zhTW: '6 + `力量`傷害；`力量` < [弱]，擒制', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'sections.1.roll.tier2', canonicalEnglish: '8 + M damage; M < [average], grabbed', zhTW: '8 + `力量`傷害；`力量` < [中]，擒制', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'sections.1.roll.tier3', canonicalEnglish: '12 + M damage; M < [strong], grabbed', zhTW: '12 + `力量`傷害；`力量` < [強]，擒制', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-1-2-2b', field: 'sections.2.text', canonicalEnglish: 'After making the power roll, your companion can teleport with a grabbed creature or held object, provided the creature or object can fit in the destination. You choose which squares adjacent to your companion the grabbed creature or held object is teleported to.', zhTW: '進行檢定後，你的契獸可以帶著被擒制的生物或持有的物體一起傳送，前提是該生物或物體能容身於目的地。被擒制的生物或持有物體會傳送至契獸相鄰的 1 個方格（由你決定）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-1b', field: 'name', canonicalEnglish: 'Supersniffer', zhTW: '超級嗅覺', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-1b', field: 'description', canonicalEnglish: 'While a creature is adjacent to your companion, that creature can’t be hidden or have concealment from your companion.', zhTW: '當 1 個生物與你的契獸相鄰時，對你的契獸而言，該生物無法隱藏自己，也無法具有遮蔽。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2', field: 'name', canonicalEnglish: 'Prowler Ability', zhTW: '獵殺招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'name', canonicalEnglish: 'Jump Scare', zhTW: '大吃一驚', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'description', canonicalEnglish: 'Surprised to see me?', zhTW: '看到我很驚訝嗎？', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'sections.0.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'sections.0.effect', canonicalEnglish: 'This ability targets only enemies with line of effect to your companion.', zhTW: '此招式只能指定對契獸具有效果線的敵人為目標。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'sections.1.text', canonicalEnglish: 'Your companion shifts up to a number of squares equal to their Intuition score. During this movement, they are invisible. They then make a power roll.', zhTW: '你的契獸遁移最多等於其`直覺`的距離。在此移動期間，牠會處於隱形。然後，牠進行 1 次檢定。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'sections.2.roll.tier1', canonicalEnglish: '4 damage; P < [weak], frightened (save ends)', zhTW: '4 傷害；`氣場` < [弱]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'sections.2.roll.tier2', canonicalEnglish: '6 damage; P < [average], frightened (save ends)', zhTW: '6 傷害；`氣場` < [中]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2a', field: 'sections.2.roll.tier3', canonicalEnglish: '10 damage; P < [strong], frightened (save ends)', zhTW: '10 傷害；`氣場` < [強]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2b', field: 'name', canonicalEnglish: 'On You Like Your Shadow', zhTW: '如影隨形', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2b', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2b', field: 'description', canonicalEnglish: 'Your companion darts around their target, staying out of reach and using them as a shield.', zhTW: '你的契獸玩弄著目標，始終避開對方的攻擊範圍，並將對方當作肉盾。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: '5 + M damage', zhTW: '5 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: '8 + M damage', zhTW: '8 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: '12 + M damage', zhTW: '12 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-2-2-2b', field: 'sections.1.text', canonicalEnglish: 'Your companion enters the target’s space. Until your companion is no longer in the target’s space, they can end their turn in that space, strikes against them also affect the target, and your strikes against the target gain an edge.', zhTW: '你的契獸進入目標的空間。只要你的契獸仍然位於目標的空間，牠就可以在該空間結束回合。指定契獸為目標的打擊也會影響目標，而你對目標發動的打擊獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-1b', field: 'name', canonicalEnglish: 'This One\'s Yours', zhTW: '燙手山芋', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-1b', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-1b', field: 'description', canonicalEnglish: 'When someone is pushed into you, you reach out to steady an ally or send a foe careening off in another direction.', zhTW: '當有人被推到你身邊時，你伸手扶穩盟友或送走敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-1b', field: 'type.trigger', canonicalEnglish: 'A creature force moved by another creature enters a space adjacent to you.', zhTW: '當 1 個被其他生物強制移動的生物進入與你相鄰的空間時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-1b', field: 'sections.0.text', canonicalEnglish: 'You end the forced movement. You can then push the creature up to a number of squares equal to 1 + your Might score. The creature takes 1 damage for each square they are force moved this way.', zhTW: '你結束此強制移動。然後，你可以將該生物推動最多等於 1 + 你`力量`的格數。該生物每以此方式被強制移動 1 格，就會受到 1 點傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-1b', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-1b', field: 'sections.1.effect', canonicalEnglish: 'You and your companions can each use this free triggered action on the same turn.', zhTW: '你和契獸可以在同個回合中各自使用此免費反應動作。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2', field: 'name', canonicalEnglish: 'Punisher Ability', zhTW: '制裁招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2a', field: 'name', canonicalEnglish: 'Foe Bowling', zhTW: '一石二鳥', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2a', field: 'description', canonicalEnglish: 'Your companion sends one enemy tumbling into another, taking them both out.', zhTW: '你的契獸將一個敵人撞向另一個，一口氣解決兩者。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '3 + M damage; push 2; M < [weak], prone', zhTW: '3 + `力量`傷害；推動 2；`力量` < [弱]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '5 + M damage; push 3; M < [average], prone', zhTW: '5 + `力量`傷害；推動 3；`力量` < [中]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '8 + M damage; push 4; M < [strong], prone', zhTW: '8 + `力量`傷害；推動 4；`力量` < [強]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2a', field: 'sections.1.text', canonicalEnglish: 'If the target is force moved at least 1 square, an enemy adjacent to the target at the end of this forced movement is also targeted by this ability’s power roll, but they don’t trigger this effect.', zhTW: '若目標被強制移動至少 1 格，則此強制移動結束時與目標相鄰的 1 個敵人，也會成為此招式檢定的目標，但該敵人不會再次觸發此效果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2b', field: 'name', canonicalEnglish: 'One Roar and We’re Back In the Fight', zhTW: '熱血咆哮', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2b', field: 'target', canonicalEnglish: 'One ally', zhTW: '1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2b', field: 'description', canonicalEnglish: 'Your companion builds up courage with a roar, growl, or aggressive display.', zhTW: '你的契獸以咆哮、低吼或充滿挑釁的姿態鼓起勇氣。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-3-2-2b', field: 'sections.0.text', canonicalEnglish: 'Your companion and the target can each gain 2 surges, spend up to 2 Recoveries, and end one condition or effect on them that is ended by a saving throw or that ends at the end of their turn.', zhTW: '你的契獸與目標可以各自獲得 2 點鬥志、花費最多 2 點復元力，並解除自身 1 個能透過豁免解除或 EoT 的狀態或效果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-1b', field: 'name', canonicalEnglish: 'Stormheart', zhTW: '風暴之心', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-1b', field: 'description', canonicalEnglish: 'Whenever you or your companion deals cold, fire, lightning, sonic, or untyped damage, you can change the damage type to cold, fire, lightning, or sonic damage.', zhTW: '每當你或契獸造成寒冷、火焰、閃電、音波或無類型傷害時，你可以將該傷害的類型改為寒冷、火焰、閃電或音波傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2', field: 'name', canonicalEnglish: 'Spark Ability', zhTW: '星火招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'name', canonicalEnglish: 'Burning Lash', zhTW: '焚焰鞭擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'description', canonicalEnglish: 'A blazing tongue of energy entangles a foe.', zhTW: '一道熾烈的能量鞭纏住敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'sections.0.roll.tier1', canonicalEnglish: '6 + I fire or lightning damage; M < [weak], prone', zhTW: '6 + `直覺`火焰或閃電傷害；`力量` < [弱]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'sections.0.roll.tier2', canonicalEnglish: '9 + I fire or lightning damage; M < [average], prone', zhTW: '9 + `直覺`火焰或閃電傷害；`力量` < [中]，伏地', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'sections.0.roll.tier3', canonicalEnglish: '14 + I fire or lightning damage; M < [strong], prone and can’t stand (EoT)', zhTW: '14 + `直覺`火焰或閃電傷害；`力量` < [強]，伏地且無法起身（EoT）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2a', field: 'sections.1.effect', canonicalEnglish: 'If you are within distance of the target, you can use a free maneuver to wield a second whip, dealing extra fire or lightning damage equal to your Intuition score.', zhTW: '若你位於目標的射程內，你可以使用免費機動動作揮出第 2 條鞭子，額外造成等於你`直覺`的火焰或閃電傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'name', canonicalEnglish: 'Howling Gale', zhTW: '呼嘯狂風', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'description', canonicalEnglish: 'A blizzard or thunderstorm sends foes flying and lifts you like a feather.', zhTW: '暴雪或雷暴將敵人吹飛，同時讓你身輕如羽。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'sections.0.roll.tier1', canonicalEnglish: '6 cold or sonic damage; slide 1', zhTW: '6 寒冷或音波傷害；滑動 1', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'sections.0.roll.tier2', canonicalEnglish: '9 cold or sonic damage; slide 2', zhTW: '9 寒冷或音波傷害；滑動 2', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'sections.0.roll.tier3', canonicalEnglish: '13 cold or sonic damage; slide 4', zhTW: '13 寒冷或音波傷害；滑動 4', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'sections.1.text', canonicalEnglish: 'Until the end of your next turn, you and your companion can fly and gain a +3 bonus to speed.', zhTW: '直到你的下個回合結束前，你和契獸都可以飛行，而且速度獲得 +3 加值。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4621,5 +4718,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreTroubadourLevel2LocalizationEntries,
 	...beastheartLevel1BaseAbilityLocalizationEntries,
 	...beastheartLevel1BaseCompletionLocalizationEntries,
-	...beastheartLevel1WildNatureLocalizationEntries
+	...beastheartLevel1WildNatureLocalizationEntries,
+	...beastheartLevel2LocalizationEntries
 ];

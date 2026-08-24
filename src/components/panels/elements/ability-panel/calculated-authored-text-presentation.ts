@@ -1887,6 +1887,155 @@ const projectBeastheartWildNatureCalculatedValue = (elementID: string, field: st
 };
 
 /**
+ * The two Beastheart Level 2 authored readings this batch is authorized to project. Both are
+ * subclass ability fields, so they arrive through AbilityPanel's auto-calc path, and both change
+ * only in Hero context: the calculator resolves one characteristic expression each and leaves
+ * the sentence otherwise as authored. Without a Hero neither is touched at all, so the Library
+ * surface keeps the approved raw zh-TW and never sees a number this layer invented.
+ *
+ * Neither can reuse an existing entry. `projectBeastheartWildNatureCalculatedValue` is bound to
+ * the Wild Nature Level 1 identities and to different surrounding canonical phrasing, and the
+ * shared `authorizedRewrites` table's damage and movement entries are each bound to their own
+ * clause wording - `push the creature up to a number of squares equal to 1 + your Might score`
+ * and `dealing extra fire or lightning damage equal to your Intuition score` appear in neither.
+ * So these are the established grammar applied under Beastheart's own Level 2 identities rather
+ * than a widened shared rule; nothing here recomputes a characteristic or a distance.
+ *
+ * The fail-closed gate is delegated to the shared projector: the projection is returned only
+ * when this rewrite, replayed onto the raw canonical English, reproduces the calculator's output
+ * exactly. Any other structural rewrite falls through to the whole calculated English reading.
+ */
+const projectBeastheartLevel2CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'beastheart-sub-3-2-1b',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'push the creature up to a number of squares equal to 1 + your Might score.',
+					calculated: /push the creature up to a number of squares equal to (-?\d+)\./,
+					localized: '將該生物推動最多等於 1 + 你`力量`的格數。',
+					replacement: (value: string) => `將該生物推動最多 ${value} 格。`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-sub-4-2-2a',
+			field: 'sections.1.effect',
+			parts: [
+				{
+					canonical: 'dealing extra fire or lightning damage equal to your Intuition score.',
+					calculated: /dealing extra fire or lightning damage equal to (-?\d+)\./,
+					localized: '額外造成等於你`直覺`的火焰或閃電傷害。',
+					replacement: (value: string) => `額外造成 ${value} 點火焰或閃電傷害。`
+				}
+			]
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	for (const part of projection.parts) {
+		const calculatedMatch = calculatedEnglish.match(part.calculated);
+		if (!calculatedMatch) {
+			continue;
+		}
+
+		if ((occurrenceCount(projectedCanonical, part.canonical) !== 1) || (occurrenceCount(projectedLocalized, part.localized) !== 1)) {
+			return undefined;
+		}
+
+		projectedCanonical = projectedCanonical.replace(part.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(part.localized, () => part.replacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
+ * `Omnomnom`'s swallowed-creature section is the one reading in this slice the shared condition
+ * projector cannot take. Its canonical English says `grabbed` once and `the grab` once, and the
+ * calculator emphasizes only the first; the Owner-approved zh-TW reads both as 「擒制」, so the
+ * shared occurrence-count check sees two localized readings against one canonical condition and
+ * refuses - correctly, because it has no way to know which 「擒制」 the emphasis belongs to.
+ *
+ * Relaxing that global count rule would let every other identity's emphasis land on the wrong
+ * word, so this identity states the answer itself instead. Each part is anchored on a phrase
+ * that occurs exactly once in all three readings, which is what decides that the 「擒制」 in
+ * 「並處於擒制與束縛」 takes the emphasis while the one in 「掙脫擒制」 - the reading of the
+ * unemphasized canonical `escapes the grab` - is left alone.
+ *
+ * The emphasis parts apply on both paths, because the calculator adds them with or without a
+ * Hero. The acid damage part applies only in Hero context, where the calculator resolves
+ * `1 + your companion’s Might score`; without a Hero it leaves that arithmetic authored and the
+ * approved unresolved 「1 + 契獸`力量`」 wording stands, exactly as the Library path requires.
+ * The authored leading newline is never touched by any part, so the canonical identity survives.
+ *
+ * The gate is the strictest one in this module: the projection is returned only when replaying
+ * these parts onto the raw canonical English reproduces the calculator's output byte for byte.
+ * Any other structural rewrite - or the same reading under a different identity - falls through
+ * to the whole calculated English, never a mixed Chinese/English partial reconstruction.
+ */
+const omnomnomSwallowedParts: ReadonlyArray<{ canonical: string, calculated: RegExp, localized: string, replacement: (match: RegExpMatchArray) => string }> = [
+	{
+		canonical: 'is grabbed and restrained,',
+		calculated: /is \*\*grabbed\*\* and \*\*restrained\*\*,/,
+		localized: '並處於擒制與束縛，',
+		replacement: () => '並處於**擒制**與**束縛**，'
+	},
+	{
+		canonical: 'who lands prone in an unoccupied square',
+		calculated: /who lands \*\*prone\*\* in an unoccupied square/,
+		localized: '並陷入伏地。',
+		replacement: () => '並陷入**伏地**。'
+	},
+	{
+		canonical: 'takes acid damage equal to 1 + your companion’s Might score.',
+		calculated: /takes acid damage equal to (-?\d+)\./,
+		localized: '會受到等於 1 + 契獸`力量`的酸蝕傷害。',
+		replacement: match => `會受到 ${match[1]} 點酸蝕傷害。`
+	}
+];
+
+const projectBeastheartOmnomnomSwallowedText = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'beastheart-sub-1-2-2a') || (field !== 'sections.2.text')) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	for (const part of omnomnomSwallowedParts) {
+		const calculatedMatch = calculatedEnglish.match(part.calculated);
+		if (!calculatedMatch) {
+			continue;
+		}
+
+		if ((occurrenceCount(projectedCanonical, part.canonical) !== 1) || (occurrenceCount(projectedLocalized, part.localized) !== 1)) {
+			return undefined;
+		}
+
+		projectedCanonical = projectedCanonical.replace(part.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(part.localized, () => part.replacement(calculatedMatch));
+	}
+
+	// Exact replay, not the formatting-tolerant comparison the shared projector uses: this reading
+	// carries no potency grammar, so nothing here needs that tolerance, and requiring the emphasis
+	// to match byte for byte is what proves the right 「擒制」 was the one emphasized.
+	return (projectedCanonical === calculatedEnglish) ? projectedLocalized : undefined;
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -2033,6 +2182,16 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const beastheartWildNatureCalculatedValue = projectBeastheartWildNatureCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (beastheartWildNatureCalculatedValue) {
 		return beastheartWildNatureCalculatedValue;
+	}
+
+	const beastheartLevel2CalculatedValue = projectBeastheartLevel2CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (beastheartLevel2CalculatedValue) {
+		return beastheartLevel2CalculatedValue;
+	}
+
+	const omnomnomSwallowedText = projectBeastheartOmnomnomSwallowedText(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (omnomnomSwallowedText) {
+		return omnomnomSwallowedText;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;

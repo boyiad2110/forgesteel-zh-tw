@@ -2248,6 +2248,51 @@ export const createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish = (): Ca
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The Beastheart's own, or one Wild Nature subclass's, Level 2 progression roots. Like the
+ * Censor, Talent and Troubadour Level 2 slices this reads a single named level rather than
+ * generalizing the shared Level 1 accessor, so no arbitrary-level traversal API is introduced.
+ */
+const getV1BeastheartLevel2Features = (featuresByLevel: { level: number, features: Feature[] }[], owner: string) => {
+	const levelTwo = featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error(`${owner} Level 2 features are missing`);
+	}
+	return levelTwo.features;
+};
+
+/**
+ * Builds the bounded 79-identity Beastheart Level 2 denominator from live canonical data: the
+ * base class's own Level 2 Perk and `Everyone’s Best Friend` readings, and for each of the four
+ * Wild Nature subclasses its Level 2 non-Ability Feature readings - including the ability
+ * choice root's own player-facing label - plus the authored fields of the Abilities reachable
+ * from those exact Level 2 roots.
+ *
+ * Both halves go through the one shared bounded walk and the same bounded Ability collector,
+ * with no per-subclass exception. Punisher authors `This One's Yours` as a Level 2 root Ability
+ * rather than inside a Choice, exactly as Talent's Telekinesis authors `Ease their Fall`, and
+ * the same collector reaches it as it reaches the two Abilities each subclass's Choice offers;
+ * a Feature's type never decides whether its rendered player-facing content is required. The
+ * other three subclasses author a plain Feature there instead, which the non-Ability walk reads.
+ *
+ * Subclass metadata and Level 1 content already belong to the three completed Beastheart
+ * Level 1 slices, and Level 3+, the Companion and Summon records and abilities 13+ all stay
+ * outside, so `class-and-subclass-level-content` remains unresolved.
+ */
+export const createV1BeastheartLevel2RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1BeastheartLevel2Features(beastheart.featuresByLevel, 'Beastheart'));
+
+	getV1BeastheartWildNatureSubclasses().forEach(subclass => {
+		const subclassLevelTwoFeatures = getV1BeastheartLevel2Features(subclass.featuresByLevel, `Beastheart Wild Nature subclass '${subclass.id}'`);
+		addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, subclassLevelTwoFeatures);
+		collectBoundedAbilities(subclassLevelTwoFeatures).forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	});
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2295,7 +2340,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CensorLevel2RequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish(),
-		...createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish()
+		...createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish(),
+		...createV1BeastheartLevel2RequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
