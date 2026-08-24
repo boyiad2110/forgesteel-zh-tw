@@ -25,6 +25,9 @@ vi.mock('@/localization/resolver', async importActual => {
 	const { productionLocalizationEntries } = await import('@/localization/catalog-data');
 	const resolver = actual.createLocalizationResolver([
 		...productionLocalizationEntries.filter(entry => (entry.kind === 'element-field') && (entry.elementID === 'elementalist-1-5') && (entry.field === 'description')),
+		// The three Judgment Order Benefit descriptions are likewise taken from the production
+		// catalog, so their PackageContent projection runs against the approved bytes themselves.
+		...productionLocalizationEntries.filter(entry => (entry.kind === 'element-field') && [ 'censor-sub-1-1-2', 'censor-sub-2-1-2', 'censor-sub-3-1-2' ].includes(entry.elementID) && (entry.field === 'description')),
 		{ kind: 'element-field', elementID: 'projection-rolls', field: 'sections.0.roll.tier1', canonicalEnglish: 'P < [weak], slowed (save ends)', zhTW: '`氣場` < [弱]，緩速（豁免解除）', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'projection-rolls', field: 'sections.0.roll.tier2', canonicalEnglish: 'P < [average], dazed (save ends)', zhTW: '`氣場` < [中]，暈眩（豁免解除）', approval: 'approved' },
 		{ kind: 'element-field', elementID: 'projection-text', field: 'sections.0.text', canonicalEnglish: 'You deal holy damage equal to twice your Presence score to them.', zhTW: '你對他造成等於你氣場 ×2 的神聖傷害。', approval: 'approved' },
@@ -180,5 +183,42 @@ describe('calculated authored content presentation', () => {
 		// structural change this identity does not authorize, so the whole reading falls back.
 		const unsupported = calculatedEnglish.replace('a Reason score of 2', 'a Reason score of 5');
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'elementalist-1-5', field: 'description', canonicalEnglish, calculatedEnglish: unsupported })).toBe(unsupported);
+	});
+
+	it('projects the three Judgment Order Benefit PackageContent values and falls back on an unsupported rewrite', () => {
+		const approvedDescription = (elementID: string) => {
+			const entry = productionLocalizationEntries.find((candidate): candidate is ElementFieldEntry => (
+				(candidate.kind === 'element-field') && (candidate.elementID === elementID) && (candidate.field === 'description')
+			));
+			if (!entry) {
+				throw new Error(`the approved description for '${elementID}' is missing from the production catalog`);
+			}
+			return entry;
+		};
+
+		const project = (elementID: string, calculatedEnglish: string) => localizeCalculatedAuthoredTextPresentation({
+			locale: 'zh-TW',
+			elementID: elementID,
+			field: 'description',
+			canonicalEnglish: approvedDescription(elementID).canonicalEnglish,
+			calculatedEnglish: calculatedEnglish
+		});
+
+		const teleport = approvedDescription('censor-sub-1-1-2').canonicalEnglish;
+		expect(project('censor-sub-1-1-2', teleport.replace('equal to twice your Presence score.', 'equal to 4.'))).toBe('當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以傳送最多 4 格。此移動必須讓你更接近被審判的生物。你與終點之間不需要有效果線。');
+
+		const holy = approvedDescription('censor-sub-2-1-2').canonicalEnglish;
+		expect(project('censor-sub-2-1-2', holy.replace('equal to twice your Presence score to', 'equal to 4 to'))).toBe('當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以對被審判的生物造成 4 點神聖傷害。');
+
+		const verticalPull = approvedDescription('censor-sub-3-1-2').canonicalEnglish;
+		expect(project('censor-sub-3-1-2', verticalPull.replace('equal to twice your Presence score.', 'equal to 6.'))).toBe('當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以將被審判的生物垂直拉動最多 6 格。');
+
+		// Raw canonical in, approved raw zh-TW out: nothing to project.
+		expect(project('censor-sub-2-1-2', holy)).toBe('當你在 1 個回合中首次發動【審判】招式審判 1 個生物時，你可以對被審判的生物造成等於你`氣場` ×2 的神聖傷害。');
+
+		// A structural rewrite this identity does not authorize falls back whole, rather than
+		// projecting a partly-Chinese sentence.
+		const unsupported = holy.replace('equal to twice your Presence score to the judged creature.', 'equal to 4 to each judged creature instead.');
+		expect(project('censor-sub-2-1-2', unsupported)).toBe(unsupported);
 	});
 });
