@@ -289,7 +289,7 @@ describe('V1 Summoner Level 1 base non-Ability catalog and presentation', () => 
 
 		const assertZhTW = () => {
 			expect(readTitle(container)).toBe('僕從');
-			expectRendered(container, '你最多可以召喚並維持 8 個僕從。你的僕從視為與你同等級的盟友。');
+			expectRendered(container, '你所控制的生物稱為「僕從」。你最多可以召喚並維持 8 個僕從。你的僕從視為與你同等級的盟友。');
 			expectRendered(container, '你的召喚師射程等於 5 + 你的理智。');
 			expectRendered(container, '戰鬥中的僕從');
 			expectRendered(container, '同支小隊的僕從共用體力池。');
@@ -298,6 +298,9 @@ describe('V1 Summoner Level 1 base non-Ability catalog and presentation', () => 
 			// The Owner's latest explicit decision: this is exactly how the slice ends.
 			expectRendered(container, '你的僕從不視為追隨者，因此不能進行專案檢定，除非你能夠召喚專家。');
 			expect(container.textContent).not.toContain('aren’t followers');
+
+			// No emphasis delimiter survives into the reading in either language.
+			expect(container.textContent).not.toContain('**');
 		};
 
 		// The long Markdown reaches the reader as real structure, not raw syntax.
@@ -357,26 +360,29 @@ describe('V1 Summoner Level 1 base non-Ability catalog and presentation', () => 
 	});
 
 	/**
-	 * A known open finding on the frozen packet, kept visible rather than silently normalized.
-	 *
-	 * The Minions package defines four terms inline as `為**「僕從」**`. CommonMark only opens an
-	 * emphasis run whose `**` is left-flanking, and here the opening `**` sits between a CJK
-	 * letter and the `「` punctuation, so the run never opens and the markers reach the reader
-	 * literally. The canonical English is unaffected because each of its `**` follows a space.
-	 *
-	 * The zh-TW is Owner-approved and frozen, so this batch implements it exactly as approved and
-	 * reports the finding instead of editing the reading. This assertion documents the current
-	 * behavior; it is expected to be updated once the Owner rules on the wording.
+	 * The Minions package defines four terms inline. CommonMark only opens an emphasis run whose
+	 * `**` is left-flanking, so a delimiter placed between a CJK letter and the `「` punctuation
+	 * never opens a run and reaches the reader literally. The approved zh-TW therefore keeps each
+	 * delimiter pair inside its brackets - `「**僕從**」` - which is a marker placement, not a
+	 * wording change: the visible reading is still `「僕從」`.
 	 */
-	it('surfaces the frozen zh-TW inline emphasis that CommonMark leaves unrendered', () => {
+	it('renders all four inline term definitions as strong, with no literal delimiter', () => {
 		const { container } = renderFeature(getFeature('summoner-1-2'));
+		const strongReadings = Array.from(container.querySelectorAll('strong')).map(node => node.textContent);
 
-		[ '**「僕從」**', '**「小隊」**', '**「召喚師射程」**', '**「招牌僕從」**' ]
-			.forEach(reading => expect(container.textContent).toContain(reading));
+		[ '僕從', '小隊', '召喚師射程', '招牌僕從' ].forEach(term => {
+			expect(strongReadings).toContain(term);
+			// The bracketed reading itself is unchanged; only the delimiters moved inside it.
+			expect(container.textContent).toContain(`「${term}」`);
+		});
 
-		// The 17 section labels are line-initial, so those emphasis runs do open and do render.
-		expect(container.textContent).not.toContain('**戰鬥開始**');
-		expect(Array.from(container.querySelectorAll('strong')).map(node => node.textContent)).toContain('戰鬥開始');
+		// No delimiter of any kind survives into the reading, for these four or anywhere else.
+		expect(container.textContent).not.toContain('**');
+
+		// The 17 line-initial section labels still render as strong, exactly as before.
+		expect(strongReadings).toContain('戰鬥開始');
+		expect(strongReadings).toContain('戰鬥結束');
+		expect(strongReadings.length).toBe(21);
 	});
 
 	it('renders the summoner-1-7d grouping and both of its children on their own panels', () => {
