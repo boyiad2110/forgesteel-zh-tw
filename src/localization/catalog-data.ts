@@ -4726,6 +4726,64 @@ const beastheartLevel3LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'sections.1.text', canonicalEnglish: 'The next creature who damages the target before the start of your next turn gains 3 surges, which they can use on the triggering damage.', zhTW: '直到你的下個回合開始前，對目標造成傷害的下個生物會獲得 3 點鬥志，而且可以將這些鬥志用於觸發此效果的傷害。', approval: 'approved' }
 ];
 
+/**
+ * The Summoner Level 1 selectable cost-5 ability slice: abilities 1-6 as the Owner approved
+ * them in packet `summoner-l1-cost5-ability-localization-r1`.
+ *
+ * `minion → 僕從`, `signature minion → 招牌僕從`, `squad → 小隊` and Essence Transfer's
+ * `charge(s) → 充能` are approved for these identities only. The batch promotes no reusable
+ * glossary mapping, so its glossary delta is empty. Essence Transfer's 充能 is the ability's
+ * own temporary counter, never the Charge keyword (Charge → 衝鋒).
+ *
+ * Summoner's Sword's description keeps the Owner's own wording: canonical `fervor` is
+ * deliberately left untranslated there rather than given a new Chinese game term.
+ *
+ * Both multi-paragraph section texts snapshot the leading newline their canonical template
+ * literal actually carries, exactly as `dwarf-feature-1/description` already does. The
+ * resolver compares that snapshot byte for byte, so trimming it would silently drop both
+ * readings back to English.
+ */
+const summonerLevel1Cost5AbilityLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'summoner-ability-1', field: 'name', canonicalEnglish: 'Essence Transfer', zhTW: '精髓轉移', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-1', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-1', field: 'description', canonicalEnglish: 'You pierce your foe and repurpose some of that ‘fiber of their being’ they weren’t using.', zhTW: '你刺穿敵人，重新利用他那「派不上用場的生命本質」。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-1', field: 'sections.0.roll.tier1', canonicalEnglish: '5 + R corruption damage; 2 charges (see below)', zhTW: '5 + `理智`腐朽傷害；2 點充能（見下文）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-1', field: 'sections.0.roll.tier2', canonicalEnglish: '8 + R corruption damage; 3 charges', zhTW: '8 + `理智`腐朽傷害；3 點充能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-1', field: 'sections.0.roll.tier3', canonicalEnglish: '11 + R corruption damage; 4 charges', zhTW: '11 + `理智`腐朽傷害；4 點充能', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-1', field: 'sections.1.text', canonicalEnglish: '\nYou can spend charges to activate one of the following effects. You can activate an effect multiple times. All charges disappear after using this ability.\n\n* **1 charge**: You or an ally within your Summoner’s Range can spend a recovery.\n* **1 charge**: You or an ally within your Summoner’s Range gain a surge.\n* **2 charges**: You call forth a signature minion into an unoccupied space within your Summoner’s Range.', zhTW: '你可以花費充能來啟動以下效果（每個效果都可以多次啟動）。發動此招式後，所有充能都會消失。\n\n* **1 點充能**：你或召喚師射程內的 1 個盟友可以花費 1 點復元力。\n* **1 點充能**：你或召喚師射程內的 1 個盟友獲得 1 點鬥志。\n* **2 點充能**：你在召喚師射程內的 1 個未占據空間召喚 1 個招牌僕從。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'name', canonicalEnglish: 'Explosive Parade', zhTW: '爆破遊行', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'target', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'description', canonicalEnglish: 'Your minions swell with energy until they can no longer exist in this realm.', zhTW: '你的僕從充滿膨脹的能量，直到再也無法存在於這個世界。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'sections.0.roll.tier1', canonicalEnglish: 'You summon four signature minions', zhTW: '你召喚 4 個招牌僕從', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'sections.0.roll.tier2', canonicalEnglish: 'You summon five signature minions', zhTW: '你召喚 5 個招牌僕從', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'sections.0.roll.tier3', canonicalEnglish: 'You summon six signature minions', zhTW: '你召喚 6 個招牌僕從', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'sections.1.text', canonicalEnglish: '\nThe minions are summoned within distance regardless of your minion maximum and without organizing them into squads. Each newly summoned minion immediately moves up to their speed toward a creature or object.\n\nIf they move adjacent to their target, become targeted by an opportunity attack, or stop moving, they explode, dealing 2 damage to one adjacent creature or object and pushing them 1 square. If a target is affected by two or more minions’ explosions, the effects stack. These minions activate no effects upon death, and you gain no essence from their deaths.', zhTW: '這些僕從會在射程內被召喚出來，不受僕從數量上限的限制，也不會編入小隊。每個新召喚的僕從會立刻朝 1 個生物或物體移動最多等於其速度的距離。\n\n若僕從移動到與目標相鄰、引發藉機攻擊，或停止移動，僕從就會爆炸，對 1 個相鄰生物或物體造成 2 點傷害，並將其推動 1 格。若同個目標受到 2 個以上僕從的爆炸影響，效果可以疊加。這些僕從死亡時不會觸發任何效果，你也不會因為僕從死亡而獲得精髓。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'sections.2.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-2', field: 'sections.2.effect', canonicalEnglish: 'In addition to the minions summoned as a part of this ability, you can choose to command any number of your minions within distance, provided they haven’t used a main action or maneuver during the turn.', zhTW: '除了此招式召喚的僕從之外，你也可以命令射程內任意數量的僕從，前提是他們在本回合尚未使用主要動作或機動動作。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-3', field: 'name', canonicalEnglish: 'Distraction Tactics', zhTW: '牽制戰術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-3', field: 'target', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-3', field: 'description', canonicalEnglish: 'Your minions do the work to draw the heat away from your allies.', zhTW: '你的僕從負責吸引炮火，替盟友轉移敵人的注意力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-3', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, each minion under your control during the encounter is the target of the following effect:The target’s strikes can inflict I < [weak] taunted (EoT) to enemies. The potency increases by 1 for each minion that joined the strike.', zhTW: '直到遭遇結束或你陷入瀕死前，本遭遇中由你控制的每個僕從都會受到以下效果：\n\n目標的打擊可以對敵人施加 `直覺` < [弱] 的嘲諷（EoT）。每有 1 個加入該次打擊的僕從，效力提高 1 點。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-4', field: 'name', canonicalEnglish: 'Rally Cry', zhTW: '集結戰吼', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-4', field: 'target', canonicalEnglish: 'All allies', zhTW: '所有盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-4', field: 'description', canonicalEnglish: '“Show them what you’re made of!”', zhTW: '「展現你們的能耐吧！」', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-4', field: 'sections.0.text', canonicalEnglish: 'Each target chooses between gaining 2 surges or dealing additional damage equal to your Reason on their next strike.', zhTW: '每個目標選擇以下 1 項效果：獲得 2 點鬥志，或讓下次打擊額外造成等於你`理智`的傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-5', field: 'name', canonicalEnglish: 'Summoner\'s Cradle', zhTW: '召喚師搖籃', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-5', field: 'target', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-5', field: 'description', canonicalEnglish: 'You call forth protective forces to keep you all from harm.', zhTW: '你引導守護之力，庇護眾人免受傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-5', field: 'sections.0.roll.tier1', canonicalEnglish: 'Three creatures', zhTW: '3 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-5', field: 'sections.0.roll.tier2', canonicalEnglish: 'Four creatures', zhTW: '4 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-5', field: 'sections.0.roll.tier3', canonicalEnglish: 'Five creatures', zhTW: '5 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-5', field: 'sections.1.text', canonicalEnglish: 'Until the end of the encounter, each target can use a free triggered action whenever they take damage to reduce the incoming damage by half and then lose this effect.', zhTW: '直到遭遇結束前，每個目標在受到傷害時，都可以使用免費反應動作將該次傷害減半，然後失去此效果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-6', field: 'name', canonicalEnglish: 'Summoner\'s Sword', zhTW: '召喚師之劍', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-6', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-6', field: 'description', canonicalEnglish: 'You draw your strength from the army you surround yourself with and summon a hot blade of energy and fervor.', zhTW: '你從環繞自身的軍勢汲取力量，召出一把由灼熱能量凝成的利刃。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-6', field: 'sections.0.roll.tier1', canonicalEnglish: 'R damage', zhTW: '`理智`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-6', field: 'sections.0.roll.tier2', canonicalEnglish: '2 + R damage', zhTW: '2 + `理智`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-6', field: 'sections.0.roll.tier3', canonicalEnglish: '4 + R damage', zhTW: '4 + `理智`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-6', field: 'sections.1.text', canonicalEnglish: 'This strike deals an additional 2 damage for each ally adjacent to you.', zhTW: '每有 1 個與你相鄰的盟友，此打擊就額外造成 2 點傷害。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4768,5 +4826,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...beastheartLevel1BaseCompletionLocalizationEntries,
 	...beastheartLevel1WildNatureLocalizationEntries,
 	...beastheartLevel2LocalizationEntries,
-	...beastheartLevel3LocalizationEntries
+	...beastheartLevel3LocalizationEntries,
+	...summonerLevel1Cost5AbilityLocalizationEntries
 ];

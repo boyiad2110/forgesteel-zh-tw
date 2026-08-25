@@ -8,6 +8,7 @@ import { elementalist } from '@/data/classes/elementalist/elementalist';
 import { fury } from '@/data/classes/fury/fury';
 import { nullClass } from '@/data/classes/null/null';
 import { shadow } from '@/data/classes/shadow/shadow';
+import { summoner } from '@/data/classes/summoner/summoner';
 import { tactician } from '@/data/classes/tactician/tactician';
 import { talent } from '@/data/classes/talent/talent';
 import { troubadour } from '@/data/classes/troubadour/troubadour';
@@ -2359,6 +2360,44 @@ export const createV1BeastheartLevel3RequiredCanonicalEnglish = (): CanonicalEng
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The exact approved Summoner Level 1 selectable cost-5 ability slice.
+ *
+ * A Summoner picks these six from the class's own ability list at Level 1. The direct Level 1
+ * feature abilities `summoner-1-3` … `summoner-1-6` are deliberately not read here, and neither
+ * is Formation, Tactic Call, the Minions package, the Essence resource, any Circle subclass, or
+ * ability 7 and later: those stay inside the unresolved domains until their own batch enumerates
+ * them.
+ */
+export const v1SummonerLevel1Cost5AbilityIDs = [
+	'summoner-ability-1',
+	'summoner-ability-2',
+	'summoner-ability-3',
+	'summoner-ability-4',
+	'summoner-ability-5',
+	'summoner-ability-6'
+] as const;
+
+/** Enumerates only Summoner abilities 1-6 from the class's own live ability list. */
+export const getV1SummonerLevel1Cost5Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(summoner.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1SummonerLevel1Cost5AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Summoner Level 1 cost-5 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 38-identity Summoner Level 1 cost-5 ability denominator from live canonical data. */
+export const createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1SummonerLevel1Cost5Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2408,7 +2447,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel2RequiredCanonicalEnglish(),
-		...createV1BeastheartLevel3RequiredCanonicalEnglish()
+		...createV1BeastheartLevel3RequiredCanonicalEnglish(),
+		...createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
