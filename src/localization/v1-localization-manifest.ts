@@ -2398,6 +2398,42 @@ export const createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish = (): Ca
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * Builds the bounded 28-identity Summoner Level 1 base non-Ability denominator: the base
+ * class's own Level 1 non-Ability readings plus the Essence resource's `details`.
+ *
+ * The whole Level 1 feature tree goes through the one shared bounded walk. That walk stops at
+ * Ability nodes and descends only through Choice options and Multiple children, so the four
+ * direct feature abilities `summoner-1-3` … `summoner-1-6` and the four Tactic Call option
+ * abilities `summoner-1-8a` … `summoner-1-8d` contribute nothing here, while Formation's own
+ * options - including the `summoner-1-7d` Multiple and both of its children - and Tactic Call's
+ * own parent reading stay in. The already-merged cost-5 selectable ability slice is reached
+ * from `summoner.abilities` instead, so the two slices stay disjoint. Circles, the minion
+ * portfolio and Level 2+ stay outside.
+ */
+export const createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const summonerLevelOneFeatures = getLevelOneFeatures(summoner.featuresByLevel, 'Summoner');
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, summonerLevelOneFeatures);
+
+	// The bounded walk supplies a Heroic Resource's name, description and gain triggers. Essence's
+	// remaining player-facing rules text - the minion-sacrifice cost reduction the InfoHeroicResource
+	// panel renders under its gains - lives in `details`, so that one reading is required here
+	// explicitly rather than by widening the shared walk for every class, exactly as Rampage's is.
+	const essence = summonerLevelOneFeatures.find(feature => feature.id === 'summoner-resource');
+	if (essence?.type !== FeatureType.HeroicResource) {
+		throw new Error('Summoner Essence resource is missing');
+	}
+	const essenceDetailsIdentity = elementFieldIdentity(essence.id, 'details');
+	if (requiredCanonicalEnglish[essenceDetailsIdentity] !== undefined) {
+		throw new Error(`duplicate localization identity '${essenceDetailsIdentity}'`);
+	}
+	requiredCanonicalEnglish[essenceDetailsIdentity] = essence.data.details;
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2448,7 +2484,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel2RequiredCanonicalEnglish(),
 		...createV1BeastheartLevel3RequiredCanonicalEnglish(),
-		...createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish()
+		...createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish(),
+		...createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
