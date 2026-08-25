@@ -2036,6 +2036,84 @@ const projectBeastheartOmnomnomSwallowedText = (elementID: string, field: string
 };
 
 /**
+ * The two Beastheart Level 3 authored readings the canonical calculator rewrites. Both are class
+ * ability fields, so they arrive through AbilityPanel's auto-calc path, and both resolve exactly
+ * one characteristic-derived distance in Hero context. Without a Hero the calculator leaves that
+ * arithmetic authored, so the Library surface keeps the approved raw zh-TW and never shows a
+ * number this layer invented.
+ *
+ * Neither can reuse an existing entry. The shared `authorizedRewrites` movement entry is bound to
+ * `shift up to your speed in a straight line toward the target after pushing them`, and
+ * `projectBeastheartWildNatureCalculatedValue` is bound to the Wild Nature Level 1 identities and
+ * to `move up to a number of squares equal to ... before or after`; neither clause appears here.
+ * So this is the established grammar applied under Beastheart's own Level 3 identities rather
+ * than a widened shared rule, and nothing here recomputes a characteristic or a distance.
+ *
+ * `Jaws of Death` also carries a `weakened` condition the calculator emphasizes with or without a
+ * Hero. That emphasis is not restated here: the shared condition projector below still owns it,
+ * which is why the part list handles only the pull distance and the projection is then handed to
+ * that projector. It is also the fail-closed gate - the projection is returned only when these
+ * rewrites, replayed onto the raw canonical English, reproduce the calculator's output exactly,
+ * so any other structural rewrite falls through to the whole calculated English reading.
+ */
+const projectBeastheartLevel3CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'beastheart-ability-13',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'shift up to a number of squares equal to your Might score,',
+					calculated: /shift up to a number of squares equal to (-?\d+),/,
+					localized: '遁移最多等於你`力量`的格數，',
+					replacement: (value: string) => `遁移最多 ${value} 格，`
+				}
+			]
+		},
+		{
+			elementID: 'beastheart-ability-15',
+			field: 'sections.1.text',
+			parts: [
+				{
+					canonical: 'pull the target up to a number of squares equal to your Intuition score as a free triggered action.',
+					calculated: /pull the target up to a number of squares equal to (-?\d+) as a free triggered action\./,
+					localized: '將目標拉動最多等於你`直覺`的格數。',
+					replacement: (value: string) => `將目標拉動最多 ${value} 格。`
+				}
+			]
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	for (const part of projection.parts) {
+		const calculatedMatch = calculatedEnglish.match(part.calculated);
+		if (!calculatedMatch) {
+			continue;
+		}
+
+		if ((occurrenceCount(projectedCanonical, part.canonical) !== 1) || (occurrenceCount(projectedLocalized, part.localized) !== 1)) {
+			return undefined;
+		}
+
+		projectedCanonical = projectedCanonical.replace(part.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(part.localized, () => part.replacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -2192,6 +2270,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const omnomnomSwallowedText = projectBeastheartOmnomnomSwallowedText(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (omnomnomSwallowedText) {
 		return omnomnomSwallowedText;
+	}
+
+	const beastheartLevel3CalculatedValue = projectBeastheartLevel3CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (beastheartLevel3CalculatedValue) {
+		return beastheartLevel3CalculatedValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;

@@ -4678,6 +4678,54 @@ const beastheartLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'beastheart-sub-4-2-2b', field: 'sections.1.text', canonicalEnglish: 'Until the end of your next turn, you and your companion can fly and gain a +3 bonus to speed.', zhTW: '直到你的下個回合結束前，你和契獸都可以飛行，而且速度獲得 +3 加值。', approval: 'approved' }
 ];
 
+/**
+ * The Owner-approved Beastheart Level 3 slice, frozen as packet `beastheart-l3` revision r2 and
+ * reproduced verbatim: the class's own Level 3 `7pt Ability` choice reading, and the authored
+ * fields of the four cost 7 abilities that choice selects between - Death and Violence, Head to
+ * Head, Jaws of Death and Shieldbreaker.
+ *
+ * r2 carries only two Reviewer-authorized mechanical corrections over r1, neither of which
+ * changes Owner semantics: Death and Violence's trigger is addressed by the repository's own
+ * `type.trigger` identity, and the choice reading takes the established 「N 費招式」 spacing its
+ * Level 1 siblings already use.
+ *
+ * The four ability names the Owner finalized here stay Beastheart identity-scoped: they were
+ * approved inside these exact identities without promoting standalone reusable glossary
+ * mappings, so this batch's glossary delta is empty and no other approved content is rewritten.
+ */
+const beastheartLevel3LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'beastheart-3-1', field: 'name', canonicalEnglish: '7pt Ability', zhTW: '7 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'name', canonicalEnglish: 'Death and Violence', zhTW: '暴虐死劫', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'description', canonicalEnglish: 'You leap from your foe’s corpse.', zhTW: '你從敵人的屍體上一躍而起。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'type.trigger', canonicalEnglish: 'Your companion uses an ability that reduces the target to 0 Stamina.', zhTW: '當你的契獸發動招式將目標的體力歸 0 時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'sections.0.text', canonicalEnglish: 'The target dies. You teleport to the target’s space, shift up to a number of squares equal to your Might score, and can then make a melee free strike. You then make the following power roll, targeting each enemy within 5 squares of the target:', zhTW: '目標死亡。你傳送至目標的空間、遁移最多等於你`力量`的格數，然後可以發動 1 次近戰基礎打擊。接著，你進行以下檢定，指定目標 5 格內的每個敵人為目標：', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'sections.1.roll.tier1', canonicalEnglish: 'P < [weak], frightened (save ends)', zhTW: '`氣場` < [弱]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'sections.1.roll.tier2', canonicalEnglish: '4 psychic damage; P < [average], frightened (save ends)', zhTW: '4 心靈傷害；`氣場` < [中]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-13', field: 'sections.1.roll.tier3', canonicalEnglish: '8 psychic damage; P < [strong], frightened (save ends)', zhTW: '8 心靈傷害；`氣場` < [強]，畏縮（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-14', field: 'name', canonicalEnglish: 'Head to Head', zhTW: '燃血頭槌', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-14', field: 'description', canonicalEnglish: 'Your bloody-forehead smash drives your companion into a frenzy.', zhTW: '你用鮮血淋漓的額頭猛撞，讓契獸陷入狂暴。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-14', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-14', field: 'sections.0.roll.tier1', canonicalEnglish: '13 + M damage; P < [weak], dazed (save ends)', zhTW: '13 + `力量`傷害；`氣場` < [弱]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-14', field: 'sections.0.roll.tier2', canonicalEnglish: '19 + M damage; P < [average], dazed (save ends)', zhTW: '19 + `力量`傷害；`氣場` < [中]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-14', field: 'sections.0.roll.tier3', canonicalEnglish: '25 + M damage; P < [strong], dazed (save ends)', zhTW: '25 + `力量`傷害；`氣場` < [強]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-14', field: 'sections.1.text', canonicalEnglish: 'You are bleeding (save ends). Until the end of your next turn, your companion gains an edge on power rolls.', zhTW: '你陷入出血（豁免解除）。直到你的下個回合結束前，你的契獸進行檢定時會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-15', field: 'name', canonicalEnglish: 'Jaws of Death', zhTW: '死亡之顎', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-15', field: 'description', canonicalEnglish: 'Spectral teeth clamp on a foe, chaining them to you and draining their life essence.', zhTW: '幽靈般的利齒咬住敵人，將他鍊在你身旁並汲取生命精華。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-15', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-15', field: 'sections.0.roll.tier1', canonicalEnglish: '7 + I damage; P < [weak], weakened (save ends)', zhTW: '7 + `直覺`傷害；`氣場` < [弱]，虛弱（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-15', field: 'sections.0.roll.tier2', canonicalEnglish: '10 + I damage; P < [average], weakened (save ends)', zhTW: '10 + `直覺`傷害；`氣場` < [中]，虛弱（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-15', field: 'sections.0.roll.tier3', canonicalEnglish: '14 + I damage; P < [strong], weakened (save ends)', zhTW: '14 + `直覺`傷害；`氣場` < [強]，虛弱（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-15', field: 'sections.1.text', canonicalEnglish: 'Whenever a target more than 3 squares away from you fails the saving throw while weakened this way, you can pull the target up to a number of squares equal to your Intuition score as a free triggered action.', zhTW: '每當距離你超過 3 格、以此方式陷入虛弱的目標豁免失敗時，你可以使用免費反應動作，將目標拉動最多等於你`直覺`的格數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'name', canonicalEnglish: 'Shieldbreaker', zhTW: '破甲裂盾', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'description', canonicalEnglish: 'You smash through their guard and shatter their armor, leaving them wide open.', zhTW: '你擊穿對方的防禦並粉碎護甲，讓他門戶大開。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'sections.0.roll.tier1', canonicalEnglish: '9 + M damage', zhTW: '9 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'sections.0.roll.tier2', canonicalEnglish: '14 + M damage', zhTW: '14 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'sections.0.roll.tier3', canonicalEnglish: '19 + M damage', zhTW: '19 + `力量`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'beastheart-ability-16', field: 'sections.1.text', canonicalEnglish: 'The next creature who damages the target before the start of your next turn gains 3 surges, which they can use on the triggering damage.', zhTW: '直到你的下個回合開始前，對目標造成傷害的下個生物會獲得 3 點鬥志，而且可以將這些鬥志用於觸發此效果的傷害。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4719,5 +4767,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...beastheartLevel1BaseAbilityLocalizationEntries,
 	...beastheartLevel1BaseCompletionLocalizationEntries,
 	...beastheartLevel1WildNatureLocalizationEntries,
-	...beastheartLevel2LocalizationEntries
+	...beastheartLevel2LocalizationEntries,
+	...beastheartLevel3LocalizationEntries
 ];
