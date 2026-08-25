@@ -102,7 +102,7 @@
 
 - Censor、Fury、Conduit、Elementalist、Null、Shadow、Tactician、Talent 與 Troubadour 九個 Core standard Class 的 Level 1 ability-authored-content 已完成 localization slice。
 - Class ability calculated presentation 維持 canonical-English-first：canonical calculator 先完成計算，再僅在 presentation boundary 投影可安全證明的 approved zh-TW；中文不進入 calculator、parser 或 canonical data。
-- 此 milestone 不代表所有 V1 Class Level 1 abilities 完成：在當時，Official Beastheart 與 Summoner 的 Level 1 Class ability-authored-content 尚未 localized。Beastheart 其後的進展見 3.15；Summoner 仍未開始。`official-ability-authored-content` 至今仍為 unresolved domain。
+- 此 milestone 不代表所有 V1 Class Level 1 abilities 完成：在當時，Official Beastheart 與 Summoner 的 Level 1 Class ability-authored-content 尚未 localized。Beastheart 其後的進展見 3.15；Summoner 的該部分內容至今仍未 localized。`official-ability-authored-content` 至今仍為 unresolved domain。
 
 ### 3.10 Core／Orden content expansion after the earlier Level 1 milestone（PR #74、#76–#79、#85–#87）
 
@@ -159,7 +159,7 @@ Beastheart 已從先前的 deferred sequencing 進入實際 localization 工作�
 
 - **這不代表 Beastheart Level 1–3 全部內容已完成。** 尚未涵蓋的 Beastheart content（包含 Companion／Summon 相關的 Level 3 工作）仍未完成。
 - 不代表 `official-ability-authored-content`、`class-and-subclass-level-content` 或任何其他 unresolved domain 已收斂。
-- 不代表 Summoner 已開始或完成。
+- 不代表 Summoner 的 Level 1–3 Class／Subclass player-facing localization 已完成；本 milestone 未新增 Summoner 進展，其尚未涵蓋的內容仍待後續批次。（Summoner 既有的 Class top-level name／description localization 見 3.6。）
 - 本節是 handoff 導覽，不是第二套 denominator；實際 required／missing／unapproved／unresolved 一律以 live manifest + catalog + `npm run loc:status` evidence 為準。
 
 ## 4. 現行 translation／decision 規則
