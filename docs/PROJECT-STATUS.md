@@ -110,7 +110,7 @@
 - Core standard Class 的 **base Level 1 remaining（非 Ability）player-facing content** 已完成：Censor Level 1 與其 Orders（#78）、Conduit（#79）、Fury（#85）、Elementalist（#86）、Null（#87）。Conduit 沒有 subclass。
 - 本節只涵蓋這個 PR 區間；其餘 Core standard Class 的 base Level 1 remaining 與各 Class 的 Level 1 subclass content 由 3.12 記錄。
 - 上述 Class 清單只是 handoff 導覽，不是第二套 denominator——實際 required／missing 一律以 live manifest + catalog + `npm run loc:status` 為準。
-- 這些 Core／Orden expansion 不改變 V1 scope：V1 仍包含 Core、Orden、Beastheart 與 Summoner；目前 sequencing 可優先處理 Core／Orden。
+- 這些 Core／Orden expansion 不改變 V1 scope：V1 仍包含 Core、Orden、Beastheart 與 Summoner。當時的 sequencing 優先處理 Core／Orden；現行狀態見第 7 節。
 
 ### 3.11 Localization workflow／implementation 優化（PR #88–#90）
 
