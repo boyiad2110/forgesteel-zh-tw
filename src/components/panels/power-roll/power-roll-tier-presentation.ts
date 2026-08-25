@@ -132,6 +132,35 @@ const projectBeastheartStormrageTier = (abilityID: string, field: string, canoni
 };
 
 /**
+ * Summoner's Sword tier 1 is the one approved Power Roll reading in this slice whose canonical
+ * damage is a bare characteristic with no numeric term at all - `R damage`. The shared damage
+ * grammar above requires a leading number before the optional `+ <characteristic>`, so it sees
+ * no canonical damage here while the calculator's resolved `<number> damage` does match, and the
+ * shared comparison rightly refuses to project a reading it cannot account for.
+ *
+ * Widening that grammar to make the leading number optional would change how every other class's
+ * tiers are matched, so this one identity is projected on its own instead, exactly as Thunder
+ * Mother's level-derived damage and Stormrage's four-type list already are. Only the value the
+ * calculator actually resolved is carried across, and both readings are matched exactly first.
+ *
+ * Tiers 2 and 3 (`2 + R damage` / `4 + R damage`) are ordinary shared-grammar readings and are
+ * deliberately absent. Without a Hero the calculator leaves tier 1 authored, so the raw canonical
+ * and calculated readings are identical and Library keeps the approved raw zh-TW untouched.
+ */
+const projectSummonerSwordCharacteristicOnlyTier = (abilityID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((abilityID !== 'summoner-ability-6') || (field !== 'sections.0.roll.tier1') || (canonicalEnglish !== 'R damage') || (localizedRaw !== '`理智`傷害')) {
+		return undefined;
+	}
+
+	const calculatedMatch = calculatedEnglish.match(/^(-?\d+) damage$/);
+	if (!calculatedMatch) {
+		return undefined;
+	}
+
+	return `${calculatedMatch[1]} 傷害`;
+};
+
+/**
  * `No Dying on My Watch` tier 2 is authored with one leading ASCII space that tiers 1 and 3 do
  * not carry. That space is real canonical authority - the manifest and the catalog snapshot it
  * exactly, and nothing here trims the stored reading - but the canonical calculator drops it,
@@ -239,6 +268,11 @@ export const localizePowerRollTierPresentation = ({
 	const beastheartStormrage = projectBeastheartStormrageTier(abilityID, field, canonicalEnglish, replayCalculated, localizedRaw);
 	if (beastheartStormrage) {
 		return beastheartStormrage;
+	}
+
+	const summonerSword = projectSummonerSwordCharacteristicOnlyTier(abilityID, field, canonicalEnglish, replayCalculated, localizedRaw);
+	if (summonerSword) {
+		return summonerSword;
 	}
 
 	// The canonical reading this batch's replay comparison uses. It differs from the stored

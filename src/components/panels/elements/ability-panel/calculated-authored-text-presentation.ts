@@ -2114,6 +2114,54 @@ const projectBeastheartLevel3CalculatedValue = (elementID: string, field: string
 };
 
 /**
+ * Distraction Tactics is the one Summoner Level 1 cost-5 reading the canonical calculator
+ * rewrites. It carries an authored potency threshold and a condition name, and the calculator
+ * treats the two differently: it adds the potency code marks and the `taunted` emphasis with or
+ * without a Hero, but resolves the potency value itself only in Hero context.
+ *
+ * So the potency projection is applied only when the calculated English actually shows a resolved
+ * number. On the Library / no-Hero path the approved raw `[弱]` stands and the shared condition
+ * projector adds nothing but the emphasis. The trailing 'The potency increases by 1 for each
+ * minion' sentence is authored prose the calculator never touches, and nothing here recomputes a
+ * potency: the value comes from the calculator's own output.
+ *
+ * This is the same established grammar `shadow-sub-2-2-1b` already uses, applied under Summoner's
+ * own identity rather than by widening that entry, and the shared projector still supplies the
+ * fail-closed gate - the projection is returned only when replaying this rewrite onto the raw
+ * canonical English reproduces the calculator's output exactly.
+ *
+ * The other five abilities in this slice are deliberately absent. Essence Transfer's and
+ * Summoner's Sword's calculated work is entirely in their Power Roll tiers, and Rally Cry's
+ * 'equal to your Reason' is left authored by the calculator in both contexts, so all of their
+ * authored texts already show the approved raw zh-TW without any projection.
+ */
+const projectSummonerLevel1CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'summoner-ability-3') || (field !== 'sections.0.text')) {
+		return undefined;
+	}
+
+	const canonicalPotency = 'I < [weak]';
+	const localizedPotency = '`直覺` < [弱]';
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	const calculatedMatch = calculatedEnglish.match(/I\s*<\s*(-?\d+)/);
+	if (calculatedMatch) {
+		if ((occurrenceCount(canonicalEnglish, canonicalPotency) !== 1) || (occurrenceCount(localizedRaw, localizedPotency) !== 1)) {
+			return undefined;
+		}
+		projectedCanonical = projectedCanonical.replace(canonicalPotency, () => calculatedMatch[0].replace(/\s+/g, ' '));
+		projectedLocalized = projectedLocalized.replace(localizedPotency, () => `\`直覺\` < ${calculatedMatch[1]}`);
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -2275,6 +2323,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const beastheartLevel3CalculatedValue = projectBeastheartLevel3CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (beastheartLevel3CalculatedValue) {
 		return beastheartLevel3CalculatedValue;
+	}
+
+	const summonerLevel1CalculatedValue = projectSummonerLevel1CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (summonerLevel1CalculatedValue) {
+		return summonerLevel1CalculatedValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
