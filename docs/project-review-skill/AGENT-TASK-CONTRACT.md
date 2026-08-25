@@ -6,7 +6,15 @@
 
 Reviewer 的權限、Findings、User Decision 與翻譯決策邊界以 `docs/REVIEWER-PRINCIPLES.md` 為準；本文件不重複維護第二套政策。
 
-Agent 任務應以「本批差異」為主，穩定的專案規則優先引用既有文件，不重寫完整專案歷史。應引用 `PROJECT-REVIEW-SKILL.md`、本 Contract、`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md` 與 `TRANSLATION-WORKFLOW.md`；本批特有 risk、禁止事項、SHA、merge method、scope、acceptance 與 STOP rule 仍須明列。
+Agent 任務應以「本批差異」為主，穩定的專案規則優先引用既有文件，不重寫完整專案歷史。
+
+reference routing：
+
+- `PROJECT-REVIEW-SKILL.md`、本 Contract、`GIT-SAFETY.md` 與 `RISK-AND-VERIFICATION.md` 是 stable core workflow references，依適用性引用。
+- domain-specific references 只在相關時載入。
+- `docs/translation/TRANSLATION-WORKFLOW.md` 是 translation 任務的必要 reference，任務直接修改或依賴該 workflow 時同樣必要；與翻譯無關的 docs、Git 或 infrastructure 任務不需要載入它。
+
+本批特有 risk、禁止事項、SHA、merge method、scope、acceptance 與 STOP rule 仍須明列。
 
 ## 任務必備欄位
 
@@ -171,7 +179,7 @@ preflight 成功後，Agent 連續完成已授權的 implementation、verificati
 
 ### Translation Packet Preflight
 
-從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。適用時優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 current repository primitive，取得 machine-verifiable exact identity／snapshot／hash evidence。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）或 alignment issue 都必須在 implementation 前 STOP；不得自行重建、修補或 normalize Reviewer packet authority。最新 authorized packet revision 取代較舊 revision。
+從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。適用時優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 current repository primitive，取得 machine-verifiable exact identity／snapshot／hash evidence。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）或 alignment issue 都必須在 implementation 前 STOP；不得自行重建、修補或 normalize Reviewer packet authority。identity／path mismatch 本身就是 packet alignment issue，**即使該筆 `canonicalEnglish` 與 `canonicalSha256` 完全相符**：record-level hash 驗證的是 canonical value bytes，不是 localization identity。此時同樣 STOP 並交回 Reviewer 依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 **Packet Revision Rule** 處理，不得自行把 packet identity 映射到 repository identity。最新 authorized packet revision 取代較舊 revision。
 
 #### Packet SHA 語意（三種，不可混用）
 

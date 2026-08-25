@@ -362,26 +362,62 @@ recipe 不存在時：**不得要求 Agent 反推或發明 recipe**，也不得�
 
 ### Packet Canonical Alignment Gate
 
-approved implementation packet 交付 Agent 前，Reviewer 必須將**全部** packet canonical identities／snapshots 與 live canonical extraction／manifest authority 做 machine-verifiable comparison，並回報 `N/N aligned` 與 zero drift。比較須保留 identity-sensitive 的 leading／trailing newline、whitespace、Markdown、punctuation、escaped 與 structured text；不得只靠目視比對。
+approved implementation packet 交付 Agent 前，Reviewer 必須將**全部** packet canonical identities／snapshots 與 live canonical extraction／manifest authority 做 machine-verifiable comparison，並回報 `N/N aligned` 與 zero drift。比較須涵蓋 identity／path set 與 exact canonical value 兩者，並保留 identity-sensitive 的 leading／trailing newline、whitespace、Markdown、punctuation、escaped 與 structured text；不得只靠目視比對。
 
 若有 mismatch，先修正 Reviewer artifact authority，Agent 不得開始 implementation 或靜默重建內容。
+
+#### Identity／path 正確性與 canonical-value hash 正確性彼此獨立
+
+packet canonical alignment 必須**同時**驗證兩件不同的事：
+
+1. **localization identity／path**：每一筆 record 定址到的 identity／field path 是否就是 repository 現行 localization identity authority 所使用的那一個。
+2. **exact canonical value／per-record `canonicalSha256`**：該 identity 的 canonical value bytes 是否完全一致。
+
+兩者不可互相替代。**canonicalEnglish 正確且 `canonicalSha256` 相符，並不表示該筆 record 已對齊**——若它的 identity／path 是錯的，那筆正確的 value 只是被掛到錯誤的位置。record-level hash 驗證的是 value bytes，不是 localization identity。
+
+generic 例子：ability trigger 的 identity 是
+
+`type.trigger`
+
+而不是只有
+
+`trigger`
+
+這種 identity／path drift 在 live alignment 中會同時表現為一筆 unexpected packet identity 與一筆 missing packet identity，即使該筆 canonical value 與 hash 都完全正確。因此 alignment 必須獨立比較 identity set／path，不得只比 value／hash。
+
+上述只是 identity／path drift 的通用示例，不是任何特定 class 或 batch 的專屬規則。
 
 #### Alignment timing（三層）
 
 alignment 不是流程末端的一次性檢查，固定在以下三個時點執行：
 
 1. **Reviewer → Owner worksheet handoff 前。**
-   對 intended live canonical slice 與 worksheet／packet canonical evidence 做 machine alignment。任何 newline／whitespace／Markdown／snapshot／hash drift 先修 Reviewer artifact，再交 Owner。Reviewer artifact defect 屬 Reviewer 自行修正範圍，不得包裝成 Owner decision 或 semantic question。
+   對 intended live canonical slice 與 worksheet／packet canonical evidence 做 machine alignment。任何 newline／whitespace／Markdown／snapshot／hash drift，或 identity／path drift，先修 Reviewer artifact，再交 Owner。Reviewer artifact defect 屬 Reviewer 自行修正範圍，不得包裝成 Owner decision 或 semantic question。
 2. **Owner finalization 後、approved implementation packet freeze／Agent handoff 前。**
    對 final packet 再做一次 alignment，涵蓋 normalization、Owner override 記錄與 packet generation 可能引入的 drift。這是 packet freeze 的前置條件。
 3. **Agent implementation preflight。**
-   保留現有 preflight（見 `docs/project-review-skill/AGENT-TASK-CONTRACT.md` 的 Translation Packet Preflight）作 defense in depth。它是最後一道防線，**不應**是正常流程第一次發現 Reviewer packet defect 的地方；若 preflight 首次發現 drift，除了依既有規則 STOP，還代表前兩層 timing 未被執行。
+   保留現有 preflight（見 `docs/project-review-skill/AGENT-TASK-CONTRACT.md` 的 Translation Packet Preflight）作 defense in depth。它是最後一道防線，**不應**是正常流程第一次發現 Reviewer packet defect 的地方；若 preflight 首次發現 drift（含 identity／path drift），除了依既有規則 STOP，還代表前兩層 timing 未被執行。
 
 三層都可使用現行的 `src/localization/test-support/packet-canonical-alignment.ts`，或明確等價的 machine comparison。本 gate 不新增 CLI、npm script 或新 helper；發現的 mechanical drift 依 **Packet Revision Rule** 處理。
 
 ### Packet Revision Rule
 
-Reviewer packet 的 canonical snapshot／transcription 若有機械錯誤，而 approved zh-TW semantics 未變，必須發行新 packet revision、將舊 revision 標記為 superseded、記錄改變的 canonical snapshot，並更新 packet identity、受影響的 per-record `canonicalSha256`，以及（提供時）該 packet 的 artifact SHA-256。不得靜默改舊 approved artifact；也不得只因這種 mechanical Reviewer correction 重開 Owner translation approval。若 zh-TW semantics 會變，仍依正常 Owner authority。
+Reviewer packet 的機械錯誤有兩類，兩類都以「發行新 revision、標記舊 revision superseded、不靜默改舊 approved artifact」處理，但更新範圍不同。
+
+**共同規則：** approved zh-TW semantics 未變時，這類 mechanical Reviewer correction 不重開 Owner translation approval。若 zh-TW semantics 會變，仍依正常 Owner authority。
+
+1. **canonical snapshot／value transcription correction**（canonical bytes 改變）：
+   記錄改變後的 canonical snapshot，並更新受影響的 per-record `canonicalSha256`，以及（提供時）該 packet 的 artifact SHA-256。
+
+2. **identity／path transcription correction**（canonical English byte-identical，只有 identity／path 錯）：
+   - 發行新 packet revision，舊 revision 標記為 superseded；
+   - 記錄該筆 identity／path correction；
+   - canonical English **不變**；
+   - 受影響 record 的 per-record `canonicalSha256` **不變**——canonical value bytes 沒有改變，就不應該改這個 hash；
+   - 若重新序列化出新的 packet 檔案，packet artifact SHA-256 會隨檔案 bytes 改變；
+   - approved zh-TW semantics 未變時，不需要 Owner semantic re-approval。
+
+並非每次 packet revision 都會改動 `canonicalSha256`；只有 canonical value 真的改變時才更新它。反過來，`canonicalSha256` 未變也不構成「identity 正確」的證據（見上述 **Identity／path 正確性與 canonical-value hash 正確性彼此獨立**）。
 
 ### Mandatory Glossary Delta Decision
 

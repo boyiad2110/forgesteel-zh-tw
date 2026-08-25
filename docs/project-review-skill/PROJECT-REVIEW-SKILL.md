@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.5.6"
+  version: "0.5.7"
 ---
 
 # Forge Steel Reviewer
@@ -21,7 +21,7 @@ metadata:
 開始規劃、Review、Agent 任務、PR 收尾或 handoff 前：
 
 1. 讀目前對話中專案負責人的最新明確決定。
-2. 讀 `docs/REVIEWER-PRINCIPLES.md`。
+2. 讀 `docs/REVIEWER-PRINCIPLES.md`（**mandatory authority loading**，不分 batch 類型，不是「需要時才讀」）。
 3. 依需要讀現行 V1 requirements／decision 文件。
 4. 讀本批相關 code、tests、PR、CI、人工驗收 evidence。
 5. `docs/PROJECT-STATUS.md` 只作摘要；actual repository state 優先。
@@ -97,7 +97,7 @@ scope 不完全相同不代表 precedent 無效：只重用真正 shared 的 arc
 
 ## 5. Prepare Agent Task
 
-依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。穩定 generic rules 應引用本 Skill、`AGENT-TASK-CONTRACT.md`、`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md` 與 `TRANSLATION-WORKFLOW.md`，不必在每份 handoff 重貼完整 Git 禁止或 Stage workflow；但本批特有 risk、禁止事項、SHA、merge method、scope boundary、acceptance 與 STOP rule 仍須明列。
+依 `AGENT-TASK-CONTRACT.md`，任務只寫本批差異與必要 gate，不重複完整專案歷史。穩定 generic rules 應引用既有文件，不必在每份 handoff 重貼完整 Git 禁止或 Stage workflow：本 Skill、`AGENT-TASK-CONTRACT.md`、`GIT-SAFETY.md` 與 `RISK-AND-VERIFICATION.md` 是每個 project workflow 都按適用性引用的 core references；`docs/translation/TRANSLATION-WORKFLOW.md` 則在 translation work，或任務直接修改／依賴該 workflow 時另行要求，不強加於無關的 docs／Git／infrastructure 任務。但本批特有 risk、禁止事項、SHA、merge method、scope boundary、acceptance 與 STOP rule 仍須明列。
 
 **Stage 1 full task**（本批第一份 Agent 任務）至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。Stage 2 與 Stage 3 是同一批的後續回合，改用下述 compact profile，不必重建這份完整欄位清單。
 
@@ -111,7 +111,7 @@ translation batch 若需要 Owner 定稿，Reviewer 先讀 `docs/translation/TRA
 
 交付 translation implementation 前，Reviewer 完成 `TRANSLATION-WORKFLOW.md` 對該 batch 適用的 gate：使用 approved implementation packet 時的 packet canonical-alignment、依 `TRANSLATION-WORKFLOW.md` 的 **Calculated Authored Content Presentation** 執行 Calculated Path Discovery Gate 與其 grammar matrix，以及 translation batch 必要的明確 glossary-delta decision。calculated presentation 的判準是**實際 production render／call path 是否讓 canonical English 通過 canonical calculator**，不是 `FeatureType.Ability` 或「Ability／non-Ability」標籤；non-Ability Feature prose 若實際被 calculator 轉換，同樣適用。本 Skill 只編排 gate，不重複其細節。
 
-packet canonical alignment 的 timing 已左移，依 `TRANSLATION-WORKFLOW.md` 的 **Packet Canonical Alignment Gate** 執行三層：worksheet 交 Owner 前、Owner finalization 後的 packet freeze／Agent handoff 前，以及 Agent implementation preflight 作 defense in depth。Reviewer artifact 的 newline／whitespace／Markdown／snapshot／hash drift 屬 Reviewer 自行修正範圍，不得變成 Owner decision，正常流程也不應由 Agent preflight 第一次發現。本 Skill 只固定 timing，不複製 verifier semantics。
+packet canonical alignment 的 timing 已左移，依 `TRANSLATION-WORKFLOW.md` 的 **Packet Canonical Alignment Gate** 執行三層：worksheet 交 Owner 前、Owner finalization 後的 packet freeze／Agent handoff 前，以及 Agent implementation preflight 作 defense in depth。Reviewer artifact 的 newline／whitespace／Markdown／snapshot／hash drift 與 identity／path drift 同屬 Reviewer 自行修正範圍，不得變成 Owner decision，正常流程也不應由 Agent preflight 第一次發現。本 Skill 只固定 timing，不複製 verifier semantics。
 
 ### Class／Subclass Level 1 Non-Ability Required Identity
 
@@ -307,14 +307,17 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、已完成摘�
 
 ## References
 
-需要時才讀：
+### Mandatory
 
-- `docs/REVIEWER-PRINCIPLES.md` — 權威原則與決策邊界。
+- `docs/REVIEWER-PRINCIPLES.md` — 權威原則與決策邊界。規劃、Review、Agent 任務、PR 收尾與 handoff 前**一律先讀**（見第 1 節）；它不屬於下列 conditional references。
+
+### Conditional（依任務與 risk 判斷）
+
 - `RISK-AND-VERIFICATION.md` — Risk 與最低證據。
 - `AGENT-TASK-CONTRACT.md` — Agent Stage contract。
 - `GIT-SAFETY.md` — Git／PR／merge／cleanup safety。
 - `FAILURE-MODES.md` — 常見失敗模式。
 - `EVALUATION-SCENARIOS.md` — workflow evaluation。
-- `docs/translation/TRANSLATION-WORKFLOW.md` — 翻譯工作表與 calculated authored content presentation workflow。
+- `docs/translation/TRANSLATION-WORKFLOW.md` — 翻譯工作表與 calculated authored content presentation workflow。translation batch，或任務直接修改／依賴該 workflow 時必讀；其他任務不需要。
 
 修改本 Skill 時，至少重新執行與變更規則相關的 evaluation scenarios。

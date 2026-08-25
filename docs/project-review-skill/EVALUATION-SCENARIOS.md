@@ -756,3 +756,33 @@
 - 輸出同一 canonical field 的中英混合 partial result。
 - 反過來把整棵 descendant tree 或後續 level 的 sibling record 一併納入。
 - 未經 Batch Contract 固定邊界就自行擴張 nested scope。
+
+---
+
+## Scenario 36 — Packet Identity/Path Drift with a Correct Canonical Hash
+
+### Prompt
+
+> 已核准的 implementation packet 有 30 筆 record。其中一筆 ability trigger 被定址為 `trigger`，但 repository 現行 localization identity authority 是 `type.trigger`。該筆的 `canonicalEnglish` 完全正確，`canonicalSha256` 重算也完全相符。live identity alignment 回報一筆 unexpected packet identity 與一筆 missing packet identity。Agent 打算「反正 hash 對得上」就照 `trigger` 實作。請判定。
+
+### Expected behavior
+
+- 判定這是 **packet alignment failure**，不是可忽略的雜訊：依 `TRANSLATION-WORKFLOW.md` 的 **Identity／path 正確性與 canonical-value hash 正確性彼此獨立**，record-level hash 只驗 canonical value bytes，不驗 localization identity。
+- 在 implementation 前 **STOP**，不得靜默把 `trigger` 映射／normalize 成 `type.trigger`，也不得自行重建 packet authority。
+- 由 Reviewer 依 **Packet Revision Rule** 發行新的 packet revision，舊 revision 標記為 superseded。
+- 該 revision 只修 mechanical identity／path。
+- `canonicalEnglish` 維持不變。
+- 受影響 record 的 `canonicalSha256` **維持不變**——canonical value bytes 沒有改變。
+- 若重新序列化 packet 檔案，packet artifact SHA-256 重新計算。
+- approved zh-TW semantics 未變，**不需要 Owner semantic re-approval**。
+- 對 revised packet 重跑 alignment，取得 `N/N aligned`、zero issues 之後才恢復 implementation。
+- 同時判定這應由 Reviewer-side alignment 在 Agent handoff 前攔下；由 preflight 首次發現代表前兩層 timing 未執行。
+
+### Failure indicators
+
+- 把 `canonicalSha256` 相符當成 identity 正確的證明。
+- 靜默把 `trigger` 映射成 `type.trigger` 後繼續實作。
+- canonical bytes 未變卻更動 `canonicalSha256`。
+- 就這個 mechanical correction 要求 Owner 重新核准未改變的譯文語意。
+- 在 revised packet 的 alignment 通過前就繼續 implementation。
+- 只比對 value／hash，不獨立比對 identity set／path。

@@ -1,6 +1,6 @@
 # Forge Steel 繁體中文化專案進度
 
-> 最後更新：2026-08-20
+> 最後更新：2026-08-25
 > 本文件是 handoff 摘要，不取代 GitHub PR／commit、`docs/REVIEWER-PRINCIPLES.md`、V1 requirements、現行 code／tests／CI 或人工驗收 evidence。
 
 ## 1. Current Baseline
@@ -8,7 +8,7 @@
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active integration branch：`develop`
 - Reconciliation snapshot（本文件最後 reconcile 時的 `develop`，僅供對照，**不是 reset target**）：
-  `23eabd3a18e9396963d90554366ae22afacc9633`
+  `14a0fa1688110903a6f2c78673b5e6e1c706a126`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
 - 最近已 merge 的工作以 `git log develop` 與 GitHub PR 為準；本文件不維護「最新 PR」欄位，避免每次 merge 後立即 stale。
@@ -102,7 +102,7 @@
 
 - Censor、Fury、Conduit、Elementalist、Null、Shadow、Tactician、Talent 與 Troubadour 九個 Core standard Class 的 Level 1 ability-authored-content 已完成 localization slice。
 - Class ability calculated presentation 維持 canonical-English-first：canonical calculator 先完成計算，再僅在 presentation boundary 投影可安全證明的 approved zh-TW；中文不進入 calculator、parser 或 canonical data。
-- 此 milestone 不代表所有 V1 Class Level 1 abilities 完成：Official Beastheart 與 Summoner 的 Level 1 Class ability-authored-content 尚未完整 enumerate 或 localized，仍屬 `official-ability-authored-content` unresolved domain。
+- 此 milestone 不代表所有 V1 Class Level 1 abilities 完成：在當時，Official Beastheart 與 Summoner 的 Level 1 Class ability-authored-content 尚未 localized。Beastheart 其後的進展見 3.15；Summoner 仍未開始。`official-ability-authored-content` 至今仍為 unresolved domain。
 
 ### 3.10 Core／Orden content expansion after the earlier Level 1 milestone（PR #74、#76–#79、#85–#87）
 
@@ -136,6 +136,32 @@
 - **Entry-point routing：** `CLAUDE.md` 與 Reviewer／Agent 文件的入口一律導向現行 authority 文件與現行 repository primitives，避免每份 handoff 重建規格。
 - **Reviewer workflow 收斂：** Precedent Gate 增加 scope-equivalence check、packet canonical alignment timing 左移為三層、Batch Cost Checkpoint 取代硬數字門檻、Stage 2／Stage 3 改用 compact delta-only handoff profile。
 
+### 3.14 Core standard Class Level 2 player-facing localization（PR #105–#113）
+
+- Conduit、Censor、Fury、Elementalist、Tactician、Null、Shadow、Talent、Troubadour 九個 Core standard Class 的 Level 2 player-facing content 已逐批完成 localization、manifest coverage 與其各自的 representative presentation evidence。
+- 這是 Core standard Class 的 Level 2 milestone，不代表 Level 2 以外的 class／subclass content 或任何 unresolved domain 已收斂。
+
+### 3.15 Beastheart localization milestone（PR #114–#120）
+
+Beastheart 已從先前的 deferred sequencing 進入實際 localization 工作。本節是 milestone 摘要，不是 PR-by-PR 流水帳；逐批細節以 Git history／GitHub PR 為準。
+
+已 merge 的內容：
+
+- **Beastheart Level 1 base ability-authored-content**（#114）：Level 1 可選 base abilities 的 authored-content localization。
+- **Beastheart Level 1 base completion**（#115）：Level 1 base class 其餘 player-facing content。
+- **Heart of the Beast 修正與 legacy Markdown table 修正**（#116）：修正 Heart of the Beast 譯文，並讓 legacy table shim 尊重真實 fence boundary，使 Rampage table 正常 render。這是 presentation／Markdown 層修正，未改變 canonical data。
+- **Wild Nature Level 1 subclass localization**（#117）。
+- **共用 AbilityPanel PackageContent localization 修正**（#118）：修正 AbilityPanel package section 的 PackageContent presentation boundary；屬 shared component 修正，效果不限於 Beastheart。
+- **Beastheart Level 2**（#119）：base class Level 2 content 與 Guardian／Prowler／Punisher／Spark 的 Level 2 subclass progression，含其 calculated readings 的 presentation projection。
+- **Beastheart Level 3 base-class 7pt Ability slice**（#120）。
+
+界線（不得被讀成更大的宣稱）：
+
+- **這不代表 Beastheart Level 1–3 全部內容已完成。** 尚未涵蓋的 Beastheart content（包含 Companion／Summon 相關的 Level 3 工作）仍未完成。
+- 不代表 `official-ability-authored-content`、`class-and-subclass-level-content` 或任何其他 unresolved domain 已收斂。
+- 不代表 Summoner 已開始或完成。
+- 本節是 handoff 導覽，不是第二套 denominator；實際 required／missing／unapproved／unresolved 一律以 live manifest + catalog + `npm run loc:status` evidence 為準。
+
 ## 4. 現行 translation／decision 規則
 
 - 專案負責人是新中文遊戲術語、正式譯名與語意性中文修改的最終決策者。
@@ -161,7 +187,7 @@
 - Level 2／3 level-up player flow 所需 UI／game content localization 與 canonical-safety regression evidence。
 - 在所有 V1 domains 已完整 enumerate 前，持續將 completeness 明確報為已納入 denominator 的內容進度，而非完整 V1 翻譯百分比。
 - 依 V1 requirements 完成 save／reopen／original-save compatibility、Official／Homebrew、locale switching、Hero Sheet／output 等剩餘 required verification。
-- Beastheart／Summoner 的 Level 1 Class ability-authored-content，以及尚未納入目前 slices 的 Level 2／3、subclass／class-level content，仍待完整 enumerate、取得核准譯文並完成 localized presentation evidence。
+- Summoner 的 Class content，Beastheart 尚未涵蓋的部分（含 Companion／Summon 相關 Level 3 工作），以及尚未納入目前 slices 的 Level 2／3、subclass／class-level content，仍待完整 enumerate、取得核准譯文並完成 localized presentation evidence。
 - 專案負責人與團員的封閉 Beta。
 - 發布前 dependency/security risk decision、GPL／Draw Steel licensing／legal notice、免費 deployment 與正式發布批准。
 
@@ -181,12 +207,13 @@ Complication top-level localization 已完成。進一步 Complication-related c
 
 ## 7. Current sequencing / Next Work
 
-現行 Owner sequencing：
+目前狀態：
 
-- **Core + Orden 優先。**
-- Beastheart／Summoner 仍屬 V1 scope，但 sequencing 延後；deferred 不等於移出 V1 requirements。
-- **Core standard Class Level 1 player-facing localization milestone 已達成**（見 3.12）；下一個 substantive milestone 尚未由 Owner 固定。
-- 候選方向仍在剩餘 unresolved domains 與既有 V1 工作之內：Core／Orden 的 Level 2–3 class／subclass content、nested Hero creation authored content、Hero Sheet、Hero Edit semantic keys，以及 Beastheart／Summoner。由 Reviewer 提案並取得 Owner 的 sequencing decision 後才固定。
+- V1 scope 仍為 Core、Orden、Beastheart、Summoner，未改變。
+- **Beastheart 已不再是 deferred**：先前「Core + Orden 優先、Beastheart／Summoner 延後」的 sequencing 已被其後 Owner-directed 的實際工作取代，Beastheart 已完成一系列實質 localization slices（見 3.15）。
+- **Core standard Class 的 Level 1（3.12）與 Level 2（3.14）player-facing localization milestone 已達成。**
+- **下一個 substantive localization／content milestone 未由本文件固定。** 本文件不建立新的永久優先順序。
+- 候選方向仍在剩餘 unresolved domains 與既有 V1 工作之內：Beastheart 尚未涵蓋的內容、Summoner、Core／Orden 的 Level 3 class／subclass content、nested Hero creation authored content、Hero Sheet、Hero Edit semantic keys。實際順序由 Owner 最新 sequencing decision 決定。
 
 任何下一批的 exact slice 都必須在正式 Batch Contract 前，依 live repository code／manifest 與 `docs/project-review-skill/PROJECT-REVIEW-SKILL.md` 的 Precedent Gate 再確認。本節記錄的是現行 sequencing 意圖，不預先固定 slice 內容，也不固定其後所有 batch 的順序，更不建立第二套 denominator。
 

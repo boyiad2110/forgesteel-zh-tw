@@ -331,9 +331,22 @@ Agent 自動修失敗 PR、改寫 history、建立第二個 PR，或在新 green
 
 Reviewer 未在 worksheet 交 Owner 前、也未在 packet freeze 前做 machine alignment，直到 Agent implementation preflight 才第一次發現 leading newline／whitespace／hash drift，於是 Stage 1 重來，或把 Reviewer artifact defect 當成 Owner 待決事項。
 
+同一個失敗模式的另一種形態是 **identity／path drift**：packet 帶著完全正確的 exact canonical English，`canonicalSha256` 也重算相符，但該筆 record 的 field／path 寫成 `trigger`，而 repository 現行 localization identity authority 是 `type.trigger`。因為 hash 相符，就把它當成「已對齊」，或在 preflight 發現後靜默把 packet identity 映射到 repository identity。
+
 修正：
 
 依 `TRANSLATION-WORKFLOW.md` **Packet Canonical Alignment Gate** 的三層 timing：Owner handoff 前先驗一次、Owner finalization 後 packet freeze 前再驗一次，Agent preflight 只作 defense in depth。Reviewer artifact drift 由 Reviewer 依 Packet Revision Rule 自行修正，不變成 Owner decision。preflight 首次發現 drift 時，除了 STOP，也應視為前兩層 timing 未執行。
+
+identity／path drift 另外適用：
+
+- record-level canonical hash 驗證的是 **value bytes，不是 localization identity**；hash 相符不是 identity 正確的證據。
+- alignment 必須獨立比較 identity set／path；這類 drift 會表現為一筆 unexpected packet identity 加一筆 missing packet identity。
+- 正常流程應由 Reviewer-side alignment 在 Agent implementation 前就攔下。
+- 若由 Agent preflight 首次發現：STOP，不得自行 normalize 或映射 identity。
+- 由 Reviewer 發行 superseding 的 mechanical packet revision，只修 identity／path。
+- approved zh-TW semantics 未變時，不產生任何 Owner semantic decision；canonical bytes 未變時也不改 per-record `canonicalSha256`。
+
+上述 `trigger` / `type.trigger` 只是通用示例，不是特定 class 或 batch 的永久政策。
 
 ## 34. Stage 2／Stage 3 Contract 重貼完整歷史
 
