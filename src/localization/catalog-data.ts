@@ -4919,6 +4919,29 @@ const summonerLevel1BaseAbilityRemainderLocalizationEntries: LocalizationEntry[]
 	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'sections.1.effect', canonicalEnglish: 'Instead of commanding an existing minion, you summon a signature minion into an unoccupied space adjacent to the target to take the strike.', zhTW: '你可以選擇不命令既有的僕從，而是在與目標相鄰的未占據空間中召喚 1 個招牌僕從來承受這次打擊。', approval: 'approved' }
 ];
 
+/**
+ * The Summoner Level 2 base-class slice: Perk and Dominion, as the Owner approved them in packet
+ * `summoner-l2-base-class-localization-r2`.
+ *
+ * `Perk` reuses the approved glossary reading. `疆域` is Dominion's own feature name, and inside
+ * this authored prose only, `fixture` reads as `地景` and `origin` as `起源地`; none of the three
+ * is promoted to a reusable mapping, so the batch's glossary delta is empty.
+ *
+ * Dominion is a Text Feature, so with a Hero `FeaturePanel` passes its canonical English through
+ * `AbilityLogic.getTextEffect`. On this canonical text the calculator returns the string
+ * unchanged - `dying` is not a `ConditionType`, so it receives no emphasis, and there is no
+ * numeric term to resolve - which means the panel keeps the approved raw localized description,
+ * never invokes the calculated authored-text presenter, and offers no auto-calculate toggle.
+ *
+ * Dominion's description snapshots the single leading newline its canonical template literal
+ * carries and has no trailing newline; the approved zh-TW is not prefixed with one.
+ */
+const summonerLevel2BaseLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'summoner-2-1', field: 'name', canonicalEnglish: 'Perk', zhTW: '專長', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-2-2', field: 'name', canonicalEnglish: 'Dominion', zhTW: '疆域', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-2-2', field: 'description', canonicalEnglish: '\nOnce per encounter, you can use a maneuver to summon a fixture from your minions’ native manifold or origin into an unoccupied space on the ground within your Summoner’s Range. You can spend 1 essence to relocate the fixture as a free maneuver on your turn. The fixture stays until the end of the encounter, until its Stamina is reduced to 0, or until you become dying.\n\nYour fixture gains additional features at 5th and 9th level.', zhTW: '每場遭遇 1 次，你可以使用機動動作從你僕從的原生衍界或起源地召喚 1 處地景，將其放置在召喚師射程內的未占據空間地面。在你的回合中，你可以花費 1 點精髓並使用免費機動動作重新放置該地景。該地景會持續存在，直到遭遇結束、體力歸 0，或你陷入瀕死。\n\n你的地景會在 5 級與 9 級時獲得額外特性。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4964,5 +4987,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...beastheartLevel3LocalizationEntries,
 	...summonerLevel1Cost5AbilityLocalizationEntries,
 	...summonerLevel1BaseNonAbilityLocalizationEntries,
-	...summonerLevel1BaseAbilityRemainderLocalizationEntries
+	...summonerLevel1BaseAbilityRemainderLocalizationEntries,
+	...summonerLevel2BaseLocalizationEntries
 ];
