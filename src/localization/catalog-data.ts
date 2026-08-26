@@ -4838,6 +4838,87 @@ const summonerLevel1BaseNonAbilityLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'summoner-1-9', field: 'name', canonicalEnglish: '5pt Ability', zhTW: '5 費招式', approval: 'approved' }
 ];
 
+/**
+ * The Summoner Level 1 base Ability remainder: the four abilities authored directly in the
+ * class's Level 1 feature list and the four Tactic Call options, as the Owner approved them in
+ * packet `summoner-l1-base-ability-remainder-localization-r1`.
+ *
+ * Summoner Strike's authored text is the one reading in this slice the canonical calculator
+ * rewrites. Its damage term is a bare `R damage` with no numeric term, which the calculator
+ * deliberately leaves unresolved, so the approved raw `理智` damage wording stands on every
+ * surface and only the potency number and the `緩速` emphasis are ever projected.
+ *
+ * Halt!'s `up to their speed` is minion-relative, so the calculator leaves it authored and the
+ * approved zh-TW keeps it as written - it is never resolved from the Hero's own Speed.
+ *
+ * `法器` (implement), `僕從名錄` (portfolio) and the Summoner-context minion readings stay bound
+ * to these identities; the batch promotes no reusable glossary mapping, so its delta is empty.
+ * `衝鋒` here is the canonical Charge keyword, matching the existing glossary entry.
+ *
+ * Minion Bridge's shift text snapshots the single leading newline its canonical template literal
+ * carries; the approved zh-TW is not prefixed with one, as `dwarf-feature-1` established.
+ */
+const summonerLevel1BaseAbilityRemainderLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'summoner-1-3', field: 'name', canonicalEnglish: 'Summoner Strike', zhTW: '召喚師打擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-3', field: 'target', canonicalEnglish: 'One creature or object', zhTW: '1 個生物或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-3', field: 'description', canonicalEnglish: 'A sudden burst of energy erupts from your implement and shocks your foes’ nerves.', zhTW: '劇烈能量從你的法器中迸發，震顫敵人的神經。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-3', field: 'sections.0.text', canonicalEnglish: 'R damage. If the target has R < [weak], they are slowed (save ends).', zhTW: '`理智`傷害。若目標的`理智` < [弱]，則陷入緩速（豁免解除）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-3', field: 'sections.1.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-3', field: 'sections.1.effect', canonicalEnglish: 'This ability has the Charge keyword when it’s used as a melee strike.', zhTW: '此招式以近戰打擊發動時，具有「衝鋒」關鍵詞。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'name', canonicalEnglish: 'Strike For Me', zhTW: '替我出手', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'target', canonicalEnglish: 'Each of your minions', zhTW: '你的每個僕從', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'description', canonicalEnglish: 'Your minions fight in your stead.', zhTW: '僕從替你作戰。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'type.trigger', canonicalEnglish: 'You use a triggered action to make a free strike or use a signature ability.', zhTW: '當你使用反應動作發動基礎打擊或招牌招式時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'sections.0.roll.tier1', canonicalEnglish: 'Up to three targets each make a free strike', zhTW: '最多 3 個目標各自發動 1 次基礎打擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'sections.0.roll.tier2', canonicalEnglish: 'Up to five targets each make a free strike', zhTW: '最多 5 個目標各自發動 1 次基礎打擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'sections.0.roll.tier3', canonicalEnglish: 'Up to seven targets each make a free strike', zhTW: '最多 7 個目標各自發動 1 次基礎打擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'sections.1.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'sections.1.effect', canonicalEnglish: 'On a natural 19 or 20, each target makes a free strike.', zhTW: '若擲出天然 19 或 20，每個目標各自發動 1 次基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-4', field: 'sections.2.text', canonicalEnglish: 'Your minions act in place of you making a free strike or using a signature ability. If you were granted the triggered action against a specific target, your minions must strike the same target. If the triggered action granted you a signature ability, you have an edge on the power roll.', zhTW: '你的僕從會代替你發動基礎打擊或招牌招式。若該反應動作是針對特定目標而獲得，你的僕從也必須打擊同個目標。若該反應動作讓你可以發動招牌招式，你的檢定會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'name', canonicalEnglish: 'Call Forth', zhTW: '召喚', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'description', canonicalEnglish: 'My power is yours, and yours, mine. I summon thee.', zhTW: '承汝之威，顯吾之能。吾喚汝現身。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'sections.0.text', canonicalEnglish: 'You summon one or more minions from your portfolio into unoccupied spaces within distance. Choose one of the following options.', zhTW: '你從自己的僕從名錄中召喚任意數量的僕從，並放置在射程內的未占據空間。選擇以下 1 個選項。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'sections.1.name', canonicalEnglish: 'Signature Minions', zhTW: '招牌僕從', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'sections.1.effect', canonicalEnglish: 'You summon one signature minion for each essence you spend on this ability.', zhTW: '你在此招式每花費 1 點精髓，就召喚 1 個招牌僕從。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'sections.2.name', canonicalEnglish: 'All Other Minions', zhTW: '其他僕從', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-5', field: 'sections.2.effect', canonicalEnglish: 'You summon the set number of minions listed on the stat block for their essence cost.', zhTW: '你花費該僕從數據欄所列的精髓費用，並召喚其所列的固定數量。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-6', field: 'name', canonicalEnglish: 'Minion Bridge', zhTW: '僕從之橋', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-6', field: 'target', canonicalEnglish: 'One of your minions', zhTW: '你的 1 個僕從', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-6', field: 'description', canonicalEnglish: 'Your minions do everything in their power to form a safe path for you to cross.', zhTW: '你的僕從竭盡所能為你搭建安全通路。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-6', field: 'sections.0.text', canonicalEnglish: '\nYou shift into a square adjacent to the target, including vertically.\n\nYou can shift into squares that contain one of your minions, even if they occupy difficult terrain. Each time you shift into a square that contains one of your minions while using this maneuver, you can shift an additional square.', zhTW: '你遁移到與目標相鄰的 1 個方格（包括垂直相鄰的方格）。\n\n你可以遁移進入由僕從占據的方格（即使是困難地形也可以）。使用此機動動作時，每當你遁移進入 1 個被僕從占據的方格，你就可以額外遁移 1 格。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-6', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-6', field: 'sections.1.effect', canonicalEnglish: 'An adjacent ally can shift alongside you during this movement. They must end their movement in an unoccupied square adjacent to the last minion you moved through.', zhTW: '與你相鄰的 1 個盟友可以在這次移動中與你一起遁移。該盟友結束移動時，必須停在與你最後經過之僕從相鄰的未占據方格。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8a', field: 'name', canonicalEnglish: 'Focus Fire!', zhTW: '集火！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8a', field: 'target', canonicalEnglish: 'Self or one ally', zhTW: '自身或 1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8a', field: 'description', canonicalEnglish: 'You ensure the enemy can’t escape the incoming attack.', zhTW: '你確保敵人無法躲過接下來的攻勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8a', field: 'type.trigger', canonicalEnglish: 'The target deals damage to another creature.', zhTW: '當目標對其他生物造成傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8a', field: 'sections.0.text', canonicalEnglish: 'The target gains a surge for each of your minions adjacent to them (up to a maximum of 3 surges), which they can use on the triggering damage', zhTW: '目標每與 1 個你的僕從相鄰，就獲得 1 點鬥志（最多 3 點），這些鬥志可以用於觸發此反應動作的傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8a', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8a', field: 'sections.1.effect', canonicalEnglish: 'If the triggering damage is from an ability that uses a power roll, the power roll gains an edge.', zhTW: '若觸發傷害來自需要進行檢定的招式，該檢定會獲得 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8b', field: 'name', canonicalEnglish: 'Halt!', zhTW: '攔下！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8b', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8b', field: 'description', canonicalEnglish: 'You order a minion to get in the way.', zhTW: '你命令僕從上前阻擋。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8b', field: 'type.trigger', canonicalEnglish: 'The target starts their turn, moves, or is force moved.', zhTW: '當目標開始回合、移動，或被強制移動時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8b', field: 'sections.0.text', canonicalEnglish: 'You summon a signature minion in an unoccupied space adjacent to the target. If the target is force moved into the minion, you can choose to make the target take no damage from the collision.', zhTW: '你召喚 1 個招牌僕從，放置在與目標相鄰的未占據空間。若目標因為強制移動而撞上該僕從，你可以選擇讓目標不會受到碰撞傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8b', field: 'sections.1.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8b', field: 'sections.1.effect', canonicalEnglish: 'Instead of summoning a new minion, you can command one of your minions within distance to shift up to their speed toward a square adjacent to the target before any additional effects occur.', zhTW: '你可以選擇不召喚新的僕從，而是命令射程內的 1 個僕從在任何額外效果發生前，朝與目標相鄰的 1 個方格遁移最多等於其速度的距離。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8c', field: 'name', canonicalEnglish: 'Not Yet!', zhTW: '還早！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8c', field: 'target', canonicalEnglish: 'One ally', zhTW: '1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8c', field: 'description', canonicalEnglish: 'I command you to not die.', zhTW: '我命令你不准死。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8c', field: 'type.trigger', canonicalEnglish: 'The target receives enough damage to die or be destroyed.', zhTW: '當目標受到足以死亡或被摧毀的傷害時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8c', field: 'sections.0.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8c', field: 'sections.0.effect', canonicalEnglish: 'If the target is a minion, they must be the only minion remaining in their squad.', zhTW: '若目標是僕從，他必須是該小隊中僅存的僕從。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8c', field: 'sections.1.text', canonicalEnglish: 'The damage the target receives is reduced by an amount that leaves the target alive with 1 point of Stamina.', zhTW: '目標受到的傷害減免至剛好讓其存活，剩下 1 點體力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'name', canonicalEnglish: 'Shield!', zhTW: '護駕！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'target', canonicalEnglish: 'Self or one ally', zhTW: '自身或 1 個盟友', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'description', canonicalEnglish: 'You call upon a minion to use their body to dampen the blow.', zhTW: '你呼喚僕從用身體為目標擋下這一擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'type.trigger', canonicalEnglish: 'The target is targeted by a strike.', zhTW: '當目標成為打擊的目標時。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'sections.0.text', canonicalEnglish: 'If one of your minions is adjacent to the target and is within distance of the strike, they become the new target of the strike.', zhTW: '若你的 1 個僕從與目標相鄰，而且位於打擊的射程內，則該僕從成為這次打擊的新目標。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'sections.1.name', canonicalEnglish: 'Spend', zhTW: '花費', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-1-8d', field: 'sections.1.effect', canonicalEnglish: 'Instead of commanding an existing minion, you summon a signature minion into an unoccupied space adjacent to the target to take the strike.', zhTW: '你可以選擇不命令既有的僕從，而是在與目標相鄰的未占據空間中召喚 1 個招牌僕從來承受這次打擊。', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4882,5 +4963,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...beastheartLevel2LocalizationEntries,
 	...beastheartLevel3LocalizationEntries,
 	...summonerLevel1Cost5AbilityLocalizationEntries,
-	...summonerLevel1BaseNonAbilityLocalizationEntries
+	...summonerLevel1BaseNonAbilityLocalizationEntries,
+	...summonerLevel1BaseAbilityRemainderLocalizationEntries
 ];

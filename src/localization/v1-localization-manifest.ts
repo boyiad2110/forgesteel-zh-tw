@@ -2434,6 +2434,52 @@ export const createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish = (): 
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * The remaining eight Summoner Level 1 base abilities: the four authored directly in the class's
+ * own Level 1 feature list, and the four Tactic Call options.
+ *
+ * Their parent readings belong to the merged base non-Ability slice, and the twelve selectable
+ * cost-5 abilities are reached from `summoner.abilities`, so all three slices stay disjoint.
+ */
+export const v1SummonerLevel1BaseAbilityRemainderIDs = [
+	'summoner-1-3',
+	'summoner-1-4',
+	'summoner-1-5',
+	'summoner-1-6',
+	'summoner-1-8a',
+	'summoner-1-8b',
+	'summoner-1-8c',
+	'summoner-1-8d'
+] as const;
+
+/**
+ * Enumerates only those eight abilities, in their authored order.
+ *
+ * The Level 1 feature tree is walked with the shared bounded ability collector, which descends
+ * only through Choice options and Multiple children, so the four Tactic Call options are reached
+ * from their own Choice without turning this into an arbitrary recursive class crawler. The
+ * explicit ID list is then the authority for what this slice contains.
+ */
+export const getV1SummonerLevel1BaseAbilityRemainder = (): Ability[] => {
+	const levelOne = getLevelOneFeatures(summoner.featuresByLevel, 'Summoner');
+	const abilitiesByID = new Map(collectBoundedAbilities(levelOne).map(ability => [ ability.id, ability ]));
+
+	return v1SummonerLevel1BaseAbilityRemainderIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Summoner Level 1 base ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 58-identity Summoner Level 1 base Ability remainder denominator from live canonical data. */
+export const createV1SummonerLevel1BaseAbilityRemainderRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	getV1SummonerLevel1BaseAbilityRemainder().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2485,7 +2531,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1BeastheartLevel2RequiredCanonicalEnglish(),
 		...createV1BeastheartLevel3RequiredCanonicalEnglish(),
 		...createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish(),
-		...createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish()
+		...createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish(),
+		...createV1SummonerLevel1BaseAbilityRemainderRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).

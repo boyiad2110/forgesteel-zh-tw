@@ -416,18 +416,19 @@ describe('V1 Summoner Level 1 base non-Ability catalog and presentation', () => 
 		proficiency.unmount();
 	});
 
-	it('renders Tactic Call’s own parent reading while its four option abilities stay canonical English', () => {
+	it('renders Tactic Call’s own parent reading and keeps its option abilities out of this slice', () => {
 		const tacticCall = getFeature('summoner-1-8');
 		const { container } = renderFeature(tacticCall);
 
 		expect(readTitle(container)).toBe('戰術號令');
 		expectRendered(container, '你可以向自己的僕從下達特殊命令。');
 
-		// The four option abilities are out of scope, so they keep their canonical English names.
-		expectRendered(container, 'Focus Fire!');
-		expectRendered(container, 'Halt!');
-		expectRendered(container, 'Not Yet!');
-		expectRendered(container, 'Shield!');
+		// The four option abilities carry no identity here: their authored content belongs to the
+		// Summoner Level 1 base Ability remainder slice, which supplies these approved readings.
+		expectRendered(container, '集火！');
+		expectRendered(container, '攔下！');
+		expectRendered(container, '還早！');
+		expectRendered(container, '護駕！');
 		expect(catalogEntries.some(entry => outOfScopeAbilityIDs.includes(entry.elementID))).toBe(false);
 	});
 
