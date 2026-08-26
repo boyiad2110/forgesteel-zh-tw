@@ -2480,6 +2480,29 @@ export const createV1SummonerLevel1BaseAbilityRemainderRequiredCanonicalEnglish 
 	return requiredCanonicalEnglish;
 };
 
+/**
+ * Builds the bounded 3-identity Summoner Level 2 base-class denominator: the class's own two
+ * Level 2 features, Perk and Dominion.
+ *
+ * This is the base class's own Level 2 list only. It goes through the one shared bounded walk,
+ * which contributes each node's name and its description when non-empty - Perk carries no
+ * description, so it contributes only its name - and it descends no further than Choice options
+ * and Multiple children, neither of which appears here. The Circles are subclasses reached from
+ * `summoner.subclasses`, so none of their Level 2 content, and none of the minion portfolio,
+ * enters this slice; Level 3+ and the Level 1 slices stay outside as well.
+ */
+export const createV1SummonerLevel2BaseRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const levelTwo = summoner.featuresByLevel.find(level => level.level === 2);
+	if (!levelTwo) {
+		throw new Error('Summoner Level 2 features are missing');
+	}
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelTwo.features);
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2532,7 +2555,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1BeastheartLevel3RequiredCanonicalEnglish(),
 		...createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish(),
 		...createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish(),
-		...createV1SummonerLevel1BaseAbilityRemainderRequiredCanonicalEnglish()
+		...createV1SummonerLevel1BaseAbilityRemainderRequiredCanonicalEnglish(),
+		...createV1SummonerLevel2BaseRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
