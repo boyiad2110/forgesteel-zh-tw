@@ -2114,44 +2114,70 @@ const projectBeastheartLevel3CalculatedValue = (elementID: string, field: string
 };
 
 /**
- * Distraction Tactics is the one Summoner Level 1 cost-5 reading the canonical calculator
- * rewrites. It carries an authored potency threshold and a condition name, and the calculator
- * treats the two differently: it adds the potency code marks and the `taunted` emphasis with or
- * without a Hero, but resolves the potency value itself only in Hero context.
+ * The two Summoner Level 1 readings the canonical calculator rewrites. Each carries an authored
+ * potency threshold and a condition name, and the calculator treats the two differently: it adds
+ * the potency code marks and the condition emphasis with or without a Hero, but resolves the
+ * potency value itself only in Hero context.
  *
- * So the potency projection is applied only when the calculated English actually shows a resolved
+ * So each potency projection is applied only when the calculated English actually shows a resolved
  * number. On the Library / no-Hero path the approved raw `[弱]` stands and the shared condition
- * projector adds nothing but the emphasis. The trailing 'The potency increases by 1 for each
- * minion' sentence is authored prose the calculator never touches, and nothing here recomputes a
- * potency: the value comes from the calculator's own output.
+ * projector adds nothing but the emphasis. Nothing here recomputes a potency: the value comes from
+ * the calculator's own output.
  *
  * This is the same established grammar `shadow-sub-2-2-1b` already uses, applied under Summoner's
- * own identity rather than by widening that entry, and the shared projector still supplies the
+ * own identities rather than by widening that entry, and the shared projector still supplies the
  * fail-closed gate - the projection is returned only when replaying this rewrite onto the raw
  * canonical English reproduces the calculator's output exactly.
  *
- * The other five abilities in this slice are deliberately absent. Essence Transfer's and
- * Summoner's Sword's calculated work is entirely in their Power Roll tiers, and Rally Cry's
- * 'equal to your Reason' is left authored by the calculator in both contexts, so all of their
- * authored texts already show the approved raw zh-TW without any projection.
+ * Summoner Strike is the base Level 1 entry. Its damage term is authored as a bare `R damage`
+ * with no numeric term, which the canonical calculator deliberately leaves unresolved in both
+ * contexts, so the approved raw `` `理智`傷害 `` wording stands and only the potency number and
+ * the `緩速` emphasis are ever projected. Its trailing Charge-keyword Special section is authored
+ * prose the calculator never touches.
+ *
+ * Distraction Tactics is the cost-5 entry; its trailing 'The potency increases by 1 for each
+ * minion' sentence is likewise authored prose left alone by the calculator.
+ *
+ * Every other authored text in both Summoner Level 1 slices is deliberately absent. Essence
+ * Transfer's and Summoner's Sword's calculated work is entirely in their Power Roll tiers, Rally
+ * Cry's 'equal to your Reason' is left authored in both contexts, and Halt!'s 'up to their speed'
+ * is minion-relative, so the calculator never resolves it from Hero Speed - all of them already
+ * show the approved raw zh-TW without any projection.
  */
 const projectSummonerLevel1CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
-	if ((elementID !== 'summoner-ability-3') || (field !== 'sections.0.text')) {
+	const projections = [
+		{
+			elementID: 'summoner-1-3',
+			field: 'sections.0.text',
+			canonical: 'R < [weak]',
+			calculated: /R\s*<\s*(-?\d+)/,
+			localized: '`理智` < [弱]',
+			localizedReplacement: (value: string) => `\`理智\` < ${value}`
+		},
+		{
+			elementID: 'summoner-ability-3',
+			field: 'sections.0.text',
+			canonical: 'I < [weak]',
+			calculated: /I\s*<\s*(-?\d+)/,
+			localized: '`直覺` < [弱]',
+			localizedReplacement: (value: string) => `\`直覺\` < ${value}`
+		}
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
 		return undefined;
 	}
 
-	const canonicalPotency = 'I < [weak]';
-	const localizedPotency = '`直覺` < [弱]';
 	let projectedCanonical = canonicalEnglish;
 	let projectedLocalized = localizedRaw;
 
-	const calculatedMatch = calculatedEnglish.match(/I\s*<\s*(-?\d+)/);
+	const calculatedMatch = calculatedEnglish.match(projection.calculated);
 	if (calculatedMatch) {
-		if ((occurrenceCount(canonicalEnglish, canonicalPotency) !== 1) || (occurrenceCount(localizedRaw, localizedPotency) !== 1)) {
+		if ((occurrenceCount(canonicalEnglish, projection.canonical) !== 1) || (occurrenceCount(localizedRaw, projection.localized) !== 1)) {
 			return undefined;
 		}
-		projectedCanonical = projectedCanonical.replace(canonicalPotency, () => calculatedMatch[0].replace(/\s+/g, ' '));
-		projectedLocalized = projectedLocalized.replace(localizedPotency, () => `\`直覺\` < ${calculatedMatch[1]}`);
+		projectedCanonical = projectedCanonical.replace(projection.canonical, () => calculatedMatch[0].replace(/\s+/g, ' '));
+		projectedLocalized = projectedLocalized.replace(projection.localized, () => projection.localizedReplacement(calculatedMatch[1]));
 	}
 
 	return projectCalculatedConditionEmphasis({
