@@ -2503,6 +2503,46 @@ export const createV1SummonerLevel2BaseRequiredCanonicalEnglish = (): CanonicalE
 	return requiredCanonicalEnglish;
 };
 
+/** The exact cost-7 class abilities selected by the Summoner's Level 3 class feature. */
+export const v1SummonerLevel3BaseAbilityIDs = [
+	'summoner-ability-7',
+	'summoner-ability-8',
+	'summoner-ability-9',
+	'summoner-ability-10'
+] as const;
+
+/** Enumerates only the four cost-7 abilities from the Summoner's own live ability list. */
+export const getV1SummonerLevel3BaseAbilities = (): Ability[] => {
+	const abilitiesByID = new Map(summoner.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1SummonerLevel3BaseAbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Summoner Level 3 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/**
+ * Builds the bounded 34-identity Summoner Level 3 base-class denominator. The class's own
+ * Level 3 feature roots contribute the Kit, Ward and its four selectable wards, plus the
+ * player-facing `7pt Ability` choice name; the explicit cost-7 list contributes only abilities
+ * 7-10. Circles, fixtures, minions, Level 4+, and ability 11+ remain outside this slice.
+ */
+export const createV1SummonerLevel3BaseRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const levelThree = summoner.featuresByLevel.find(level => level.level === 3);
+	if (!levelThree) {
+		throw new Error('Summoner Level 3 features are missing');
+	}
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelThree.features);
+	getV1SummonerLevel3BaseAbilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2556,7 +2596,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1SummonerLevel1Cost5AbilityRequiredCanonicalEnglish(),
 		...createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish(),
 		...createV1SummonerLevel1BaseAbilityRemainderRequiredCanonicalEnglish(),
-		...createV1SummonerLevel2BaseRequiredCanonicalEnglish()
+		...createV1SummonerLevel2BaseRequiredCanonicalEnglish(),
+		...createV1SummonerLevel3BaseRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).

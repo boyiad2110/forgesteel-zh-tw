@@ -2188,6 +2188,63 @@ const projectSummonerLevel1CalculatedValue = (elementID: string, field: string, 
 };
 
 /**
+ * These four Summoner Level 3 projections are deliberately identity-bound. They replay only the
+ * exact value changes the canonical calculator made and then let the shared condition projector
+ * retain its existing `prone` emphasis; every other structural change falls back to calculated
+ * English rather than constructing mixed-language prose.
+ */
+const projectSummonerLevel3CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const identity = `${elementID}/${field}`;
+	const potencyProjection = (canonical: string, localized: string, replacement: (value: string) => string) => {
+		const calculatedMatch = calculatedEnglish.match(/[RMI]\s*<\s*`?(-?\d+)`?/);
+		if (!calculatedMatch || (occurrenceCount(canonicalEnglish, canonical) !== 1) || (occurrenceCount(localizedRaw, localized) !== 1)) {
+			return undefined;
+		}
+		const projectedCanonical = canonicalEnglish.replace(canonical, () => calculatedMatch[0].replace(/\s+/g, ' '));
+		const projectedLocalized = localizedRaw.replace(localized, () => replacement(calculatedMatch[1]));
+		return projectCalculatedConditionEmphasis({ canonicalEnglish: projectedCanonical, calculatedEnglish, localizedRaw: projectedLocalized });
+	};
+
+	if (identity === 'summoner-3-1/description') {
+		return potencyProjection('R < [average]', '`理智` < [中]', value => `\`理智\` < ${value}`);
+	}
+
+	if (identity === 'summoner-3-2d/description') {
+		const canonical = 'pull that creature toward one of your minions within your Summoner’s Range a number of squares equal to your Reason score.';
+		const localized = '將該生物朝召喚師射程內你的 1 個僕從拉動等於你`理智`的格數。';
+		const calculatedMatch = calculatedEnglish.match(/pull that creature toward one of your minions within your Summoner’s Range a number of squares equal to (-?\d+)\./);
+		if (!calculatedMatch || (occurrenceCount(canonicalEnglish, canonical) !== 1) || (occurrenceCount(localizedRaw, localized) !== 1)) {
+			return undefined;
+		}
+		const projectedCanonical = canonicalEnglish.replace(canonical, () => calculatedMatch[0]);
+		const projectedLocalized = localizedRaw.replace(localized, () => `將該生物朝召喚師射程內你的 1 個僕從拉動 ${calculatedMatch[1]} 格。`);
+		return projectCalculatedConditionEmphasis({ canonicalEnglish: projectedCanonical, calculatedEnglish, localizedRaw: projectedLocalized });
+	}
+
+	if (identity === 'summoner-ability-7/sections.0.text') {
+		const canonicalPotencies = [ 'M < [weak]', 'M < [average]' ];
+		const localizedPotencies = [ '`力量` < [弱]', '`力量` < [中]' ];
+		const calculatedPotencies = Array.from(calculatedEnglish.matchAll(/M\s*<\s*`?(-?\d+)`?/g));
+		if ((calculatedPotencies.length !== 2) || canonicalPotencies.some(value => occurrenceCount(canonicalEnglish, value) !== 1) || localizedPotencies.some(value => occurrenceCount(localizedRaw, value) !== 1)) {
+			return undefined;
+		}
+		let projectedCanonical = canonicalEnglish;
+		let projectedLocalized = localizedRaw;
+		canonicalPotencies.forEach((canonical, index) => {
+			projectedCanonical = projectedCanonical.replace(canonical, () => calculatedPotencies[index][0].replace(/\s+/g, ' '));
+			projectedLocalized = projectedLocalized.replace(localizedPotencies[index], () => `\`力量\` < ${calculatedPotencies[index][1]}`);
+		});
+		return projectCalculatedConditionEmphasis({ canonicalEnglish: projectedCanonical, calculatedEnglish, localizedRaw: projectedLocalized });
+	}
+
+	if (identity === 'summoner-ability-8/sections.0.text') {
+		return potencyProjection('R < [average]', '`理智` < [中]', value => `\`理智\` < ${value}`);
+	}
+
+	return undefined;
+};
+
+/**
  * Localizes an authored text section from its approved raw canonical snapshot, then
  * projects only explicitly authorized, identity-bound values AbilityLogic can safely rewrite.
  */
@@ -2354,6 +2411,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const summonerLevel1CalculatedValue = projectSummonerLevel1CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (summonerLevel1CalculatedValue) {
 		return summonerLevel1CalculatedValue;
+	}
+
+	const summonerLevel3CalculatedValue = projectSummonerLevel3CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (summonerLevel3CalculatedValue) {
+		return summonerLevel3CalculatedValue;
 	}
 
 	return projectAuthorizedValues(canonicalEnglish, calculatedEnglish, localizedRaw) ?? calculatedEnglish;
