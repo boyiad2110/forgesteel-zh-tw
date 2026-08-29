@@ -197,7 +197,7 @@ Agent 執行 Stage 3 時，不要求為了形式同步某個外部 local clone�
 
 Batch Closed 的必要 evidence 以 remotely observable authoritative integration state 為主。Owner／其他開發者可在之後正常 fast-forward 自己的 local `develop`。
 
-若 Reviewer 恰好持有本批 local clone，仍應依 `GIT-SAFETY.md` 做安全 local sync／cleanup；但無 remote contradiction 時，無法觀察某個外部 local workspace 不構成 close blocker。
+Reviewer 若恰好持有本批 local clone，只可唯讀檢查 evidence；需要 local sync／cleanup 時由 Agent、Owner 或該 clone owner 依 `GIT-SAFETY.md` 處理。無 remote contradiction 時，無法觀察某個外部 local workspace 不構成 close blocker。
 
 ### Feature branch cleanup capability
 

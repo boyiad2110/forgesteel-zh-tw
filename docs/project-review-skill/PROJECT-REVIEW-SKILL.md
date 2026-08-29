@@ -54,7 +54,7 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 小型 Level A batch 仍由 Agent 執行 repository mutation；Reviewer 先完成 read-only planning／scope review，若不涉及產品行為、state／data、canonical／schema、翻譯語意或其他需要隔離的風險，優先使用下列 fast path：
 
 - **第一次 write 前先完成 read-only review**：Reviewer 確認 authority、scope、必要 dependency 與預期 changed-file set；scope 尚未收斂時 Agent 不先寫、先開 PR 或先跑 CI。
-- **採 surgical edit**：Agent 一次完成 coherent 修改 → self-review → 固定 final HEAD → 一次 exact-HEAD CI → Reviewer authorization → Agent Stage 3。預期仍會有 tracked edit 時，不先消耗 final CI。
+- **採 surgical edit**：Agent 一次完成 coherent 修改 → self-review → 固定並 push final HEAD → 執行 risk-matched local／docs verification；Reviewer review exact remote HEAD 後才授權。Agent 只在 Stage 3 建立／reconcile PR，並取得該 exact HEAD 的 required CI 後才 merge。預期仍會有 tracked edit 時，不先消耗 final verification。
 - **任何追加工作都重新過成本 gate**：若不是本批 Acceptance 必要、不是 blocker，也沒有立即降低具體風險，就列為 Non-blocking Observation／deferred，不因「順手」併入本批。
 - **外部等待只是 gate，不是擴 scope 的空檔**：CI／remote wait 期間不另開無關調查；避免反覆輪詢沒有狀態變化的同一 evidence，只在必要 state transition 與 mutable pre-merge gate 重查。
 - **Acceptance 達成後立即收斂**：只有 blocker／repository anomaly 才重新打開工作；其餘直接 closeout、STOP。
