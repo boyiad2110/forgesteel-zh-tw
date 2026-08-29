@@ -54,7 +54,7 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 正常 collaboration／handoff 依 `ONLINE-HANDOFF.md`：
 
 - translation Owner workspace 預設使用 Google Sheet；
-- Agent Batch Contract／frozen implementation packet 預設使用同一個 GitHub Issue；
+- 需要 Agent 時，Batch Contract／frozen implementation packet 預設使用同一個 GitHub Issue；
 - Agent Stage 1／Stage 2 結果預設 push feature branch，Reviewer review exact remote HEAD；
 - Reviewer PASS 後，Stage 3 由 Reviewer 直接執行；不再建立 Stage 3 Agent Task；
 - offline `.xlsx`／`.json`／`.md`／cumulative patch 只在 online path 無法安全完成時使用。
@@ -62,6 +62,8 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 Online-first 只改 transport，不降低 translation canonical alignment、Owner approval、exact-HEAD review、CI 或 Git safety。
 
 私人 Google Drive／Sheet URL 不預設放到 public GitHub Issue／PR；Agent 正常只需要 frozen Issue packet。
+
+Reviewer 直接完成、沒有 Agent handoff 的小型 batch 不要求為形式建立 GitHub Issue。
 
 ## 4. V1 Blocker Gate
 
@@ -269,7 +271,7 @@ Reviewer PASS 後依 Risk 決定是否需要 Owner manual smoke。
 
 正常可連續完成：
 
-**reconcile → PR → verify diff／commits → exact-HEAD CI → mutable pre-merge gate → merge → merge-result reconciliation → post-merge CI → available remote cleanup → close Issue**
+**reconcile → PR → verify diff／commits → exact-HEAD CI → mutable pre-merge gate → merge → merge-result reconciliation → post-merge CI → available remote cleanup → close Batch Issue（若本批使用 Issue）**
 
 只有 repository／base／head／SHA、changed files、commit count、CI、mergeability、ancestry／tree、canonical safety 或其他實質 anomaly 才停止。
 
@@ -306,7 +308,7 @@ Reviewer 不需要為了觀察或同步外部 Agent local workspace，把 Stage 
 - remote reconciliation PASS；
 - `main` 未改；
 - 可執行的 cleanup 完成，或只剩明確允許的 non-blocking housekeeping；
-- Batch Issue closed；
+- 若本批使用 Batch Issue，Issue 已 close；
 - 未開始下一批。
 
 Owner／其他開發者可之後正常 fast-forward 自己的 local `develop`；外部 local clone 未同步本身不是 remote Batch Closed blocker。
@@ -326,7 +328,7 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、完成摘要�
 - 小 fix 不順手重構 shared architecture。
 - Reviewer 能處理的機械細節，不交回 Owner。
 - Reviewer PASS 後不再建立 Stage 3 Agent handoff。
-- 收尾後 STOP；下一批需要新的 Batch Contract／Issue。
+- 收尾後 STOP；下一批需要新的 Batch Contract，只有需要 Agent handoff 時才要求新的 Batch Issue。
 
 ## Self-Check
 
