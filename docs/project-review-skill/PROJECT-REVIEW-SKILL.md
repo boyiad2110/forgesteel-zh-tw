@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.6.1"
+  version: "0.7.0"
 ---
 
 # Forge Steel Reviewer
@@ -51,10 +51,10 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 
 ### Level A Small Batch Fast Path
 
-Reviewer 直接執行的小型 Level A batch，若不涉及產品行為、state／data、canonical／schema、翻譯語意或其他需要隔離的風險，優先使用下列 fast path：
+小型 Level A batch 仍由 Agent 執行 repository mutation；Reviewer 先完成 read-only planning／scope review，若不涉及產品行為、state／data、canonical／schema、翻譯語意或其他需要隔離的風險，優先使用下列 fast path：
 
-- **第一次 write 前先完成 read-only review**：確認 authority、scope、必要 dependency 與預期 changed-file set；scope 尚未收斂時不要先寫、先開 PR 或先跑 CI。
-- **採 surgical edit**：一次完成 coherent 修改 → self-review → 固定 final HEAD → 一次 exact-HEAD CI → Reviewer Stage 3。預期仍會有 tracked edit 時，不先消耗 final CI。
+- **第一次 write 前先完成 read-only review**：Reviewer 確認 authority、scope、必要 dependency 與預期 changed-file set；scope 尚未收斂時 Agent 不先寫、先開 PR 或先跑 CI。
+- **採 surgical edit**：Agent 一次完成 coherent 修改 → self-review → 固定 final HEAD → 一次 exact-HEAD CI → Reviewer authorization → Agent Stage 3。預期仍會有 tracked edit 時，不先消耗 final CI。
 - **任何追加工作都重新過成本 gate**：若不是本批 Acceptance 必要、不是 blocker，也沒有立即降低具體風險，就列為 Non-blocking Observation／deferred，不因「順手」併入本批。
 - **外部等待只是 gate，不是擴 scope 的空檔**：CI／remote wait 期間不另開無關調查；避免反覆輪詢沒有狀態變化的同一 evidence，只在必要 state transition 與 mutable pre-merge gate 重查。
 - **Acceptance 達成後立即收斂**：只有 blocker／repository anomaly 才重新打開工作；其餘直接 closeout、STOP。
@@ -68,14 +68,14 @@ Reviewer 直接執行的小型 Level A batch，若不涉及產品行為、state�
 - translation Owner workspace 預設使用 Google Sheet；
 - 需要 Agent 時，Batch Contract／frozen implementation packet 預設使用同一個 GitHub Issue；
 - Agent Stage 1／Stage 2 結果預設 push feature branch，Reviewer review exact remote HEAD；
-- Reviewer PASS 後，Stage 3 由 Reviewer 直接執行；不再建立 Stage 3 Agent Task；
+- Reviewer PASS 後，Reviewer 在同一 Issue 明確授權固定的 Stage 3；Agent 執行 GitHub writes，Reviewer 再唯讀複核實際整合結果；
 - offline `.xlsx`／`.json`／`.md`／cumulative patch 只在 online path 無法安全完成時使用。
 
 Online-first 只改 transport，不降低 translation canonical alignment、Owner approval、exact-HEAD review、CI 或 Git safety。
 
 私人 Google Drive／Sheet URL 不預設放到 public GitHub Issue／PR；Agent 正常只需要 frozen Issue packet。
 
-Reviewer 直接完成、沒有 Agent handoff 的小型 batch 不要求為形式建立 GitHub Issue。
+所有需要 repository mutation 的 batch（包含小型 Level A）都以同一 GitHub Issue 承載 compact Agent task／report；不因低風險而把 write 交給 Reviewer。
 
 ## 4. V1 Blocker Gate
 
@@ -152,9 +152,9 @@ Agent 任務依 `AGENT-TASK-CONTRACT.md`，只寫本批差異與必要 gate，�
 
 Stage 2 不重貼完整 packet 或歷史。Agent 正常新 correction commit、push 同一 feature branch、回報新 exact HEAD 後 STOP。
 
-### No Agent Stage 3
+### Stage 3 Authorization
 
-Agent execution boundary 正常止於 Stage 1／Stage 2。Reviewer PASS 後直接進本 Skill 第 11 節 Stage 3；不得為了 closeout 再建立 Stage 3 Agent Task。
+Agent 在 Reviewer 明確授權前，execution boundary 止於 Stage 1／Stage 2。Reviewer PASS、必要 manual acceptance PASS 且 approved HEAD、base 與 merge method 已固定後，Reviewer 必須在同一 Batch Issue 發出綁定該 exact state 的 Stage 3 authorization；只有收到該授權後，Agent 才可依 `AGENT-TASK-CONTRACT.md` 的 compact Stage 3 profile 執行 closeout。
 
 ### Translation Worksheet Gate
 
@@ -258,13 +258,11 @@ Reviewer PASS 後依 Risk 決定是否需要 Owner manual smoke。
 
 若 acceptance 發現 blocker，回 Stage 2 focused correction；不得帶 stale exact-HEAD evidence 進 Stage 3。
 
-## 11. Stage 3 — Reviewer Git / PR Closeout
+## 11. Stage 3 — Reviewer-Authorized Agent Git / PR Closeout
 
-**Stage 3 由 Reviewer 執行。**
+前提：Reviewer PASS、必要 manual acceptance PASS，且 approved HEAD、base 與 merge method 均已固定。
 
-前提：Reviewer PASS、必要 manual acceptance PASS、approved HEAD 固定。
-
-依 `GIT-SAFETY.md` 與 `ONLINE-HANDOFF.md` 執行，預設 remote-first。
+Reviewer 依 `GIT-SAFETY.md` 與 `ONLINE-HANDOFF.md` 先唯讀確認 remote state，然後在同一 Batch Issue 發出 explicit Stage 3 authorization。Reviewer 不在正常流程中自行修改 repository files、branches、PR 或 merge state。
 
 ### Read-only reconciliation first
 
@@ -279,13 +277,13 @@ Reviewer PASS 後依 Risk 決定是否需要 Owner manual smoke。
 
 不得用先前 handoff 文字取代 actual GitHub state。
 
-### Normal closeout
+### Authorization and normal closeout
 
-正常可連續完成：
+Issue authorization 至少固定 approved full HEAD、base、merge method、expected PR target／head、required CI／mutable gate、cleanup requirement 與 Report／Stop。Agent 接獲後依該 authorization 執行：
 
-**reconcile → PR → verify diff／commits → exact-HEAD CI → mutable pre-merge gate → merge → merge-result reconciliation → post-merge CI → available remote cleanup → close Batch Issue（若本批使用 Issue）**
+**PR → verify diff／commits → exact-HEAD CI → mutable pre-merge gate → merge → result check → post-merge CI → available remote cleanup → report and STOP**
 
-只有 repository／base／head／SHA、changed files、commit count、CI、mergeability、ancestry／tree、canonical safety 或其他實質 anomaly 才停止。
+Agent 不得在 Stage 3 作新的 product、scope 或 translation 決策；任何 repository／base／head／SHA、changed files、commit count、CI、mergeability、ancestry／tree、canonical safety 或其他實質 anomaly 都必須 STOP 並回報 Reviewer。
 
 ### Merge method
 
@@ -293,7 +291,7 @@ Reviewer 依 Principles 與 batch history固定 merge method；除非 Owner／re
 
 ### Required-CI Recovery
 
-required CI failure 一律停止 merge。Reviewer先讀 failed step／evidence，再決定是否發 Stage 2 bounded correction；不得在 Stage 3 偷改 code、amend、rebase、reset 或 force push。
+required CI failure 一律停止 merge。Reviewer先讀 failed step／evidence，再決定是否發 Stage 2 bounded correction；Agent 不得在 Stage 3 偷改 code、amend、rebase、reset 或 force push。
 
 ### Post-merge reconciliation
 
@@ -308,7 +306,7 @@ Batch Closed 前至少獨立確認：
 - canonical／data safety evidence（若本批相關）；
 - feature branch cleanup 已完成，或唯一剩餘事項符合 `ONLINE-HANDOFF.md` 明確允許的 tooling-limited non-blocking housekeeping。
 
-Reviewer 不需要為了觀察或同步外部 Agent local workspace，把 Stage 3 重新交回 Agent。
+Reviewer 在 Agent Stage 3 report 後，獨立唯讀複核 remote PR、merge、`develop`、`main`、CI、topology 與 cleanup 狀態，才可宣告 Batch Closed。
 
 ## 12. Completion / Handoff
 
@@ -339,18 +337,18 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、完成摘要�
 - 不建立平行 progress denominator。
 - 小 fix 不順手重構 shared architecture。
 - Reviewer 能處理的機械細節，不交回 Owner。
-- Reviewer PASS 後不再建立 Stage 3 Agent handoff。
+- Reviewer PASS 後只在同一 Batch Issue 發出綁定 exact state 的 Stage 3 Agent authorization。
 - 收尾後 STOP；下一批需要新的 Batch Contract，只有需要 Agent handoff 時才要求新的 Batch Issue。
 
 ## Self-Check
 
 - [ ] 已讀最新 Owner decision 與 `docs/REVIEWER-PRINCIPLES.md`。
 - [ ] 已固定 coherent Batch、scope、Acceptance、Risk、Stop。
-- [ ] 小型 Level A Reviewer-direct batch 已在第一次 write 前完成 read-only review，且未因等待或順手 cleanup 擴張 scope。
+- [ ] 小型 Level A Agent-executed batch 已在第一次 write 前完成 Reviewer read-only review，且未因等待或順手 cleanup 擴張 scope。
 - [ ] 已依 `ONLINE-HANDOFF.md` 選擇最小安全 transport。
 - [ ] 若 translation worksheet 需要 Owner，已先處理 mechanical rows，並從 live exact cells 取得 final authority。
 - [ ] 若使用 packet，已完成 required canonical alignment 並 freeze 明確 revision。
-- [ ] Agent 只執行 Stage 1／必要 Stage 2，沒有被交付 Stage 3。
+- [ ] Agent 只在 Reviewer 對 exact approved state 的明確授權後執行 Stage 3。
 - [ ] Reviewer review 依 actual remote evidence，不只信 Agent report。
 - [ ] Stage 3 GitHub write target 明確為繁中 fork。
 - [ ] Findings 依 Principles 分類。
@@ -364,8 +362,8 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、完成摘要�
 
 ### Core workflow
 
-- `ONLINE-HANDOFF.md` — online-first Sheet／Issue／Agent boundary／Reviewer Stage 3 transport。
-- `AGENT-TASK-CONTRACT.md` — Agent Stage 1／Stage 2 contract。
+- `ONLINE-HANDOFF.md` — online-first Sheet／Issue／Agent boundary／authorized Agent Stage 3 transport。
+- `AGENT-TASK-CONTRACT.md` — Agent Stage 1／Stage 2／authorized Stage 3 contract。
 - `GIT-SAFETY.md` — Git／PR／merge／cleanup safety。
 - `RISK-AND-VERIFICATION.md` — Risk 與最低證據。
 
