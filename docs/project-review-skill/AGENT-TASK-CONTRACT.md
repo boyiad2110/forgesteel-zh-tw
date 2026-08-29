@@ -6,7 +6,7 @@
 
 Reviewer 的權限、Findings、User Decision 與翻譯決策邊界以 `docs/REVIEWER-PRINCIPLES.md` 為準；本文件不重複維護第二套政策。
 
-正常 online-first handoff 依 `ONLINE-HANDOFF.md`：Agent task／frozen packet 使用 GitHub Issue，Agent implementation 以 remote feature branch 交 Reviewer；**Agent execution boundary 止於 Stage 1／Stage 2，Stage 3 由 Reviewer 執行。**
+正常 online-first handoff 依 `ONLINE-HANDOFF.md`：Agent task／frozen packet 使用 GitHub Issue，Agent implementation 以 remote feature branch 交 Reviewer；**Agent 只在同一 Issue 收到 Reviewer 對 exact approved state 的明確授權後執行 Stage 3。**
 
 reference routing：
 
@@ -78,22 +78,21 @@ Stage 2 不重貼完整 packet／Owner prose／歷史調查；stable safety 直�
 
 ---
 
-## 3. No Agent Stage 3
+## 3. Stage 3 Authorization Profile
 
-Agent **不得執行 Stage 3 Git／PR closeout**。
+Agent 在 Reviewer 明確授權前不得執行 Stage 3 Git／PR closeout。Reviewer PASS 本身不是 permission；authorization 必須在同一 Batch Issue，並綁定 fixed approved state。
 
-正常流程中 Agent 不可：
+Stage 3 authorization 是 compact execution-critical delta，至少包含：
 
-- 建立 PR；
-- merge；
-- 修改 `develop`／`main`；
-- 等待 CI 後自行決定 merge；
-- 執行 integration cleanup；
-- 因 Reviewer PASS 自行開始下一批。
+- approved full HEAD；
+- approved base；
+- merge method；
+- expected PR target／head；
+- required CI 與 mutable pre-merge gate；
+- cleanup requirement；
+- Report／Stop。
 
-Reviewer PASS 後，由 Reviewer 依 `PROJECT-REVIEW-SKILL.md`、`GIT-SAFETY.md`、`ONLINE-HANDOFF.md` 直接完成 Stage 3。
-
-除非 Owner 日後有新的明確 workflow decision，本 Contract 不提供 Agent Stage 3 profile 或 permission。
+收到有效 authorization 後，Agent 可建立或 reconcile PR、驗證 exact head／base／files／commits、等待 required CI、執行 mutable pre-merge checks、以授權 method merge、驗證結果、執行 cleanup 並回報。Agent 不得在 Stage 3 作任何新的 product、scope 或 translation 決策；tracked correction 一律回 bounded Stage 2，並需要新的 Reviewer review 與 Stage 3 authorization 才可恢復 closeout。
 
 ---
 
@@ -331,5 +330,6 @@ online-first 典型 Stage 1／Stage 2：
 
 - **Stage 1**：push feature branch、確認 remote exact HEAD、回報後 STOP。
 - **Stage 2**：完成 focused correction、push 新 exact HEAD、回報後 STOP。
+- **Stage 3**：只有在有效 authorization 後，完成指定 GitHub execution、回報實際結果後 STOP；等待 Reviewer 獨立 reconciliation。
 
-Agent 不進 Stage 3，也不開始下一批。
+Agent 不得自行開始 Stage 3 或下一批。

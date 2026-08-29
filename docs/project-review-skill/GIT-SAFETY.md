@@ -6,7 +6,7 @@
 
 Reviewer 的權限與決策邊界以 `docs/REVIEWER-PRINCIPLES.md` 為準；Stage workflow 由 `PROJECT-REVIEW-SKILL.md` 定義；online transport／actor boundary 由 `ONLINE-HANDOFF.md` 定義。
 
-**正常流程中 Agent 只執行 Stage 1／Stage 2 feature-branch work；Stage 3 由 Reviewer 執行。**
+**正常流程中 Reviewer 決定、review、authorize 並唯讀 reconciliation；Agent 執行 repository mutations，包括收到 explicit Stage 3 authorization 後的 GitHub closeout。**
 
 ---
 
@@ -52,7 +52,7 @@ local-only cumulative patch 只在 `ONLINE-HANDOFF.md`／`AGENT-TASK-CONTRACT.md
 
 ---
 
-## 3. Reviewer Stage 3 Preconditions
+## 3. Reviewer Stage 3 Authorization Preconditions
 
 只有下列條件成立才進入 PR closeout：
 
@@ -63,13 +63,13 @@ local-only cumulative patch 只在 `ONLINE-HANDOFF.md`／`AGENT-TASK-CONTRACT.md
 - merge method 已由 Reviewer固定；
 - expected changed-files／commit evidence 已從 actual reviewed HEAD繼承。
 
-Reviewer remote-first Stage 3 不要求先取得 Agent local workspace；local clone state 只有在 Reviewer實際使用該 clone 執行 Git 時才成為 execution gate。
+Reviewer 先以 remote read-only evidence 確認上述條件，然後在同一 Batch Issue 發出明確 Stage 3 authorization。Agent 不得把 Reviewer PASS 視為 Stage 3 permission；authorization 必須綁定 approved HEAD、base 與 merge method。
 
 ---
 
 ## 4. Read-only Reconciliation Before Any Stage 3 Write
 
-任何 Stage 3 GitHub write 前先查 actual remote state：
+Reviewer 在 authorization 前先查 actual remote state：
 
 - remote feature branch 是否存在與 exact HEAD；
 - 是否已有 PR，以及 PR state／base／head／head SHA；
@@ -99,9 +99,9 @@ Stage 1 remote reviewer branch 在 Stage 3 前本來就存在，不是 anomaly�
 
 ---
 
-## 5. Remote Pre-write Gate
+## 5. Agent Remote Pre-write Gate
 
-Reviewer第一次 GitHub write 前確認：
+Agent 在任何 Stage 3 GitHub write 前，立即重新確認：
 
 - repository owner／name 正確；
 - feature branch／approved HEAD 正確；
@@ -117,9 +117,9 @@ Reviewer第一次 GitHub write 前確認：
 
 ---
 
-## 6. PR Gate
+## 6. Agent PR Gate
 
-建立或 reconcile唯一 PR後，從 GitHub actual state確認：
+Agent 建立或 reconcile唯一 PR後，從 GitHub actual state確認：
 
 - repository = `boyiad2110/forgesteel-zh-tw`；
 - base = `develop`；
@@ -154,13 +154,13 @@ CI green後、merge前重新查等待期間可能變動的項目：
 
 ## 8. Required CI Failure Recovery
 
-required CI red 時 merge一律 STOP。
+required CI red 時 Agent merge一律 STOP。
 
 依序：
 
 1. 檢查 exact workflow／job／step／annotation；
 2. Reviewer判斷是 environment／baseline／implementation問題；
-3. 不在 Stage 3直接 edit code；
+3. Agent 不在 Stage 3直接 edit code；
 4. 若需要 code correction，回到 bounded Stage 2；
 5. Agent在同一 feature branch加入normal correction commit，不 amend／rebase／reset／force push；
 6. Agent取得 fresh evidence、push新 HEAD、回報後 STOP；
@@ -193,9 +193,9 @@ Owner／repository policy有指定時，以較高 authority為準。
 
 ---
 
-## 10. Merge-result Reconciliation
+## 10. Agent Merge-result Check and Reviewer Reconciliation
 
-merge成功後確認：
+Agent merge成功後確認：
 
 - PR state = `MERGED`；
 - 記錄 merge result SHA；
@@ -203,15 +203,16 @@ merge成功後確認：
 - approved HEAD是預期 ancestry；
 - merge-result tree與 approved work符合所選 merge method；
 - `develop` 指向預期 merge result；
-- `main` 未改。
+- `main` 未改；
+- cleanup 已依 authorization 執行或已記錄工具限制。
 
-若 normal merge commit預期只是整合 approved feature tree，應驗證 feature HEAD→merge result沒有未預期 file diff；若選其他 merge method，以其預期 tree equivalence驗證。
+若 normal merge commit預期只是整合 approved feature tree，應驗證 feature HEAD→merge result沒有未預期 file diff；若選其他 merge method，以其預期 tree equivalence驗證。Agent 回報後，Reviewer 必須獨立唯讀重查 PR、merge result、`develop`、`main`、CI、topology 與 cleanup，才可宣告 Batch Closed。
 
 ---
 
 ## 11. Post-merge CI
 
-repository若在 `develop` push後執行 CI，Reviewer應等待並確認 required post-merge job在 **exact merge-result SHA** 成功。
+repository若在 `develop` push後執行 CI，Agent應等待並確認 required post-merge job在 **exact merge-result SHA** 成功，再回報 Reviewer。
 
 post-merge CI failure屬 anomaly；不得為了 cleanup或下一批忽略。先保留 evidence並依 Reviewer recovery決策處理。
 
@@ -225,7 +226,7 @@ post-merge CI failure屬 anomaly；不得為了 cleanup或下一批忽略。先�
 
 ### Tooling-limited cleanup
 
-若 Reviewer當前 GitHub tooling沒有 delete-ref／delete-branch capability，且已確認：
+若 Agent 的已授權 GitHub tooling沒有 delete-ref／delete-branch capability，且已確認：
 
 - PR已正確 merge；
 - remote feature branch仍固定在已 merge的 approved HEAD；
@@ -233,15 +234,15 @@ post-merge CI failure屬 anomaly；不得為了 cleanup或下一批忽略。先�
 
 則 remote branch殘留只記為 **Non-blocking housekeeping**。
 
-不得為了刪 branch把 Stage 3重新交回 Agent，也不得使用不安全 ref rewrite。之後由具備正常 delete capability的人員清理。
+不得使用不安全 ref rewrite。之後由具備正常 delete capability的人員清理。
 
 若 branch在 merge後又被移動到未授權 SHA，這不是 housekeeping，必須按 anomaly處理。
 
 ---
 
-## 13. Local Clone Safety（只有實際使用 local clone 時）
+## 13. Local Clone Safety（Agent／Owner 實際使用 local clone 時）
 
-Reviewer／Owner若在 local clone同步：
+Agent／Owner若在 local clone同步：
 
 - 先確認 origin指向繁中 fork；
 - `develop`只用 normal fast-forward同步；
@@ -253,7 +254,7 @@ Reviewer／Owner若在 local clone同步：
 
 clone-local defense（例如 `gh repo set-default`、`remote.pushDefault=origin`、upstream invalid push URL）只能視為 defense in depth；新 clone／新工作目錄必須重新驗證，且 `gh` write仍要明確 `--repo`。
 
-外部 Agent／Owner local workspace未被 Reviewer觀察，不影響 remote integration evidence；不要為了形式把 Stage 3交回 Agent。
+外部 Agent／Owner local workspace未被 Reviewer觀察，不影響 remote integration evidence；Reviewer 不因 local clone 狀態自行執行 Stage 3 writes。
 
 ---
 
@@ -313,7 +314,7 @@ Reviewer PASS且已固定 exact approved HEAD後，Stage 3 expected changed-file
 
 ## 17. Batch Close Remote Gate
 
-Reviewer宣告 Batch Closed前，至少確認：
+Agent 完成 Stage 3 report 後，Reviewer獨立唯讀確認下列項目才可宣告 Batch Closed：
 
 - PR actual state = MERGED；
 - merge result／method／topology符合 contract；

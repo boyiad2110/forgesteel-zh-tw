@@ -2,7 +2,7 @@
 
 ## 文件角色
 
-本文件定義 Forge Steel 繁中專案的 **online-first collaboration／handoff transport**：Owner translation workspace、Agent task／packet transport，以及 Reviewer Stage 3 的線上執行邊界。
+本文件定義 Forge Steel 繁中專案的 **online-first collaboration／handoff transport**：Owner translation workspace、Agent task／packet transport，以及 Reviewer-authorized Agent Stage 3 的線上執行邊界。
 
 它不取代：
 
@@ -24,9 +24,9 @@
 預設分工：
 
 - **Google Sheet**：Owner／Reviewer 的 translation finalization workspace。
-- **GitHub Issue**：Agent 的 Batch Contract、frozen implementation packet、Stage 1／Stage 2 handoff thread。
+- **GitHub Issue**：Agent 的 Batch Contract、frozen implementation packet、Stage 1／Stage 2 handoff、Stage 3 authorization／report thread。
 - **GitHub feature branch**：Agent implementation 的 exact remote review state。
-- **GitHub PR／CI**：Reviewer Stage 3 integration evidence。
+- **GitHub PR／CI**：Reviewer authorization 後由 Agent 執行的 integration evidence。
 
 只有工具能力、權限、精確值保存或 remote availability 使 online path 無法安全完成時，才使用既有 offline artifact／cumulative patch fallback。
 
@@ -143,11 +143,13 @@ Stage 1 開始後不得靜默改寫既有 frozen packet authority。
 
 若 Owner semantic zh-TW 改變，仍依正常 Owner authority 重新收斂後再 freeze 新 revision。
 
-### Agent report / Stage 2
+### Agent report / Stage 2 / Stage 3 authorization
 
 Agent Stage 1 完成後，預設在同一 Issue thread 回報 exact remote branch／HEAD 與差異式 evidence，然後 STOP。
 
 Reviewer 有 blocker 時，在同一 Issue 留 Stage 2 focused correction instruction；Agent 只做該 correction、正常新 commit、fresh verification、push 同一 feature branch，回報新 exact HEAD 後 STOP。
+
+Reviewer PASS 不是 Stage 3 permission。只有 Reviewer 在同一 Issue 對 approved HEAD、base 與 merge method 發出明確 Stage 3 authorization 後，Agent 才可執行 Stage 3；Agent 的 Stage 3 report 也放在同一 thread。
 
 Issue thread 是 coordination／handoff surface；Reviewer verdict 仍以 actual remote diff、tests、CI／evidence 為準，不以 Agent comment 自述取代獨立 review。
 
@@ -159,52 +161,53 @@ Issue thread 是 coordination／handoff surface；Reviewer verdict 仍以 actual
 
 - Agent 執行 **Stage 1**；
 - 有 blocker 時 Agent 執行必要的 **Stage 2**；
-- Agent **不執行 Stage 3**。
+- 只有同一 Issue 存在 Reviewer 對 fixed approved HEAD、base 與 merge method 的 explicit authorization 時，Agent 才執行 **Stage 3**。
 
 Stage 1 預設使用 remote reviewer branch：implementation、targeted verification、final normal commit、clean tree 後 push feature branch，確認 local／remote exact HEAD 一致，回 Issue 並 STOP。
 
-Agent 不得建立 PR、merge、改 `develop`、清理 integration branch 或執行 Stage 3 GitHub closeout，除非 Owner 日後有新的明確 workflow decision。
+Agent 不得僅因 Reviewer 曾說 PASS 就建立 PR、merge、改 `develop`、清理 integration branch 或開始 Stage 3 GitHub closeout；需要 Issue 中的 explicit authorization。
 
 remote 不可用或 Contract 明確要求 local-only 時，才使用 `AGENT-TASK-CONTRACT.md` 的 cumulative patch fallback。
 
 ---
 
-## 5. Reviewer-only Stage 3
+## 5. Reviewer-authorized Agent Stage 3
 
-Reviewer PASS、必要 manual acceptance PASS、approved HEAD 固定後，**Reviewer 直接接手 Stage 3**；不再建立 Stage 3 Agent Task。
+Reviewer PASS、必要 manual acceptance PASS，且 approved HEAD、base 與 merge method 固定後，Reviewer 先唯讀 reconcile feature branch／HEAD、existing PR、`develop`、`main` 與 reviewed evidence。只有 state 無實質 anomaly 時，Reviewer 才在同一 Issue 發出 explicit Stage 3 authorization。
 
-Stage 3 預設 remote-first：
+Agent 收到 authorization 後執行：
 
-1. read-only reconcile feature branch／HEAD、existing PR、`develop`、`main`、reviewed evidence；
-2. 建立或 reconcile 唯一 PR；
-3. 驗證 PR base／head／exact SHA／commits／changed files；
-4. 等待 required CI on exact approved HEAD；
-5. 執行 mutable pre-merge gate；
-6. 依固定 merge method merge；
-7. 驗證 merge topology／tree equivalence／`develop`；
-8. 驗證 post-merge CI（若 repository workflow 會執行）；
-9. 執行可用的 remote cleanup；
-10. close Batch Issue，宣告 Batch Closed。
+1. 建立或 reconcile 唯一 PR；
+2. 驗證 PR base／head／exact SHA／commits／changed files；
+3. 等待 required CI on exact approved HEAD；
+4. 執行 mutable pre-merge gate；
+5. 依固定 merge method merge；
+6. 驗證 merge topology／tree equivalence／`develop`；
+7. 驗證 post-merge CI（若 repository workflow 會執行）；
+8. 執行可用的 remote cleanup；
+9. 回 Issue report 並 STOP。
+
+Reviewer 隨後獨立唯讀確認實際 PR、merge result、`develop`、`main`、CI、topology 與 cleanup，才可 close Batch Issue 並宣告 Batch Closed。
 
 詳細 Git safety 仍以 `GIT-SAFETY.md` 為準。
 
 ### Local workspace is not a remote close gate
 
-Reviewer 使用 remote GitHub capability 完成 Stage 3 時，不要求為了形式再把 Stage 3 交回 Agent，只為同步某個 local clone。
+Agent 執行 Stage 3 時，不要求為了形式同步某個外部 local clone。
 
 Batch Closed 的必要 evidence 以 remotely observable authoritative integration state 為主。Owner／其他開發者可在之後正常 fast-forward 自己的 local `develop`。
 
-若 Reviewer 恰好持有本批 local clone，仍應依 `GIT-SAFETY.md` 做安全 local sync／cleanup；但無 remote contradiction 時，無法觀察某個外部 local workspace 不構成 close blocker。
+Reviewer 若恰好持有本批 local clone，只可唯讀檢查 evidence；需要 local sync／cleanup 時由 Agent、Owner 或該 clone owner 依 `GIT-SAFETY.md` 處理。無 remote contradiction 時，無法觀察某個外部 local workspace 不構成 close blocker。
 
 ### Feature branch cleanup capability
 
-remote feature branch 在 merge 後應正常刪除；但若 Reviewer 當前 GitHub tooling **沒有 delete-ref／delete-branch capability**，且已確認：
+remote feature branch 在 merge 後應正常刪除；但若 Agent 的已授權 GitHub tooling **沒有 delete-ref／delete-branch capability**，且已確認：
 
 - PR 已正確 merge；
 - remote feature branch 仍固定在已 merge 的 approved HEAD；
 - `develop`／CI／merge topology／`main` 全部符合 contract；
 
-則留下 remote feature branch只記為 **Non-blocking housekeeping**，不得為了刪 branch 把 Stage 3 重新交回 Agent或使用不安全 ref rewrite 冒充刪除。之後由具備正常 delete capability 的人員清理即可。
+則留下 remote feature branch只記為 **Non-blocking housekeeping**，不得使用不安全 ref rewrite 冒充刪除。之後由具備正常 delete capability 的人員清理即可。
 
 若 branch head 在 merge 後又發生未授權移動，則不是 housekeeping，必須依 Git safety anomaly 處理。
 
