@@ -249,7 +249,7 @@ Agent 自述不是獨立證據。
 - Agent 重跑受影響 fresh verification、push 同一 feature branch、回 Issue 後 STOP；
 - Reviewer 只 focused verify correction 與新重大問題，固定新 approved HEAD。
 
-第二輪仍有結構性 blocker時停止 patch loop，不進第三輪 full Review。
+第二輪仍有結構性 blocker 時停止 patch loop，不進第三輪 full Review。
 
 ## 10. Manual Acceptance Gate
 
