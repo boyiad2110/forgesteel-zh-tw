@@ -2,354 +2,334 @@
 
 ## 文件角色
 
-本文件定義 Agent 任務需要具備的最小 contract 與 Stage 邊界。
+本文件定義 Agent 任務需要具備的最小 contract、translation implementation boundary 與 Stage 1／Stage 2 執行規則。
 
 Reviewer 的權限、Findings、User Decision 與翻譯決策邊界以 `docs/REVIEWER-PRINCIPLES.md` 為準；本文件不重複維護第二套政策。
 
-Agent 任務應以「本批差異」為主，穩定的專案規則優先引用既有文件，不重寫完整專案歷史。
+正常 online-first handoff 依 `ONLINE-HANDOFF.md`：Agent task／frozen packet 使用 GitHub Issue，Agent implementation 以 remote feature branch 交 Reviewer；**Agent execution boundary 止於 Stage 1／Stage 2，Stage 3 由 Reviewer 執行。**
 
 reference routing：
 
-- `PROJECT-REVIEW-SKILL.md`、本 Contract、`GIT-SAFETY.md` 與 `RISK-AND-VERIFICATION.md` 是 stable core workflow references，依適用性引用。
+- `PROJECT-REVIEW-SKILL.md`、本 Contract、`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md`、`ONLINE-HANDOFF.md` 是 stable core workflow references。
 - domain-specific references 只在相關時載入。
-- `docs/translation/TRANSLATION-WORKFLOW.md` 是 translation 任務的必要 reference，任務直接修改或依賴該 workflow 時同樣必要；與翻譯無關的 docs、Git 或 infrastructure 任務不需要載入它。
+- translation 任務必讀 `docs/translation/TRANSLATION-WORKFLOW.md`。
 
-本批特有 risk、禁止事項、SHA、merge method、scope、acceptance 與 STOP rule 仍須明列。
+本批特有 risk、禁止事項、SHA、scope、acceptance 與 STOP rule 仍須明列。
 
-## 任務必備欄位
+---
 
-**Stage 1 full task**（本批第一份 Agent 任務）至少包含：
+## 1. Stage 1 Full Task
 
-1. **Goal**：唯一、可驗證的使用者可見或工程結果。
-2. **Authority**：支持本批的現行需求／Owner decision。
-3. **Base**：branch 與預期起點。
-4. **In scope**：允許修改內容。
-5. **Out of scope**：不得順手處理內容。
-6. **Acceptance**：完成條件。
+Stage 1 是 Agent 的完整 implementation task，至少包含：
+
+1. **Goal**：唯一、可驗證結果。
+2. **Authority**：支持本批的 current requirements／Owner decision。
+3. **Base**：branch 與 exact expected start。
+4. **In scope**。
+5. **Out of scope**。
+6. **Acceptance**。
 7. **Risk Level**：Level A／B／C。
-8. **Git permission**：是否允許 commit、push、PR、merge、cleanup。
-9. **Report**：只回報 Reviewer 決策所需證據。
-10. **Stop**：完成後停止，不開始下一批。
+8. **Git permission**。
+9. **Report**。
+10. **Stop**。
 
-Batch 預設應是 coherent、可獨立驗收的 UI／功能 slice；不要因為單一詞彙、單一 call site 或單一小檔案而無必要拆成獨立批次。
+Batch 預設 coherent、可獨立驗收；不得為單一詞彙／call site 無必要拆批，也不得把無關 architecture 塞入同批。
 
-## Compact Stage Handoff Profiles
+### Online Issue task
 
-上列必備欄位只適用於 Stage 1 full task。Stage 2 與 Stage 3 是同一批的後續回合，Reviewer 與 Agent 已共享前一輪 context，因此 handoff 改用下列 compact profile，只寫本輪決策所需 delta，不重建完整 Stage 1 任務書，也不因缺少 Stage 1 欄位而視為 contract 不完整。
+正常 route 使用一個 GitHub Issue 作 Batch work item：
 
-### Stage 2 — focused correction profile
+- Issue body 保存 Stage 1 full task；
+- translation packet 以 frozen revision comment 放同一 Issue；
+- Agent completion report 放同一 Issue；
+- Reviewer Stage 2 correction instruction 也放同一 Issue。
 
-只需：
+Agent 不需要讀 Owner Google Sheet；Google Sheet 是 mutable Owner／Reviewer workspace，不是 implementation authority。
 
-- original batch 識別；current base；current HEAD。
-- blocker（本輪要修的唯一內容）。
-- allowed files 與 forbidden collateral。
-- focused acceptance 與需要重跑的 fresh verification 範圍。
-- Git permission。
+如果 Issue 指定 frozen packet revision，Agent 只接受該 revision，不從 Sheet、舊 comment、聊天摘要或其他 artifact 自行拼湊 authority。
+
+---
+
+## 2. Stage 2 — Focused Correction Profile
+
+只有 Reviewer 發現 blocker，或 Reviewer PASS 後 manual acceptance 出現真正 blocker 時使用。
+
+Stage 2 instruction 只需要：
+
+- original batch／Issue；
+- current base／current HEAD；
+- blocker；
+- allowed files／forbidden collateral；
+- focused acceptance／fresh verification；
+- Git permission；
 - Report／Stop。
 
-### Stage 3 — closeout profile
+Agent：
 
-只需：
+- 只修 blocker；
+- 不夾帶 Non-blocking Observation、重構或下一批內容；
+- 使用 normal new correction commit，不 amend／rebase／reset 已審 history；
+- tracked correction 使舊 exact-HEAD evidence 失效；
+- 重跑受影響 fresh verification；
+- push 同一 feature branch；
+- 回報新 exact HEAD 後 STOP。
 
-- approved HEAD 與 base。
-- expected mechanical evidence 來源：從 approved review evidence inheritance 取得，不人工另抄。
-- merge method。
-- required CI 與其他 mutable pre-merge gate。
-- Git permission。
-- Report／Stop。
+Stage 2 不重貼完整 packet／Owner prose／歷史調查；stable safety 直接引用 core references。
 
-### 兩種 profile 共同禁止
+---
 
-不得重貼完整翻譯 packet、Owner prose、歷史調查、stable Git 禁止事項或整套 Stage workflow。stable safety 與 evidence 語意以 pointer 表示：`GIT-SAFETY.md`、`RISK-AND-VERIFICATION.md`、`PROJECT-REVIEW-SKILL.md`、本 Contract。只有本批特有的 gate、SHA、scope boundary、merge method 或禁止事項才須明列；delta-only 不降低任何既有 safety authority 的效力。
+## 3. No Agent Stage 3
 
-## Tooling / Skill
+Agent **不得執行 Stage 3 Git／PR closeout**。
+
+正常流程中 Agent 不可：
+
+- 建立 PR；
+- merge；
+- 修改 `develop`／`main`；
+- 等待 CI 後自行決定 merge；
+- 執行 integration cleanup；
+- 因 Reviewer PASS 自行開始下一批。
+
+Reviewer PASS 後，由 Reviewer 依 `PROJECT-REVIEW-SKILL.md`、`GIT-SAFETY.md`、`ONLINE-HANDOFF.md` 直接完成 Stage 3。
+
+除非 Owner 日後有新的明確 workflow decision，本 Contract 不提供 Agent Stage 3 profile 或 permission。
+
+---
+
+## 4. Tooling / Package Manager
 
 若任務需要額外 Agent skill／tooling：
 
-- 預設安裝在 user-level／global，不安裝進 repository。
-- 安裝後確認 repository `git status` 仍乾淨。
-- 不 commit skill、lockfile、symlink、Agent metadata 或 installer 產物。
-- 若 installer 在 repository 產生未知檔案，停止並回報；不要用 `git clean`、reset 或修改 `.gitignore` 掩蓋。
-- execution skill 只輔助實作／驗證，不得覆蓋 Batch Contract、Owner decision 或 repository authority。
+- 預設 user-level／global，不安裝進 repository；
+- 安裝後確認 `git status` 仍乾淨；
+- 不 commit skill、lockfile、symlink、Agent metadata 或 installer 產物；
+- 若 installer 產生未知 repo files，STOP；不要用 `git clean`、reset 或改 `.gitignore` 掩蓋。
 
-執行 package-manager-dependent command、dependency install 或 recovery 前，先讀 repository 的 `package.json` scripts／`packageManager`（若有）、lockfile 與 `.npmrc`／相關 config，並依這些 repository evidence 選擇 npm、pnpm 或 yarn。global 可用的 package manager 不構成自行換工具的理由；例如有 `package-lock.json` 且 scripts／config 指向 npm 時，不得改用 pnpm。只有 evidence 真正衝突且會影響安全執行時才 STOP。
+執行 package-manager-dependent command、dependency install 或 recovery 前，先讀：
 
-## Translation Boundary
+- `package.json` scripts／`packageManager`（若有）；
+- lockfile；
+- `.npmrc`／相關 config。
 
-Agent 不得自行建立新的中文遊戲術語或改變已核准語意。
+依 repository evidence 選 npm／pnpm／yarn；global availability 不構成自行換 manager 的理由。只有 evidence 真正衝突且影響安全執行時才 STOP。
 
-但當核心譯文已由 Owner 核准後，以下不改變語意的機械變體可依 Contract／Reviewer 指示直接處理，不需逐項要求新的 Owner approval：
+---
 
-- singular／plural。
-- `a/an`。
-- 大小寫。
-- 不改變語意的標點。
-- 英文 plural `s`。
-- dynamic placeholder 周圍的純文法調整。
+## 5. Translation Boundary
 
-若出現新的詞義、術語或真正翻譯取捨，停止並回報 Reviewer。
+Agent 不得自行建立新的中文遊戲術語、正式譯名或改變 Owner-approved semantics。
 
-### Calculated Authored Content Presentation
+核心譯文已核准後，下列不改變語意的 mechanical variants 可依 Contract／Reviewer instruction 處理：
 
-calculated authored-content task 必須依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Calculated Authored Content Presentation` 規格。
+- singular／plural；
+- `a/an`；
+- 大小寫；
+- 不改變語意的標點；
+- 英文 plural `s`；
+- dynamic placeholder 周圍純文法調整。
 
-適用範圍是**任何實際會通過 canonical calculator 的 in-scope player-facing authored field**，不以 Ability 為型別邊界，至少包含：
+若出現新詞義、新術語或真正翻譯取捨，STOP 並回報 Reviewer。
 
-- Ability authored fields；
-- Power Roll tier text；
-- non-Ability Feature 的 description／prose，當 production rendering 實際把它送進 calculator 時。
+### Approval scope
 
-Agent 依該 Workflow 的 **Calculated Path Discovery Gate**、Hero／no-Hero path 規則與 fallback policy 判定，不得只依 `FeatureType.Ability` 決定哪些欄位屬於 calculated presentation；也不得反過來因為某欄位不是 Ability，就假設它不會被 calculator 轉換。
+translation approval 依 surface、localization identity 與 semantic context 生效，不依 canonical English 字面生效。
 
-若同一內容同時出現在 Hero 與 no-Hero surface，Batch Contract 必須分別列出兩條 presentation path 的 Acceptance，不得以其中一條 PASS 推定另一條 PASS。新 calculated grammar 若沒有現行 authority 或安全 projection，不得自行建立中文 parser／calculator 或新翻譯；依 Workflow fallback 或 STOP。
-
-calculated path discovery 只決定「哪些已在 scope 內的 identity 需要 calculated presentation 處理」，不擴張 translation denominator，也不授權額外 traversal。
-
-### Class／Subclass Level 1 Non-Ability Required Identity
-
-task 若涉及 Class／Subclass Level 1 non-Ability denominator 或 required identities，先讀 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Class／Subclass Level 1 Non-Ability Required Identity`。該節已是這個 scope 的 workflow authority，依它與 current live code 執行即可，不必重新推導哪些 identity 算 required。
-
-Agent 不得自行建立 class-specific exclusion、平行 inventory，或擴張 shared traversal。若 task 確實需要改 shared traversal contract，只有 Batch Contract 明確授權該 shared-architecture change 時才可進行；否則 STOP 並回報 Reviewer。
-
-### Approval 的作用範圍
-
-translation approval 依 surface、localization identity 與 semantic context 生效，不是依 canonical English 字面生效。
-
-- 相同 canonical English 可以在不同 context 擁有不同的 approved zh-TW。
-- Agent 不得因為字面相同就自行 deduplicate、unify、overwrite 或改寫其他 surface 的已核准譯文。
+- 相同 canonical English 可在不同 context 有不同 approved zh-TW；
+- 不得自行 deduplicate／unify／overwrite；
 - 只有 Owner 明確要求全域統一時才合併。
-- 發現疑似不一致時列為回報事項，不自行處理。
 
-### Worksheet Identity and Owner Override
+### Owner override
 
-相同 `canonicalEnglish` 不自動構成可機械重用的關係。只有 rows 的相關 semantic／presentation context 相同，且既有 authority 支持時才可重用；同一 canonical label 可因不同 Feature identity 或 presentation role 而有不同 Owner-approved reading。
+`Reviewer-derived／mechanical` classification 只表示不需要 Owner action，不限制 Owner 改 Final zh-TW。Owner 明確修改 Final value 時，最新 Owner value 即為 authority；packet generation 不得靜默還原舊 suggestion。
 
-`Reviewer-derived／mechanical` classification 表示該 row 不需要 Owner action，不限制 Owner 編輯 `Final zh-TW`。Owner 明確改動 Final value 時，最新 Owner value 即為 authority；後續 worksheet normalization／packet generation 必須依 identity 記錄該 override，不得靜默還原先前 mechanical suggestion。
+---
 
-### Repository-native Localization Verification Primitives
+## 6. Translation Packet Preflight
 
-若 Batch Contract 涉及相應 requirement，Agent 先檢查並沿用目前 repository 的 reusable helper，不自行建立新的 generic localization framework。`src/localization/test-support/localization-differential-invariants.ts` 提供 locale round-trip differential assertion、protected canonical state，以及 canonical-English calculation boundary 的 primitives；`src/localization/test-support/packet-canonical-alignment.ts` 提供 approved packet 與 live canonical 的 machine alignment、exact identity／snapshot／hash evidence。
+translation task 從 approved packet 實作前，必須先驗證：
 
-這些 helper 只在 Contract 的實際 risk 適用時使用，不取代 Contract-specific public-behavior tests，也不因存在就自行增加 batch scope。Agent 不得自行新增 npm command、變更 manifest denominator，或以文件中可能過期的 command assumption 覆蓋 current package scripts／current repository code。
+- Batch Issue／packet revision identity；
+- payload SHA-256（若 Contract 提供）；
+- expected base／source authority；
+- exact packet identity set；
+- exact canonical snapshots；
+- per-record `canonicalSha256`；
+- live canonical alignment。
 
-Class localization presentation test 需要 provider／toggle wrapper、panel render、locale switch 或共通 field-reading scaffolding 時，先檢查並重用 `src/localization/test-support/localization-presentation-test-harness.tsx`，不重建等價的 batch-local generic harness。它只是 shared scaffolding：不定義 denominator 或 translation scope，也不取代 class-specific public-behavior assertions。class-specific `vi.mock`、resource／grammar／interaction assertions 與 class-specific flow 仍依實際 test risk 留在各 class test，不得為了共用而強迫移入。
+適用時優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 current repository primitive。
 
-## Reviewer Patch Handoff
+任何下列問題都在 implementation 前 STOP：
 
-當 Reviewer 無法直接存取 Agent local workspace，且 Contract 不允許 push／PR 時，Stage 1／Stage 2 收尾必須附上可審查的 patch evidence：
+- duplicate／missing／unexpected identity；
+- identity／path mismatch；
+- canonical newline／whitespace／Markdown／structured text drift；
+- canonical hash drift；
+- authorized Issue packet revision／payload identity 不符。
 
-- 在 final local commit 且 working tree clean 後，輸出**完整 `Base..HEAD` patch**，不是逐 commit 或部分 diff。
-- patch 寫在 repository 之外。
-- 對 patch 做 reverse-apply check。
-- 記錄 patch byte size 與 SHA-256。
-- patch 產生後再次確認 working tree clean。
-- Stage 2 correction 後重新輸出完整 `Base..HEAD` patch，不只輸出 correction diff。
-- 當該 final HEAD 將成為 Reviewer approval 或 Stage 3 input 時，final report 必須提供 `git rev-parse HEAD` 的完整 40-character commit SHA；abbreviated SHA、UI hyperlink label 或 `abcd1234...` 不足以固定 approved HEAD。
+Agent 不得自行重建、normalize、修補或映射 Reviewer packet authority。
 
-建議 patch 使用可決定性檔名 `<Batch>_<Stage>_<HEAD-short>_Cumulative.patch`。final report 必須將確切 path／filename、完整 HEAD、byte size、SHA-256、`Base..HEAD` range 與 reverse-apply 結果配對回報，避免交接到錯誤 patch。
+### Online packet payload SHA
 
-本節只定義 handoff workflow，不擴張 Git permission。
+若 Issue task 提供 online packet payload SHA-256，recipe 依 `ONLINE-HANDOFF.md`：只 hash frozen packet comment JSON code block 內的 exact UTF-8 bytes，不包含 Markdown fence／標題。
 
-## Stage 1 — Local Implementation
+這是 transport／freeze identity，不取代 per-record canonical alignment，也不是 aggregate canonical-slice hash。
 
-Agent：
+### Packet hash semantics
 
-- 從核准的 `develop`／base 建立 feature branch。
-- 只修改 Batch Contract In Scope。
-- 依 Risk Level 執行最低足夠驗證；預設不跑完整 local `verify:ci` 或 build，範圍依 `RISK-AND-VERIFICATION.md` 的 **Stage 1 預設驗證範圍**。
-- 使用 public-behavior tests 保護本批 requirement；不要為 coverage 擴張成不必要的 E2E／Level C。
-- 最後一次 code change 後取得 fresh verification。
-- 依 Git permission 建立 local commit；未明確授權時，不 push、不建 PR、不 merge。
-- 完成後停止並回報。
+`docs/translation/TRANSLATION-WORKFLOW.md` 的既有三種 hash 語意仍適用：
 
-preflight 成功後，Agent 連續完成已授權的 implementation、verification、local commit、patch handoff 與 final report；正常中間進度不是 STOP 條件。只有 Contract blocker、authority mismatch、unexpected scope issue、真正需要 Owner decision，或 Contract 定義的 verification／repository anomaly 才停止。
+1. packet artifact SHA（若 offline serialized artifact 有提供）只證明 artifact transfer identity；
+2. per-record `canonicalSha256` 是 canonical value alignment 的主要 record-level evidence；
+3. aggregate canonical-slice hash 預設不是 gate，除非 Contract 同時定義 deterministic recipe。
 
-### Exact-HEAD CI Mirror Evidence
+不得自行發明 aggregate recipe。
 
-當 Contract 要求 CI-equivalent local evidence，順序固定為：
+---
 
-1. 完成授權 edits 並建立 final local commit。
-2. 記錄完整 40-character HEAD 並確認 working tree clean。
-3. 讀取**目前** repository CI workflow／與本批相關的 commands。
-4. 執行 Contract 指定且可在 local 重現的 required gates。
-5. 保存真實 exit code、failure／warning 與 summary evidence。
+## 7. Calculated Authored Content Presentation
 
-不得把 `lint`／`tsc`／`vitest`／`build` 永久硬編為通用 CI 定義；目前 CI workflow 與本批 Risk Contract 優先。任何 tracked-file change 發生在 exact-HEAD verification 後，都使該 evidence 對 final HEAD 失效；先完成新的 authorized commit、重新確認 clean tree，再重跑 required verification。
+calculated authored-content task 必須依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 `Calculated Authored Content Presentation`。
 
-### Translation Packet Preflight
+判準是**實際 production render／call path 是否把 in-scope player-facing canonical authored field 送進 canonical calculator**，不是 Ability／non-Ability 型別。
 
-從 approved packet 實作前，驗證 Contract 提供的 packet identity／revision／SHA（若有）、預期 source／base authority，以及 live canonical alignment。適用時優先使用 `src/localization/test-support/packet-canonical-alignment.ts` 的 current repository primitive，取得 machine-verifiable exact identity／snapshot／hash evidence。任何 canonical snapshot 差異（包括 newline、whitespace、Markdown 或 structured-text identity）或 alignment issue 都必須在 implementation 前 STOP；不得自行重建、修補或 normalize Reviewer packet authority。identity／path mismatch 本身就是 packet alignment issue，**即使該筆 `canonicalEnglish` 與 `canonicalSha256` 完全相符**：record-level hash 驗證的是 canonical value bytes，不是 localization identity。此時同樣 STOP 並交回 Reviewer 依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 **Packet Revision Rule** 處理，不得自行把 packet identity 映射到 repository identity。最新 authorized packet revision 取代較舊 revision。
+Agent 必須：
 
-#### Packet SHA 語意（三種，不可混用）
+- 依 Calculated Path Discovery Gate 分類；
+- Hero／no-Hero surface 若都存在，分別驗證；
+- 只使用 Contract 授權的 bounded projection／shared presenter extension；
+- 不建立中文 parser／calculator；
+- unsupported structural rewrite 依既有 fallback policy fail-close；
+- discovery 不得擴張 translation denominator。
 
-依 `docs/translation/TRANSLATION-WORKFLOW.md` 的 **Packet Hash Semantics**：
+### Shared primitives
 
-1. **packet artifact SHA-256**：Contract／sidecar 提供時，驗證的是「交給 Agent 的那個 serialized packet 檔案」本身，屬 transfer-integrity evidence。
-2. **per-record `canonicalSha256`**：驗證每一筆 exact UTF-8 canonical value，與現行 `src/localization/test-support/packet-canonical-alignment.ts` 的 packet-alignment primitive 相容，是 record-level alignment 的主要 machine evidence。
-3. **aggregate canonical-slice hash**：**不是預設 gate。**
+適用時先檢查並重用：
 
-只有當 Contract 同時宣告該 aggregate hash **並定義可重現的 deterministic recipe**（至少 ordering 與 serialization／separators／encoding，足以重算出同一個值）時，它才是 blocking gate。Contract 只給一個 aggregate 數值而沒有 recipe 時，Agent **不得自行發明 recipe**、不得反推、也不得因為算不出相同值就宣稱 alignment 失敗；改以 packet-file SHA（若有）加上 exact record-level alignment 完成 preflight，並把缺少 recipe 這件事列入回報。
+- `localization-differential-invariants.ts`；
+- `packet-canonical-alignment.ts`；
+- `localization-presentation-test-harness.tsx`。
 
-### Stage 1 Remote Reviewer Branch（需 Contract 明確授權）
+helper 只依實際 risk 使用，不取代 scenario-specific public-behavior assertions，也不授權新增 denominator／architecture。
 
-Reviewer 無法直接存取 Agent workspace 時，預設的 local cumulative patch 可用但昂貴。Batch Contract 可改為明確授權 **Stage 1 remote reviewer branch**，讓 Reviewer 直接 review exact remote HEAD。
+### Class／Subclass Level 1 Non-Ability identity
 
-取得該授權後，Agent 在 implementation、targeted verification、final local commit 與 clean tree 都完成之後：
+若 task 涉及該 denominator／required identities，直接讀 `TRANSLATION-WORKFLOW.md` 同名規則與 current live code；不得自行建立 class-specific exclusion／平行 inventory／shared traversal expansion。
 
-- 只可 push 該 feature branch。
-- 仍不可建立 PR、merge、rebase、reset、amend、force push 或任何 history rewrite。
-- push 後必須確認 remote feature HEAD 等於 local final HEAD，且沒有額外 commit。
-- final report 回報 remote branch 名稱與完整 40-character HEAD。
+---
 
-Reviewer 直接 review 該 exact remote HEAD／diff。Reviewer 能可靠存取 exact remote HEAD 時，不另外要求 cumulative patch。
-
-下列任一情況回到 local-only cumulative patch fallback：
-
-- Contract 未授權 push；
-- remote 不可用，或 push 無法完成；
-- Reviewer 無法可靠存取該 remote HEAD。
-
-本 mode 不是所有 batch 的預設，也不預先授權 Stage 3：Stage 3 仍需獨立 Contract。Git target、frozen `main`、upstream 禁止 write 與 Stage 3 對這個 branch 的 reconciliation 處理，依 `GIT-SAFETY.md`。
-
-Reviewer：
-
-- 審查實際 code／diff／tests，不只依賴 Agent 自述。
-- 依 `docs/REVIEWER-PRINCIPLES.md` 判定 PASS、CHANGES REQUESTED 或 USER DECISION REQUIRED。
-
-## Stage 2 — Focused Correction
-
-第一輪 Review 有 blocker 時使用；Reviewer PASS 後、Stage 3 前的 Owner manual acceptance 若發現真正 blocker，也使用同樣的 focused correction，不重開 full Review。
+## 8. Stage 1 Execution
 
 Agent：
 
-- 只修 blocker。
-- 不夾帶 Non-blocking Observation、重構或下一批內容。
-- 重新執行受影響範圍與必要 regression 的 fresh verification。
-- correction commit／history 依 Contract 執行，不自行 amend／rebase 已核准 commit。
-- tracked correction 使舊 exact-HEAD evidence 失效；以正常新 commit 固定新 HEAD 後，重跑受影響 fresh verification。
-- 回報後停止。
+1. reconcile repository／base／branch preflight；
+2. 從核准 base 建 feature branch；
+3. 只修改 In Scope；
+4. 執行 risk-matched minimum sufficient evidence；
+5. 最後 tracked change 後建立 normal final commit；
+6. 記錄完整 40-character HEAD，確認 clean tree；
+7. push feature branch；
+8. 確認 remote HEAD = local HEAD，沒有額外 commit；
+9. 在 Batch Issue 回報 evidence；
+10. STOP。
 
-Reviewer：
+正常中間進度不是 STOP 點。只有 Contract blocker、authority mismatch、unexpected scope issue、真正需要 Owner decision、verification failure 或 repository anomaly 才停止。
 
-- 第二輪只檢查 correction 與是否產生新的重大問題。
-- 第二輪仍有結構性 blocker 時停止 patch loop，重新評估方案／scope。
-- 不因非阻擋觀察要求第三輪。
-- post-PASS correction 只 focused verify acceptance finding 與新重大問題，固定新 approved HEAD 後回到 Stage 3。
+### Stage 1 remote reviewer branch — default
 
-## Manual Acceptance
+online-first 專案預設授權 Agent 在 final commit／clean tree 後 push 該 batch feature branch，讓 Reviewer review exact remote HEAD。
 
-Reviewer PASS 後，只有自動測試難以證明的 UI／responsive／真實 interaction risk 才要求 manual smoke。
+Agent 仍不得：
 
-Manual smoke 應使用少量代表性 flow，不把每一批都升級成全站人工驗收。
+- PR；
+- merge；
+- rebase；
+- reset；
+- amend；
+- force push；
+- history rewrite；
+- 寫 `main`／upstream。
 
-若 Contract 指定 Owner manual acceptance gate，Agent 不得自行把 smoke 結果視為 Owner approval。
+final report 必須包含 remote branch 與完整 HEAD。
 
-## Stage 3 — Git／PR Closeout
+### Local-only cumulative patch — fallback
 
-### 接手或中斷後的第一步
+只有下列情況使用：
 
-接手既有 Stage 3，或前一位 Agent 可能已做 GitHub write 時，第一步一律是 read-only reconciliation，而不是照舊 handoff 直接續跑。先查 remote branch 與 HEAD、PR 是否存在及其 state／base／head、CI、`origin/develop`，並在需要時確認 ancestry 與 tree equivalence。
+- Contract 明確 local-only；
+- remote 不可用／push 失敗；
+- Reviewer 無法可靠存取 remote HEAD。
 
-未確認 actual remote state 前，不得 push、force push、rebase、reset、amend、重建 branch、建立第二個 PR 或重複 merge。reconciliation 後再由 evidence 決定正常 Stage 3 或 recovery closeout。
+此時 final commit／clean tree 後輸出完整 `Base..HEAD` patch 到 repository 外，並附：
 
-只有下列條件成立時執行：
+- reverse-apply check；
+- byte size；
+- SHA-256；
+- full HEAD；
+- Base..HEAD range；
+- patch 後 clean tree。
 
-- Reviewer PASS。
-- 必要人工驗收 PASS。
-- approved HEAD 固定。
-- working tree clean。
-- merge method 已由 Stage 3 Contract 明確固定。
+Stage 2 後重新輸出完整 cumulative patch，不只 correction diff。
 
-### 預設可一次完成
+---
 
-若 Reviewer 已明確授權完整 Stage 3，Agent 可在同一任務中依序完成：
+## 9. Exact-HEAD Verification
 
-**push → PR → verify diff／commits → CI → pre-merge gate → merge → sync `develop` → cleanup**
+若 Contract 要求 CI-equivalent local evidence：
 
-不需要在每個正常 gate 後停下等一次新的授權。
+1. 完成 edits 與 final commit；
+2. 記錄 full HEAD，確認 clean tree；
+3. 讀**目前** repository CI workflow／相關 commands；
+4. 執行 Contract 指定且可 local 重現的 gates；
+5. 保存真實 exit code／failure／warning／summary。
 
-### 只有異常才停止
+不得把 lint／tsc／vitest／build 永久硬編成通用 CI 定義；current CI 與 Risk Contract 優先。
 
-以下任一情況出現時立即停止並回報：
+任何 tracked-file change 發生在 verification 後，都使該 evidence 對 final HEAD 失效。
 
-- repository／owner 不符。
-- base／head／approved SHA 不符。
-- commit count／changed files 超出 Contract。
-- `develop` 在等待 CI 期間移動。
-- required CI failure。
-- unexpected conflict／mergeability 問題。
-- merge result／ancestry 不符。
-- branch cleanup 出現不符合預期的安全警訊。
+---
 
-不得為了繼續流程自行 rebase、reset、amend、force push 或改 code。
-
-### Approved Evidence Inheritance
-
-Reviewer PASS 且已取得 exact approved HEAD 或完整 reviewed patch 時，Stage 3 Contract 的 expected changed-files、commit count 等機械欄位直接從該已審 evidence 與 actual Git state 取得，不人工另抄一套。詳細異常判定與 clerical mismatch 處理以 `GIT-SAFETY.md` 的 **Approved Evidence Inheritance** 為準。
-
-Stage 3 詳細 Git safety 依 `GIT-SAFETY.md`。
-
-### Required CI Recovery
-
-required CI failure 不授權自動修復。僅在 Reviewer 提供 bounded recovery contract 後，才可保留既有 branch／PR、加入一般 correction commit（不得 amend／rebase／reset／force push）、重跑 exact-HEAD local verification 並正常 push。新 CI green 後仍不得 merge，直到 Reviewer 驗證 correction 並重新固定 approved HEAD，除非 recovery Contract 已明確授權那個已驗證的 exact HEAD。
-
-所有 `gh` write command 必須明確使用：
-
-```bash
---repo boyiad2110/forgesteel-zh-tw
-```
-
-## Git Permission
+## 10. Git Permission
 
 Agent 只能執行 Contract 明確授權的 Git 動作。
 
-典型 Stage 1：
+online-first 典型 Stage 1／Stage 2：
 
-- 可建 feature branch。
-- 可 local edit／test。
-- 可依 Contract local commit。
-- 不可 push／PR／merge；只有 Contract 明確授權 Stage 1 remote reviewer branch 時可 push 該 feature branch，仍不可 PR／merge。
+- 可建 feature branch；
+- 可 edit／test；
+- 可 normal commit；
+- 可 push 該 feature branch；
+- 不可 PR／merge；
+- 不可改 `develop`／`main`；
+- 不可 history rewrite；
+- 不可 upstream write。
 
-典型完整 Stage 3：
+所有未授權 Git write 都禁止。
 
-- 可 push approved branch。
-- 可建 PR。
-- 可等待／驗證 CI。
-- 可依固定 merge method merge。
-- 可同步 `develop`。
-- 可依 Contract 清理 feature branch。
+---
 
-任何未授權 history rewrite 都禁止。
+## 11. Report Style
 
-## Report Style
+採差異式回報，只包含 Reviewer 決策所需證據：
 
-採差異式回報，只包含 Reviewer 決策需要的證據：
+- Batch Issue／packet revision（translation 適用）；
+- Branch／full 40-character HEAD；
+- remote HEAD reconciliation；
+- actual changed files；
+- 核心 implementation／correction approach；
+- tests／lint／typecheck／build 等 fresh verification；
+- canonical／data safety evidence（若相關）；
+- smoke（若要求）；
+- clean tree；
+- deviations／risks／真正需要 Reviewer／Owner決策事項。
 
-- Branch／HEAD（final HEAD 將作為 Reviewer approval 或 Stage 3 input 時，須為完整 40-character commit SHA）。
-- 實際 changed files。
-- 核心 implementation／correction 差異。
-- tests／lint／typecheck／build／CI 等 fresh verification。
-- canonical／data safety evidence（若相關）。
-- smoke／人工驗收（若要求）。
-- working tree／final branch state。
-- 偏差、風險、未預期狀況。
-- 真正需要 Reviewer／Owner 決策的事項。
+不要重複完整專案歷史、正常 command流水帳、同一 SHA 多次抄寫或長篇「未做什麼」。
 
-不要重複：
+---
 
-- 完整專案歷史。
-- 每條 command 的正常輸出。
-- 同一 SHA／status 多次抄寫。
-- 長篇「未做什麼」清單，除非是高風險禁止事項的必要證據。
-- Reviewer／Owner 已知道且未改變的背景。
+## 12. Stop
 
-## Stop
+- **Stage 1**：push feature branch、確認 remote exact HEAD、回報後 STOP。
+- **Stage 2**：完成 focused correction、push 新 exact HEAD、回報後 STOP。
 
-每個 Stage 完成本身授權的工作後停止。
-
-- Stage 1：停止在 local implementation／verification report；Contract 授權 remote reviewer branch 時，停止在 push 該 feature branch 並確認 remote HEAD 之後。
-- Stage 2：停止在 focused correction／verification report。
-- 完整 Stage 3：停止在 merge／sync／cleanup／final report。
-
-不要自動開始下一批；下一批需要新的 Batch Contract。
+Agent 不進 Stage 3，也不開始下一批。
