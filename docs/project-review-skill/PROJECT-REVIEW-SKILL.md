@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.6.1"
+  version: "0.6.2"
 ---
 
 # Forge Steel Reviewer
@@ -54,12 +54,13 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 Reviewer 直接執行的小型 Level A batch，若不涉及產品行為、state／data、canonical／schema、翻譯語意或其他需要隔離的風險，優先使用下列 fast path：
 
 - **第一次 write 前先完成 read-only review**：確認 authority、scope、必要 dependency 與預期 changed-file set；scope 尚未收斂時不要先寫、先開 PR 或先跑 CI。
-- **採 surgical edit**：一次完成 coherent 修改 → self-review → 固定 final HEAD → 一次 exact-HEAD CI → Reviewer Stage 3。預期仍會有 tracked edit 時，不先消耗 final CI。
+- **採 surgical edit**：一次完成 coherent 修改 → self-review → 固定 final HEAD → 依 repository policy 執行本批適用的 exact-HEAD CI → Reviewer Stage 3。預期仍會有 tracked edit 時，不先消耗 final CI。
+- **純 docs-only Level A 可免 application CI**：若 actual changed-file set 全部位於 `docs/**`，且 repository workflow 對該集合明確不觸發 application CI，Reviewer 將 application CI 記為 **not applicable**，不為形式補跑 Node／TypeScript／localization／test／build。只要出現任何非 `docs/**` tracked change，就回到一般 CI gate。
 - **任何追加工作都重新過成本 gate**：若不是本批 Acceptance 必要、不是 blocker，也沒有立即降低具體風險，就列為 Non-blocking Observation／deferred，不因「順手」併入本批。
 - **外部等待只是 gate，不是擴 scope 的空檔**：CI／remote wait 期間不另開無關調查；避免反覆輪詢沒有狀態變化的同一 evidence，只在必要 state transition 與 mutable pre-merge gate 重查。
 - **Acceptance 達成後立即收斂**：只有 blocker／repository anomaly 才重新打開工作；其餘直接 closeout、STOP。
 
-這個 fast path 不降低 Principles、required CI、Git safety 或 exact-HEAD evidence；它只要求用最低足夠步驟完成低風險小批次。
+這個 fast path 不降低 Principles、Git safety 或 exact-HEAD evidence；`required CI` 只指 repository policy 對本批實際適用的 CI gate。
 
 ## 3. Online-first Handoff
 
@@ -272,7 +273,7 @@ Reviewer PASS 後依 Risk 決定是否需要 Owner manual smoke。
 
 - feature branch 是否存在與 exact HEAD；
 - 是否已有 PR，以及 state／base／head／head SHA；
-- required CI state；
+- applicable required CI state；
 - current `develop`；
 - frozen `main`；
 - approved HEAD 的 actual commits／changed files／tree evidence。
@@ -283,7 +284,9 @@ Reviewer PASS 後依 Risk 決定是否需要 Owner manual smoke。
 
 正常可連續完成：
 
-**reconcile → PR → verify diff／commits → exact-HEAD CI → mutable pre-merge gate → merge → merge-result reconciliation → post-merge CI → available remote cleanup → close Batch Issue（若本批使用 Issue）**
+**reconcile → PR → verify diff／commits → applicable exact-HEAD CI → mutable pre-merge gate → merge → merge-result reconciliation → applicable post-merge CI → available remote cleanup → close Batch Issue（若本批使用 Issue）**
+
+純 `docs/**` Level A 若依 repository workflow 不會觸發 application CI，則兩個 CI 節點均記為 not applicable；其餘 batch 維持一般 CI gate。
 
 只有 repository／base／head／SHA、changed files、commit count、CI、mergeability、ancestry／tree、canonical safety 或其他實質 anomaly 才停止。
 
@@ -301,9 +304,9 @@ Batch Closed 前至少獨立確認：
 
 - PR 確實 merged；
 - merge result SHA／topology／method 正確；
-- required CI 在 approved PR HEAD 成功；
+- required CI 在 approved PR HEAD 成功（若本批適用）；
 - `develop` 指向預期 merge result；
-- post-merge CI（若有）在 exact merge result 成功；
+- post-merge CI 在 exact merge result 成功（若 repository workflow 對該 merge result 啟動）；
 - `main` 未改；
 - canonical／data safety evidence（若本批相關）；
 - feature branch cleanup 已完成，或唯一剩餘事項符合 `ONLINE-HANDOFF.md` 明確允許的 tooling-limited non-blocking housekeeping。
@@ -347,6 +350,7 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、完成摘要�
 - [ ] 已讀最新 Owner decision 與 `docs/REVIEWER-PRINCIPLES.md`。
 - [ ] 已固定 coherent Batch、scope、Acceptance、Risk、Stop。
 - [ ] 小型 Level A Reviewer-direct batch 已在第一次 write 前完成 read-only review，且未因等待或順手 cleanup 擴張 scope。
+- [ ] 若本批是純 `docs/**` Level A，已從 actual changed-file set 確認 application CI 是否依 repository workflow 為 not applicable；只要有任何非 docs tracked change 就沒有套用豁免。
 - [ ] 已依 `ONLINE-HANDOFF.md` 選擇最小安全 transport。
 - [ ] 若 translation worksheet 需要 Owner，已先處理 mechanical rows，並從 live exact cells 取得 final authority。
 - [ ] 若使用 packet，已完成 required canonical alignment 並 freeze 明確 revision。
