@@ -2,11 +2,15 @@
 
 ## 文件角色
 
-本文件定義 Forge Steel 繁中專案的 Git／GitHub write、PR、merge 與 cleanup safety。
+本文件定義 Forge Steel 繁中專案的 Git／GitHub write、remote review branch、PR、merge、recovery 與 cleanup safety。
 
-Reviewer 的權限與決策邊界以 `docs/REVIEWER-PRINCIPLES.md` 為準；實際 Stage 3 workflow 由 `PROJECT-REVIEW-SKILL.md` 使用本文件執行。
+Reviewer 的權限與決策邊界以 `docs/REVIEWER-PRINCIPLES.md` 為準；Stage workflow 由 `PROJECT-REVIEW-SKILL.md` 定義；online transport／actor boundary 由 `ONLINE-HANDOFF.md` 定義。
 
-## 固定目標
+**正常流程中 Agent 只執行 Stage 1／Stage 2 feature-branch work；Stage 3 由 Reviewer 執行。**
+
+---
+
+## 1. Fixed Repository Targets
 
 GitHub write target：
 
@@ -18,220 +22,285 @@ GitHub write target：
 --repo boyiad2110/forgesteel-zh-tw
 ```
 
-不得依賴 `gh` 自動從 origin／upstream 猜測 repository。
+不得依賴 `gh` 自動從 origin／upstream 猜 repository。
 
-`develop` 是 integration branch；`main` frozen，除非有新的明確授權。
+- `develop` 是 integration branch。
+- `main` frozen，除非有新的明確 Owner authority。
+- 不得對 upstream write。
 
-不得對 upstream write。
+---
 
-## Stage 3 前置條件
+## 2. Stage 1 / Stage 2 Remote Reviewer Branch
 
-只有下列條件成立時才進入 Git／PR closeout：
+online-first 預設 Agent 在 final normal commit、fresh verification、clean tree 後 push feature branch，讓 Reviewer review exact remote HEAD。
 
-- Reviewer PASS。
-- 必要人工驗收 PASS。
-- approved feature HEAD 已固定。
-- working tree clean。
-- 本批 merge method 已在 Stage 3 Contract 中明確固定。
+Agent push 前至少確認：
 
-Merge method 屬一般 Git 技術決策時，可由 Reviewer 依 `docs/REVIEWER-PRINCIPLES.md` 決定；除非 Owner 或 repository policy 已指定，不需要每批再請 Owner 三選一。
+- repository／origin 是繁中 fork；
+- branch 是 Contract 指定 feature branch；
+- base 是核准 `develop` SHA；
+- HEAD 是 final normal commit；
+- working tree clean；
+- `main` 未修改；
+- 沒有未授權 history rewrite。
 
-## Takeover / Interrupted Stage 3 Recovery
+Agent 只可正常 push feature branch；不得 PR／merge／改 `develop`／改 `main`／force push／rebase／reset／amend。
 
-若 Stage 3 換手、中斷，或前一位執行者可能已做 GitHub write，任何 GitHub write 前必須先 read-only reconcile actual remote state。不得以 handoff 文字取代 repository／GitHub evidence。
+push 後確認 remote feature HEAD = local HEAD，且沒有額外 commit。Reviewer 可直接 review該 exact remote state，不另外要求 cumulative patch。
 
-至少確認：
+local-only cumulative patch 只在 `ONLINE-HANDOFF.md`／`AGENT-TASK-CONTRACT.md` 定義的 fallback 情況使用。
 
-- remote feature branch 是否存在與其 HEAD；
-- 是否已有 PR，以及 PR state、base、head 與 head SHA；
+---
+
+## 3. Reviewer Stage 3 Preconditions
+
+只有下列條件成立才進入 PR closeout：
+
+- Reviewer PASS；
+- 必要 manual acceptance PASS；
+- approved feature HEAD 已固定；
+- approved base 已固定；
+- merge method 已由 Reviewer固定；
+- expected changed-files／commit evidence 已從 actual reviewed HEAD繼承。
+
+Reviewer remote-first Stage 3 不要求先取得 Agent local workspace；local clone state 只有在 Reviewer實際使用該 clone 執行 Git 時才成為 execution gate。
+
+---
+
+## 4. Read-only Reconciliation Before Any Stage 3 Write
+
+任何 Stage 3 GitHub write 前先查 actual remote state：
+
+- remote feature branch 是否存在與 exact HEAD；
+- 是否已有 PR，以及 PR state／base／head／head SHA；
 - required CI state；
 - current `origin/develop`；
-- remote feature commit 與 `develop` 的 ancestry；以及 local 與 remote history 不同時的 tree equivalence。
+- frozen `origin/main`；
+- approved feature commit與 `develop` ancestry；
+- reviewed changed files／commit count／tree evidence。
 
-remote branch 已存在、PR 已建立或已 merge、或 local history 與 remote history 不同時，停止正常 Stage 3 假設並先選擇 recovery path。此時不得直接 push、force push、rebase、reset、amend、重建 branch、建立第二個 PR 或重複 merge。
+不得以 handoff 文字取代 actual GitHub evidence。
 
-### 合法的 Stage 1 Remote Review Branch
+### 正常 online-first起點
 
-若 Batch Contract 已明確授權 Stage 1 remote reviewer branch，remote feature branch 在 Stage 3 開始前**本來就會存在**，這不是 takeover anomaly。
+Stage 1 remote reviewer branch 在 Stage 3 前本來就存在，不是 anomaly。
 
-reconciliation 後同時滿足下列條件時，視為正常 Stage 3 起點，可繼續 Pre-write Gate：
+若同時滿足：
 
-- remote feature branch HEAD 等於 approved HEAD；
-- 該 branch 尚未有 PR；
-- remote 沒有 approved HEAD 以外的額外 commit；
-- `origin/develop` 仍等於核准 base；
-- `main` 未改。
+- remote feature HEAD = approved HEAD；
+- 尚未有 PR；
+- 沒有 approved HEAD 以外的額外 commit；
+- `develop` = approved base；
+- `main` 未改；
 
-任一項不符——HEAD 不等於 approved HEAD、PR 已存在、出現非預期 commit，或 local 與 remote history 不一致——仍依上一段走 recovery path。
+可直接進 Pre-write Gate。
 
-本節不取消 read-only reconciliation：即使 Contract 曾授權 Stage 1 push，仍必須先實際查 remote branch HEAD、PR 是否存在、required CI 與 `origin/develop`，再決定 path。本節也不放寬任何既有 Pre-write、Push／PR、CI 或 merge gate。
+若 PR 已存在／已 merge，或 remote state與 reviewed evidence不同，先走 recovery reconciliation，不建立第二個 PR、不重複 merge、不改寫 history。
 
-只有 reconciliation 證明尚未開始 closeout，才可繼續下列 Pre-write Gate。若 PR 已 merge，先驗證 `develop`、CI、merge result 與 ancestry；local 與 merged commit SHA 不同時，以零 diff 的 tree equivalence 作為 cleanup 前的必要證據。
+---
 
-## Pre-write Gate
+## 5. Remote Pre-write Gate
 
-在第一次 GitHub write 前確認：
+Reviewer第一次 GitHub write 前確認：
 
-- current branch 是預期 feature branch。
-- HEAD 是 Reviewer 核准 SHA。
-- working tree clean。
-- local／origin `develop` 符合核准 base。
-- local／origin `main` 未修改。
-- origin 指向繁中 fork。
-- upstream 沒有 write action。
+- repository owner／name 正確；
+- feature branch／approved HEAD 正確；
+- `develop` 仍是 approved base；
+- `main` frozen；
+- actual commits／changed files符合 approved review evidence；
+- 沒有未授權檔案或 commit；
+- merge method已固定。
 
-任何一項不符：停止並回報。不要先修歷史。
+任何 substantive mismatch：STOP。不要先 rebase、reset、amend、force push、重建 branch 或改 code。
 
-## Approved Evidence Inheritance
+如果只有 Reviewer handoff文字的檔名／count誤抄，但 actual remote HEAD與已審 evidence完全一致，屬 clerical mismatch：修正 gate認知後繼續，不改 code／history。
 
-Reviewer PASS 且已取得 exact approved HEAD 或完整 reviewed patch 時，Stage 3 Contract 的 expected changed-files、commit count 與其他機械 evidence，直接從已審 evidence 與 actual Git state 取得；不要人工重新抄寫另一套預期值。
+---
 
-PR actual state 與 approved HEAD／reviewed patch 不符，才是異常，仍依既有 Pre-write、Push／PR 與 CI gate STOP。若只有 Stage 3 Contract 的人工文字寫錯檔名，但 PR HEAD 未變且 actual files 與已審 patch 一致，這是 clerical mismatch：修正 Contract／gate 後繼續，不得要求改 code、amend、重建 PR 或停止整個成果。
+## 6. PR Gate
 
-本節不放寬 repository、base、head、SHA、diff、commit count、CI、mergeability 或 ancestry 的既有 safety checks；這些 actual-state checks 仍以本文件各 gate 為準。
+建立或 reconcile唯一 PR後，從 GitHub actual state確認：
 
-## Push / PR Gate
+- repository = `boyiad2110/forgesteel-zh-tw`；
+- base = `develop`；
+- head = approved feature branch；
+- PR head SHA = approved HEAD；
+- PR base SHA = approved base；
+- commit count／changed files = approved review evidence；
+- 沒有未授權檔案／commit。
 
-Push feature branch 後確認 remote branch HEAD 仍等於 approved HEAD，沒有額外 commit。
+若不符：STOP，不自動修 history。
 
-建立 PR 後從 GitHub 實際核對：
+---
 
-- repository owner 正確。
-- base = `develop`。
-- head = 核准 feature branch。
-- PR head SHA = approved HEAD。
-- commit 數符合 Batch Contract。
-- changed files 符合 Batch Contract。
-- 沒有未授權檔案。
+## 7. Required CI / Mutable Pre-merge Gate
 
-若 repository／base／head／SHA／commit count／changed files 不符：停止。不要自動 rebase、reset、amend、force push 或重建 branch。
+不得略過 required CI。
 
-## CI / Pre-merge Gate
+required CI 必須對 **exact approved HEAD** 成功。
 
-不得略過 required checks。
+CI green後、merge前重新查等待期間可能變動的項目：
 
-CI PASS 後、merge 前，再確認一次真正可能在等待期間改變的項目：
+- PR仍 OPEN、non-draft；
+- PR head SHA仍是 approved HEAD；
+- `develop`／PR base SHA仍是 approved base；
+- required checks green；
+- PR mergeable，沒有 unexpected conflict；
+- commit count／changed files未變。
 
-- PR 仍 OPEN。
-- PR head SHA 仍是 approved HEAD。
-- `origin/develop` 仍是核准 base，除非 Reviewer 已重新驗證新的 base。
-- required checks PASS。
-- PR mergeable，沒有 unexpected conflict。
-- commit count／changed files 未改變。
+若 `develop` 在等待 CI期間移動：STOP；不自行 rebase或直接 merge 到未審 baseline。
 
-不要為了形式重複檢查不可能變動的資訊；但等待 CI 期間可能變動的 base／head／PR state 必須重新確認。
+---
 
-若 `develop` 在等待 CI 期間移動：停止並回報，不自行 rebase 或直接 merge 到未審 baseline。
+## 8. Required CI Failure Recovery
 
-## Required CI Failure Recovery
+required CI red 時 merge一律 STOP。
 
-required CI red 時 merge 一律 STOP。依序：
+依序：
 
-1. 檢查確切 workflow、job、step 與 annotations。
-2. 不自動 edit code；Reviewer 必須授權範圍有限的 recovery。
-3. 保留既有 PR 與 branch，不建立 duplicate PR，不得 rebase／reset／amend／force push。
-4. 以一般 correction commit 修正，取得 required exact-HEAD local evidence，並正常 push 到同一 feature branch。
-5. 等待新的 required CI；再次 red 就 STOP。
-6. 新 CI green 時，feature HEAD 已改變，Reviewer 必須驗證 correction 並重新固定 approved HEAD，然後重跑正常 pre-merge checks（含 `develop` drift）才可 merge。
+1. 檢查 exact workflow／job／step／annotation；
+2. Reviewer判斷是 environment／baseline／implementation問題；
+3. 不在 Stage 3直接 edit code；
+4. 若需要 code correction，回到 bounded Stage 2；
+5. Agent在同一 feature branch加入normal correction commit，不 amend／rebase／reset／force push；
+6. Agent取得 fresh evidence、push新 HEAD、回報後 STOP；
+7. Reviewer focused review correction並重新固定 approved HEAD；
+8. 重新走 PR／CI／pre-merge gates。
 
-這是 recovery path，不是無限 patch loop 的授權。若 CI 顯示 substantive implementation problem，交回 Reviewer 依適當 Stage／scope 處理。
+這不是無限 patch loop授權；兩輪完整 Review限制仍依 Principles。
 
-## Merge Method
+---
 
-Stage 3 Contract 必須明確寫出本批 merge method：
+## 9. Merge Method
 
-- normal merge commit
-- squash merge
-- rebase merge
+Reviewer在 Stage 3前固定其中一種：
+
+- normal merge commit；
+- squash merge；
+- rebase merge。
 
 不得在執行時自行換方法。
 
 一般原則：
 
-- 有意保留 feature commits／Review correction 歷史時，可用 normal merge commit。
-- 需要把零碎實作 history 收斂成單一 commit 時，可用 squash。
-- rebase merge 只有在明確需要線性 history 且不破壞本批 audit intent 時使用。
+- 要保留 feature／correction commit history時可用 normal merge commit；
+- 想把零碎 docs／implementation history收斂成單一 commit時可用 squash；
+- rebase merge只在明確需要線性 history且不破壞 audit intent時使用。
 
-若 repository policy 或 Owner 已指定，以較高 authority 為準。
+Owner／repository policy有指定時，以較高 authority為準。
 
-## Cross-baseline Local Work Transplant
+使用支援 expected-head protection 的 API／CLI時，merge應鎖定 approved HEAD，避免 CI後 branch被移動仍誤 merge。
 
-當已由 Reviewer 核准的 local-only work 要重接到新的 `develop` baseline 時，先確認核准單位與 commit topology。不得只因 branch 有 final HEAD，就假設 final tip commit 是 self-contained、可單獨 cherry-pick。
+---
 
-若成果依賴多個未合併 commits，Reviewer 必須明確指定安全 replay 方式：replay 完整 commit series，或使用已驗證 identity 的完整 `Base..HEAD` patch／tree state。若 cherry-pick 或 replay 出現 unexpected conflict，**STOP**；不得自行解 conflict、skip、rebase、reset 或改寫已核准 history，除非 Reviewer 另行授權 recovery 方式。
+## 10. Merge-result Reconciliation
 
-使用 cumulative patch transplant 時，至少核對：
+merge成功後確認：
 
-- patch identity。
-- apply-check。
-- 必要的 tree／file equivalence。
+- PR state = `MERGED`；
+- 記錄 merge result SHA；
+- merge topology／method符合固定 contract；
+- approved HEAD是預期 ancestry；
+- merge-result tree與 approved work符合所選 merge method；
+- `develop` 指向預期 merge result；
+- `main` 未改。
 
-## Repository Ambiguity
+若 normal merge commit預期只是整合 approved feature tree，應驗證 feature HEAD→merge result沒有未預期 file diff；若選其他 merge method，以其預期 tree equivalence驗證。
+
+---
+
+## 11. Post-merge CI
+
+repository若在 `develop` push後執行 CI，Reviewer應等待並確認 required post-merge job在 **exact merge-result SHA** 成功。
+
+post-merge CI failure屬 anomaly；不得為了 cleanup或下一批忽略。先保留 evidence並依 Reviewer recovery決策處理。
+
+---
+
+## 12. Remote Feature Branch Cleanup
+
+正常情況：PR merged、`develop`／CI／topology確認後，刪除 remote feature branch。
+
+不得使用 force-ref rewrite、把 branch移到別的 SHA或其他技巧冒充「刪除」。
+
+### Tooling-limited cleanup
+
+若 Reviewer當前 GitHub tooling沒有 delete-ref／delete-branch capability，且已確認：
+
+- PR已正確 merge；
+- remote feature branch仍固定在已 merge的 approved HEAD；
+- `develop`、required CI、merge topology、`main`全部正確；
+
+則 remote branch殘留只記為 **Non-blocking housekeeping**。
+
+不得為了刪 branch把 Stage 3重新交回 Agent，也不得使用不安全 ref rewrite。之後由具備正常 delete capability的人員清理。
+
+若 branch在 merge後又被移動到未授權 SHA，這不是 housekeeping，必須按 anomaly處理。
+
+---
+
+## 13. Local Clone Safety（只有實際使用 local clone 時）
+
+Reviewer／Owner若在 local clone同步：
+
+- 先確認 origin指向繁中 fork；
+- `develop`只用 normal fast-forward同步；
+- 不用 reset模擬 sync；
+- local feature branch優先 `git branch -d`；
+- `-d`拒絕時不直接 `-D`，先確認 ancestry／merge method；
+- working tree應保持乾淨；
+- `main`／upstream不動。
+
+外部 Agent／Owner local workspace未被 Reviewer觀察，不影響 remote integration evidence；不要為了形式把 Stage 3交回 Agent。
+
+---
+
+## 14. Repository Ambiguity
 
 若出現：
 
-- `No commits between ...`
-- 找不到 branch。
-- base／head 不存在。
-- repository owner 不符。
-- PR 顯示與 local history 不一致。
+- `No commits between ...`；
+- 找不到 branch；
+- base／head不存在；
+- repository owner不符；
+- PR與 reviewed history不一致；
 
-先檢查：
-
-```bash
-gh repo view --json nameWithOwner
-git remote -v
-```
-
-再用明確 repository／ref 查證。
+先查明 repository／refs／PR actual state。
 
 不要先：
 
-- rebase。
-- reset。
-- amend。
-- force push。
-- 刪 branch 重建。
-- 向 upstream 開 PR。
+- rebase；
+- reset；
+- amend；
+- force push；
+- 刪 branch重建；
+- 向 upstream開 PR。
 
-## Local Defense in Depth
+---
 
-目前 clone 可能設定：
+## 15. Approved Evidence Inheritance
 
-- `gh repo set-default boyiad2110/forgesteel-zh-tw`
-- `remote.pushDefault=origin`
-- upstream invalid push URL
+Reviewer PASS且已固定 exact approved HEAD後，Stage 3 expected changed-files、commit count與其他機械 evidence直接從**已審 exact HEAD／actual Git state**取得，不人工另抄第二套預期。
 
-這些只是 clone-local 防護。新 clone、換電腦或新工作目錄必須重新驗證，不能假設存在。
+只有 actual PR state與 approved evidence不符才是 anomaly。
 
-即使本機防護存在，`gh` write 仍必須使用明確 `--repo`。
+這不放寬 repository、base、head、SHA、diff、CI、mergeability或ancestry checks。
 
-## Merge and Cleanup
+---
 
-Merge 成功後確認：
+## 16. Batch Close Remote Gate
 
-- PR state = `MERGED`。
-- 記錄 merge commit／result SHA。
-- `origin/develop` 是預期 merge result。
-- feature commits／result 與 `develop` ancestry 符合 merge method。
-- `main` 未改。
+Reviewer宣告 Batch Closed前，至少確認：
 
-同步 local `develop` 時優先使用正常 fast-forward；不要用 reset 模擬同步。
-
-清理 feature branch：
-
-- 確認 PR 已 MERGED 且 `develop` 已同步後，再刪 remote／local feature branch。
-- local branch 優先使用 `git branch -d`。
-- 若 `-d` 在預期應可安全刪除的 history 下拒絕，不要直接 `-D`；先重新確認 ancestry／merge method，必要時回報 Reviewer。
-- 只有已明確驗證安全且 Contract／Reviewer 允許時才使用強制刪除。
-
-最終確認：
-
-- current branch = `develop`。
-- local `develop` = `origin/develop`。
-- working tree clean。
-- `main` 未改。
-- feature branch 已依 Contract 清理。
+- PR actual state = MERGED；
+- merge result／method／topology符合 contract；
+- required CI在 approved PR HEAD成功；
+- `develop`指向預期 merge result；
+- post-merge CI（若有）在 merge SHA成功；
+- `main` frozen；
+- remote feature branch已刪除，或唯一剩餘事項符合第12節 tooling-limited Non-blocking housekeeping；
 - upstream untouched。
 
-收尾後停止，不開始下一批。
+local clone sync不是 remote Batch Closed必要條件；由需要該 clone的人之後正常 fast-forward即可。
+
+closeout後 STOP，不開始下一批。
