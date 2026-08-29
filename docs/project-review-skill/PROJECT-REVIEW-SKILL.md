@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.6.0"
+  version: "0.6.1"
 ---
 
 # Forge Steel Reviewer
@@ -48,6 +48,18 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 固定 Batch Contract 前，translation batch 必須先執行 `docs/translation/TRANSLATION-WORKFLOW.md` 的 **Batch Cost Checkpoint**；其他 batch 在 scope 可比時比照其成本／risk 思考，不引入 identity count、LOC 或 file count 硬門檻。
 
 缺少 Goal、scope、Acceptance 或 Stop，不開始實作。
+
+### Level A Small Batch Fast Path
+
+Reviewer 直接執行的小型 Level A batch，若不涉及產品行為、state／data、canonical／schema、翻譯語意或其他需要隔離的風險，優先使用下列 fast path：
+
+- **第一次 write 前先完成 read-only review**：確認 authority、scope、必要 dependency 與預期 changed-file set；scope 尚未收斂時不要先寫、先開 PR 或先跑 CI。
+- **採 surgical edit**：一次完成 coherent 修改 → self-review → 固定 final HEAD → 一次 exact-HEAD CI → Reviewer Stage 3。預期仍會有 tracked edit 時，不先消耗 final CI。
+- **任何追加工作都重新過成本 gate**：若不是本批 Acceptance 必要、不是 blocker，也沒有立即降低具體風險，就列為 Non-blocking Observation／deferred，不因「順手」併入本批。
+- **外部等待只是 gate，不是擴 scope 的空檔**：CI／remote wait 期間不另開無關調查；避免反覆輪詢沒有狀態變化的同一 evidence，只在必要 state transition 與 mutable pre-merge gate 重查。
+- **Acceptance 達成後立即收斂**：只有 blocker／repository anomaly 才重新打開工作；其餘直接 closeout、STOP。
+
+這個 fast path 不降低 Principles、required CI、Git safety 或 exact-HEAD evidence；它只要求用最低足夠步驟完成低風險小批次。
 
 ## 3. Online-first Handoff
 
@@ -334,6 +346,7 @@ Handoff 只保留：最新 `develop` baseline、現行 authority、完成摘要�
 
 - [ ] 已讀最新 Owner decision 與 `docs/REVIEWER-PRINCIPLES.md`。
 - [ ] 已固定 coherent Batch、scope、Acceptance、Risk、Stop。
+- [ ] 小型 Level A Reviewer-direct batch 已在第一次 write 前完成 read-only review，且未因等待或順手 cleanup 擴張 scope。
 - [ ] 已依 `ONLINE-HANDOFF.md` 選擇最小安全 transport。
 - [ ] 若 translation worksheet 需要 Owner，已先處理 mechanical rows，並從 live exact cells 取得 final authority。
 - [ ] 若使用 packet，已完成 required canonical alignment 並 freeze 明確 revision。
