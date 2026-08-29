@@ -251,11 +251,34 @@ Reviewer／Owner若在 local clone同步：
 - working tree應保持乾淨；
 - `main`／upstream不動。
 
+clone-local defense（例如 `gh repo set-default`、`remote.pushDefault=origin`、upstream invalid push URL）只能視為 defense in depth；新 clone／新工作目錄必須重新驗證，且 `gh` write仍要明確 `--repo`。
+
 外部 Agent／Owner local workspace未被 Reviewer觀察，不影響 remote integration evidence；不要為了形式把 Stage 3交回 Agent。
 
 ---
 
-## 14. Repository Ambiguity
+## 14. Cross-baseline Local Work Transplant
+
+online-first remote branch是預設，但 local-only fallback仍可能需要把已審 work重接到新的 `develop` baseline。
+
+此時先確認核准單位與 commit topology；不得只因有 final HEAD，就假設 tip commit可單獨 cherry-pick。
+
+若成果依賴多個未合併 commits，Reviewer必須明確指定安全 replay方式：
+
+- replay完整 commit series；或
+- 使用已驗證 identity 的完整 `Base..HEAD` cumulative patch／tree state。
+
+若 cherry-pick／replay出現 unexpected conflict：**STOP**；不得自行解 conflict、skip、rebase、reset或改寫已核准 history，除非 Reviewer另行授權 recovery。
+
+使用 cumulative patch transplant時至少核對：
+
+- patch identity；
+- apply-check；
+- 必要 tree／file equivalence。
+
+---
+
+## 15. Repository Ambiguity
 
 若出現：
 
@@ -278,7 +301,7 @@ Reviewer／Owner若在 local clone同步：
 
 ---
 
-## 15. Approved Evidence Inheritance
+## 16. Approved Evidence Inheritance
 
 Reviewer PASS且已固定 exact approved HEAD後，Stage 3 expected changed-files、commit count與其他機械 evidence直接從**已審 exact HEAD／actual Git state**取得，不人工另抄第二套預期。
 
@@ -288,7 +311,7 @@ Reviewer PASS且已固定 exact approved HEAD後，Stage 3 expected changed-file
 
 ---
 
-## 16. Batch Close Remote Gate
+## 17. Batch Close Remote Gate
 
 Reviewer宣告 Batch Closed前，至少確認：
 
