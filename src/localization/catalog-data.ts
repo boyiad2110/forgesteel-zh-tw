@@ -4942,6 +4942,44 @@ const summonerLevel2BaseLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'summoner-2-2', field: 'description', canonicalEnglish: '\nOnce per encounter, you can use a maneuver to summon a fixture from your minions’ native manifold or origin into an unoccupied space on the ground within your Summoner’s Range. You can spend 1 essence to relocate the fixture as a free maneuver on your turn. The fixture stays until the end of the encounter, until its Stamina is reduced to 0, or until you become dying.\n\nYour fixture gains additional features at 5th and 9th level.', zhTW: '每場遭遇 1 次，你可以使用機動動作從你僕從的原生衍界或起源地召喚 1 處地景，將其放置在召喚師射程內的未占據空間地面。在你的回合中，你可以花費 1 點精髓並使用免費機動動作重新放置該地景。該地景會持續存在，直到遭遇結束、體力歸 0，或你陷入瀕死。\n\n你的地景會在 5 級與 9 級時獲得額外特性。', approval: 'approved' }
 ];
 
+/** The frozen 34-identity Summoner Level 3 base-class packet, revision r1. */
+const summonerLevel3BaseLocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'summoner-3-1', field: 'name', canonicalEnglish: 'Summoner’s Kit', zhTW: '召喚師套裝', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-1', field: 'description', canonicalEnglish: '\nYou conjure a kit for yourself. This kit includes an implement, such as a rod or a baton, which grants you the following benefits:\n\n* The damage of your Summoner Strike ability increases to twice your Reason score.\n* The potency of your Summoner Strike ability increases to R < [average].\n* The distance of your Summoner Strike ability is now equal to your Summoner’s Range.', zhTW: '你為自己召來 1 組套裝。此套裝包含 1 件法器，例如短杖或旋棍，並讓你獲得以下益處：\n\n* 【召喚師打擊】招式的傷害提高至`理智` ×2。\n* 【召喚師打擊】招式的效力提高至 `理智` < [中]。\n* 【召喚師打擊】招式的射程改為等於你的召喚師射程。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2', field: 'name', canonicalEnglish: 'Ward', zhTW: '護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2a', field: 'name', canonicalEnglish: 'Conjured Ward', zhTW: '召喚護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2a', field: 'description', canonicalEnglish: 'You are clad in the natural defenses of your portfolio (bones, fairy wood, stone, writhing flesh). You gain a +3 bonus to Stamina and that bonus increases by 3 at 4th, 7th, and 10th levels.', zhTW: '你披覆著源自僕從名錄的天然防護（骨骸、妖精木、石材、蠕動血肉）。你的體力獲得 +3 加值，而且此加值會在 4 級、7 級和 10 級時各增加 3 點。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2b', field: 'name', canonicalEnglish: 'Emergency Ward', zhTW: '緊急護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2b', field: 'description', canonicalEnglish: 'The first time each round you take damage, you can use a free triggered action to shift 1 after the triggering effect resolves and summon a signature minion into the square you left (as long as there is enough space).', zhTW: '每輪首次受到傷害時，你可以在觸發效果結算後使用免費反應動作遁移 1 格，並在你離開的方格召喚 1 個招牌僕從（前提是有足夠的空間）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2c', field: 'name', canonicalEnglish: 'Howling Ward', zhTW: '呼嘯護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2c', field: 'description', canonicalEnglish: 'You create a 1-aura vortex of slicing magic around you when you enter combat. An enemy that starts their turn adjacent to you takes damage equal to your Reason.', zhTW: '當你進入戰鬥時，你會在自身周圍創造 1 格靈光的銳利魔法漩渦。每個與你相鄰的敵人在回合開始時，都會受到等於你`理智`的傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2d', field: 'name', canonicalEnglish: 'Snare Ward', zhTW: '捕縛護咒', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-2d', field: 'description', canonicalEnglish: 'Whenever an adjacent creature deals damage to you, you can use a free triggered action to pull that creature toward one of your minions within your Summoner’s Range a number of squares equal to your Reason score.', zhTW: '每當相鄰生物對你造成傷害時，你可以使用免費反應動作，將該生物朝召喚師射程內你的 1 個僕從拉動等於你`理智`的格數。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-3-3', field: 'name', canonicalEnglish: '7pt Ability', zhTW: '7 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-7', field: 'name', canonicalEnglish: 'Blitz Tactics', zhTW: '閃擊戰術', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-7', field: 'target', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-7', field: 'description', canonicalEnglish: 'Rush em! CRUSH EM!', zhTW: '衝啊！碾碎他們！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-7', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or you are dying, each minion under your control during the encounter is the target of the following effect. The first time on a turn that the target moves through an enemy’s space, the enemy can choose to shift 1 square or be M < [weak] (or M < [average] if the target is larger than the enemy) knocked prone. The potency increases by 1 for each subsequent target that moves through the enemy’s space during the same move action.', zhTW: '直到遭遇結束或你陷入瀕死前，你在此遭遇期間控制的每個僕從都會成為以下效果的目標。每回合首次有目標穿越敵人的空間時，該敵人可以選擇遁移 1 格，否則若其`力量` < [弱]（若目標體型 > 該敵人，則為`力量` < [中]），就會陷入伏地。在同個移動動作期間，之後每有 1 個目標穿越該敵人的空間，效力就會 +1。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-8', field: 'name', canonicalEnglish: 'Cavalry Call', zhTW: '騎兵號令', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-8', field: 'target', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-8', field: 'description', canonicalEnglish: 'A lone squad appears to disrupt the enemy’s plans and peel off their forces, one by one.', zhTW: '一支獨立小隊現身，打亂敵人的計畫，並逐一牽制兵力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-8', field: 'sections.0.text', canonicalEnglish: '\nYou summon a temporary squad containing 6 of your signature minions regardless of your minion maximum within distance. Whenever one of these minions deals damage to an enemy, the enemy is R < [average] compelled to move 5 squares toward the source of the damage (provoking opportunity attacks). The potency increases by 1 for enemies targeted by two or more of these minions.\n\nThese minions die at the end of your turn, activate no effects upon death, and you gain no essence from their deaths', zhTW: '你在射程內召喚 1 支臨時小隊，其中包含 6 個招牌僕從，不受僕從數量上限的限制。每當其中 1 個僕從對敵人造成傷害時，若該敵人的`理智` < [中]，則被迫朝傷害來源移動 5 格（會引發藉機攻擊）。若敵人被其中 2 個以上的僕從指定為目標，效力會 +1。\n\n這些僕從會在你的回合結束時死亡，而且死亡時不會觸發任何效果，你也不會因為僕從死亡而獲得精髓。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'name', canonicalEnglish: 'Essence Funnel', zhTW: '精髓匯流', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'target', canonicalEnglish: 'All enemies and objects', zhTW: '所有敵人與物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'description', canonicalEnglish: 'You rapidly summon and sacrifice minions in order to power a devastating blast of magic.', zhTW: '你迅速召喚並犧牲僕從，為一道毀滅性的魔法衝擊積蓄力量。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'sections.0.roll.tier1', canonicalEnglish: '5 damage; push 2', zhTW: '5 傷害；推動 2', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'sections.0.roll.tier2', canonicalEnglish: '9 damage; push 4', zhTW: '9 傷害；推動 4', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'sections.0.roll.tier3', canonicalEnglish: '12 damage; push 6', zhTW: '12 傷害；推動 6', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'sections.1.name', canonicalEnglish: 'Special', zhTW: '特殊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-9', field: 'sections.1.effect', canonicalEnglish: 'You can choose to kill any number of your minions within your Summoner’s Range as a part of this ability, provided they haven’t used a main action or maneuver during the turn. Each target takes an additional 1 damage, plus 1 damage for each minion killed this way. These minions activate no effects upon death, and you gain no essence from their deaths.', zhTW: '發動此招式時，你可以殺死召喚師射程內任意數量的僕從，前提是他們在本回合尚未使用主要動作或機動動作。每個目標會額外受到 1 點傷害，而且以此方式每殺死 1 個僕從，會再額外增加 1 點傷害。這些僕從死亡時不會觸發任何效果，你也不會因為僕從死亡而獲得精髓。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-10', field: 'name', canonicalEnglish: 'Lead by Example', zhTW: '以身作則', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-10', field: 'target', canonicalEnglish: 'One enemy or object', zhTW: '1 個敵人或物體', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-10', field: 'description', canonicalEnglish: 'Your minions watch as your implement crackles with power, ready to slam unbelievable force into your foe.', zhTW: '你的僕從注視著你的法器迸發能量，蓄勢將難以置信的力量砸向敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-10', field: 'sections.0.roll.tier1', canonicalEnglish: '8 + R damage; R < [weak], dazed (save ends)', zhTW: '8 + `理智`傷害；`理智` < [弱]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-10', field: 'sections.0.roll.tier2', canonicalEnglish: '12 + R damage; R < [average], dazed (save ends)', zhTW: '12 + `理智`傷害；`理智` < [中]，暈眩（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'summoner-ability-10', field: 'sections.0.roll.tier3', canonicalEnglish: '16 + R damage; R < [strong], dazed (save ends)', zhTW: '16 + `理智`傷害；`理智` < [強]，暈眩（豁免解除）', approval: 'approved' }
+];
+
 export const productionLocalizationEntries: LocalizationEntry[] = [
 	...baseLocalizationEntries,
 	...skillLocalizationEntries,
@@ -4988,5 +5026,6 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...summonerLevel1Cost5AbilityLocalizationEntries,
 	...summonerLevel1BaseNonAbilityLocalizationEntries,
 	...summonerLevel1BaseAbilityRemainderLocalizationEntries,
-	...summonerLevel2BaseLocalizationEntries
+	...summonerLevel2BaseLocalizationEntries,
+	...summonerLevel3BaseLocalizationEntries
 ];
