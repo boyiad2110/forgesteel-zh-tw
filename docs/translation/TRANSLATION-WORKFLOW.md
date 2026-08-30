@@ -470,7 +470,11 @@ projection 的結果限於三種：
 
 已核准的 presentation 慣例為：ability section heading 中 `Spend` 譯為「花費」；authored prose 的 calculated damage／Stamina 寫作「N 點神聖傷害」、「N 點心靈傷害」、「恢復 N 點體力」。compact Power Roll 維持「N 神聖傷害」，不強制加入「點」。raw approved 中文中的「等於你氣場…／復元值／速度」等 expression 在 no-Hero 未解析時維持原文；解析後使用 calculator 實際數值，不寫成「等於 N」。
 
-同一 authored field／presentation 若在 Hero Builder 與 Library 都 render，automated evidence 至少涵蓋該欄位代表性的 Hero 與 no-Hero production behavior、實際 production data／localization 與 rendered presentation／Markdown，並證明 English、canonical state／serialization 未變，且沒有 zh-TW 進入 calculator。slice-specific manifest test 只固定本 slice 的 identities、delta 或 domain contract，不得寫死不相關的 global `requiredCount` 或完整 `unresolvedDomains`；若 batch 改動 manifest denominator，最後變更後跑 full suite。完成單一 Class 不代表 `official-ability-authored-content` 完成，僅在整個 domain 完整 enumerate 後才能移除 unresolved。
+同一 authored field／presentation 若在 Hero Builder 與 Library 都 render，automated evidence 至少涵蓋該欄位代表性的 Hero 與 no-Hero production behavior、實際 production data／localization 與 rendered presentation／Markdown，並證明 English、canonical state／serialization 未變，且沒有 zh-TW 進入 calculator。slice-specific manifest test 只固定本 slice 的 identities、delta 或 domain contract，不得寫死不相關的 global `requiredCount` 或完整 `unresolvedDomains`。
+
+若 batch 改動 manifest denominator，final approved state 在 merge 前仍必須取得 full-suite evidence；Stage 1 是否要在本機重跑，依 `docs/project-review-skill/RISK-AND-VERIFICATION.md` 的 current-CI-aware policy 決定。current required PR CI 已在 Reviewer-approved exact HEAD 執行相關 full suite 時，該 CI 即滿足此 gate，Stage 1 不因 denominator change 形式性重跑同一套 full suite；Stage 1 仍須執行所有適用的 risk-matched targeted tests、lint、typecheck、localization verification 與其他不可安全延後的 gate。若 current PR CI 未涵蓋所需 full-suite gate，或 batch 有具體風險需要較早執行，Batch Contract 必須明確要求 local full-suite evidence。
+
+完成單一 Class 不代表 `official-ability-authored-content` 完成，僅在整個 domain 完整 enumerate 後才能移除 unresolved。
 
 ### Calculated Path Discovery Gate
 

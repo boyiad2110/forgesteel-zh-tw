@@ -132,6 +132,12 @@ Stage 1 是否重複執行 full suite／build，以**目前 repository CI workfl
 - Reviewer 具備 isolation evidence 時，可將該 failure 列為 Non-blocking Observation，而不是自動升為 blocker。
 - Stage 3 required CI failure 一律 STOP，不得 merge。
 
+### 長時間 verifier 的 evidence capture
+
+- 執行長時間 verifier 時，工具允許的話應選擇能保留**同一次 authoritative run** 的 completion、exit code 與 summary 的方式；可使用 repository 外的 log 或 durable session evidence，但不規定特定 shell、terminal 或 Agent 工具。
+- output 截斷、wrapper 延遲完成、UI／session 狀態不明，本身不是盲目重跑 expensive full suite 的理由；先嘗試從同一次 run 取回 completion evidence。
+- 若同一次 run 的 evidence 無法取回，該 gate 只是尚未驗證，不能宣稱 PASS；這不會把真正的 non-zero exit、明確 failure 或 incomplete run 改寫成 tooling uncertainty。真實 failure 仍依本節的回報與 isolation 規則處理。
+
 ## Mutation-style Evidence
 
 只有在以下情況使用：
