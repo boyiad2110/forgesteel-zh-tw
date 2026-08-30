@@ -515,6 +515,50 @@ export const createV1ConduitLevel2RequiredCanonicalEnglish = (): CanonicalEnglis
 	return requiredCanonicalEnglish;
 };
 
+/** Reads only the Conduit's own Level 3 progression roots; later levels stay out of this slice. */
+const getV1ConduitLevel3Features = (): Feature[] => {
+	const levelThree = conduit.featuresByLevel.find(level => level.level === 3);
+	if (!levelThree) {
+		throw new Error('Conduit Level 3 features are missing');
+	}
+	return levelThree.features;
+};
+
+/** The exact approved Conduit Level 3 cost-7 ability slice. */
+export const v1ConduitLevel3AbilityIDs = [
+	'conduit-ability-17',
+	'conduit-ability-18',
+	'conduit-ability-19',
+	'conduit-ability-20'
+] as const;
+
+/** Enumerates only the four cost-7 abilities selected by Conduit's Level 3 choice. */
+export const getV1ConduitLevel3Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(conduit.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1ConduitLevel3AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Conduit Level 3 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/**
+ * Builds the bounded 28-identity Conduit Level 3 denominator from its two progression roots
+ * and the four cost-7 abilities selected by the ClassAbility choice. Level 4+, subclasses, and
+ * abilities outside IDs 17–20 remain outside this slice and its parent domains stay unresolved.
+ */
+export const createV1ConduitLevel3RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1ConduitLevel3Features());
+	getV1ConduitLevel3Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	return requiredCanonicalEnglish;
+};
+
 /** The exact approved Elementalist Level 1 base-class ability slice; later levels and subclasses stay unresolved. */
 export const v1ElementalistLevel1AbilityIDs = [
 	'elementalist-1-4',
@@ -2558,6 +2602,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ConduitLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ConduitLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ConduitLevel2RequiredCanonicalEnglish(),
+		...createV1ConduitLevel3RequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1RemainingRequiredCanonicalEnglish(),
 		...createV1ElementalistLevel1SubclassCompletionRequiredCanonicalEnglish(),
