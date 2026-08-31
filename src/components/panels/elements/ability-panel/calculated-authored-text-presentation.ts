@@ -1511,6 +1511,77 @@ const projectCensorLevel2PresenceDamage = (elementID: string, field: string, can
 };
 
 /**
+ * The bounded Censor Level 3 calculated slice. The Level 3 Feature has potency formatting and
+ * a twice-Presence clause; the four cost-7 Ability text sections each resolve only their own
+ * Presence damage clause in Hero context. Every rewrite is identity-bound and replayed onto the
+ * canonical English before it can be projected onto the approved zh-TW reading.
+ */
+const projectCensorLevel3CalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID === 'censor-3-1') && (field === 'description')) {
+		const potencies = [
+			{ canonical: 'P < [average]', localized: '`氣場` < [中]' },
+			{ canonical: 'P < [strong]', localized: '`氣場` < [強]' }
+		];
+
+		let projectedCanonical = canonicalEnglish;
+		let projectedLocalized = localizedRaw;
+		const calculatedPotencies = matchAll(calculatedEnglish, /`P < (?:\[(?:average|strong)\]|-?\d+)`/g);
+		if (calculatedPotencies.length !== potencies.length) {
+			return undefined;
+		}
+		for (const [ index, potency ] of potencies.entries()) {
+			const calculatedMatch = calculatedPotencies[index];
+			if (!calculatedMatch || (occurrenceCount(projectedCanonical, potency.canonical) !== 1) || (occurrenceCount(projectedLocalized, potency.localized) !== 1)) {
+				return undefined;
+			}
+			projectedCanonical = projectedCanonical.replace(potency.canonical, () => calculatedMatch[0]);
+			const numericPotency = calculatedMatch[0].match(/-?\d+/)?.[0];
+			if (numericPotency !== undefined) {
+				projectedLocalized = projectedLocalized.replace(potency.localized, `\`氣場\` < ${numericPotency}`);
+			}
+		}
+
+		const calculatedDamage = calculatedEnglish.match(/they instead take holy damage equal to (-?\d+)\./);
+		if (calculatedDamage) {
+			const canonicalDamage = 'they instead take holy damage equal to twice your Presence score.';
+			const localizedDamage = '則改為受到等於你`氣場` ×2 的神聖傷害。';
+			if ((occurrenceCount(projectedCanonical, canonicalDamage) !== 1) || (occurrenceCount(projectedLocalized, localizedDamage) !== 1)) {
+				return undefined;
+			}
+			projectedCanonical = projectedCanonical.replace(canonicalDamage, () => calculatedDamage[0]);
+			projectedLocalized = projectedLocalized.replace(localizedDamage, `則改為受到 ${calculatedDamage[1]} 點神聖傷害。`);
+		}
+
+		return projectCalculatedConditionEmphasis({ canonicalEnglish: projectedCanonical, calculatedEnglish, localizedRaw: projectedLocalized });
+	}
+
+	const projections = [
+		{ elementID: 'censor-ability-13', canonical: 'each target takes holy damage equal to your Presence score at the end of each of your turns', localized: '每個目標會在你每回合結束時受到等於你`氣場`的神聖傷害', replacement: (value: string) => `每個目標會在你每回合結束時受到 ${value} 點神聖傷害` },
+		{ elementID: 'censor-ability-14', canonical: 'they take holy damage equal to three times your Presence score', localized: '目標會受到等於你`氣場` ×3 的神聖傷害', replacement: (value: string) => `目標會受到 ${value} 點神聖傷害` },
+		{ elementID: 'censor-ability-15', canonical: 'they take holy damage equal to twice your Presence score', localized: '目標會受到等於你`氣場` ×2 的神聖傷害', replacement: (value: string) => `目標會受到 ${value} 點神聖傷害` },
+		{ elementID: 'censor-ability-16', canonical: 'they take holy damage equal to twice your Presence score', localized: '目標會受到等於你`氣場` ×2 的神聖傷害', replacement: (value: string) => `目標會受到 ${value} 點神聖傷害` }
+	];
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (field === 'sections.0.text'));
+	if (!projection) {
+		return undefined;
+	}
+
+	const calculatedDamage = calculatedEnglish.match(/holy damage equal to (-?\d+)/);
+	if (!calculatedDamage) {
+		return undefined;
+	}
+	if ((occurrenceCount(canonicalEnglish, projection.canonical) !== 1) || (occurrenceCount(localizedRaw, projection.localized) !== 1)) {
+		return undefined;
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: canonicalEnglish.replace(projection.canonical, () => projection.canonical.replace(/(?:your|three times your|twice your) Presence score/, calculatedDamage[1])),
+		calculatedEnglish,
+		localizedRaw: localizedRaw.replace(projection.localized, () => projection.replacement(calculatedDamage[1]))
+	});
+};
+
+/**
  * The three Censor Judgment Order Benefit readings the canonical calculator rewrites. They are
  * PackageContent Feature descriptions, injected into the host Judgment ability’s package section,
  * so they arrive through AbilityPanel’s auto-calc path under their own Feature identities. That
@@ -2471,6 +2542,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const censorLevel2PresenceDamage = projectCensorLevel2PresenceDamage(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (censorLevel2PresenceDamage) {
 		return censorLevel2PresenceDamage;
+	}
+
+	const censorLevel3CalculatedValue = projectCensorLevel3CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (censorLevel3CalculatedValue) {
+		return censorLevel3CalculatedValue;
 	}
 
 	const censorJudgmentPackageBenefitValue = projectCensorJudgmentPackageBenefitValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);

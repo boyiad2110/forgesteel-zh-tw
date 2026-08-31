@@ -3235,6 +3235,30 @@ const coreCensorLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'censor-sub-3-2-3b', field: 'sections.1.text', canonicalEnglish: 'While the target is restrained this way, your abilities that impose forced movement can still move them.', zhTW: '若目標以此方式陷入束縛，你那些具有強制移動效果的招式仍然可以移動對方。', approval: 'approved' }
 ];
 
+// The Censor's two Level 3 progression roots and the four cost-7 abilities selected by its
+// class-ability choice. Orders, Level 4+, and all other Censor abilities keep their own slices.
+const coreCensorLevel3LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'censor-3-1', field: 'name', canonicalEnglish: 'Look On My Work and Despair', zhTW: '天譴神威', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-3-1', field: 'description', canonicalEnglish: 'Your judgment has grown in divine power, instilling fear in those you condemn. Whenever you use your Judgment ability, you can spend 1 wrath, and if the target has P < [average], they are frightened of you (save ends). Additionally, whenever a creature judged by you is reduced to 0 Stamina and you use Judgment as a free triggered action, if the new target has P < [strong], they are frightened of you (save ends). If the target is already frightened of you, they instead take holy damage equal to twice your Presence score.', zhTW: '你的審判獲得更強大的神力，讓被譴責之人心生畏懼。每當你發動【審判】招式時，你可以花費 1 點怒火，若目標的`氣場` < [中]，目標會對你陷入畏縮（豁免解除）。此外，每當 1 個被你審判的生物體力歸 0 而你使用免費反應動作發動【審判】時，若新目標的`氣場` < [強]，新目標會對你陷入畏縮（豁免解除）。若目標已經對你陷入畏縮，則改為受到等於你`氣場` ×2 的神聖傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-3-2', field: 'name', canonicalEnglish: '7pt Ability', zhTW: '7 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-13', field: 'name', canonicalEnglish: 'Edict of Disruptive Isolation', zhTW: '隔絕律令', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-13', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內的每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-13', field: 'description', canonicalEnglish: 'The evil within your foes detonates with holy fire that burns only the guilty.', zhTW: '敵人心中的邪惡引爆成神聖火焰，焚燒有罪之人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-13', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, each target takes holy damage equal to your Presence score at the end of each of your turns. A target takes an extra 2d6 holy damage if they are judged by you or if they are adjacent to any enemy.', zhTW: '直到遭遇結束或你陷入瀕死之前，每個目標會在你每回合結束時受到等於你`氣場`的神聖傷害。若目標被你審判或與任何敵人相鄰，則額外受到 2d6 神聖傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-14', field: 'name', canonicalEnglish: 'Edict of Perfect Order', zhTW: '肅正律令', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-14', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內的每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-14', field: 'description', canonicalEnglish: 'Within the area of your divine presence, your enemies will regret using their fell abilities.', zhTW: '在你神聖威儀籠罩的區域內，敵人會後悔使用兇邪的招式。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-14', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, whenever a target uses an ability that costs Malice, they take holy damage equal to three times your Presence score. A target judged by you takes an extra 2d6 holy damage.', zhTW: '直到遭遇結束或你陷入瀕死之前，每當目標發動需要花費惡意的招式時，目標會受到等於你`氣場` ×3 的神聖傷害。被你審判的目標會額外受到 2d6 神聖傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-15', field: 'name', canonicalEnglish: 'Edict of Purifying Pacifism', zhTW: '止戰律令', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-15', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內的每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-15', field: 'description', canonicalEnglish: 'You shed a righteous energy that punishes enemies who would harm you or your allies.', zhTW: '你散發正義的能量，懲罰意圖傷害你或盟友的敵人。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-15', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, whenever a target makes a strike, they take holy damage equal to twice your Presence score. A target judged by you takes an extra 2d6 holy damage.', zhTW: '直到遭遇結束或你陷入瀕死之前，每當目標發動打擊時，目標會受到等於你`氣場` ×2 的神聖傷害。被你審判的目標會額外受到 2d6 神聖傷害。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-16', field: 'name', canonicalEnglish: 'Edict of Stillness', zhTW: '禁錮律令', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-16', field: 'target', canonicalEnglish: 'Each enemy in the area', zhTW: '區域內的每個敵人', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-16', field: 'description', canonicalEnglish: 'The holy aura you project makes it painful for evil-doers to leave your reach.', zhTW: '惡徒一旦離開你神聖靈光的範圍就會痛苦不堪。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'censor-ability-16', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, whenever a target moves or is force moved out of the area, they take holy damage equal to twice your Presence score. A target judged by you who moves willingly takes an extra 2d6 holy damage.', zhTW: '直到遭遇結束或你陷入瀕死之前，每當目標移動或被強制移動離開區域時，目標會受到等於你`氣場` ×2 的神聖傷害。被你審判的目標若自願移動，則會額外受到 2d6 神聖傷害。', approval: 'approved' }
+];
+
 const coreConduitLevel1RemainingLocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'conduit-stamina', field: 'name', canonicalEnglish: 'Stamina', zhTW: '體力', approval: 'approved' },
 	{ kind: 'element-field', elementID: 'conduit-recoveries', field: 'name', canonicalEnglish: 'Recoveries', zhTW: '復元力', approval: 'approved' },
@@ -5218,6 +5242,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreDomainLevel1To3LocalizationEntries,
 	...coreCensorLevel1AndOrderLocalizationEntries,
 	...coreCensorLevel2LocalizationEntries,
+	...coreCensorLevel3LocalizationEntries,
 	...coreConduitLevel1RemainingLocalizationEntries,
 	...coreConduitLevel2LocalizationEntries,
 	...coreFuryLevel1RemainingLocalizationEntries,
