@@ -1,6 +1,6 @@
 import { Button, Drawer, Select, Space } from 'antd';
 import { Feature, FeaturePerkData } from '@/models/feature';
-import { localizeMessage, localizeUIString } from '@/localization/resolver';
+import { localizeElementField, localizeMessage, localizeUIString } from '@/localization/resolver';
 import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
 import { FeatureType } from '@/enums/feature-type';
@@ -31,6 +31,8 @@ interface InfoProps {
 }
 
 export const InfoPerk = (props: InfoProps) => {
+	const { locale } = useLocalization();
+
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
@@ -42,7 +44,11 @@ export const InfoPerk = (props: InfoProps) => {
 	}
 
 	return (
-		<div className='ds-text'>Choose {props.data.count > 1 ? props.data.count : 'a'} {props.data.count > 1 ? 'perks' : 'perk'}.</div>
+		<div className='ds-text'>
+			{props.data.count > 1 ?
+				localizeMessage(locale, 'info-perk.choose-many', { count: props.data.count.toString() }, 'Choose {count} perks.') :
+				localizeUIString(locale, 'info-perk.choose-one', 'Choose a perk.')}
+		</div>
 	);
 };
 
@@ -155,8 +161,8 @@ export const ConfigPerk = (props: ConfigProps) => {
 						content={
 							<Field
 								style={{ flex: '1 1 0' }}
-								label={perk.name}
-								value={<Markdown text={perk.description} useSpan={true} />}
+								label={localizeElementField(locale, perk.id, 'name', perk.name)}
+								value={<Markdown text={localizeElementField(locale, perk.id, 'description', perk.description)} useSpan={true} />}
 							/>
 						}
 						onSelect={() => setSelectedPerk(perk)}

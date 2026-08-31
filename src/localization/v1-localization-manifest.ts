@@ -27,10 +27,12 @@ import { FeatureType } from '@/enums/feature-type';
 import { Kit } from '@/models/kit';
 import { SubClass } from '@/models/subclass';
 import { Language } from '@/models/language';
+import { Perk } from '@/models/perk';
+import { PerkList } from '@/enums/perk-list';
 import { Skill } from '@/models/skill';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Sourcebook } from '@/models/sourcebook';
-import { elementFieldIdentity, languageFieldIdentity, skillFieldIdentity } from '@/localization/catalog';
+import { elementFieldIdentity, languageFieldIdentity, messageIdentity, skillFieldIdentity, uiStringIdentity } from '@/localization/catalog';
 import {
 	abilityDescriptionField,
 	abilitySectionEffectField,
@@ -2587,6 +2589,77 @@ export const createV1SummonerLevel3BaseRequiredCanonicalEnglish = (): CanonicalE
 	return requiredCanonicalEnglish;
 };
 
+/** The complete Core + Beastheart Perk source set used by the V1 player selection flow. */
+export const getV1Perks = (): Perk[] => SourcebookLogic.getPerks([ core, beastheartSourcebook ]);
+
+/**
+ * Builds the bounded V1 Perk denominator. Perks contribute their own player-facing fields;
+ * only their direct Ability, Multiple Feature and Familiar summon presentation paths add
+ * nested fields. This deliberately does not crawl the general Monster graph.
+ */
+export const createV1PerkRequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const perks = getV1Perks();
+
+	perks.forEach(perk => {
+		addRequiredElementFields(requiredCanonicalEnglish, perk);
+
+		if (perk.type === FeatureType.Ability) {
+			addRequiredAbilityFields(requiredCanonicalEnglish, perk.data.ability);
+		}
+
+		if (perk.type === FeatureType.Multiple) {
+			addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, perk.data.features);
+		}
+	});
+
+	const familiarPerk = perks.find(perk => perk.id === 'perk-familiar');
+	const familiar = familiarPerk?.type === FeatureType.Summon ? familiarPerk.data.summons.find(summon => summon.id === 'familiar') : undefined;
+	if (!familiar) {
+		throw new Error('Familiar Perk summon is missing');
+	}
+	addRequiredElementFields(requiredCanonicalEnglish, familiar);
+
+	const telepathic = familiar.monster.features.find(feature => feature.id === 'familiar-2');
+	if (!telepathic) {
+		throw new Error('Familiar Telepathic feature is missing');
+	}
+	addRequiredElementFields(requiredCanonicalEnglish, telepathic);
+
+	// These direct nested values are intentionally outside the frozen Perk packet:
+	// the eight targets are not shown on the covered player-facing path, and the
+	// Language Choice wrapper is structural rather than player-facing authored text.
+	[
+		'element:perk-arcane-trick-1/target',
+		'element:perk-creature-sense-1/target',
+		'element:perk-friend-catapult-1/target',
+		'element:perk-gum-up-the-works-1/target',
+		'element:perk-ive-got-you-1/target',
+		'element:perk-linguist-2/description',
+		'element:perk-linguist-2/name',
+		'element:perk-ride-along-1/target',
+		'element:perk-wild-rumpus-1/target'
+	].forEach(identity => delete requiredCanonicalEnglish[identity]);
+
+	[
+		[ 'perk-list.crafting', PerkList.Crafting ],
+		[ 'perk-list.exploration', PerkList.Exploration ],
+		[ 'perk-list.interpersonal', PerkList.Interpersonal ],
+		[ 'perk-list.intrigue', PerkList.Intrigue ],
+		[ 'perk-list.lore', PerkList.Lore ],
+		[ 'perk-list.supernatural', PerkList.Supernatural ],
+		[ 'perk-list.special', PerkList.Special ],
+		[ 'perk-select.outside-listed-groups-warning', 'Selecting a perk from outside the listed groups is typically against the rules.' ],
+		[ 'perk-select.other-perks', 'Other Perks' ],
+		[ 'info-perk.choose-one', 'Choose a perk.' ]
+	].forEach(([ key, canonicalEnglish ]) => {
+		requiredCanonicalEnglish[uiStringIdentity(key)] = canonicalEnglish;
+	});
+	requiredCanonicalEnglish[messageIdentity('info-perk.choose-many')] = 'Choose {count} perks.';
+
+	return requiredCanonicalEnglish;
+};
+
 // This foundation deliberately fails closed. Each domain remains unresolved until a
 // later content batch supplies its required identities and current canonical English.
 export const v1LocalizationManifest: V1LocalizationManifest = {
@@ -2642,7 +2715,8 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1SummonerLevel1BaseNonAbilityRequiredCanonicalEnglish(),
 		...createV1SummonerLevel1BaseAbilityRemainderRequiredCanonicalEnglish(),
 		...createV1SummonerLevel2BaseRequiredCanonicalEnglish(),
-		...createV1SummonerLevel3BaseRequiredCanonicalEnglish()
+		...createV1SummonerLevel3BaseRequiredCanonicalEnglish(),
+		...createV1PerkRequiredCanonicalEnglish()
 	},
 	// 'skills-and-languages' is removed here: both Skill and Language V1 denominators are
 	// now enumerated above (this batch completes Language; Skill was completed previously).
