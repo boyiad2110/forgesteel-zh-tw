@@ -173,9 +173,9 @@ remote 不可用或 Contract 明確要求 local-only 時，才使用 `AGENT-TASK
 
 ## 5. Reviewer-authorized Agent Stage 3
 
-Reviewer PASS、必要 manual acceptance PASS，且 approved HEAD、base 與 merge method 固定後，Reviewer 先唯讀 reconcile feature branch／HEAD、existing PR、`develop`、`main` 與 reviewed evidence。只有 state 無實質 anomaly 時，Reviewer 才在同一 Issue 發出 explicit Stage 3 authorization。
+Batch Contract 必須將 manual acceptance 標示為 `REQUIRED` 或 `NOT REQUIRED`。`NOT REQUIRED` 時，Reviewer PASS、必要 remote reconciliation 與 approved HEAD、base、merge method 固定後，Reviewer 才在同一 Issue 發出 normal Stage 3 authorization。`REQUIRED` 時，Reviewer 可先授權 Stage 3A 建立／reconcile PR 並取得 exact-HEAD required CI；Agent 不得 merge 或 cleanup，必須 STOP。Owner 在 unchanged exact PR HEAD 完成 manual acceptance、Reviewer 記錄 PASS 後，Reviewer 才能發出綁定 unchanged HEAD、base 與 merge method 的 Stage 3B merge authorization。manual PASS 後的 tracked-file 或 head change 會使 acceptance 失效，必須依影響範圍重新 review／accept。
 
-Agent 收到 authorization 後執行：
+normal Stage 3 的 Agent 收到 authorization 後執行；Stage 3B 則只在 unchanged PR 上從 mutable pre-merge gate 繼續：
 
 1. 建立或 reconcile 唯一 PR；
 2. 驗證 PR base／head／exact SHA／commits／changed files；

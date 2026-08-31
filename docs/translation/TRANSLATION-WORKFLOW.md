@@ -343,6 +343,10 @@ checkpoint 的產出是 Contract 中的 batch 邊界理由，不是新的 progre
 
 試算表 render、visual preview 或 inspection output 只可作 review evidence；只要工具可能截斷或縮寫字串，它們就不是 packet generation 的 authority input。Reviewer 必須從 direct full cell values、lossless machine-readable worksheet export 或其他可取得完整值的來源產生 packet；canonical snapshot 與 Owner-approved zh-TW 都必須來自該完整值來源。snapshot 必須保留 leading／trailing whitespace、Markdown、punctuation、escaping 與 structured text，不得讓 synthetic ellipsis 或 abbreviated display value 成為 authority。`canonicalSha256` 必須由完整 canonical value 計算；packet approval 前，Reviewer 必須將每一筆 packet identity、canonical snapshot 與 hash 對 live canonical source 作 machine comparison。alignment declaration 不得只以 packet 內部 self-consistency 為依據。
 
+### GitHub Frozen-packet Read-back Gate
+
+Reviewer 將 frozen packet 發布到 GitHub Issue 後、授權 Agent 前，必須從實際 published payload read-back，再核對 packet revision、identity set、exact canonical／approved zh-TW values，以及 Contract 提供時的 payload SHA-256。這個 read-back 是 Reviewer publish artifact 的 gate；Agent implementation preflight 是獨立的第二道 guard，不能成為正常流程第一次發現 Reviewer artifact defect 的地方。若 read-back 不符，依 Packet Revision Rule 發行新 revision，不靜默改寫既有 authority。
+
 ### Packet Hash Semantics
 
 packet 相關的 hash 有三個彼此不可互換的概念。混用會造成假 alignment 或假 blocker。
@@ -399,6 +403,10 @@ alignment 不是流程末端的一次性檢查，固定在以下三個時點執�
    保留現有 preflight（見 `docs/project-review-skill/AGENT-TASK-CONTRACT.md` 的 Translation Packet Preflight）作 defense in depth。它是最後一道防線，**不應**是正常流程第一次發現 Reviewer packet defect 的地方；若 preflight 首次發現 drift（含 identity／path drift），除了依既有規則 STOP，還代表前兩層 timing 未被執行。
 
 三層都可使用現行的 `src/localization/test-support/packet-canonical-alignment.ts`，或明確等價的 machine comparison。本 gate 不新增 CLI、npm script 或新 helper；發現的 mechanical drift 依 **Packet Revision Rule** 處理。
+
+### Agent Final Catalog Reconciliation
+
+translation Stage 1 implementation 完成後，Agent 必須以 frozen approved packet 的**in-scope slice**和實際 production localization catalog 作 exact reconciliation：每筆必須依 stable localization identity 對應，且 `zhTW` 必須 byte-for-byte 相等，不 trim 或 normalize。duplicate／ambiguous、missing 或 text mismatch 都是 gate failure；catalog 在 slice 外的項目不屬於這個 comparison。優先使用 `src/localization/test-support/approved-translation-catalog-reconciliation.ts` 的 `verifyApprovedTranslationsAgainstCatalog`。這是 batch-time handoff evidence，不建立或保存另一份 historical translation denominator。
 
 ### Packet Revision Rule
 
@@ -496,9 +504,9 @@ Agent Task 前，Reviewer 必須依上述 Discovery Gate 的結果，辨識 live
 - canonical dynamic grammar family；
 - Hero／no-Hero production path；
 - 預期安全 zh-TW projection 或 fallback；
-- 所需 representative production evidence。
+- 所需 representative production evidence，並逐列映射到明確 Hero／no-Hero／pass-through public-behavior assertion（依該 row 實際存在的 path）。
 
-只分類 Discovery Gate 判定為 calculated、且實際存在於該 batch 的 family；例如 characteristic-based values、half／twice Speed、potency、damage、condition Markdown emphasis、push／pull／slide、`vertical pull` 等 modified movement phrase、calculated content 周圍需保留的 structural phrase，或 unsupported calculated rewrite fallback。不得把此清單變成每批必跑的 checklist。
+只分類 Discovery Gate 判定為 calculated、且實際存在於該 batch 的 family；例如 characteristic-based values、half／twice Speed、potency、damage、condition Markdown emphasis、push／pull／slide、`vertical pull` 等 modified movement phrase、calculated content 周圍需保留的 structural phrase，或 unsupported calculated rewrite fallback。測試不得刻意鎖定與 matrix 相反的行為。不得把此清單變成每批必跑的 checklist。
 
 ## 14. Class／Subclass Level 1 Non-Ability Required Identity
 

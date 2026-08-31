@@ -14,7 +14,8 @@ export type LocalizationCatalogIssueCode =
 	| 'duplicate-identity'
 	| 'canonical-drift'
 	| 'approved-without-content'
-	| 'placeholder-mismatch';
+	| 'placeholder-mismatch'
+	| 'replacement-character';
 
 export interface LocalizationCatalogIssue {
 	code: LocalizationCatalogIssueCode;
@@ -154,6 +155,10 @@ export const validateLocalizationCatalog = (entries: readonly unknown[], current
 
 		if ((entry.approval === 'approved') && !isFilledString(entry.zhTW)) {
 			issues.push({ code: 'approved-without-content', identity: identity, detail: 'approved entry has no zh-TW content' });
+		}
+
+		if (entry.zhTW.includes('\uFFFD')) {
+			issues.push({ code: 'replacement-character', identity: identity, detail: 'zh-TW content contains the Unicode replacement character (U+FFFD)' });
 		}
 
 		if (entry.kind === 'message') {

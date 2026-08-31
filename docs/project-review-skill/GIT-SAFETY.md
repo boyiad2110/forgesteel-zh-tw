@@ -54,16 +54,19 @@ local-only cumulative patch 只在 `ONLINE-HANDOFF.md`／`AGENT-TASK-CONTRACT.md
 
 ## 3. Reviewer Stage 3 Authorization Preconditions
 
-只有下列條件成立才進入 PR closeout：
+Batch Contract 必須明確標示 manual acceptance 為 `REQUIRED` 或 `NOT REQUIRED`。
+
+`NOT REQUIRED` 時，只有下列條件成立才進入 normal Stage 3 PR closeout：
 
 - Reviewer PASS；
-- 必要 manual acceptance PASS；
 - approved feature HEAD 已固定；
 - approved base 已固定；
 - merge method 已由 Reviewer固定；
 - expected changed-files／commit evidence 已從 actual reviewed HEAD繼承。
 
 Reviewer 先以 remote read-only evidence 確認上述條件，然後在同一 Batch Issue 發出明確 Stage 3 authorization。Agent 不得把 Reviewer PASS 視為 Stage 3 permission；authorization 必須綁定 approved HEAD、base 與 merge method。
+
+`REQUIRED` 時，Reviewer 可以在 feature HEAD／base 固定後授權 **Stage 3A**：Agent 只建立或 reconcile PR，並確認 required CI 在 exact PR HEAD 成功；不得 merge 或 cleanup，完成後 STOP。Owner 必須在相同 exact PR HEAD 做 manual acceptance，Reviewer 記錄 PASS 後，才可發出綁定 unchanged HEAD、base 與 merge method 的 **Stage 3B** authorization。manual PASS 後若有 tracked-file 或 head change，acceptance 失效，必須依影響範圍重新 review／accept；不得沿用舊 PASS merge。
 
 ---
 

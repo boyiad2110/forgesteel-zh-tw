@@ -115,6 +115,33 @@ describe('catalog validator: approved entries without content', () => {
 	});
 });
 
+describe('catalog validator: replacement characters', () => {
+	it('reports literal U+FFFD in either approved or unapproved non-empty zh-TW content', () => {
+		const issues = validateLocalizationCatalog([
+			{ ...uiEntry, zhTW: '測試\uFFFD字串' },
+			{ ...elementEntry, zhTW: '草稿\uFFFD內容', approval: 'unapproved' }
+		]);
+
+		expect(issues).toEqual([
+			{
+				code: 'replacement-character',
+				identity: 'ui:hero-edit.save-changes',
+				detail: 'zh-TW content contains the Unicode replacement character (U+FFFD)'
+			},
+			{
+				code: 'replacement-character',
+				identity: 'element:free-melee/name',
+				detail: 'zh-TW content contains the Unicode replacement character (U+FFFD)'
+			}
+		]);
+	});
+
+	it('accepts ordinary valid Unicode and keeps the production catalog clean', () => {
+		expect(codes([ { ...uiEntry, zhTW: '繁體中文：！' } ])).toEqual([]);
+		expect(validateLocalizationCatalog(productionLocalizationEntries).filter(issue => issue.code === 'replacement-character')).toEqual([]);
+	});
+});
+
 describe('catalog validator: malformed entries', () => {
 	it('reports an invalid approval state', () => {
 		expect(codes([ { ...uiEntry, approval: 'pending' } ])).toEqual([ 'invalid-entry' ]);
