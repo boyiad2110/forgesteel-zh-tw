@@ -6,6 +6,7 @@ import { core } from '@/data/sourcebooks/official/core';
 import { beastheart } from '@/data/classes/beastheart/beastheart';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { localizeElementField } from '@/localization/resolver';
+import { productionLocalizationEntries } from '@/localization/catalog-data';
 import { localizeCalculatedAuthoredTextPresentation } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
 import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
 
@@ -23,7 +24,19 @@ const abilityText = (perkID: string) => {
 	return section.text;
 };
 
+const catalogField = (elementID: string, field: string) => {
+	const value = productionLocalizationEntries.find(entry => (entry.kind === 'element-field') && (entry.elementID === elementID) && (entry.field === field));
+	if (!value || (value.kind !== 'element-field')) { throw new Error(`Missing catalog field ${elementID}/${field}`); }
+	return value;
+};
+
 describe('V1 Perks localization safety', () => {
+	it('preserves the two frozen approved strings and rejects U+FFFD in the production catalog', () => {
+		expect(catalogField('perk-dazzler', 'description').zhTW).toBe('若有生物觀賞你唱歌、跳舞或演戲至少 1 分鐘以上，在表演結束後的 1 小時內，你試圖影響該生物的所有考驗都會獲得 1 個優勢。');
+		expect(catalogField('perk-arcane-trick-1', 'sections.0.text').zhTW).toBe('選擇以下 1 種效果：\n\n* 你將 1 個體型 1S 以下且與你相鄰的物體傳送到另 1 個與你相鄰的未占據空間。\n* 直到你下個回合開始前，你身體的某個部位會噴出無害的吵雜火花，照亮與你相鄰的每個方格。\n* 你點燃或熄滅（由你選擇）每個與你相鄰且體型 1L 以下的尋常光源。\n* 你觸碰最多 1 磅的可食用食物，使其味道變得美味或噁心。\n* 直到你下個回合開始前，你的身體會散發出某種你曾經聞過的氣味。在你 5 格內的每個生物都能聞到這個氣味，但不會因此陷入任何狀態或受到負面影響。\n* 你觸碰 1 個尋常物體的表面並留下小型魔法刻印，或移除由你或其他生物使用此專長留下的任何刻印。\n* 你觸碰 1 個體型 1T 的物體，用幻術讓它的外觀變成其他物體。任何接觸該物體的生物都會察覺此幻術。當你不再觸碰該物體時，幻術就會解除。');
+		expect(productionLocalizationEntries.filter(entry => entry.zhTW.includes('\uFFFD'))).toEqual([]);
+	});
+
 	it('localizes only the frozen Familiar path and preserves non-packet Monster fallback', () => {
 		const familiarPerk = perk('perk-familiar');
 		if (familiarPerk.type !== FeatureType.Summon) { throw new Error('Missing Familiar summon'); }
