@@ -2144,6 +2144,50 @@ export const createV1CensorLevel2RequiredCanonicalEnglish = (): CanonicalEnglish
 	return requiredCanonicalEnglish;
 };
 
+/** Reads only the Censor's own Level 3 progression roots; Orders and later levels stay out. */
+const getV1CensorLevel3Features = (): Feature[] => {
+	const levelThree = censor.featuresByLevel.find(level => level.level === 3);
+	if (!levelThree) {
+		throw new Error('Censor Level 3 features are missing');
+	}
+	return levelThree.features;
+};
+
+/** The exact approved Censor Level 3 cost-7 ability slice. */
+export const v1CensorLevel3AbilityIDs = [
+	'censor-ability-13',
+	'censor-ability-14',
+	'censor-ability-15',
+	'censor-ability-16'
+] as const;
+
+/** Enumerates only the four cost-7 Abilities selected by the Censor's Level 3 choice. */
+export const getV1CensorLevel3Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(censor.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1CensorLevel3AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Censor Level 3 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/**
+ * Builds the bounded 19-identity Censor Level 3 denominator from its two progression roots and
+ * the four cost-7 Abilities selected by the ClassAbility choice. Censor Level 4+, all Order
+ * content, and other Censor abilities stay outside this slice and its parent domains unresolved.
+ */
+export const createV1CensorLevel3RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, getV1CensorLevel3Features());
+	getV1CensorLevel3Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	return requiredCanonicalEnglish;
+};
+
 /**
  * The exact approved Beastheart Level 1 selectable base-class ability slice.
  *
@@ -2706,6 +2750,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1CoreDomainLevel1To3RequiredCanonicalEnglish(v1HeroCreationSourcebooks),
 		...createV1CensorLevel1AndOrderRequiredCanonicalEnglish(),
 		...createV1CensorLevel2RequiredCanonicalEnglish(),
+		...createV1CensorLevel3RequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1BaseAbilityRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1BaseCompletionRequiredCanonicalEnglish(),
 		...createV1BeastheartLevel1WildNatureRequiredCanonicalEnglish(),
