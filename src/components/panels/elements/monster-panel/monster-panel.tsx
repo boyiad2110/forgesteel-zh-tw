@@ -32,6 +32,8 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { StatsRow } from '@/components/panels/stats-row/stats-row';
 import { SummoningInfo } from '@/models/summon';
+import { localizeElementField } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 
 import './monster-panel.scss';
 
@@ -47,11 +49,15 @@ interface Props {
 }
 
 export const MonsterPanel = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ selectedAbility, setSelectedAbility ] = useState<Ability | null>(null);
 	const [ selectedCharacteristic, setSelectedCharacteristic ] = useState<Characteristic | null>(null);
 
 	const speed = MonsterLogic.getSpeed(props.monster);
 	const signatureBonus = MonsterLogic.getSignatureDamageBonus(props.monster);
+	const monsterName = MonsterLogic.getMonsterName(props.monster, props.monsterGroup);
+	const displayMonsterName = localizeElementField(locale, props.monster.id, 'name', monsterName);
+	const displayMonsterDescription = localizeElementField(locale, props.monster.id, 'description', props.monster.description);
 
 	let speedStr = speed.value.toString();
 	if (MonsterLogic.getSpeedModified(props.monster)) {
@@ -131,10 +137,10 @@ export const MonsterPanel = (props: Props) => {
 					tags={tags}
 					extra={props.extra}
 				>
-					{MonsterLogic.getMonsterName(props.monster, props.monsterGroup)}
+					{displayMonsterName}
 				</HeaderText>
 				<MonsterLabel monster={props.monster} extra={rightOfTags} />
-				<Markdown text={props.monster.description} />
+				<Markdown text={displayMonsterDescription} />
 				{
 					props.mode === PanelMode.Full ?
 						<>
@@ -150,7 +156,7 @@ export const MonsterPanel = (props: Props) => {
 									<Alert
 										type='warning'
 										showIcon={true}
-										title={`${MonsterLogic.getMonsterName(props.monster, props.monsterGroup)} is ${MonsterLogic.getCombatState(props.monster)}.`}
+										title={`${displayMonsterName} is ${MonsterLogic.getCombatState(props.monster)}.`}
 									/>
 									: null
 							}
@@ -240,8 +246,8 @@ export const MonsterPanel = (props: Props) => {
 											features.map(f => (
 												<Field
 													key={f.id}
-													label={f.name}
-													value={<Markdown text={f.description} useSpan={true} />}
+													label={localizeElementField(locale, f.id, 'name', f.name)}
+													value={<Markdown text={localizeElementField(locale, f.id, 'description', f.description)} useSpan={true} />}
 												/>
 											))
 										}

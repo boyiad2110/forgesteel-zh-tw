@@ -13,6 +13,8 @@ import { SelectablePanel } from '@/components/controls/selectable-panel/selectab
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { localizeElementField, localizeUIString } from '@/localization/resolver';
+import { useLocalization } from '@/contexts/localization-context';
 import { useState } from 'react';
 
 import './perk-select-modal.scss';
@@ -26,7 +28,10 @@ interface Props {
 }
 
 export const PerkSelectModal = (props: Props) => {
+	const { locale } = useLocalization();
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
+	const localizePerk = (perk: Perk, field: 'name' | 'description') => localizeElementField(locale, perk.id, field, perk[field]);
+	const getListLabel = (list: PerkList) => localizeUIString(locale, `perk-list.${list.toLowerCase()}`, list);
 
 	const onSelect = (perk: Perk) => {
 		Analytics.logElementSelected(perk, 'Perk');
@@ -36,13 +41,18 @@ export const PerkSelectModal = (props: Props) => {
 	const perks = props.perks
 		.filter(p => Utils.textMatches([
 			p.name,
-			p.description
+			p.description,
+			localizePerk(p, 'name'),
+			localizePerk(p, 'description')
 		], searchTerm));
+	const selectedPerkIDs = new Set(props.perks.map(perk => perk.id));
 	const otherPerks = SourcebookLogic.getPerks(props.sourcebooks)
-		.filter(os => !props.perks.map(p => p.name).includes(os.name))
+		.filter(perk => !selectedPerkIDs.has(perk.id))
 		.filter(os => Utils.textMatches([
 			os.name,
-			os.description
+			os.description,
+			localizePerk(os, 'name'),
+			localizePerk(os, 'description')
 		], searchTerm));
 
 	return (
@@ -61,10 +71,10 @@ export const PerkSelectModal = (props: Props) => {
 
 							return (
 								<Space key={list} orientation='vertical' style={{ width: '100%' }}>
-									<HeaderText level={1}>{list}</HeaderText>
+									<HeaderText level={1}>{getListLabel(list)}</HeaderText>
 									{
-										subset.map((p, n) => (
-											<SelectablePanel key={n} onSelect={() => onSelect(p)}>
+										subset.map(p => (
+											<SelectablePanel key={p.id} onSelect={() => onSelect(p)}>
 												<PerkPanel perk={p} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
 											</SelectablePanel>
 										))
@@ -77,16 +87,16 @@ export const PerkSelectModal = (props: Props) => {
 						otherPerks.length > 0 ?
 							<>
 								<Divider />
-								<Expander title='Other Perks'>
+								<Expander title={localizeUIString(locale, 'perk-select.other-perks', 'Other Perks')}>
 									<Space orientation='vertical' style={{ width: '100%' }}>
 										<Alert
 											type='warning'
 											showIcon={true}
-											title='Selecting a perk from outside the listed groups is typically against the rules.'
+											title={localizeUIString(locale, 'perk-select.outside-listed-groups-warning', 'Selecting a perk from outside the listed groups is typically against the rules.')}
 										/>
 										{
-											otherPerks.map((p, n) => (
-												<SelectablePanel key={n} onSelect={() => props.onSelect(p)}>
+											otherPerks.map(p => (
+												<SelectablePanel key={p.id} onSelect={() => onSelect(p)}>
 													<PerkPanel perk={p} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
 												</SelectablePanel>
 											))
