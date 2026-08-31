@@ -29,9 +29,10 @@ Stage 1 是 Agent 的完整 implementation task，至少包含：
 5. **Out of scope**。
 6. **Acceptance**。
 7. **Risk Level**：Level A／B／C。
-8. **Git permission**。
-9. **Report**。
-10. **Stop**。
+8. **Manual acceptance**：`REQUIRED` 或 `NOT REQUIRED`。
+9. **Git permission**。
+10. **Report**。
+11. **Stop**。
 
 Batch 預設 coherent、可獨立驗收；不得為單一詞彙／call site 無必要拆批，也不得把無關 architecture 塞入同批。
 
@@ -82,6 +83,14 @@ Stage 2 不重貼完整 packet／Owner prose／歷史調查；stable safety 直�
 
 Agent 在 Reviewer 明確授權前不得執行 Stage 3 Git／PR closeout。Reviewer PASS 本身不是 permission；authorization 必須在同一 Batch Issue，並綁定 fixed approved state。
 
+Batch Contract 的 `Manual acceptance: NOT REQUIRED` 維持 normal Stage 3。若是 `REQUIRED`，則分為兩次明確授權：
+
+- **Stage 3A** 只可 create／reconcile PR 並取得 exact-HEAD required CI；不得 merge 或 cleanup，完成後 STOP。
+- Owner 必須在 unchanged exact PR HEAD 完成 manual acceptance，且 Reviewer 記錄 PASS。
+- **Stage 3B** 才可依另一份 bound-to-unchanged-HEAD／base／merge-method authorization merge 與 cleanup。
+
+manual PASS 後的 tracked-file 或 head change 會使 acceptance 失效；Agent 必須停止，讓 Reviewer 依影響範圍重新 review／accept，而不是沿用舊 PASS。
+
 Stage 3 authorization 是 compact execution-critical delta，至少包含：
 
 - approved full HEAD；
@@ -92,7 +101,7 @@ Stage 3 authorization 是 compact execution-critical delta，至少包含：
 - cleanup requirement；
 - Report／Stop。
 
-收到有效 authorization 後，Agent 可建立或 reconcile PR、驗證 exact head／base／files／commits、等待 required CI、執行 mutable pre-merge checks、以授權 method merge、驗證結果、執行 cleanup 並回報。Agent 不得在 Stage 3 作任何新的 product、scope 或 translation 決策；tracked correction 一律回 bounded Stage 2，並需要新的 Reviewer review 與 Stage 3 authorization 才可恢復 closeout。
+收到 normal Stage 3 authorization 後，Agent 可建立或 reconcile PR、驗證 exact head／base／files／commits、等待 required CI、執行 mutable pre-merge checks、以授權 method merge、驗證結果、執行 cleanup 並回報。Stage 3B 只可在同一 unchanged PR 上重做 mutable pre-merge check、merge、驗證結果與 cleanup；不得建立另一個 PR 或重跑 Stage 3A。Agent 不得在 Stage 3 作任何新的 product、scope 或 translation 決策；tracked correction 一律回 bounded Stage 2，並需要新的 Reviewer review 與 Stage 3 authorization 才可恢復 closeout。
 
 ---
 
@@ -200,6 +209,7 @@ Agent 必須：
 - 不建立中文 parser／calculator；
 - unsupported structural rewrite 依既有 fallback policy fail-close；
 - discovery 不得擴張 translation denominator。
+- 將每一個適用 matrix row 對應到 explicit Hero／no-Hero／pass-through public-behavior assertion（依該 row 實際存在的 path）；不得讓測試固定與 matrix 相反的行為。
 
 ### Shared primitives
 
@@ -224,7 +234,7 @@ Agent：
 1. reconcile repository／base／branch preflight；
 2. 從核准 base 建 feature branch；
 3. 只修改 In Scope；
-4. 執行 risk-matched minimum sufficient evidence；
+4. 執行 risk-matched minimum sufficient evidence；translation implementation 適用時，對 frozen approved packet in-scope slice 與 production catalog 執行 exact identity／zh-TW reconciliation；
 5. 最後 tracked change 後建立 normal final commit；
 6. 記錄完整 40-character HEAD，確認 clean tree；
 7. push feature branch；

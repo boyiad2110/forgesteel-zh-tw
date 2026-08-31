@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.7.0"
+  version: "0.8.0"
 ---
 
 # Forge Steel Reviewer
@@ -39,6 +39,7 @@ Authority 衝突時依 Principles 處理，不自行補規格。
 - **Out of scope**。
 - **Acceptance**。
 - **Risk Level**。
+- **Manual acceptance**：`REQUIRED` 或 `NOT REQUIRED`。
 - **Git permission**。
 - **Report**。
 - **Stop**。
@@ -137,7 +138,7 @@ Agent 任務依 `AGENT-TASK-CONTRACT.md`，只寫本批差異與必要 gate，�
 5. Agent 在同一 Issue 回報 exact remote HEAD 後 STOP；
 6. Reviewer review actual remote state。
 
-**Stage 1 full task**至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Git permission、Report、Stop。
+**Stage 1 full task**至少包含 Goal、Authority、Base、In／Out scope、Acceptance、Risk、Manual acceptance、Git permission、Report、Stop。
 
 ### Stage 2 compact handoff
 
@@ -154,7 +155,7 @@ Stage 2 不重貼完整 packet 或歷史。Agent 正常新 correction commit、p
 
 ### Stage 3 Authorization
 
-Agent 在 Reviewer 明確授權前，execution boundary 止於 Stage 1／Stage 2。Reviewer PASS、必要 manual acceptance PASS 且 approved HEAD、base 與 merge method 已固定後，Reviewer 必須在同一 Batch Issue 發出綁定該 exact state 的 Stage 3 authorization；只有收到該授權後，Agent 才可依 `AGENT-TASK-CONTRACT.md` 的 compact Stage 3 profile 執行 closeout。
+Agent 在 Reviewer 明確授權前，execution boundary 止於 Stage 1／Stage 2。Batch Contract 必須固定 manual acceptance 為 `REQUIRED` 或 `NOT REQUIRED`：`NOT REQUIRED` 維持 normal Stage 3；`REQUIRED` 則分成 Stage 3A 與 Stage 3B。Reviewer 可先對 fixed HEAD／base 授權 Stage 3A，只建立／reconcile PR 並取得 exact-HEAD required CI，**不得 merge 或 cleanup，完成後 STOP**。Owner 必須在該 exact PR HEAD 完成 manual acceptance，Reviewer 記錄 PASS 後，才可發出綁定 unchanged HEAD／base／merge method 的 Stage 3B merge authorization。manual PASS 後任何 tracked 或 head change 都使該 acceptance 失效，必須依影響範圍重新 review／accept。
 
 ### Translation Worksheet Gate
 
@@ -170,6 +171,8 @@ translation batch 若需要 Owner 定稿，先讀 `docs/translation/TRANSLATION-
 交付 implementation 前，Reviewer 完成 `TRANSLATION-WORKFLOW.md` 對該 batch 適用的 gate：
 
 - post-Owner final packet canonical alignment；
+- GitHub frozen packet publish 後的 payload read-back；
+- Agent final approved zh-TW → production catalog exact reconciliation；
 - Calculated Path Discovery Gate／grammar matrix；
 - glossary delta decision；
 - 其他 batch-specific safety。
@@ -186,15 +189,22 @@ frozen implementation packet 依 `ONLINE-HANDOFF.md` 放到 GitHub Issue；Stage
 
 Reviewer artifact 的 newline／whitespace／Markdown／snapshot／hash／identity drift 由 Reviewer 修正，不包裝成 Owner decision，也不應等 Agent 第一次發現。
 
+GitHub freeze 發布後、Agent authorization 前，Reviewer 必須從實際 Issue payload read-back 重新核對 packet identity、exact zh-TW／canonical values、revision 與提供時的 payload SHA。Agent preflight 是獨立的第二道 guard，不是正常流程第一次發現 Reviewer publish artifact defect 的地方。
+
 ### Repository-native localization primitives
 
 適用時優先沿用：
 
 - `src/localization/test-support/packet-canonical-alignment.ts` 的 `verifyPacketCanonicalAlignment`、`calculateCanonicalSha256`；
+- `src/localization/test-support/approved-translation-catalog-reconciliation.ts` 的 `verifyApprovedTranslationsAgainstCatalog`；
 - `src/localization/test-support/localization-differential-invariants.ts` 的 `protectCanonicalState`、`verifyLocaleDifferentialInvariants`、`assertCanonicalEnglishCalculationInput`；
 - `src/localization/test-support/localization-presentation-test-harness.tsx` 的 shared presentation scaffolding。
 
 這些 helper 依 risk opt-in，不建立第二套 denominator，也不取代 class-specific public-behavior assertions。
+
+translation Stage 1 implementation 完成後，Agent 必須用 frozen approved packet 的 in-scope slice 與實際 production catalog 執行 exact identity／zh-TW reconciliation；這是 batch-time evidence，不保存成 historical denominator。
+
+每一個適用的 calculated presentation matrix row 都必須在 Agent Task 中對應到明確的 Hero／no-Hero／pass-through public-behavior assertion（依該 row 實際存在的 path）；測試不得刻意鎖定與 matrix 相反的行為。
 
 ### Class／Subclass Level 1 Non-Ability Required Identity
 
