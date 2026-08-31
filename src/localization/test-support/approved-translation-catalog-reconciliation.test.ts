@@ -33,6 +33,24 @@ describe('approved translation catalog reconciliation', () => {
 		});
 	});
 
+	it('ignores duplicate catalog identities outside the supplied approved slice', () => {
+		const result = verifyApprovedTranslationsAgainstCatalog({
+			approvedTranslations: [ { identity: 'ui:alpha', zhTW: '甲' } ],
+			catalogEntries: [
+				catalogEntry('alpha', '甲'),
+				catalogEntry('outside-slice', '甲外'),
+				catalogEntry('outside-slice', '乙外')
+			]
+		});
+
+		expect(result).toEqual({
+			approvedRecordCount: 1,
+			catalogEntryCount: 3,
+			reconciledCount: 1,
+			issues: []
+		});
+	});
+
 	it('reports missing, duplicate or ambiguous identities, and exact text mismatches deterministically', () => {
 		const result = verifyApprovedTranslationsAgainstCatalog({
 			approvedTranslations: [

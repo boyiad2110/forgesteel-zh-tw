@@ -74,20 +74,19 @@ export const verifyApprovedTranslationsAgainstCatalog = (options: VerifyApproved
 		}
 	}
 
-	for (const [ identity, entries ] of catalogByIdentity) {
-		if (entries.length > 1) {
-			issues.push({ type: 'duplicate-catalog-identity', identity });
-		}
-	}
-
 	for (const [ identity, approvedRecords ] of approvedByIdentity) {
 		const catalogEntries = catalogByIdentity.get(identity) ?? [];
+		if (catalogEntries.length > 1) {
+			issues.push({ type: 'duplicate-catalog-identity', identity });
+			continue;
+		}
+
 		if (catalogEntries.length === 0) {
 			issues.push({ type: 'missing-catalog-identity', identity });
 			continue;
 		}
 
-		if ((approvedRecords.length === 1) && (catalogEntries.length === 1) && (approvedRecords[0].zhTW !== catalogEntries[0].zhTW)) {
+		if ((approvedRecords.length === 1) && (approvedRecords[0].zhTW !== catalogEntries[0].zhTW)) {
 			issues.push({ type: 'zh-tw-mismatch', identity });
 		}
 	}
