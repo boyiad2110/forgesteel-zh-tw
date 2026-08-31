@@ -2114,6 +2114,106 @@ const projectBeastheartLevel3CalculatedValue = (elementID: string, field: string
 };
 
 /**
+ * These four V1 Perk readings are the complete calculated-presentation matrix for this batch.
+ * The canonical calculator remains the sole authority for every resolved value; this identity-
+ * bound layer only carries a value that was already resolved in canonical English into the
+ * approved raw zh-TW wording. With no Hero, the calculator leaves every expression authored and
+ * the caller returns that raw zh-TW reading before reaching this projector.
+ *
+ * The shared rewrite table is deliberately not widened: its matching phrases are used by other
+ * content, while Brawny and Lucky Dog resolve Stamina loss, Friend Catapult has two coupled Might
+ * distances, and Wild Rumpus has this exact level-damage clause. Replaying every replacement onto
+ * canonical English is the fail-closed guard; any structural change falls back to calculated
+ * English instead of creating mixed-language prose.
+ */
+const projectV1PerkCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	const projections = [
+		{
+			elementID: 'perk-brawny',
+			field: 'description',
+			parts: [
+				{
+					canonical: 'lose Stamina equal to 1d6 + your level',
+					calculated: /lose Stamina equal to 1d6 \+ (-?\d+)/,
+					localized: '消耗 1d6 + 你等級的體力',
+					replacement: (value: string) => `消耗 1d6 + ${value} 點體力`
+				}
+			]
+		},
+		{
+			elementID: 'perk-lucky-dog',
+			field: 'description',
+			parts: [
+				{
+					canonical: 'lose Stamina equal to 1d6 + your level',
+					calculated: /lose Stamina equal to 1d6 \+ (-?\d+)/,
+					localized: '消耗 1d6 + 你等級的體力',
+					replacement: (value: string) => `消耗 1d6 + ${value} 點體力`
+				}
+			]
+		},
+		{
+			elementID: 'perk-friend-catapult-1',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'vertical push that target up to a number of squares equal to twice your Might score.',
+					calculated: /vertical push that target up to a number of squares equal to (-?\d+)\./,
+					localized: '將目標垂直推動最多等於你`力量` ×2 的格數。',
+					replacement: (value: string) => `將目標垂直推動最多 ${value} 格。`
+				},
+				{
+					canonical: 'effective distance of the fall is reduced by a number of squares equal to twice your Might score.',
+					calculated: /effective distance of the fall is reduced by a number of squares equal to (-?\d+)\./,
+					localized: '墜落的有效距離會減少等於你`力量` ×2 的格數。',
+					replacement: (value: string) => `墜落的有效距離會減少 ${value} 格。`
+				}
+			]
+		},
+		{
+			elementID: 'perk-wild-rumpus-1',
+			field: 'sections.0.text',
+			parts: [
+				{
+					canonical: 'you take damage equal to your level until you finish a respite or gain 1 or more Victories.',
+					calculated: /you take damage equal to (-?\d+) until you finish a respite or gain 1 or more Victories\./,
+					localized: '你就會受到等於你等級的傷害，直到你完成 1 次休整或獲得 1 點以上的勝利值。',
+					replacement: (value: string) => `你就會受到 ${value} 點傷害，直到你完成 1 次休整或獲得 1 點以上的勝利值。`
+				}
+			]
+		}
+	];
+
+	const projection = projections.find(candidate => (candidate.elementID === elementID) && (candidate.field === field));
+	if (!projection) {
+		return undefined;
+	}
+
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+
+	for (const part of projection.parts) {
+		const calculatedMatch = calculatedEnglish.match(part.calculated);
+		if (!calculatedMatch) {
+			return undefined;
+		}
+
+		if ((occurrenceCount(projectedCanonical, part.canonical) !== 1) || (occurrenceCount(projectedLocalized, part.localized) !== 1)) {
+			return undefined;
+		}
+
+		projectedCanonical = projectedCanonical.replace(part.canonical, () => calculatedMatch[0]);
+		projectedLocalized = projectedLocalized.replace(part.localized, () => part.replacement(calculatedMatch[1]));
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish: calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
+/**
  * The two Summoner Level 1 readings the canonical calculator rewrites. Each carries an authored
  * potency threshold and a condition name, and the calculator treats the two differently: it adds
  * the potency code marks and the condition emphasis with or without a Hero, but resolves the
@@ -2406,6 +2506,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const beastheartLevel3CalculatedValue = projectBeastheartLevel3CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (beastheartLevel3CalculatedValue) {
 		return beastheartLevel3CalculatedValue;
+	}
+
+	const v1PerkCalculatedValue = projectV1PerkCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (v1PerkCalculatedValue) {
+		return v1PerkCalculatedValue;
 	}
 
 	const summonerLevel1CalculatedValue = projectSummonerLevel1CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
