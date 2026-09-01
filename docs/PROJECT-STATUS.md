@@ -1,6 +1,6 @@
 # Forge Steel 繁體中文化專案進度
 
-> 最後更新：2026-08-25
+> 最後更新：2026-09-02
 > 本文件是 handoff 摘要，不取代 GitHub PR／commit、`docs/REVIEWER-PRINCIPLES.md`、V1 requirements、現行 code／tests／CI 或人工驗收 evidence。
 
 ## 1. Current Baseline
@@ -8,7 +8,7 @@
 - Repository：`boyiad2110/forgesteel-zh-tw`
 - Active integration branch：`develop`
 - Reconciliation snapshot（本文件最後 reconcile 時的 `develop`，僅供對照，**不是 reset target**）：
-  `14a0fa1688110903a6f2c78673b5e6e1c706a126`
+  `3c52c5690e8045eee541e950c639153ed38e9d4f`
 - Frozen `main` / `origin/main`：
   `267ca1a10dcab32a700089fc65dd212dc81f880a`
 - 最近已 merge 的工作以 `git log develop` 與 GitHub PR 為準；本文件不維護「最新 PR」欄位，避免每次 merge 後立即 stale。
@@ -161,6 +161,11 @@ Beastheart 已從先前的 deferred sequencing 進入實際 localization 工作�
 - 不代表 `official-ability-authored-content`、`class-and-subclass-level-content` 或任何其他 unresolved domain 已收斂。
 - 不代表 Summoner 的 Level 1–3 Class／Subclass player-facing localization 已完成；本 milestone 未新增 Summoner 進展，其尚未涵蓋的內容仍待後續批次。（Summoner 既有的 Class top-level name／description localization 見 3.6。）
 - 本節是 handoff 導覽，不是第二套 denominator；實際 required／missing／unapproved／unresolved 一律以 live manifest + catalog + `npm run loc:status` evidence 為準。
+
+### 3.16 Recent `develop` progress after the prior snapshot
+
+- Summoner Level 1–3 base-class slices、Core V1 perks，以及 Conduit／Censor Level 3 player-facing localization 已合併；各 slice 的 exact coverage 仍以 live manifest、catalog 與 GitHub PR evidence 為準。
+- localization workflow 的 packet reconciliation、verification-cost 與 Stage 3 handoff safeguards 已隨實際 merged work 強化；這些是 workflow evidence，不改變 V1 scope 或 canonical-data boundary。
 
 ## 4. 現行 translation／decision 規則
 

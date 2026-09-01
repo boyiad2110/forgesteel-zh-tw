@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.8.0"
+  version: "0.8.1"
 ---
 
 # Forge Steel Reviewer
@@ -68,6 +68,7 @@ Batch 大小依 Principles：優先 coherent、可獨立驗收的 UI／功能 sl
 
 - translation Owner workspace 預設使用 Google Sheet；
 - 需要 Agent 時，Batch Contract／frozen implementation packet 預設使用同一個 GitHub Issue；
+- Owner primary clone 可用且乾淨時，Agent 預設在同一 clone 從核准 `develop` 建 feature branch；這讓 Owner 可持續用既有 local dev server live preview。isolated worktree／另一 clone 只在 Owner 明確要求、primary clone 不可用或不乾淨／有衝突 Owner work，或 Contract 有具體 isolation risk 時使用，且必須明示；
 - Agent Stage 1／Stage 2 結果預設 push feature branch，Reviewer review exact remote HEAD；
 - Reviewer PASS 後，Reviewer 在同一 Issue 明確授權固定的 Stage 3；Agent 執行 GitHub writes，Reviewer 再唯讀複核實際整合結果；
 - offline `.xlsx`／`.json`／`.md`／cumulative patch 只在 online path 無法安全完成時使用。
@@ -220,7 +221,7 @@ online-first 預設 Stage 1 使用 **remote reviewer branch**。
 
 Agent：
 
-- 從核准 `develop`／base 建 feature branch；
+- Owner primary clone 可用且乾淨時，在該 clone 確認核准 `develop`／base 後建立或切換 Contract 指定 feature branch；不直接在 `develop` 實作，也不為一般安全理由改用 isolated worktree／另一 clone；
 - 只修改 In Scope；
 - 執行 risk-matched targeted verification；
 - 建立 normal final commit；
@@ -328,7 +329,7 @@ Reviewer 在 Agent Stage 3 report 後，獨立唯讀複核 remote PR、merge、`
 - remote reconciliation PASS；
 - `main` 未改；
 - 可執行的 cleanup 完成，或只剩明確允許的 non-blocking housekeeping；
-- 若本批使用 Batch Issue，Issue 已 close；
+- 若本批使用 Batch Issue，Reviewer 在 final remote reconciliation PASS 後明確 close Issue；因 PR target 是 `develop` 而 default branch 是 `main`，不得倚賴 PR closing keyword；
 - 未開始下一批。
 
 Owner／其他開發者可之後正常 fast-forward 自己的 local `develop`；外部 local clone 未同步本身不是 remote Batch Closed blocker。

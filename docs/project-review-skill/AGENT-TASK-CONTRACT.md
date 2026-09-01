@@ -231,7 +231,7 @@ helper 只依實際 risk 使用，不取代 scenario-specific public-behavior as
 
 Agent：
 
-1. reconcile repository／base／branch preflight；
+1. reconcile repository／base／branch preflight：Owner primary clone 可用且乾淨時，先確認它的 `develop` 在核准 base，再於同一 clone 建立／切換 Contract feature branch；不得直接在 `develop` 實作。isolated worktree／另一 clone 僅限 Owner 明確要求、primary clone 不可用或不乾淨／有衝突 Owner work，或 Contract 明確的 isolation risk，且須先明示；
 2. 從核准 base 建 feature branch；
 3. 只修改 In Scope；
 4. 執行 risk-matched minimum sufficient evidence；translation implementation 適用時，對 frozen approved packet in-scope slice 與 production catalog 執行 exact identity／zh-TW reconciliation；
@@ -247,6 +247,8 @@ Agent：
 ### Stage 1 remote reviewer branch — default
 
 online-first 專案預設授權 Agent 在 final commit／clean tree 後 push 該 batch feature branch，讓 Reviewer review exact remote HEAD。
+
+primary clone 的此一預設讓 Owner 可在同一 working directory 繼續使用 repository 的既有 local dev environment（例如 `npm run start`）live preview；workspace setup 不得無必要刪除／重建依賴環境或建立第二份依賴環境。只有確有 package-manager recovery 時才依本文件 Tooling / Package Manager 的 repository evidence 處理，並確認沒有 tracked-file mutation。
 
 Agent 仍不得：
 
