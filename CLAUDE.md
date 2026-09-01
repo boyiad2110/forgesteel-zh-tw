@@ -6,6 +6,7 @@
 - 權限與決策邊界依 `docs/REVIEWER-PRINCIPLES.md`。
 - V1 scope 依 `docs/requirements/V1-REQUIREMENTS.md`。
 - translation batch 另依 `docs/translation/TRANSLATION-WORKFLOW.md`。
+- Stage 1 預設使用可用且乾淨的 Owner primary clone，從核准 `develop` 建 feature branch，以保留 local live preview；例外與 closeout routing 依 `ONLINE-HANDOFF.md`、`GIT-SAFETY.md`。
 
 ## Canonical safety
 

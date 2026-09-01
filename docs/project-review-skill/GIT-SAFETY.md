@@ -34,6 +34,8 @@ GitHub write target：
 
 online-first 預設 Agent 在 final normal commit、fresh verification、clean tree 後 push feature branch，讓 Reviewer review exact remote HEAD。
 
+Owner primary clone 可用且乾淨時，Agent 預設在同一 clone 驗證 exact authorized `develop` base，然後建立／切換 Contract 指定 feature branch；`develop` 只作 clean starting／integration branch，不得直接實作。這保留 Owner 既有 local dev environment 的 live preview。isolated worktree／另一 clone 不是 generic safety default，只在 Owner 明確要求、primary clone 不可用或不乾淨／有衝突 Owner work，或 Contract 有具體 isolation risk 時使用，並在 Contract／report 明示。workspace setup 不得無必要重建 dependency environment。
+
 Agent push 前至少確認：
 
 - repository／origin 是繁中 fork；
@@ -255,6 +257,8 @@ Agent／Owner若在 local clone同步：
 - working tree應保持乾淨；
 - `main`／upstream不動。
 
+remote merge／reconciliation 後，primary clone owner 可切回 `develop` 並以 `git pull --ff-only origin develop` 收斂；local feature branch 仍依上述安全刪除規則處理。不得用 reset 模擬同步。
+
 clone-local defense（例如 `gh repo set-default`、`remote.pushDefault=origin`、upstream invalid push URL）只能視為 defense in depth；新 clone／新工作目錄必須重新驗證，且 `gh` write仍要明確 `--repo`。
 
 外部 Agent／Owner local workspace未被 Reviewer觀察，不影響 remote integration evidence；Reviewer 不因 local clone 狀態自行執行 Stage 3 writes。
@@ -330,4 +334,4 @@ Agent 完成 Stage 3 report 後，Reviewer獨立唯讀確認下列項目才可�
 
 local clone sync不是 remote Batch Closed必要條件；由需要該 clone的人之後正常 fast-forward即可。
 
-closeout後 STOP，不開始下一批。
+因 integration PR target 是 `develop` 而 repository default branch 是 `main`，Reviewer 必須在 final remote reconciliation PASS 後明確 close Batch Issue；不得把 PR 的 closing keyword 當成 Issue closure。closeout後 STOP，不開始下一批。

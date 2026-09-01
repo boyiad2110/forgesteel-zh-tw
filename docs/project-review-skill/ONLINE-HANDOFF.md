@@ -28,6 +28,8 @@
 - **GitHub feature branch**：Agent implementation 的 exact remote review state。
 - **GitHub PR／CI**：Reviewer authorization 後由 Agent 執行的 integration evidence。
 
+Owner primary clone 可用且乾淨時，Stage 1 預設在該 clone 從 exact authorized `develop` 建立／切換 batch feature branch，讓 Owner 可保留既有 local dev server 並 live preview。`develop` 不直接實作；isolated worktree／另一 clone 只在 Owner 明確要求、primary clone 不可用或不乾淨／有衝突 Owner work，或具體 batch isolation risk 時使用，且必須明示。setup 不得無必要建立第二份 dependency environment 或重建既有環境。
+
 只有工具能力、權限、精確值保存或 remote availability 使 online path 無法安全完成時，才使用既有 offline artifact／cumulative patch fallback。
 
 Online-first 是 transport preference，不降低任何 canonical、verification、Git safety 或 Owner approval gate。
@@ -163,7 +165,7 @@ Issue thread 是 coordination／handoff surface；Reviewer verdict 仍以 actual
 - 有 blocker 時 Agent 執行必要的 **Stage 2**；
 - 只有同一 Issue 存在 Reviewer 對 fixed approved HEAD、base 與 merge method 的 explicit authorization 時，Agent 才執行 **Stage 3**。
 
-Stage 1 預設使用 remote reviewer branch：implementation、targeted verification、final normal commit、clean tree 後 push feature branch，確認 local／remote exact HEAD 一致，回 Issue 並 STOP。
+Stage 1 預設在可用且乾淨的 Owner primary clone，從 exact authorized `develop` 建立／切換 feature branch，並使用 remote reviewer branch：implementation、targeted verification、final normal commit、clean tree 後 push feature branch，確認 local／remote exact HEAD 一致，回 Issue 並 STOP。primary-clone local state 不是 Reviewer authority；Reviewer 仍只 review exact remote feature HEAD。
 
 Agent 不得僅因 Reviewer 曾說 PASS 就建立 PR、merge、改 `develop`、清理 integration branch 或開始 Stage 3 GitHub closeout；需要 Issue 中的 explicit authorization。
 
@@ -215,7 +217,7 @@ remote feature branch 在 merge 後應正常刪除；但若 Agent 的已授權 G
 
 ## 6. Issue Closure
 
-Batch Issue 在下列條件完成後由 Reviewer close：
+Batch Issue 在下列條件完成後由 Reviewer **explicitly close**：
 
 - Reviewer final PASS；
 - 必要 acceptance PASS；
@@ -224,7 +226,7 @@ Batch Issue 在下列條件完成後由 Reviewer close：
 - merge result／`develop`／`main` remote reconciliation PASS；
 - 可執行的 cleanup 已完成，或唯一剩餘事項符合上節明確允許的 non-blocking housekeeping。
 
-Issue close comment 只保留必要 closeout evidence／PR number／merge result／deferred housekeeping，不重寫完整歷史。
+integration PR target 是 `develop`，repository default branch 是 `main`，因此不得倚賴 `Closes #...` 等 PR closing keyword 來關閉 Batch Issue。Issue close comment 只保留必要 closeout evidence／PR number／merge result／deferred housekeeping，不重寫完整歷史。
 
 Close 後 STOP；下一批建立新的 Batch Contract／Issue。
 

@@ -397,3 +397,13 @@ Agent 回報 Stage 3 已 merge、已清理、已同步，Reviewer 未做任何�
 修正：
 
 依 `TRANSLATION-WORKFLOW.md` 的 **In-scope Nested Reachability 與 Canonical Field Atomicity**：以實際 in-scope player-facing reachability 判定，且該邊界必須由 Batch Contract 明確固定；同一 canonical field 整筆翻譯與驗證，不產生部分翻譯的混合結果。這不授權遞迴走訪任意 descendant，也不把後續 level 的 sibling record 拉進 scope。
+
+## 39. 為 generic safety 另開 isolated workspace／誤以 PR keyword 會 close Batch Issue
+
+錯誤：
+
+Owner primary clone 可用且乾淨，Agent 卻只因「隔離比較安全」建立 worktree／另一 clone，讓 Owner 的既有 local dev server 看不到 Stage 1 changes；或 integration PR target 是 `develop`，卻用 `Closes #...` 當作 Batch Issue 已關閉的依據。
+
+修正：
+
+依 `ONLINE-HANDOFF.md` 與 `GIT-SAFETY.md`，預設在 primary clone 的 feature branch 實作，保留 Owner local live preview；isolation 只限 Owner 明確要求、primary clone 不可用或不乾淨／有衝突 Owner work，或具體 batch risk，且須明示。Reviewer 的 authority 仍是 exact remote HEAD。final remote reconciliation PASS 後，Reviewer 必須 explicit close Batch Issue；因 default branch 是 `main`，不得依賴 target `develop` 的 PR closing keyword。

@@ -786,3 +786,25 @@
 - 就這個 mechanical correction 要求 Owner 重新核准未改變的譯文語意。
 - 在 revised packet 的 alignment 通過前就繼續 implementation。
 - 只比對 value／hash，不獨立比對 identity set／path。
+
+---
+
+## Scenario 37 — Owner Primary Clone Live Preview and Explicit Batch-Issue Closure
+
+### Prompt
+
+> Owner primary clone 乾淨且在 authorized `develop` base。Agent 為了「一般安全」想另建 isolated worktree；之後 PR 由 feature branch merge 到 `develop`，Agent 說在 PR body 加 `Closes #144` 就會關閉 Batch Issue。請判定。
+
+### Expected behavior
+
+- Agent 應在 Owner primary clone 從 authorized base 建立／切換 feature branch；不得直接修改 `develop`，以保留 Owner 既有 local dev server 的 live preview。
+- isolated workspace 只有 Owner 明確要求、primary clone 不可用或不乾淨／含衝突 Owner work，或具體 batch isolation risk 時才適用，且必須明示；不是 generic hardening。
+- Reviewer 仍只以 exact remote feature HEAD／PR／CI 作為 authority，不把 primary clone 的未提交狀態當作 review evidence。
+- 因 repository default branch 是 `main` 而 integration target 是 `develop`，PR closing keyword 不足以關閉 Batch Issue；Reviewer final remote reconciliation PASS 後必須 explicit close Issue，然後 STOP。
+
+### Failure indicators
+
+- 無例外理由就另建 worktree／clone，破壞 Owner live-preview loop。
+- 在 `develop` 直接實作。
+- 為 setup 任意重建 dependency environment。
+- 以 `Closes #...` 取代 Reviewer explicit Issue closure。
