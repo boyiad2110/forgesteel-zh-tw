@@ -1181,6 +1181,43 @@ export const createV1TacticianLevel2RequiredCanonicalEnglish = (): CanonicalEngl
 	return requiredCanonicalEnglish;
 };
 
+/** The four cost-7 class abilities selected by Tactician's Level 3 ability choice. */
+export const v1TacticianLevel3AbilityIDs = [
+	'tactician-ability-9',
+	'tactician-ability-10',
+	'tactician-ability-11',
+	'tactician-ability-12'
+] as const;
+
+/**
+ * Enumerates Tactician's two direct Level 3 Feature roots and exactly its four cost-7 class
+ * abilities. Tactical Doctrine Level 3 arrays are intentionally outside this base-class slice.
+ */
+export const getV1TacticianLevel3Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(tactician.abilities.map(ability => [ ability.id, ability ]));
+
+	return v1TacticianLevel3AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Tactician Level 3 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded 19-identity Tactician Level 3 base-class denominator. */
+export const createV1TacticianLevel3RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const levelThree = tactician.featuresByLevel.find(level => level.level === 3);
+	if (!levelThree) {
+		throw new Error('Tactician Level 3 features are missing');
+	}
+
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	levelThree.features.forEach(feature => addRequiredElementFields(requiredCanonicalEnglish, feature));
+	getV1TacticianLevel3Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+	return requiredCanonicalEnglish;
+};
+
 /**
  * The exact approved Talent Level 1 base-class ability slice. Level 1 selects signature, cost 3
  * and cost 5 class abilities, so only abilities 1-16 belong here; abilities 17+, later levels and
@@ -2781,6 +2818,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel2RequiredCanonicalEnglish(),
+		...createV1TacticianLevel3RequiredCanonicalEnglish(),
 		...createV1TalentLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TalentLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TalentLevel2RequiredCanonicalEnglish(),

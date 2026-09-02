@@ -3636,6 +3636,31 @@ const coreTacticianLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'tactician-sub-3-2-2b', field: 'sections.0.text', canonicalEnglish: 'Until the start of your next turn, each target has a bonus to stability equal to your Might score. Additionally, each target gains 2 surges.', zhTW: '直到你的下個回合開始前，每個目標的穩度都會獲得等於你`力量`的加值。此外，每個目標都會獲得 2 點鬥志。', approval: 'approved' }
 ];
 
+// Core Tactician Level 3: two direct base-class Feature roots, the cost-7 class-ability label,
+// and exactly abilities 9–12. Doctrine Level 3 arrays and all other class levels stay outside
+// this bounded slice. Owner-approved packet r1 values are preserved byte-for-byte.
+const coreTacticianLevel3LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'tactician-3-1', field: 'name', canonicalEnglish: 'Out of Position', zhTW: '自亂陣腳', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-3-1', field: 'description', canonicalEnglish: 'Even before battle begins, your enemies struggle to keep up with your tactics. At the start of an encounter, you can use a free triggered action to use your Mark ability against one enemy you have line of effect to, even if you are surprised. You can then slide the marked target up to 3 squares, ignoring stability. The target can’t be moved in a way that would harm them (such as over a cliff), leave them dying, or result in them suffering a condition or other negative effect.', zhTW: '戰鬥還沒開始，敵人就已經跟不上你的戰術節奏。當遭遇開始時，即使你處於措手不及，你也可以使用免費反應動作，對 1 個在你效果線內的敵人發動【標記】招式。然後，你可以將被標記的目標滑動最多 3 格（無視穩度），前提是這次移動不會讓目標受到傷害（例如越過懸崖）、陷入瀕死，或承受狀態或其他負面效果。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-9', field: 'name', canonicalEnglish: 'Frontal Assault', zhTW: '正面突擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-9', field: 'description', canonicalEnglish: 'The purpose of a charge is to break their morale and force a retreat.', zhTW: '衝鋒的目的，就是擊潰敵人的士氣並迫使他們撤退。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-9', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, the first time on a turn that you or any ally deals damage to a target marked by you, the creature who dealt the damage can push the target up to 2 squares and then shift up to 2 squares. Additionally, any ally using the Charge main action to target a creature marked by you can use a melee strike signature ability or a melee strike heroic ability instead of a melee free strike.', zhTW: '直到遭遇結束或你陷入瀕死前，當你或任何盟友在回合中首次對被你標記的目標造成傷害時，造成傷害的生物可以推動目標最多 2 格，然後遁移最多 2 格。此外，當任何盟友對被你標記的生物發動衝鋒主要動作時，他可以使用近戰打擊招牌招式或近戰打擊英雄招式，取代近戰基礎打擊。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-10', field: 'name', canonicalEnglish: 'Hit ’Em Hard!', zhTW: '痛擊！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-10', field: 'description', canonicalEnglish: 'Your allies see the advantages in attacking the targets you select.', zhTW: '你的盟友都看得出，攻擊你所選定的目標有多麼有利。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-10', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, whenever you or any ally deals damage to a target marked by you, that creature gains 2 surges, which they can use immediately.', zhTW: '直到遭遇結束或你陷入瀕死前，每當你或任何盟友對被你標記的目標造成傷害時，造成傷害的生物會獲得 2 點鬥志，並可以立刻使用。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-11', field: 'name', canonicalEnglish: 'Rout', zhTW: '擊潰', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-11', field: 'description', canonicalEnglish: 'The tide begins to turn.', zhTW: '戰局開始逆轉了。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-11', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, whenever you or any ally deals damage to a target marked by you who has R < [average], the target is frightened of the creature who dealt the damage (save ends).', zhTW: '直到遭遇結束或你陷入瀕死前，每當你或任何盟友對被你標記且 `理智` < [中] 的目標造成傷害時，目標會對造成傷害的生物陷入畏縮（豁免解除）。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-12', field: 'name', canonicalEnglish: 'Stay Strong and Focus!', zhTW: '堅持到底！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-12', field: 'description', canonicalEnglish: 'We can do this! Keep faith and hold fast!', zhTW: '我們可以的！要有信心，撐住！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-12', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter or until you are dying, whenever you or any ally deals damage to a target marked by you, the creature who dealt the damage can spend a Recovery.', zhTW: '直到遭遇結束或你陷入瀕死前，每當你或任何盟友對被你標記的目標造成傷害時，造成傷害的生物可以花費 1 點復元力。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-3-2', field: 'name', canonicalEnglish: '7pt Ability', zhTW: '7 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-9', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-10', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-11', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'tactician-ability-12', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' }
+];
+
 // Core Null Level 2: the class's own Level 2 Perk reading, and for each of the three Traditions
 // its Level 2 Features - including Cryokinetic's factory-named Damage Modifier - each
 // Tradition's ability-choice root label, and the authored fields of the two Abilities each of
@@ -5291,6 +5316,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreFuryLevel1SubclassCompletionLocalizationEntries,
 	...coreTacticianLevel1CompletionLocalizationEntries,
 	...coreTacticianLevel2LocalizationEntries,
+	...coreTacticianLevel3LocalizationEntries,
 	...coreTalentLevel1CompletionLocalizationEntries,
 	...coreTalentLevel2LocalizationEntries,
 	...coreTroubadourLevel1CompletionLocalizationEntries,

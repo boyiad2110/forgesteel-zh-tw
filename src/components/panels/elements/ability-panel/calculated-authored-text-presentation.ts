@@ -1084,6 +1084,41 @@ const projectTacticianLevel2CalculatedValue = (elementID: string, field: string,
 	return localizedRaw.replace(projection.localized, projection.localizedReplacement(calculatedMatch[1]));
 };
 
+/**
+ * Rout is the sole Tactician Level 3 calculated reading in this slice. AbilityLogic owns the
+ * potency calculation and formatting; this identity-bound projection only carries its verified
+ * numeric result into the approved zh-TW snapshot, then delegates condition emphasis to the
+ * shared fail-closed projector.
+ */
+const projectTacticianLevel3RoutCalculatedValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
+	if ((elementID !== 'tactician-ability-11') || (field !== 'sections.0.text')) {
+		return undefined;
+	}
+
+	const canonicalPotency = 'R < [average]';
+	const localizedPotency = '`理智` < [中]';
+	if ((occurrenceCount(canonicalEnglish, canonicalPotency) !== 1) || (occurrenceCount(localizedRaw, localizedPotency) !== 1)) {
+		return undefined;
+	}
+
+	// AbilityLogic only adds code marks for non-negative potency. Match the calculator's
+	// numeric grammar itself, as the equivalent Shadow L2 projection does, so negative
+	// values such as R < -1 remain an identity-bound projection rather than falling back.
+	const calculatedPotency = calculatedEnglish.match(/R\s*<\s*(-?\d+)/);
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+	if (calculatedPotency) {
+		projectedCanonical = projectedCanonical.replace(canonicalPotency, () => calculatedPotency[0].replace(/\s+/g, ' '));
+		projectedLocalized = projectedLocalized.replace(localizedPotency, () => `\`理智\` < ${calculatedPotency[1]}`);
+	}
+
+	return projectCalculatedConditionEmphasis({
+		canonicalEnglish: projectedCanonical,
+		calculatedEnglish,
+		localizedRaw: projectedLocalized
+	});
+};
+
 const projectTacticianReasonValue = (elementID: string, field: string, canonicalEnglish: string, calculatedEnglish: string, localizedRaw: string) => {
 	if ((elementID === 'tactician-1-5b') && (field === 'sections.0.text')) {
 		const damageCanonical = 'The ability deals extra damage equal to twice your Reason score.';
@@ -2507,6 +2542,11 @@ export const localizeCalculatedAuthoredTextPresentation = ({
 	const tacticianLevel2CalculatedValue = projectTacticianLevel2CalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
 	if (tacticianLevel2CalculatedValue) {
 		return tacticianLevel2CalculatedValue;
+	}
+
+	const tacticianLevel3RoutCalculatedValue = projectTacticianLevel3RoutCalculatedValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
+	if (tacticianLevel3RoutCalculatedValue) {
+		return tacticianLevel3RoutCalculatedValue;
 	}
 
 	const talentCharacteristicValue = projectTalentCharacteristicValue(elementID, field, canonicalEnglish, calculatedEnglish, localizedRaw);
