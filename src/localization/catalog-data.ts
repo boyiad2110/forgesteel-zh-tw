@@ -3749,6 +3749,39 @@ const coreShadowLevel2LocalizationEntries: LocalizationEntry[] = [
 	{ kind: 'element-field', elementID: 'shadow-sub-3-2-2', field: 'description', canonicalEnglish: '\nYour illusions make your enemies believe you are their friend in critical moments. Whenever an enemy uses an ability or trait that targets multiple allies and you are within distance of the effect, you can choose to be a target of the effect as well.\n\nAdditionally, when you use your I’m No Threat ability, you can take the Disengage move action as part of that ability.', zhTW: '你的幻象讓敵人在關鍵時刻將你誤認成他的朋友。每當敵人發動指定多個盟友的招式或特性時，只要你在該效果的射程內，你可以自願成為該效果的目標。\n\n此外，當你發動【我毫無威脅】招式時，你可以在該招式的發動過程中執行撤離移動動作。', approval: 'approved' }
 ];
 
+// Shadow's direct Level 3 ability root, its cost-7 class-ability label, and exactly the four
+// selected cost-7 abilities. Colleges, other levels, and other abilities remain in their own slices.
+const coreShadowLevel3LocalizationEntries: LocalizationEntry[] = [
+	{ kind: 'element-field', elementID: 'shadow-3-1', field: 'name', canonicalEnglish: 'Careful Observation', zhTW: '仔細觀察', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-3-1', field: 'description', canonicalEnglish: 'A moment of focus leaves a foe firmly in your sights.', zhTW: '只要專注片刻，就能將敵人牢牢鎖在視線內。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-3-1', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-3-1', field: 'sections.0.text', canonicalEnglish: 'As long as you remain within distance of the target, maintain line of effect to them, and strike no other creature first, you gain a surge and an edge on the next strike you make against the assessed creature.', zhTW: '只要你與目標之間的距離仍在此招式射程內、維持效果線，而且沒有先打擊其他生物，你下次對目標發動的打擊會獲得 1 點鬥志與 1 個優勢。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-3-2', field: 'name', canonicalEnglish: '7pt Ability', zhTW: '7 費招式', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-13', field: 'name', canonicalEnglish: 'Dancer', zhTW: '舞者', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-13', field: 'target', canonicalEnglish: 'Self', zhTW: '自身', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-13', field: 'description', canonicalEnglish: 'You enter a flow state that makes you nearly impossible to pin down.', zhTW: '你行雲流水的動作讓人難以將你困住。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-13', field: 'sections.0.text', canonicalEnglish: 'Until the end of the encounter, whenever an enemy moves or is force moved adjacent to you or damages you, you can take the Disengage move action as a free triggered action.', zhTW: '直到遭遇結束前，每當敵人移動或被強制移動到與你相鄰的位置，或對你造成傷害時，你可以使用免費反應動作執行撤離移動動作。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-14', field: 'name', canonicalEnglish: 'Misdirecting Strike', zhTW: '誤導打擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-14', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-14', field: 'description', canonicalEnglish: 'Why are you looking at ME?!', zhTW: '你幹麼看我？！', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-14', field: 'sections.0.roll.tier1', canonicalEnglish: '9 + A damage', zhTW: '9 + `敏捷`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-14', field: 'sections.0.roll.tier2', canonicalEnglish: '13 + A damage', zhTW: '13 + `敏捷`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-14', field: 'sections.0.roll.tier3', canonicalEnglish: '18 + A damage', zhTW: '18 + `敏捷`傷害', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-14', field: 'sections.1.text', canonicalEnglish: 'The target is taunted by a willing ally within 5 squares of you until the end of the target’s next turn.', zhTW: '目標被你 5 格內的 1 個自願盟友嘲諷，直到目標下個回合結束。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-15', field: 'name', canonicalEnglish: 'Pinning Shot', zhTW: '牽制射擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-15', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-15', field: 'description', canonicalEnglish: 'One missile - placed well and placed hard.', zhTW: '彈道精準，力道十足。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-15', field: 'sections.0.roll.tier1', canonicalEnglish: '8 + A damage; A < [weak], restrained (save ends)', zhTW: '8 + `敏捷`傷害；`敏捷` < [弱]，束縛（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-15', field: 'sections.0.roll.tier2', canonicalEnglish: '12 + A damage; A < [average], restrained (save ends)', zhTW: '12 + `敏捷`傷害；`敏捷` < [中]，束縛（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-15', field: 'sections.0.roll.tier3', canonicalEnglish: '16 + A damage; A < [strong], restrained (save ends)', zhTW: '16 + `敏捷`傷害；`敏捷` < [強]，束縛（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-16', field: 'name', canonicalEnglish: 'Staggering Blow', zhTW: '踉蹌重擊', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-16', field: 'target', canonicalEnglish: 'One creature', zhTW: '1 個生物', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-16', field: 'description', canonicalEnglish: 'There’s no recovering from this.', zhTW: '這下有你好受的了。', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-16', field: 'sections.0.roll.tier1', canonicalEnglish: '7 + A damage; M < [weak], slowed (save ends)', zhTW: '7 + `敏捷`傷害；`力量` < [弱]，緩速（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-16', field: 'sections.0.roll.tier2', canonicalEnglish: '11 + A damage; M < [average], prone and can’t stand (save ends)', zhTW: '11 + `敏捷`傷害；`力量` < [中]，伏地且無法站起（豁免解除）', approval: 'approved' },
+	{ kind: 'element-field', elementID: 'shadow-ability-16', field: 'sections.0.roll.tier3', canonicalEnglish: '16 + A damage; M < [strong], prone and can’t stand (save ends)', zhTW: '16 + `敏捷`傷害；`力量` < [強]，伏地且無法站起（豁免解除）', approval: 'approved' }
+];
+
 // Core Talent Level 2: the class's own Level 2 Perk reading, and for each of the three
 // Traditions its Level 2 non-Ability Feature readings plus the authored fields of the Abilities
 // reachable from those exact Level 2 roots. Chronopathy and Telepathy each author one Level 2
@@ -5252,6 +5285,7 @@ export const productionLocalizationEntries: LocalizationEntry[] = [
 	...coreNullLevel1SubclassCompletionLocalizationEntries,
 	...coreNullLevel2LocalizationEntries,
 	...coreShadowLevel2LocalizationEntries,
+	...coreShadowLevel3LocalizationEntries,
 	...coreElementalistLevel1SubclassCompletionLocalizationEntries,
 	...coreElementalistLevel2LocalizationEntries,
 	...coreFuryLevel1SubclassCompletionLocalizationEntries,
