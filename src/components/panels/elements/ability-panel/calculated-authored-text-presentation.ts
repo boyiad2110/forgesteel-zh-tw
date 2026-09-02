@@ -1560,7 +1560,7 @@ const projectCensorLevel3CalculatedValue = (elementID: string, field: string, ca
 
 		let projectedCanonical = canonicalEnglish;
 		let projectedLocalized = localizedRaw;
-		const calculatedPotencies = matchAll(calculatedEnglish, /`P < (?:\[(?:average|strong)\]|-?\d+)`/g);
+		const calculatedPotencies = matchAll(calculatedEnglish, /`?P\s*<\s*(?:\[(?:average|strong)\]|-?\d+)`?/g);
 		if (calculatedPotencies.length !== potencies.length) {
 			return undefined;
 		}

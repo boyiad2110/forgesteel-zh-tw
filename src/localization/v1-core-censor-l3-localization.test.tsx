@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { FactoryLogic } from '@/logic/factory-logic';
+import { HeroLogic } from '@/logic/hero-logic';
 import { Ability } from '@/models/ability';
 import { censor } from '@/data/classes/censor/censor';
 import { core } from '@/data/sourcebooks/official/core';
@@ -165,6 +166,29 @@ describe('V1 Core Censor L3 manifest, catalog and presentation', () => {
 		});
 		getTextEffect.mock.calls.forEach(([ input ]) => assertCanonicalEnglishCalculationInput(input));
 		getTextEffect.mockRestore();
+	});
+
+	it('projects Censor Feature potency across the reachable negative and non-negative calculator formats', () => {
+		const feature = getFeature('censor-3-1');
+		const canonicalEnglish = required[elementFieldIdentity(feature.id, 'description')];
+		const hero = createHeroWithClass(censor, 3, FactoryLogic.createCharacteristics(0, 0, 0, 0, 0));
+		const protectedFeature = protectCanonicalState({ label: 'Censor Level 3 negative-potency Feature', capture: () => JSON.stringify(feature) });
+		const protectedHero = protectCanonicalState({ label: 'Censor Level 3 negative-potency Hero', capture: () => JSON.stringify(hero) });
+
+		expect(HeroLogic.getPotency(hero, 'average')).toBe(-1);
+		expect(HeroLogic.getPotency(hero, 'strong')).toBe(0);
+		const calculatedEnglish = AbilityLogic.getTextEffect(canonicalEnglish, hero);
+		expect(calculatedEnglish).toContain('P < -1');
+		expect(calculatedEnglish).not.toContain('`P < -1`');
+		expect(calculatedEnglish).toContain('`P < 0`');
+
+		const panel = renderFeature(feature, hero);
+		expectRendered(panel.container, '目標的氣場 < -1');
+		expectRendered(panel.container, '新目標的氣場 < 0');
+		expectRendered(panel.container, '受到 0 點神聖傷害');
+		expectRendered(panel.container, '陷入畏縮');
+		protectedFeature.assertUnchanged();
+		protectedHero.assertUnchanged();
 	});
 
 	it.each([
