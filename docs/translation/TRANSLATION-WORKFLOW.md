@@ -506,6 +506,10 @@ Agent Task 前，Reviewer 必須依上述 Discovery Gate 的結果，辨識 live
 - 預期安全 zh-TW projection 或 fallback；
 - 所需 representative production evidence，並逐列映射到明確 Hero／no-Hero／pass-through public-behavior assertion（依該 row 實際存在的 path）。
 
+若 calculator 對某 numeric grammar 的可達 output domain 有 material distinct boundary（例如負值、零值、正值，或因 sign／value 改變 Markdown、標點或其他 formatter output），matrix 與 evidence 必須覆蓋各個**實際不同**的 branch；單一方便的 resolved value 不能當作整個 grammar 的證明。domain 中格式與 presentation 完全等價的值可共用一個 representative assertion，但要在 matrix 記錄該等價理由。
+
+projector 的 matcher 應依 calculator 的 semantic output grammar，而非偶然的 Markdown code marks、bold 或 fixture whitespace；只有該 formatting 本身就是預期 presentation delta 時，才可把它作為 match contract。若 calculator 輸出發生 unsupported structural rewrite，仍應完整 fallback calculated English，而不是猜測局部 zh-TW rewrite。
+
 只分類 Discovery Gate 判定為 calculated、且實際存在於該 batch 的 family；例如 characteristic-based values、half／twice Speed、potency、damage、condition Markdown emphasis、push／pull／slide、`vertical pull` 等 modified movement phrase、calculated content 周圍需保留的 structural phrase，或 unsupported calculated rewrite fallback。測試不得刻意鎖定與 matrix 相反的行為。不得把此清單變成每批必跑的 checklist。
 
 ## 14. Class／Subclass Level 1 Non-Ability Required Identity

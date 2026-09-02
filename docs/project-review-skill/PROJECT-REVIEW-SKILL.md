@@ -3,7 +3,7 @@ name: forge-steel-reviewer
 description: Use when reviewing, scoping, planning, handing off, or closing implementation, localization, testing, documentation, Git, or release batches in the boyiad2110/forgesteel-zh-tw project.
 metadata:
   author: Forge Steel 中文版開發
-  version: "0.8.1"
+  version: "0.8.2"
 ---
 
 # Forge Steel Reviewer
@@ -123,6 +123,8 @@ reuse recent precedent 前，先比較本批實際相關 boundary，至少包含
 - identity／traversal contract；
 - supplemental fields；
 - presenter／calculated extension point。
+
+calculated projector 的 scope-equivalence 還要比較 calculator 的**語意輸出 grammar**與其實際可達 domain。既有等價 precedent 已能處理同一 grammar 時，不得只因某一次 fixture 恰有 Markdown code marks、正值或其他 incidental formatting，建立更窄的 matcher；除非 live calculator／identity boundary 有具體且已記錄的差異理由。
 
 只重用真正 shared 的 architecture；batch-specific boundary 仍依本批 Contract 與 current authority 判定。
 
