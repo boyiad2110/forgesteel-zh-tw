@@ -1101,15 +1101,21 @@ const projectTacticianLevel3RoutCalculatedValue = (elementID: string, field: str
 		return undefined;
 	}
 
-	const calculatedPotency = calculatedEnglish.match(/`R < (-?\d+)`/);
-	if (!calculatedPotency) {
-		return removeCalculationFormatting(canonicalEnglish) === removeCalculationFormatting(calculatedEnglish) ? localizedRaw : undefined;
+	// AbilityLogic only adds code marks for non-negative potency. Match the calculator's
+	// numeric grammar itself, as the equivalent Shadow L2 projection does, so negative
+	// values such as R < -1 remain an identity-bound projection rather than falling back.
+	const calculatedPotency = calculatedEnglish.match(/R\s*<\s*(-?\d+)/);
+	let projectedCanonical = canonicalEnglish;
+	let projectedLocalized = localizedRaw;
+	if (calculatedPotency) {
+		projectedCanonical = projectedCanonical.replace(canonicalPotency, () => calculatedPotency[0].replace(/\s+/g, ' '));
+		projectedLocalized = projectedLocalized.replace(localizedPotency, () => `\`理智\` < ${calculatedPotency[1]}`);
 	}
 
 	return projectCalculatedConditionEmphasis({
-		canonicalEnglish: canonicalEnglish.replace(canonicalPotency, () => calculatedPotency[0]),
+		canonicalEnglish: projectedCanonical,
 		calculatedEnglish,
-		localizedRaw: localizedRaw.replace(localizedPotency, () => `\`理智\` < ${calculatedPotency[1]}`)
+		localizedRaw: projectedLocalized
 	});
 };
 

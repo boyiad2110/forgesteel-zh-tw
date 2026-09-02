@@ -1,11 +1,13 @@
 // @vitest-environment jsdom
 /* eslint-disable sort-imports */
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup } from '@testing-library/react';
+import { cleanup, fireEvent } from '@testing-library/react';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { FactoryLogic } from '@/logic/factory-logic';
+import { HeroLogic } from '@/logic/hero-logic';
 import { Ability } from '@/models/ability';
 import { Feature } from '@/models/feature';
+import { FeatureType } from '@/enums/feature-type';
 import { tactician } from '@/data/classes/tactician/tactician';
 import { core } from '@/data/sourcebooks/official/core';
 import { ElementFieldEntry, elementFieldIdentity, getEntryIdentity } from '@/localization/catalog';
@@ -13,8 +15,9 @@ import { productionLocalizationEntries } from '@/localization/catalog-data';
 import { createV1TacticianLevel3RequiredCanonicalEnglish, getV1TacticianLevel3Abilities, v1TacticianLevel3AbilityIDs } from '@/localization/v1-localization-manifest';
 import { verifyApprovedTranslationsAgainstCatalog } from '@/localization/test-support/approved-translation-catalog-reconciliation';
 import { assertCanonicalEnglishCalculationInput, protectCanonicalState, verifyLocaleDifferentialInvariants } from '@/localization/test-support/localization-differential-invariants';
-import { createClassPresentationHarness, createHeroWithClass, expectRendered, installResizeObserverStub, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
+import { createClassPresentationHarness, createHeroWithClass, expectRendered, installResizeObserverStub, normalizedText, switchLocale } from '@/localization/test-support/localization-presentation-test-harness';
 import { localizeCalculatedAuthoredTextPresentation } from '@/components/panels/elements/ability-panel/calculated-authored-text-presentation';
+import { Utils } from '@/utils/utils';
 
 vi.mock('@/contexts/data-context', () => ({
 	useDataManager: () => ({ saveOptions: vi.fn().mockResolvedValue(undefined) }),
@@ -54,6 +57,15 @@ const required = createV1TacticianLevel3RequiredCanonicalEnglish();
 const catalogEntries = productionLocalizationEntries.filter((entry): entry is ElementFieldEntry => entry.kind === 'element-field' && required[getEntryIdentity(entry)] !== undefined);
 const { renderAbility, renderFeature } = createClassPresentationHarness(tactician, [ core ]);
 const makeHero = () => createHeroWithClass(tactician, 3, FactoryLogic.createCharacteristics(2, 3, 0, 0, 0));
+const autoCalculateTitle = '自動計算傷害、效力等數值';
+
+const toggleAutoCalculate = (container: HTMLElement) => {
+	const control = container.querySelector(`button[title="${autoCalculateTitle}"]`);
+	if (!control) {
+		throw new Error('Rout auto-calculate control is unavailable');
+	}
+	fireEvent.click(control);
+};
 
 const extractFeatureFields = (feature: Feature): Record<string, string> => {
 	const fields: Record<string, string> = { [elementFieldIdentity(feature.id, 'name')]: feature.name };
@@ -118,34 +130,75 @@ describe('V1 Core Tactician L3 manifest, catalog and presentation', () => {
 		panel.unmount();
 	});
 
-	it('uses the existing calculated condition presentation for Rout and fails closed on an unsupported rewrite', () => {
+	it('keeps Library Rout at the approved [中] reading while auto-calculate projects condition emphasis', () => {
 		const canonicalEnglish = required['element:tactician-ability-11/sections.0.text'];
-		const hero = makeHero();
+		const rout = abilities.find(ability => ability.id === 'tactician-ability-11') as Ability;
+		const approvedRaw = approvedReadings.find(([ identity ]) => identity === 'element:tactician-ability-11/sections.0.text')?.[1];
+		const protectedAbility = protectCanonicalState({ label: 'Library Rout canonical Ability', capture: () => JSON.stringify(rout) });
 		assertCanonicalEnglishCalculationInput(canonicalEnglish);
 		const noHero = AbilityLogic.getTextEffect(canonicalEnglish, undefined);
-		const noHeroLocalized = localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'tactician-ability-11', field: 'sections.0.text', canonicalEnglish, calculatedEnglish: noHero });
-		expect(noHeroLocalized).toBe(approvedReadings.find(([ identity ]) => identity === 'element:tactician-ability-11/sections.0.text')?.[1]);
-		const calculated = AbilityLogic.getTextEffect(canonicalEnglish, hero);
-		const value = calculated.match(/R < (-?\d+)/)?.[1];
-		expect(value).toBeDefined();
-		const localized = localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'tactician-ability-11', field: 'sections.0.text', canonicalEnglish, calculatedEnglish: calculated });
-		expect(localized).toContain(`\`理智\` < ${value}`);
-		expect(localized).toContain('**畏縮**（豁免解除）');
-		expect(localized).not.toMatch(/[A-Za-z]/);
-		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'en', elementID: 'tactician-ability-11', field: 'sections.0.text', canonicalEnglish, calculatedEnglish: calculated })).toBe(calculated);
-		const rout = abilities.find(ability => ability.id === 'tactician-ability-11') as Ability;
-		const protectedAbility = protectCanonicalState({ label: 'Rout canonical Ability', capture: () => JSON.stringify(rout) });
-		const protectedHero = protectCanonicalState({ label: 'Rout Hero', capture: () => JSON.stringify(hero) });
+		expect(noHero).toContain('**frightened**');
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: rout.id, field: 'sections.0.text', canonicalEnglish, calculatedEnglish: canonicalEnglish })).toBe(approvedRaw);
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: rout.id, field: 'sections.0.text', canonicalEnglish, calculatedEnglish: noHero })).toBe(approvedRaw?.replace('畏縮', '**畏縮**'));
+		const panel = renderAbility(rout);
+		expectRendered(panel.container, '理智 < [中]');
+		expect(panel.container.querySelector('strong')?.textContent).toBe('畏縮');
+		toggleAutoCalculate(panel.container);
+		expectRendered(panel.container, '理智 < [中]');
+		expect(panel.container.querySelector('strong')).toBeNull();
+		toggleAutoCalculate(panel.container);
+		expectRendered(panel.container, '理智 < [中]');
+		expect(panel.container.querySelector('strong')?.textContent).toBe('畏縮');
+		protectedAbility.assertUnchanged();
+		panel.unmount();
+	});
+
+	it('projects post-selection Rout with negative and positive potency, preserves the approved raw toggle, and fails closed on an unsupported rewrite', () => {
+		const canonicalEnglish = required['element:tactician-ability-11/sections.0.text'];
+		const hero = createHeroWithClass(Utils.copy(tactician), 3, FactoryLogic.createCharacteristics(0, 0, 0, 0, 0));
+		const approvedRaw = approvedReadings.find(([ identity ]) => identity === 'element:tactician-ability-11/sections.0.text')?.[1];
+		const choice = hero.class?.featuresByLevel.find(level => level.level === 3)?.features.find(feature => feature.id === 'tactician-3-2');
+		if (!choice || (choice.type !== FeatureType.ClassAbility)) {
+			throw new Error('Tactician Level 3 class-ability selection fixture is unavailable');
+		}
+		choice.data.selectedIDs = [ 'tactician-ability-11' ];
+		const rout = HeroLogic.getAbilities(hero, [ core ], []).find(entry => entry.ability.id === 'tactician-ability-11')?.ability;
+		if (!rout || (rout.sections[0]?.type !== 'text')) {
+			throw new Error('Post-selection Tactician Level 3 Rout is unavailable');
+		}
+
+		const protectedAbility = protectCanonicalState({ label: 'Post-selection Rout canonical Ability', capture: () => JSON.stringify(rout) });
+		const protectedHero = protectCanonicalState({ label: 'Post-selection Rout Hero', capture: () => JSON.stringify(hero) });
+		const calculated = AbilityLogic.getTextEffect(rout.sections[0].text, hero);
+		expect(HeroLogic.getPotency(hero, 'average')).toBe(-1);
+		expect(calculated).toContain('R < -1');
+		expect(calculated).not.toContain('`R < -1`');
 		const panel = renderAbility(rout, hero);
+		expectRendered(panel.container, '理智 < -1');
+		expect(panel.container.querySelector('strong')?.textContent).toBe('畏縮');
+		expect(normalizedText(panel.container)).not.toContain('Until the end of the encounter');
+		toggleAutoCalculate(panel.container);
+		expectRendered(panel.container, '理智 < [中]');
+		expect(panel.container.querySelector('strong')).toBeNull();
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: rout.id, field: 'sections.0.text', canonicalEnglish, calculatedEnglish: canonicalEnglish })).toBe(approvedRaw);
+		toggleAutoCalculate(panel.container);
+
 		verifyLocaleDifferentialInvariants({
 			protectedStates: [ protectedAbility, protectedHero ],
-			assertZhTW: () => expectRendered(panel.container, `理智 < ${value}`),
+			assertZhTW: () => {
+				expectRendered(panel.container, '理智 < -1');
+				expect(panel.container.querySelector('strong')?.textContent).toBe('畏縮');
+			},
 			switchToEnglish: switchLocale,
-			assertEnglish: () => expectRendered(panel.container, `R < ${value}`),
+			assertEnglish: () => expectRendered(panel.container, 'R < -1'),
 			switchToZhTW: switchLocale,
-			assertZhTWAfterRoundTrip: () => expectRendered(panel.container, `理智 < ${value}`)
+			assertZhTWAfterRoundTrip: () => expectRendered(panel.container, '理智 < -1')
 		});
 		panel.unmount();
+
+		const positiveCalculated = AbilityLogic.getTextEffect(canonicalEnglish, makeHero());
+		expect(positiveCalculated).toContain('R < 2');
+		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'tactician-ability-11', field: 'sections.0.text', canonicalEnglish, calculatedEnglish: positiveCalculated })).toContain('`理智` < 2');
 		const unsupported = `${calculated} They fall prone.`;
 		expect(localizeCalculatedAuthoredTextPresentation({ locale: 'zh-TW', elementID: 'tactician-ability-11', field: 'sections.0.text', canonicalEnglish, calculatedEnglish: unsupported })).toBe(unsupported);
 	});
