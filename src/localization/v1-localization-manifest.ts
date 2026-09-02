@@ -983,6 +983,48 @@ export const createV1ShadowLevel2RequiredCanonicalEnglish = (): CanonicalEnglish
 	return requiredCanonicalEnglish;
 };
 
+/** Reads only Shadow's own Level 3 progression roots; all College and later-level content stays out. */
+const getV1ShadowLevel3Features = (): Feature[] => {
+	const levelThree = shadow.featuresByLevel.find(level => level.level === 3);
+	if (!levelThree) {
+		throw new Error('Shadow Level 3 features are missing');
+	}
+	return levelThree.features;
+};
+
+/** The exact cost-7 abilities selected by Shadow's Level 3 class-ability choice. */
+export const v1ShadowLevel3AbilityIDs = [
+	'shadow-ability-13',
+	'shadow-ability-14',
+	'shadow-ability-15',
+	'shadow-ability-16'
+] as const;
+
+export const getV1ShadowLevel3Abilities = (): Ability[] => {
+	const abilitiesByID = new Map(shadow.abilities.map(ability => [ ability.id, ability ]));
+	return v1ShadowLevel3AbilityIDs.map(id => {
+		const ability = abilitiesByID.get(id);
+		if (!ability) {
+			throw new Error(`Shadow Level 3 ability '${id}' is missing`);
+		}
+		return ability;
+	});
+};
+
+/** Builds the bounded Shadow Level 3 slice from its direct ability root, choice label, and four cost-7 abilities. */
+export const createV1ShadowLevel3RequiredCanonicalEnglish = (): CanonicalEnglishSource => {
+	const requiredCanonicalEnglish: CanonicalEnglishSource = {};
+	const levelThreeFeatures = getV1ShadowLevel3Features();
+
+	addRequiredBoundedNonAbilityFeatureFields(requiredCanonicalEnglish, levelThreeFeatures);
+	levelThreeFeatures
+		.filter((feature): feature is FeatureAbility => feature.type === FeatureType.Ability)
+		.forEach(feature => addRequiredAbilityFields(requiredCanonicalEnglish, feature.data.ability));
+	getV1ShadowLevel3Abilities().forEach(ability => addRequiredAbilityFields(requiredCanonicalEnglish, ability));
+
+	return requiredCanonicalEnglish;
+};
+
 /**
  * The exact approved Tactician Level 1 base-class ability slice. Level 1 selects cost 3 and
  * cost 5 class abilities, so only abilities 1-8 belong here; cost 7+ abilities, later levels
@@ -2735,6 +2777,7 @@ export const v1LocalizationManifest: V1LocalizationManifest = {
 		...createV1ShadowLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1ShadowLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1ShadowLevel2RequiredCanonicalEnglish(),
+		...createV1ShadowLevel3RequiredCanonicalEnglish(),
 		...createV1TacticianLevel1AbilityRequiredCanonicalEnglish(),
 		...createV1TacticianLevel1CompletionRequiredCanonicalEnglish(),
 		...createV1TacticianLevel2RequiredCanonicalEnglish(),
