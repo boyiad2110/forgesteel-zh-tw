@@ -23,6 +23,7 @@
  *   'element:<id>:<field>':  { sheetId, enHash }
  *   'enum:<Enum>:<Member>':  { sheetId, enHash }
  *   'ui:<id>':               { sheetId, enHash }
+ *   'data:<Class>:<field>':  { sheetId, enHash, stripHeading? }
  *
  * enHash is sha256 hex of the Forge Steel English at approval time.
  * The check recomputes that English in plain Node, with no browser:
@@ -30,6 +31,16 @@
  *   element  — the string literal on the object in src/data whose id matches
  *   enum     — the string literal assigned to that member in src/enums
  *   ui       — the value of that id in src/l10n/ui-english.json
+ *   data     — the template literal on that static field of the class in src/data
+ *
+ * A template literal cooks CR LF and a lone CR into LF. The check does the
+ * same to every recomputed English string, and to Sheet English before a
+ * comparison, so a core.autocrlf checkout hashes like the runtime string.
+ *
+ * stripHeading means the sheet row is a title line, a blank line, then the
+ * rules. The display strips that title when it shows the Chinese. The check
+ * strips the same way and requires the sheet English body to equal the
+ * trimmed Forge Steel template. The exported JSON is left unchanged.
  *
  * Element and enum English are read from the source text (one string literal,
  * no browser and no TypeScript loader). A computed value has no literal, so
@@ -58,7 +69,8 @@ const HASH = /^[0-9a-f]{64}$/;
 const KEY_PATTERNS = [
 	/^element:[a-z0-9]+(?:[-_][a-z0-9]+)*:[A-Za-z][A-Za-z0-9]*$/,
 	/^enum:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
-	/^ui:[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/
+	/^ui:[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/,
+	/^data:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/
 ];
 const BINARY_EXT = new Set([
 	'.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico',
@@ -70,6 +82,37 @@ const posix = value => value.split(path.sep).join('/');
 
 export const hashEnglish = text => {
 	return createHash('sha256').update(text, 'utf8').digest('hex');
+};
+
+/**
+ * Cooked template values turn CR LF and a lone CR into LF.
+ * Do CR LF first so it does not become two line feeds.
+ */
+export const normalizeEnglish = text => {
+	return text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+};
+
+/**
+ * Drop the first line and the blank line under it.
+ * The same rule lives in src/l10n/text.ts. Keep the two copies identical.
+ */
+export const stripRulesHeading = text => {
+	if (typeof text !== 'string') {
+		return null;
+	}
+	const splitAt = text.indexOf('\n');
+	if (splitAt <= 0) {
+		return null;
+	}
+	const rest = text.slice(splitAt + 1);
+	if (!rest.startsWith('\n')) {
+		return null;
+	}
+	const body = rest.slice(1);
+	if (body.trim().length === 0) {
+		return null;
+	}
+	return body;
 };
 
 const issue = (rule, file, line, key, message) => {
@@ -378,20 +421,87 @@ const elementEnglish = (root, cache, id, field) => {
 	return { english: value.text };
 };
 
+const dataEnglish = (root, className, field) => {
+	for (const file of walk(path.join(root, 'src/data'))) {
+		if (!file.endsWith('.ts')) {
+			continue;
+		}
+		const text = read(file);
+		if (text === null || !new RegExp(`export class ${className}\\b`).test(text)) {
+			continue;
+		}
+		const tokens = tokenize(text);
+		for (let i = 0; i < tokens.length; i++) {
+			const token = tokens[i];
+			const name = tokens[i + 1];
+			if (token.kind !== 'ident' || token.value !== 'class' || name?.kind !== 'ident' || name.value !== className) {
+				continue;
+			}
+			let open = i + 2;
+			while (open < tokens.length && !(tokens[open].kind === 'brace' && tokens[open].value === '{')) {
+				open += 1;
+			}
+			let depth = 0;
+			for (let k = open; k < tokens.length; k++) {
+				const current = tokens[k];
+				if (current.kind === 'brace' && current.value === '{') {
+					depth += 1;
+					continue;
+				}
+				if (current.kind === 'brace' && current.value === '}') {
+					depth -= 1;
+					if (depth === 0) {
+						break;
+					}
+					continue;
+				}
+				const equals = tokens[k + 1];
+				const value = tokens[k + 2];
+				const previous = tokens[k - 1];
+				if (
+					depth === 1
+					&& previous?.kind === 'ident'
+					&& previous.value === 'static'
+					&& current.kind === 'ident'
+					&& current.value === field
+					&& equals?.kind === 'equals'
+					&& value?.kind === 'string'
+				) {
+					return { english: value.value };
+				}
+			}
+			return { error: `class ${className} has no template field ${field}` };
+		}
+		return { error: `class ${className} was not found under src/data` };
+	}
+	return { error: `class ${className} was not found under src/data` };
+};
+
+const cookedEnglish = resolved => {
+	if (typeof resolved.english === 'string') {
+		return { english: normalizeEnglish(resolved.english) };
+	}
+	return resolved;
+};
+
 export const forgeEnglish = (root, key, cache = { current: null }) => {
 	const element = /^element:([^:]+):([^:]+)$/.exec(key);
 	if (element) {
-		return elementEnglish(root, cache, element[1], element[2]);
+		return cookedEnglish(elementEnglish(root, cache, element[1], element[2]));
 	}
 	const enumeration = /^enum:([^:]+):([^:]+)$/.exec(key);
 	if (enumeration) {
-		return enumEnglish(root, enumeration[1], enumeration[2]);
+		return cookedEnglish(enumEnglish(root, enumeration[1], enumeration[2]));
+	}
+	const data = /^data:([^:]+):([^:]+)$/.exec(key);
+	if (data) {
+		return cookedEnglish(dataEnglish(root, data[1], data[2]));
 	}
 	const ui = /^ui:(.+)$/.exec(key);
 	if (ui) {
-		return uiEnglish(root, ui[1]);
+		return cookedEnglish(uiEnglish(root, ui[1]));
 	}
-	return { error: 'key is not an element, enum, or ui key' };
+	return { error: 'key is not an element, enum, data, or ui key' };
 };
 
 const matchBrace = (text, open) => {
@@ -498,8 +608,14 @@ const parseMapping = (file, text) => {
 			}
 			if (inner === 1 && innerToken.kind === 'ident') {
 				const value = tokens[j + 2];
-				if (tokens[j + 1]?.kind === 'colon' && value?.kind === 'string') {
+				if (tokens[j + 1]?.kind !== 'colon') {
+					continue;
+				}
+				if (value?.kind === 'string') {
 					fields[innerToken.value] = value.value;
+					j += 2;
+				} else if (value?.kind === 'ident' && (value.value === 'true' || value.value === 'false')) {
+					fields[innerToken.value] = value.value === 'true';
 					j += 2;
 				}
 			}
@@ -511,6 +627,11 @@ const parseMapping = (file, text) => {
 			errors.push(issue('mapping-key', file, token.line, token.value, 'malformed key'));
 			continue;
 		}
+		const unexpected = Object.keys(fields).filter(name => name !== 'sheetId' && name !== 'enHash' && name !== 'stripHeading');
+		if (unexpected.length > 0) {
+			errors.push(issue('mapping-entry', file, token.line, token.value, `unknown field ${unexpected[0]}`));
+			continue;
+		}
 		if (typeof fields.sheetId !== 'string' || fields.sheetId === '') {
 			errors.push(issue('mapping-entry', file, token.line, token.value, 'missing sheetId'));
 			continue;
@@ -519,8 +640,18 @@ const parseMapping = (file, text) => {
 			errors.push(issue('mapping-entry', file, token.line, token.value, 'enHash must be a sha256 hex digest'));
 			continue;
 		}
+		if ('stripHeading' in fields && fields.stripHeading !== true) {
+			errors.push(issue('mapping-entry', file, token.line, token.value, 'stripHeading must be true'));
+			continue;
+		}
 		if (!seen.get(token.value) || seen.get(token.value) === token.line) {
-			entries.push({ key: token.value, sheetId: fields.sheetId, enHash: fields.enHash, line: token.line });
+			entries.push({
+				key: token.value,
+				sheetId: fields.sheetId,
+				enHash: fields.enHash,
+				stripHeading: fields.stripHeading === true,
+				line: token.line
+			});
 		}
 	}
 	return { entries, errors };
@@ -551,6 +682,61 @@ const loadSheetIds = (dir, file) => {
 		}
 	}
 	return { ids, errors };
+};
+
+const loadSheetRows = dir => {
+	const rows = new Map();
+	for (const name of SHEET_FILES) {
+		const text = read(path.join(dir, name));
+		if (text === null) {
+			continue;
+		}
+		let data;
+		try {
+			data = JSON.parse(text);
+		} catch {
+			continue;
+		}
+		if (!data || typeof data !== 'object' || Array.isArray(data)) {
+			continue;
+		}
+		for (const [ id, row ] of Object.entries(data)) {
+			if (!row || typeof row !== 'object' || rows.has(id)) {
+				continue;
+			}
+			rows.set(id, { en: row.en, zh: row.zh });
+		}
+	}
+	return rows;
+};
+
+const checkRulesHeading = (root, entry, english) => {
+	if (!entry.key.startsWith('data:')) {
+		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, 'stripHeading is only valid on a data: key');
+	}
+	const rows = loadSheetRows(path.join(root, 'src/l10n/generated/zh-TW'));
+	const row = rows.get(entry.sheetId);
+	if (!row || typeof row.en !== 'string' || typeof row.zh !== 'string') {
+		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, `${entry.sheetId} has no English and Chinese text`);
+	}
+	const sheetBody = stripRulesHeading(normalizeEnglish(row.en));
+	if (sheetBody === null) {
+		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, 'sheet English has no title line and blank line to drop');
+	}
+	if (sheetBody !== normalizeEnglish(english).trim()) {
+		const preview = sheetBody.length > 80 ? `${sheetBody.slice(0, 80)}…` : sheetBody;
+		return issue(
+			'rules-heading',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`sheet English body does not match the Forge Steel rules (${JSON.stringify(preview)})`
+		);
+	}
+	if (stripRulesHeading(row.zh) === null) {
+		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, 'sheet Chinese has no title line and blank line to drop');
+	}
+	return null;
 };
 
 export const checkCjk = root => {
@@ -625,6 +811,13 @@ export const checkMapping = root => {
 				entry.key,
 				`Forge Steel English changed (${JSON.stringify(preview)}); approved ${entry.enHash}, current ${current}`
 			));
+			continue;
+		}
+		if (entry.stripHeading) {
+			const heading = checkRulesHeading(root, entry, resolved.english);
+			if (heading) {
+				errors.push(heading);
+			}
 		}
 	}
 	return errors;

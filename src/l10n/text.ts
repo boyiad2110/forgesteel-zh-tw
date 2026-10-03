@@ -17,6 +17,26 @@ const blank = (text: string) => {
 };
 
 /**
+ * Drop the first line and the blank line under it.
+ * The same rule lives in scripts/l10n/check.mjs. Keep the two copies identical.
+ */
+export const stripRulesHeading = (text: string): string | null => {
+	const splitAt = text.indexOf('\n');
+	if (splitAt <= 0) {
+		return null;
+	}
+	const rest = text.slice(splitAt + 1);
+	if (!rest.startsWith('\n')) {
+		return null;
+	}
+	const body = rest.slice(1);
+	if (body.trim().length === 0) {
+		return null;
+	}
+	return body;
+};
+
+/**
  * Picks the sheet lookup key for one displayed string.
  *
  * An explicit key wins. Otherwise, when the surrounding scope has exactly
@@ -47,7 +67,7 @@ export const displayKey = (explicit: string | undefined, text: string | undefine
  * In zh-TW, a missing key, a missing table row, a sheet id that is not
  * loaded, or a blank translation also returns `english`.
  */
-export const resolveText = (language: Language, key: string | undefined, english: string, table: Record<string, string>, catalog: Catalog | null): string => {
+export const resolveText = (language: Language, key: string | undefined, english: string, table: Record<string, string>, catalog: Catalog | null, stripHeading = false): string => {
 	if (language === 'en' || !key) {
 		return english;
 	}
@@ -62,7 +82,16 @@ export const resolveText = (language: Language, key: string | undefined, english
 		return english;
 	}
 
-	return zh;
+	if (!stripHeading) {
+		return zh;
+	}
+
+	const body = stripRulesHeading(zh);
+	if (!body) {
+		return english;
+	}
+
+	return body;
 };
 
 /**
@@ -83,5 +112,5 @@ export const translate = (key: string | undefined, english: string): string => {
 		table[key] = sheetId;
 	}
 
-	return resolveText(language, key, english, table, peekCatalog());
+	return resolveText(language, key, english, table, peekCatalog(), entry?.stripHeading === true);
 };

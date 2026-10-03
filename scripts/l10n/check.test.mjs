@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, test } from 'vitest';
-import { checkCjk, checkGenerated, checkMapping, forgeEnglish, formatIssues, hashEnglish, runCheck } from './check.mjs';
+import { checkCjk, checkGenerated, checkMapping, forgeEnglish, formatIssues, hashEnglish, runCheck, stripRulesHeading } from './check.mjs';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const roots = [];
@@ -51,7 +51,8 @@ const enumFile = `export enum Characteristic {
 
 const mappingSource = entries => {
 	const lines = entries.map(entry => {
-		return `\t'${entry.key}': { sheetId: '${entry.sheetId}', enHash: '${entry.enHash}' },`;
+		const strip = entry.stripHeading ? ', stripHeading: true' : '';
+		return `\t'${entry.key}': { sheetId: '${entry.sheetId}', enHash: '${entry.enHash}'${strip} },`;
 	});
 	return `export const mapping = {\n${lines.join('\n')}\n};\n`;
 };
@@ -169,6 +170,78 @@ describe('stale english', () => {
 	});
 });
 
+describe('rules heading', () => {
+	const template = '\nWhile bleeding.';
+
+	const writeRules = (root, en, zh) => {
+		write(root, 'src/data/condition-data.ts', `export class ConditionData {\n\tstatic bleeding = \`${template}\`;\n}\n`);
+		write(root, 'src/l10n/generated/zh-TW/glossary.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/names.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/strings.json', `${JSON.stringify({
+			'heroes.conditions.bleeding.rules': { en, updated: '2026-10-01', zh }
+		}, null, 2)}\n`);
+	};
+
+	test('a data key hashes the template and accepts a matching titled row', () => {
+		const root = scratch();
+		writeRules(root, 'Bleeding\n\nWhile bleeding.', '出血\n\n規則');
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'data:ConditionData:bleeding', sheetId: 'heroes.conditions.bleeding.rules', enHash: hashEnglish(template), stripHeading: true }
+		]));
+
+		expect(forgeEnglish(root, 'data:ConditionData:bleeding')).toEqual({ english: template });
+		expect(stripRulesHeading('Bleeding\n\nWhile bleeding.')).toBe('While bleeding.');
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('refuses a titled row whose English body differs', () => {
+		const root = scratch();
+		writeRules(root, 'Bleeding\n\nWhile bleeding. (see Chapter 10: Combat)', '出血\n\n規則');
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'data:ConditionData:bleeding', sheetId: 'heroes.conditions.bleeding.rules', enHash: hashEnglish(template), stripHeading: true }
+		]));
+
+		expect(formatIssues(checkMapping(root))).toContain('rules-heading:');
+		expect(formatIssues(checkMapping(root))).toContain('sheet English body does not match');
+	});
+
+	test('a CRLF data file hashes like the LF template', () => {
+		const root = scratch();
+		const lf = '\nWhile a creature is bleeding, you are dying.';
+		const source = `export class ConditionData {\n\tstatic bleeding = \`${lf}\`;\n}\n`.replace(/\n/g, '\r\n');
+		write(root, 'src/data/condition-data.ts', source);
+		const resolved = forgeEnglish(root, 'data:ConditionData:bleeding');
+
+		expect(hashEnglish(resolved.english)).toBe(hashEnglish(lf));
+
+		write(root, 'src/l10n/generated/zh-TW/glossary.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/names.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/strings.json', `${JSON.stringify({
+			'heroes.conditions.bleeding.rules': {
+				en: 'Bleeding\r\n\r\nWhile a creature is bleeding, you are dying.',
+				updated: '2026-10-01',
+				zh: '出血\n\n規則'
+			}
+		}, null, 2)}\n`);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'data:ConditionData:bleeding', sheetId: 'heroes.conditions.bleeding.rules', enHash: hashEnglish(lf), stripHeading: true }
+		]));
+
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('refuses stripHeading on an enum key', () => {
+		const root = scratch();
+		write(root, 'src/enums/condition-type.ts', 'export enum ConditionType {\n\tBleeding = \'Bleeding\'\n}\n');
+		sheet(root, [ 'term.bleeding' ]);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'enum:ConditionType:Bleeding', sheetId: 'term.bleeding', enHash: hashEnglish('Bleeding'), stripHeading: true }
+		]));
+
+		expect(formatIssues(checkMapping(root))).toContain('stripHeading is only valid on a data: key');
+	});
+});
+
 describe('generated files', () => {
 	test('fails when the generated JSON does not match the snapshot', () => {
 		const root = scratch();
@@ -197,6 +270,7 @@ describe('repository', () => {
 	test('reads upstream English from source text', () => {
 		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });
 		expect(forgeEnglish(repoRoot, 'enum:Characteristic:Might')).toEqual({ english: 'Might' });
+		expect(forgeEnglish(repoRoot, 'data:ConditionData:weakened').english.trim()).toBe('A creature who is weakened takes a bane on power rolls.');
 	});
 
 	test('the real tree passes', () => {

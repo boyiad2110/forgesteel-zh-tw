@@ -42,6 +42,13 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/pages/classic-sheet/common.scss`
 - `.github/workflows/digitalocean.yml`（部署保護）
 - `.github/workflows/do-registry-cleanup.yml`（部署保護）
+- `src/components/modals/reference/reference-modal.tsx`（條件名稱與規則）
+- `src/components/panels/hero/sidebar/sidebar-panel.tsx`（條件名稱與規則）
+- `src/components/panels/condition/condition-panel.tsx`（條件名稱與規則）
+- `src/components/panels/health/health-panel.tsx`（條件名稱）
+- `src/components/features/feature-data/condition-immunity.tsx`（條件名稱）
+- `src/components/modals/hero-customize/hero-customize-modal.tsx`（條件名稱）
+- `src/components/panels/classic-sheet/conditions-card/conditions-card.tsx`（條件名稱）
 
 ## 舊的失敗嘗試，不要再做
 

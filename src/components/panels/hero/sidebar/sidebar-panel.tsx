@@ -1,4 +1,5 @@
 import { Alert, Button, Flex, Popover, Segmented, Space, Tag } from 'antd';
+import { ConditionName, ConditionRules, conditionRulesKey } from '@/l10n/condition-text';
 import { EllipsisOutlined, HeartFilled, PlusOutlined } from '@ant-design/icons';
 import { Ability } from '@/models/ability';
 import { AbilityLogic } from '@/logic/ability-logic';
@@ -214,12 +215,12 @@ export const SidebarPanel = (props: Props) => {
 					props.hero.state.conditions.map(c =>
 						useRows ?
 							<div key={c.id} className='selectable-row warning clickable' onClick={onShowVitals}>
-								<div>Condition: <b>{c.type === ConditionType.Custom ? c.text || 'A custom condition.' : ConditionLogic.getDescription(c.type)}</b></div>
+								<div>Condition: <b>{c.type === ConditionType.Custom ? c.text || 'A custom condition.' : <ConditionRules type={c.type} english={ConditionLogic.getDescription(c.type)} />}</b></div>
 							</div>
 							:
 							<div key={c.id} className='overview-tile warning clickable' onClick={onShowVitals}>
-								<HeaderText tags={[ c.ends ]}>{c.type}</HeaderText>
-								<Markdown text={c.type === ConditionType.Custom ? c.text || 'A custom condition.' : ConditionLogic.getDescription(c.type)} />
+								<HeaderText tags={[ c.ends ]}><ConditionName type={c.type} /></HeaderText>
+								<Markdown l10nKey={conditionRulesKey(c.type)} text={c.type === ConditionType.Custom ? c.text || 'A custom condition.' : ConditionLogic.getDescription(c.type)} />
 							</div>
 					)
 				}
