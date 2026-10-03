@@ -1,0 +1,212 @@
+{
+  "heroes.language.ananjali": {
+    "en": "Ananjali",
+    "updated": "2026-10-02",
+    "zh": "阿納賈利語"
+  },
+  "heroes.language.anjali": {
+    "en": "Anjali",
+    "updated": "2026-10-02",
+    "zh": "安賈利語"
+  },
+  "heroes.language.axiomatic": {
+    "en": "Axiomatic",
+    "updated": "2026-10-02",
+    "zh": "公理語"
+  },
+  "heroes.language.caelian": {
+    "en": "Caelian",
+    "updated": "2026-10-02",
+    "zh": "凱利安語"
+  },
+  "heroes.language.filliaric": {
+    "en": "Filliaric",
+    "updated": "2026-10-02",
+    "zh": "菲利亞語"
+  },
+  "heroes.language.first-language": {
+    "en": "The First Language",
+    "updated": "2026-10-02",
+    "zh": "太古語"
+  },
+  "heroes.language.higaran": {
+    "en": "Higaran",
+    "updated": "2026-10-02",
+    "zh": "希伽拉語"
+  },
+  "heroes.language.high-kuric": {
+    "en": "High Kuric",
+    "updated": "2026-10-02",
+    "zh": "高庫語"
+  },
+  "heroes.language.high-rhyvian": {
+    "en": "High Rhyvian",
+    "updated": "2026-10-02",
+    "zh": "高瑞維亞語"
+  },
+  "heroes.language.hyrallic": {
+    "en": "Hyrallic",
+    "updated": "2026-10-02",
+    "zh": "赫拉語"
+  },
+  "heroes.language.illyvric": {
+    "en": "Illyvric",
+    "updated": "2026-10-02",
+    "zh": "伊利夫語"
+  },
+  "heroes.language.kalliak": {
+    "en": "Kalliak",
+    "updated": "2026-10-02",
+    "zh": "卡力語"
+  },
+  "heroes.language.kethaic": {
+    "en": "Kethaic",
+    "updated": "2026-10-02",
+    "zh": "克薩語"
+  },
+  "heroes.language.khamish": {
+    "en": "Khamish",
+    "updated": "2026-10-02",
+    "zh": "卡米希語"
+  },
+  "heroes.language.khelt": {
+    "en": "Khelt",
+    "updated": "2026-10-02",
+    "zh": "克特語"
+  },
+  "heroes.language.kheltivari": {
+    "en": "Kheltivari",
+    "updated": "2026-10-02",
+    "zh": "克提華里語"
+  },
+  "heroes.language.khemharic": {
+    "en": "Khemharic",
+    "updated": "2026-10-02",
+    "zh": "凱姆哈拉語"
+  },
+  "heroes.language.khoursirian": {
+    "en": "Khoursirian",
+    "updated": "2026-10-02",
+    "zh": "科爾瑟語"
+  },
+  "heroes.language.low-kuric": {
+    "en": "Low Kuric",
+    "updated": "2026-10-02",
+    "zh": "低庫語"
+  },
+  "heroes.language.low-rhyvian": {
+    "en": "Low Rhyvian",
+    "updated": "2026-10-02",
+    "zh": "低瑞維亞語"
+  },
+  "heroes.language.mindspeech": {
+    "en": "Mindspeech",
+    "updated": "2026-10-02",
+    "zh": "心靈語"
+  },
+  "heroes.language.oaxuatl": {
+    "en": "Oaxuatl",
+    "updated": "2026-10-02",
+    "zh": "瓦蘇奧語"
+  },
+  "heroes.language.old-variac": {
+    "en": "Old Variac",
+    "updated": "2026-10-02",
+    "zh": "古華里亞語"
+  },
+  "heroes.language.phaedran": {
+    "en": "Phaedran",
+    "updated": "2026-10-02",
+    "zh": "斐德羅語"
+  },
+  "heroes.language.phorialtic": {
+    "en": "Phorialtic",
+    "updated": "2026-10-02",
+    "zh": "佛里奧語"
+  },
+  "heroes.language.proto-ctholl": {
+    "en": "Proto-Ctholl",
+    "updated": "2026-10-02",
+    "zh": "原墮語"
+  },
+  "heroes.language.rallarian": {
+    "en": "Rallarian",
+    "updated": "2026-10-02",
+    "zh": "拉拉里安語"
+  },
+  "heroes.language.riojan": {
+    "en": "Riojan",
+    "updated": "2026-10-02",
+    "zh": "里歐哈語"
+  },
+  "heroes.language.szetch": {
+    "en": "Szetch",
+    "updated": "2026-10-02",
+    "zh": "澤奇語"
+  },
+  "heroes.language.tholl": {
+    "en": "Tholl",
+    "updated": "2026-10-02",
+    "zh": "墮語"
+  },
+  "heroes.language.ullorvic": {
+    "en": "Ullorvic",
+    "updated": "2026-10-02",
+    "zh": "烏洛維克語"
+  },
+  "heroes.language.urollialic": {
+    "en": "Urollialic",
+    "updated": "2026-10-02",
+    "zh": "巫羅語"
+  },
+  "heroes.language.uvalic": {
+    "en": "Uvalic",
+    "updated": "2026-10-02",
+    "zh": "烏華利語"
+  },
+  "heroes.language.vaniric": {
+    "en": "Vaniric",
+    "updated": "2026-10-02",
+    "zh": "華尼伽語"
+  },
+  "heroes.language.variac": {
+    "en": "Variac",
+    "updated": "2026-10-02",
+    "zh": "華里亞語"
+  },
+  "heroes.language.vaslorian": {
+    "en": "Vaslorian",
+    "updated": "2026-10-02",
+    "zh": "華斯洛里亞語"
+  },
+  "heroes.language.vastariax": {
+    "en": "Vastariax",
+    "updated": "2026-10-02",
+    "zh": "華斯塔里亞語"
+  },
+  "heroes.language.vhoric": {
+    "en": "Vhoric",
+    "updated": "2026-10-02",
+    "zh": "沃瑞語"
+  },
+  "heroes.language.voll": {
+    "en": "Voll",
+    "updated": "2026-10-02",
+    "zh": "沃爾語"
+  },
+  "heroes.language.yllyric": {
+    "en": "Yllyric",
+    "updated": "2026-10-02",
+    "zh": "伊林語"
+  },
+  "heroes.language.zahariax": {
+    "en": "Za’hariax",
+    "updated": "2026-10-02",
+    "zh": "札哈里亞語"
+  },
+  "heroes.language.zaliac": {
+    "en": "Zaliac",
+    "updated": "2026-10-02",
+    "zh": "札力語"
+  }
+}

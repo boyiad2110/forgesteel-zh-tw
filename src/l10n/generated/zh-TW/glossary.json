@@ -1,0 +1,1272 @@
+{
+  "term.ability": {
+    "en": "Ability",
+    "updated": "2026-09-29",
+    "zh": "招式"
+  },
+  "term.ability-roll": {
+    "en": "Ability Roll",
+    "updated": "2026-09-29",
+    "zh": "招式檢定"
+  },
+  "term.academic": {
+    "en": "Academic",
+    "updated": "2026-10-01",
+    "zh": "學術"
+  },
+  "term.adjacent": {
+    "en": "Adjacent",
+    "updated": "2026-09-29",
+    "zh": "相鄰"
+  },
+  "term.advance-move-action": {
+    "en": "Advance Move Action",
+    "updated": "2026-09-29",
+    "zh": "行進移動動作"
+  },
+  "term.agility": {
+    "en": "Agility",
+    "updated": "2026-09-29",
+    "zh": "敏捷"
+  },
+  "term.aid-attack-maneuver": {
+    "en": "Aid Attack Maneuver",
+    "updated": "2026-09-29",
+    "zh": "助攻機動動作"
+  },
+  "term.ally": {
+    "en": "Ally",
+    "updated": "2026-09-29",
+    "zh": "盟友"
+  },
+  "term.ancestry": {
+    "en": "Ancestry",
+    "updated": "2026-09-29",
+    "zh": "族裔"
+  },
+  "term.area-of-effect": {
+    "en": "Area of Effect",
+    "updated": "2026-09-29",
+    "zh": "效果區域"
+  },
+  "term.argument": {
+    "en": "Argument",
+    "updated": "2026-09-29",
+    "zh": "論點"
+  },
+  "term.artifact": {
+    "en": "Artifact",
+    "updated": "2026-09-29",
+    "zh": "法寶"
+  },
+  "term.artisan": {
+    "en": "Artisan",
+    "updated": "2026-09-29",
+    "zh": "工匠"
+  },
+  "term.aura": {
+    "en": "Aura",
+    "updated": "2026-09-29",
+    "zh": "靈光"
+  },
+  "term.background": {
+    "en": "Background",
+    "updated": "2026-09-29",
+    "zh": "背景"
+  },
+  "term.bane": {
+    "en": "Bane",
+    "updated": "2026-09-29",
+    "zh": "劣勢"
+  },
+  "term.bleeding": {
+    "en": "Bleeding",
+    "updated": "2026-09-29",
+    "zh": "出血"
+  },
+  "term.bonus": {
+    "en": "Bonus",
+    "updated": "2026-09-29",
+    "zh": "加值"
+  },
+  "term.breakthrough": {
+    "en": "Breakthrough",
+    "updated": "2026-09-29",
+    "zh": "突破"
+  },
+  "term.bureaucratic": {
+    "en": "Bureaucratic",
+    "updated": "2026-10-01",
+    "zh": "官僚"
+  },
+  "term.burrow": {
+    "en": "Burrow",
+    "updated": "2026-09-29",
+    "zh": "掘地"
+  },
+  "term.burst": {
+    "en": "Burst",
+    "updated": "2026-09-29",
+    "zh": "爆發"
+  },
+  "term.capital": {
+    "en": "Capital",
+    "updated": "2026-09-29",
+    "zh": "元城"
+  },
+  "term.career": {
+    "en": "Career",
+    "updated": "2026-09-29",
+    "zh": "生涯"
+  },
+  "term.catch-breath-maneuver": {
+    "en": "Catch Breath Maneuver",
+    "updated": "2026-09-29",
+    "zh": "喘息機動動作"
+  },
+  "term.ceiling": {
+    "en": "Ceiling",
+    "updated": "2026-09-29",
+    "zh": "天花板"
+  },
+  "term.censor": {
+    "en": "Censor",
+    "updated": "2026-09-29",
+    "zh": "懲戒者"
+  },
+  "term.characteristic": {
+    "en": "Characteristics",
+    "updated": "2026-09-29",
+    "zh": "屬性"
+  },
+  "term.charge-main-action": {
+    "en": "Charge Main Action",
+    "updated": "2026-09-29",
+    "zh": "衝鋒主要動作"
+  },
+  "term.clarity": {
+    "en": "Clarity",
+    "updated": "2026-09-29",
+    "zh": "明晰"
+  },
+  "term.class": {
+    "en": "Class",
+    "updated": "2026-09-29",
+    "zh": "職業"
+  },
+  "term.claw-dirt": {
+    "en": "Claw Dirt",
+    "updated": "2026-09-29",
+    "zh": "挖土"
+  },
+  "term.climb": {
+    "en": "Climb",
+    "updated": "2026-09-29",
+    "zh": "攀爬"
+  },
+  "term.combat-round": {
+    "en": "Combat Round",
+    "updated": "2026-09-29",
+    "zh": "戰鬥輪"
+  },
+  "term.communal": {
+    "en": "Communal",
+    "updated": "2026-10-01",
+    "zh": "平權"
+  },
+  "term.complication": {
+    "en": "Complication",
+    "updated": "2026-09-29",
+    "zh": "糾葛"
+  },
+  "term.concealment": {
+    "en": "Concealment",
+    "updated": "2026-09-29",
+    "zh": "遮蔽"
+  },
+  "term.condition": {
+    "en": "Condition",
+    "updated": "2026-09-29",
+    "zh": "狀態"
+  },
+  "term.conduit": {
+    "en": "Conduit",
+    "updated": "2026-09-29",
+    "zh": "神導士"
+  },
+  "term.consequence": {
+    "en": "Consequence",
+    "updated": "2026-09-29",
+    "zh": "波折"
+  },
+  "term.consumable": {
+    "en": "Consumable",
+    "updated": "2026-09-29",
+    "zh": "消耗品"
+  },
+  "term.cover": {
+    "en": "Cover",
+    "updated": "2026-09-29",
+    "zh": "掩護"
+  },
+  "term.crafting-project": {
+    "en": "Crafting Project",
+    "updated": "2026-09-29",
+    "zh": "工藝類專案"
+  },
+  "term.crawl": {
+    "en": "Crawl",
+    "updated": "2026-09-29",
+    "zh": "爬行"
+  },
+  "term.creative": {
+    "en": "Creative",
+    "updated": "2026-10-01",
+    "zh": "創作"
+  },
+  "term.creature": {
+    "en": "Creature",
+    "updated": "2026-09-29",
+    "zh": "生物"
+  },
+  "term.critical-hit": {
+    "en": "Critical Hit",
+    "updated": "2026-09-29",
+    "zh": "暴擊"
+  },
+  "term.cube": {
+    "en": "Cube",
+    "updated": "2026-09-29",
+    "zh": "立方"
+  },
+  "term.culture": {
+    "en": "Culture",
+    "updated": "2026-09-29",
+    "zh": "文化"
+  },
+  "term.d10": {
+    "en": "d10",
+    "updated": "2026-09-29",
+    "zh": "d10"
+  },
+  "term.d100": {
+    "en": "d100",
+    "updated": "2026-09-29",
+    "zh": "d100"
+  },
+  "term.d3": {
+    "en": "d3",
+    "updated": "2026-09-29",
+    "zh": "d3"
+  },
+  "term.d6": {
+    "en": "d6",
+    "updated": "2026-09-29",
+    "zh": "d6"
+  },
+  "term.damage": {
+    "en": "Damage",
+    "updated": "2026-09-29",
+    "zh": "傷害"
+  },
+  "term.damage-immunity": {
+    "en": "Damage Immunity",
+    "updated": "2026-09-29",
+    "zh": "傷害免疫"
+  },
+  "term.damage-type": {
+    "en": "Damage Type",
+    "updated": "2026-09-29",
+    "zh": "傷害類型"
+  },
+  "term.damage-weakness": {
+    "en": "Damage Weakness",
+    "updated": "2026-09-29",
+    "zh": "傷害弱點"
+  },
+  "term.damaging-terrain": {
+    "en": "Damaging Terrain",
+    "updated": "2026-09-29",
+    "zh": "致傷地形"
+  },
+  "term.dazed": {
+    "en": "Dazed",
+    "updated": "2026-09-29",
+    "zh": "暈眩"
+  },
+  "term.defend-main-action": {
+    "en": "Defend Main Action",
+    "updated": "2026-09-29",
+    "zh": "防禦主要動作"
+  },
+  "term.devil": {
+    "en": "Devil",
+    "updated": "2026-09-29",
+    "zh": "魔鬼"
+  },
+  "term.difficult-terrain": {
+    "en": "Difficult Terrain",
+    "updated": "2026-09-29",
+    "zh": "困難地形"
+  },
+  "term.dig-maneuver": {
+    "en": "Dig Maneuver",
+    "updated": "2026-09-29",
+    "zh": "鑽地機動動作"
+  },
+  "term.director": {
+    "en": "Director",
+    "updated": "2026-09-29",
+    "zh": "導演"
+  },
+  "term.discipline": {
+    "en": "Discipline",
+    "updated": "2026-09-29",
+    "zh": "紀律"
+  },
+  "term.disengage-move-action": {
+    "en": "Disengage Move Action",
+    "updated": "2026-09-29",
+    "zh": "撤離移動動作"
+  },
+  "term.distance": {
+    "en": "Distance",
+    "updated": "2026-09-29",
+    "zh": "射程"
+  },
+  "term.double-bane": {
+    "en": "Double Bane",
+    "updated": "2026-09-29",
+    "zh": "雙劣勢"
+  },
+  "term.double-edge": {
+    "en": "Double Edge",
+    "updated": "2026-09-29",
+    "zh": "雙優勢"
+  },
+  "term.downtime-project": {
+    "en": "Downtime Project",
+    "updated": "2026-09-29",
+    "zh": "休整專案"
+  },
+  "term.dragon-knight": {
+    "en": "Dragon Knight",
+    "updated": "2026-09-29",
+    "zh": "龍騎士"
+  },
+  "term.drama": {
+    "en": "Drama",
+    "updated": "2026-09-29",
+    "zh": "張力"
+  },
+  "term.dwarf": {
+    "en": "Dwarf",
+    "updated": "2026-09-29",
+    "zh": "矮人"
+  },
+  "term.dying": {
+    "en": "Dying",
+    "updated": "2026-09-29",
+    "zh": "瀕死"
+  },
+  "term.echelon": {
+    "en": "Echelon",
+    "updated": "2026-09-29",
+    "zh": "境界"
+  },
+  "term.edge": {
+    "en": "Edge",
+    "updated": "2026-09-29",
+    "zh": "優勢"
+  },
+  "term.elementalist": {
+    "en": "Elementalist",
+    "updated": "2026-09-29",
+    "zh": "元素師"
+  },
+  "term.enemy": {
+    "en": "Enemy",
+    "updated": "2026-09-29",
+    "zh": "敵人"
+  },
+  "term.environment": {
+    "en": "Environment",
+    "updated": "2026-10-01",
+    "zh": "生活環境"
+  },
+  "term.eot": {
+    "en": "EoT",
+    "updated": "2026-09-29",
+    "zh": "EoT"
+  },
+  "term.escape-grab-maneuver": {
+    "en": "Escape Grab Maneuver",
+    "updated": "2026-09-29",
+    "zh": "掙脫機動動作"
+  },
+  "term.essence": {
+    "en": "Essence",
+    "updated": "2026-09-29",
+    "zh": "精髓"
+  },
+  "term.experience-xp": {
+    "en": "Experience (XP)",
+    "updated": "2026-09-29",
+    "zh": "經驗值 (XP)"
+  },
+  "term.falling": {
+    "en": "Falling",
+    "updated": "2026-09-29",
+    "zh": "墜落"
+  },
+  "term.ferocity": {
+    "en": "Ferocity",
+    "updated": "2026-09-29",
+    "zh": "狠勁"
+  },
+  "term.flanking": {
+    "en": "Flanking",
+    "updated": "2026-09-29",
+    "zh": "夾擊"
+  },
+  "term.fly": {
+    "en": "Fly",
+    "updated": "2026-09-29",
+    "zh": "飛行"
+  },
+  "term.focus": {
+    "en": "Focus",
+    "updated": "2026-09-29",
+    "zh": "專注"
+  },
+  "term.follower": {
+    "en": "Follower",
+    "updated": "2026-09-29",
+    "zh": "追隨者"
+  },
+  "term.forced-movement": {
+    "en": "Forced Movement",
+    "updated": "2026-09-29",
+    "zh": "強制移動"
+  },
+  "term.free-maneuver": {
+    "en": "Free Maneuver",
+    "updated": "2026-09-29",
+    "zh": "免費機動動作"
+  },
+  "term.free-strike": {
+    "en": "Free Strike",
+    "updated": "2026-09-29",
+    "zh": "基礎打擊"
+  },
+  "term.free-triggered-action": {
+    "en": "Free Triggered Action",
+    "updated": "2026-09-29",
+    "zh": "免費反應動作"
+  },
+  "term.frightened": {
+    "en": "Frightened",
+    "updated": "2026-09-29",
+    "zh": "畏縮"
+  },
+  "term.fury": {
+    "en": "Fury",
+    "updated": "2026-09-29",
+    "zh": "熾怒者"
+  },
+  "term.god": {
+    "en": "God",
+    "updated": "2026-09-29",
+    "zh": "神明"
+  },
+  "term.grab-maneuver": {
+    "en": "Grab Maneuver",
+    "updated": "2026-09-29",
+    "zh": "擒抱機動動作"
+  },
+  "term.grabbed": {
+    "en": "Grabbed",
+    "updated": "2026-09-29",
+    "zh": "擒制"
+  },
+  "term.ground": {
+    "en": "Ground",
+    "updated": "2026-09-29",
+    "zh": "地面"
+  },
+  "term.group-test": {
+    "en": "Group Test",
+    "updated": "2026-09-29",
+    "zh": "團體考驗"
+  },
+  "term.guide": {
+    "en": "Guide",
+    "updated": "2026-09-29",
+    "zh": "指南"
+  },
+  "term.hakaan": {
+    "en": "Hakaan",
+    "updated": "2026-09-29",
+    "zh": "哈肯人"
+  },
+  "term.heal-main-action": {
+    "en": "Heal Main Action",
+    "updated": "2026-09-29",
+    "zh": "治療主要動作"
+  },
+  "term.hero": {
+    "en": "Hero",
+    "updated": "2026-09-29",
+    "zh": "英雄"
+  },
+  "term.hero-token": {
+    "en": "Hero Tokens",
+    "updated": "2026-09-29",
+    "zh": "英雄幣"
+  },
+  "term.heroic-ability": {
+    "en": "Heroic Ability",
+    "updated": "2026-09-29",
+    "zh": "英雄招式"
+  },
+  "term.heroic-resource": {
+    "en": "Heroic Resource",
+    "updated": "2026-09-29",
+    "zh": "英雄資源"
+  },
+  "term.hide-maneuver": {
+    "en": "Hide Maneuver",
+    "updated": "2026-09-29",
+    "zh": "躲藏機動動作"
+  },
+  "term.high-elves": {
+    "en": "High Elves",
+    "updated": "2026-09-29",
+    "zh": "高等精靈"
+  },
+  "term.high-ground": {
+    "en": "High Ground",
+    "updated": "2026-09-29",
+    "zh": "高地"
+  },
+  "term.hover": {
+    "en": "Hover",
+    "updated": "2026-09-29",
+    "zh": "懸浮"
+  },
+  "term.human": {
+    "en": "Human",
+    "updated": "2026-09-29",
+    "zh": "人類"
+  },
+  "term.humanoid": {
+    "en": "Humanoid",
+    "updated": "2026-09-29",
+    "zh": "類人生物"
+  },
+  "term.implement": {
+    "en": "Implement",
+    "updated": "2026-09-29",
+    "zh": "法器"
+  },
+  "term.insight": {
+    "en": "Insight",
+    "updated": "2026-09-29",
+    "zh": "洞察"
+  },
+  "term.interest": {
+    "en": "Interest",
+    "updated": "2026-09-29",
+    "zh": "興趣"
+  },
+  "term.intuition": {
+    "en": "Intuition",
+    "updated": "2026-09-29",
+    "zh": "直覺"
+  },
+  "term.item-prerequisite": {
+    "en": "Item Prerequisite",
+    "updated": "2026-09-29",
+    "zh": "前置材料"
+  },
+  "term.jump": {
+    "en": "Jump",
+    "updated": "2026-09-29",
+    "zh": "跳躍"
+  },
+  "term.kit": {
+    "en": "Kit",
+    "updated": "2026-09-29",
+    "zh": "套裝"
+  },
+  "term.knockback-maneuver": {
+    "en": "Knockback Maneuver",
+    "updated": "2026-09-29",
+    "zh": "擊退機動動作"
+  },
+  "term.labor": {
+    "en": "Labor",
+    "updated": "2026-10-01",
+    "zh": "勞動"
+  },
+  "term.lawless": {
+    "en": "Lawless",
+    "updated": "2026-10-01",
+    "zh": "法外"
+  },
+  "term.level": {
+    "en": "Level",
+    "updated": "2026-09-29",
+    "zh": "等級"
+  },
+  "term.leveled-treasure": {
+    "en": "Leveled Treasure",
+    "updated": "2026-09-29",
+    "zh": "共鳴寶物"
+  },
+  "term.line": {
+    "en": "Line",
+    "updated": "2026-09-29",
+    "zh": "線形"
+  },
+  "term.line-of-effect": {
+    "en": "Line of Effect",
+    "updated": "2026-09-29",
+    "zh": "效果線"
+  },
+  "term.main-action": {
+    "en": "Main Action",
+    "updated": "2026-09-29",
+    "zh": "主要動作"
+  },
+  "term.malice": {
+    "en": "Malice",
+    "updated": "2026-09-29",
+    "zh": "惡意"
+  },
+  "term.maneuver": {
+    "en": "Maneuver",
+    "updated": "2026-09-29",
+    "zh": "機動動作"
+  },
+  "term.manifold": {
+    "en": "Manifold",
+    "updated": "2026-09-29",
+    "zh": "衍界"
+  },
+  "term.martial": {
+    "en": "Martial",
+    "updated": "2026-10-01",
+    "zh": "尚武"
+  },
+  "term.melee": {
+    "en": "Melee",
+    "updated": "2026-09-29",
+    "zh": "近戰"
+  },
+  "term.melee-free-strike": {
+    "en": "Melee Free Strike",
+    "updated": "2026-09-29",
+    "zh": "近戰基礎打擊"
+  },
+  "term.memonek": {
+    "en": "Memonek",
+    "updated": "2026-09-29",
+    "zh": "梅莫人"
+  },
+  "term.might": {
+    "en": "Might",
+    "updated": "2026-09-29",
+    "zh": "力量"
+  },
+  "term.montage-test": {
+    "en": "Montage Test",
+    "updated": "2026-09-29",
+    "zh": "蒙太奇考驗"
+  },
+  "term.motivation": {
+    "en": "Motivation",
+    "updated": "2026-09-29",
+    "zh": "動機"
+  },
+  "term.mounted-combat": {
+    "en": "Mounted Combat",
+    "updated": "2026-09-29",
+    "zh": "騎乘戰鬥"
+  },
+  "term.move-action": {
+    "en": "Move Action",
+    "updated": "2026-09-29",
+    "zh": "移動動作"
+  },
+  "term.movement": {
+    "en": "Movement",
+    "updated": "2026-09-29",
+    "zh": "移動"
+  },
+  "term.mundane": {
+    "en": "Mundane",
+    "updated": "2026-09-29",
+    "zh": "尋常"
+  },
+  "term.natural-19-or-20": {
+    "en": "Natural 19 or 20",
+    "updated": "2026-09-29",
+    "zh": "天然 19 或 20"
+  },
+  "term.natural-roll": {
+    "en": "Natural Roll",
+    "updated": "2026-09-29",
+    "zh": "天然骰值"
+  },
+  "term.negotiation": {
+    "en": "Negotiation",
+    "updated": "2026-09-29",
+    "zh": "談判"
+  },
+  "term.no-action": {
+    "en": "No Action",
+    "updated": "2026-09-29",
+    "zh": "無需動作"
+  },
+  "term.noble": {
+    "en": "Noble",
+    "updated": "2026-10-01",
+    "zh": "貴族"
+  },
+  "term.nomadic": {
+    "en": "Nomadic",
+    "updated": "2026-10-01",
+    "zh": "遊牧"
+  },
+  "term.npc": {
+    "en": "NPC",
+    "updated": "2026-09-29",
+    "zh": "NPC"
+  },
+  "term.null": {
+    "en": "Null",
+    "updated": "2026-09-29",
+    "zh": "無念者"
+  },
+  "term.object": {
+    "en": "Object",
+    "updated": "2026-09-29",
+    "zh": "物體"
+  },
+  "term.objective": {
+    "en": "Objective",
+    "updated": "2026-09-29",
+    "zh": "目標"
+  },
+  "term.opportunity-attack": {
+    "en": "Opportunity Attack",
+    "updated": "2026-09-29",
+    "zh": "藉機攻擊"
+  },
+  "term.opposed-power-roll": {
+    "en": "Opposed Power Roll",
+    "updated": "2026-09-29",
+    "zh": "對抗檢定"
+  },
+  "term.orc": {
+    "en": "Orc",
+    "updated": "2026-09-29",
+    "zh": "歐克"
+  },
+  "term.orden": {
+    "en": "Orden",
+    "updated": "2026-09-29",
+    "zh": "歐爾登"
+  },
+  "term.organization": {
+    "en": "Organization",
+    "updated": "2026-10-01",
+    "zh": "組織型態"
+  },
+  "term.patience": {
+    "en": "Patience",
+    "updated": "2026-09-29",
+    "zh": "耐心"
+  },
+  "term.penalty": {
+    "en": "Penalty",
+    "updated": "2026-09-29",
+    "zh": "減值"
+  },
+  "term.perk": {
+    "en": "Perk",
+    "updated": "2026-09-29",
+    "zh": "專長"
+  },
+  "term.piety": {
+    "en": "Piety",
+    "updated": "2026-09-29",
+    "zh": "虔誠"
+  },
+  "term.pitfall": {
+    "en": "Pitfall",
+    "updated": "2026-09-29",
+    "zh": "雷點"
+  },
+  "term.polder": {
+    "en": "Polder",
+    "updated": "2026-09-29",
+    "zh": "波德人"
+  },
+  "term.potency": {
+    "en": "Potency",
+    "updated": "2026-09-29",
+    "zh": "效力"
+  },
+  "term.power-roll": {
+    "en": "Power Roll",
+    "updated": "2026-09-29",
+    "zh": "檢定"
+  },
+  "term.presence": {
+    "en": "Presence",
+    "updated": "2026-09-29",
+    "zh": "氣場"
+  },
+  "term.project-event": {
+    "en": "Project Event",
+    "updated": "2026-09-29",
+    "zh": "專案事件"
+  },
+  "term.project-goal": {
+    "en": "Project Goal",
+    "updated": "2026-09-29",
+    "zh": "專案目標"
+  },
+  "term.project-points": {
+    "en": "Project Points",
+    "updated": "2026-09-29",
+    "zh": "專案點數"
+  },
+  "term.project-roll": {
+    "en": "Project Roll",
+    "updated": "2026-09-29",
+    "zh": "專案檢定"
+  },
+  "term.project-source": {
+    "en": "Project Source",
+    "updated": "2026-09-29",
+    "zh": "專案來源"
+  },
+  "term.prone": {
+    "en": "Prone",
+    "updated": "2026-09-29",
+    "zh": "伏地"
+  },
+  "term.pull": {
+    "en": "Pull",
+    "updated": "2026-09-29",
+    "zh": "拉動"
+  },
+  "term.push": {
+    "en": "Push",
+    "updated": "2026-09-29",
+    "zh": "推動"
+  },
+  "term.ranged": {
+    "en": "Ranged",
+    "updated": "2026-09-29",
+    "zh": "遠程"
+  },
+  "term.ranged-free-strike": {
+    "en": "Ranged Free Strike",
+    "updated": "2026-09-29",
+    "zh": "遠程基礎打擊"
+  },
+  "term.reactive-test": {
+    "en": "Reactive Test",
+    "updated": "2026-09-29",
+    "zh": "被動考驗"
+  },
+  "term.reason": {
+    "en": "Reason",
+    "updated": "2026-09-29",
+    "zh": "理智"
+  },
+  "term.recovery": {
+    "en": "Recoveries",
+    "updated": "2026-09-29",
+    "zh": "復元力"
+  },
+  "term.recovery-value": {
+    "en": "Recovery Value",
+    "updated": "2026-09-29",
+    "zh": "復元值"
+  },
+  "term.renown": {
+    "en": "Renown",
+    "updated": "2026-09-29",
+    "zh": "聲望"
+  },
+  "term.research-project": {
+    "en": "Research Project",
+    "updated": "2026-09-29",
+    "zh": "研究類專案"
+  },
+  "term.respite": {
+    "en": "Respite",
+    "updated": "2026-09-29",
+    "zh": "休整"
+  },
+  "term.respite-activity": {
+    "en": "Respite Activity",
+    "updated": "2026-09-29",
+    "zh": "休整活動"
+  },
+  "term.restrained": {
+    "en": "Restrained",
+    "updated": "2026-09-29",
+    "zh": "束縛"
+  },
+  "term.retainer": {
+    "en": "Retainer",
+    "updated": "2026-09-29",
+    "zh": "隨從"
+  },
+  "term.revenant": {
+    "en": "Revenant",
+    "updated": "2026-09-29",
+    "zh": "還魂屍"
+  },
+  "term.reward": {
+    "en": "Reward",
+    "updated": "2026-09-29",
+    "zh": "獎勵"
+  },
+  "term.ride-move-action": {
+    "en": "Ride Move Action",
+    "updated": "2026-09-29",
+    "zh": "騎乘移動動作"
+  },
+  "term.rolled-damage": {
+    "en": "Rolled Damage",
+    "updated": "2026-09-29",
+    "zh": "檢定傷害"
+  },
+  "term.rural": {
+    "en": "Rural",
+    "updated": "2026-10-01",
+    "zh": "鄉村"
+  },
+  "term.sage": {
+    "en": "Sage",
+    "updated": "2026-09-29",
+    "zh": "學者"
+  },
+  "term.saint": {
+    "en": "Saint",
+    "updated": "2026-09-29",
+    "zh": "聖者"
+  },
+  "term.save-ends": {
+    "en": "Save Ends",
+    "updated": "2026-09-29",
+    "zh": "豁免解除"
+  },
+  "term.saving-throw": {
+    "en": "Saving Throw",
+    "updated": "2026-09-29",
+    "zh": "豁免"
+  },
+  "term.search-for-hidden-creatures-maneuver": {
+    "en": "Search for Hidden Creatures Maneuver",
+    "updated": "2026-09-29",
+    "zh": "搜索隱藏生物機動動作"
+  },
+  "term.secluded": {
+    "en": "Secluded",
+    "updated": "2026-10-01",
+    "zh": "隱居"
+  },
+  "term.shadow": {
+    "en": "Shadow",
+    "updated": "2026-09-29",
+    "zh": "影舞者"
+  },
+  "term.shift": {
+    "en": "Shift",
+    "updated": "2026-09-29",
+    "zh": "遁移"
+  },
+  "term.side": {
+    "en": "Side",
+    "updated": "2026-09-29",
+    "zh": "陣營"
+  },
+  "term.signature-ability": {
+    "en": "Signature Ability",
+    "updated": "2026-09-29",
+    "zh": "招牌招式"
+  },
+  "term.size": {
+    "en": "Size",
+    "updated": "2026-09-29",
+    "zh": "體型"
+  },
+  "term.skill": {
+    "en": "Skill",
+    "updated": "2026-09-29",
+    "zh": "技能"
+  },
+  "term.slide": {
+    "en": "Slide",
+    "updated": "2026-09-29",
+    "zh": "滑動"
+  },
+  "term.slowed": {
+    "en": "Slowed",
+    "updated": "2026-09-29",
+    "zh": "緩速"
+  },
+  "term.space": {
+    "en": "Space",
+    "updated": "2026-09-29",
+    "zh": "空間"
+  },
+  "term.speed": {
+    "en": "Speed",
+    "updated": "2026-09-29",
+    "zh": "速度"
+  },
+  "term.square": {
+    "en": "Square",
+    "updated": "2026-09-29",
+    "zh": "方格"
+  },
+  "term.stability": {
+    "en": "Stability",
+    "updated": "2026-09-29",
+    "zh": "穩度"
+  },
+  "term.stamina": {
+    "en": "Stamina",
+    "updated": "2026-09-29",
+    "zh": "體力"
+  },
+  "term.stand-up-maneuver": {
+    "en": "Stand Up Maneuver",
+    "updated": "2026-09-29",
+    "zh": "起身機動動作"
+  },
+  "term.strained": {
+    "en": "Strained",
+    "updated": "2026-09-29",
+    "zh": "焦慮"
+  },
+  "term.strike": {
+    "en": "Strike",
+    "updated": "2026-09-29",
+    "zh": "打擊"
+  },
+  "term.subclass": {
+    "en": "Subclass",
+    "updated": "2026-09-29",
+    "zh": "子職業"
+  },
+  "term.suffocating": {
+    "en": "Suffocating",
+    "updated": "2026-09-29",
+    "zh": "窒息"
+  },
+  "term.supernatural": {
+    "en": "Supernatural",
+    "updated": "2026-09-29",
+    "zh": "超常"
+  },
+  "term.surge": {
+    "en": "Surge",
+    "updated": "2026-09-29",
+    "zh": "鬥志"
+  },
+  "term.surprised": {
+    "en": "Surprised",
+    "updated": "2026-09-29",
+    "zh": "措手不及"
+  },
+  "term.swim": {
+    "en": "Swim",
+    "updated": "2026-09-29",
+    "zh": "游泳"
+  },
+  "term.tactician": {
+    "en": "Tactician",
+    "updated": "2026-09-29",
+    "zh": "戰術家"
+  },
+  "term.talent": {
+    "en": "Talent",
+    "updated": "2026-09-29",
+    "zh": "異能者"
+  },
+  "term.target": {
+    "en": "Target",
+    "updated": "2026-09-29",
+    "zh": "目標"
+  },
+  "term.taunted": {
+    "en": "Taunted",
+    "updated": "2026-09-29",
+    "zh": "嘲諷"
+  },
+  "term.teleport": {
+    "en": "Teleport",
+    "updated": "2026-09-29",
+    "zh": "傳送"
+  },
+  "term.temporary-stamina": {
+    "en": "Temporary Stamina",
+    "updated": "2026-09-29",
+    "zh": "臨時體力"
+  },
+  "term.test": {
+    "en": "Test",
+    "updated": "2026-09-29",
+    "zh": "考驗"
+  },
+  "term.tier-1": {
+    "en": "Tier 1",
+    "updated": "2026-09-29",
+    "zh": "T1"
+  },
+  "term.tier-2": {
+    "en": "Tier 2",
+    "updated": "2026-09-29",
+    "zh": "T2"
+  },
+  "term.tier-3": {
+    "en": "Tier 3",
+    "updated": "2026-09-29",
+    "zh": "T3"
+  },
+  "term.tier-outcome": {
+    "en": "Tier Outcome",
+    "updated": "2026-09-29",
+    "zh": "階級結果"
+  },
+  "term.time-raider": {
+    "en": "Time Raider",
+    "updated": "2026-09-29",
+    "zh": "時空獵手"
+  },
+  "term.timescape": {
+    "en": "Timescape",
+    "updated": "2026-09-29",
+    "zh": "時界"
+  },
+  "term.title": {
+    "en": "Title",
+    "updated": "2026-09-29",
+    "zh": "稱號"
+  },
+  "term.treasure": {
+    "en": "Treasure",
+    "updated": "2026-09-29",
+    "zh": "寶物"
+  },
+  "term.triggered-action": {
+    "en": "Triggered Action",
+    "updated": "2026-09-29",
+    "zh": "反應動作"
+  },
+  "term.trinket": {
+    "en": "Trinket",
+    "updated": "2026-09-29",
+    "zh": "飾品"
+  },
+  "term.troubadour": {
+    "en": "Troubadour",
+    "updated": "2026-09-29",
+    "zh": "遊唱家"
+  },
+  "term.turn": {
+    "en": "Turn",
+    "updated": "2026-09-29",
+    "zh": "回合"
+  },
+  "term.unattended-object": {
+    "en": "Unattended Object",
+    "updated": "2026-09-29",
+    "zh": "無主物體"
+  },
+  "term.underwater-combat": {
+    "en": "Underwater combat",
+    "updated": "2026-09-29",
+    "zh": "水下戰鬥"
+  },
+  "term.untyped-damage": {
+    "en": "Untyped Damage",
+    "updated": "2026-09-29",
+    "zh": "普通傷害"
+  },
+  "term.upbringing": {
+    "en": "Upbringing",
+    "updated": "2026-10-01",
+    "zh": "成長經歷"
+  },
+  "term.urban": {
+    "en": "Urban",
+    "updated": "2026-10-01",
+    "zh": "城市"
+  },
+  "term.vasloria": {
+    "en": "Vasloria",
+    "updated": "2026-09-29",
+    "zh": "華斯洛里亞"
+  },
+  "term.vertical": {
+    "en": "Vertical",
+    "updated": "2026-09-29",
+    "zh": "垂直"
+  },
+  "term.victory": {
+    "en": "Victories",
+    "updated": "2026-09-29",
+    "zh": "勝利值"
+  },
+  "term.walk": {
+    "en": "Walk",
+    "updated": "2026-09-29",
+    "zh": "步行"
+  },
+  "term.wall": {
+    "en": "Wall",
+    "updated": "2026-09-29",
+    "zh": "障壁"
+  },
+  "term.weakened": {
+    "en": "Weakened",
+    "updated": "2026-09-29",
+    "zh": "虛弱"
+  },
+  "term.wealth": {
+    "en": "Wealth",
+    "updated": "2026-09-29",
+    "zh": "財富"
+  },
+  "term.wilderness": {
+    "en": "Wilderness",
+    "updated": "2026-10-01",
+    "zh": "荒野"
+  },
+  "term.winded": {
+    "en": "Winded",
+    "updated": "2026-09-29",
+    "zh": "疲態"
+  },
+  "term.wode-elf": {
+    "en": "Wode Elf",
+    "updated": "2026-09-29",
+    "zh": "幻林精靈"
+  },
+  "term.wrath": {
+    "en": "Wrath",
+    "updated": "2026-09-29",
+    "zh": "神怒"
+  }
+}
