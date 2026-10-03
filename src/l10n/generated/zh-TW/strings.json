@@ -1,0 +1,2647 @@
+{
+  "heroes.actions.advance.rules": {
+    "en": "Advance\n\nWhen a creature takes the Advance move action, they move a number of squares up to their speed. They can break up this movement with their maneuver and main action however they wish.",
+    "updated": "2026-09-30",
+    "zh": "行進\n\n若你執行行進移動動作，你可以移動最多等於速度的格數。你可以隨意將這段移動拆分到其他機動動作和主要動作之間。"
+  },
+  "heroes.actions.aid-attack.rules": {
+    "en": "Aid Attack\n\nA creature who uses the Aid Attack maneuver chooses an enemy adjacent to them. The next ability roll an ally makes against that enemy before the start of the aiding creature’s next turn gains an edge.",
+    "updated": "2026-09-30",
+    "zh": "助攻\n\n若你使用助攻機動動作，選擇 1 個與你相鄰的敵人。直到你下個回合開始前，盟友對該敵人進行的下次招式檢定會獲得 1 個優勢。"
+  },
+  "heroes.actions.catch-breath.rules": {
+    "en": "Catch Breath\n\nA creature who uses the Catch Breath maneuver spends a Recovery and regains Stamina equal to their recovery value. (See below for Stamina. See Recoveries in Chapter 1: The Basics.)\n\nA creature who is dying (see Dying and Death in Stamina below) can’t use the Catch Breath maneuver, but other creatures can help them spend Recoveries in other ways.",
+    "updated": "2026-09-30",
+    "zh": "喘息\n\n若你使用喘息機動動作，你會花費 1 點復元力，並恢復等於復元值的體力。（體力詳見下文；復元力詳見第 1 章〈基礎〉。）\n\n瀕死的生物（詳見下文「體力」中的「Dying and Death」）無法使用喘息機動動作，但其他生物可以用其他方式協助他們花費復元力。"
+  },
+  "heroes.actions.charge.rules": {
+    "en": "Charge\n\nWhen a creature takes the Charge main action, they move up to their speed in a straight line without jumping, then make a melee free strike (see Free Strikes below) against a target when they end their move. If the creature has an ability with the Charge keyword, they can use that ability against the target instead of a free strike.\n\nA creature can’t move through difficult terrain or shift when they charge. They can fly or burrow as part of the Charge main action if they have that movement available to them, but they can’t climb or swim while charging unless they can automatically use that movement at full speed.",
+    "updated": "2026-09-30",
+    "zh": "衝鋒\n\n當你執行衝鋒主要動作時，你會以直線方式移動最多等於自身速度的距離（期間不能跳躍），然後在移動結束時對 1 個目標發動 1 次近戰基礎打擊（詳見下文「基礎打擊」）。若你擁有帶有「衝鋒」關鍵詞的招式，你也可以發動該招式來取代基礎打擊。\n\n你在衝鋒期間無法穿越困難地形或進行遁移。若你擁有相應的移動能力，你可以在衝鋒期間飛行或掘地，但在衝鋒期間無法攀爬或游泳，除非你能夠自動以全速進行這類移動。"
+  },
+  "heroes.actions.defend.rules": {
+    "en": "Defend\n\nWhen a creature takes the Defend main action, ability rolls made against them have a double bane until the start of their next turn. Additionally, you have a double edge on tests when called for to resist environmental effects or a creature’s traits or abilities. A creature gains no benefit from this action while another creature is taunted by them (see Conditions in Chapter 5: Classes).",
+    "updated": "2026-09-30",
+    "zh": "防禦\n\n若你執行防禦主要動作，針對你進行的所有招式檢定都會承受雙劣勢，直到你下個回合開始。此外，若你被要求進行考驗來抵抗環境效果、生物的特性或招式，你的考驗會獲得雙優勢。若有其他生物正被你嘲諷，你無法從此動作中獲得任何好處（詳見第 5 章〈職業〉的「狀態」）。"
+  },
+  "heroes.actions.disengage.rules": {
+    "en": "Disengage\n\nWhen a creature takes the Disengage move action, they can shift 1 square. Certain class features, kits, and other rules allow a creature to shift more than 1 square when they disengage. A creature who does so can break up their shift with their maneuver and main action however they wish.",
+    "updated": "2026-09-30",
+    "zh": "撤離\n\n若你執行撤離移動動作，你可以遁移 1 格。某些職業特性、套裝和其他機制會允許你在撤離時遁移超過 1 格。若是如此，你可以隨意將這段遁移拆分到在其他機動動作和主要動作之間。"
+  },
+  "heroes.actions.escape-grab.rules": {
+    "en": "Escape Grab\n\nA creature who is grabbed by another creature, an object, or an effect (see Grab below) can attempt to escape by using the following ability.\n\nEscape Grab\nManeuver\nSelf | Self\nPower Roll + Might or Agility:\n≤11 No effect.\n12–16 You can escape the grab, but if you do, a creature who has you grabbed can make a melee free strike against you before you are no longer grabbed.\n17+ You are no longer grabbed.\nEffect: You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.\n\nSee Conditions in Chapter 5: Classes for information on the grabbed condition.",
+    "updated": "2026-09-30",
+    "zh": "掙脫\n\n被其他生物、物體或效果擒制的生物（詳見下文「擒抱」），可以使用以下招式來嘗試掙脫。\n\n掙脫\n機動動作\n自身｜自身\n檢定 + 力量或敏捷：\nT1：你無法掙脫。\nT2：你可以掙脫，但若這麼做，擒抱你的生物可以在你掙脫前對你發動 1 次近戰基礎打擊。\nT3：你順利掙脫，不再被擒制。\n效果：若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。\n\n擒制狀態的相關資訊詳見第 5 章〈職業〉的「狀態」。"
+  },
+  "heroes.actions.free-maneuvers.rules": {
+    "en": "Free Maneuvers\n\nBoring stuff like opening an unlocked door, picking up an arrow from the ground, giving an object to an adjacent ally, or drawing a weapon doesn’t require a maneuver or a main action. Rather, you can undertake such straightforward activities as free maneuvers on your turn. A free maneuver follows the same rules as a regular maneuver, but you can typically take as many free maneuvers as you like.\n\nAt the Director’s discretion, circumstances could make something that is typically boring more impactful and exciting. For instance, if you need to pick a magic arrow up off the ground during a violent earthquake, what would otherwise be a free maneuver could require a maneuver or a main action to accomplish.\n\nLikewise, the nature of an activity might make it too complicated for a free maneuver. For example, picking up the body of an unconscious talent ally to carry them to safety can probably be done as a free maneuver. But if your Might is lacking and you need to pick up a tactician ally decked out in the Shining Armor kit, the Director might determine that you need to use a regular maneuver to hoist their armored form over your shoulders.\n\nAny effect that prevents you from using maneuvers also prevents you from using free maneuvers.",
+    "updated": "2026-09-30",
+    "zh": "免費機動動作\n\n例如開啟未上鎖的門、從地上撿起箭矢、將物體交給相鄰的盟友，或是拔出武器等瑣碎行為，都不需要使用機動動作或主要動作。你可以在自己的回合中執行這些簡單的免費機動動作。免費機動動作雖然遵循一般機動動作的規則，但通常不限次數。\n\n根據導演的判斷，某些情況可能會讓原本簡單的行為變得更有挑戰性和戲劇性。例如，若你試圖在劇烈地震時撿起地上的魔法箭矢，這個原本可以用免費機動動作完成的動作，可能就需要使用 1 個機動動作或主要動作才能完成。\n\n同樣地，某些行為會因為太過複雜而無法以免費機動動作完成。例如，抱起失去意識的異能者盟友並帶到安全處，大概可以用免費機動動作完成。但如果你的力量不足，而你需要抱起 1 名穿著【Shining Armor】套裝的戰術家盟友，導演可能會判定你需要使用一般機動動作，才能把穿著護甲的他扛到肩上。\n\n任何會禁止你使用機動動作的效果，同樣也會禁止你使用免費機動動作。"
+  },
+  "heroes.actions.free-strike.rules": {
+    "en": "Free Strike\n\nA creature can use this main action to make a free strike (see Free Strikes below). Most of the time, you’ll want to use the more impactful main actions granted by your class, kit, or other feature, just as the Director will use the main actions in a creature’s stat block, but free strikes are available for when all else fails. For instance, a fury who has no other options for ranged strikes might use the Ranged Weapon Free Strike ability with an improvised weapon when battling a flying foe.",
+    "updated": "2026-09-30",
+    "zh": "基礎打擊\n\n你可以使用此主要動作來發動 1 次基礎打擊（詳見下文「基礎打擊」）。大多數時候，最好的選擇是使用由職業、套裝或其他特性賦予、效果更強的主要動作，就像導演通常會使用生物數據欄中的主要動作一樣。不過，當其他手段都派不上用場時，基礎打擊永遠可用。例如，熾怒者若沒有其他遠程打擊選項，在對抗飛行敵人時，可能會使用臨時武器發動【遠程武器基礎打擊】招式。"
+  },
+  "heroes.actions.grab.rules": {
+    "en": "Grab\n\nA creature seeking to keep a foe close and locked down can attempt to grab a creature using the following ability.\n\nGrab\nMelee, Weapon Maneuver\nMelee 1 | One creature\nPower Roll + Might:\n≤11 No effect.\n12–16 You can grab the target, but if you do, the target can make a melee free strike against you before they are grabbed.\n17+ The target is grabbed by you.\nEffect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.\n\nUnless otherwise indicated, a creature can grab only one creature at a time.\n\nSee Conditions in Chapter 5: Classes for information on the grabbed condition.",
+    "updated": "2026-09-30",
+    "zh": "擒抱\n\n若你想將敵人控制在近身距離並限制他的行動，可以使用以下招式來嘗試擒制目標。\n\n擒抱\n近戰、武器　機動動作\n近戰 1｜1 個生物\n檢定 + 力量：\nT1：你無法擒抱目標。\nT2：你可以擒抱目標，但若這麼做，目標可以在被擒制前對你發動 1 次近戰基礎打擊。\nT3：你順利擒抱目標，目標被你擒制。\n效果：你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。\n\n除非另有說明，你同時只能擒抱 1 個生物。\n\n擒制狀態的相關資訊詳見第 5 章〈職業〉的「狀態」。"
+  },
+  "heroes.actions.heal.rules": {
+    "en": "Heal\n\nA creature who uses the Heal main action employs medicine or inspiring words to make an adjacent creature feel better and stay in the fight. The target creature can spend a Recovery to regain Stamina, or can make a saving throw against one effect they are suffering that is ended by a saving throw.",
+    "updated": "2026-09-30",
+    "zh": "治療\n\n若你使用治療主要動作，你可以透過醫療手段或鼓舞人心的話語，讓 1 個相鄰的生物恢復活力並繼續戰鬥。目標生物可以花費 1 點復元力來恢復體力，或是針對他正在承受的 1 個效果進行豁免（前提是該效果可以透過豁免來解除）。"
+  },
+  "heroes.actions.hide.rules": {
+    "en": "Hide\n\nUsing the Hide maneuver, a creature attempts to hide from other creatures who aren’t observing them while they have cover or concealment. See Hide and Sneak in Chapter 9: Tests for full details.",
+    "updated": "2026-09-30",
+    "zh": "躲藏\n\n若你具有掩護或遮蔽，你可以使用躲藏機動動作，嘗試躲避沒有觀察到你的其他生物。完整規則請見第 9 章〈考驗〉的「躲藏與潛行」。"
+  },
+  "heroes.actions.knockback.rules": {
+    "en": "Knockback\n\nA creature wanting to push an adjacent creature away from them can attempt to shove that creature using the following ability.\n\nKnockback\nMelee, Weapon Maneuver\nMelee 1 | One creature\nPower Roll + Might:\n≤11 Push 1\n12–16 Push 2\n17+ Push 3\nEffect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
+    "updated": "2026-09-30",
+    "zh": "擊退\n\n若你想要推開相鄰的生物，你可以使用以下招式來嘗試推撞該生物。\n\n擊退\n近戰、武器　機動動作\n近戰 1｜1 個生物\n檢定 + 力量：\nT1：推動 1\nT2：推動 2\nT3：推動 3\n效果：你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。"
+  },
+  "heroes.actions.main-actions.rules": {
+    "en": "Main Actions\n\nWhen you take a main action, you most often do so to use a unique ability granted by your class, kit, or a treasure (see Abilities in Chapter 5: Classes). These abilities represent the most unique, flavorful, and impactful things you can do with your main action.\n\nYou can also use your main action to help another creature regain Stamina, charge into battle, defend yourself, or make a free strike.\n\nYou can convert your main action into a maneuver or a move action, allowing you to take two maneuvers or move actions on your turn.",
+    "updated": "2026-09-30",
+    "zh": "主要動作\n\n當你執行主要動作時，最常見的用途是發動由職業、套裝或寶物賦予的特殊招式（詳見第 5 章〈職業〉的「招式」）。這些招式可以讓你執行最獨特、最具特色且最有影響力的動作。\n\n你也可以使用主要動作來幫助其他生物恢復體力、衝鋒陷陣、保護自己，或發動基礎打擊。\n\n你可以將主要動作轉換成機動動作或移動動作，讓你在自己的回合中使用 2 個機動動作或 2 個移動動作。"
+  },
+  "heroes.actions.make-or-assist-test.rules": {
+    "en": "Make or Assist a Test\n\nMany tests are maneuvers if made in combat. Searching a chest with a Reason test, picking a door’s lock with an Agility test, or lifting a portcullis with a Might test would all be maneuvers. Assisting a test is also a maneuver in combat (see Assist a Test in Chapter 9: Tests).\n\nComplex or time-consuming tests might require a main action if made in combat—or could take so long that they can’t be made during combat at all. Other tests that take no time at all, such as a Reason test to recall lore about mummies, are usually free maneuvers in combat. The Director has the final say regarding which tests can be made as maneuvers.",
+    "updated": "2026-09-30",
+    "zh": "進行或協助考驗\n\n在戰鬥中，許多考驗都屬於機動動作。例如用理智考驗來搜索寶箱、用敏捷考驗來打開門鎖，或用力量考驗來抬起閘門等，都算是機動動作。在戰鬥中協助他人進行考驗同樣也是機動動作（詳見第 9 章〈考驗〉的「協助考驗（Assist a Test）」）。\n\n在戰鬥中，較複雜或耗時的考驗可能需要使用主要動作來執行，甚至可能耗時太久而根本無法在戰鬥中完成。另一方面，幾乎不花時間的考驗通常屬於免費機動動作（例如用理智考驗來回想木乃伊的相關知識）。哪些考驗可以作為機動動作進行，最終由導演決定。"
+  },
+  "heroes.actions.maneuvers.rules": {
+    "en": "Maneuvers\n\nA maneuver typically involves less focus and exertion than a main action (see below). It can be an opportunity to move other creatures, drink a potion, or undertake similar activities.\n\nSometimes you might not have anything you can do with your maneuver. That’s totally fine! Often, the best thing to do on your turn is take a main action and move on.",
+    "updated": "2026-09-30",
+    "zh": "機動動作\n\n機動動作需要的專注力和體能消耗比主要動作更少（詳見下文）。你可以使用機動動作來移動其他生物、飲用藥水或進行類似的行為。\n\n有時候，你可能沒有適合的機動動作可以執行，這完全沒問題！很多時候，你的回合只要進行主要動作就夠了。"
+  },
+  "heroes.actions.move-actions.rules": {
+    "en": "Move Actions\n\nA move action allows a creature to move around the battlefield. Sometimes you’ll already be exactly where you want to be so that you don’t need to use a move action on your turn. That’s okay! The decision to not move is just as tactical as the decision to move.",
+    "updated": "2026-09-30",
+    "zh": "移動動作\n\n移動動作可以讓你在戰場上移動。有時候，你可能已經處於理想位置，不需要在回合中使用移動動作，這完全沒問題！選擇停留或移動都是同樣重要的戰術決定。"
+  },
+  "heroes.actions.movement.rules": {
+    "en": "Movement\n\nDuring combat, creatures can employ multiple mechanics that allow them to move around the battlefield. The most common of those mechanics is the Advance or Disengage move action (detailed under Move Actions below), but abilities granted by your class, equipment, ancestry, title, or other options might allow you other ways to move.\n\nYour hero starts with a speed granted by their ancestry—usually 5. This represents the maximum number of squares you can move when you take the Advance move action or when another effect allows you to move. Your speed can be increased by your kit and other game options.\n\nAll squares adjacent to your character cost 1 movement to move into. No, there’s no Pythagorean theorem on the grid. It’s a game, don’t overthink it.\n\nYour hero can move freely through an ally’s space. You can move through an enemy’s space, but that space is difficult terrain (see below). You can’t stop moving in any other creature’s space, including to make a strike or use a main action or maneuver while in that space and then continuing your move, unless that creature’s size is two or more sizes greater or smaller than your own.\n\nAt the Director’s discretion, you can be forced into the same space as another creature whose size is within 1 of yours, such as by falling down a narrow shaft with such a creature already at the bottom. When you are squeezed into the same space as another creature whose size is within 1 of yours, your ability rolls and tests take a bane.",
+    "updated": "2026-09-30",
+    "zh": "移動\n\n在戰鬥中，生物可以透過許多機制在戰場上移動，其中最常見的是行進與撤離移動動作（詳見下文「移動動作」）。此外，你的職業、裝備、族裔、稱號或其他選項所賦予的招式，也可能提供額外的移動方式。\n\n英雄的族裔會決定起始移動速度，通常是 5。這代表當你執行行進移動動作或其他效果允許你移動時，你最多可以移動的格數。速度可以透過套裝和其他遊戲選項來提升。\n\n若想移動到相鄰的任何方格，包括斜向方格，都只需要花費 1 格移動力。沒錯，方格地圖上不需要套用畢氏定理。這是遊戲，別想太多。\n\n你的英雄可以自由穿過盟友的空間。你也可以穿過敵人的空間，但這些空間會視為困難地形（詳見下文）。除非該生物的體型與你相差至少 2 階，否則你不能在該生物的空間停下來，也不能在該空間內發動打擊、使用主要動作或機動動作後再繼續移動。\n\n在導演裁定下，你可能會被迫和體型與你相差不超過 1 階的生物共占 1 格，例如掉進有其他生物占據的狹窄豎井。在這種情況下，你的招式檢定與考驗都會承受 1 個劣勢。"
+  },
+  "heroes.actions.no-action-activities.rules": {
+    "en": "No-Action Activities\n\nFree maneuvers cover most of the simple activities you might want to undertake on your turn. When it isn’t your turn, you can typically undertake even simpler activities requiring no action with the Director’s approval. For instance, shouting out a warning to an ally or dropping an item so another creature can pick it up require no action.\n\nThe Director can limit what kinds of no-action activities you can attempt when it isn’t your turn. For instance, shouting out a warning about an unseen foe to an ally on the ally’s or the foe’s turn requires no action. But the Director might stop you from giving that ally complex tactical advice when it isn’t your turn, saying that doing so instead requires a free maneuver on your turn.",
+    "updated": "2026-09-30",
+    "zh": "無需動作的行為\n\n免費機動動作涵蓋了你在回合中想進行的大多數簡單行為。在不是你的回合時，若經過導演同意，你通常可以執行更簡單的免動作行為。例如，大聲向盟友發出警告，或是丟下道具讓其他生物撿取，這些都不需要動作。\n\n導演可以限制你在非自己回合時能執行的免動作行為。例如，當盟友或敵人的回合正在進行時，你可以不需要使用動作就向盟友大喊提醒有看不見的敵人，但若你想在別人的回合中給予盟友複雜的戰術建議，導演可能會要求你必須在自己的回合使用免費機動動作才能這麼做。"
+  },
+  "heroes.actions.ride.rules": {
+    "en": "Ride\n\nA creature can take the Ride move action only while mounted on another creature (see Mounted Combat below). When a creature takes the Ride move action, they cause their mount to move up to the mount’s speed, taking the rider with them. Alternatively, a creature can use the Ride move action to have their mount use the Disengage move action as a free triggered action. A creature can use the Ride move action only once per round. A mounted creature can only have this move action applied to them once per round. This movement can be broken up with the rider’s maneuver and main action however they wish.",
+    "updated": "2026-09-30",
+    "zh": "騎乘\n\n你必須騎乘在其他生物身上才能使用騎乘移動動作（詳見下文「騎乘戰鬥」）。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到在其他機動動作和主要動作之間。"
+  },
+  "heroes.actions.search-for-hidden-creatures.rules": {
+    "en": "Search for Hidden Creatures\n\nThe Search for Hidden Creatures maneuver allows a creature to attempt to locate creatures hidden from them (see Hide and Sneak in Chapter 9: Tests).",
+    "updated": "2026-09-30",
+    "zh": "搜索隱藏生物\n\n你可以使用搜索隱藏生物機動動作來嘗試尋找對你隱藏的生物（詳見第 9 章〈考驗〉的「躲藏與潛行」）。"
+  },
+  "heroes.actions.stand-up.rules": {
+    "en": "Stand Up\n\nA creature can use the Stand Up maneuver to stand up if they are prone, ending that condition. Alternatively, they can use this maneuver to make a willing adjacent prone creature stand up.",
+    "updated": "2026-09-30",
+    "zh": "起身\n\n若你處於伏地狀態，你可以使用起身機動動作站起來並解除伏地狀態。此外，你也可以使用此機動動作讓 1 個相鄰且自願的伏地生物站起來。"
+  },
+  "heroes.actions.triggered-actions.rules": {
+    "en": "Triggered Actions and Free Triggered Actions\n\nYour hero might have one or more unique triggered actions, each of which has a specified trigger that allows the action to be used. You can use one triggered action per round, either on your turn or another creature’s turn, but only when the action’s trigger occurs. For instance, a fury hero can use the Lines of Force triggered action to force move a target, but only after an enemy has first tried to force move the fury or another nearby creature.\n\nA free triggered action follows the same rules as a triggered action, but it doesn’t count against your limit of one triggered action per round. For instance, a shadow hero can use their Hesitation Is Weakness ability to take their turn in response to the trigger of another hero ending their turn. But because that ability is a free triggered action, the shadow can still use their In All This Confusion triggered action later in the round.\n\nIf multiple triggered actions occur in response to the same trigger, any heroes and other player-controlled creatures taking a triggered action or a free triggered action decide among themselves which of those triggered actions are resolved first. Then the Director decides the same for creatures they control.\n\nAny effect that prevents you from using triggered actions also prevents you from using free triggered actions.",
+    "updated": "2026-09-30",
+    "zh": "反應動作與免費反應動作\n\n你的英雄可能擁有 1 個或多個獨特的反應動作，每個都有特定的觸發條件。無論是在自己的回合或其他生物的回合，你每輪只能使用 1 次反應動作，而且只有在該反應動作的觸發條件發生時才能使用。例如，熾怒者可以使用【Lines of Force】反應動作來強制移動目標，但只有在敵人先嘗試強制移動熾怒者或附近另一個生物後才能使用。\n\n免費反應動作遵循反應動作的相同規則，但不會計入每輪只能使用 1 次反應動作的限制。例如，影舞者可以在另一名英雄結束回合時，以【Hesitation Is Weakness】招式回應該觸發條件並進行自己的回合。不過，由於這個招式是免費反應動作，影舞者在該輪稍後仍然可以使用【In All This Confusion】反應動作。\n\n若有某個觸發條件同時觸發多個反應動作，英雄和任何由玩家控制的生物可以自行決定這些反應動作的執行順序。之後，導演再為他控制的生物決定執行順序。\n\n任何會禁止你使用反應動作的效果，同樣也會禁止你使用免費反應動作。"
+  },
+  "heroes.actions.turn.rules": {
+    "en": "Taking a Turn\n\nEach creature in combat—whether hero, adversary, or something in between—gets to take a main action, a maneuver, and a move action on their turn (explained later in this chapter). Each combatant can perform their maneuver and main action in any order, and can break up the movement granted by their move action before, after, or between their maneuver and main action however they like. You can also turn your main action into a move action or a maneuver, so that your turn can alternatively consist of two move actions and a maneuver, or two maneuvers and a move action.\n\nThe Movement section below breaks down how your move action works, while the Maneuvers and Main Actions sections break down the baseline maneuvers and main actions your character can undertake. For any activities not specifically covered in those rules, such as cutting down a chandelier to drop on enemies, the Director decides whether such an activity is a maneuver or a main action.",
+    "updated": "2026-09-30",
+    "zh": "進行回合\n\n戰鬥中的每個生物，無論是英雄、敵人或其他生物，在各自的回合中都能進行 1 個主要動作、1 個機動動作，以及 1 個移動動作。每個參戰者都可以自由決定機動動作和主要動作的執行順序，也可以在機動動作和主要動作之前、之後或之間，靈活運用移動動作提供的移動距離。\n\n你也可以將主要動作轉換成移動動作或機動動作，這樣你就可以在自己的回合執行 2 個移動動作 + 1 個機動動作，或是 2 個機動動作 + 1 個移動動作。\n\n下文會詳細說明移動動作如何運作，以及你的英雄可以使用哪些通用的機動動作和主要動作。對於規則中沒有特別列出的行為（例如砍斷吊燈讓它砸向敵人），由導演決定該行為屬於機動動作或主要動作。"
+  },
+  "heroes.actions.use-consumable.rules": {
+    "en": "Use Consumable\n\nUnless otherwise noted in its description, a creature can activate a consumable treasure such as a potion with the Use Consumable maneuver. A creature can use this maneuver to administer a consumable treasure that benefits the user either to themself or to a willing adjacent creature. See Consumables in Chapter 13: Rewards.",
+    "updated": "2026-09-30",
+    "zh": "使用消耗品\n\n除非另有說明，否則你可以透過使用消耗品機動動作來啟動消耗品（例如藥水）。若某件消耗品能讓使用者受益，你可以使用此機動動作將該消耗品使用在自己身上，或是使用在相鄰且自願的生物身上。詳見第 13 章〈獎勵〉的「消耗品」。"
+  },
+  "heroes.ancestries.devil.description.1": {
+    "en": "The native ancestry of the Seven Cities of Hell, devils are humanoids with red or blue skin expressed in a wide variety of hues, from bright crimson to deep purple. Each devil is born with some hellmark—horns, a tail, cloven hooves, a forked tongue, fanged incisors, or even wings.",
+    "updated": "2026-10-01",
+    "zh": "魔鬼是地獄七城的原生族裔，是皮膚呈紅色或藍色的類人生物，色澤從鮮豔的深紅到深紫不等。每個魔鬼天生都帶有某種地獄特徵，例如犄角、尾巴、偶蹄、叉舌、尖牙或翅膀。"
+  },
+  "heroes.ancestries.devil.description.2": {
+    "en": "Hell is dominated by the Seven Cities of Hell, each ruled by a different archdevil who constantly plots and schemes against the others in the hope of ascending to the Throne of Hell.",
+    "updated": "2026-10-01",
+    "zh": "地獄被七座城市所統治，每座城市由不同的大魔鬼掌管。這些大魔鬼不斷互相謀算，只盼有朝一日能登上地獄王座。"
+  },
+  "heroes.ancestries.devil.description.3": {
+    "en": "Those devils who join “the trade,” as their civil service is called, spend their days in bureaucratic service hoping or scheming for promotion. Devils looking for a quick path up the bureaucratic ladder sign up for the Exchange, whereby mortals in the mundane world who perform the right rituals can summon a devil, who bargains with the supplicant on behalf of their archdevil. Archdevils can grant temporary worldly power in exchange for a supplicant’s soul, with the summoned devil acting as the broker.",
+    "updated": "2026-10-01",
+    "zh": "那些成為「商人」（魔鬼對公務員的稱呼）的魔鬼，每天都在官僚體系中服務，希望能夠不斷晉升。渴望快速攀升官階的魔鬼會報名參加「交易計畫」。透過這種方式，在凡間中執行正確儀式的凡人可以召喚魔鬼，而該魔鬼會代表大魔鬼與召喚者進行談判。大魔鬼能以召喚者的靈魂作為代價，提供暫時的強大力量，而被召喚的魔鬼則扮演仲介的角色。"
+  },
+  "heroes.ancestries.devil.description.4": {
+    "en": "On rare occasions, though, the summoning goes wrong and the supplicant dies before the deal can be struck, stranding the summoned devil on Orden permanently. Some stranded devils seek to return to Hell, but most prefer life in Orden, where the phrase “stabbed in the back by a colleague” is usually a metaphor.",
+    "updated": "2026-10-01",
+    "zh": "不過，這個過程偶爾也會出錯：召喚者在交易完成前就死亡，導致被召喚的魔鬼永久滯留在歐爾登。有些滯留的魔鬼會設法返回地獄，但大多數更喜歡留在歐爾登過生活，因為在這裡，「被同事從背後捅刀」這句話通常只是個比喻而已。"
+  },
+  "heroes.ancestries.devil.description.5": {
+    "en": "The majority of devils in Orden are not from, nor have ever been to, the Seven Cities. They are descendants of devils who were stranded in the mundane world decades, centuries, even millennia ago.",
+    "updated": "2026-10-01",
+    "zh": "居住在歐爾登的大多數魔鬼既非來自七城，也從未踏足那裡。他們是數十年、數百年，甚至數千年前滯留在凡間的魔鬼後裔。"
+  },
+  "heroes.ancestries.devil.name": {
+    "en": "Devil",
+    "updated": "2026-10-01",
+    "zh": "魔鬼"
+  },
+  "heroes.ancestries.devil.purchased.heading": {
+    "en": "Purchased Devil Traits",
+    "updated": "2026-10-01",
+    "zh": "自購魔鬼特性"
+  },
+  "heroes.ancestries.devil.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.devil.quick-build": {
+    "en": "Quick Build: Beast Legs, Impressive Horns.",
+    "updated": "2026-10-01",
+    "zh": "速選：獸腿、威嚴犄角。"
+  },
+  "heroes.ancestries.devil.signature.silver-tongue.effect": {
+    "en": "Your innate magic allows you to twist how your words are perceived to get a better read on people and convince them to see things your way. You have one skill of your choice from the interpersonal skill group (see Skills in Chapter 9: Tests), and you gain an edge on tests when attempting to discover an NPC’s motivations and pitfalls during a negotiation (see Chapter 11: Negotiation).",
+    "updated": "2026-10-01",
+    "zh": "你與生俱來的魔法能夠扭轉他人對你言語的理解，讓你更容易解讀他人並說服對方接受你的觀點。你獲得自選的 1 項交涉類技能。此外，在談判中，當你嘗試識破 NPC 的動機與雷點時，相關考驗會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.devil.signature.silver-tongue.name": {
+    "en": "Silver Tongue",
+    "updated": "2026-10-01",
+    "zh": "巧舌如簧"
+  },
+  "heroes.ancestries.devil.summary": {
+    "en": "Devils originated in the Seven Cities of Hell and have a supernatural charisma that helps them persuade others. They are similar in stature to humans, and their skin tones include deep blues, purples, and reds. They sport horns, eyes of all shades (including gold and red), and tails, and some have feathered or leathery wings.",
+    "updated": "2026-10-01",
+    "zh": "魔鬼起源於地獄七城，擁有能夠說服他人的超常魅力。他們的身形與人類相近，膚色包括深藍、紫色和紅色。他們長有犄角、各種顏色的眼睛（包括金色和紅色）與尾巴，有些魔鬼還有羽毛或皮革般的翅膀。"
+  },
+  "heroes.ancestries.devil.trait.barbed-tail.effect": {
+    "en": "Your pointy tail allows you to punctuate all your actions. Once per round when you make a melee strike, you can deal extra damage with the strike equal to your highest characteristic score.",
+    "updated": "2026-10-01",
+    "zh": "你尖銳的尾巴能為所有行動錦上添花。每輪 1 次，當你發動近戰打擊時，你可以額外造成等於你最高屬性值的傷害。"
+  },
+  "heroes.ancestries.devil.trait.barbed-tail.name": {
+    "en": "Barbed Tail",
+    "updated": "2026-10-01",
+    "zh": "尖刺尾巴"
+  },
+  "heroes.ancestries.devil.trait.beast-legs.effect": {
+    "en": "Your powerful legs make you faster. You have speed 6.",
+    "updated": "2026-10-01",
+    "zh": "你強壯的雙腿能讓你跑得更快。你的速度為 6。"
+  },
+  "heroes.ancestries.devil.trait.beast-legs.name": {
+    "en": "Beast Legs",
+    "updated": "2026-10-01",
+    "zh": "獸腿"
+  },
+  "heroes.ancestries.devil.trait.glowing-eyes.effect": {
+    "en": "Your eyes are a solid, vibrant color that flares to show your excitement or rage. Whenever you take damage from a creature, you can use a triggered action to deal that creature psychic damage equal to 1d10 + your level.",
+    "updated": "2026-10-01",
+    "zh": "你的雙眼呈現單一的鮮艷顏色，當你感到興奮或憤怒時會閃爍發光。每當你受到生物造成的傷害時，你可以使用反應動作，對該生物造成等於 1d10 + 你等級的心靈傷害。"
+  },
+  "heroes.ancestries.devil.trait.glowing-eyes.name": {
+    "en": "Glowing Eyes",
+    "updated": "2026-10-01",
+    "zh": "閃耀熾目"
+  },
+  "heroes.ancestries.devil.trait.hellsight.effect": {
+    "en": "Your eyes let you see through darkness, fog, and other obscuring effects. You don’t take a bane on strikes made against creatures with concealment.",
+    "updated": "2026-10-01",
+    "zh": "你的雙眼能看穿黑暗、霧氣和其他遮蔽視線的效果。當你對具有遮蔽的生物發動打擊時，不會承受 1 個劣勢。"
+  },
+  "heroes.ancestries.devil.trait.hellsight.name": {
+    "en": "Hellsight",
+    "updated": "2026-10-01",
+    "zh": "地獄視覺"
+  },
+  "heroes.ancestries.devil.trait.impressive-horns.effect": {
+    "en": "Your cherished horns are larger than the average devil’s, and a hardened representation of your force of will. Whenever you make a saving throw, you succeed on a roll of 5 or higher.",
+    "updated": "2026-10-01",
+    "zh": "你珍愛的雙角比一般魔鬼的更大，是你堅定意志力的象徵。每當你進行豁免時，擲出 5 以上就算成功。"
+  },
+  "heroes.ancestries.devil.trait.impressive-horns.name": {
+    "en": "Impressive Horns",
+    "updated": "2026-10-01",
+    "zh": "威嚴犄角"
+  },
+  "heroes.ancestries.devil.trait.prehensile-tail.effect": {
+    "en": "Your prehensile tail allows you to challenge foes on all sides. You can’t be flanked.",
+    "updated": "2026-10-01",
+    "zh": "你的靈活尾巴能讓你同時對付四面八方的敵人。你不會被夾擊。"
+  },
+  "heroes.ancestries.devil.trait.prehensile-tail.name": {
+    "en": "Prehensile Tail",
+    "updated": "2026-10-01",
+    "zh": "靈活尾巴"
+  },
+  "heroes.ancestries.devil.trait.wings.effect": {
+    "en": "You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might score (minimum 1 round) before you fall. While using your wings to fly at 3rd level or lower, you have damage weakness 5.",
+    "updated": "2026-10-01",
+    "zh": "你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。"
+  },
+  "heroes.ancestries.devil.trait.wings.name": {
+    "en": "Wings",
+    "updated": "2026-10-01",
+    "zh": "飛翼"
+  },
+  "heroes.ancestries.devil.traits.heading": {
+    "en": "Devil Traits",
+    "updated": "2026-10-01",
+    "zh": "魔鬼特性"
+  },
+  "heroes.ancestries.devil.traits.intro": {
+    "en": "Devil heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "魔鬼英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.dragon-knight.description.1": {
+    "en": "The ritual of Dracogenesis that grants the power to create a generation of dragon knights—also known as draconians or wyrmwights—is obscure and supremely difficult for even an experienced sorcerer to master. Small populations of draconians in Khemhara, Higara, and Khoursir attest to this. Descendants of original generations created millennia ago by powerful wizards, they have never been numerous. A typical clutch yields only a single egg. After only a few generations, these draconians begin to show new adaptations like feathers or frilled ridges.",
+    "updated": "2026-10-01",
+    "zh": "能夠創造龍騎士（又名為龍人或龍裔）的龍生儀式極為晦澀，即使是經驗豐富的術士也難以掌握。即使在凱姆哈拉、希伽拉和科爾瑟地區也只有少數龍人出沒，證明了這種儀式有多困難。這些龍人源自強大巫師於千年前創造的原始世代，生育率極低，一窩只會產下一顆蛋，因此族群數量一直未能壯大。短短幾代後，這些龍人便開始展現新的適應特徵，例如羽毛或突脊。"
+  },
+  "heroes.ancestries.dragon-knight.description.2": {
+    "en": "The largest extant population of draconians is the remnants of the Dragon Phalanx in Vasloria. Created by Good King Omund’s wizard Vitae, the Dragon Phalanx once numbered several thousand of the king’s greatest knights, ensuring the rule of law across the land.",
+    "updated": "2026-10-01",
+    "zh": "現存規模最大的龍裔族群，是華斯洛里亞境內龍衛方陣的殘部。這支部隊由賢王歐蒙的法師維泰創造，曾有數千名最精銳的騎士，在全國維護法治。"
+  },
+  "heroes.ancestries.dragon-knight.description.3": {
+    "en": "Knighthood was a title carried by every member of that first generation of dragon knights. Within the Dragon Phalanx were shadows, censors, tacticians, and elementalists. Members of virtually every heroic vocation could be found in one of the eight dragonflights that made up the phalanx. For over 30 years, these heroes were symbols of justice, protecting the weak from the strong, and standing between the common folk and those who sought power over others. Those who grew up in that place and time could not imagine any other way of life.",
+    "updated": "2026-10-01",
+    "zh": "初代龍騎士的每位成員都擁有騎士頭銜。龍衛方陣中包括了影舞者、懲戒者、戰術家與元素師，在組成方陣的八支翔龍軍團中，幾乎能找到各種英雄職業的代表。三十多年來，這些英雄一直是正義的象徵，保護弱者免受強者欺凌，守護平民不被追求權力者的迫害。在那個時代和那片土地長大的人們，甚至無法想像還有其他生活方式。"
+  },
+  "heroes.ancestries.dragon-knight.description.4": {
+    "en": "Then Ajax came.",
+    "updated": "2026-10-01",
+    "zh": "然後，艾傑克斯現身了。"
+  },
+  "heroes.ancestries.dragon-knight.name": {
+    "en": "Dragon Knight",
+    "updated": "2026-10-01",
+    "zh": "龍騎士"
+  },
+  "heroes.ancestries.dragon-knight.purchased.heading": {
+    "en": "Purchased Dragon Knight Traits",
+    "updated": "2026-10-01",
+    "zh": "自購龍騎士特性"
+  },
+  "heroes.ancestries.dragon-knight.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.dragon-knight.quick-build": {
+    "en": "Quick Build: Dragon Breath, Prismatic Scales.",
+    "updated": "2026-10-01",
+    "zh": "速選：龍息、虹彩鱗片。"
+  },
+  "heroes.ancestries.dragon-knight.signature.wyrmplate.effect": {
+    "en": "Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.",
+    "updated": "2026-10-01",
+    "zh": "你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。"
+  },
+  "heroes.ancestries.dragon-knight.signature.wyrmplate.name": {
+    "en": "Wyrmplate",
+    "updated": "2026-10-01",
+    "zh": "龍鱗"
+  },
+  "heroes.ancestries.dragon-knight.summary": {
+    "en": "Dragon knights are muscled draconic humanoids who stand between 6 and 7 feet tall. The scales covering their reptilian heads, bodies, and tails can be almost any color. All dragon knights have wings, but on only a few are those wings big enough to let them fly.",
+    "updated": "2026-10-01",
+    "zh": "龍騎士是肌肉發達的龍形類人生物，身高介於 6 到 7 呎之間。他們頭部、身軀和尾巴上的鱗片可以呈現各種顏色。所有龍騎士都有翅膀，但只有少數人的翅膀大到足以飛行。"
+  },
+  "heroes.ancestries.dragon-knight.trait.draconian-guard.effect": {
+    "en": "Whenever you or an adjacent creature takes damage from a strike, you can use a triggered action to guard against the blow. You reduce any damage from the strike by an amount equal to your level.",
+    "updated": "2026-10-01",
+    "zh": "每當你自己或 1 個相鄰生物受到打擊造成的傷害時，你可以使用反應動作進行防護，讓該次打擊減少等於你等級的傷害。"
+  },
+  "heroes.ancestries.dragon-knight.trait.draconian-guard.name": {
+    "en": "Draconian Guard",
+    "updated": "2026-10-01",
+    "zh": "龍人守衛"
+  },
+  "heroes.ancestries.dragon-knight.trait.draconian-pride.name": {
+    "en": "Draconian Pride",
+    "updated": "2026-10-01",
+    "zh": "龍人霸氣"
+  },
+  "heroes.ancestries.dragon-knight.trait.draconian-pride.tagline": {
+    "en": "You let loose a mighty roar to shake your foes’ spirits.",
+    "updated": "2026-10-01",
+    "zh": "你發出震天怒吼，撼動敵人的心志。"
+  },
+  "heroes.ancestries.dragon-knight.trait.dragon-breath.effect": {
+    "en": "You choose the ability’s damage type from acid, cold, corruption, fire, lightning, or poison.",
+    "updated": "2026-10-01",
+    "zh": "你可以為招式選擇以下 1 種傷害類型：酸蝕、寒冷、腐朽、火焰、閃電、毒素。"
+  },
+  "heroes.ancestries.dragon-knight.trait.dragon-breath.name": {
+    "en": "Dragon Breath",
+    "updated": "2026-10-01",
+    "zh": "龍息"
+  },
+  "heroes.ancestries.dragon-knight.trait.dragon-breath.tagline": {
+    "en": "A furious exhalation of energy washes over your foes.",
+    "updated": "2026-10-01",
+    "zh": "狂怒的能量噴湧而出，席捲你的敵人。"
+  },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.effect": {
+    "en": "Select one damage immunity granted by your Wyrmplate trait. You always have this immunity, in addition to the immunity granted by Wyrmplate.",
+    "updated": "2026-10-01",
+    "zh": "從你的【龍鱗】特性中選擇 1 種傷害免疫。你始終擁有此免疫（此外仍保有【龍鱗】賦予的免疫）。"
+  },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.name": {
+    "en": "Prismatic Scales",
+    "updated": "2026-10-01",
+    "zh": "虹彩鱗片"
+  },
+  "heroes.ancestries.dragon-knight.trait.remember-your-oath.effect": {
+    "en": "As a maneuver, you can recite the following oath. Until the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",
+    "updated": "2026-10-01",
+    "zh": "你可以使用機動動作誦讀以下誓言。直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。"
+  },
+  "heroes.ancestries.dragon-knight.trait.remember-your-oath.name": {
+    "en": "Remember Your Oath",
+    "updated": "2026-10-01",
+    "zh": "銘記誓言"
+  },
+  "heroes.ancestries.dragon-knight.trait.remember-your-oath.oath": {
+    "en": "Even should the sun stop in the sky\nEven should the night last a thousand years\nI will stand forever\nI shall not yield\nThose who suffer and yearn for justice\nI am your sword and shield\nI will yield no ground\nI will speak no lies\nI will stand against all tyrants\nUntil the last villain dies",
+    "updated": "2026-10-01",
+    "zh": "縱使太陽停在天際，\n就算黑夜千年不息，\n我會永遠屹立，\n絕不退縮逃避。\n渴望正義的受苦之人啊，\n我就是你的劍與盾。\n寸步不讓，一字不虛，\n我會挺身對抗每個暴君，\n直到所有惡徒伏誅殞命。"
+  },
+  "heroes.ancestries.dragon-knight.trait.wings.effect": {
+    "en": "You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might score (minimum 1 round) before you fall. While using your wings to fly at 3rd level or lower, you have damage weakness 5.",
+    "updated": "2026-10-01",
+    "zh": "你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。"
+  },
+  "heroes.ancestries.dragon-knight.trait.wings.name": {
+    "en": "Wings",
+    "updated": "2026-10-01",
+    "zh": "飛翼"
+  },
+  "heroes.ancestries.dragon-knight.traits.heading": {
+    "en": "Dragon Knight Traits",
+    "updated": "2026-10-01",
+    "zh": "龍騎士特性"
+  },
+  "heroes.ancestries.dragon-knight.traits.intro": {
+    "en": "Dragon knight heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "龍騎士英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.dwarf.description.1": {
+    "en": "Possessed of a strength that belies their size, dwarves have flesh infused with stone—a silico-organic hybrid making them physically denser than other humanoids. They enjoy a reputation in Orden as savvy engineers and technologists thanks to the lore they inherited from their elder siblings, the long-extinct steel dwarves.",
+    "updated": "2026-10-01",
+    "zh": "矮人雖然體型矮小，卻擁有驚人的力量。他們的血肉與岩石融為一體，這種矽基有機混合體讓他們的身軀比其他類人生物更為堅實。矮人在歐爾登因精湛的工程科技和專業知識而聞名，這些寶貴技術源自他們已滅絕的古老親族——鐵矮人。"
+  },
+  "heroes.ancestries.dwarf.description.2": {
+    "en": "Dwarves are the children of the elder god Ord, and a common phrase among dwarves is “Ord made the world”—their way of saying, “What will be, will be.” They take great pride in knowing that along with Aan, Eth, and Kul, their god created the mundane world, and many dwarves leave their homes to see the world and seek glory in Ord’s name.",
+    "updated": "2026-10-01",
+    "zh": "矮人是古神歐德的子嗣，他們常用俗語「世界是歐德創造的」來表達「順其自然」的意思。他們對自己的神明深以為榮，因為歐德與安恩、伊斯、庫爾共同創造了凡人的世界，許多矮人也因此離開家園，以歐德之名探索世界、尋求榮耀。"
+  },
+  "heroes.ancestries.dwarf.name": {
+    "en": "Dwarf",
+    "updated": "2026-10-01",
+    "zh": "矮人"
+  },
+  "heroes.ancestries.dwarf.purchased.heading": {
+    "en": "Purchased Dwarf Traits",
+    "updated": "2026-10-01",
+    "zh": "自購矮人特性"
+  },
+  "heroes.ancestries.dwarf.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.dwarf.quick-build": {
+    "en": "Quick Build: Grounded, Spark Off Your Skin.",
+    "updated": "2026-10-01",
+    "zh": "速選：腳踏實地、堅硬石膚"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.detection.effect": {
+    "en": "Pick a specific type of creature (such as goblins or humans) or object (such as gems or potions). Your rune glows softly when you are within 20 squares of any creature or object of that type, even if you don’t have line of effect to the creature or object. You can change the type of creature or object as a maneuver.",
+    "updated": "2026-10-01",
+    "zh": "選擇 1 種特定的生物類型（例如哥布林或人類）或物體（例如寶石或藥水）。當該類型的任何生物或物體位於你 20 格以內時，即使你對該生物或物體沒有效果線，你的符文也會發出微光。你可以使用機動動作更改偵測目標的類型。"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.detection.name": {
+    "en": "Detection",
+    "updated": "2026-10-01",
+    "zh": "偵測"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.intro": {
+    "en": "You can carve a rune onto your skin with 10 uninterrupted minutes of work, which is activated by the magic within your body. The rune you carve determines the benefit you receive, chosen from among the following:",
+    "updated": "2026-10-01",
+    "zh": "你可以花費不間斷的 10 分鐘在皮膚上銘刻符文，這些符文會透過你體內的魔力啟動。你銘刻的符文類型會決定你獲得的效果。從以下選擇 1 項："
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.light.effect": {
+    "en": "Your skin sheds light for 10 squares. You can turn this light on and off as a maneuver.",
+    "updated": "2026-10-01",
+    "zh": "你的皮膚會發出照亮 10 格範圍的光芒。你可以使用機動動作開啟或關閉這道光芒。"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.light.name": {
+    "en": "Light",
+    "updated": "2026-10-01",
+    "zh": "照明"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.limit": {
+    "en": "You can have one rune active at a time, and can change or remove a rune with 10 uninterrupted minutes of work.",
+    "updated": "2026-10-01",
+    "zh": "你同時只能啟動 1 種符文。更改或移除符文都需要不間斷的 10 分鐘。"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.name": {
+    "en": "Runic Carving",
+    "updated": "2026-10-01",
+    "zh": "符文銘刻"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.voice.effect": {
+    "en": "As a maneuver, you can communicate telepathically with a willing creature you have met before and who is within 1 mile of you. You must know the creature’s name, and they must speak and understand a language you know. You and the creature can respond to one another as if having a spoken conversation. You can communicate with a different creature by changing the rune.",
+    "updated": "2026-10-01",
+    "zh": "使用機動動作，你可以與 1 個曾經見過且位於 1 哩內的自願生物進行心靈溝通。你必須知道該生物的名字，而且對方必須會說並理解你已知的 1 種語言。你們可以像當面交談一樣互相對話。你可以透過更改符文與不同的生物對話。"
+  },
+  "heroes.ancestries.dwarf.signature.runic-carving.voice.name": {
+    "en": "Voice",
+    "updated": "2026-10-01",
+    "zh": "傳聲"
+  },
+  "heroes.ancestries.dwarf.summary": {
+    "en": "Humanoids with stony skin, dwarves have short and stout bodies. Many carve supernatural runes into their flesh, and some have beards made of crystals.",
+    "updated": "2026-10-01",
+    "zh": "矮人是擁有岩石皮膚的類人生物，身材矮壯。許多矮人會在自己的皮膚刻下超常符文，有些人的鬍鬚甚至由水晶構成。"
+  },
+  "heroes.ancestries.dwarf.trait.great-fortitude.effect": {
+    "en": "Your hearty constitution prevents you from losing strength. You can’t be made weakened.",
+    "updated": "2026-10-01",
+    "zh": "你強健的體魄讓你不會失去力量。你不會陷入虛弱狀態。"
+  },
+  "heroes.ancestries.dwarf.trait.great-fortitude.name": {
+    "en": "Great Fortitude",
+    "updated": "2026-10-01",
+    "zh": "強韌體魄"
+  },
+  "heroes.ancestries.dwarf.trait.grounded.effect": {
+    "en": "Your heavy stone body and connection to the earth make it difficult for others to move you. You have a +1 bonus to stability.",
+    "updated": "2026-10-01",
+    "zh": "你岩石般的厚重身軀與大地緊密相連，讓他人難以移動你。你的穩度 +1。"
+  },
+  "heroes.ancestries.dwarf.trait.grounded.name": {
+    "en": "Grounded",
+    "updated": "2026-10-01",
+    "zh": "腳踏實地"
+  },
+  "heroes.ancestries.dwarf.trait.spark-off-your-skin.effect": {
+    "en": "Your stone skin affords you potent protection. You have a +6 bonus to Stamina, and that bonus increases by 6 at 4th, 7th, and 10th levels.",
+    "updated": "2026-10-01",
+    "zh": "你的石質皮膚能為你提供強大的防護。你的體力 +6，並在 4 級、7 級和 10 級時再 +6。"
+  },
+  "heroes.ancestries.dwarf.trait.spark-off-your-skin.name": {
+    "en": "Spark Off Your Skin",
+    "updated": "2026-10-01",
+    "zh": "堅硬石膚"
+  },
+  "heroes.ancestries.dwarf.trait.stand-tough.effect": {
+    "en": "Your body is made to withstand the blows of your enemies. Your Might score is treated as 1 higher for the purpose of resisting potencies, and you gain an edge on Might tests when called for to resist environmental effects or a creature’s traits or abilities.",
+    "updated": "2026-10-01",
+    "zh": "你的身軀天生能承受敵人的猛烈攻擊。抵抗效力時，你的力量會視為提高 1 點。此外，當你需要進行力量考驗來抵抗環境效果或生物的特性與招式時，你會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.dwarf.trait.stand-tough.name": {
+    "en": "Stand Tough",
+    "updated": "2026-10-01",
+    "zh": "堅毅不屈"
+  },
+  "heroes.ancestries.dwarf.trait.stone-singer.effect": {
+    "en": "You have a magic connection to the earth. When you spend 1 uninterrupted hour singing, you can reshape any unworked mundane stone within 3 squares. You can’t destroy this stone, but you can move each square of it anywhere within 3 squares, piling it off to one side to dig a hole or building it up to create a wall.",
+    "updated": "2026-10-01",
+    "zh": "你與大地有著魔法的連結。若你花費 1 小時不間斷地歌唱，你可以重塑 3 格內任何未加工的尋常石材。你無法摧毀這些石材，但可以將每 1 格的石材移動到 3 格內的任意位置。例如將岩石搬到旁邊來挖出坑洞，或堆疊起來建造牆壁。"
+  },
+  "heroes.ancestries.dwarf.trait.stone-singer.name": {
+    "en": "Stone Singer",
+    "updated": "2026-10-01",
+    "zh": "石謳師"
+  },
+  "heroes.ancestries.dwarf.traits.heading": {
+    "en": "Dwarf Traits",
+    "updated": "2026-10-01",
+    "zh": "矮人特性"
+  },
+  "heroes.ancestries.dwarf.traits.intro": {
+    "en": "Dwarf heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "矮人英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.hakaan.description.1": {
+    "en": "In spite of their friendly, outgoing nature, the rare presence of a hakaan in human society is considered a harbinger. An omen of dark times.",
+    "updated": "2026-10-01",
+    "zh": "儘管哈肯人天性友善外向，但只要他們罕見地出現在人類社會中，都會被視為黑暗的預兆。"
+  },
+  "heroes.ancestries.hakaan.description.2": {
+    "en": "Descended from a tribe of giants in upper Vanigar, the original Haka’an tribe made a bargain with Holkatya the Vanigar trickster god. They traded some of their gigantic size and strength for the ability to see the future.",
+    "updated": "2026-10-01",
+    "zh": "哈肯人源自北方華尼伽的巨人部落，最早的哈肯人部落與華尼伽的詭計之神霍卡提雅達成交易，用部分體型和力量換取了預見未來的能力。"
+  },
+  "heroes.ancestries.hakaan.description.3": {
+    "en": "But Holkatya betrayed them, and the only future a hakaan is allowed to see is the moment and nature of their own death. These visions are never of some mundane tragedy. No hakaan ever received a vision of dying from choking on a grape. This Doomsight is always momentous. Always dramatic.",
+    "updated": "2026-10-01",
+    "zh": "但是霍卡提雅背叛了他們，哈肯人唯一能夠預見的未來就是自己死亡的時刻與方式。這些異象都不是一些平凡瑣碎的悲劇，沒有哈肯人曾預見自己會被葡萄噎死。這種「命定末視」總是意義重大，總是戲劇性十足。"
+  },
+  "heroes.ancestries.hakaan.description.4": {
+    "en": "The Doomsight can happen at any moment. It does not come for all or even most hakaan, but when it comes, it is considered an act of overwhelming hubris to ignore it. Trying to escape the Doomsight means a painful, tragic death, and cursing your family to live with shame.",
+    "updated": "2026-10-01",
+    "zh": "命定末視可能會在任何時刻降臨，而且只有少數哈肯人擁有，但當它來臨時，置之不理被認為是極度狂妄自大的行為。試圖逃避命定末視不僅會導致痛苦與悲慘的死亡，還會讓你的家族蒙受永遠的恥辱。"
+  },
+  "heroes.ancestries.hakaan.description.5": {
+    "en": "But the only hakaan the average human meets is one trying to fulfill their doom. The human superstition—that the arrival of one or more hakaan in human lands is a sign of great forces acting in the world, auspicious times—is literally true. In dark times, many hakaan experience the Doomsight and leave their communities to venture out into the mundane world, in search of their destiny.",
+    "updated": "2026-10-01",
+    "zh": "一般人類所遇見的哈肯人，通常都是正在試圖實現自身命運的人。人類的迷信認為哈肯人的出現是世界大勢正在轉變的徵兆，這點其實完全符合事實。在黑暗時期，許多哈肯人會經歷命定末視，離開自己的社區，踏入凡人的世界，尋找命中注定的結局。"
+  },
+  "heroes.ancestries.hakaan.description.6": {
+    "en": "Humans in Vanigar have their own word for this concept of a personal fate. “Wyrd.” Traditional hakaan sometimes refer to the Doomsight as “wyrdken.”",
+    "updated": "2026-10-01",
+    "zh": "華尼伽的人類有個特定的詞語來描述個人宿命的概念：「Wyrd」，所以傳統哈肯人有時也會稱命定末視為「Wyrdken」。"
+  },
+  "heroes.ancestries.hakaan.name": {
+    "en": "Hakaan",
+    "updated": "2026-10-01",
+    "zh": "哈肯人"
+  },
+  "heroes.ancestries.hakaan.purchased.heading": {
+    "en": "Purchased Hakaan Traits",
+    "updated": "2026-10-01",
+    "zh": "自購哈肯人特性"
+  },
+  "heroes.ancestries.hakaan.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.hakaan.quick-build": {
+    "en": "Quick Build: Doomsight, Forceful.",
+    "updated": "2026-10-01",
+    "zh": "速選：命定末視、強而有力"
+  },
+  "heroes.ancestries.hakaan.signature.big.effect": {
+    "en": "Your stature reflects your giant forebears. Your size is 1L.",
+    "updated": "2026-10-01",
+    "zh": "你的身形反映了巨人祖先的血統。你的體型為 1L。"
+  },
+  "heroes.ancestries.hakaan.signature.big.name": {
+    "en": "Big!",
+    "updated": "2026-10-01",
+    "zh": "大個子！"
+  },
+  "heroes.ancestries.hakaan.summary": {
+    "en": "Descended from stone giants, the mighty hakaan stand over 9 feet tall and have well-muscled bodies made of organic stone. They are the largest ancestry in this book!",
+    "updated": "2026-10-01",
+    "zh": "強壯的哈肯人是石巨人的後裔，身高超過 9 呎，擁有肌肉發達、由有機岩石構成的身軀。他們是核心規則中體型最大的族裔！"
+  },
+  "heroes.ancestries.hakaan.trait.all-is-a-feather.effect": {
+    "en": "You are exceptionally strong. You gain an edge on tests made to lift and haul heavy objects.",
+    "updated": "2026-10-01",
+    "zh": "你力大無窮。當你進行舉起和搬運重物的考驗時，你會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.hakaan.trait.all-is-a-feather.name": {
+    "en": "All Is a Feather",
+    "updated": "2026-10-01",
+    "zh": "輕如鴻毛"
+  },
+  "heroes.ancestries.hakaan.trait.doomsight.effect.1": {
+    "en": "Working with your Director, you can predetermine an encounter in which you will die. When that encounter begins, you become doomed. While doomed, you automatically obtain a tier 3 outcome on tests and ability rolls, and you don’t die no matter how low your Stamina falls. You then die immediately at the end of the encounter, and can’t be returned to life by any means.",
+    "updated": "2026-10-01",
+    "zh": "與你的導演合作，你可以預先決定哪場遭遇你將會死亡。當該遭遇開始時，你會進入「命定」狀態。處於命定狀態時，你進行的任何考驗和招式檢定都會自動獲得 T3 結果，而且無論你的體力降到多低都不會死亡。然而，你會在遭遇結束時立刻死亡，而且無法透過任何方式復活。"
+  },
+  "heroes.ancestries.hakaan.trait.doomsight.effect.2": {
+    "en": "If you don’t predetermine your death encounter, you can choose to become doomed while you are dying with the Director’s approval (no action required). Doing so should be reserved for encounters in which you are dying as a result of suitable heroism, such as making a last stand against a boss or saving civilians, or when the consequences of your actions have finally caught up to you—not because you’re playing a one-shot and have nothing to lose, Hacaarl.",
+    "updated": "2026-10-01",
+    "zh": "若你沒有預先決定死亡遭遇，你也可以在陷入瀕死時進入命定狀態（無需動作，但需經導演同意）。這種選擇應該保留給因為英勇行為而瀕死的情況，例如與首領殊死一戰、拯救平民，或因為先前的行為而遭遇相應的後果，而不是單純因為你只玩一場冒險而沒有顧忌。"
+  },
+  "heroes.ancestries.hakaan.trait.doomsight.effect.3": {
+    "en": "Additionally, when your Stamina reaches the negative of your winded value and you are not doomed, you turn to rubble instead of experiencing death. You are unaware of your surroundings in this state, and you can’t regain Stamina or have this effect undone in any way. After 12 hours, you regain Stamina equal to your recovery value.",
+    "updated": "2026-10-01",
+    "zh": "此外，若你的體力降至疲態值的負數，但未處於命定狀態，你會變成碎石，而非死亡。在這種情況下，你無法感知周圍環境，也無法以任何方式恢復體力或復原。在 12 小時後，你會恢復等於你復元值的體力。"
+  },
+  "heroes.ancestries.hakaan.trait.doomsight.name": {
+    "en": "Doomsight",
+    "updated": "2026-10-01",
+    "zh": "命定末視"
+  },
+  "heroes.ancestries.hakaan.trait.forceful.effect": {
+    "en": "Whenever you force move a creature or object, the forced movement distance gains a +1 bonus.",
+    "updated": "2026-10-01",
+    "zh": "每當你強制移動 1 個生物或物體時，強制移動的距離 +1。"
+  },
+  "heroes.ancestries.hakaan.trait.forceful.name": {
+    "en": "Forceful",
+    "updated": "2026-10-01",
+    "zh": "強而有力"
+  },
+  "heroes.ancestries.hakaan.trait.great-fortitude.effect": {
+    "en": "Your hearty constitution prevents you from losing strength. You can’t be made weakened.",
+    "updated": "2026-10-01",
+    "zh": "你強健的體魄讓你不會失去力量。你不會陷入虛弱狀態。"
+  },
+  "heroes.ancestries.hakaan.trait.great-fortitude.name": {
+    "en": "Great Fortitude",
+    "updated": "2026-10-01",
+    "zh": "強韌體魄"
+  },
+  "heroes.ancestries.hakaan.trait.stand-tough.effect": {
+    "en": "Your body is made to withstand the blows of your enemies. Your Might score is treated as 1 higher for the purpose of resisting potencies, and you gain an edge on Might tests when called for to resist environmental effects or a creature’s traits or abilities.",
+    "updated": "2026-10-01",
+    "zh": "你的身軀天生能承受敵人的猛烈攻擊。抵抗效力時，你的力量會視為提高 1 點。此外，當你需要進行力量考驗來抵抗環境效果或生物的特性與招式時，你會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.hakaan.trait.stand-tough.name": {
+    "en": "Stand Tough",
+    "updated": "2026-10-01",
+    "zh": "堅毅不屈"
+  },
+  "heroes.ancestries.hakaan.traits.heading": {
+    "en": "Hakaan Traits",
+    "updated": "2026-10-01",
+    "zh": "哈肯人特性"
+  },
+  "heroes.ancestries.hakaan.traits.intro": {
+    "en": "Hakaan heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "哈肯人英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.high-elf.description.1": {
+    "en": "Children of the solar celestials created to tend their libraries and attend to the true elves as heralds, high elf history describes a better age, before the coming of humans and war. A time when the celestials were still in the world, and all that mattered was art and beauty.",
+    "updated": "2026-10-01",
+    "zh": "高等精靈是玄暉天靈後裔，負責管理圖書館並擔任僕從與使者。高等精靈的歷史記載著一個更美好的時代——在人類與戰爭尚未到來、天靈仍在凡間、萬物只追求藝術與美麗的時代。"
+  },
+  "heroes.ancestries.high-elf.description.2": {
+    "en": "In the millennia since their creators retired to Arcadia, the high elves built a civilization for themselves, primarily living in and among the fallen celestial sky cities. With no creators left to please, the elves continue as they did before—collecting lore and knowledge, worshipping art, and turning more inward and distrusting of outsiders with each generation.",
+    "updated": "2026-10-01",
+    "zh": "在創造者退隱至阿卡迪亞的千年歲月中，高等精靈建立了自己的文明，主要居住在已經從空中墜落的天靈城市裡。雖然沒有了需要服侍的創造者，但精靈們仍然延續以前的生活方式，收集典籍和知識，追求藝術。然而，隨著世代更迭，他們變得越來越封閉，也越來越不信任外來者。"
+  },
+  "heroes.ancestries.high-elf.name": {
+    "en": "High Elf",
+    "updated": "2026-10-01",
+    "zh": "高等精靈"
+  },
+  "heroes.ancestries.high-elf.purchased.heading": {
+    "en": "Purchased High Elf Traits",
+    "updated": "2026-10-01",
+    "zh": "自購高等精靈特性"
+  },
+  "heroes.ancestries.high-elf.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.high-elf.quick-build": {
+    "en": "Quick Build: High Senses, Otherworldly Grace.",
+    "updated": "2026-10-01",
+    "zh": "速選：敏銳感官、非凡優雅。"
+  },
+  "heroes.ancestries.high-elf.signature.high-elf-glamor.effect": {
+    "en": "A magic glamor makes others perceive you as interesting and engaging, granting you an edge on Presence tests using the Flirt or Persuade skills. This glamor makes you appear and sound slightly different to each creature you meet, since what is engaging to one might be different for another. However, you never appear to be anyone other than yourself.",
+    "updated": "2026-10-01",
+    "zh": "你的魔法魅力會讓人不自覺地被你吸引。每當你使用魅惑或遊說技能進行氣場考驗時，你會獲得 1 個優勢。由於每個人喜歡的特徵不盡相同，這種魔法魅力會讓你在每個生物眼中呈現出略為不同的外表與聲音。不過，你看起來仍然是自己的模樣，不會被誤認為其他人。"
+  },
+  "heroes.ancestries.high-elf.signature.high-elf-glamor.name": {
+    "en": "High Elf Glamor",
+    "updated": "2026-10-01",
+    "zh": "高等精靈魅術"
+  },
+  "heroes.ancestries.high-elf.summary": {
+    "en": "Stately and graceful, high elves have tall, willowy bodies, pointed ears, and smoother skin than most other humanoids. Rare metal inlays such as gold, platinum, palladium, and iridium act as organic components within their skin. The truest form of any high elf is hidden from most—sometimes even from themself—thanks to a supernatural glamor that makes them more attractive to others, whatever that might mean to an individual. This glamor transcends physical appearance, also slightly altering a high elf’s tone and smell.",
+    "updated": "2026-10-01",
+    "zh": "高等精靈端莊優雅，擁有高挑纖細的身軀、尖耳，以及比大多數類人生物更光滑的皮膚。金、鉑、鈀、銥等稀有金屬鑲嵌物會成為他們皮膚中的有機構造。由於超常魅術的影響，多數人看不見高等精靈最真實的模樣（有時甚至連他們自己也看不見），這種魅術會讓高等精靈在他人眼中更具吸引力，而每個人對「吸引力」的理解可能各不相同。魅術不只影響外表，也會稍微改變高等精靈的聲音和氣味。"
+  },
+  "heroes.ancestries.high-elf.trait.glamor-of-terror.effect": {
+    "en": "When a foe strikes, you reverse the magic of your glamor to instill fear into their heart. Whenever you take damage from a creature, you can use a triggered action to make that creature frightened of you until the end of their next turn.",
+    "updated": "2026-10-01",
+    "zh": "當敵人攻擊你時，你可以反轉魅術的魔力，將恐懼注入對方心中。每當你受到生物造成的傷害時，你可以使用反應動作讓該生物對你陷入畏縮狀態，直到他下個回合結束。"
+  },
+  "heroes.ancestries.high-elf.trait.glamor-of-terror.name": {
+    "en": "Glamor of Terror",
+    "updated": "2026-10-01",
+    "zh": "恐怖魅術"
+  },
+  "heroes.ancestries.high-elf.trait.graceful-retreat.effect": {
+    "en": "You gain a +1 bonus to the distance you can shift when you take the Disengage move action.",
+    "updated": "2026-10-01",
+    "zh": "當你執行撤離移動動作時，你的遁移距離 +1。"
+  },
+  "heroes.ancestries.high-elf.trait.graceful-retreat.name": {
+    "en": "Graceful Retreat",
+    "updated": "2026-10-01",
+    "zh": "優雅撤離"
+  },
+  "heroes.ancestries.high-elf.trait.high-senses.effect": {
+    "en": "Your senses are especially keen and perceptive. You gain an edge on tests made to notice threats.",
+    "updated": "2026-10-01",
+    "zh": "你擁有非常敏銳的感知能力。當你進行察覺威脅的考驗時，你會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.high-elf.trait.high-senses.name": {
+    "en": "High Senses",
+    "updated": "2026-10-01",
+    "zh": "敏銳感官"
+  },
+  "heroes.ancestries.high-elf.trait.otherworldly-grace.effect": {
+    "en": "Your elf body and mind can’t be contained for long. Whenever you make a saving throw, you succeed on a roll of 5 or higher.",
+    "updated": "2026-10-01",
+    "zh": "你的精靈身軀與心智難以被拘束。每當你進行豁免時，擲出 5 以上就算成功。"
+  },
+  "heroes.ancestries.high-elf.trait.otherworldly-grace.name": {
+    "en": "Otherworldly Grace",
+    "updated": "2026-10-01",
+    "zh": "非凡優雅"
+  },
+  "heroes.ancestries.high-elf.trait.revisit-memory.effect": {
+    "en": "Accessing memories is as easy as living in the present for you. You gain an edge on tests made to recall lore.",
+    "updated": "2026-10-01",
+    "zh": "對你而言，重拾記憶就像活在當下一樣自然。當你進行回想知識的考驗時，你會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.high-elf.trait.revisit-memory.name": {
+    "en": "Revisit Memory",
+    "updated": "2026-10-01",
+    "zh": "重溫記憶"
+  },
+  "heroes.ancestries.high-elf.trait.unstoppable-mind.effect": {
+    "en": "Your mind allows you to maintain your focus in any situation. You can’t be made dazed.",
+    "updated": "2026-10-01",
+    "zh": "你的心智能讓你在任何情況下保持專注。你不會陷入暈眩狀態。"
+  },
+  "heroes.ancestries.high-elf.trait.unstoppable-mind.name": {
+    "en": "Unstoppable Mind",
+    "updated": "2026-10-01",
+    "zh": "頑強心智"
+  },
+  "heroes.ancestries.high-elf.traits.heading": {
+    "en": "High Elf Traits",
+    "updated": "2026-10-01",
+    "zh": "高等精靈特性"
+  },
+  "heroes.ancestries.high-elf.traits.intro": {
+    "en": "High elf heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "高等精靈英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.human.description.1": {
+    "en": "Humans belong to the world in a way the other speaking peoples do not. You can sense the presence of the supernatural—that … oily smell in the air, as I’ve heard it described. And the presence of deathless causes the hairs on the back of your neck to stand up. Or why do you think graveyards affect you so? Whatever magic is, its grip on you is light. Whatever drives the deathless, your nature rebels against it.",
+    "updated": "2026-10-01",
+    "zh": "人類與這個世界的連結，與其他會說話的族群截然不同。你可以感知超自然的存在，據說就像空氣中瀰漫著油膩的氣味。不死者一靠近，你後頸的寒毛就會豎起，這也解釋了墓地為何會對你們產生如此強烈的影響。無論是哪種魔法，都無法完全束縛你；無論是什麼力量在驅使著不死者，你都會本能地抗拒。"
+  },
+  "heroes.ancestries.human.description.2": {
+    "en": "“No one knows why this should be. We elves have no such senses. Nor do the elementals or the kanin … the dwarves and the orcs as you say. What is it that sets humans apart? I am an historian, not a physician. I cannot say. Perhaps some of you will one day find out and teach us all the reason.”",
+    "updated": "2026-10-01",
+    "zh": "「沒有人知道為什麼會這樣。我們精靈並不具備這種感知能力，元素生物、矮人和歐克也沒有。究竟是什麼讓人類如此特別？我是歷史學家，不是醫生，無法給你答案。或許有朝一日，你們當中的某個人會找出真相，並向所有人揭示其中的奧祕。」"
+  },
+  "heroes.ancestries.human.name": {
+    "en": "Human",
+    "updated": "2026-10-01",
+    "zh": "人類"
+  },
+  "heroes.ancestries.human.purchased.heading": {
+    "en": "Purchased Human Traits",
+    "updated": "2026-10-01",
+    "zh": "自購人類特性"
+  },
+  "heroes.ancestries.human.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.human.quick-build": {
+    "en": "Quick Build: Perseverance, Staying Power.",
+    "updated": "2026-10-01",
+    "zh": "速選：堅持不懈、續航力"
+  },
+  "heroes.ancestries.human.signature.detect-supernatural.effect": {
+    "en": "As a maneuver, you can open your awareness to detect supernatural creatures and phenomena. Until the end of your next turn, you know the location of any supernatural object, or any undead, construct, or creature from another world within 5 squares, even if you don’t have line of effect to that object or creature. You know if you’re detecting an item or a creature, and you know the nature of any creature you detect.",
+    "updated": "2026-10-01",
+    "zh": "使用機動動作，你可以啟動感知能力來偵測超常生物和現象。直到你下個回合結束前，你知道 5 格內任何超常物體、亡靈、構裝體或異界生物的位置，即使你對他們沒有效果線也能如此。你能分辨偵測到的是物體還是生物，並且能知道那些生物的本質。"
+  },
+  "heroes.ancestries.human.signature.detect-supernatural.name": {
+    "en": "Detect the Supernatural",
+    "updated": "2026-10-01",
+    "zh": "偵測超常"
+  },
+  "heroes.ancestries.human.summary": {
+    "en": "Humans are the most numerous people in Orden and many other fantasy worlds! In Draw Steel, humans have all the diversity that our species displays in real life—and they can sense the presence of supernatural energy!",
+    "updated": "2026-10-01",
+    "zh": "人類是歐爾登及許多奇幻世界中人口最多的族群！《Draw Steel》中的人類與現實世界的人類一樣，具有豐富的多樣性，甚至還能感知超常能量的存在！"
+  },
+  "heroes.ancestries.human.trait.cant-take-hold.effect": {
+    "en": "Your connection to the natural world allows you to resist certain supernatural effects. You ignore temporary difficult terrain created by magic and psionic abilities. Additionally, when you are force moved by a magic or psionic ability, you can reduce the forced movement distance by 1.",
+    "updated": "2026-10-01",
+    "zh": "你與大自然的連結能讓你抵抗某些超常效果。你可以無視魔法或靈能招式所創造的臨時困難地形。此外，當你被魔法或靈能招式強制移動時，你可以將強制移動的距離 -1。"
+  },
+  "heroes.ancestries.human.trait.cant-take-hold.name": {
+    "en": "Can’t Take Hold",
+    "updated": "2026-10-01",
+    "zh": "難以牽制"
+  },
+  "heroes.ancestries.human.trait.determination.effect": {
+    "en": "A tolerance for pain and distress allows you to push through difficult situations. If you are frightened, slowed, or weakened, you can use a maneuver to immediately end one of those conditions.",
+    "updated": "2026-10-01",
+    "zh": "你可以忍受痛苦和壓力，在困境中堅持前行。若你處於畏縮、緩速或虛弱狀態，你可以使用機動動作立刻解除其中 1 種狀態。"
+  },
+  "heroes.ancestries.human.trait.determination.name": {
+    "en": "Determination",
+    "updated": "2026-10-01",
+    "zh": "堅定決心"
+  },
+  "heroes.ancestries.human.trait.perseverance.effect": {
+    "en": "Giving up is for other people. You gain an edge on tests made using the Endurance skill. Additionally, when you are slowed, your speed is reduced to 3 instead of 2.",
+    "updated": "2026-10-01",
+    "zh": "你絕不輕言放棄。當你使用耐力技能進行考驗時，你會獲得 1 個優勢。此外，若你處於緩速狀態，你的速度會降至 3，而非 2。"
+  },
+  "heroes.ancestries.human.trait.perseverance.name": {
+    "en": "Perseverance",
+    "updated": "2026-10-01",
+    "zh": "堅持不懈"
+  },
+  "heroes.ancestries.human.trait.resist-the-unnatural.effect": {
+    "en": "Your instinctive resilience protects you from injuries beyond the routine. Whenever you take damage that isn’t untyped, you can use a triggered action to take half the damage.",
+    "updated": "2026-10-01",
+    "zh": "你與生俱來的韌性會保護你免受異常傷害。每當你受到任何傷害時，只要不是普通傷害，你可以使用反應動作將該傷害減半。"
+  },
+  "heroes.ancestries.human.trait.resist-the-unnatural.name": {
+    "en": "Resist the Unnatural",
+    "updated": "2026-10-01",
+    "zh": "抵抗異常"
+  },
+  "heroes.ancestries.human.trait.staying-power.effect": {
+    "en": "Your human physiology allows you to fight, run, and stay awake longer than others. You increase your number of Recoveries by 2.",
+    "updated": "2026-10-01",
+    "zh": "人類的生理構造能讓你比其他族群更持久地戰鬥、奔跑和保持清醒。你的復元力 +2。"
+  },
+  "heroes.ancestries.human.trait.staying-power.name": {
+    "en": "Staying Power",
+    "updated": "2026-10-01",
+    "zh": "續航力"
+  },
+  "heroes.ancestries.human.traits.heading": {
+    "en": "Human Traits",
+    "updated": "2026-10-01",
+    "zh": "人類特性"
+  },
+  "heroes.ancestries.human.traits.intro": {
+    "en": "Human heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "人類英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.memonek.description.1": {
+    "en": "The native denizens of Axiom, the Plane of Uttermost Law, memonek dwell in a land with lakes and trees and birds and flowers. But on this alien world, the lakes are seas of mercury, the birds glitter with wings of glass stretched gossamer thin, and the flowers’ petals are iridescent metal as flexible and fragile as any earthly rose.",
+    "updated": "2026-10-01",
+    "zh": "梅莫人是「至律位面」公理界的原生族裔。他們居住的土地一樣有湖泊、樹木、飛鳥和花朵，但在這個異世界中，湖泊是由水銀構成、鳥兒拍打著薄如蟬翼的玻璃翅膀，而花瓣雖然是虹彩金屬，卻如同塵世的玫瑰般柔軟易碎。"
+  },
+  "heroes.ancestries.memonek.description.2": {
+    "en": "The minds of memonek are highly ordered. Their reason is their great pride. But when descending to the lower planes, including a manifold like Orden where law and chaos mix, a sickness comes over them—an uncontrollable sensation called emotion.",
+    "updated": "2026-10-01",
+    "zh": "梅莫人的思維極度有序，理性是他們最引以為傲的特質。然而，當他們來到較低層的位面時（尤其是像歐爾登這樣秩序與混亂交織的衍界），他們便會遭受一種病症的侵襲，讓他們難以控制自己。那種病叫作「情緒」。"
+  },
+  "heroes.ancestries.memonek.name": {
+    "en": "Memonek",
+    "updated": "2026-10-01",
+    "zh": "梅莫人"
+  },
+  "heroes.ancestries.memonek.purchased.heading": {
+    "en": "Purchased Memonek Traits",
+    "updated": "2026-10-01",
+    "zh": "自購梅莫人特性"
+  },
+  "heroes.ancestries.memonek.purchased.intro": {
+    "en": "You have 4 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 4 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.memonek.quick-build": {
+    "en": "Quick Build: Lightning Nimbleness, Nonstop.",
+    "updated": "2026-10-01",
+    "zh": "速選：疾如雷電、奔騰不息"
+  },
+  "heroes.ancestries.memonek.signature.fall-lightly.effect": {
+    "en": "Your silicone body is low in density. Whenever you fall, you reduce the distance of the fall by 2 squares.",
+    "updated": "2026-10-01",
+    "zh": "你的矽質身體密度極低。每當你墜落時，實際墜落距離會減少 2 格。"
+  },
+  "heroes.ancestries.memonek.signature.fall-lightly.name": {
+    "en": "Fall Lightly",
+    "updated": "2026-10-01",
+    "zh": "輕盈落地"
+  },
+  "heroes.ancestries.memonek.signature.lightweight.effect": {
+    "en": "Your body is light for a creature of your height. Whenever another creature attempts to force move you, you treat your size as one size smaller than it is.",
+    "updated": "2026-10-01",
+    "zh": "以你的身高而言，你的體重異常輕盈。每當其他生物嘗試強制移動你時，你的體型會視為比實際小 1 級。"
+  },
+  "heroes.ancestries.memonek.signature.lightweight.name": {
+    "en": "Lightweight",
+    "updated": "2026-10-01",
+    "zh": "身輕如燕"
+  },
+  "heroes.ancestries.memonek.summary": {
+    "en": "Originating on Axiom, the Plane of Uttermost Law, memonek are a machine people made of metal, marble, glass, and other inorganic materials. Their bodies are lightweight, making them easier to move and letting them fall at slower speeds.",
+    "updated": "2026-10-01",
+    "zh": "梅莫人源自「至律位面」公理界，是由金屬、大理石、玻璃和其他無機材料構成的機械族群。他們的身體很輕，因此更容易被移動，墜落速度也較慢。"
+  },
+  "heroes.ancestries.memonek.trait.i-am-law.effect": {
+    "en": "Your lawful nature and quick reflexes mean you give no quarter to creatures trying to get past you. Enemies can’t move through your space unless you allow them to do so.",
+    "updated": "2026-10-01",
+    "zh": "憑藉你守序的天性和敏捷的反應，你絕對不會對試圖穿過你的生物手下留情。除非你允許，否則敵人無法穿越你占據的空間。"
+  },
+  "heroes.ancestries.memonek.trait.i-am-law.name": {
+    "en": "I Am Law",
+    "updated": "2026-10-01",
+    "zh": "吾即律法"
+  },
+  "heroes.ancestries.memonek.trait.keeper-of-order.effect": {
+    "en": "Your connection to Axiom, the plane of Uttermost Law, allows you to manage chaos around you. Once per round when you or an adjacent creature makes a power roll, you can use a free triggered action to remove an edge or a bane on the roll, to turn a double edge into an edge, or to turn a double bane into a bane.",
+    "updated": "2026-10-01",
+    "zh": "你與「至律位面」公理界的連結能讓你控制周圍的混亂。每輪 1 次，當你自己或 1 個與你相鄰的生物進行檢定時，你可以使用免費反應動作，移除該次檢定的 1 個優勢或劣勢、將雙優勢轉為單優勢，或將雙劣勢轉為單劣勢。"
+  },
+  "heroes.ancestries.memonek.trait.keeper-of-order.name": {
+    "en": "Keeper of Order",
+    "updated": "2026-10-01",
+    "zh": "秩序守護者"
+  },
+  "heroes.ancestries.memonek.trait.lightning-nimbleness.effect": {
+    "en": "You can push your body to move at incredible speeds. Your speed is 7.",
+    "updated": "2026-10-01",
+    "zh": "你的身體可以達到驚人的移動速度。你的速度為 7。"
+  },
+  "heroes.ancestries.memonek.trait.lightning-nimbleness.name": {
+    "en": "Lightning Nimbleness",
+    "updated": "2026-10-01",
+    "zh": "疾如雷電"
+  },
+  "heroes.ancestries.memonek.trait.nonstop.effect": {
+    "en": "Your connection to Axiom allows you to regulate your movement. You can’t be made slowed.",
+    "updated": "2026-10-01",
+    "zh": "你與公理界的連結能讓你調節自身的移動力。你不會陷入緩速狀態。"
+  },
+  "heroes.ancestries.memonek.trait.nonstop.name": {
+    "en": "Nonstop",
+    "updated": "2026-10-01",
+    "zh": "奔騰不息"
+  },
+  "heroes.ancestries.memonek.trait.systematic-mind.effect": {
+    "en": "You gain an edge on tests made to parse schematics, maps, and other systematic documents that aren’t inherently chaotic. In addition, you treat any language you don’t know as if you know a related language.",
+    "updated": "2026-10-01",
+    "zh": "當你嘗試解析藍圖、地圖和其他有條理的系統化文件時，相關考驗會獲得 1 個優勢。此外，對於任何你不懂的語言，你都視為懂得某種與之相關的語言。"
+  },
+  "heroes.ancestries.memonek.trait.systematic-mind.name": {
+    "en": "Systematic Mind",
+    "updated": "2026-10-01",
+    "zh": "條理思維"
+  },
+  "heroes.ancestries.memonek.trait.unphased.effect": {
+    "en": "Your ordered mind can’t be caught off guard. You can’t be made surprised.",
+    "updated": "2026-10-01",
+    "zh": "你有條不紊的心智讓你不會驚慌失措。你不會措手不及。"
+  },
+  "heroes.ancestries.memonek.trait.unphased.name": {
+    "en": "Unphased",
+    "updated": "2026-10-01",
+    "zh": "泰然自若"
+  },
+  "heroes.ancestries.memonek.trait.useful-emotion.effect": {
+    "en": "Velloparatha—the worldsickness—might hinder you, but you know how to turn your pain into something your enemies feel. At the start of any combat, you gain 1 surge.",
+    "updated": "2026-10-01",
+    "zh": "維洛帕拉症（俗稱躍界病）或許會妨礙你，但你也知道如何將自己的痛苦轉化為敵人能夠感受到的力量。每場戰鬥開始時，你會獲得 1 點鬥志。"
+  },
+  "heroes.ancestries.memonek.trait.useful-emotion.name": {
+    "en": "Useful Emotion",
+    "updated": "2026-10-01",
+    "zh": "有益情緒"
+  },
+  "heroes.ancestries.memonek.traits.heading": {
+    "en": "Memonek Traits",
+    "updated": "2026-10-01",
+    "zh": "梅莫人特性"
+  },
+  "heroes.ancestries.memonek.traits.intro": {
+    "en": "Memonek heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "梅莫人英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.orc.description.1": {
+    "en": "An anger that cannot be hidden. A fury that drives them in battle. Orcs are famed throughout the world as consummate warriors—a reputation that the peace-loving orcs find distasteful.",
+    "updated": "2026-10-01",
+    "zh": "歐克擁有無法掩藏的憤怒，以及驅使他們作戰的狂暴，以稱霸沙場的精銳戰士聞名於世，但這支愛好和平的族裔卻不喜歡承擔這樣的名聲。"
+  },
+  "heroes.ancestries.orc.description.2": {
+    "en": "The fifth of the speaking peoples, orcs arrived on Orden after humans and elves. They made their homes in the borderlands between those two cultures, preferring the natural forests and avoiding the elf-haunted wodes. For generations, this put them directly in the path of humans who cut down the trees and built roads and farms.",
+    "updated": "2026-10-01",
+    "zh": "作為第五支會說話的族群，歐克在人類與精靈之後來到歐爾登。他們在兩種文明的邊境地帶建立家園，喜愛自然森林，也懂得迴避精靈盤據的幻林。然而，儘管他們再怎麼小心，幾個世代之後，人類開墾的道路與建設的農場，仍然不可避免地連接到他們聚落的外牆。"
+  },
+  "heroes.ancestries.orc.description.3": {
+    "en": "Each orc has within them a fire that causes their veins to glow once blood is drawn. This anger propels them right to the edge of death. The dichotomy between their desire to be left alone and their zeal in battle is summarized in a dwarf proverb:",
+    "updated": "2026-10-01",
+    "zh": "每個歐克體內都蘊藏著一團火焰，一旦流血，就會讓他們的血管發光，這股憤怒會驅使他們戰鬥到生命的盡頭。他們既渴望平靜，又在戰鬥中展現熱情，這種矛盾被一句矮人諺語恰如其分地概括："
+  },
+  "heroes.ancestries.orc.description.4": {
+    "en": "“Be thankful orcs do not hold grudges.”",
+    "updated": "2026-10-01",
+    "zh": "「感謝歐克不會記仇。」"
+  },
+  "heroes.ancestries.orc.name": {
+    "en": "Orc",
+    "updated": "2026-10-01",
+    "zh": "歐克"
+  },
+  "heroes.ancestries.orc.purchased.heading": {
+    "en": "Purchased Orc Traits",
+    "updated": "2026-10-01",
+    "zh": "自購歐克特性"
+  },
+  "heroes.ancestries.orc.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.orc.quick-build": {
+    "en": "Quick Build: Glowing Recovery, Grounded.",
+    "updated": "2026-10-01",
+    "zh": "速選：熾熱復元、腳踏實地"
+  },
+  "heroes.ancestries.orc.signature.relentless.effect": {
+    "en": "Whenever a creature deals damage to you that leaves you dying, you can make a free strike against any creature. If the creature is reduced to 0 Stamina by your strike, you can spend a Recovery.",
+    "updated": "2026-10-01",
+    "zh": "每當 1 個生物造成的傷害讓你陷入瀕死時，你可以對任意生物發動 1 次基礎打擊。若該生物因為你的打擊而體力歸 0，你可以花費 1 點復元力。"
+  },
+  "heroes.ancestries.orc.signature.relentless.name": {
+    "en": "Relentless",
+    "updated": "2026-10-01",
+    "zh": "絕地反擊"
+  },
+  "heroes.ancestries.orc.summary": {
+    "en": "Orcs have skin in green tones and stand slightly taller and wider than humans. A supernatural energy they call “the blood fire” flows through their veins, igniting colorful lines in an orc’s skin during life-or-death battles.",
+    "updated": "2026-10-01",
+    "zh": "歐克的膚色呈現各種綠色調，身形比人類略高，也更寬壯。他們的血液中流淌著一種名為「血焰」的超常能量，當歐克面臨存亡之際，這股能量會點亮皮膚上的彩色紋路。"
+  },
+  "heroes.ancestries.orc.trait.bloodfire-rush.effect": {
+    "en": "The magic coursing through your veins makes you run faster in the heat of battle. The first time in any combat round that you take damage, you gain a +2 bonus to speed until the end of the round.",
+    "updated": "2026-10-01",
+    "zh": "你體內奔流的魔力能讓你在戰鬥狂潮中跑得更快。每輪 1 次，當你首次受到傷害時，你的速度會 +2，直到該輪結束。"
+  },
+  "heroes.ancestries.orc.trait.bloodfire-rush.name": {
+    "en": "Bloodfire Rush",
+    "updated": "2026-10-01",
+    "zh": "血焰衝刺"
+  },
+  "heroes.ancestries.orc.trait.glowing-recovery.effect": {
+    "en": "Your bloodfire allows you to regain your strength quicker than others. Whenever you use the Catch Breath maneuver, you can spend as many Recoveries as you like.",
+    "updated": "2026-10-01",
+    "zh": "你的血焰能讓你比其他人更快恢復體力。每當你使用喘息機動動作時，你可以花費任意數量的復元力。"
+  },
+  "heroes.ancestries.orc.trait.glowing-recovery.name": {
+    "en": "Glowing Recovery",
+    "updated": "2026-10-01",
+    "zh": "熾熱復元"
+  },
+  "heroes.ancestries.orc.trait.grounded.effect": {
+    "en": "The magic in your blood makes it difficult for others to move you. You have a +1 bonus to stability.",
+    "updated": "2026-10-01",
+    "zh": "你血液中的魔力讓他人難以移動你。你的穩度 +1。"
+  },
+  "heroes.ancestries.orc.trait.grounded.name": {
+    "en": "Grounded",
+    "updated": "2026-10-01",
+    "zh": "腳踏實地"
+  },
+  "heroes.ancestries.orc.trait.nonstop.effect": {
+    "en": "Your bloodfire supplies you with a constant rush of adrenaline. You can’t be made slowed.",
+    "updated": "2026-10-01",
+    "zh": "你的血焰讓你的腎上腺素持續翻湧。你不會陷入緩速狀態。"
+  },
+  "heroes.ancestries.orc.trait.nonstop.name": {
+    "en": "Nonstop",
+    "updated": "2026-10-01",
+    "zh": "奔騰不息"
+  },
+  "heroes.ancestries.orc.trait.passionate-artisan.effect": {
+    "en": "When you are stirred by a passion for creation, your bloodfire allows you to work longer and harder. When you gain your initial skills from your career, culture, class, or other source, choose two skills from the crafting skill group, whether you have those skills or not. Whenever you make a project roll for a crafting project that uses these skills, you gain a +2 bonus to the roll.",
+    "updated": "2026-10-01",
+    "zh": "當你因為創作的靈感而振奮時，你的血焰能讓你更持久且更努力地工作。當你從生涯、文化、職業或其他來源獲得初始技能時，從工藝類技能中選擇 2 項技能（無論你是否已經擁有該技能）。每當你使用所選技能進行工藝類專案時，專案檢定會 +2。"
+  },
+  "heroes.ancestries.orc.trait.passionate-artisan.name": {
+    "en": "Passionate Artisan",
+    "updated": "2026-10-01",
+    "zh": "熱血工匠"
+  },
+  "heroes.ancestries.orc.traits.heading": {
+    "en": "Orc Traits",
+    "updated": "2026-10-01",
+    "zh": "歐克特性"
+  },
+  "heroes.ancestries.orc.traits.intro": {
+    "en": "Orc heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "歐克英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.polder.description.1": {
+    "en": "After humans, polders are the most numerous and diverse ancestry in Orden. They are not humans, but they live in and among humans and share their gods and culture. Almost every human culture in Orden has a polder saint or a human saint venerated by polder.",
+    "updated": "2026-10-01",
+    "zh": "在歐爾登，波德人的數量與多元性僅次於人類。雖然他們不是人類，卻與人類共同生活，共享同樣的神明與文化。幾乎在每一種人類文化中，都能找到波德人聖者，或是受到波德人敬奉的人類聖者。"
+  },
+  "heroes.ancestries.polder.description.2": {
+    "en": "Short, averaging 3-1/2 feet tall, the polders’ origins are obscure. They are a young species who, like humans, have no single patron god. Their ability to shadowmeld means they enjoy a reputation as excellent spies and thieves. Many polders consider this a base slander and point out they’re also famed as chefs, though polders can be found in every profession, especially in cities.",
+    "updated": "2026-10-01",
+    "zh": "波德人身材矮小，平均身高僅 3 呎半，起源也撲朔迷離。作為一支年輕的族裔，他們和人類一樣沒有專屬的守護神。他們天生擁有融入陰影的能力，因此獲得了優秀間諜和盜賊的名聲。然而，許多波德人認為這是一種污衊，並強調他們同樣以精湛的廚藝聞名。實際上，波德人遍布各行各業，尤其活躍於城市之中。"
+  },
+  "heroes.ancestries.polder.name": {
+    "en": "Polder",
+    "updated": "2026-10-01",
+    "zh": "波德人"
+  },
+  "heroes.ancestries.polder.purchased.heading": {
+    "en": "Purchased Polder Traits",
+    "updated": "2026-10-01",
+    "zh": "自購波德人特性"
+  },
+  "heroes.ancestries.polder.purchased.intro": {
+    "en": "You have 4 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 4 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.polder.quick-build": {
+    "en": "Quick Build: Corruption Immunity, Fearless, Graceful Retreat.",
+    "updated": "2026-10-01",
+    "zh": "速選：腐朽免疫、無所畏懼、優雅撤離"
+  },
+  "heroes.ancestries.polder.signature.shadowmeld.effect": {
+    "en": "You flatten yourself into a shadow against a wall or floor you are touching, and become hidden from any creature you have cover or concealment from or who isn’t observing you. While in shadow form, you have full awareness of your surroundings, and strikes made against you and tests made to search for you take a bane. You can’t move or be force moved, and you can’t take main actions or maneuvers except to exit this form or to direct creatures under your control, such as one you summon using an ability. Any ability or effect that targets more than 1 square affects you in this form only if it explicitly affects the surface you are flattened against. You can exit this form as a maneuver. If the surface you are flattened against is destroyed, this ability ends and you take 1d6 damage that can’t be reduced in any way.",
+    "updated": "2026-10-01",
+    "zh": "你將自己化為平貼於牆面或地面的影子。此時，若你對 1 個生物具有掩護或遮蔽，或該生物觀察不到你，你就會對他處於隱藏。在影子形態中，你能完全感知周遭的環境，而且對你發動的任何打擊和搜索考驗都會承受 1 個劣勢。你無法移動或被強制移動，也無法執行主要動作和機動動作（除了脫離此形態或指揮受你控制的生物，例如你發動招式召喚的生物）。影響多格的招式或效果，只有在明確影響你所貼附的表面時，你才會受到影響。你可以使用機動動作脫離此形態。\n\n若你所貼附的表面被摧毀，此招式會立刻終止，而且你會受到 1d6 點傷害（無法以任何方式減免）。"
+  },
+  "heroes.ancestries.polder.signature.shadowmeld.name": {
+    "en": "Shadowmeld",
+    "updated": "2026-10-01",
+    "zh": "融影術"
+  },
+  "heroes.ancestries.polder.signature.shadowmeld.tagline": {
+    "en": "You become an actual shadow.",
+    "updated": "2026-10-01",
+    "zh": "你化為一道真正的影子。"
+  },
+  "heroes.ancestries.polder.signature.small.effect": {
+    "en": "Your diminutive stature lets you easily get out of—or into—trouble. Your size is 1S.",
+    "updated": "2026-10-01",
+    "zh": "你嬌小的身材能讓你更輕易地擺脫（或陷入）麻煩。你的體型為 1S。"
+  },
+  "heroes.ancestries.polder.signature.small.name": {
+    "en": "Small!",
+    "updated": "2026-10-01",
+    "zh": "小個子！"
+  },
+  "heroes.ancestries.polder.summary": {
+    "en": "The smallest of the ancestries in this book, polders stand no taller than 3-1/2 feet. They look like smaller humans, and they have the ability to blend in with the shadows.",
+    "updated": "2026-10-01",
+    "zh": "波德人是核心規則中體型最小的族裔，身高不超過 3.5 呎。他們看起來像較矮小的人類，並且擁有融入陰影的能力。"
+  },
+  "heroes.ancestries.polder.trait.corruption-immunity.effect": {
+    "en": "Your innate shadow magic grants you resilience against the unnatural. You have corruption immunity equal to your level + 2.",
+    "updated": "2026-10-01",
+    "zh": "你與生俱來的暗影魔法能讓你抵抗異常傷害。你擁有等於你等級 +2 的腐朽免疫。"
+  },
+  "heroes.ancestries.polder.trait.corruption-immunity.name": {
+    "en": "Corruption Immunity",
+    "updated": "2026-10-01",
+    "zh": "腐朽免疫"
+  },
+  "heroes.ancestries.polder.trait.fearless.effect": {
+    "en": "Courage is all you know. You can’t be made frightened.",
+    "updated": "2026-10-01",
+    "zh": "你天生勇敢無懼。你不會陷入畏縮狀態。"
+  },
+  "heroes.ancestries.polder.trait.fearless.name": {
+    "en": "Fearless",
+    "updated": "2026-10-01",
+    "zh": "無所畏懼"
+  },
+  "heroes.ancestries.polder.trait.graceful-retreat.effect": {
+    "en": "Your small size makes it easier for you to slip away from the fray. You gain a +1 bonus to the distance you can shift when you take the Disengage move action.",
+    "updated": "2026-10-01",
+    "zh": "你矮小的體型能讓你更容易從混戰中溜走。當你執行撤離移動動作時，你的遁移距離 +1。"
+  },
+  "heroes.ancestries.polder.trait.graceful-retreat.name": {
+    "en": "Graceful Retreat",
+    "updated": "2026-10-01",
+    "zh": "優雅撤離"
+  },
+  "heroes.ancestries.polder.trait.nimblestep.effect": {
+    "en": "A light step serves you well when speed is of the essence. You ignore the effects of difficult terrain and can move at full speed while sneaking.",
+    "updated": "2026-10-01",
+    "zh": "輕盈的步伐能在關鍵時刻派上用場。你無視困難地形的影響，並能在潛行時保持全速移動。"
+  },
+  "heroes.ancestries.polder.trait.nimblestep.name": {
+    "en": "Nimblestep",
+    "updated": "2026-10-01",
+    "zh": "輕靈步法"
+  },
+  "heroes.ancestries.polder.trait.polder-geist.effect": {
+    "en": "Evading others’ notice gives you freedom to move. At the start of each of your turns during combat, if no enemy has line of effect to you or if you are hidden from or have concealment from any enemy with line of effect to you, you gain a +3 bonus to speed until the end of your turn.",
+    "updated": "2026-10-01",
+    "zh": "避開他人的注意力能讓你的行動更加自由。在戰鬥中，每當你的回合開始時，若沒有任何敵人對你有效果線，或你對任何有效果線的敵人處於隱藏或具有遮蔽，你的速度會 +3，直到你當前回合結束。"
+  },
+  "heroes.ancestries.polder.trait.polder-geist.name": {
+    "en": "Polder Geist",
+    "updated": "2026-10-01",
+    "zh": "波德精神"
+  },
+  "heroes.ancestries.polder.trait.reactive-tumble.effect": {
+    "en": "Staying light on your feet lets you quickly get back into position. Whenever you are force moved, you can use a free triggered action to shift 1 square after the forced movement is resolved.",
+    "updated": "2026-10-01",
+    "zh": "保持輕盈的步伐能讓你快速回到有利位置。每當你被強制移動時，在該次強制移動結算後，你可以使用免費反應動作遁移 1 格。"
+  },
+  "heroes.ancestries.polder.trait.reactive-tumble.name": {
+    "en": "Reactive Tumble",
+    "updated": "2026-10-01",
+    "zh": "緊急翻滾"
+  },
+  "heroes.ancestries.polder.traits.heading": {
+    "en": "Polder Traits",
+    "updated": "2026-10-01",
+    "zh": "波德人特性"
+  },
+  "heroes.ancestries.polder.traits.intro": {
+    "en": "Polder heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "波德人英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.revenant.description.1": {
+    "en": "The dead walk among us. Some of them are happier about it than others.",
+    "updated": "2026-10-01",
+    "zh": "死者行走在我們之間，但不是所有死者都樂於接受這種情況。"
+  },
+  "heroes.ancestries.revenant.description.2": {
+    "en": "Unlike the necromantic rituals that produce wights and wraiths and zombies, revenants rise from the grave through a combination of an unjust death and a burning desire for vengeance. Creatures sustained on pure will, they have no need of food or water or air—and, unlike their zombified cousins, they retain all their memories and personality from life.",
+    "updated": "2026-10-01",
+    "zh": "不同於製造屍妖、怨靈和殭屍的死靈儀式，還魂屍是因為枉死與強烈的復仇心而從墳墓中爬出來。他們之所以能夠存在於世上，不是依靠食物、水或空氣，而是純粹的意志力。與殭屍不同的是，還魂屍保留了生前的所有記憶和個性。"
+  },
+  "heroes.ancestries.revenant.description.3": {
+    "en": "These revenants are rare. Many are hunted by ignorant villagers who see only their dead flesh and assume the worst. Those who survive the pitchfork brigade either choose a solitary life, often as a wandering soul seeking out living company yet constantly in fear of it, or they migrate to a metropolis such as Blackbottom or Capital, where lost souls gather to make a home.",
+    "updated": "2026-10-01",
+    "zh": "還魂屍極為罕見。許多還魂屍遭到無知村民的獵殺，一看到死亡的軀體就設想了最壞的情況。從拿著乾草叉的村民手中倖存下來的還魂屍，要麼選擇孤獨流浪，既渴望又恐懼活人的陪伴；要麼搬遷到黑淵城或元城等大都市，與其他迷失的還魂屍們一起建立家園。"
+  },
+  "heroes.ancestries.revenant.name": {
+    "en": "Revenant",
+    "updated": "2026-10-01",
+    "zh": "還魂屍"
+  },
+  "heroes.ancestries.revenant.purchased.heading": {
+    "en": "Purchased Revenant Traits",
+    "updated": "2026-10-01",
+    "zh": "自購還魂屍特性"
+  },
+  "heroes.ancestries.revenant.purchased.intro": {
+    "en": "You have 2 ancestry points to spend on the following traits, or 3 ancestry points if your size is 1S.",
+    "updated": "2026-10-01",
+    "zh": "你有 2 點族裔點數，可以用來購買以下特性；若你的體型為 1S，則有 3 點族裔點數。"
+  },
+  "heroes.ancestries.revenant.quick-build": {
+    "en": "Quick Build: Bloodless, plus Undead Influence if size 1S.",
+    "updated": "2026-10-01",
+    "zh": "速選：無血之軀；若體型為 1S，再選亡靈威儀。"
+  },
+  "heroes.ancestries.revenant.signature.former-life.effect": {
+    "en": "Choose the ancestry you were before you died. Your size is that ancestry’s size and your speed is 5. Unless you select one of the Previous Life traits (see below), you don’t receive any other ancestral traits from your original ancestry.",
+    "updated": "2026-10-01",
+    "zh": "選擇你死前的族裔。你的體型與原族裔相同，速度為 5。除非你選擇【前世特性】，否則你不會獲得原族裔的任何族裔特性。"
+  },
+  "heroes.ancestries.revenant.signature.former-life.name": {
+    "en": "Former Life",
+    "updated": "2026-10-01",
+    "zh": "昔日人生"
+  },
+  "heroes.ancestries.revenant.signature.tough-but-withered.effect.1": {
+    "en": "Your undead body grants you immunity to cold, corruption, lightning, and poison damage equal to your level, but you have fire weakness 5. You can’t suffocate, and you don’t need to eat or drink to stay alive.",
+    "updated": "2026-10-01",
+    "zh": "你的亡靈軀體讓你擁有等於你等級的寒冷、腐朽、閃電和毒素傷害免疫，但你也擁有火焰弱點 5。你不會窒息，也不需要進食或飲水來維持生命。"
+  },
+  "heroes.ancestries.revenant.signature.tough-but-withered.effect.2": {
+    "en": "Additionally, when your Stamina reaches the negative of your winded value, you become inert instead of dying. You fall prone and can’t stand. You continue to observe your surroundings, but you can’t speak, take main actions, maneuvers, move actions, or triggered actions. While inert this way, if you take any fire damage, your body is destroyed and you die. Otherwise, after 12 hours, you regain Stamina equal to your recovery value.",
+    "updated": "2026-10-01",
+    "zh": "此外，當你的體力降至疲態值的負數時，你會陷入呆滯，而非死亡。你會伏地且無法起身。你能繼續觀察周圍環境，但無法說話，也無法執行主要動作、機動動作、移動動作和反應動作。在這種呆滯狀態下，若你受到任何火焰傷害，你的軀體就會被摧毀，你也會真正死亡。否則，在 12 小時後，你會恢復等於你復元值的體力。"
+  },
+  "heroes.ancestries.revenant.signature.tough-but-withered.name": {
+    "en": "Tough But Withered",
+    "updated": "2026-10-01",
+    "zh": "枯而不朽"
+  },
+  "heroes.ancestries.revenant.summary": {
+    "en": "No hero starts their life as a revenant. Rather, these undead creatures return to the world of the living because they have dire business that must be finished. A character of any ancestry can become a revenant.",
+    "updated": "2026-10-01",
+    "zh": "沒有英雄生來就是還魂屍。這些亡靈之所以重返活人的世界，是因為還有非完成不可的緊要之事。任何族裔的角色都能成為還魂屍。"
+  },
+  "heroes.ancestries.revenant.trait.bloodless.effect": {
+    "en": "For you, an open wound is indistinguishable from a scratch. You can’t be made bleeding even while dying.",
+    "updated": "2026-10-01",
+    "zh": "對你而言，開放性傷口與輕微擦傷沒有區別。你不會陷入出血狀態（即使瀕死也不會）。"
+  },
+  "heroes.ancestries.revenant.trait.bloodless.name": {
+    "en": "Bloodless",
+    "updated": "2026-10-01",
+    "zh": "無血之軀"
+  },
+  "heroes.ancestries.revenant.trait.previous-life-1.effect": {
+    "en": "You select a purchased trait that costs 1 ancestry point from your previous ancestry. You can take this trait multiple times, selecting a different 1 point trait from your previous ancestry each time.",
+    "updated": "2026-10-01",
+    "zh": "你可以選擇 1 個來自原族裔且耗費 1 點族裔點數的自購特性。你可以多次選擇此特性，但每次都必須選擇不同的 1 費特性。"
+  },
+  "heroes.ancestries.revenant.trait.previous-life-1.name": {
+    "en": "Previous Life: 1 Point",
+    "updated": "2026-10-01",
+    "zh": "1 費前世特性"
+  },
+  "heroes.ancestries.revenant.trait.previous-life-2.effect": {
+    "en": "You select a purchased trait that costs 2 ancestry points from your previous ancestry.",
+    "updated": "2026-10-01",
+    "zh": "你可以選擇 1 個來自原族裔且耗費 2 點族裔點數的自購特性。"
+  },
+  "heroes.ancestries.revenant.trait.previous-life-2.name": {
+    "en": "Previous Life: 2 Points",
+    "updated": "2026-10-01",
+    "zh": "2 費前世特性"
+  },
+  "heroes.ancestries.revenant.trait.undead-influence.effect": {
+    "en": "Your supernatural gifts allow you to influence other undead. You gain an edge on Reason, Intuition, and Presence tests made to interact with undead creatures.",
+    "updated": "2026-10-01",
+    "zh": "你的超常天賦能讓你影響其他亡靈。當你與亡靈生物互動時，你的理智、直覺和氣場考驗會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.revenant.trait.undead-influence.name": {
+    "en": "Undead Influence",
+    "updated": "2026-10-01",
+    "zh": "亡靈威儀"
+  },
+  "heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.effect": {
+    "en": "The sigil disappears from the creature.",
+    "updated": "2026-10-01",
+    "zh": "生物身上的符印隨即消失。"
+  },
+  "heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.name": {
+    "en": "Detonate Sigil",
+    "updated": "2026-10-01",
+    "zh": "引爆符印"
+  },
+  "heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.tagline": {
+    "en": "A magic sigil you placed on a creature explodes with energy.",
+    "updated": "2026-10-01",
+    "zh": "你放在生物身上的魔法符印爆散出一股能量。"
+  },
+  "heroes.ancestries.revenant.trait.vengeance-mark.effect.1": {
+    "en": "As a maneuver, you place a magic sigil on a creature within 10 squares. When you place a sigil, you decide where it appears on the creature’s body, and whether the sigil is visible to only you or to all creatures.",
+    "updated": "2026-10-01",
+    "zh": "使用機動動作，你可以在 10 格內的 1 個生物身上放置 1 個魔法符印。放置符印時，你可以決定符印出現在生物身體的哪個位置，以及符印是只有你看得見，還是所有生物都看得見。"
+  },
+  "heroes.ancestries.revenant.trait.vengeance-mark.effect.2": {
+    "en": "You always know the direction to the exact location of a creature who bears one of your sigils and is on the same world. You can have a number of active sigils equal to your level, and can remove a sigil from a creature at will (no action required). If you already have the maximum number of sigils activated and you place a new one, your oldest sigil disappears with no other effect.",
+    "updated": "2026-10-01",
+    "zh": "你始終知道相同世界中帶有你符印之生物的位置方向。你最多可以擁有數量等於你等級的符印，並且可以隨意解除生物身上的符印（無需動作）。若你在符印數量已滿的情況下放置新的符印，最舊的符印就會消失，不會產生任何效果。"
+  },
+  "heroes.ancestries.revenant.trait.vengeance-mark.effect.3": {
+    "en": "Additionally, you have the following signature ability. Signature abilities can be used at will.",
+    "updated": "2026-10-01",
+    "zh": "此外，你獲得以下招牌招式。"
+  },
+  "heroes.ancestries.revenant.trait.vengeance-mark.name": {
+    "en": "Vengeance Mark",
+    "updated": "2026-10-01",
+    "zh": "復仇符印"
+  },
+  "heroes.ancestries.revenant.traits.heading": {
+    "en": "Revenant Traits",
+    "updated": "2026-10-01",
+    "zh": "還魂屍特性"
+  },
+  "heroes.ancestries.revenant.traits.intro": {
+    "en": "Revenant heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "還魂屍英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.time-raider.description.1": {
+    "en": "The original servitor species of the synliroi—evil psions with near godlike power—the kuran’zoi liberated themselves during the First Psychic War. In the centuries since, they built their own culture and civilization as nomads of the timescape. The exonym “time raiders” was given to them by denizens of the lower worlds who, seeing the advanced technology the kuran’zoi wield, concluded they must be from the future.",
+    "updated": "2026-10-01",
+    "zh": "庫蘭佐伊最初是心語者（擁有近乎神級力量的邪惡靈能者）的奴隸種族，他們在第一次靈能大戰期間成功解放了自己。在之後的數百年間，他們作為時界的遊牧民族，建立了自己的文化和文明。「時空獵手」這個稱呼是下層界域的居民賦予的，因為他們看到庫蘭佐伊所使用的先進科技，認為他們必定來自未來。"
+  },
+  "heroes.ancestries.time-raider.description.2": {
+    "en": "Extraordinarily rare in Orden, time raiders thrive on the Sea of Stars, the Sea Between Worlds, where the winds of limbo roar.",
+    "updated": "2026-10-01",
+    "zh": "時空獵手在歐爾登極為罕見，但在靈薄風暴肆虐的浩瀚星海之中茁壯成長。"
+  },
+  "heroes.ancestries.time-raider.description.3": {
+    "en": "In place of eyes, kuran’zoi possess crystalline ocular sensors that grant them high-spectral vision and which are hardened against the extreme radiations encountered in the Sea of Stars, permitting them to operate freely outside their vessels with only their portable rebreathers. Time raiders also have two sets of arms, allowing them to wield melee weapons at the same time as ranged weapons. A single well-trained kuran’zoi is like a squad unto themself.",
+    "updated": "2026-10-01",
+    "zh": "庫蘭佐伊沒有眼睛，而是擁有晶體光學感應器，賦予他們高光譜視覺，並能抵禦浩瀚星海的極端輻射。因此，他們只需要戴上便攜式呼吸器就能在星艦外自由活動。時空獵手還具有兩對手臂，能同時使用近戰與遠程武器。一名訓練有素的庫蘭佐伊，就足以抗衡一支完整的作戰小隊。"
+  },
+  "heroes.ancestries.time-raider.name": {
+    "en": "Time Raider",
+    "updated": "2026-10-01",
+    "zh": "時空獵手"
+  },
+  "heroes.ancestries.time-raider.purchased.heading": {
+    "en": "Purchased Time Raider Traits",
+    "updated": "2026-10-01",
+    "zh": "自購時空獵手特性"
+  },
+  "heroes.ancestries.time-raider.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.time-raider.quick-build": {
+    "en": "Quick Build: Beyondsight, Psionic Gift with Psionic Bolt.",
+    "updated": "2026-10-01",
+    "zh": "速選：透視力、靈能天賦（靈能射線）"
+  },
+  "heroes.ancestries.time-raider.signature.psychic-scar.effect": {
+    "en": "Your mind is a formidable layer of defense. You have psychic immunity equal to your level.",
+    "updated": "2026-10-01",
+    "zh": "你的心智本身就是一道強大的防護罩。你擁有等於你等級的心靈免疫。"
+  },
+  "heroes.ancestries.time-raider.signature.psychic-scar.name": {
+    "en": "Psychic Scar",
+    "updated": "2026-10-01",
+    "zh": "心靈傷痕"
+  },
+  "heroes.ancestries.time-raider.summary": {
+    "en": "Travelers of the timescape, the time raiders (or kuran’zoi as they call themselves) have four arms and a single ocular sensor instead of a pair of eyes. Many have innate psionic abilities that make them capable warriors.",
+    "updated": "2026-10-01",
+    "zh": "時空獵手是時界中的旅人，他們自稱庫蘭佐伊，擁有四隻手臂，並以光學感應器取代眼睛。許多時空獵手天生具有靈能力，讓他們成為強悍的戰士。"
+  },
+  "heroes.ancestries.time-raider.trait.beyondsight.effect": {
+    "en": "As a maneuver, you can adjust your vision to allow you to see through mundane obstructions that are 1 square thick or less. While your vision is adjusted this way, you can’t see the area within 1 square of you and you don’t have line of effect to any creature or object in that area. You can restore your usual vision as a maneuver.",
+    "updated": "2026-10-01",
+    "zh": "你可以使用機動動作調整視覺能力，讓你看穿厚度不超過 1 格的尋常障礙物。在你啟動透視力的期間，你無法看到 1 格內的區域，而且對 1 格內的任何生物或物體都沒有效果線。你可以使用機動動作恢復成正常視覺。"
+  },
+  "heroes.ancestries.time-raider.trait.beyondsight.name": {
+    "en": "Beyondsight",
+    "updated": "2026-10-01",
+    "zh": "透視力"
+  },
+  "heroes.ancestries.time-raider.trait.foresight.effect": {
+    "en": "Your senses extend past mundane obscuration and the veil of the future alike. You automatically know the location of any creature with concealment who isn’t hidden from you within 20, and you negate the usual bane on strikes against such creatures. Additionally, whenever you are targeted by a strike, you can use a triggered action to impose a bane on the power roll.",
+    "updated": "2026-10-01",
+    "zh": "你的感官能夠穿越世俗的阻礙與未來的帷幕。你會自動知道 20 格內任何對你具有遮蔽但並未處於隱藏的生物位置，而且當你對這些生物發動打擊時，你會無視通常需要承受的 1 個劣勢。此外，每當你成為打擊的目標時，你可以使用反應動作，讓該次檢定承受 1 個劣勢。"
+  },
+  "heroes.ancestries.time-raider.trait.foresight.name": {
+    "en": "Foresight",
+    "updated": "2026-10-01",
+    "zh": "預視力"
+  },
+  "heroes.ancestries.time-raider.trait.four-armed-athletics.effect": {
+    "en": "Your unique physiology enhances your movement. You gain an edge on tests that use the Climb, Gymnastics, or Swim skills when you can use all your arms in the attempt.",
+    "updated": "2026-10-01",
+    "zh": "你獨特的生理構造增強了你的運動能力。當你使用攀爬、體操或游泳技能進行考驗時，若你能夠運用所有手臂，你會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.time-raider.trait.four-armed-athletics.name": {
+    "en": "Four-Armed Athletics",
+    "updated": "2026-10-01",
+    "zh": "四臂運動"
+  },
+  "heroes.ancestries.time-raider.trait.four-armed-martial-arts.effect": {
+    "en": "Your multiple arms let you take on multiple tasks at the same time. Whenever you use the Grab or Knockback maneuver against an adjacent creature, you can target one additional adjacent creature, using the same power roll for both targets. Additionally, you can have up to two creatures grabbed at a time.",
+    "updated": "2026-10-01",
+    "zh": "你的多隻手臂能讓你同時對付多個目標。每當你對 1 個相鄰生物使用擒抱或擊退機動動作時，你可以指定另 1 個相鄰生物作為額外目標，然後對這 2 個目標進行 1 次檢定。此外，你最多可以同時擒抱 2 個生物。"
+  },
+  "heroes.ancestries.time-raider.trait.four-armed-martial-arts.name": {
+    "en": "Four-Armed Martial Arts",
+    "updated": "2026-10-01",
+    "zh": "四臂武術"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.concussive-slam.name": {
+    "en": "Concussive Slam",
+    "updated": "2026-10-01",
+    "zh": "猛力衝擊"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.concussive-slam.tagline": {
+    "en": "You slam an invisible force down upon the target.",
+    "updated": "2026-10-01",
+    "zh": "你將一股無形的力量猛烈砸向目標。"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.effect": {
+    "en": "Choose one signature ability from the following options. Signature abilities can be used at will.",
+    "updated": "2026-10-01",
+    "zh": "從以下選項中選擇 1 個招牌招式。"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.effect": {
+    "en": "The target gains a bonus to speed equal to your Reason, Intuition, or Presence score (your choice) until the start of your next turn.",
+    "updated": "2026-10-01",
+    "zh": "目標的速度獲得等於你理智、直覺或氣場的加值（由你選擇），直到你下個回合開始。"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.name": {
+    "en": "Minor Acceleration",
+    "updated": "2026-10-01",
+    "zh": "微幅加速"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.tagline": {
+    "en": "You fill yourself or an ally with a burst of speed.",
+    "updated": "2026-10-01",
+    "zh": "你讓自己或盟友瞬間爆發出更快的速度。"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.name": {
+    "en": "Psionic Gift",
+    "updated": "2026-10-01",
+    "zh": "靈能天賦"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.name": {
+    "en": "Psionic Bolt",
+    "updated": "2026-10-01",
+    "zh": "靈能射線"
+  },
+  "heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline": {
+    "en": "You shoot forth a purple beam of psychic force that moves your target.",
+    "updated": "2026-10-01",
+    "zh": "你射出一道能強制移動目標的紫色靈能光束。"
+  },
+  "heroes.ancestries.time-raider.trait.unstoppable-mind.effect": {
+    "en": "Your mind allows you to maintain your focus in any situation. You can’t be made dazed.",
+    "updated": "2026-10-01",
+    "zh": "你的心智能讓你在任何情況下保持專注。你不會陷入暈眩狀態。"
+  },
+  "heroes.ancestries.time-raider.trait.unstoppable-mind.name": {
+    "en": "Unstoppable Mind",
+    "updated": "2026-10-01",
+    "zh": "頑強心智"
+  },
+  "heroes.ancestries.time-raider.traits.heading": {
+    "en": "Time Raider Traits",
+    "updated": "2026-10-01",
+    "zh": "時空獵手特性"
+  },
+  "heroes.ancestries.time-raider.traits.intro": {
+    "en": "Time raider heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "時空獵手英雄可以獲得以下特性。"
+  },
+  "heroes.ancestries.wode-elf.description.1": {
+    "en": "Children of the sylvan celestials and masters of the elf-haunted forests called wodes, wode elves see all forests as their domain by birthright. They know and enjoy their reputation among humans for snatching children who wander too far into the woods. Humans should fear the trees.",
+    "updated": "2026-10-01",
+    "zh": "幻林精靈是幽木天靈的後裔，掌管著妖精盤據的「幻林」，並將所有森林視為他們與生俱來的領地。他們知道自己在人類之間的不良名聲（會擄走深入樹林的孩童），也樂於維持那種恐怖形象。因為在幻林精靈看來，人類理應畏懼樹林。"
+  },
+  "heroes.ancestries.wode-elf.description.2": {
+    "en": "The wode elves’ natural ability to mask their presence, called glamor, complements their guerilla style of fighting, letting them strike quickly from cover and then meld back into the underbrush. These traits also make the relatively few wode elves who dwell in cities naturally adept at urban warfare.",
+    "updated": "2026-10-01",
+    "zh": "幻林精靈天生善於隱匿行蹤（這種能力稱為魅術），這與他們的游擊戰術相得益彰：他們能從掩蔽處迅速發動襲擊，隨後悄然融入灌木叢裡。這些特質也讓少數居住在都市中的幻林精靈天生就擅長錯綜複雜的城鎮巷戰。"
+  },
+  "heroes.ancestries.wode-elf.name": {
+    "en": "Wode Elf",
+    "updated": "2026-10-01",
+    "zh": "幻林精靈"
+  },
+  "heroes.ancestries.wode-elf.purchased.heading": {
+    "en": "Purchased Wode Elf Traits",
+    "updated": "2026-10-01",
+    "zh": "自購幻林精靈特性"
+  },
+  "heroes.ancestries.wode-elf.purchased.intro": {
+    "en": "You have 3 ancestry points to spend on the following traits.",
+    "updated": "2026-10-01",
+    "zh": "你有 3 點族裔點數，可以用來購買以下特性。"
+  },
+  "heroes.ancestries.wode-elf.quick-build": {
+    "en": "Quick Build: Swift, Otherworldly Grace.",
+    "updated": "2026-10-01",
+    "zh": "速選：迅捷步伐、非凡優雅。"
+  },
+  "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect": {
+    "en": "You can magically alter your appearance to better blend in with your surroundings. You gain an edge on tests made to hide and sneak, and tests made to search for you while you are hidden take a bane.",
+    "updated": "2026-10-01",
+    "zh": "你可以運用魔法改變外表，讓自己更容易融入周遭環境。當你進行躲藏和潛行的考驗時，你會獲得 1 個優勢。此外，當你處於隱藏時，其他生物試圖搜索你的考驗都會承受 1 個劣勢。"
+  },
+  "heroes.ancestries.wode-elf.signature.wode-elf-glamor.name": {
+    "en": "Wode Elf Glamor",
+    "updated": "2026-10-01",
+    "zh": "幻林精靈魅術"
+  },
+  "heroes.ancestries.wode-elf.summary": {
+    "en": "Lithe humanoids with finely furred skin in all shades of blue, wode elves have angular features and large, pointed ears akin to a bat’s. They possess a supernatural glamor that allows them to blend in with their surroundings when they wish to hide.",
+    "updated": "2026-10-01",
+    "zh": "幻林精靈是身形修長的類人生物，皮膚覆蓋各種藍色調的細毛，輪廓分明，長有蝙蝠般的大型尖耳。他們擁有超常的魅術，能融入周遭環境而不被察覺。"
+  },
+  "heroes.ancestries.wode-elf.trait.forest-walk.effect": {
+    "en": "You can shift into and while within difficult terrain.",
+    "updated": "2026-10-01",
+    "zh": "你可以遁移進入困難地形，也可以在困難地形中遁移。"
+  },
+  "heroes.ancestries.wode-elf.trait.forest-walk.name": {
+    "en": "Forest Walk",
+    "updated": "2026-10-01",
+    "zh": "林間穿行"
+  },
+  "heroes.ancestries.wode-elf.trait.otherworldly-grace.effect": {
+    "en": "Your elf body and mind can’t be contained for long. Whenever you make a saving throw, you succeed on a roll of 5 or higher.",
+    "updated": "2026-10-01",
+    "zh": "你的精靈身軀與心智難以被拘束。每當你進行豁免時，擲出 5 以上就算成功。"
+  },
+  "heroes.ancestries.wode-elf.trait.otherworldly-grace.name": {
+    "en": "Otherworldly Grace",
+    "updated": "2026-10-01",
+    "zh": "非凡優雅"
+  },
+  "heroes.ancestries.wode-elf.trait.quick-and-brutal.effect": {
+    "en": "Whenever you score a critical hit, you can take an additional main action and an additional move action instead of just a main action.",
+    "updated": "2026-10-01",
+    "zh": "每當你造成暴擊時，你不僅能額外執行 1 個主要動作，還能額外執行 1 個移動動作。"
+  },
+  "heroes.ancestries.wode-elf.trait.quick-and-brutal.name": {
+    "en": "Quick and Brutal",
+    "updated": "2026-10-01",
+    "zh": "迅猛殘暴"
+  },
+  "heroes.ancestries.wode-elf.trait.revisit-memory.effect": {
+    "en": "Accessing memories is as easy as living in the present for you. You gain an edge on tests made to recall lore.",
+    "updated": "2026-10-01",
+    "zh": "對你而言，重拾記憶就像活在當下一樣自然。當你進行回想知識的考驗時，你會獲得 1 個優勢。"
+  },
+  "heroes.ancestries.wode-elf.trait.revisit-memory.name": {
+    "en": "Revisit Memory",
+    "updated": "2026-10-01",
+    "zh": "重溫記憶"
+  },
+  "heroes.ancestries.wode-elf.trait.swift.effect": {
+    "en": "You have speed 6.",
+    "updated": "2026-10-01",
+    "zh": "你的速度為 6。"
+  },
+  "heroes.ancestries.wode-elf.trait.swift.name": {
+    "en": "Swift",
+    "updated": "2026-10-01",
+    "zh": "迅捷步伐"
+  },
+  "heroes.ancestries.wode-elf.trait.the-wode-defends.effect": {
+    "en": "You have the following signature ability. Signature abilities can be used at will.",
+    "updated": "2026-10-01",
+    "zh": "你獲得以下招牌招式。"
+  },
+  "heroes.ancestries.wode-elf.trait.the-wode-defends.name": {
+    "en": "The Wode Defends",
+    "updated": "2026-10-01",
+    "zh": "幻林護衛"
+  },
+  "heroes.ancestries.wode-elf.trait.the-wode-defends.tagline": {
+    "en": "Thorny vines erupt from every surface and attempt to bind your foe.",
+    "updated": "2026-10-01",
+    "zh": "尖刺藤蔓從四周地表竄出，試圖纏繞你的敵人。"
+  },
+  "heroes.ancestries.wode-elf.traits.heading": {
+    "en": "Wode Elf Traits",
+    "updated": "2026-10-01",
+    "zh": "幻林精靈特性"
+  },
+  "heroes.ancestries.wode-elf.traits.intro": {
+    "en": "Wode elf heroes have access to the following traits.",
+    "updated": "2026-10-01",
+    "zh": "幻林精靈英雄可以獲得以下特性。"
+  },
+  "heroes.background.culture.alertness-sidebar.heading": {
+    "en": "But I Really Want Alertness",
+    "updated": "2026-10-02",
+    "zh": "但我真的很想要「警覺」"
+  },
+  "heroes.background.culture.alertness-sidebar.rules": {
+    "en": "If the culture you create doesn’t grant a skill that you want, check with your Director about modifying what the culture’s aspects offer. For instance, you can easily make the case that a culture with the noble upbringing aspect should give a character access to the Alertness skill, given that living among those who covet your power means always being aware of your surroundings.",
+    "updated": "2026-10-02",
+    "zh": "如果你建立的文化沒有提供你想要的技能，可以詢問導演是否能修改各文化面向所提供的選項。例如，你完全可以主張，擁有「貴族」成長經歷的文化應該讓角色可以選擇「警覺」技能；畢竟，生活在那些覬覦你權力的人群之中，就代表你必須時時留意周遭。"
+  },
+  "heroes.background.culture.archetypical.artisan-guild": {
+    "en": "Artisan guild Urban Bureaucratic Creative",
+    "updated": "2026-10-02",
+    "zh": "工匠公會｜城市｜官僚｜創作"
+  },
+  "heroes.background.culture.archetypical.borderland-homestead": {
+    "en": "Borderland homestead Wilderness Communal Labor",
+    "updated": "2026-10-02",
+    "zh": "邊境家園｜荒野｜平權｜勞動"
+  },
+  "heroes.background.culture.archetypical.college-conclave": {
+    "en": "College conclave Urban Bureaucratic Academic",
+    "updated": "2026-10-02",
+    "zh": "學院集會｜城市｜官僚｜學術"
+  },
+  "heroes.background.culture.archetypical.criminal-gang": {
+    "en": "Criminal gang Urban Communal Lawless",
+    "updated": "2026-10-02",
+    "zh": "犯罪幫派｜城市｜平權｜法外"
+  },
+  "heroes.background.culture.archetypical.farming-village": {
+    "en": "Farming village Rural Bureaucratic Labor",
+    "updated": "2026-10-02",
+    "zh": "農耕村落｜鄉村｜官僚｜勞動"
+  },
+  "heroes.background.culture.archetypical.heading": {
+    "en": "Archetypical Cultures",
+    "updated": "2026-10-02",
+    "zh": "文化範例"
+  },
+  "heroes.background.culture.archetypical.herding-community": {
+    "en": "Herding community Nomadic Communal Labor",
+    "updated": "2026-10-02",
+    "zh": "牧民社群｜遊牧｜平權｜勞動"
+  },
+  "heroes.background.culture.archetypical.knightly-order": {
+    "en": "Knightly order Secluded Bureaucratic Martial",
+    "updated": "2026-10-02",
+    "zh": "騎士團｜隱居｜官僚｜尚武"
+  },
+  "heroes.background.culture.archetypical.laborer-neighborhood": {
+    "en": "Laborer neighborhood Urban Communal Labor",
+    "updated": "2026-10-02",
+    "zh": "勞工社區｜城市｜平權｜勞動"
+  },
+  "heroes.background.culture.archetypical.mercenary-band": {
+    "en": "Mercenary band Nomadic Bureaucratic Martial",
+    "updated": "2026-10-02",
+    "zh": "傭兵團｜遊牧｜官僚｜尚武"
+  },
+  "heroes.background.culture.archetypical.merchant-caravan": {
+    "en": "Merchant caravan Nomadic Bureaucratic Creative",
+    "updated": "2026-10-02",
+    "zh": "商隊｜遊牧｜官僚｜創作"
+  },
+  "heroes.background.culture.archetypical.monastic-order": {
+    "en": "Monastic order Secluded Bureaucratic Academic",
+    "updated": "2026-10-02",
+    "zh": "修道會｜隱居｜官僚｜學術"
+  },
+  "heroes.background.culture.archetypical.noble-house": {
+    "en": "Noble house Urban Bureaucratic Noble",
+    "updated": "2026-10-02",
+    "zh": "貴族世家｜城市｜官僚｜貴族"
+  },
+  "heroes.background.culture.archetypical.outlaw-band": {
+    "en": "Outlaw band Wilderness Communal Lawless",
+    "updated": "2026-10-02",
+    "zh": "亡命團體｜荒野｜平權｜法外"
+  },
+  "heroes.background.culture.archetypical.pirate-crew": {
+    "en": "Pirate crew Nomadic Communal Lawless",
+    "updated": "2026-10-02",
+    "zh": "海盜團｜遊牧｜平權｜法外"
+  },
+  "heroes.background.culture.archetypical.telepathic-hive": {
+    "en": "Telepathic hive Secluded Communal Creative",
+    "updated": "2026-10-02",
+    "zh": "心靈巢穴｜隱居｜平權｜創作"
+  },
+  "heroes.background.culture.archetypical.traveling-entertainers": {
+    "en": "Traveling entertainers Nomadic Communal Creative",
+    "updated": "2026-10-02",
+    "zh": "巡迴藝人｜遊牧｜平權｜創作"
+  },
+  "heroes.background.culture.benefits.heading": {
+    "en": "Culture Benefits",
+    "updated": "2026-10-02",
+    "zh": "文化增益"
+  },
+  "heroes.background.culture.benefits.rules": {
+    "en": "The culture you choose or create grants you the following benefits: ¥ You know the language of your culture, in addition to knowing Caelian. ¥ From the environment, organization, and upbringing aspects of your culture, you gain access to skills. You can select one skill from each aspect’s list of options. (Skills in Chapter 9: Tests has information on the part skills play in the game.) ¥ You gain an edge on tests made to recall lore about your culture, and on tests made to influence and interact with people of your culture. (See Edges and Banes in Chapter 1: The Basics.)",
+    "updated": "2026-10-02",
+    "zh": "你選擇或創建的文化會給你以下好處：\n• 除了凱利安語（通用語），你還會說自己文化的語言。\n• 你可以從文化的 3 個面向——生活環境、組織型態和成長經歷——所提供的技能選項中，各選擇 1 項技能（關於技能在遊戲中的作用，請參閱第 9 章〈考驗〉的「技能」）。\n• 當你需要回憶自己文化的知識，或影響及與同文化的人互動時，你的考驗會獲得 1 個優勢（參閱第 1 章〈基礎〉的「優勢與劣勢」）。"
+  },
+  "heroes.background.culture.environment.description": {
+    "en": "Your culture’s environment aspect describes where the people of that culture spend most of their time. Is your culture centered in a bustling city or a small village? Did you spend your early life in an isolated monastery? Or did you wander the wilderness, never staying in one place for long?",
+    "updated": "2026-10-01",
+    "zh": "生活環境是指你的文化通常待在什麼地方。你是住在熱鬧的城市，還是小村莊？也許你在偏遠的修道院長大，或是像流浪者一樣在荒野中到處旅行，從不在同一個地方久留？"
+  },
+  "heroes.background.culture.environment.name": {
+    "en": "Environment",
+    "updated": "2026-10-01",
+    "zh": "生活環境"
+  },
+  "heroes.background.culture.environment.nomadic.description": {
+    "en": "A nomadic culture travels from place to place to survive. Members of a nomadic culture might follow animal migrations or the weather, travel to sell their wares or services, or simply enjoy a restless lifestyle full of new experiences and peoples. Those who grow up in nomadic cultures learn to navigate the wilderness and work closely with others to survive.",
+    "updated": "2026-10-01",
+    "zh": "遊牧文化為了生存而不斷從一個地方遷移到另一個地方。遊牧文化的成員可能會跟隨動物遷徙或氣候變化而四處旅行，販售商品或服務，或單純享受充滿全新體驗與形形色色人群的流浪生活方式。在遊牧文化中成長的人會學習如何在荒野中導航，並與他人緊密合作，以求生存。"
+  },
+  "heroes.background.culture.environment.nomadic.name": {
+    "en": "Nomadic",
+    "updated": "2026-10-01",
+    "zh": "遊牧"
+  },
+  "heroes.background.culture.environment.nomadic.skill-options": {
+    "en": "Skill Options: One skill from the exploration or interpersonal skill groups. (Quick Build: Navigate.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從探索類技能或交涉類技能中選擇 1 項技能（速選：導航）。"
+  },
+  "heroes.background.culture.environment.rules": {
+    "en": "When you build a culture, select its environment aspect from the following options: nomadic, rural, secluded, urban, or wilderness. You gain skill options from your chosen environment. All of these environments can be found in any sort of terrain, whether aboveground, in subterranean caverns, deep in trackless forest, or even underwater.",
+    "updated": "2026-10-01",
+    "zh": "建立文化時，從以下選項中選擇你「生活環境」的面向：遊牧、鄉村、隱居、城市或荒野。你會根據所選的生活環境獲得技能選項。這些生活環境可以出現在任何類型的地形中，無論是地表、地下洞窟、杳無人跡的森林深處，甚至水下。"
+  },
+  "heroes.background.culture.environment.rural.description": {
+    "en": "A rural culture is one located in a town, village, or smaller settled enclave. People dwelling in such places often cultivate the land, trade goods or services with travelers passing through, harvest fish from the sea, or mine metals and gems from the earth. Living among a small population, most folks in a rural community learn a trade and are handed down bits of essential knowledge to help their community survive. For example, when a rural culture has only one blacksmith, it’s important to have an apprentice already learning at the anvil well before that smith starts to get old. If the only priest in town gets the sniffles, folks want an acolyte ready to wear the fancy robes should the worst occur.",
+    "updated": "2026-10-01",
+    "zh": "鄉村文化存在於小鎮、村莊或更小的聚落。住在這些地方的人們通常會耕種土地、與過路旅人交易商品或服務、從海裡捕魚，或從地底開採金屬和寶石。\n\n在人口稀少的環境中，鄉村社區的大多數居民都會學習一門手藝，並傳承對社區生存至關重要的基本知識。例如，如果鄉村只有一名鐵匠，在這位鐵匠年老之前，必須找個學徒在鐵砧旁學習。如果鎮上唯一的祭司感冒了，居民們會希望有位侍僧能在最壞情況發生時穿上那華麗的長袍。"
+  },
+  "heroes.background.culture.environment.rural.name": {
+    "en": "Rural",
+    "updated": "2026-10-01",
+    "zh": "鄉村"
+  },
+  "heroes.background.culture.environment.rural.skill-options": {
+    "en": "Skill Options: One skill from the crafting or lore skill groups. (Quick Build: Nature.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從工藝類技能或學識類技能中選擇 1 項技能（速選：自然）。"
+  },
+  "heroes.background.culture.environment.secluded.description": {
+    "en": "A secluded culture is based in one relatively close-quarters structure—a building, a cavern, and so forth—and interacts with other cultures only rarely. Such places are often buildings or complexes such as monasteries, castles, or prisons. Folk in a secluded culture have little or no reason to leave their home or interact with other cultures on the outside, but might have an awareness of those cultures and of events happening beyond their enclave. When people live together in close quarters, they typically learn to get along. They often spend much time in study or introspection, as there is not much else to do in seclusion.",
+    "updated": "2026-10-01",
+    "zh": "隱居文化存在於單一且相對狹小的結構中（例如建築物或洞穴），幾乎不會與外界文化有所互動。這類場所大多為修道院、城堡或監獄等建築物或建築群。生活在隱居文化中的人很少有離開家園或與外界文化往來的需求，但他們仍然可以察覺外界文化的存在，以及了解家鄉之外發生的事情。\n\n在狹小空間中共同生活的人，往往會培養出和睦相處的能力。由於隱居環境的活動受限，他們大多將時間投注在學習和自我反思上。"
+  },
+  "heroes.background.culture.environment.secluded.name": {
+    "en": "Secluded",
+    "updated": "2026-10-01",
+    "zh": "隱居"
+  },
+  "heroes.background.culture.environment.secluded.skill-options": {
+    "en": "Skill Options: One skill from the interpersonal or lore skill groups. (Quick Build: Read Person.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從交涉類技能或學識類技能中選擇 1 項技能（速選：觀色）。"
+  },
+  "heroes.background.culture.environment.urban.description": {
+    "en": "An urban culture is always centered in a city. Such a culture might arise within the walls of Capital, a massive metropolis with a cosmopolitan population; within a network of caverns that hold an underground city; or in any other place where a large population lives relatively close together. The people of urban cultures often learn to effectively misdirect others in order to navigate the crowds and the political machinations that can come with city life.",
+    "updated": "2026-10-01",
+    "zh": "城市文化始終以城市為中心。這種文化可能會出現在元城的城牆之內（那是一座擁有多元人口的巨大都市）；或在容納地下城市的洞穴網路中形成；又或是在任何人口密集且緊密居住的地方自然發展。城市文化的居民通常善於誤導他人、在人群中自由穿行，以及應對城市生活中無所不在的政治角力。"
+  },
+  "heroes.background.culture.environment.urban.name": {
+    "en": "Urban",
+    "updated": "2026-10-01",
+    "zh": "城市"
+  },
+  "heroes.background.culture.environment.urban.skill-options": {
+    "en": "Skill Options: One skill from the interpersonal or intrigue skill groups. (Quick Build: Alertness.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從交涉類技能或諜報類技能中選擇 1 項技能（速選：警覺）。"
+  },
+  "heroes.background.culture.environment.wilderness.description": {
+    "en": "A wilderness culture doesn’t try to tame the terrain in which its people live, whether desert, forest, swamp, tundra, ocean, or more exotic climes. Instead, the folk of such a culture thrive amid nature, taking their sustenance and shelter from the land. A wilderness culture might be a circle of druids protecting a remote wode, a band of brigands hiding out in desert caves, or a camp of orc mercenaries who call the trackless mountains home. People in a wilderness culture learn how to use the land for all they need to live, typically crafting their own tools, clothing, and more.",
+    "updated": "2026-10-01",
+    "zh": "荒野文化的人民不會試圖征服他們居住的地方，無論是沙漠、森林、沼澤、凍原、海洋，還是更特殊的環境。相反地，荒野文化與大自然和諧共生，從土地獲取食物與庇護。荒野文化可能是守護偏僻幻林的德魯伊結社、潛居在沙漠洞穴中的盜匪隊伍，或是將無路可循的群山視為家園的歐克傭兵團。在荒野文化中成長的人們懂得如何善用土地來滿足生活所需，通常也會親手製作工具與衣物等用品。"
+  },
+  "heroes.background.culture.environment.wilderness.name": {
+    "en": "Wilderness",
+    "updated": "2026-10-01",
+    "zh": "荒野"
+  },
+  "heroes.background.culture.environment.wilderness.skill-options": {
+    "en": "Skill Options: One skill from the crafting or exploration skill groups. (Quick Build: Endurance.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從工藝類技能或探索類技能中選擇 1 項技能（速選：耐力）。"
+  },
+  "heroes.background.culture.language.description": {
+    "en": "Your culture’s language aspect determines how the people of your culture communicate. Languages in Orden below discusses the many languages of the world of Orden, including Caelian—the language of the fallen empire that once dominated that world.",
+    "updated": "2026-10-02",
+    "zh": "語言決定了你文化中的人們如何交流。下方的「歐爾登的語言」會介紹歐爾登世界中的眾多語言，其中包括凱利安語——曾經統治這個世界、如今已滅亡之帝國所使用的語言。"
+  },
+  "heroes.background.culture.language.name": {
+    "en": "Language",
+    "updated": "2026-10-02",
+    "zh": "語言"
+  },
+  "heroes.background.culture.name": {
+    "en": "Culture",
+    "updated": "2026-10-01",
+    "zh": "文化"
+  },
+  "heroes.background.culture.organization.bureaucratic.description": {
+    "en": "Bureaucratic cultures are steeped in official leadership and formally recorded laws. Members of such a culture are often ranked in power according to those laws, with a small group of people holding the power to rule according to birthright, popular vote, or some other official and measurable standard. Many bureaucratic communities have one person at the top, though others might be ruled by a council. A trade guild with a guildmaster, treasurer, secretary, and a charter of rules and regulations for membership; a feudal lord who rules over a group of knights who in turn rule over peasants working the land; and a militaristic society with ranks and rules that its people must abide are all examples of bureaucratic cultures. Those who thrive in bureaucratic cultures don’t simply follow the rules. They know how to use those rules to their advantage, either bending, changing, or reinterpreting policy to advance their own interests. Schmoozing with those who make the laws is often key to this approach. Others in a bureaucratic culture might specialize in operating outside the strict regulations that govern the culture without getting caught.",
+    "updated": "2026-10-01",
+    "zh": "官僚文化深深根植於正式的領導制度與成文法律。在這種文化中，成員依據法律獲得不同的權力階級，而統治權則掌握在少數人手中，他們透過血統繼承、民眾投票或其他正式且可量化的標準來獲得權力。大多數官僚社群由一位最高統治者領導，但有些則採用議會制。官僚文化的典型例子包括：設有公會長、司庫、祕書，並訂有會員規章的商業公會；統治一群騎士，而這些騎士又統治農民的封建領主；以及設有階級與成員必須遵守之規則的軍事社會。\n\n在官僚文化中茁壯成長的人並非只是盲目遵守規則。無論是透過曲解、修改或重新詮釋政策，他們都善於運用這些規則來謀取私利並達成個人目標，與立法者建立良好的關係更是成功的關鍵。此外，官僚文化中也有一群人專門在不引人注目的情況下，在嚴格的體制外靈活運作。"
+  },
+  "heroes.background.culture.organization.bureaucratic.name": {
+    "en": "Bureaucratic",
+    "updated": "2026-10-01",
+    "zh": "官僚"
+  },
+  "heroes.background.culture.organization.bureaucratic.skill-options": {
+    "en": "Skill Options: One skill from the interpersonal or intrigue skill groups. (Quick Build: Persuade.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從交涉類技能或諜報類技能中選擇 1 項技能（速選：遊說）。"
+  },
+  "heroes.background.culture.organization.communal.description": {
+    "en": "A communal culture is a place where all members of the culture are considered equal. The community works together to make important decisions that affect the majority of the culture. While they elect leaders to carry out these decisions and organize their efforts, each person has a relatively equal say in how the culture operates, and everyone contributes to help their people survive and thrive. Individuals often share the burdens of governing, physical labor, childcare, and other duties. A collective of farmers who work together to cultivate and protect their land without a noble, a city of pirates where each person can do as they wish, and a traveling theatrical troupe whose members vote on every artistic and administrative decision are all communal cultures. Many communal cultures operate outside settled lands, sticking to the wilds, a specific district in a larger settlement, city sewers, forgotten ruins, or other isolated places. For even when such cultures are harmless, their members know that outsiders might try to impose rules upon them if they live in the same place. As such, many folks in communal cultures focus on fending for themselves while avoiding the danger that other groups can represent.",
+    "updated": "2026-10-01",
+    "zh": "平權文化是一個所有成員皆平等的地方，社群會共同做出影響多數成員的重要決策。雖然他們會選出領袖來執行決策並組織事務，但每個人都有相對平等的發言權來決定文化的運作方向，且人人都會為社群的生存與茁壯貢獻心力。成員會分擔治理、勞動、育兒及其他職責。平權文化的典型例子包括：沒有貴族管轄、共同耕作並守護土地的農民團體；人人自由的海盜城市；以及所有成員都能對藝術和行政決策投票的巡迴劇團。\n\n許多平權文化選擇不在已開發地區之內活動，而是主要活躍於荒野、大型聚落的特定區域、城市下水道、被遺忘的廢墟，或其他與世隔絕的地方。即使這些文化本身無害，成員也知道，如果與外人住在同一個地方，外人可能會試圖把規則強加在他們身上。因此，平權文化的人們大多專注於自給自足的生活，同時謹慎地避開其他群體可能帶來的威脅。"
+  },
+  "heroes.background.culture.organization.communal.name": {
+    "en": "Communal",
+    "updated": "2026-10-01",
+    "zh": "平權"
+  },
+  "heroes.background.culture.organization.communal.skill-options": {
+    "en": "Skill Options: One skill from the crafting or exploration skill groups. (Quick Build: Jump.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從工藝類技能或探索類技能中選擇 1 項技能（速選：跳躍）。"
+  },
+  "heroes.background.culture.organization.description": {
+    "en": "Your culture’s organization aspect determines the functioning and leadership of your community. You might come from a place with an officially recognized government and a system of laws. Or your culture might have enjoyed a less-formal organization, with the people in charge having naturally gravitated toward their positions without any official offices or oaths.",
+    "updated": "2026-10-01",
+    "zh": "組織型態決定了你社區的運作和領導方式。你可能來自有正式政府和法律的地方，或者你的文化可能比較不正式，領導者是自然產生的，沒有官方職位或誓言。"
+  },
+  "heroes.background.culture.organization.name": {
+    "en": "Organization",
+    "updated": "2026-10-01",
+    "zh": "組織型態"
+  },
+  "heroes.background.culture.organization.rules": {
+    "en": "When you build a culture, select its organization aspect from the following options: bureaucratic or communal. You gain skill options from your chosen system of organization.",
+    "updated": "2026-10-01",
+    "zh": "建立文化時，從以下選項中選擇你「組織型態」的面向：官僚或平權。你會根據所選的組織型態獲得技能選項。"
+  },
+  "heroes.background.culture.overview.1": {
+    "en": "A hero’s culture describes the beliefs, customs, values, and way of life held by the community in which they were raised. This community provides life experiences that give a character some of their game statistics. Even if a hero doesn’t share their culture’s values, those values shaped their early development and way of life. In fact, some people become heroes primarily from the rejection of the ways of their culture.",
+    "updated": "2026-10-02",
+    "zh": "英雄的文化是他們在成長過程中的信仰、習俗、價值觀和生活方式。這些生活經驗決定了英雄在遊戲中的一些數據。就算英雄不認同自己文化的價值觀，這些價值觀仍然影響了他們的早期發展。有些人甚至是因為反抗自己的文化而成為英雄。"
+  },
+  "heroes.background.culture.overview.2": {
+    "en": "For our purposes, a hero’s culture represents people, not a place. Yes, you might have grown up in the great city of Capital, but your culture is more specific than that. One hero’s culture might be House Alvaro, a noble house in Capital where they were raised. Another’s culture could be a group or organization that moves around, such as a band of pirates or a secret order of sorcerers sworn to protect books of fell magic. It helps to get specific when thinking about your culture, and working with the four aspects of a culture can help you do that: language, environment, organization, and upbringing.",
+    "updated": "2026-10-02",
+    "zh": "在遊戲中，英雄的文化指的是人群，而不是地點。你可能在元城長大，但你的文化比這更具體。例如，一名英雄的文化可能是元城的貴族「奧瓦羅家族」，也就是他成長的家族；另一名英雄的文化則可能是四處移動的團體或組織，例如海盜團，或立誓守護邪異魔法典籍的祕密巫師組織。思考你的文化時，具體一些會很有幫助，而文化的 4 個面向可以協助你做到這點：語言、生活環境、組織型態與成長經歷。"
+  },
+  "heroes.background.culture.typical.devil": {
+    "en": "Devil Anjali Urban Bureaucratic Academic",
+    "updated": "2026-10-02",
+    "zh": "魔鬼｜安賈利語｜城市｜官僚｜學術"
+  },
+  "heroes.background.culture.typical.dragon-knight": {
+    "en": "Dragon knight Vastariax Secluded Bureaucratic Martial",
+    "updated": "2026-10-02",
+    "zh": "龍騎士｜華斯塔里亞語｜隱居｜官僚｜尚武"
+  },
+  "heroes.background.culture.typical.dwarf": {
+    "en": "Dwarf Zaliac Secluded Bureaucratic Creative",
+    "updated": "2026-10-02",
+    "zh": "矮人｜札力語｜隱居｜官僚｜創作"
+  },
+  "heroes.background.culture.typical.hakaan": {
+    "en": "Hakaan Vhoric Rural Communal Labor",
+    "updated": "2026-10-02",
+    "zh": "哈肯人｜沃瑞語｜鄉村｜平權｜勞動"
+  },
+  "heroes.background.culture.typical.heading": {
+    "en": "Typical Ancestry Cultures",
+    "updated": "2026-10-02",
+    "zh": "典型族裔文化"
+  },
+  "heroes.background.culture.typical.high-elf": {
+    "en": "High elf Hyrallic Secluded Bureaucratic Martial",
+    "updated": "2026-10-02",
+    "zh": "高等精靈｜赫拉語｜隱居｜官僚｜尚武"
+  },
+  "heroes.background.culture.typical.human": {
+    "en": "Human Vaslorian Urban Communal Labor",
+    "updated": "2026-10-02",
+    "zh": "人類｜華斯洛里亞語｜城市｜平權｜勞動"
+  },
+  "heroes.background.culture.typical.memonek": {
+    "en": "Memonek Axiomatic Nomadic Communal Academic",
+    "updated": "2026-10-02",
+    "zh": "梅莫人｜公理語｜遊牧｜平權｜學術"
+  },
+  "heroes.background.culture.typical.orc": {
+    "en": "Orc Kalliak Wilderness Communal Creative",
+    "updated": "2026-10-02",
+    "zh": "歐克｜卡力語｜荒野｜平權｜創作"
+  },
+  "heroes.background.culture.typical.polder": {
+    "en": "Polder Khoursirian Urban Communal Creative",
+    "updated": "2026-10-02",
+    "zh": "波德人｜科爾瑟語｜城市｜平權｜創作"
+  },
+  "heroes.background.culture.typical.time-raider": {
+    "en": "Time raider Voll Nomadic Communal Martial",
+    "updated": "2026-10-02",
+    "zh": "時空獵手｜沃爾語｜遊牧｜平權｜尚武"
+  },
+  "heroes.background.culture.typical.wode-elf": {
+    "en": "Wode elf Yllyric Wilderness Bureaucratic Martial",
+    "updated": "2026-10-02",
+    "zh": "幻林精靈｜伊林語｜荒野｜官僚｜尚武"
+  },
+  "heroes.background.culture.upbringing.academic.description": {
+    "en": "Your hero was raised by people who collect, study, and share books and other records. Some academics focus on one area of study, such as a college for wizards dedicated to the study of magic, or a church that teaches the word of one deity. People in an academic culture learn how to wield the power that is knowledge.",
+    "updated": "2026-10-01",
+    "zh": "你的英雄由那些收藏、研讀並分享書籍與其他紀錄的人們撫養長大。有些學者專精於特定領域，例如致力於魔法研究的法師學院，或是專門傳授某位神明教義的教會。在學術環境中成長的人，都懂得如何運用知識的力量。"
+  },
+  "heroes.background.culture.upbringing.academic.name": {
+    "en": "Academic",
+    "updated": "2026-10-01",
+    "zh": "學術"
+  },
+  "heroes.background.culture.upbringing.academic.skill-options": {
+    "en": "Skill Options: One skill from the lore skill group. (Quick Build: History.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從學識類技能中選擇 1 項技能（速選：歷史）。"
+  },
+  "heroes.background.culture.upbringing.creative.description": {
+    "en": "A hero with a creative upbringing was raised among folk who create art or other works valuable enough to trade. A creative culture might produce fine art such as dance, music, or sculpture, or more practical wares such as wagons, weapons, tools, or buildings. People in such cultures learn the value of quality crafting and attention to detail.",
+    "updated": "2026-10-01",
+    "zh": "擁有創作成長經歷的英雄是在善於創作藝術或其他具有交易價值作品的群體中長大的。創作文化可能會創作出舞蹈、音樂、雕塑等精緻藝術，或製造馬車、武器、工具、建築等實用物品。在這樣的文化薰陶下，人們自然會培養出對精湛工藝和細節的重視。"
+  },
+  "heroes.background.culture.upbringing.creative.name": {
+    "en": "Creative",
+    "updated": "2026-10-01",
+    "zh": "創作"
+  },
+  "heroes.background.culture.upbringing.creative.skill-options": {
+    "en": "Skill Options: The Music or Perform skill (from the interpersonal skill group), or one skill from the crafting group. (Quick Build: Perform.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從「音樂」、「表演」（交涉類技能）或工藝類技能中選擇 1 項技能（速選：表演）。"
+  },
+  "heroes.background.culture.upbringing.description": {
+    "en": "Your culture’s upbringing aspect is a more specific and personal part of your hero’s story, describing how you were raised within your culture. Were you trained to become the newest archmage in a secret order of wizards, or to be a sword-wielding bodyguard who protected that arcane organization? Did you learn to delve deep into mines looking for ore in a mountain kingdom, or did you build machines meant to dig faster and deeper than any person could alone? Whatever your culture, your upbringing makes you special within that culture.",
+    "updated": "2026-10-01",
+    "zh": "成長經歷是指你在文化中如何被撫養長大。這是英雄故事中更具體、更個人的部分。你可能被訓練成祕密巫師組織的新任大法師，或是持劍保護該祕法組織的護衛。也許你在山地王國學會深入礦坑尋找礦石，或是製造能比任何人單獨挖得更快、更深的機械。無論你的文化是什麼，你的成長經歷都會讓你在其中變得與眾不同。"
+  },
+  "heroes.background.culture.upbringing.labor.description": {
+    "en": "Your hero came of age in a culture where people labored for a living. They might have been cultivators, typically raising crops or livestock on a farm. They might have harvested natural resources, whether by hunting, trapping, logging, or mining. Or they might have excelled at manual labor tied to settlement and trade, such as construction, carting, loading cargo, and so forth. People with a labor upbringing know the value of hard work.",
+    "updated": "2026-10-01",
+    "zh": "你的英雄成長於一個靠勞動為生的文化中。勞動文化的人可能是耕作者，在農場裡種植作物或飼養牲畜；也可能是透過狩獵、設陷阱、伐木或採礦等方式採集自然資源的人；又或是在與聚落及貿易相關的勞力工作上表現出色，例如建築、運輸、裝卸貨物等。具有勞動成長經歷的人，深知辛勤工作的價值。"
+  },
+  "heroes.background.culture.upbringing.labor.name": {
+    "en": "Labor",
+    "updated": "2026-10-01",
+    "zh": "勞動"
+  },
+  "heroes.background.culture.upbringing.labor.skill-options": {
+    "en": "Skill Options: The Blacksmithing skill (from the crafting skill group), the Handle Animals skill (from the interpersonal group), or a skill from the exploration group. (Quick Build: Lift.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從「鍛造」（工藝類技能）、「馴獸」（交涉類技能）或探索類技能中選擇 1 項技能（速選：舉重）。"
+  },
+  "heroes.background.culture.upbringing.lawless.description": {
+    "en": "Your hero grew up among folk who performed activities that other people—whether within or outside their culture—considered unlawful. A band of pirates, a guild of assassins, or an organization of spies all commit unlawful acts for money. And under tyranny, people engaged in rebellion are often considered lawless in their actions and activities. People brought up in a lawless culture typically don’t mind breaking the rules when it suits them—and are good at making sure no one finds out they did.",
+    "updated": "2026-10-01",
+    "zh": "你的英雄在一群從事被他人（無論在其文化內外）視為非法活動的人們中長大。海盜團、刺客公會或間諜組織都為金錢而進行非法行為。在暴政統治下，參與叛亂的人們也常被視為法外之徒。在這種文化中成長的人通常不介意為了私利而違反規則，而且還很擅長確保沒人發現自己的所作所為。"
+  },
+  "heroes.background.culture.upbringing.lawless.name": {
+    "en": "Lawless",
+    "updated": "2026-10-01",
+    "zh": "法外"
+  },
+  "heroes.background.culture.upbringing.lawless.skill-options": {
+    "en": "Skill Options: One skill from the intrigue skill group. (Quick Build: Sneak.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從諜報類技能中選擇 1 項技能（速選：潛行）。"
+  },
+  "heroes.background.culture.upbringing.martial.description": {
+    "en": "A hero with a martial upbringing was raised by warriors. These might have been the soldiers of an established army, a band of mercenaries, a guild of monster-slaying adventurers, or any other folk whose lives revolve around combat. Heroes with a martial upbringing are always ready for a fight—and they know how to finish that fight.",
+    "updated": "2026-10-01",
+    "zh": "擁有尚武成長經歷的英雄從小在戰士的薰陶下成長。這些戰士可能來自正規軍隊、傭兵團、專門獵殺怪物的冒險者公會，或其他生活圍繞著戰鬥的人們。擁有尚武成長經歷的英雄隨時準備迎戰，更重要的是，他們知道如何結束戰鬥。"
+  },
+  "heroes.background.culture.upbringing.martial.name": {
+    "en": "Martial",
+    "updated": "2026-10-01",
+    "zh": "尚武"
+  },
+  "heroes.background.culture.upbringing.martial.skill-options": {
+    "en": "Skill Options: One of the following: Blacksmithing or Fletching from the crafting skill group; Climb, Endurance, or Ride from the exploration group; Intimidate from the interpersonal group; Alertness or Track from the intrigue group; or Monsters or Strategy from the lore skill group (Quick Build: Intimidate.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從以下技能中選擇 1 項：工藝類技能的「鍛造」或「製箭」；探索類技能的「攀爬」、「耐力」或「騎術」；交涉類技能的「威嚇」；諜報類技能的「警覺」或「追蹤」；或學識類技能的「怪物」或「戰略」（速選：威嚇）。"
+  },
+  "heroes.background.culture.upbringing.name": {
+    "en": "Upbringing",
+    "updated": "2026-10-01",
+    "zh": "成長經歷"
+  },
+  "heroes.background.culture.upbringing.noble.description": {
+    "en": "Your hero grew up among leaders who rule over others and play the games of politics to maintain power. Many families are nobles by birthright, but some cultures have noble titles earned through deeds or popularity. Whatever the case, heroes with this background understand why the whispered words in the right ear can sometimes be more powerful than any army.",
+    "updated": "2026-10-01",
+    "zh": "你的英雄成長於那些統治他人並運用政治手段維持權力的領導者之中。許多家族世代皆為貴族，但在某些文化中，貴族頭銜是透過功績或聲望獲得的。無論如何，擁有這種背景的英雄都明白，對適當之人的耳語，有時比任何軍隊都更為強大。"
+  },
+  "heroes.background.culture.upbringing.noble.name": {
+    "en": "Noble",
+    "updated": "2026-10-01",
+    "zh": "貴族"
+  },
+  "heroes.background.culture.upbringing.noble.skill-options": {
+    "en": "Skill Options: One skill from the interpersonal skill group. (Quick Build: Lead.)",
+    "updated": "2026-10-01",
+    "zh": "技能選項：從交涉類技能中選擇 1 項技能（速選：領導）。"
+  },
+  "heroes.background.culture.upbringing.rules": {
+    "en": "Pick your upbringing aspect from the following list: academic, creative, labor, lawless, martial, or noble. You gain skill options from your chosen aspect.",
+    "updated": "2026-10-01",
+    "zh": "從以下選項中選擇你「成長經歷」的面向：學術、創作、勞動、法外、尚武或貴族。你會根據所選的成長經歷獲得技能選項。"
+  },
+  "heroes.background.culture.using.1": {
+    "en": "Directors can use the rules in this section to build cultures that players can choose for their characters. Players can use these rules to build a unique culture or modify an existing culture for their character, working with the Director to find the right place for that culture within the world of the campaign.",
+    "updated": "2026-10-02",
+    "zh": "導演可以使用本節規則建立文化，供玩家為角色選擇。玩家也可以運用這些規則為自己的角色建立獨特文化，或修改既有文化，並與導演合作，找出最適合這個文化存在於戰役世界中的位置。"
+  },
+  "heroes.background.culture.using.2": {
+    "en": "In many worlds, at least some cultures have a majority ancestry. The people of Bedegar, a duchy in the region of Vasloria on Orden, are mostly humans. The folk dwelling in the Great Wode, a forest realm north of Bedegar, are primarily wode elves. However, you can always choose to be from one of these cultures and take a different ancestry. A dwarf raised in the culture of the Great Wode speaks Yllyric and probably knows a lot about nature, while a dwarf raised in the dwarf thanedom of Kal Kalavar speaks Zaliac and might know a good deal about smithing.",
+    "updated": "2026-10-02",
+    "zh": "在很多世界中，至少有些文化主要由特定族裔組成。例如，在歐爾登的華斯洛里亞地區，貝德伽公國的居民大多是人類；而貝德伽北方的森林王國「大幻林」，居民主要是幻林精靈。不過，你仍然可以選擇來自這些文化，卻屬於不同的族裔。例如，在大幻林文化中長大的矮人會說伊林語，也可能很了解大自然；而在矮人領地「卡爾·卡拉瓦」文化中長大的矮人則會說札力語，也可能很熟悉鍛造技藝。"
+  },
+  "heroes.background.culture.using.3": {
+    "en": "You can build your culture one aspect at a time, or you can use the following tables if you want to assess sample cultures or make your own culture quickly. To create an archetypical culture for a hero who grew up surrounded mostly by other members of their ancestry, use or modify the aspect options on the Typical Ancestry Cultures table. (Revenants are missing from this table because they don’t gain their ancestry until after they die.) If you’d rather quickly create a culture based on a cultural archetype, such as a noble house or a pirate crew, use the Archetypical Cultures table, then add a language that fits the culture’s concept.",
+    "updated": "2026-10-02",
+    "zh": "你可以一步一步地建立文化，或者使用下面的表格快速評估範例文化或建立自己的文化。如果你的英雄主要是與同族人一起長大，可以使用或修改「典型族裔文化」表格中的面向選項（還魂屍沒有列在這張表中，因為他們是在死後才獲得自己的族裔）。如果你想基於某種文化類型快速建立文化（例如貴族世家或海盜團），可以使用「文化範例」表格，然後添加符合該文化概念的語言。"
+  },
+  "heroes.background.culture.using.heading": {
+    "en": "Using Culture",
+    "updated": "2026-10-02",
+    "zh": "使用文化"
+  },
+  "heroes.background.culture.why-build.heading": {
+    "en": "Why Build a Culture?",
+    "updated": "2026-10-02",
+    "zh": "為什麼要建立文化？"
+  },
+  "heroes.background.culture.why-build.rules": {
+    "en": "Building a character is about more than adding up your stats, picking skills and abilities, and recording that information on a character sheet. You’re building a hero—a main character in a story, be it a one-shot or a heroic campaign. Think about the personality and the past of who you are creating. That’s why the game lets you build a culture rather than simply saying, “Pick three skills and a bonus language.” We want players to imagine their heroes as complex and intricate characters.",
+    "updated": "2026-10-02",
+    "zh": "創建角色不只是計算數據、選擇技能與招式，再把這些資訊記錄在角色表上。你是在創造英雄——故事中的主角，無論是一場單次冒險，還是一段英雄戰役。好好思考你所創造角色的性格和過往。這就是為什麼遊戲讓你建立文化，而不只是說：「選擇 3 項技能和 1 種額外語言。」我們希望玩家能將自己的英雄想像成複雜而細膩的角色。"
+  },
+  "heroes.background.languages.ancestry.columns": {
+    "en": "Language | Ancestry | Notes",
+    "updated": "2026-10-02",
+    "zh": "語言｜族裔｜備註"
+  },
+  "heroes.background.languages.ancestry.heading": {
+    "en": "Languages by Ancestry",
+    "updated": "2026-10-02",
+    "zh": "依族裔分類的語言"
+  },
+  "heroes.background.languages.ancestry.row.anjali": {
+    "en": "Anjali | Devils, hobgoblins | Language of contract law",
+    "updated": "2026-10-02",
+    "zh": "安賈利語｜魔鬼、大布林｜契約法律的語言"
+  },
+  "heroes.background.languages.ancestry.row.axiomatic": {
+    "en": "Axiomatic | Memonek | Native language of Axiom, and the common language of the timescape by trade",
+    "updated": "2026-10-02",
+    "zh": "公理語｜梅莫人｜公理界母語，時界貿易的通用語"
+  },
+  "heroes.background.languages.ancestry.row.caelian": {
+    "en": "Caelian | Orden denizens | Common language of Orden",
+    "updated": "2026-10-02",
+    "zh": "凱利安語｜歐爾登居民｜歐爾登通用語"
+  },
+  "heroes.background.languages.ancestry.row.filliaric": {
+    "en": "Filliaric | Angulotls |",
+    "updated": "2026-10-02",
+    "zh": "菲利亞語｜昂蛙人｜"
+  },
+  "heroes.background.languages.ancestry.row.first-language": {
+    "en": "The First Language | Elder dragons | Language of magic",
+    "updated": "2026-10-02",
+    "zh": "太古語｜古龍｜魔法的語言"
+  },
+  "heroes.background.languages.ancestry.row.high-kuric": {
+    "en": "High Kuric | Bredbeddles, giants, ogres, trolls |",
+    "updated": "2026-10-02",
+    "zh": "高庫語｜奪首巨人、巨人、歐格、醜妖｜"
+  },
+  "heroes.background.languages.ancestry.row.hyrallic": {
+    "en": "Hyrallic | High elves | Language of interspecies diplomacy",
+    "updated": "2026-10-02",
+    "zh": "赫拉語｜高等精靈｜族裔間的外交語言"
+  },
+  "heroes.background.languages.ancestry.row.illyvric": {
+    "en": "Illyvric | Shadow elves |",
+    "updated": "2026-10-02",
+    "zh": "伊利夫語｜暗影精靈｜"
+  },
+  "heroes.background.languages.ancestry.row.kalliak": {
+    "en": "Kalliak | Orcs | Offshoot of Zaliac",
+    "updated": "2026-10-02",
+    "zh": "卡力語｜歐克｜札力語的分支"
+  },
+  "heroes.background.languages.ancestry.row.kethaic": {
+    "en": "Kethaic | Kobolds | Patois of Vastariax and Caelian",
+    "updated": "2026-10-02",
+    "zh": "克薩語｜狗頭人｜華斯塔里亞語和凱利安語的方言"
+  },
+  "heroes.background.languages.ancestry.row.khelt": {
+    "en": "Khelt | Bugbears, fey | Offshoot of Kheltivari",
+    "updated": "2026-10-02",
+    "zh": "克特語｜熊布林、妖精｜克提華里語的分支"
+  },
+  "heroes.background.languages.ancestry.row.khoursirian": {
+    "en": "Khoursirian | Polder, humans | Distant offshoot of Khamish",
+    "updated": "2026-10-02",
+    "zh": "科爾瑟語｜波德人、人類｜卡米希語的遙遠分支"
+  },
+  "heroes.background.languages.ancestry.row.low-kuric": {
+    "en": "Low Kuric | Elementals |",
+    "updated": "2026-10-02",
+    "zh": "低庫語｜元素生物｜"
+  },
+  "heroes.background.languages.ancestry.row.mindspeech": {
+    "en": "Mindspeech | Voiceless talkers | A symbolic language shared among native telepaths",
+    "updated": "2026-10-02",
+    "zh": "心靈語｜心語者｜原生傳心者共有的象徵性語言"
+  },
+  "heroes.background.languages.ancestry.row.proto-ctholl": {
+    "en": "Proto-Ctholl | Lower demons | Incomplete precursor of Tholl",
+    "updated": "2026-10-02",
+    "zh": "原墮語｜低等惡魔｜墮語的不完整前身"
+  },
+  "heroes.background.languages.ancestry.row.szetch": {
+    "en": "Szetch | Goblins, radenwights |",
+    "updated": "2026-10-02",
+    "zh": "澤奇語｜哥布林、齧裔｜"
+  },
+  "heroes.background.languages.ancestry.row.tholl": {
+    "en": "Tholl | Higher demons, gnolls |",
+    "updated": "2026-10-02",
+    "zh": "墮語｜高等惡魔、鬣狗人｜"
+  },
+  "heroes.background.languages.ancestry.row.urollialic": {
+    "en": "Urollialic | Olothec |",
+    "updated": "2026-10-02",
+    "zh": "巫羅語｜遠古蠕獸｜"
+  },
+  "heroes.background.languages.ancestry.row.variac": {
+    "en": "Variac | Olothec, trolls, voiceless talkers | Common language of the World Below",
+    "updated": "2026-10-02",
+    "zh": "華里亞語｜遠古蠕獸、醜妖、心語者｜玄冥界的通用語"
+  },
+  "heroes.background.languages.ancestry.row.vastariax": {
+    "en": "Vastariax | Dragons, dragon knights |",
+    "updated": "2026-10-02",
+    "zh": "華斯塔里亞語｜龍族、龍騎士｜"
+  },
+  "heroes.background.languages.ancestry.row.vhoric": {
+    "en": "Vhoric | Hakaan | Offshoot of the stone giant dialect of High Kuric",
+    "updated": "2026-10-02",
+    "zh": "沃瑞語｜哈肯人｜高庫語石巨人方言的分支"
+  },
+  "heroes.background.languages.ancestry.row.voll": {
+    "en": "Voll | Time raiders |",
+    "updated": "2026-10-02",
+    "zh": "沃爾語｜時空獵手｜"
+  },
+  "heroes.background.languages.ancestry.row.yllyric": {
+    "en": "Yllyric | Wode elves | Language of druids",
+    "updated": "2026-10-02",
+    "zh": "伊林語｜幻林精靈｜德魯伊的語言"
+  },
+  "heroes.background.languages.ancestry.row.zahariax": {
+    "en": "Za’hariax | Overminds |",
+    "updated": "2026-10-02",
+    "zh": "札哈里亞語｜腦魔｜"
+  },
+  "heroes.background.languages.ancestry.row.zaliac": {
+    "en": "Zaliac | Dwarves | Language of engineering",
+    "updated": "2026-10-02",
+    "zh": "札力語｜矮人｜工程學的語言"
+  },
+  "heroes.background.languages.caelian-empire.1": {
+    "en": "The Caelian Empire dominated five of the eight regions of Orden 3,000 years ago. During the height of this most recent human empire, all humans (including folks from Vanigar in the far north, but not folks from the islands of Ix) learned to speak the Caelian tongue. For many, especially the noble classes and the well-to-do, Caelian effectively replaced their native language.",
+    "updated": "2026-10-02",
+    "zh": "凱利安帝國在三千年前統治了歐爾登八個地區中的五個。在這個人類帝國的鼎盛時期，所有人類（包括極北方華尼伽的居民，但不包括伊蘇群島的居民）都學會了凱利安語。對許多人來說，尤其是貴族和富人階層，凱利安語實際上取代了他們的母語。"
+  },
+  "heroes.background.languages.caelian-empire.2": {
+    "en": "Some 1,300 years after the fall of the Caelian Empire, the languages of the different regions of the empire are enjoying a resurgence. Still, the Caelian tongue is spoken by most humans in most regions to one extent or another.",
+    "updated": "2026-10-02",
+    "zh": "凱利安帝國滅亡約一千三百年後，帝國各地區的語言正在復興。儘管如此，大多數地區的大多數人類仍多少會說凱利安語。"
+  },
+  "heroes.background.languages.caelian-empire.3": {
+    "en": "Most people in Orden can speak and understand some Caelian, simply because the empire was so powerful and so widespread. Anyone trading with the empire or living near its borders or under its influence eventually learned to speak Caelian, including dwarves, dragon knights, elves, hakaan, orcs, polders, lizardfolk, and goblins. If a person speaks more than one language in Orden, the second language is almost always Caelian. All player characters know Caelian! As a result, that language of empire is now colloquially referred to as “the common tongue”—the language that most folk of Orden have in common.",
+    "updated": "2026-10-02",
+    "zh": "由於凱利安帝國曾經如此強大，且勢力範圍極為廣闊，歐爾登大多數人都會說和聽懂一些凱利安語。任何與帝國有貿易往來、生活在帝國邊界附近，或受帝國影響的人，最終都學會了凱利安語，包括矮人、龍騎士、精靈、哈肯人、歐克、波德人、蜥蜴人和哥布林。在歐爾登，若有人會說多種語言，第二語言幾乎必定是凱利安語。所有玩家角色都懂凱利安語！正因如此，這種帝國語言如今被俗稱為「通用語」——也就是歐爾登大多數人共同使用的語言。"
+  },
+  "heroes.background.languages.caelian-empire.heading": {
+    "en": "Caelian Empire",
+    "updated": "2026-10-02",
+    "zh": "凱利安帝國"
+  },
+  "heroes.background.languages.dead.1": {
+    "en": "For an adventuring hero with an ambition to create great works or unlock deep lore, being able to read ancient writing is most useful. Much deep lore is attested only in ancient tomes and scrolls written in languages that no modern culture uses.",
+    "updated": "2026-10-02",
+    "zh": "對於有志於創造偉大作品或揭開深層知識的英雄來說，能夠閱讀古代文字是極為重要的。許多珍貴的知識只存在於古代典籍和卷軸中，而這些文獻都是以現代文化不再使用的語言所書寫。"
+  },
+  "heroes.background.languages.dead.2": {
+    "en": "Most of these ancient writings were written by people who expected other people to read it. The lore might have been kept secret by not sharing it with anyone outside the college or cult whose members originally wrote it, but the actual writing was not intended to be difficult to read or understand. It wasn’t written in code—just in a language that people stopped speaking long ago.",
+    "updated": "2026-10-02",
+    "zh": "這些古代文獻大多由預期會有其他人閱讀的人所寫。雖然這些知識可能藉由不與最初撰寫它們的學院或教派之外的人分享而保持神祕，但文字本身並非刻意設計成難以理解的形式。這些文獻不是用密碼撰寫，只是使用了人們早已不再使用的語言。"
+  },
+  "heroes.background.languages.dead.3": {
+    "en": "Sages can reconstruct many of these languages by learning which modern languages descended from them, then comparing them to related languages from the same time period that might have survived. Translating such ancient languages has been extremely useful for crafting and research.",
+    "updated": "2026-10-02",
+    "zh": "學者能先找出哪些現代語言源自這些古代語言，再將它們與同一時期可能留存至今的相關語言進行比較，從而重建許多已失傳的語言。這些古代語言的翻譯對工藝製作和學術研究都有極大的價值。"
+  },
+  "heroes.background.languages.dead.4": {
+    "en": "The Dead Languages table shows some of the dead languages of Orden, and the modern languages related to those ancient languages.",
+    "updated": "2026-10-02",
+    "zh": "「絕跡語言」表格展示了歐爾登一些已消亡的語言，以及與這些古代語言相關的現代語言。"
+  },
+  "heroes.background.languages.dead.heading": {
+    "en": "Dead Languages",
+    "updated": "2026-10-02",
+    "zh": "絕跡語言"
+  },
+  "heroes.background.languages.dead.khamish-modern": {
+    "en": "Khamish is still spoken by lizardfolk and other creatures connected to the beast lords. However, the forms spoken today only vaguely resemble their original tongues and have been adapted for use within their speakers’ own circles.",
+    "updated": "2026-10-02",
+    "zh": "卡米希語仍被蜥蜴人和其他與獸王有關聯的生物使用。不過，現今使用的形式與原始語言只有模糊的相似之處，而且為了適應使用者自身社群的需求而調整過。"
+  },
+  "heroes.background.languages.dead.row.ananjali": {
+    "en": "Ananjali | Old hobgoblin | Anjali | Zodiakol, the bloodmetal",
+    "updated": "2026-10-02",
+    "zh": "阿納賈利語｜古代大布林｜安賈利語｜Zodiakol, the bloodmetal"
+  },
+  "heroes.background.languages.dead.row.high-rhyvian": {
+    "en": "High Rhyvian | Sun elf | Hyrallic, Yllyric | Liannar, the sunmetal",
+    "updated": "2026-10-02",
+    "zh": "高瑞維亞語｜太陽精靈｜赫拉語、伊林語｜Liannar, the sunmetal"
+  },
+  "heroes.background.languages.dead.row.khamish": {
+    "en": "Khamish | Beast lord | Khoursirian | Beast magic",
+    "updated": "2026-10-02",
+    "zh": "卡米希語｜獸王｜科爾瑟語｜Beast magic"
+  },
+  "heroes.background.languages.dead.row.kheltivari": {
+    "en": "Kheltivari | Old fae | Yllyric, Khelt | Using a wode to travel through time",
+    "updated": "2026-10-02",
+    "zh": "克提華里語｜古代妖精｜伊林語、克特語｜透過幻林穿越時空"
+  },
+  "heroes.background.languages.dead.row.low-rhyvian": {
+    "en": "Low Rhyvian | Sky elf | Hyrallic | Flying castles",
+    "updated": "2026-10-02",
+    "zh": "低瑞維亞語｜天空精靈｜赫拉語｜飛空城堡"
+  },
+  "heroes.background.languages.dead.row.old-variac": {
+    "en": "Old Variac | Olothec, voiceless talker | Variac | Kollar, the sinmetal",
+    "updated": "2026-10-02",
+    "zh": "古華里亞語｜遠古蠕獸、心語者｜華里亞語｜Kollar, the sinmetal"
+  },
+  "heroes.background.languages.dead.row.phorialtic": {
+    "en": "Phorialtic | Old elemental | Low and High Kuric | Moving between manifolds",
+    "updated": "2026-10-02",
+    "zh": "佛里奧語｜古代元素生物｜低庫語、高庫語｜在衍界之間移動"
+  },
+  "heroes.background.languages.dead.row.rallarian": {
+    "en": "Rallarian | Steel dwarf | Zaliac | Valiar, the truemetal",
+    "updated": "2026-10-02",
+    "zh": "拉拉里安語｜鐵矮人｜札力語｜Valiar, the truemetal"
+  },
+  "heroes.background.languages.dead.row.ullorvic": {
+    "en": "Ullorvic | Star elf | Hyrallic, Yllyric | Rovion, the starmetal",
+    "updated": "2026-10-02",
+    "zh": "烏洛維克語｜星辰精靈｜赫拉語、伊林語｜Rovion, the starmetal"
+  },
+  "heroes.background.languages.dead.table.columns": {
+    "en": "Language | Ancestry | Related Languages | Common Topics",
+    "updated": "2026-10-02",
+    "zh": "語言｜族裔｜關聯語言｜常見主題"
+  },
+  "heroes.background.languages.dead.table.heading": {
+    "en": "Dead Languages",
+    "updated": "2026-10-02",
+    "zh": "絕跡語言"
+  },
+  "heroes.background.languages.extant.1": {
+    "en": "Folk have been speaking, signing, and writing in Orden for at least thirty thousand years, but most of the world’s ancient languages are now dead. Many have been forgotten. Others were spoken by peoples who never developed writing, preventing those languages from being preserved. And many languages that were preserved in writing left no related descendants, so that no one now knows what sounds that writing represented.",
+    "updated": "2026-10-02",
+    "zh": "歐爾登的居民至少在三萬年前就開始口語交流、手語溝通和文字書寫，但世界上大多數古老語言如今已經消亡。許多已被徹底遺忘；有些語言來自未發展出文字系統的民族，因此無法被保存；另有許多語言雖留下文字記錄，卻沒有相關的後裔語言，導致現今沒有人知道這些文字實際代表的發音。"
+  },
+  "heroes.background.languages.extant.2": {
+    "en": "The languages on the Languages by Ancestry table are the most common languages actively spoken and signed by significant populations of people in Orden. The Vaslorian Human Languages table shows the dominant languages in that region’s human-centric territories. Most languages are associated with a specific ancestry and its culture, but being a member of an ancestry doesn’t automatically make you part of the associated culture the language is tied to. For example, if your orc hero was raised in a culture of elves, you probably speak one of the elf languages, and might never have learned Kalliak.",
+    "updated": "2026-10-02",
+    "zh": "「依族裔分類的語言」表格列出了歐爾登最常見、由大量人口積極用於口語和手語交流的語言。「華斯洛里亞人類語言」表格則顯示了該地區以人類為主之領土的主要語言。雖然大多數語言與特定族裔及文化相關，但成為某個族裔並不會自動讓你融入與該語言相關的文化。例如，如果你的歐克英雄在精靈文化中長大，你可能會說某種精靈語言，但可能從未學過卡力語。"
+  },
+  "heroes.background.languages.extant.3": {
+    "en": "Most languages have colloquial or casual names. For instance, many people in Orden call Kalliak “Orcish” and Hyrallic “Elvish,” but any sage knows there are lots of orcish and elf languages, just as there are multiple human languages.",
+    "updated": "2026-10-02",
+    "zh": "大多數語言都有通俗或日常的名稱。例如，在歐爾登，許多人會將卡力語稱為「歐克語」，將赫拉語稱為「精靈語」，但任何學者都明白，就如同人類擁有多種語言一樣，歐克和精靈也各自發展了許多語言。"
+  },
+  "heroes.background.languages.extant.4": {
+    "en": "Each extant language has a spoken, signed, and written version. When you learn a language, you know how to speak, sign, and read it.",
+    "updated": "2026-10-02",
+    "zh": "每種現存語言都有口語、手語和書面形式。若你學會一種語言，你就能夠說這種語言、使用該語言的手語，以及閱讀該語言的文字。"
+  },
+  "heroes.background.languages.extant.heading": {
+    "en": "Extant Languages",
+    "updated": "2026-10-02",
+    "zh": "現存語言"
+  },
+  "heroes.background.languages.heading": {
+    "en": "Languages in Orden",
+    "updated": "2026-10-02",
+    "zh": "歐爾登的語言"
+  },
+  "heroes.background.languages.overview.1": {
+    "en": "The languages granted by your hero’s culture shape their understanding of the world and their relationship to the creatures within it. The following section details the languages of Orden, the baseline world of the game, but the Director can use these languages in their own campaign world or can swap this list with their own list of languages.",
+    "updated": "2026-10-02",
+    "zh": "你英雄的文化所賦予的語言，塑造了他對世界的理解，以及與其他生物的關係。以下會詳細介紹遊戲基準世界「歐爾登」的語言；不過，導演可以在自己的戰役世界使用這些語言，也可以用自己的語言列表替換這份列表。"
+  },
+  "heroes.background.languages.overview.2": {
+    "en": "If your hero knows a language, they can speak, read, write, and understand it.",
+    "updated": "2026-10-02",
+    "zh": "如果你的英雄掌握了某種語言，他就能夠說、讀、寫，並理解該語言。"
+  },
+  "heroes.background.languages.usage.1": {
+    "en": "Hyrallic is the primary language of the high elves in Orden. Although young for an elf language, Hyrallic is older than almost all other modern cultural languages, save those of the dwarves. As a result, while anyone who lives near or trades with a human culture probably speaks at least a little Caelian, most nobles across all ancestries make sure their children or offspring speak Hyrallic. Caelian is new from many cultures’ point of view, while Hyrallic as a language for diplomacy is considered cultured and traditional.",
+    "updated": "2026-10-02",
+    "zh": "赫拉語是歐爾登高等精靈的主要語言。雖然赫拉語在精靈語言中較為年輕，但仍然比幾乎所有其他現代文化語言還要古老（除了矮人的語言）。因此，雖然住在人類文化附近或與其貿易的人大多至少會說一點凱利安語，各族裔的大多數貴族仍會確保子女或後代學習赫拉語。從許多文化的觀點來看，凱利安語是新興語言，而赫拉語作為外交語言則被視為高雅且傳統的選擇。"
+  },
+  "heroes.background.languages.usage.2": {
+    "en": "Yllyric is the cultural language of wode elves, and also the common language among those who defend and protect the natural forests of Orden.",
+    "updated": "2026-10-02",
+    "zh": "伊林語是幻林精靈的文化語言，也是守護歐爾登自然森林之人的共同溝通方式。"
+  },
+  "heroes.background.languages.usage.3": {
+    "en": "Within any document concerning the workings of machines, masonry, or geology, you are likely to find a healthy supply of jargon using Zaliac, the most popular dwarf language. Even when such texts aren’t fully written in Zaliac, they use a lot of dwarf language when describing esoteric, complex ideas.",
+    "updated": "2026-10-02",
+    "zh": "在任何關於機械運作、石工或地質學的文件中，你很可能會發現大量札力語（最常見的矮人語）的專業術語。即使這些文本並非完全用札力語撰寫，但在描述深奧或複雜的概念時，人們仍廣泛採用矮人的語言。"
+  },
+  "heroes.background.languages.usage.4": {
+    "en": "Just as Zaliac is used in engineering, contract law isn’t written purely in Anjali, the dominant language of the Seven Cities of Hell. But a lot of the legal jargon in any contract, as well as some of the language of trial courts, features many Anjali words. People are sticklers for detail in the Seven Cities, and this makes their language popular among lawyers.",
+    "updated": "2026-10-02",
+    "zh": "正如札力語在工程領域廣泛應用，契約法也不完全以安賈利語寫成；安賈利語是地獄七城的主要語言。不過，許多契約中的法律術語，以及審判法庭中的部分用語，也大量採用安賈利語。地獄七城的居民極為重視細節，所以他們的語言在律師圈中備受推崇。"
+  },
+  "heroes.background.languages.usage.5": {
+    "en": "In the same way that intelligent creatures in Orden who live near or trade with other cultures use Caelian as a common language, the denizens of the World Below, the Dark Under All, often speak Variac, the language of the voiceless talkers.",
+    "updated": "2026-10-02",
+    "zh": "如同歐爾登中住在其他文化附近或與其貿易的智慧生物會使用凱利安語作為通用語，「至深之暗」玄冥界的居民也經常使用華里亞語，也就是心語者的語言。"
+  },
+  "heroes.background.languages.usage.heading": {
+    "en": "Language Usage",
+    "updated": "2026-10-02",
+    "zh": "語言使用"
+  },
+  "heroes.background.languages.vaslorian-human.columns": {
+    "en": "Region | Language",
+    "updated": "2026-10-02",
+    "zh": "地區｜語言"
+  },
+  "heroes.background.languages.vaslorian-human.heading": {
+    "en": "Vaslorian Human Languages",
+    "updated": "2026-10-02",
+    "zh": "華斯洛里亞人類語言"
+  },
+  "heroes.background.languages.vaslorian-human.row.gol": {
+    "en": "The Gol | Uvalic",
+    "updated": "2026-10-02",
+    "zh": "戈爾｜烏華利語"
+  },
+  "heroes.background.languages.vaslorian-human.row.higara": {
+    "en": "Higara | Higaran",
+    "updated": "2026-10-02",
+    "zh": "希伽拉｜希伽拉語"
+  },
+  "heroes.background.languages.vaslorian-human.row.ix": {
+    "en": "Ix | Oaxuatl",
+    "updated": "2026-10-02",
+    "zh": "伊蘇｜瓦蘇奧語"
+  },
+  "heroes.background.languages.vaslorian-human.row.khemhara": {
+    "en": "Khemhara | Khemharic",
+    "updated": "2026-10-02",
+    "zh": "凱姆哈拉｜凱姆哈拉語"
+  },
+  "heroes.background.languages.vaslorian-human.row.khoursir": {
+    "en": "Khoursir | Khoursirian",
+    "updated": "2026-10-02",
+    "zh": "科爾瑟｜科爾瑟語"
+  },
+  "heroes.background.languages.vaslorian-human.row.phaedros": {
+    "en": "Phaedros | Phaedran",
+    "updated": "2026-10-02",
+    "zh": "斐德羅｜斐德羅語"
+  },
+  "heroes.background.languages.vaslorian-human.row.rioja": {
+    "en": "Rioja | Riojan",
+    "updated": "2026-10-02",
+    "zh": "里歐哈｜里歐哈語"
+  },
+  "heroes.background.languages.vaslorian-human.row.vanigar": {
+    "en": "Vanigar | Vaniric",
+    "updated": "2026-10-02",
+    "zh": "華尼伽｜華尼伽語"
+  },
+  "heroes.background.languages.vaslorian-human.row.vasloria": {
+    "en": "Vasloria | Vaslorian",
+    "updated": "2026-10-02",
+    "zh": "華斯洛里亞｜華斯洛里亞語"
+  },
+  "heroes.conditions.bleeding.rules": {
+    "en": "Bleeding\n\nWhile a creature is bleeding, whenever they use a main action, use a triggered action, or make a test or ability roll using Might or Agility, they lose Stamina equal to 1d6 + their level after the main action, triggered action, or power roll is resolved. This Stamina loss can’t be prevented in any way, and only happens once per action.\n\nYou take damage from this condition when you use a main action off your turn. For example, a signature ability used as a free triggered action with the assistance of the tactician’s Strike Now ability triggers the damage from the bleeding condition.",
+    "updated": "2026-09-30",
+    "zh": "出血\n\n若你處於出血狀態，每當你使用主要動作或反應動作，或使用力量或敏捷進行考驗或招式檢定時，在動作或檢定結算後，你會失去 1d6 + 等級的體力（無法以任何方式避免，每個動作只會失去 1 次體力）。\n\n若你在自己的回合外使用主要動作，你也會受到此狀態的傷害。例如，若你在戰術家的【快出手】招式協助下使用免費反應動作發動招牌招式，你也會觸發出血狀態的傷害。"
+  },
+  "heroes.conditions.dazed.rules": {
+    "en": "Dazed\n\nA creature who is dazed can do only one thing on their turn: use a main action, use a maneuver, or use a move action. A dazed creature also can’t use triggered actions, free triggered actions, or free maneuvers.",
+    "updated": "2026-09-30",
+    "zh": "暈眩\n\n若你處於暈眩狀態，你在自己回合中只能執行其中 1 種動作：主要動作、機動動作，或移動動作。你也無法使用反應動作、免費反應動作，以及免費機動動作。"
+  },
+  "heroes.conditions.frightened.rules": {
+    "en": "Frightened\n\nWhen a creature is frightened, any ability roll they make against the source of their fear takes a bane. If that source is a creature, their ability rolls made against the frightened creature gain an edge. A frightened creature can’t willingly move closer to the source of their fear if they know the location of that source. If a creature gains the frightened condition from one source while already frightened by a different source, the new condition replaces the old one.",
+    "updated": "2026-09-30",
+    "zh": "畏縮\n\n若你處於畏縮狀態，你對恐懼來源進行的任何招式檢定都會承受 1 個劣勢。若恐懼來源為生物，該來源對你進行的招式檢定會獲得 1 個優勢。你若知道恐懼來源的位置，你就無法主動接近該來源。若你已經因為某個來源而陷入畏縮，然後又從其他來源陷入畏縮，則新的畏縮狀態會取代舊的狀態。"
+  },
+  "heroes.conditions.grabbed.rules": {
+    "en": "Grabbed\n\nA creature who is grabbed has speed 0, can’t be force moved except by a creature, object, or effect that has them grabbed, can’t use the Knockback maneuver (see Maneuvers in Chapter 10: Combat), and takes a bane on abilities that don’t target the creature, object, or effect that has them grabbed. If a creature is grabbed by another creature and that creature moves, they bring the grabbed creature with them. If a creature’s size is equal to or less than the size of a creature they have grabbed, their speed is halved while they have that creature grabbed.\n\nA creature who has another creature grabbed can use a maneuver to move the grabbed creature into an unoccupied space adjacent to them.\n\nA creature can release a creature they have grabbed at any time to end that condition (no action required). A grabbed creature can attempt to escape being grabbed using the Escape Grab maneuver (see Chapter 10: Combat). If a grabbed creature teleports, or if either the grabbed creature or the creature grabbing them is force moved so that both creatures are not adjacent to each other, that creature is no longer grabbed.\n\nA creature can grab only creatures of their size or smaller. If a creature’s Might score is 2 or higher, they can grab any creature larger than them with a size equal to or less than their Might score.\n\nUnless otherwise indicated, a creature can grab only one creature at a time.",
+    "updated": "2026-09-30",
+    "zh": "擒制\n\n若你被擒制，你的速度歸 0，而且只能被擒抱者（生物、物體或效果）強制移動。你無法使用擊退機動動作（詳見第 10 章〈戰鬥〉的「機動動作」），而且對擒抱者以外的目標進行的任何招式檢定都會承受 1 個劣勢。當擒抱者移動時，你會一起移動。若擒抱者的體型 ≦ 你，則擒抱者在擒抱期間的速度會減半。\n\n擒抱者可以使用機動動作將你移動至相鄰的未占據空間。\n\n擒抱者可以隨時釋放你來解除該狀態（無需動作）。你可以使用掙脫機動動作（詳見第 10 章〈戰鬥〉）來嘗試脫離。若你進行傳送，或你與擒抱者任一方被強制移動到雙方不相鄰的位置，擒制狀態就會立刻解除。\n\n生物只能擒抱體型 ≦ 自己的生物。若生物的力量為 2 以上，則可以擒抱體型 ≦ 其力量的生物。\n\n除非另有說明，生物同時只能擒抱 1 個生物。"
+  },
+  "heroes.conditions.overview.rules": {
+    "en": "Conditions\n\nSome abilities and other effects apply specific negative effects called conditions to a creature. The following conditions show up regularly in the game and can be tracked on your character sheet when they affect your hero.",
+    "updated": "2026-09-30",
+    "zh": "狀態\n\n有些招式與效果會對生物施加稱為「狀態」的特定負面效果。以下狀態會經常出現在遊戲中。當你的英雄受到這些狀態的影響時，請確實記錄在角色卡上。"
+  },
+  "heroes.conditions.prone.rules": {
+    "en": "Prone\n\nWhile a creature is prone, they are flat on the ground, any strike they make takes a bane, and melee abilities used against them gain an edge. A prone creature must crawl to move along the ground, which costs 1 additional square of movement for every square crawled. A creature can’t climb, jump, swim, or fly while prone. If they are climbing, flying, or jumping when knocked prone, they fall.\n\nUnless the ability or effect that imposed the prone condition says otherwise, a prone creature can stand up using the Stand Up maneuver (see Maneuvers in Chapter 10: Combat). A creature adjacent to a willing prone creature can likewise use the Stand Up maneuver to make that creature stand up.",
+    "updated": "2026-09-30",
+    "zh": "伏地\n\n若你處於伏地狀態，你的身體會平貼地面。在此狀態下，你發動的任何打擊都會承受 1 個劣勢，而其他生物對你發動的近戰招式則會獲得 1 個優勢。你只能用爬行的方式移動，每移動 1 格都需要額外消耗 1 格移動力。你在伏地時無法進行攀爬、跳躍、游泳或飛行。若你在攀爬、飛行或跳躍時被擊倒伏地，則會立刻墜落。\n\n除非造成伏地狀態的招式或效果另有說明，否則你可以使用起身機動動作（詳見第 10 章〈戰鬥〉的「機動動作」）來解除伏地。此外，若你願意，相鄰的生物也可以對你使用起身機動動作來將你拉起來。"
+  },
+  "heroes.conditions.restrained.rules": {
+    "en": "Restrained\n\nA creature who is restrained has speed 0, can’t use the Stand Up maneuver, and can’t be force moved. A restrained creature takes a bane on ability rolls and on Might and Agility tests, and abilities used against them gain an edge.\n\nIf a creature teleports while restrained, that condition ends.",
+    "updated": "2026-09-30",
+    "zh": "束縛\n\n若你被束縛，你的速度歸 0，無法使用起身機動動作，也無法被強制移動。你在進行招式檢定以及力量與敏捷考驗時會承受 1 個劣勢，而其他生物對你進行的招式檢定則會獲得 1 個優勢。\n\n若你進行傳送，束縛狀態就會立刻解除。"
+  },
+  "heroes.conditions.slowed.rules": {
+    "en": "Slowed\n\nA creature who is slowed has speed 2 unless their speed is already lower, and they can’t shift.",
+    "updated": "2026-09-30",
+    "zh": "緩速\n\n若你被緩速，你的速度為 2（除非你的速度已經 < 2），而且無法進行遁移。"
+  },
+  "heroes.conditions.taunted.rules": {
+    "en": "Taunted\n\nA creature who is taunted has a double bane on ability rolls for any ability that doesn’t target the creature who taunted them, as long as they have line of effect to that creature. If a creature gains the taunted condition from one source while already taunted by a different source, the new condition replaces the old one.",
+    "updated": "2026-09-30",
+    "zh": "嘲諷\n\n若你被嘲諷，只要你與嘲諷者之間保持效果線，你對嘲諷者以外的目標進行的任何招式檢定都會承受雙劣勢。若你已經被嘲諷，然後又受到其他來源的嘲諷，則新的嘲諷狀態會取代舊的狀態。"
+  },
+  "heroes.conditions.weakened.rules": {
+    "en": "Weakened\n\nA creature who is weakened takes a bane on power rolls.",
+    "updated": "2026-09-30",
+    "zh": "虛弱\n\n若你陷入虛弱狀態，你進行的任何檢定都會承受 1 個劣勢。"
+  },
+  "heroes.skills.applying.rules": {
+    "en": "Applying Skills\n\nIf you have a skill that applies to a test you make, you gain a +2 bonus to the test. For instance, if your hero has the Hide skill, you have a +2 bonus to any test you make that involves hiding yourself. This might include an Agility test to hide behind a barrel, or a Presence test to disappear into a crowd.\n\nThe +2 bonus gained for a skill isn’t an edge. A player can make a test that has both the +2 bonus for a skill and the +2 bonus for an edge.\n\nYou can’t apply more than one skill to a test.",
+    "updated": "2026-09-30",
+    "zh": "運用技能\n\n若你擁有適用於當前考驗的技能，該考驗會獲得 +2 加值。例如，若你的英雄擁有躲藏技能，你在所有涉及隱藏自己的考驗都會獲得 +2 加值，包括躲在桶子後方的敏捷考驗，或是混進人群的氣場考驗。\n\n技能提供的 +2 加值與優勢不同，所以每次考驗可以同時獲得技能的 +2 加值，以及優勢提供的 +2 加值。\n\n每次考驗最多只能套用 1 項技能。"
+  },
+  "heroes.skills.characteristics.rules": {
+    "en": "Mixing Characteristics and Skills\n\nAlthough certain skills are often paired with one characteristic more than others, a skill can apply to a test made using any characteristic that makes sense. The Director has the final say on which characteristic is used to complete a task, and can call for a different characteristic based on the circumstances.\n\nFor example, intimidating someone with a purely verbal threat is a Presence test. But if a player describes their character tearing a log in half with their bare hands to intimidate a foe, the Director is likely to call for a Might test instead. The Intimidate skill can apply to both tests. In the same way, scaling the side of a building is covered by a Might test, but if a hero does a series of leaps from one balcony to another to reach a roof, the Director could call for an Agility test instead. The Climb skill applies to both of these tests.",
+    "updated": "2026-09-30",
+    "zh": "混用屬性和技能\n\n雖然某些技能經常與特定的屬性搭配使用，但只要合理，任何技能都可以套用於任何屬性的考驗。進行考驗需要用到什麼屬性，導演有最終裁定權，並可以根據實際情況要求你使用不同的屬性。\n\n例如，若單純使用言語威脅他人，需要進行氣場考驗；但如果玩家描述英雄徒手將木頭撕成兩半來威嚇敵人，導演可能會改為要求進行力量考驗，而威嚇技能在這兩種考驗中都適用。同理，攀爬建築物通常需要進行力量考驗，但若英雄想在陽台間連續跳躍到達屋頂，導演可以改為要求進行敏捷考驗，而攀爬技能同樣適用於這兩種考驗。"
+  },
+  "heroes.skills.crafting.rules": {
+    "en": "Crafting Skills\n\nSkills from the crafting skill group are used in the creation and appraisal of goods and for jury-rigging contraptions. They are especially useful during rests and downtime.\n\nRewards for tests made with crafting skills typically include having leftover rare material used in the creation process, knowing a buyer willing to pay extra for goods or items you’re appraising, or making a jury-rigged device so amazing that it lasts for more uses than it should.\n\nConsequences for tests made with crafting skills typically include wasting rare materials used in the creation process, greatly overestimating or underestimating an item’s value, and poorly jury-rigging a contraption so that it harms people (or at least the wrong people).\n\nSkill | Use\nAlchemy | Make bombs and potions\nArchitecture | Create buildings and vehicles\nBlacksmithing | Forge metal armor and weapons\nCarpentry | Create items out of wood\nCooking | Create delicious dishes\nFletching | Make ranged weapons and ammunition\nForgery | Create false badges, documents, and other items\nJewelry | Create bracelets, crowns, rings, and other jewelry\nMechanics | Build machines and clockwork items\nTailoring | Craft clothing of cloth or leather",
+    "updated": "2026-09-30",
+    "zh": "工藝類技能\n\n工藝類技能主要用於製作和鑑定物品，以及組裝臨時裝置，在休整時特別實用。\n\n使用工藝類技能進行考驗而獲得有獎勵的成功時，你可能會保留製作過程中的稀有材料、認識願意支付高價的買家，或是製作出超級耐用的臨時裝置。\n\n若考驗失敗且遭遇波折，你可能會浪費稀有材料、對物品價值的判斷出現重大誤差，或是組裝出有缺陷的裝置而傷及他人。\n\n技能｜用途\n鍊金（Alchemy）｜製作炸彈與藥水\n建築（Architecture）｜打造建築物與載具\n鍛造（Blacksmithing）｜打造金屬護甲與武器\n木工（Carpentry）｜打造木製物品\n烹飪（Cooking）｜烹調美味料理\n製箭（Fletching）｜製作遠程武器與彈藥\n偽造（Forgery）｜製作偽造徽章、文件與其他物品\n珠寶（Jewelry）｜製作手環、頭冠、戒指與其他珠寶\n機關（Mechanics）｜打造機器與發條裝置\n裁縫（Tailoring）｜製作布料或皮革服飾"
+  },
+  "heroes.skills.director-custom.rules": {
+    "en": "For the Director: Make Your Own Skills\n\nDirectors should feel free to make their own skills that they feel are relevant and useful to their campaigns and adventures. For instance, the game doesn’t have a Brewing skill for brewing ale or a Painting skill for making art because those aren’t tasks that typically come up in a game about fighting monsters and saving the world. However, a Director could decide that their campaign involves poisoned barrels of ale and large amounts of counterfeit art, and that adding these two new skills to the game would make it more fun for the players. The Director simply needs to pick a group for these new skills—in this case, crafting makes sense. They then let the players know that they can swap out any crafting skill they have for these new skills.",
+    "updated": "2026-09-30",
+    "zh": "給導演：自訂技能\n\n導演可以自由建立自己認為與戰役和冒險相關且實用的技能。例如，遊戲沒有用來釀造麥酒的釀造技能，也沒有用來創作藝術作品的繪畫技能，因為這些通常不是一款以對抗怪物、拯救世界為主題的遊戲會碰到的挑戰。不過，若導演覺得自己的戰役會涉及被下毒的麥酒桶、大量偽造藝術品，而且加入這些新技能會讓玩家玩得更開心，那就可以這麼做。\n\n導演只需要替這些新技能選擇 1 個技能類別。在上述例子中，歸入工藝類技能很合理。接著告訴玩家，他們可以將自己擁有的任意 1 項工藝類技能換成其中 1 項新技能。"
+  },
+  "heroes.skills.edge-specific.rules": {
+    "en": "Edges on Tests With Specific Skills\n\nCertain features and abilities grant a creature an edge on tests made with a specific skill. A creature making a test where the specific skill would apply gains an edge on the test even if they don’t have the skill. For example, the conduit’s Blessing of Fortunate Weather can create foggy weather that grants creatures who make tests using the Hide skill an edge on those tests. Any creature who attempts to hide in the fog gains an edge on the test as long as the Hide skill would apply to that test, regardless of whether they have that skill or not.",
+    "updated": "2026-09-30",
+    "zh": "使用特定技能進行考驗的優勢\n\n某些特性與招式會讓生物在使用特定技能的考驗中獲得優勢。即使生物本身沒有該技能，只要該技能適用於這次考驗，該考驗仍會獲得優勢。例如，神導士的【Blessing of Fortunate Weather】可以創造濃霧天氣，讓使用躲藏技能進行考驗的生物獲得優勢。所以，任何生物只要試圖躲藏在濃霧中，而且躲藏技能適用於該考驗，就能獲得優勢，無論該生物是否實際擁有該項技能。"
+  },
+  "heroes.skills.equal.rules": {
+    "en": "Are All Skills Equal?\n\nWhen choosing skills for your character, deciding which skills will be most useful depends a lot on the campaign. For instance, the Swim skill might be used constantly during a campaign that takes place on the ocean and has heroes exploring underwater ruins, but it won’t come up as much in a campaign that takes place entirely in a vast desert. The Psionics skill might come up a lot in a campaign where voiceless talkers are the main foes, and Magic might be more useful in a game where the heroes take on a circle of evil wizards. If you’re worried about whether a skill you’d like to take will be useful, discuss your skill list with the Director after you create a hero. And if a skill doesn’t work out, you can always trade it for another skill as you wish (see Changing Character Options in Chapter 2: Making a Hero).",
+    "updated": "2026-09-30",
+    "zh": "所有技能都同樣實用嗎？\n\n替角色選擇技能時，技能的實用度很大程度取決於戰役內容。例如，在英雄經常探索水下遺跡的戰役中，游泳技能可能會不斷派上用場，但如果整場戰役都發生在廣闊沙漠裡，游泳就不會那麼常出現。若某場戰役的主要敵人是心語者，靈能技能可能會經常派上用場；若英雄要對抗一群邪惡巫師，魔法技能可能更實用。若你擔心自己想選的技能派不上用場，你可以在創角後與導演討論你的技能清單。若某項技能實際玩起來不合適，你也可以按照自己的意願換成其他技能（詳見第 2 章〈創造英雄〉的「Changing Character Options」）。"
+  },
+  "heroes.skills.exploration.rules": {
+    "en": "Exploration Skills\n\nSkills from the exploration skill group are used to physically explore the environment around the characters, and to overcome physical obstacles.\n\nRewards for tests made with exploration skills typically include helping another creature engaging in the same task succeed without needing to also make a test, automatically succeeding on a follow-up test while engaged in the same task, reaching a destination faster than anticipated, and learning about or avoiding an upcoming hazard.\n\nConsequences for tests made with exploration skills include harming yourself, your gear, or your allies; becoming lost; or stumbling headlong into a hazard or a place you were trying to avoid.\n\nSkill | Use\nClimb | Move up vertical surfaces\nDrive | Control vehicles\nEndurance | Remain engaged in strenuous activity over a long period of time\nGymnastics | Move across unsteady or narrow surfaces; tumble\nHeal | Use mundane first aid\nJump | Leap vertical and horizontal distances\nLift | Pick up, carry, and throw heavy objects\nNavigate | Read a map and travel without becoming lost\nRide | Ride and control a nonsapient mount, such as a horse\nSwim | Move through deep liquid",
+    "updated": "2026-09-30",
+    "zh": "探索類技能\n\n探索類技能主要用於幫助英雄探索周遭環境並克服各種實體障礙。\n\n若考驗成功且獲得獎勵，你可能會協助其他生物在進行相同挑戰時自動成功；讓自己後續的相關考驗自動成功；比預期更快抵達目的地；或是得知並避開即將到來的危險。\n\n若考驗失敗且遭遇波折，你可能會傷害自己、裝備或盟友；迷失方向；或是不慎闖入危險區域或原本想避開的地方。\n\n技能｜用途\n攀爬（Climb）｜在垂直表面上移動\n駕駛（Drive）｜控制載具\n耐力（Endurance）｜長時間進行高強度活動\n體操（Gymnastics）｜在不穩定或狹窄表面上移動；翻滾\n醫療（Heal）｜進行基本急救\n跳躍（Jump）｜進行垂直與水平跳躍\n舉重（Lift）｜舉起、搬運與投擲重物\n導航（Navigate）｜讀懂地圖；在旅行中避免迷路\n騎術（Ride）｜騎乘及控制非智慧坐騎，例如馬匹\n游泳（Swim）｜在深水等液體中移動"
+  },
+  "heroes.skills.groups.rules": {
+    "en": "Skill Groups\n\nSkills are broken down into five skill groups: crafting, exploration, interpersonal, intrigue, and lore.",
+    "updated": "2026-09-30",
+    "zh": "技能類別\n\n技能分為五個類別：工藝類、探索類、交涉類、諜報類、學識類。"
+  },
+  "heroes.skills.interpersonal.rules": {
+    "en": "Interpersonal Skills\n\nSkills from the interpersonal skill group are used to socially interact with other creatures, and are particularly useful during negotiations (see Chapter 11: Negotiation). Aside from the Handle Animals skill, you can generally only use interpersonal skills when you attempt to influence creatures who have emotions and who can understand you.\n\nRewards for tests made with interpersonal skills typically include gaining an extra favor, item, or piece of information from the people or creatures you interact with.\n\nConsequences for tests made with interpersonal skills include making the creature you’re interacting with angry, sad, embarrassed, offended, or otherwise upset or uncomfortable. This might cause them to ignore you, storm off, spread rumors about you, attack you, betray you, blackmail you, or otherwise attempt to harm you.\n\nSkill | Use\nBrag | Impress others with stories of your deeds\nEmpathize | Relate to someone on a personal level\nFlirt | Attract romantic attention from someone\nGamble | Make bets with others\nHandle Animals | Interact with nonsapient animal wildlife\nInterrogate | Obtain information from a creature withholding it\nIntimidate | Awe or scare a creature\nLead | Inspire people to action\nLie | Convince someone that a falsehood is true\nMusic | Perform music vocally or with an instrument\nPerform | Engage in dance, oratory, acting, or some other physical performance\nPersuade | Convince someone to agree with you through use of your charms and grace\nRead Person | Read the emotions and body language of other creatures",
+    "updated": "2026-09-30",
+    "zh": "交涉類技能\n\n交涉類技能主要用於對其他生物進行社交互動，在談判場合中特別有用（詳見第 11 章〈談判〉）。除了馴獸技能外，你通常只能對具有情緒且能理解你的生物使用交涉類技能。\n\n若考驗成功且獲得獎勵，你可能會從互動對象那裡獲得人情、物品或情報。\n\n若考驗失敗且遭遇波折，你可能會讓互動對象感到憤怒、悲傷、尷尬、被冒犯，或產生其他負面情緒。這些後果可能會導致對方忽視你、憤然離去、散播謠言、攻擊你、背叛你、勒索你，或是試圖以其他方式傷害你。\n\n技能｜用途\n誇耀（Brag）｜運用你的豐功偉業來打動他人\n共感（Empathize）｜與他人在個人層面產生共感\n魅惑（Flirt）｜吸引他人對你產生浪漫興趣\n賭博（Gamble）｜與他人下注\n馴獸（Handle Animals）｜與非智慧野生動物互動\n審訊（Interrogate）｜從隱瞞情報的生物獲取資訊\n威嚇（Intimidate）｜讓生物產生畏懼或敬畏\n領導（Lead）｜鼓舞他人採取行動\n欺瞞（Lie）｜讓他人相信虛假的事情\n音樂（Music）｜使用歌聲或樂器進行演出\n表演（Perform）｜展現舞蹈、演說、戲劇等表演藝術\n遊說（Persuade）｜運用魅力與風度說服他人同意你的觀點\n觀色（Read Person）｜理解其他生物的情緒與身體語言"
+  },
+  "heroes.skills.intrigue.rules": {
+    "en": "Intrigue Skills\n\nSkills from the intrigue skill group are used in tasks centered around investigation, thievery, and spycraft.\n\nRewards for tests made with skills from this group typically include helping another creature engaging in the same task succeed without needing to also make a test, automatically succeeding on a follow-up test while engaged in the same task, discovering helpful information in addition to what you set out to learn, and performing an extra bit of clandestine activity in addition to what you set out to do.\n\nConsequences for tests made with intrigue skills include getting caught in the act or failing to notice a detail that places you in danger, such as triggering a trap or walking into an ambush.\n\nSkill | Use\nAlertness | Intuitively sense the details of your surroundings\nConceal Object | Hide an object on your person or in your environment\nDisguise | Change your appearance to look like a different person\nEavesdrop | Actively listen to something that is hard to hear, such as a whispered conversation through a door\nEscape Artist | Escape from bonds such as rope or manacles\nHide | Conceal yourself from others’ observation\nPick Lock | Open a lock without using the key\nPick Pocket | Steal an item that another person wears or carries without them noticing\nSabotage | Disable a mechanical device such as a trap\nSearch | Actively search an environment for important details and items\nSneak | Move silently\nTrack | Follow a trail that another creature has left behind",
+    "updated": "2026-09-30",
+    "zh": "諜報類技能\n\n諜報類技能主要用於調查、竊盜與間諜活動。\n\n若考驗成功且獲得獎勵，你可能會協助其他生物在進行相同挑戰時自動成功；讓自己後續的相關考驗自動成功；得知額外的有用資訊；或是在完成原定計畫時順便執行其他行動。\n\n若考驗失敗且遭遇波折，你可能會當場被人抓個正著，或是忽略危險的細節而觸發陷阱或誤入埋伏。\n\n技能｜用途\n警覺（Alertness）｜本能地察覺周遭環境的細節\n藏物（Conceal Object）｜將物品藏在身上或環境之中\n易容（Disguise）｜改變外表來假扮他人\n竊聽（Eavesdrop）｜仔細聆聽難以聽清的聲音，例如隔著門的低聲交談\n脫逃（Escape Artist）｜掙脫繩索或手銬等束縛物\n躲藏（Hide）｜讓自己不被他人察覺\n開鎖（Pick Lock）｜不使用鑰匙來解開鎖具\n扒竊（Pick Pocket）｜不引人注意地偷取他人的隨身物品\n拆除（Sabotage）｜讓機械裝置無法運作，例如解除陷阱\n搜索（Search）｜主動搜索環境中的重要細節與物品\n潛行（Sneak）｜無聲地移動\n追蹤（Track）｜跟隨其他生物留下的蹤跡"
+  },
+  "heroes.skills.justify.rules": {
+    "en": "Justify the Skill\n\nIt’s not the Director’s job to know every task potentially covered by the skills in the game, or to know the specific skills your hero has. Instead, the Director asks you to make a test using a characteristic and you tell the Director if you think you have a skill that applies. If it’s not obvious why the skill applies, tell the Director how your hero is approaching the task and justify why that approach uses the skill. The Director then decides if you get the +2 bonus the skill represents. If the Director disagrees with you, that’s the final word.\n\nApproaching problems creatively while remaining reasonable can help you get the most out of your skills. For example, if you’re making a Presence test to impress a noble at a party, using the Brag skill is an obvious choice. But what if you don’t have that skill? Maybe you could instead try to impress the noble with a brief but exciting lecture about the nature of the elements, making a Presence test using the Magic skill that you do have!\n\nSometimes you won’t have a skill that applies to a test. That’s okay! If your characteristic score is decent, you likely have a good chance of success without a skill.",
+    "updated": "2026-09-30",
+    "zh": "解釋技能\n\n導演不需要記住所有技能可以用在哪些情況，也不必知道英雄擁有什麼技能。當導演要求你進行考驗時，你需要主動告知你的英雄是否有適用的技能。若技能的適用性不夠明顯，你需要向導演說明英雄會如何應對挑戰，並解釋為何這種方法會用到該技能。導演會根據你的說法來決定是否給予技能提供的 +2 加值。若導演不同意，則以導演的判定為準。\n\n在合理範圍內發揮創意處理問題，可以讓你充分運用自己的技能。例如，若你想要在宴會上進行氣場考驗來打動貴族，使用誇耀技能是最明顯的選擇，但如果你沒有這項技能呢？你也可以改用簡短而精彩的元素本質演講來打動貴族，藉此運用你的魔法技能來進行氣場考驗！\n\n有時候，你就是沒有技能可以用於某次考驗。沒關係！只要你的屬性值夠高，即使沒有相關技能，你仍然有不錯的成功率。"
+  },
+  "heroes.skills.lore.rules": {
+    "en": "Lore Skills\n\nSkills from the lore skill group are used to research and recall specific information. They are especially useful during rests and downtime.\n\nRewards for tests made with lore skills typically include learning an extra piece of useful information.\n\nConsequences for tests made with lore skills typically include learning an incorrect piece of information that seems useful, but which actually works against your interests or wastes time. (It’s fun to roleplay these kinds of moments, so lean in!) Alternatively, the Director can make medium and hard tests with lore group skills for each hero in secret, then let the players know the narrative outcome without revealing the outcome of the power roll (see the Optional Rule: Secret Reactive Tests sidebar earlier in this chapter).\n\nSkill | Use\nCriminal Underworld | Knowing about criminal organizations, their crimes, their relationships, and their leaders\nCulture | Knowing about a culture’s customs, folktales, and taboos\nHistory | Knowing about significant past events\nMagic | Knowing about magical places, spells, rituals, items, and phenomena\nMonsters | Knowing monster ecology, strengths, and weaknesses\nNature | Knowing about natural flora, fauna, and weather\nPsionics | Knowing about psionic places, spells, rituals, items, and phenomena\nReligion | Knowing about religious mythology, practices, and rituals\nRumors | Knowing gossip, legends, and uncertain truths\nSociety | Knowing noble etiquette and the leadership and power dynamics of noble families\nStrategy | Knowing about battle tactics and logistics\nTimescape | Knowing about the many worlds of the timescape",
+    "updated": "2026-09-30",
+    "zh": "學識類技能\n\n學識類技能主要用於研究和回想特定資訊，在休整時特別實用。\n\n若考驗成功且獲得獎勵，你可能會得知額外的有用資訊。\n\n若考驗失敗且遭遇波折，你可能會得知看似有用，但實際上反而危害你或浪費時間的錯誤資訊。（這類情境很適合角色扮演，所以盡量投入吧！）或者，導演也可以暗中為每個英雄進行中等或困難的學識類技能考驗，然後告知玩家敘事結果，但不透露檢定結果（詳見本章前文的選用規則「Secret Reactive Tests」側欄）。\n\n技能｜用途\n江湖（Criminal Underworld）｜了解犯罪組織的活動、結構、人際網路與首領\n文化（Culture）｜了解一個文化的風俗民情、民間故事與禁忌\n歷史（History）｜了解重大歷史事件\n魔法（Magic）｜了解魔法地點、法術、儀式、道具與現象\n怪物（Monsters）｜了解怪物的生態、強項與弱點\n自然（Nature）｜了解自然界的動植物與氣候變化\n靈能（Psionics）｜了解靈能地點、法術、儀式、道具與現象\n宗教（Religion）｜了解宗教的神話、習俗與儀式\n傳聞（Rumors）｜了解各種八卦、傳說與未經證實的傳言\n社會（Society）｜了解貴族禮儀與其家族之間的權力結構\n戰略（Strategy）｜了解戰術運用及後勤管理\n時界（Timescape）｜了解時界中的眾多世界"
+  },
+  "heroes.skills.overview.rules": {
+    "en": "Skills\n\nSkills represent the different specializations a hero has outside of attacking, defending, and using their ancestry features, class features, and equipment. Whenever you make a test, having a particular skill associated with the test increases your chance of success.",
+    "updated": "2026-09-30",
+    "zh": "技能\n\n技能是英雄除了攻擊、防禦、族裔特性、職業特性和裝備以外的各種專門技藝。每當你進行考驗時，若你擁有某項與該考驗相關的技能，就能提高考驗的成功機率。"
+  },
+  "heroes.skills.specific.rules": {
+    "en": "Many Specific Skills\n\nDraw Steel includes a big list of skills, and each is fairly specific. For example, instead of one Athletics skill that covers climbing, jumping, swimming, and lifting heavy objects, your character might use separate Climb, Jump, Lift, and Swim skills. Instead of a Thievery skill that covers picking locks, picking pockets, and disabling traps, the game has three skills: Pick Lock, Pick Pocket, and Sabotage.\n\nHaving a wide range of specific skills means you’ll frequently make tests that don’t use one of your character’s skills, simply applying a characteristic. By not having a few broader skills, it means that having a character who covers the spread of every skill is actually impossible. Luckily, the math of the game doesn’t require you to have a skill to have a decent chance of success on a test. That means heroes can attempt tasks without the help of a skill just because someone needs to do it, and that’s pretty darn heroic!\n\nSince you don’t need to worry about your character covering a wide spread of skills, you’re free to choose the skills you think fit your hero best and are the most fun to work with. Maybe you’re thinking about an elementalist who has a gymnastic background in jumping and tumbling, and who also studied religion and blacksmithing. Having that kind of specific backstory is a big part of cinematic storytelling.\n\nThe rules for skills allow for them to be flexibly applied to any test that is appropriate for the skill. This encourages clever thinking. A player can ask the Director, “I want to impress the duke with a story about how I ascended the sheer Cliffs of Azgahnan. Can I use my Climb skill for a +2 bonus to my Presence test?” Getting creative like that is a lot of fun. It paints a visual picture, and it’s good tactical thinking! However, if the skills in a game are too broad in the kinds of activities they represent, players inevitably end up applying the same skill over and over again to as many tests as possible. This isn’t fun for anyone, and doesn’t make a very compelling story.",
+    "updated": "2026-09-30",
+    "zh": "大量專門技能\n\n本遊戲包含大量的專門技能，每種技能都有特定的用途。例如，遊戲不會使用單個運動技能來涵蓋所有體能活動，而是將攀爬、跳躍、游泳和舉重設計成獨立技能。同理，遊戲也不採用統一的巧手技能，而是將開鎖、扒竊和拆除分成 3 個不同技能。\n\n因為技能劃分得很細，你會經常單純使用屬性來進行考驗，而不一定會用到技能。由於遊戲採用細分的技能系統，而非少數的通用技能，這代表沒有角色可以掌握所有技能。但別擔心！遊戲的數值機制讓你即使沒有特定技能，也會有不錯的成功率。這代表英雄可以在必要時挺身而出，勇敢嘗試沒有相關技能的挑戰，這才是英雄該有的精神！\n\n由於不必擔心讓英雄掌握所有技能，你可以自由選擇最適合且最有趣的技能來發展你的英雄。也許你想創造擁有體操背景、精通跳躍和翻滾的元素師，而這位角色還研究過宗教和鍛造技藝。這種獨特的背景設定，正是打造電影般精彩故事的關鍵要素。\n\n技能規則允許你將技能靈活運用於任何適合的考驗，藉此鼓勵你發揮創意。玩家可以主動詢問導演：「我想講述自己攀上險峻的【Cliffs of Azgahnan】的故事來讓公爵留下深刻印象。我可以使用攀爬技能來讓氣場考驗獲得 +2 加值嗎？」這種富有創意的思考方式不僅有趣，還能描繪生動的畫面，同時展現精妙的戰術思維！然而，如果技能的涵蓋範圍過於廣泛，玩家就會傾向反覆將同個技能套用在各種考驗上，這不但讓遊戲失去樂趣，也無法創造出引人入勝的故事。"
+  }
+}
