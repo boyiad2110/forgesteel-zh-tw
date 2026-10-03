@@ -72,10 +72,16 @@ export const resolveText = (language: Language, key: string | undefined, english
  */
 export const translate = (key: string | undefined, english: string): string => {
 	const language = getLanguage();
-	const sheetId = language === 'zh-TW' && key ? mapping[key] : undefined;
+	const entry = language === 'zh-TW' && key ? mapping[key] : undefined;
+	const sheetId = entry?.sheetId;
 	if (sheetId && !peekCatalog()) {
 		void loadCatalog();
 	}
 
-	return resolveText(language, key, english, mapping, peekCatalog());
+	const table: Record<string, string> = {};
+	if (key && sheetId) {
+		table[key] = sheetId;
+	}
+
+	return resolveText(language, key, english, table, peekCatalog());
 };
