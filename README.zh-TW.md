@@ -7,10 +7,10 @@
 ## 原則
 
 - 不修改上游的資料、邏輯、存檔格式與分享碼。翻譯只在畫面顯示時套用。
-- 所有中文以專案負責人維護的 Translation Master Sheet 為唯一依據，且只能採用狀態為 APPROVED 的條目。
+- 所有中文以中文 Master Sheet 為唯一依據，且只能採用狀態為 APPROVED 的條目。
 - 在地化不得超前 Master Sheet。
 - zh-TW 版本會隱藏社群與第三方來源書。
-- 主持人（Director）工具目前維持英文。
+- 主持人（Director）的工具和資料不是刻意留英文。Master Sheet 譯了就會顯示中文，只是優先順序比較後面。
 
 ## 分支
 
@@ -27,11 +27,13 @@ npm ci
 npm run start
 ```
 
-瀏覽器開啟 http://localhost:5173 。提交前執行：
+瀏覽器開啟 http://localhost:5173 。提交前要跑在地化守門。它故意沒有放進 `npm run check`，以免和上游那一行衝突：
 
 ```bash
-npm run check
+node scripts/l10n/check.mjs
 ```
+
+`npm run check` 是上游的檢查，可以另外跑，但不能代替上面這條。
 
 ## 同步上游
 
