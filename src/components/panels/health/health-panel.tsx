@@ -2,6 +2,7 @@ import { Alert, Button, Divider, Flex, InputNumber, Popover, Segmented, Space, T
 import { ConditionEndType, ConditionType } from '@/enums/condition-type';
 import { Collections } from '@/utils/collections';
 import { Condition } from '@/models/condition';
+import { ConditionName } from '@/l10n/condition-text';
 import { ConditionPanel } from '@/components/panels/condition/condition-panel';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
 import { DropdownButton } from '@/components/controls/dropdown-button/dropdown-button';
@@ -22,6 +23,7 @@ import { MonsterOrganizationType } from '@/enums/monster-organization-type';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { PanelMode } from '@/enums/panel-mode';
 import { PlusOutlined } from '@ant-design/icons';
+import { ReactNode } from 'react';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
 
@@ -699,7 +701,7 @@ const HealthPanel = (props: Props) => {
 	};
 
 	if (props.mode === PanelMode.Compact) {
-		const tags: string[] = [];
+		const tags: ReactNode[] = [];
 		if (props.defeated && props.defeated.value) {
 			tags.push('Defeated');
 		} else {
@@ -716,7 +718,7 @@ const HealthPanel = (props: Props) => {
 				}
 			}
 			props.conditions.current.forEach(c => {
-				tags.push(c.type === ConditionType.Quick ? c.text : c.type);
+				tags.push(c.type === ConditionType.Quick ? c.text : <ConditionName type={c.type} />);
 			});
 		}
 
@@ -861,15 +863,15 @@ Your allies can help you spend Recoveries in combat, and you can spend Recoverie
 							content={
 								<Space orientation='vertical'>
 									<div className='conditions-grid'>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Bleeding)}>{ConditionType.Bleeding}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Dazed)}>{ConditionType.Dazed}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Frightened)}>{ConditionType.Frightened}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Grabbed)}>{ConditionType.Grabbed}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Prone)}>{ConditionType.Prone}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Restrained)}>{ConditionType.Restrained}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Slowed)}>{ConditionType.Slowed}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Taunted)}>{ConditionType.Taunted}</Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Weakened)}>{ConditionType.Weakened}</Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Bleeding)}><ConditionName type={ConditionType.Bleeding} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Dazed)}><ConditionName type={ConditionType.Dazed} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Frightened)}><ConditionName type={ConditionType.Frightened} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Grabbed)}><ConditionName type={ConditionType.Grabbed} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Prone)}><ConditionName type={ConditionType.Prone} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Restrained)}><ConditionName type={ConditionType.Restrained} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Slowed)}><ConditionName type={ConditionType.Slowed} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Taunted)}><ConditionName type={ConditionType.Taunted} /></Button>
+										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Weakened)}><ConditionName type={ConditionType.Weakened} /></Button>
 									</div>
 									<Divider />
 									<div className='conditions-grid'>

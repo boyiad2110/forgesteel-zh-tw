@@ -99,6 +99,27 @@ describe('resolveText', () => {
 		expect(resolveText('zh-TW', orcKey, 'Orc', table, {})).toBe('Orc');
 		expect(resolveText('zh-TW', undefined, 'Orc', table, catalog)).toBe('Orc');
 	});
+
+	test('a titled rules row drops the heading only in zh-TW', () => {
+		const key = 'data:ConditionData:bleeding';
+		const sheetId = 'heroes.conditions.bleeding.rules';
+		const english = '\nWhile bleeding.';
+		const rules = {
+			[sheetId]: { zh: '出血\n\n規則', en: 'Bleeding\n\nWhile bleeding.', updated: '2026-10-01' }
+		};
+		const rulesTable = { [key]: sheetId };
+		expect(resolveText('zh-TW', key, english, rulesTable, rules, true)).toBe('規則');
+		expect(resolveText('en', key, english, rulesTable, rules, true)).toBe(english);
+	});
+
+	test('a rules row without a heading stays on the original string', () => {
+		const key = 'data:ConditionData:bleeding';
+		const sheetId = 'heroes.conditions.bleeding.rules';
+		const rules = {
+			[sheetId]: { zh: '規則', en: 'While bleeding.', updated: '2026-10-01' }
+		};
+		expect(resolveText('zh-TW', key, '\nWhile bleeding.', { [key]: sheetId }, rules, true)).toBe('\nWhile bleeding.');
+	});
 });
 
 describe('displayKey', () => {

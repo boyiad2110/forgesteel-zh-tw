@@ -3,6 +3,7 @@ import { Feature, FeatureAbility, FeatureAncestryFeatureChoice, FeatureBonus, Fe
 import { Ability } from '@/models/ability';
 import { AbilityEditPanel } from '@/components/panels/edit/ability-edit/ability-edit-panel';
 import { Characteristic } from '@/enums/characteristic';
+import { ConditionName } from '@/l10n/condition-text';
 import { ConditionType } from '@/enums/condition-type';
 import { ConfigFeature } from '@/components/features/feature';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
@@ -676,8 +677,8 @@ export const HeroCustomizeModal = (props: Props) => {
 						style={{ width: '100%' }}
 						placeholder='Select condition'
 						mode='multiple'
-						options={[ ConditionType.Bleeding, ConditionType.Dazed, ConditionType.Frightened, ConditionType.Grabbed, ConditionType.Prone, ConditionType.Restrained, ConditionType.Slowed, ConditionType.Taunted, ConditionType.Weakened ].map(o => ({ value: o }))}
-						optionRender={option => <div className='ds-text'>{option.data.value}</div>}
+						options={[ ConditionType.Bleeding, ConditionType.Dazed, ConditionType.Frightened, ConditionType.Grabbed, ConditionType.Prone, ConditionType.Restrained, ConditionType.Slowed, ConditionType.Taunted, ConditionType.Weakened ].map(o => ({ value: o, label: <ConditionName type={o} /> }))}
+						optionRender={option => <div className='ds-text'>{option.data.label}</div>}
 						value={feature.data.conditions}
 						onChange={setConditionTypes}
 					/>

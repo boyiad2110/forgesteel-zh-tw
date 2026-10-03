@@ -1,5 +1,6 @@
 import { Feature, FeatureConditionImmunityData } from '@/models/feature';
 import { Select, Space } from 'antd';
+import { ConditionName } from '@/l10n/condition-text';
 import { ConditionType } from '@/enums/condition-type';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -45,8 +46,8 @@ export const EditConditionImmunity = (props: EditProps) => {
 				placeholder='Select conditions'
 				mode='tags'
 				allowClear={true}
-				options={[ ConditionType.Bleeding, ConditionType.Dazed, ConditionType.Frightened, ConditionType.Grabbed, ConditionType.Prone, ConditionType.Restrained, ConditionType.Slowed, ConditionType.Taunted, ConditionType.Weakened ].map(o => ({ value: o }))}
-				optionRender={option => <div className='ds-text'>{option.data.value}</div>}
+				options={[ ConditionType.Bleeding, ConditionType.Dazed, ConditionType.Frightened, ConditionType.Grabbed, ConditionType.Prone, ConditionType.Restrained, ConditionType.Slowed, ConditionType.Taunted, ConditionType.Weakened ].map(o => ({ value: o, label: <ConditionName type={o} /> }))}
+				optionRender={option => <div className='ds-text'>{option.data.label}</div>}
 				value={data.conditions}
 				onChange={conditions => setConditions(conditions)}
 			/>

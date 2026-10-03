@@ -1,4 +1,5 @@
 import { Button, Flex, Segmented, Space, Tabs } from 'antd';
+import { ConditionName, conditionRulesKey } from '@/l10n/condition-text';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -140,8 +141,8 @@ export const ReferenceModal = (props: Props) => {
 						ConditionType.Weakened
 					].map(ct => (
 						<div key={ct}>
-							<HeaderText>{ct}</HeaderText>
-							<Markdown text={ConditionLogic.getDescription(ct)} />
+							<HeaderText><ConditionName type={ct} /></HeaderText>
+							<Markdown l10nKey={conditionRulesKey(ct)} text={ConditionLogic.getDescription(ct)} />
 						</div>
 					))
 				}

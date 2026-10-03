@@ -1,4 +1,5 @@
 import { ConditionEndType, ConditionType } from '@/enums/condition-type';
+import { ConditionName, conditionRulesKey } from '@/l10n/condition-text';
 import { Markdown, MarkdownEditor } from '@/components/controls/markdown/markdown';
 import { Segmented, Space } from 'antd';
 import { Condition } from '@/models/condition';
@@ -53,9 +54,10 @@ export const ConditionPanel = (props: Props) => {
 				{
 					(condition.type !== ConditionType.Custom) && (condition.type !== ConditionType.Quick) ?
 						<Field
-							label={condition.type}
+							label={<ConditionName type={condition.type} />}
 							value={
 								<Markdown
+									l10nKey={conditionRulesKey(condition.type)}
 									text={ConditionLogic.getDescription(condition.type)}
 									useSpan={true}
 								/>
