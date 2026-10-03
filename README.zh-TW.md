@@ -1,5 +1,7 @@
 # Forge Steel 正體中文版
 
+規則、進度與已拍板的決定，請先讀 [docs/zh-TW/README.md](docs/zh-TW/README.md)。
+
 本倉庫是 [Forge Steel](https://github.com/andyaiken/forgesteel) 的正體中文（zh-TW）在地化。Forge Steel 是 DRAW STEEL 桌上角色扮演遊戲的英雄構築與主持人工具，由 [Andy Aiken](mailto:andy.aiken@live.co.uk) 設計開發。英文正式站為 [forgesteel.net](https://forgesteel.net)。
 
 ## 原則
