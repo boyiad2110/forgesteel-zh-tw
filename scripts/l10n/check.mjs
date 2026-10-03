@@ -33,6 +33,10 @@
  *   ui       — the value of that id in src/l10n/ui-english.json
  *   data     — the template literal on that static field of the class in src/data
  *
+ * A template literal cooks CR LF and a lone CR into LF. The check does the
+ * same to every recomputed English string, and to Sheet English before a
+ * comparison, so a core.autocrlf checkout hashes like the runtime string.
+ *
  * stripHeading means the sheet row is a title line, a blank line, then the
  * rules. The display strips that title when it shows the Chinese. The check
  * strips the same way and requires the sheet English body to equal the
@@ -78,6 +82,14 @@ const posix = value => value.split(path.sep).join('/');
 
 export const hashEnglish = text => {
 	return createHash('sha256').update(text, 'utf8').digest('hex');
+};
+
+/**
+ * Cooked template values turn CR LF and a lone CR into LF.
+ * Do CR LF first so it does not become two line feeds.
+ */
+export const normalizeEnglish = text => {
+	return text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 };
 
 /**
@@ -465,22 +477,29 @@ const dataEnglish = (root, className, field) => {
 	return { error: `class ${className} was not found under src/data` };
 };
 
+const cookedEnglish = resolved => {
+	if (typeof resolved.english === 'string') {
+		return { english: normalizeEnglish(resolved.english) };
+	}
+	return resolved;
+};
+
 export const forgeEnglish = (root, key, cache = { current: null }) => {
 	const element = /^element:([^:]+):([^:]+)$/.exec(key);
 	if (element) {
-		return elementEnglish(root, cache, element[1], element[2]);
+		return cookedEnglish(elementEnglish(root, cache, element[1], element[2]));
 	}
 	const enumeration = /^enum:([^:]+):([^:]+)$/.exec(key);
 	if (enumeration) {
-		return enumEnglish(root, enumeration[1], enumeration[2]);
+		return cookedEnglish(enumEnglish(root, enumeration[1], enumeration[2]));
 	}
 	const data = /^data:([^:]+):([^:]+)$/.exec(key);
 	if (data) {
-		return dataEnglish(root, data[1], data[2]);
+		return cookedEnglish(dataEnglish(root, data[1], data[2]));
 	}
 	const ui = /^ui:(.+)$/.exec(key);
 	if (ui) {
-		return uiEnglish(root, ui[1]);
+		return cookedEnglish(uiEnglish(root, ui[1]));
 	}
 	return { error: 'key is not an element, enum, data, or ui key' };
 };
@@ -700,11 +719,11 @@ const checkRulesHeading = (root, entry, english) => {
 	if (!row || typeof row.en !== 'string' || typeof row.zh !== 'string') {
 		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, `${entry.sheetId} has no English and Chinese text`);
 	}
-	const sheetBody = stripRulesHeading(row.en);
+	const sheetBody = stripRulesHeading(normalizeEnglish(row.en));
 	if (sheetBody === null) {
 		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, 'sheet English has no title line and blank line to drop');
 	}
-	if (sheetBody !== english.trim()) {
+	if (sheetBody !== normalizeEnglish(english).trim()) {
 		const preview = sheetBody.length > 80 ? `${sheetBody.slice(0, 80)}…` : sheetBody;
 		return issue(
 			'rules-heading',

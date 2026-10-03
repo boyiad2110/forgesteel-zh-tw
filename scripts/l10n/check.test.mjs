@@ -205,6 +205,31 @@ describe('rules heading', () => {
 		expect(formatIssues(checkMapping(root))).toContain('sheet English body does not match');
 	});
 
+	test('a CRLF data file hashes like the LF template', () => {
+		const root = scratch();
+		const lf = '\nWhile a creature is bleeding, you are dying.';
+		const source = `export class ConditionData {\n\tstatic bleeding = \`${lf}\`;\n}\n`.replace(/\n/g, '\r\n');
+		write(root, 'src/data/condition-data.ts', source);
+		const resolved = forgeEnglish(root, 'data:ConditionData:bleeding');
+
+		expect(hashEnglish(resolved.english)).toBe(hashEnglish(lf));
+
+		write(root, 'src/l10n/generated/zh-TW/glossary.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/names.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/strings.json', `${JSON.stringify({
+			'heroes.conditions.bleeding.rules': {
+				en: 'Bleeding\r\n\r\nWhile a creature is bleeding, you are dying.',
+				updated: '2026-10-01',
+				zh: '出血\n\n規則'
+			}
+		}, null, 2)}\n`);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'data:ConditionData:bleeding', sheetId: 'heroes.conditions.bleeding.rules', enHash: hashEnglish(lf), stripHeading: true }
+		]));
+
+		expect(checkMapping(root)).toEqual([]);
+	});
+
 	test('refuses stripHeading on an enum key', () => {
 		const root = scratch();
 		write(root, 'src/enums/condition-type.ts', 'export enum ConditionType {\n\tBleeding = \'Bleeding\'\n}\n');
