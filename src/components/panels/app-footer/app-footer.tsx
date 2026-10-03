@@ -1,6 +1,6 @@
 import { BookOutlined, DatabaseFilled, InfoCircleOutlined, PlayCircleOutlined, ReadOutlined, SettingOutlined, TeamOutlined, WarningFilled } from '@ant-design/icons';
 import { Button, Divider, Drawer, Flex, Space, Tag } from 'antd';
-import { ButtonConfig, ButtonGroup } from '@/components/controls/button-group/button-group';
+import { ButtonConfig, ButtonGroup, ControlConfig } from '@/components/controls/button-group/button-group';
 import { useDataManager, useOptions } from '@/contexts/data-context';
 import { ConnectionSettings } from '@/models/connection-settings';
 import { Hero } from '@/models/hero';
@@ -57,8 +57,24 @@ export const AppFooter = (props: Props) => {
 		window.open('https://www.patreon.com/cw/andyaiken', '_blank');
 	};
 
-	const actions: ButtonConfig[] = [
-		{ type: 'button', label: currentLanguage, tooltip: currentLanguage, onClick: toggleLanguage },
+	const actions: (ButtonConfig | ControlConfig)[] = [
+		{
+			type: 'control',
+			control: (
+				<Button
+					key='language'
+					type='text'
+					className='language-toggle'
+					title={currentLanguage}
+					onClick={e => {
+						e.stopPropagation();
+						toggleLanguage();
+					}}
+				>
+					{currentLanguage}
+				</Button>
+			)
+		},
 		{ type: 'button', label: isSmall ? undefined : 'Reference', icon: <ReadOutlined />, tooltip: 'Reference', onClick: () => props.params.showReference(props.hero) },
 		{ type: 'button', label: isSmall ? undefined : 'Settings', icon: <SettingOutlined />, tooltip: 'Settings', onClick: props.params.showSettings },
 		{ type: 'button', label: isSmall ? undefined : 'About', icon: <InfoCircleOutlined />, tooltip: 'About', onClick: props.params.showAbout },

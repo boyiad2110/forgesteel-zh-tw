@@ -88,7 +88,7 @@ export const SettingsModal = (props: Props) => {
 						value={language}
 						onChange={value => setLanguage(value as Language)}
 						options={[
-							{ label: '繁體中文', value: 'zh-TW' },
+							{ label: '正體中文', value: 'zh-TW' },
 							{ label: 'English', value: 'en' }
 						]}
 					/>
