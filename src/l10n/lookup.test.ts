@@ -4,8 +4,10 @@ import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/cha
 import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { Characteristic } from '@/enums/characteristic';
+import { elementScopeFields } from '@/l10n/element-scope';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { mapping } from '@/l10n/mapping';
+import strings from '@/l10n/generated/zh-TW/strings.json';
 
 const orcKey = 'element:ancestry-orc:name';
 const orcSheet = 'heroes.ancestries.orc.name';
@@ -186,5 +188,58 @@ describe('characteristic names', () => {
 			expect(textAfterCharacteristicSymbol(row.characteristic, row.characteristic)).toBe(row.characteristic.substring(1));
 			expect(textAfterCharacteristicSymbol(row.characteristic, sheet.zh)).toBe(sheet.zh);
 		}
+	});
+});
+
+describe('element scope', () => {
+	const catalog = strings as Catalog;
+	const relentless = 'Whenever a creature deals damage to you that leaves you dying, you can make a free strike against any creature. If the creature is reduced to 0 Stamina by your strike, you can spend a Recovery.';
+	const feature = {
+		id: 'orc-feature-1',
+		name: 'Relentless',
+		description: relentless
+	};
+
+	test('a matching field becomes an element key and resolves the approved row', () => {
+		const key = 'element:ancestry-orc:name';
+		const sheetId = 'heroes.ancestries.orc.name';
+		const scope = {
+			id: 'ancestry-orc',
+			fields: elementScopeFields({ id: 'ancestry-orc', name: 'Orc', description: 'An anger.' })
+		};
+
+		expect(displayKey(undefined, 'Orc', scope)).toBe(key);
+		expect(mapping[key]).toMatchObject({ sheetId });
+		expect(resolveText('zh-TW', key, 'Orc', { [key]: sheetId }, catalog)).toBe(catalog[sheetId].zh);
+		expect(resolveText('en', key, 'Orc', { [key]: sheetId }, catalog)).toBe('Orc');
+	});
+
+	test('a renamed feature and computed text fall back to the English on screen', () => {
+		const scope = { id: feature.id, fields: elementScopeFields(feature) };
+		const renamed = 'My Trait';
+		const computed = `${relentless} The strike deals 5 damage.`;
+
+		expect(displayKey(undefined, feature.name, scope)).toBe('element:orc-feature-1:name');
+		expect(displayKey(undefined, renamed, scope)).toBeUndefined();
+		expect(displayKey(undefined, computed, scope)).toBeUndefined();
+		expect(resolveText('zh-TW', undefined, renamed, { 'element:orc-feature-1:name': mapping['element:orc-feature-1:name'].sheetId }, catalog)).toBe(renamed);
+		expect(resolveText('zh-TW', undefined, computed, {}, catalog)).toBe(computed);
+	});
+
+	test('a customization overlay drops the replaced field and keeps the other', () => {
+		const fields = elementScopeFields(feature, { name: 'My Trait', description: '' });
+		const scope = { id: feature.id, fields };
+
+		expect(displayKey(undefined, 'My Trait', scope)).toBeUndefined();
+		expect(displayKey(undefined, feature.name, scope)).toBeUndefined();
+		expect(displayKey(undefined, feature.description, scope)).toBe('element:orc-feature-1:description');
+	});
+
+	test('unmapped orc text stays in English', () => {
+		expect(mapping['element:orc-feature-2:name']).toBeUndefined();
+		expect(mapping['element:orc-feature-2-2:description']).toBeUndefined();
+		expect(mapping['element:orc-feature-2-5:description']).toBeUndefined();
+		const grounded = 'The magic in your blood makes it difficult for others to move you.';
+		expect(resolveText('zh-TW', 'element:orc-feature-2-2:description', grounded, {}, catalog)).toBe(grounded);
 	});
 });

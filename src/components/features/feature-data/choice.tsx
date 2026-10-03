@@ -1,5 +1,6 @@
 import { Alert, Button, Divider, Drawer, Segmented, Space } from 'antd';
 import { CaretDownOutlined, CaretUpOutlined, PlusOutlined } from '@ant-design/icons';
+import { ElementScope, L10nText } from '@/l10n/element-scope';
 import { Feature, FeatureChoiceData } from '@/models/feature';
 import { Collections } from '@/utils/collections';
 import { DangerButton } from '@/components/controls/danger-button/danger-button';
@@ -257,11 +258,13 @@ export const ConfigChoice = (props: ConfigProps) => {
 					<SelectionBox
 						key={f.id}
 						content={
-							<Field
-								style={{ flex: '1 1 0' }}
-								label={f.name}
-								value={<Markdown text={f.description} useSpan={true} />}
-							/>
+							<ElementScope element={f}>
+								<Field
+									style={{ flex: '1 1 0' }}
+									label={<L10nText text={f.name} />}
+									value={<Markdown text={f.description} useSpan={true} />}
+								/>
+							</ElementScope>
 						}
 						onSelect={() => setSelectedFeature(f)}
 						onRemove={() => {

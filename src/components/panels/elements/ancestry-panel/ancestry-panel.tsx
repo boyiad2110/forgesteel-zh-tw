@@ -1,3 +1,4 @@
+import { ElementScope, L10nUnscoped } from '@/l10n/element-scope';
 import { Segmented, Space } from 'antd';
 import { Ancestry } from '@/models/ancestry';
 import { AncestryLogic } from '@/logic/ancestry-logic';
@@ -72,10 +73,16 @@ export const AncestryPanel = (props: Props) => {
 	};
 
 	const getCulture = () => {
-		return props.ancestry.culture ?
-			<CulturePanel culture={props.ancestry.culture} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
-			:
-			<Empty />;
+		return (
+			<L10nUnscoped>
+				{
+					props.ancestry.culture ?
+						<CulturePanel culture={props.ancestry.culture} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
+						:
+						<Empty />
+				}
+			</L10nUnscoped>
+		);
 	};
 
 	const getContent = () => {
@@ -130,23 +137,27 @@ export const AncestryPanel = (props: Props) => {
 
 	if (props.mode !== PanelMode.Full) {
 		return (
-			<div className='ancestry-panel compact'>
-				<HeaderText level={1} tags={tags}>
-					{props.ancestry.name || 'Unnamed Ancestry'}
-				</HeaderText>
-				<Markdown text={props.ancestry.description} />
-			</div>
+			<ElementScope element={props.ancestry}>
+				<div className='ancestry-panel compact'>
+					<HeaderText level={1} tags={tags}>
+						{props.ancestry.name || 'Unnamed Ancestry'}
+					</HeaderText>
+					<Markdown text={props.ancestry.description} />
+				</div>
+			</ElementScope>
 		);
 	}
 
 	return (
 		<ErrorBoundary>
-			<div className='ancestry-panel' id={SheetFormatter.getPageId('ancestry', props.ancestry.id)}>
-				<HeaderText level={1} tags={tags}>
-					{props.ancestry.name || 'Unnamed Ancestry'}
-				</HeaderText>
-				{getContent()}
-			</div>
+			<ElementScope element={props.ancestry}>
+				<div className='ancestry-panel' id={SheetFormatter.getPageId('ancestry', props.ancestry.id)}>
+					<HeaderText level={1} tags={tags}>
+						{props.ancestry.name || 'Unnamed Ancestry'}
+					</HeaderText>
+					{getContent()}
+				</div>
+			</ElementScope>
 		</ErrorBoundary>
 	);
 };

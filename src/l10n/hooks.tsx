@@ -16,12 +16,22 @@ interface ScopeProps {
  * Marks the element a block of screen is showing, so titles and descriptions
  * inside it can be looked up. The same wrapper is used on every screen that
  * renders the element, including Director tools — nothing is forced back to
- * English by route. This batch does not mount it: the mapping table is empty,
- * so there is nothing to look up yet.
+ * English by route. Screens mount it through ElementScope. A field translates
+ * only when the text on screen still equals the data text, so a renamed
+ * feature or computed wording stays in English.
  */
 export const L10nScope = (props: ScopeProps) => {
 	return (
 		<L10nScopeContext value={{ id: props.id, fields: props.fields }}>
+			{props.children}
+		</L10nScopeContext>
+	);
+};
+
+/** Drops the surrounding element scope so this block stays in English. */
+export const L10nUnscoped = (props: { children: ReactNode }) => {
+	return (
+		<L10nScopeContext value={null}>
 			{props.children}
 		</L10nScopeContext>
 	);
