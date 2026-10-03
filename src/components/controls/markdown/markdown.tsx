@@ -1,4 +1,5 @@
 import { BlockTypeSelect, BoldItalicUnderlineToggles, CodeToggle, CreateLink, InsertTable, ListsToggle, MDXEditor, headingsPlugin, imagePlugin, linkDialogPlugin, linkPlugin, listsPlugin, quotePlugin, tablePlugin, thematicBreakPlugin, toolbarPlugin } from '@mdxeditor/editor';
+import { useDisplayKey, useL10nText } from '@/l10n/hooks';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { Utils } from '@/utils/utils';
@@ -11,20 +12,26 @@ interface MarkdownProps {
 	text: string;
 	className?: string;
 	useSpan?: boolean;
+	l10nKey?: string;
 }
 
 export const Markdown = (props: MarkdownProps) => {
-	if (!props.text) {
+	const key = useDisplayKey(props.l10nKey, props.text);
+	const text = useL10nText(key, props.text);
+
+	if (!text) {
 		return null;
 	}
+
+	const html = Utils.markdownToHtml(text.trim());
 
 	return (
 		<ErrorBoundary>
 			{
 				props.useSpan ?
-					<span className={props.className} dangerouslySetInnerHTML={{ __html: Utils.markdownToHtml(props.text.trim()) }} />
+					<span className={props.className} dangerouslySetInnerHTML={{ __html: html }} />
 					:
-					<div className={props.className} dangerouslySetInnerHTML={{ __html: Utils.markdownToHtml(props.text.trim()) }} />
+					<div className={props.className} dangerouslySetInnerHTML={{ __html: html }} />
 			}
 		</ErrorBoundary>
 	);

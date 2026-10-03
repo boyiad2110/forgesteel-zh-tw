@@ -6,8 +6,10 @@ import { ConnectionSettings } from '@/models/connection-settings';
 import { Hero } from '@/models/hero';
 import { Modal } from '@/components/modals/modal/modal';
 import { Options } from '@/models/options';
+import { languageLabel } from '@/l10n/language';
 import shield from '@/assets/shield.png';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLanguage } from '@/l10n/hooks';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useState } from 'react';
 
@@ -33,6 +35,8 @@ interface Props {
 export const AppFooter = (props: Props) => {
 	const isSmall = useIsSmall();
 	const navigation = useNavigation();
+	const { language, toggleLanguage } = useLanguage();
+	const currentLanguage = languageLabel(language);
 	const [ showSidebar, setShowSidebar ] = useState<boolean>(false);
 	const options = useOptions();
 	const dataManager = useDataManager();
@@ -54,6 +58,7 @@ export const AppFooter = (props: Props) => {
 	};
 
 	const actions: ButtonConfig[] = [
+		{ type: 'button', label: currentLanguage, tooltip: currentLanguage, onClick: toggleLanguage },
 		{ type: 'button', label: isSmall ? undefined : 'Reference', icon: <ReadOutlined />, tooltip: 'Reference', onClick: () => props.params.showReference(props.hero) },
 		{ type: 'button', label: isSmall ? undefined : 'Settings', icon: <SettingOutlined />, tooltip: 'Settings', onClick: props.params.showSettings },
 		{ type: 'button', label: isSmall ? undefined : 'About', icon: <InfoCircleOutlined />, tooltip: 'About', onClick: props.params.showAbout },
