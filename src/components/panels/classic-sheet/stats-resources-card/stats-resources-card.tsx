@@ -1,3 +1,5 @@
+import { Characteristic } from '@/enums/characteristic';
+import { CharacteristicAfterSymbol } from '@/l10n/characteristic-text';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { LabeledTextField } from '@/components/panels/classic-sheet/components/labeled-field';
 import { RecoveriesComponent } from '@/components/panels/classic-sheet/components/recoveries-component';
@@ -21,23 +23,23 @@ export const StatsResourcesCard = (props: Props) => {
 			<div className='characteristics-measurements'>
 				<div className='characteristics'>
 					<div className='labeled-field label-above fancy'>
-						<label><span className='symbol'>M</span>ight</label>
+						<label><span className='symbol'>M</span><CharacteristicAfterSymbol characteristic={Characteristic.Might} /></label>
 						<div className='labeled-field-content'><span>{Utils.isNullOrEmpty(character.might?.toString()) ? <>&nbsp;</> : character.might}</span></div>
 					</div>
 					<div className='labeled-field label-above fancy'>
-						<label><span className='symbol'>A</span>gility</label>
+						<label><span className='symbol'>A</span><CharacteristicAfterSymbol characteristic={Characteristic.Agility} /></label>
 						<div className='labeled-field-content'><span>{Utils.isNullOrEmpty(character.agility?.toString()) ? <>&nbsp;</> : character.agility}</span></div>
 					</div>
 					<div className='labeled-field label-above fancy'>
-						<label><span className='symbol'>R</span>eason</label>
+						<label><span className='symbol'>R</span><CharacteristicAfterSymbol characteristic={Characteristic.Reason} /></label>
 						<div className='labeled-field-content'><span>{Utils.isNullOrEmpty(character.reason?.toString()) ? <>&nbsp;</> : character.reason}</span></div>
 					</div>
 					<div className='labeled-field label-above fancy'>
-						<label><span className='symbol'>I</span>ntuition</label>
+						<label><span className='symbol'>I</span><CharacteristicAfterSymbol characteristic={Characteristic.Intuition} /></label>
 						<div className='labeled-field-content'><span>{Utils.isNullOrEmpty(character.intuition?.toString()) ? <>&nbsp;</> : character.intuition}</span></div>
 					</div>
 					<div className='labeled-field label-above fancy'>
-						<label><span className='symbol'>P</span>resence</label>
+						<label><span className='symbol'>P</span><CharacteristicAfterSymbol characteristic={Characteristic.Presence} /></label>
 						<div className='labeled-field-content'><span>{Utils.isNullOrEmpty(character.presence?.toString()) ? <>&nbsp;</> : character.presence}</span></div>
 					</div>
 				</div>

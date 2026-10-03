@@ -49,6 +49,10 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/features/feature-data/condition-immunity.tsx`（條件名稱）
 - `src/components/modals/hero-customize/hero-customize-modal.tsx`（條件名稱）
 - `src/components/panels/classic-sheet/conditions-card/conditions-card.tsx`（條件名稱）
+- `src/components/panels/hero/stats/stats-panel.tsx`（屬性名稱）
+- `src/components/panels/classic-sheet/stats-resources-card/stats-resources-card.tsx`（屬性名稱）
+- `src/components/panels/classic-sheet/components/characteristics-component.tsx`（屬性名稱）
+- `src/components/modals/roll/roll-modal.tsx`（屬性名稱）
 
 ## 舊的失敗嘗試，不要再做
 

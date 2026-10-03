@@ -40,5 +40,10 @@ export const mapping: Record<string, MappingEntry> = {
 	'enum:ConditionType:Taunted': { sheetId: 'term.taunted', enHash: '73a737d615833672e97a4f912ae7b6ba7804308c6275a4be329e5ed26cee2d8b' },
 	'data:ConditionData:taunted': { sheetId: 'heroes.conditions.taunted.rules', enHash: 'b1b60b06498d1d2d4459c003f912ed2fc157fb6b8811c4ba0b808e2081d13dd7', stripHeading: true },
 	'enum:ConditionType:Weakened': { sheetId: 'term.weakened', enHash: '2fabd8091e1d12a5db535d011eafa4581cccbc11c6179c5114e46c0075a44a9d' },
-	'data:ConditionData:weakened': { sheetId: 'heroes.conditions.weakened.rules', enHash: 'ea0e2b4c0e17cecdca16fb0f1279b5794d527e79a336ead39bf69af318f0265e', stripHeading: true }
+	'data:ConditionData:weakened': { sheetId: 'heroes.conditions.weakened.rules', enHash: 'ea0e2b4c0e17cecdca16fb0f1279b5794d527e79a336ead39bf69af318f0265e', stripHeading: true },
+	'enum:Characteristic:Might': { sheetId: 'term.might', enHash: 'f68b032edc2230443f299ef26e02607744624f032195c026102979f51a9570ed' },
+	'enum:Characteristic:Agility': { sheetId: 'term.agility', enHash: '49796694dc6770112a10ab0c588fc67e1d793ed6f4fa80184090edcaf9712a12' },
+	'enum:Characteristic:Reason': { sheetId: 'term.reason', enHash: 'f81ab834de5f84918dc040b884267c2b61cb1a52d46442de10e97f35a94d0500' },
+	'enum:Characteristic:Intuition': { sheetId: 'term.intuition', enHash: '680274b27b43c79375bff96cac66a9b56ccaab7eff364612faf98ada603f7a31' },
+	'enum:Characteristic:Presence': { sheetId: 'term.presence', enHash: 'd6b3e8c828d3742089ed59ebbfd89492ec2ce0bc89a19294cae52a6ac233b244' }
 };
