@@ -8,6 +8,7 @@ import { HeroModalType } from '@/enums/hero-modal-type';
 import { RollModifierMarker } from '@/components/controls/roll-modifier-marker/roll-modifier-marker';
 import { RollType } from '@/enums/roll-type';
 import { StatsRow } from '@/components/panels/stats-row/stats-row';
+import { useCharacteristicNames } from '@/l10n/characteristic-text';
 import { useIsSmall } from '@/hooks/use-is-small';
 import { useOptions } from '@/contexts/data-context';
 
@@ -43,6 +44,8 @@ export const StatsPanel = (props: Props) => {
 	const recoveriesSuffix = props.hero.state.recoveriesUsed === 0 ? null : `/ ${maxRecoveries}`;
 
 	const potencyResistances = HeroLogic.getPotencyResistances(props.hero);
+	const characteristics = [ Characteristic.Might, Characteristic.Agility, Characteristic.Reason, Characteristic.Intuition, Characteristic.Presence ];
+	const characteristicNames = useCharacteristicNames(characteristics);
 
 	const getRollModifiers = (ch: Characteristic) => {
 		return HeroLogic.getRollModifiers(props.hero)
@@ -55,13 +58,13 @@ export const StatsPanel = (props: Props) => {
 		<div className='stats-section'>
 			<Flex gap={10}>
 				{
-					[ Characteristic.Might, Characteristic.Agility, Characteristic.Reason, Characteristic.Intuition, Characteristic.Presence ].map(ch => {
+					characteristics.map((ch, index) => {
 						const rollModifiers = getRollModifiers(ch);
 						const potencyResistance = potencyResistances.get(ch) || 0;
 						return (
 							<StatsRow
 								key={ch}
-								caption={isSmall ? ch.substring(0, 1) : ch}
+								caption={isSmall ? ch.substring(0, 1) : characteristicNames[index]}
 								captionExtra={rollModifiers.length > 0 ? <RollModifierMarker modifier={rollModifiers[0]} multiple={rollModifiers.length > 1} /> : null}
 								onClick={() => props.onSelectCharacteristic(ch)}
 								style={{ flex: '1 1 0' }}

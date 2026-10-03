@@ -13,6 +13,7 @@ import { Monster } from '@/models/monster';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { RollModifierPanel } from '@/components/panels/roll-modifier-panel/roll-modifier-panel';
 import { RollState } from '@/enums/roll-state';
+import { useCharacteristicNames } from '@/l10n/characteristic-text';
 import { useState } from 'react';
 
 import './roll-modal.scss';
@@ -27,6 +28,7 @@ export const RollModal = (props: Props) => {
 	const [ modifier, setModifier ] = useState<number>(0);
 	const [ type, setType ] = useState<'Power Roll' | 'Saving Throw'>('Power Roll');
 	const [ rollState, setRollState ] = useState<RollState>(RollState.Standard);
+	const characteristicNames = useCharacteristicNames(props.characteristics ?? []);
 
 	const warnings: { label: string, text: string }[] = [];
 	let characteristicBonus = 0;
@@ -78,7 +80,7 @@ export const RollModal = (props: Props) => {
 						<Flex align='center' justify='space-evenly'>
 							{
 								props.characteristics && props.creature ?
-									<Statistic title={props.characteristics.join(', ')} value={characteristicBonus} />
+									<Statistic title={characteristicNames.join(', ')} value={characteristicBonus} />
 									: null
 							}
 							<NumberSpin style={{ width: '150px' }} label='Modifier' value={modifier} onChange={setModifier} />

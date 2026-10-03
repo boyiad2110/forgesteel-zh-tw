@@ -1,7 +1,11 @@
+import { Catalog, peekCatalog } from '@/l10n/catalog';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
 import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
-import { peekCatalog } from '@/l10n/catalog';
+import { Characteristic } from '@/enums/characteristic';
+import glossary from '@/l10n/generated/zh-TW/glossary.json';
+import { mapping } from '@/l10n/mapping';
 
 const orcKey = 'element:ancestry-orc:name';
 const orcSheet = 'heroes.ancestries.orc.name';
@@ -148,11 +152,39 @@ describe('displayKey', () => {
 });
 
 describe('translate', () => {
-	test('the empty mapping table returns the original string and does not load JSON', () => {
+	test('an unmapped key returns the original string and does not load JSON', () => {
 		setLanguage('zh-TW');
 		expect(translate(orcKey, 'Orc')).toBe('Orc');
 		setLanguage('en');
 		expect(translate(orcKey, 'Orc')).toBe('Orc');
 		expect(peekCatalog()).toBeNull();
+	});
+});
+
+describe('characteristic names', () => {
+	const rows: { characteristic: Characteristic, sheetId: string }[] = [
+		{ characteristic: Characteristic.Might, sheetId: 'term.might' },
+		{ characteristic: Characteristic.Agility, sheetId: 'term.agility' },
+		{ characteristic: Characteristic.Reason, sheetId: 'term.reason' },
+		{ characteristic: Characteristic.Intuition, sheetId: 'term.intuition' },
+		{ characteristic: Characteristic.Presence, sheetId: 'term.presence' }
+	];
+
+	test('zh-TW uses the approved glossary name and English mode keeps the enum', () => {
+		const catalog = glossary as Catalog;
+		for (const row of rows) {
+			const key = characteristicNameKey(row.characteristic);
+			expect(key).toBe(`enum:Characteristic:${row.characteristic}`);
+			expect(mapping[key!]).toMatchObject({ sheetId: row.sheetId });
+			const sheet = catalog[row.sheetId];
+			expect(sheet.en).toBe(row.characteristic);
+			expect(sheet.zh.trim().length).toBeGreaterThan(0);
+			expect(sheet.zh).not.toBe(row.characteristic);
+			const table = { [key!]: row.sheetId };
+			expect(resolveText('zh-TW', key, row.characteristic, table, catalog)).toBe(sheet.zh);
+			expect(resolveText('en', key, row.characteristic, table, catalog)).toBe(row.characteristic);
+			expect(textAfterCharacteristicSymbol(row.characteristic, row.characteristic)).toBe(row.characteristic.substring(1));
+			expect(textAfterCharacteristicSymbol(row.characteristic, sheet.zh)).toBe(sheet.zh);
+		}
 	});
 });
