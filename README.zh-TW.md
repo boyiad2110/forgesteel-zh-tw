@@ -1,4 +1,4 @@
-# Forge Steel 正體中文
+# Forge Steel 正體中文版
 
 本倉庫是 [Forge Steel](https://github.com/andyaiken/forgesteel) 的正體中文（zh-TW）在地化。Forge Steel 是 DRAW STEEL 桌上角色扮演遊戲的英雄構築與主持人工具，由 [Andy Aiken](mailto:andy.aiken@live.co.uk) 設計開發。英文正式站為 [forgesteel.net](https://forgesteel.net)。
 
@@ -51,4 +51,4 @@ git push origin develop
 
 依 DRAW STEEL Creator License，須附下列聲明：
 
-> Forge Steel 正體中文 is an independent product published under the DRAW STEEL Creator License and is not affiliated with MCDM Productions, LLC. DRAW STEEL © 2026 MCDM Productions, LLC.
+> Forge Steel 正體中文版 is an independent product published under the DRAW STEEL Creator License and is not affiliated with MCDM Productions, LLC. DRAW STEEL © 2026 MCDM Productions, LLC.
