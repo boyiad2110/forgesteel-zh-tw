@@ -6,5 +6,17 @@
   "element:orc-feature-2-3:description": {
     "kind": "article",
     "note": "Forge Steel says 'stirred by passion'; the sheet says 'stirred by a passion'."
+  },
+  "element:ancestry-dwarf:description": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses ' - ' where the sheet uses an em dash."
+  },
+  "element:dwarf-feature-1a:description": {
+    "kind": "punctuation",
+    "note": "Forge Steel puts curly quotes around goblins, humans, gems, and potions; the sheet has no quotes."
+  },
+  "element:hakaan-feature-2-1:name": {
+    "kind": "article",
+    "note": "Forge Steel capitalizes the article: 'All Is A Feather'; the sheet says 'All Is a Feather'."
   }
 }

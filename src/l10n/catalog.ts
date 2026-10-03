@@ -1,7 +1,14 @@
+export interface ForgeSteelText {
+	basisHash: string;
+	en: string;
+	zh: string;
+}
+
 export interface SheetEntry {
 	zh: string;
 	en: string;
 	updated: string;
+	fs?: ForgeSteelText;
 }
 
 export type Catalog = Record<string, SheetEntry>;
@@ -29,12 +36,26 @@ export const subscribeToCatalog = (onChange: () => void) => {
 	};
 };
 
+const isForgeSteelText = (value: unknown): value is ForgeSteelText => {
+	if (!value || typeof value !== 'object') {
+		return false;
+	}
+	const forge = value as Record<string, unknown>;
+	return typeof forge.basisHash === 'string' && typeof forge.en === 'string' && typeof forge.zh === 'string';
+};
+
 const isSheetEntry = (value: unknown): value is SheetEntry => {
 	if (!value || typeof value !== 'object') {
 		return false;
 	}
 	const entry = value as Record<string, unknown>;
-	return typeof entry.zh === 'string' && typeof entry.en === 'string' && typeof entry.updated === 'string';
+	if (typeof entry.zh !== 'string' || typeof entry.en !== 'string' || typeof entry.updated !== 'string') {
+		return false;
+	}
+	if (entry.fs === undefined) {
+		return true;
+	}
+	return isForgeSteelText(entry.fs);
 };
 
 const readEntries = (value: unknown, into: Catalog) => {

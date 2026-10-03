@@ -363,6 +363,84 @@ describe('generated files', () => {
 	});
 });
 
+describe('forge steel version', () => {
+	const forge = 'warriors - a reputation';
+	const bookEn = 'Totally different book sentence.';
+	const bookZh = 'Book Chinese line.';
+	const sheetId = 'heroes.demo';
+
+	const writeFs = (root, { fsEn = forge, basisHash = hashEnglish(bookZh), mapped = true, exception = false, stripHeading = false } = {}) => {
+		write(root, 'src/data/item.ts', `export const item = {\n\tid: 'demo-item',\n\tdescription: '${forge}'\n};\n`);
+		write(root, 'src/l10n/generated/zh-TW/glossary.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/names.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/strings.json', `${JSON.stringify({
+			[sheetId]: {
+				en: bookEn,
+				fs: { basisHash, en: fsEn, zh: 'Forge line.' },
+				updated: '2026-10-01',
+				zh: bookZh
+			}
+		}, null, 2)}\n`);
+		const entries = mapped
+			? [ { key: 'element:demo-item:description', sheetId, enHash: hashEnglish(forge), stripHeading } ]
+			: [];
+		write(root, 'src/l10n/mapping.ts', entries.length === 0 ? 'export const mapping = {\n};\n' : mappingSource(entries));
+		if (exception) {
+			write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+				'element:demo-item:description': { kind: 'punctuation', note: 'dash versus em dash' }
+			}, null, 2)}\n`);
+		}
+	};
+
+	test('passes when Forge Steel English matches and the book English differs', () => {
+		const root = scratch();
+		writeFs(root);
+
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('fails when Forge Steel Source Text differs from Forge Steel English', () => {
+		const root = scratch();
+		writeFs(root, { fsEn: 'warriors—a reputation' });
+
+		const text = formatIssues(checkMapping(root));
+		expect(text).toContain('Forge Steel English does not match Forge Steel Source Text');
+		expect(text).not.toContain('sheet English does not match');
+	});
+
+	test('fails when the basis hash is stale', () => {
+		const root = scratch();
+		writeFs(root, { basisHash: hashEnglish('other') });
+
+		expect(formatIssues(checkMapping(root))).toContain('Forge Steel version is stale');
+	});
+
+	test('fails when a Forge Steel key is listed as an exception', () => {
+		const root = scratch();
+		writeFs(root, { exception: true });
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			'Forge Steel version cannot be listed in english-exceptions'
+		);
+	});
+
+	test('fails when a Forge Steel row has no mapping key', () => {
+		const root = scratch();
+		writeFs(root, { mapped: false });
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			`forge-steel: src/l10n/generated/zh-TW/strings.json [${sheetId}] Forge Steel version has no mapping key`
+		);
+	});
+
+	test('fails when stripHeading is set on a Forge Steel key', () => {
+		const root = scratch();
+		writeFs(root, { stripHeading: true });
+
+		expect(formatIssues(checkMapping(root))).toContain('stripHeading cannot be set on a Forge Steel version');
+	});
+});
+
 describe('repository', () => {
 	test('reads upstream English from source text', () => {
 		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });

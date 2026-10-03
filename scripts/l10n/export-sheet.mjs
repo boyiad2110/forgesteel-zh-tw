@@ -8,6 +8,14 @@
  * and writes src/l10n/generated/zh-TW/. The sheet id and modified time come
  * from l10n/sheet-snapshot/source.json so a later refresh only replaces data.
  *
+ * strings.csv may also carry four Forge Steel columns, found by header name:
+ * Forge Steel Source Text, Forge Steel Target Text, Forge Steel Status, and
+ * Forge Steel Basis Hash. They are all present once, or all absent. A row
+ * that fills any of them must be APPROVED in both Status columns, with
+ * non-empty source and target text and a 64-character lowercase basis hash.
+ * That row is exported as `fs`. Export does not check whether the basis hash
+ * is stale. Glossary and names ignore these columns.
+ *
  * A temp copy can be checked without touching the committed snapshot:
  *   node scripts/l10n/export-sheet.mjs --snapshot <dir> --out <dir>
  */
@@ -26,6 +34,13 @@ const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TM_CHECK_HEADER = 'TM Check';
 const STATUS_HEADER = 'Status';
 const UPDATED_HEADER = 'Last Updated';
+const FS_HEADERS = [
+	'Forge Steel Source Text',
+	'Forge Steel Target Text',
+	'Forge Steel Status',
+	'Forge Steel Basis Hash'
+];
+const FS_HASH = /^[0-9a-f]{64}$/;
 
 const TABS = [
 	{
@@ -256,6 +271,24 @@ const loadTab = (snapshotDir, spec, seen, errors) => {
 	}
 	const tmIndex = tmIndexes.length === 1 ? tmIndexes[0] : -1;
 
+	let fsColumns = null;
+	if (spec.file === 'strings.csv') {
+		const indexes = FS_HEADERS.map(name => headerIndexes(headers, name));
+		const allAbsent = indexes.every(found => found.length === 0);
+		const allOnce = indexes.every(found => found.length === 1);
+		if (!allAbsent && !allOnce) {
+			errors.push(`${file} row 1: Forge Steel columns must all be present once, or all be absent`);
+			headersOk = false;
+		} else if (allOnce) {
+			fsColumns = {
+				en: indexes[0][0],
+				zh: indexes[1][0],
+				status: indexes[2][0],
+				basisHash: indexes[3][0]
+			};
+		}
+	}
+
 	if (!headersOk) {
 		return { spec, entries };
 	}
@@ -317,12 +350,59 @@ const loadTab = (snapshotDir, spec, seen, errors) => {
 			seen.set(id, { file, row: sheetRow });
 		}
 
+		let fs = null;
+		if (fsColumns) {
+			const fsEn = row[fsColumns.en];
+			const fsZh = row[fsColumns.zh];
+			const fsStatus = row[fsColumns.status];
+			const fsBasis = row[fsColumns.basisHash];
+			const fsCells = [
+				[ 'Forge Steel Source Text', fsEn ],
+				[ 'Forge Steel Target Text', fsZh ],
+				[ 'Forge Steel Status', fsStatus ],
+				[ 'Forge Steel Basis Hash', fsBasis ]
+			];
+			if (fsCells.some(([ , value ]) => value !== '')) {
+				if (fsStatus !== 'APPROVED') {
+					errors.push(`${where(file, sheetRow, id)}: Forge Steel Status must be APPROVED`);
+				}
+				if (status !== 'APPROVED') {
+					errors.push(`${where(file, sheetRow, id)}: Status must be APPROVED when a Forge Steel version is present`);
+				}
+				if (fsEn === '' || fsZh === '') {
+					errors.push(`${where(file, sheetRow, id)}: Forge Steel Source Text and Forge Steel Target Text must not be empty`);
+				}
+				for (const [ name, value ] of fsCells) {
+					if (value !== '' && hasEdgeWhitespace(value)) {
+						errors.push(`${where(file, sheetRow, id)}: leading or trailing whitespace in ${JSON.stringify(name)}`);
+					}
+				}
+				if (!FS_HASH.test(fsBasis)) {
+					errors.push(`${where(file, sheetRow, id)}: Forge Steel Basis Hash must be 64 lowercase hex characters`);
+				}
+				if (
+					status === 'APPROVED'
+					&& fsStatus === 'APPROVED'
+					&& fsEn !== ''
+					&& fsZh !== ''
+					&& !hasEdgeWhitespace(fsEn)
+					&& !hasEdgeWhitespace(fsZh)
+					&& FS_HASH.test(fsBasis)
+				) {
+					fs = { basisHash: fsBasis, en: fsEn, zh: fsZh };
+				}
+			}
+		}
+
 		if (status === 'APPROVED') {
 			entries[id] = {
 				en,
 				updated,
 				zh
 			};
+			if (fs) {
+				entries[id].fs = fs;
+			}
 		}
 	}
 
