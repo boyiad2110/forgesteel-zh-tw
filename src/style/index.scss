@@ -54,7 +54,7 @@
 }
 
 * {
-	font-family: 'PT Sans', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif !important;
+	font-family: 'PT Sans', 'Noto Sans TC', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif !important;
 	box-sizing: border-box;
 }
 
@@ -69,7 +69,9 @@ html {
 	color: rgba(0, 0, 0, 0.88);
 	background-color: rgb(255, 255, 255);
 
-	font-synthesis: none;
+	/* Style only: a face with no italic (Noto Sans TC) gets an oblique slant.
+	   Weight stays off so missing bold files are not faked. Real italic files still win. */
+	font-synthesis: style;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;

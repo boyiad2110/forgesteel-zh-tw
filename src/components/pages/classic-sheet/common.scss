@@ -9,11 +9,11 @@
 @use 'sass:map';
 
 @mixin font-slab() {
-    font-family: 'Roboto Slab', Georgia, serif !important;
+    font-family: 'Roboto Slab', 'Noto Sans TC', Georgia, serif !important;
     font-weight: 400;
 }
 @mixin font-serif() {
-    font-family: 'Merriweather', Georgia, serif !important;
+    font-family: 'Merriweather', 'Noto Sans TC', Georgia, serif !important;
 }
 @mixin font-glyphs() {
     font-family: 'Draw Steel Glyphs', Arial, Helvetica, sans-serif !important;

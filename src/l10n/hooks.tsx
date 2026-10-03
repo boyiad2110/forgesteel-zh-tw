@@ -1,7 +1,8 @@
 import { L10nScopeState, displayKey, translate } from '@/l10n/text';
-import { ReactNode, createContext, useContext, useSyncExternalStore } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useSyncExternalStore } from 'react';
 import { getCatalogTick, subscribeToCatalog } from '@/l10n/catalog';
 import { getLanguage, setLanguage, subscribeToLanguage, toggleLanguage } from '@/l10n/language';
+import { ensureCjkFont } from '@/l10n/cjk-font';
 
 const L10nScopeContext = createContext<L10nScopeState | null>(null);
 
@@ -29,6 +30,10 @@ export const L10nScope = (props: ScopeProps) => {
 /** The saved language, and the two ways the footer and the settings drawer change it. */
 export const useLanguage = () => {
 	const language = useSyncExternalStore(subscribeToLanguage, getLanguage);
+
+	useEffect(() => {
+		ensureCjkFont(language);
+	}, [ language ]);
 
 	return {
 		language,
