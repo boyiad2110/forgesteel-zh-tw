@@ -33,7 +33,7 @@
 		color: red !important;
 	}
 
-	// Same box in both languages, so swapping 中文 and EN does not move the toolbar.
+	// Same box in both languages, so toggling the label does not move the toolbar.
 	.language-toggle.ant-btn {
 		width: 64px;
 		height: 32px;

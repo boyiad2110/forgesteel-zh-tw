@@ -43,3 +43,6 @@ export const toggleLanguage = () => {
 export const languageLabel = (language: Language) => {
 	return language === 'zh-TW' ? '中文' : 'EN';
 };
+
+/** The settings drawer name for zh-TW. The footer button stays on languageLabel. */
+export const settingsLanguageLabel = '正體中文';

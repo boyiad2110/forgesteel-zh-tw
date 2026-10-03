@@ -1,0 +1,667 @@
+#!/usr/bin/env node
+/**
+ * Localization guard. Zero dependencies.
+ *
+ *   node scripts/l10n/check.mjs
+ *
+ * Fails when Chinese is hand-written into the app, when the mapping table
+ * points at a sheet row that was not exported, when upstream English has
+ * moved since a row was approved, when the generated JSON is stale, or when
+ * a mapping key is malformed or repeated.
+ *
+ * CJK allowlist — keep this tiny. Everything under src/l10n/generated/ is
+ * already skipped (it is the exported sheet). These two files are the only
+ * other places Han characters may appear:
+ *
+ *   src/l10n/language.ts
+ *     The language switch's own labels. They are not translations of game text.
+ *   src/l10n/lookup.test.ts
+ *     A fake translation the lookup tests assert against.
+ *
+ * Mapping shape (src/l10n/mapping.ts):
+ *
+ *   'element:<id>:<field>':  { sheetId, enHash }
+ *   'enum:<Enum>:<Member>':  { sheetId, enHash }
+ *   'ui:<id>':               { sheetId, enHash }
+ *
+ * enHash is sha256 hex of the Forge Steel English at approval time.
+ * The check recomputes that English in plain Node, with no browser:
+ *
+ *   element  — the string literal on the object in src/data whose id matches
+ *   enum     — the string literal assigned to that member in src/enums
+ *   ui       — the value of that id in src/l10n/ui-english.json
+ *
+ * Element and enum English are read from the source text (one string literal,
+ * no browser and no TypeScript loader). A computed value has no literal, so
+ * the check fails closed instead of guessing. ui-english.json is only required
+ * when a ui: key exists.
+ *
+ *   node -e "import { hashEnglish } from './scripts/l10n/check.mjs'; console.log(hashEnglish('Orc'))"
+ */
+
+import { createHash } from 'node:crypto';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.resolve(scriptDir, '../..');
+
+const CJK_ALLOWLIST = new Set([
+	'src/l10n/language.ts',
+	'src/l10n/lookup.test.ts'
+]);
+
+const HAN = /\p{Script=Han}/u;
+const HASH = /^[0-9a-f]{64}$/;
+const KEY_PATTERNS = [
+	/^element:[a-z0-9]+(?:[-_][a-z0-9]+)*:[A-Za-z][A-Za-z0-9]*$/,
+	/^enum:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
+	/^ui:[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/
+];
+const BINARY_EXT = new Set([
+	'.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico',
+	'.ttf', '.otf', '.woff', '.woff2', '.mp3', '.wav'
+]);
+const SHEET_FILES = [ 'glossary.json', 'names.json', 'strings.json' ];
+
+const posix = value => value.split(path.sep).join('/');
+
+export const hashEnglish = text => {
+	return createHash('sha256').update(text, 'utf8').digest('hex');
+};
+
+const issue = (rule, file, line, key, message) => {
+	return { rule, file, line, key, message };
+};
+
+const formatIssue = item => {
+	const where = item.line ? `${item.file}:${item.line}` : item.file;
+	const key = item.key ? ` [${item.key}]` : '';
+	return `${item.rule}: ${where}${key} ${item.message}`;
+};
+
+const walk = dir => {
+	const files = [];
+	let entries;
+	try {
+		entries = readdirSync(dir);
+	} catch (error) {
+		if (error.code === 'ENOENT') {
+			return files;
+		}
+		throw error;
+	}
+	for (const name of entries) {
+		const file = path.join(dir, name);
+		const stat = statSync(file);
+		if (stat.isDirectory()) {
+			files.push(...walk(file));
+		} else {
+			files.push(file);
+		}
+	}
+	return files;
+};
+
+const read = file => {
+	try {
+		return readFileSync(file, 'utf8');
+	} catch (error) {
+		if (error.code === 'ENOENT') {
+			return null;
+		}
+		throw error;
+	}
+};
+
+const lineOf = (text, index) => {
+	let line = 1;
+	for (let i = 0; i < index && i < text.length; i++) {
+		if (text[i] === '\n') {
+			line += 1;
+		}
+	}
+	return line;
+};
+
+const skipComment = (text, i, line) => {
+	if (text[i] !== '/' ) {
+		return null;
+	}
+	if (text[i + 1] === '/') {
+		while (i < text.length && text[i] !== '\n') {
+			i += 1;
+		}
+		return { i, line };
+	}
+	if (text[i + 1] === '*') {
+		i += 2;
+		while (i < text.length && !(text[i] === '*' && text[i + 1] === '/')) {
+			if (text[i] === '\n') {
+				line += 1;
+			}
+			i += 1;
+		}
+		return { i: i + 2, line };
+	}
+	return null;
+};
+
+const readString = (text, i, line) => {
+	const quote = text[i];
+	let value = '';
+	i += 1;
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			if (quote !== '`') {
+				return { ok: false, i, line };
+			}
+		}
+		if (char === '\\') {
+			const next = text[i + 1] ?? '';
+			if (next === 'n') {
+				value += '\n';
+			} else if (next === 'r') {
+				value += '\r';
+			} else if (next === 't') {
+				value += '\t';
+			} else {
+				value += next;
+			}
+			if (next === '\n') {
+				line += 1;
+			}
+			i += 2;
+			continue;
+		}
+		if (quote === '`' && char === '$' && text[i + 1] === '{') {
+			return { ok: false, i, line };
+		}
+		if (char === quote) {
+			return { ok: true, value, i: i + 1, line };
+		}
+		value += char;
+		i += 1;
+	}
+	return { ok: false, i, line };
+};
+
+const tokenize = text => {
+	const tokens = [];
+	let i = 0;
+	let line = 1;
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		if (char === ' ' || char === '\t' || char === '\r') {
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(text, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = readString(text, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			if (parsed.ok) {
+				tokens.push({ kind: 'string', value: parsed.value, line });
+			}
+			continue;
+		}
+		if (/[A-Za-z_$]/.test(char)) {
+			const start = i;
+			const startLine = line;
+			i += 1;
+			while (i < text.length && /[A-Za-z0-9_$]/.test(text[i])) {
+				i += 1;
+			}
+			tokens.push({ kind: 'ident', value: text.slice(start, i), line: startLine });
+			continue;
+		}
+		if (char === '{' || char === '}' || char === ':' || char === '=') {
+			const kind = char === ':' ? 'colon' : char === '=' ? 'equals' : 'brace';
+			tokens.push({ kind, value: char, line });
+			i += 1;
+			continue;
+		}
+		i += 1;
+	}
+	return tokens;
+};
+
+const objectsWithId = text => {
+	const tokens = tokenize(text);
+	const stack = [];
+	const found = [];
+	let depth = 0;
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
+		if (token.kind === 'brace' && token.value === '{') {
+			depth += 1;
+			stack.push({ depth, fields: new Map(), line: token.line });
+			continue;
+		}
+		if (token.kind === 'brace' && token.value === '}') {
+			const top = stack.pop();
+			if (top?.fields.has('id')) {
+				found.push(top);
+			}
+			depth -= 1;
+			continue;
+		}
+		const colon = tokens[i + 1];
+		const value = tokens[i + 2];
+		if (token.kind === 'ident' && colon?.kind === 'colon' && value?.kind === 'string') {
+			const top = stack[stack.length - 1];
+			if (top && top.depth === depth && !top.fields.has(token.value)) {
+				top.fields.set(token.value, { text: value.value, line: token.line });
+			}
+			i += 2;
+		}
+	}
+	return found;
+};
+
+const indexElements = root => {
+	const index = new Map();
+	const duplicates = new Set();
+	for (const file of walk(path.join(root, 'src/data'))) {
+		if (!file.endsWith('.ts')) {
+			continue;
+		}
+		const text = read(file);
+		if (text === null || text.includes('\0')) {
+			continue;
+		}
+		for (const object of objectsWithId(text)) {
+			const id = object.fields.get('id').text;
+			if (index.has(id)) {
+				duplicates.add(id);
+			}
+			index.set(id, { fields: object.fields, file: posix(path.relative(root, file)) });
+		}
+	}
+	return { index, duplicates };
+};
+
+const enumEnglish = (root, enumName, member) => {
+	for (const file of walk(path.join(root, 'src/enums'))) {
+		if (!file.endsWith('.ts')) {
+			continue;
+		}
+		const text = read(file);
+		if (text === null || !new RegExp(`export enum ${enumName}\\b`).test(text)) {
+			continue;
+		}
+		const tokens = tokenize(text);
+		for (let i = 0; i < tokens.length; i++) {
+			const token = tokens[i];
+			const name = tokens[i + 1];
+			if (token.kind !== 'ident' || token.value !== 'enum' || name?.kind !== 'ident' || name.value !== enumName) {
+				continue;
+			}
+			let open = i + 2;
+			while (open < tokens.length && !(tokens[open].kind === 'brace' && tokens[open].value === '{')) {
+				open += 1;
+			}
+			let depth = 0;
+			for (let k = open; k < tokens.length; k++) {
+				const current = tokens[k];
+				if (current.kind === 'brace' && current.value === '{') {
+					depth += 1;
+					continue;
+				}
+				if (current.kind === 'brace' && current.value === '}') {
+					depth -= 1;
+					if (depth === 0) {
+						break;
+					}
+					continue;
+				}
+				const equals = tokens[k + 1];
+				const value = tokens[k + 2];
+				if (depth === 1 && current.kind === 'ident' && current.value === member && equals?.kind === 'equals' && value?.kind === 'string') {
+					return { english: value.value };
+				}
+			}
+			return { error: `enum ${enumName} has no string member ${member}` };
+		}
+		return { error: `enum ${enumName} was not found under src/enums` };
+	}
+	return { error: `enum ${enumName} was not found under src/enums` };
+};
+
+const uiEnglish = (root, id) => {
+	const file = path.join(root, 'src/l10n/ui-english.json');
+	const text = read(file);
+	if (text === null) {
+		return { error: 'src/l10n/ui-english.json is missing' };
+	}
+	let data;
+	try {
+		data = JSON.parse(text);
+	} catch (error) {
+		return { error: `src/l10n/ui-english.json: ${error.message}` };
+	}
+	if (!data || typeof data !== 'object' || Array.isArray(data) || typeof data[id] !== 'string') {
+		return { error: `src/l10n/ui-english.json has no string ${id}` };
+	}
+	return { english: data[id] };
+};
+
+const elementEnglish = (root, cache, id, field) => {
+	cache.current ??= indexElements(root);
+	const { index, duplicates } = cache.current;
+	if (duplicates.has(id)) {
+		return { error: `element id ${id} is defined more than once under src/data` };
+	}
+	const object = index.get(id);
+	if (!object) {
+		return { error: `element id ${id} was not found under src/data` };
+	}
+	const value = object.fields.get(field);
+	if (!value) {
+		return { error: `element ${id} has no string field ${field} (${object.file})` };
+	}
+	return { english: value.text };
+};
+
+export const forgeEnglish = (root, key, cache = { current: null }) => {
+	const element = /^element:([^:]+):([^:]+)$/.exec(key);
+	if (element) {
+		return elementEnglish(root, cache, element[1], element[2]);
+	}
+	const enumeration = /^enum:([^:]+):([^:]+)$/.exec(key);
+	if (enumeration) {
+		return enumEnglish(root, enumeration[1], enumeration[2]);
+	}
+	const ui = /^ui:(.+)$/.exec(key);
+	if (ui) {
+		return uiEnglish(root, ui[1]);
+	}
+	return { error: 'key is not an element, enum, or ui key' };
+};
+
+const matchBrace = (text, open) => {
+	let depth = 0;
+	let i = open;
+	let line = lineOf(text, open);
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(text, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = readString(text, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (char === '{') {
+			depth += 1;
+		} else if (char === '}') {
+			depth -= 1;
+			if (depth === 0) {
+				return i;
+			}
+		}
+		i += 1;
+	}
+	return -1;
+};
+
+const parseMapping = (file, text) => {
+	const errors = [];
+	const entries = [];
+	const marker = text.indexOf('export const mapping');
+	if (marker < 0) {
+		errors.push(issue('mapping-key', file, 1, null, 'missing `export const mapping`'));
+		return { entries, errors };
+	}
+	const eq = text.indexOf('=', marker);
+	const open = text.indexOf('{', eq);
+	if (eq < 0 || open < 0) {
+		errors.push(issue('mapping-key', file, lineOf(text, marker), null, 'mapping has no object literal'));
+		return { entries, errors };
+	}
+	const close = matchBrace(text, open);
+	if (close < 0) {
+		errors.push(issue('mapping-key', file, lineOf(text, open), null, 'mapping object is not closed'));
+		return { entries, errors };
+	}
+
+	const tokens = tokenize(text.slice(open, close + 1));
+	const lineOffset = lineOf(text, open) - 1;
+	for (const token of tokens) {
+		token.line += lineOffset;
+	}
+	const seen = new Map();
+	let depth = 0;
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
+		if (token.kind === 'brace') {
+			depth += token.value === '{' ? 1 : -1;
+			continue;
+		}
+		if (depth !== 1 || token.kind !== 'string') {
+			continue;
+		}
+		const colon = tokens[i + 1];
+		const brace = tokens[i + 2];
+		if (colon?.kind !== 'colon' || brace?.kind !== 'brace' || brace.value !== '{') {
+			errors.push(issue('mapping-entry', file, token.line, token.value, 'each entry must be { sheetId, enHash }'));
+			continue;
+		}
+		if (seen.has(token.value)) {
+			errors.push(issue(
+				'mapping-duplicate',
+				file,
+				token.line,
+				token.value,
+				`duplicate key (first seen at line ${seen.get(token.value)})`
+			));
+		} else {
+			seen.set(token.value, token.line);
+		}
+
+		const fields = {};
+		let inner = 1;
+		let j = i + 3;
+		for (; j < tokens.length; j++) {
+			const innerToken = tokens[j];
+			if (innerToken.kind === 'brace') {
+				inner += innerToken.value === '{' ? 1 : -1;
+				if (inner === 0) {
+					break;
+				}
+				continue;
+			}
+			if (inner === 1 && innerToken.kind === 'ident') {
+				const value = tokens[j + 2];
+				if (tokens[j + 1]?.kind === 'colon' && value?.kind === 'string') {
+					fields[innerToken.value] = value.value;
+					j += 2;
+				}
+			}
+		}
+		i = j;
+
+		const keyOk = KEY_PATTERNS.some(pattern => pattern.test(token.value));
+		if (!keyOk) {
+			errors.push(issue('mapping-key', file, token.line, token.value, 'malformed key'));
+			continue;
+		}
+		if (typeof fields.sheetId !== 'string' || fields.sheetId === '') {
+			errors.push(issue('mapping-entry', file, token.line, token.value, 'missing sheetId'));
+			continue;
+		}
+		if (!HASH.test(fields.enHash ?? '')) {
+			errors.push(issue('mapping-entry', file, token.line, token.value, 'enHash must be a sha256 hex digest'));
+			continue;
+		}
+		if (!seen.get(token.value) || seen.get(token.value) === token.line) {
+			entries.push({ key: token.value, sheetId: fields.sheetId, enHash: fields.enHash, line: token.line });
+		}
+	}
+	return { entries, errors };
+};
+
+const loadSheetIds = (dir, file) => {
+	const ids = new Set();
+	const errors = [];
+	for (const name of SHEET_FILES) {
+		const text = read(path.join(dir, name));
+		if (text === null) {
+			errors.push(issue('mapping-sheet', file, null, null, `generated file ${name} is missing`));
+			continue;
+		}
+		let data;
+		try {
+			data = JSON.parse(text);
+		} catch (error) {
+			errors.push(issue('mapping-sheet', file, null, null, `${name}: ${error.message}`));
+			continue;
+		}
+		if (!data || typeof data !== 'object' || Array.isArray(data)) {
+			errors.push(issue('mapping-sheet', file, null, null, `${name} is not an object`));
+			continue;
+		}
+		for (const id of Object.keys(data)) {
+			ids.add(id);
+		}
+	}
+	return { ids, errors };
+};
+
+export const checkCjk = root => {
+	const errors = [];
+	for (const file of walk(path.join(root, 'src'))) {
+		const ext = path.extname(file).toLowerCase();
+		if (BINARY_EXT.has(ext)) {
+			continue;
+		}
+		const rel = posix(path.relative(root, file));
+		if (rel.startsWith('src/l10n/generated/') || CJK_ALLOWLIST.has(rel)) {
+			continue;
+		}
+		const text = read(file);
+		if (text === null || text.includes('\0')) {
+			continue;
+		}
+		const lines = text.split('\n');
+		for (let index = 0; index < lines.length; index++) {
+			const match = HAN.exec(lines[index]);
+			HAN.lastIndex = 0;
+			if (match) {
+				errors.push(issue(
+					'cjk',
+					rel,
+					index + 1,
+					null,
+					`Han text is not allowed outside src/l10n/generated (${JSON.stringify(match[0])})`
+				));
+			}
+		}
+	}
+	return errors;
+};
+
+export const checkMapping = root => {
+	const file = 'src/l10n/mapping.ts';
+	const full = path.join(root, file);
+	const text = read(full);
+	if (text === null) {
+		return [ issue('mapping-key', file, null, null, 'mapping file is missing') ];
+	}
+	const parsed = parseMapping(file, text);
+	const errors = [ ...parsed.errors ];
+	const sheet = loadSheetIds(path.join(root, 'src/l10n/generated/zh-TW'), file);
+	if (parsed.entries.length > 0) {
+		errors.push(...sheet.errors);
+	}
+	const cache = { current: null };
+	for (const entry of parsed.entries) {
+		if (sheet.errors.length === 0 && !sheet.ids.has(entry.sheetId)) {
+			errors.push(issue(
+				'mapping-sheet',
+				file,
+				entry.line,
+				entry.key,
+				`${entry.sheetId} is not an APPROVED sheet id`
+			));
+		}
+		const resolved = forgeEnglish(root, entry.key, cache);
+		if (resolved.error) {
+			errors.push(issue('stale-english', file, entry.line, entry.key, resolved.error));
+			continue;
+		}
+		const current = hashEnglish(resolved.english);
+		if (current !== entry.enHash) {
+			const preview = resolved.english.length > 80 ? `${resolved.english.slice(0, 80)}…` : resolved.english;
+			errors.push(issue(
+				'stale-english',
+				file,
+				entry.line,
+				entry.key,
+				`Forge Steel English changed (${JSON.stringify(preview)}); approved ${entry.enHash}, current ${current}`
+			));
+		}
+	}
+	return errors;
+};
+
+export const checkGenerated = root => {
+	const script = path.join(scriptDir, 'export-sheet.mjs');
+	const result = spawnSync(process.execPath, [
+		script,
+		'--check',
+		'--snapshot', path.join(root, 'l10n/sheet-snapshot'),
+		'--out', path.join(root, 'src/l10n/generated/zh-TW')
+	], { encoding: 'utf8' });
+	if (result.status === 0) {
+		return [];
+	}
+	const detail = (result.stderr || result.stdout || 'export-sheet --check failed').trim();
+	return [ issue('generated', 'src/l10n/generated/zh-TW', null, null, detail) ];
+};
+
+export const runCheck = (root = repoRoot) => {
+	return [
+		...checkCjk(root),
+		...checkMapping(root),
+		...checkGenerated(root)
+	];
+};
+
+export const formatIssues = issues => issues.map(formatIssue).join('\n');
+
+const isDirect = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirect) {
+	const issues = runCheck();
+	if (issues.length > 0) {
+		console.error(formatIssues(issues));
+		process.exit(1);
+	}
+	console.log('l10n check ok');
+}

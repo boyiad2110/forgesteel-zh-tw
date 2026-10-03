@@ -13,7 +13,6 @@ import { FeatureFlags } from '@/utils/feature-flags';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { LabelControl } from '@/components/controls/label-control/label-control';
-import { Language } from '@/l10n/language';
 import { Modal } from '@/components/modals/modal/modal';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { Options } from '@/models/options';
@@ -25,6 +24,7 @@ import { TextInput } from '@/components/controls/text-input/text-input';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { WarehouseActionsPanel } from '@/components/panels/connection-settings/warehouse-actions-panel';
+import { settingsLanguageLabel } from '@/l10n/language';
 import { useLanguage } from '@/l10n/hooks';
 import { useState } from 'react';
 import { useTheme } from '@/hooks/use-theme';
@@ -86,9 +86,13 @@ export const SettingsModal = (props: Props) => {
 					<Segmented
 						block={true}
 						value={language}
-						onChange={value => setLanguage(value as Language)}
+						onChange={value => {
+							if (value === 'zh-TW' || value === 'en') {
+								setLanguage(value);
+							}
+						}}
 						options={[
-							{ label: '正體中文', value: 'zh-TW' },
+							{ label: settingsLanguageLabel, value: 'zh-TW' },
 							{ label: 'English', value: 'en' }
 						]}
 					/>
