@@ -59,9 +59,11 @@ export const InfoChoice = (props: InfoProps) => {
 			<Space orientation='vertical' style={{ width: '100%' }}>
 				{
 					props.data.options.map(o => (
-						<Expander key={o.feature.id} title={o.feature.name}>
-							<FeaturePanel feature={o.feature} cost={showCosts ? o.value : undefined} mode={PanelMode.Full} />
-						</Expander>
+						<ElementScope key={o.feature.id} element={o.feature}>
+							<Expander title={<L10nText text={o.feature.name} />}>
+								<FeaturePanel feature={o.feature} cost={showCosts ? o.value : undefined} mode={PanelMode.Full} />
+							</Expander>
+						</ElementScope>
 					))
 				}
 			</Space>
