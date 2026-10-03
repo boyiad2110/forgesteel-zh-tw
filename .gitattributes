@@ -1,0 +1,4 @@
+# Keep the sheet snapshot and generated JSON LF even when core.autocrlf is true.
+l10n/** text eol=lf
+src/l10n/** text eol=lf
+scripts/l10n/** text eol=lf
