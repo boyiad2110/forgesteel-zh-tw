@@ -1,9 +1,9 @@
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, test } from 'vitest';
-import { checkCjk, checkGenerated, checkMapping, forgeEnglish, formatIssues, hashEnglish, runCheck, stripRulesHeading } from './check.mjs';
+import { checkCjk, checkGenerated, checkMapping, englishDifference, forgeEnglish, formatIssues, hashEnglish, runCheck, stripRulesHeading } from './check.mjs';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const roots = [];
@@ -20,10 +20,10 @@ const write = (root, rel, text) => {
 	writeFileSync(file, text);
 };
 
-const sheet = (root, ids) => {
+const sheet = (root, ids, english = {}) => {
 	const data = {};
 	for (const id of ids) {
-		data[id] = { en: 'En', updated: '2026-10-01', zh: '字' };
+		data[id] = { en: english[id] ?? 'En', updated: '2026-10-01', zh: '字' };
 	}
 	const text = `${JSON.stringify(data, null, 2)}\n`;
 	for (const name of [ 'glossary.json', 'names.json', 'strings.json' ]) {
@@ -144,7 +144,12 @@ describe('stale english', () => {
 		write(root, 'src/data/item.ts', dataFile);
 		write(root, 'src/enums/characteristic.ts', enumFile);
 		write(root, 'src/l10n/ui-english.json', `${JSON.stringify({ 'library.ancestries': 'Ancestries' }, null, 2)}\n`);
-		sheet(root, [ 'term.name', 'term.feature', 'term.might', 'ui.library' ]);
+		sheet(root, [ 'term.name', 'term.feature', 'term.might', 'ui.library' ], {
+			'term.name': 'Orc',
+			'term.feature': 'Relentless',
+			'term.might': 'Might',
+			'ui.library': 'Ancestries'
+		});
 		write(root, 'src/l10n/mapping.ts', mappingSource([
 			{ key: 'element:demo-item:name', sheetId: 'term.name', enHash: hashEnglish('Orc') },
 			{ key: 'element:demo-feature:name', sheetId: 'term.feature', enHash: hashEnglish('Relentless') },
@@ -242,6 +247,98 @@ describe('rules heading', () => {
 	});
 });
 
+describe('sheet english', () => {
+	const forge = 'warriors - a reputation';
+	const sheetEn = 'warriors—a reputation';
+	const articleForge = 'stirred by passion';
+	const articleSheet = 'stirred by a passion';
+
+	const writePair = (root, english, en) => {
+		write(root, 'src/data/item.ts', `export const item = {\n\tid: 'demo-item',\n\tname: '${english}'\n};\n`);
+		sheet(root, [ 'term.demo' ], { 'term.demo': en });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'element:demo-item:name', sheetId: 'term.demo', enHash: hashEnglish(english) }
+		]));
+	};
+
+	test('fails when sheet English differs and the key is not listed', () => {
+		const root = scratch();
+		writePair(root, forge, sheetEn);
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			'sheet-english: src/l10n/mapping.ts:2 [element:demo-item:name] sheet English does not match Forge Steel English'
+		);
+	});
+
+	test('allows a listed punctuation-only difference', () => {
+		const root = scratch();
+		writePair(root, forge, sheetEn);
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'element:demo-item:name': { kind: 'punctuation', note: 'hyphen versus em dash' }
+		}, null, 2)}\n`);
+
+		expect(englishDifference(forge, sheetEn)).toBe('punctuation');
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('allows a listed article-only difference', () => {
+		const root = scratch();
+		writePair(root, articleForge, articleSheet);
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'element:demo-item:name': { kind: 'article', note: 'sheet adds a' }
+		}, null, 2)}\n`);
+
+		expect(englishDifference(articleForge, articleSheet)).toBe('article');
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('rejects a content change listed as punctuation', () => {
+		const root = scratch();
+		writePair(root, 'You have a +1 bonus to stability.', 'You have a +1 bonus to stability. You can’t be moved.');
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'element:demo-item:name': { kind: 'punctuation', note: 'extra sentence' }
+		}, null, 2)}\n`);
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			'listed as punctuation, but the difference is content'
+		);
+	});
+
+	test('rejects an exception whose English already matches', () => {
+		const root = scratch();
+		writePair(root, 'Orc', 'Orc');
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'element:demo-item:name': { kind: 'punctuation', note: 'none' }
+		}, null, 2)}\n`);
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			'exception is unnecessary; the English already matches'
+		);
+	});
+
+	test('rejects an exception key that is not mapped', () => {
+		const root = scratch();
+		writePair(root, 'Orc', 'Orc');
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'element:missing:name': { kind: 'article', note: 'not mapped' }
+		}, null, 2)}\n`);
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			'sheet-english: src/l10n/english-exceptions.json [element:missing:name] exception key is not in the mapping table'
+		);
+	});
+
+	test('rejects a kind other than punctuation or article', () => {
+		const root = scratch();
+		writePair(root, forge, sheetEn);
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'element:demo-item:name': { kind: 'wording', note: 'not allowed' }
+		}, null, 2)}\n`);
+
+		expect(formatIssues(checkMapping(root))).toContain('kind must be punctuation or article');
+	});
+});
+
 describe('generated files', () => {
 	test('fails when the generated JSON does not match the snapshot', () => {
 		const root = scratch();
@@ -271,6 +368,15 @@ describe('repository', () => {
 		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });
 		expect(forgeEnglish(repoRoot, 'enum:Characteristic:Might')).toEqual({ english: 'Might' });
 		expect(forgeEnglish(repoRoot, 'data:ConditionData:weakened').english.trim()).toBe('A creature who is weakened takes a bane on power rolls.');
+	});
+
+	test('the two orc rows differ only by punctuation or an article', () => {
+		const strings = JSON.parse(readFileSync(path.join(repoRoot, 'src/l10n/generated/zh-TW/strings.json'), 'utf8'));
+		const description = forgeEnglish(repoRoot, 'element:ancestry-orc:description');
+		const artisan = forgeEnglish(repoRoot, 'element:orc-feature-2-3:description');
+
+		expect(englishDifference(description.english, strings['heroes.ancestries.orc.description.1'].en)).toBe('punctuation');
+		expect(englishDifference(artisan.english, strings['heroes.ancestries.orc.trait.passionate-artisan.effect'].en)).toBe('article');
 	});
 
 	test('the real tree passes', () => {

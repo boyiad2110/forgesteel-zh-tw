@@ -5,6 +5,7 @@ import { Pill, ResourcePill } from '@/components/controls/pill/pill';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
+import { ElementScope } from '@/l10n/element-scope';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { Feature } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
@@ -135,59 +136,61 @@ export const FeaturePanel = (props: Props) => {
 	}
 
 	return (
-		<ErrorBoundary>
-			<div className={props.mode === PanelMode.Full ? 'feature-panel' : 'feature-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('feature', props.feature.id) : undefined} style={props.style}>
-				<HeaderText
-					ribbon={
-						props.cost === 'signature' ?
-							<Pill>Signature</Pill>
-							:
-							props.cost ?
-								<ResourcePill value={props.cost} repeatable={props.repeatable} />
-								: null
-					}
-					tags={getTags()}
-					extra={
-						<ButtonGroup
-							buttons={[
-								autoCalcAvailable() ?
-									{
-										type: 'button',
-										icon: autoCalc ? <ThunderboltFilled style={{ color: 'var(--fs-accent)' }} /> : <ThunderboltOutlined />,
-										tooltip: 'Auto-calculate damage, potency, etc',
-										onClick: () => setAutoCalc(!autoCalc)
-									}
-									: null,
-								options.showClipboardOptions ?
-									{ type: 'button', icon: <CopyOutlined />, tooltip: 'Copy Feature', onClick: () => clipboard.setData(props.feature) }
+		<ElementScope element={props.feature} overlay={customization}>
+			<ErrorBoundary>
+				<div className={props.mode === PanelMode.Full ? 'feature-panel' : 'feature-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('feature', props.feature.id) : undefined} style={props.style}>
+					<HeaderText
+						ribbon={
+							props.cost === 'signature' ?
+								<Pill>Signature</Pill>
+								:
+								props.cost ?
+									<ResourcePill value={props.cost} repeatable={props.repeatable} />
 									: null
-							]}
-						/>
+						}
+						tags={getTags()}
+						extra={
+							<ButtonGroup
+								buttons={[
+									autoCalcAvailable() ?
+										{
+											type: 'button',
+											icon: autoCalc ? <ThunderboltFilled style={{ color: 'var(--fs-accent)' }} /> : <ThunderboltOutlined />,
+											tooltip: 'Auto-calculate damage, potency, etc',
+											onClick: () => setAutoCalc(!autoCalc)
+										}
+										: null,
+									options.showClipboardOptions ?
+										{ type: 'button', icon: <CopyOutlined />, tooltip: 'Copy Feature', onClick: () => clipboard.setData(props.feature) }
+										: null
+								]}
+							/>
+						}
+					>
+						{customization?.name || props.feature.name || 'Unnamed Feature'}
+					</HeaderText>
+					<Markdown
+						text={AbilityLogic.getTextEffect(customization?.description || props.feature.description, autoCalc ? props.hero : undefined)}
+					/>
+					{
+						props.mode === PanelMode.Full ?
+							<InfoFeature
+								feature={props.feature}
+								hero={props.hero}
+								sourcebooks={props.sourcebooks}
+							/>
+							: null
 					}
-				>
-					{customization?.name || props.feature.name || 'Unnamed Feature'}
-				</HeaderText>
-				<Markdown
-					text={AbilityLogic.getTextEffect(customization?.description || props.feature.description, autoCalc ? props.hero : undefined)}
-				/>
-				{
-					props.mode === PanelMode.Full ?
-						<InfoFeature
-							feature={props.feature}
-							hero={props.hero}
-							sourcebooks={props.sourcebooks}
-						/>
-						: null
-				}
-				{
-					customization && customization.notes ?
-						<Field
-							label='Notes'
-							value={<Markdown text={customization.notes} useSpan={true} />}
-						/>
-						: null
-				}
-			</div>
-		</ErrorBoundary>
+					{
+						customization && customization.notes ?
+							<Field
+								label='Notes'
+								value={<Markdown text={customization.notes} useSpan={true} />}
+							/>
+							: null
+					}
+				</div>
+			</ErrorBoundary>
+		</ElementScope>
 	);
 };

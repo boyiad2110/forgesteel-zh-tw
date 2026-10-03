@@ -2,6 +2,7 @@ import { Alert, Button, Divider, Flex, Segmented } from 'antd';
 import { AppFooter, FooterParams } from '@/components/panels/app-footer/app-footer';
 import { ArrowRightOutlined, CopyOutlined, DoubleLeftOutlined, DoubleRightOutlined, EditOutlined, FilterFilled, FilterOutlined, PlayCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import { ButtonConfig, ButtonGroup, DangerConfig, DropdownConfig } from '@/components/controls/button-group/button-group';
+import { ElementScope, L10nText } from '@/l10n/element-scope';
 import { ReactNode, useState } from 'react';
 import { Sourcebook, SourcebookElementKind } from '@/models/sourcebook';
 import { AddBtn } from '@/components/pages/library/library-list/controls/add-btn';
@@ -417,7 +418,14 @@ export const LibraryListPage = (props: Props) => {
 						<SelectorRow
 							key={a.id}
 							selected={selectedID === a.id}
-							content={(category === 'monster-group') && showMonsters ? <MonsterInfo monster={a as Monster} /> : a.name || `Unnamed ${Format.capitalize(category.split('-').join(' '))}`}
+							content={
+								(category === 'monster-group') && showMonsters ?
+									<MonsterInfo monster={a as Monster} />
+									:
+									<ElementScope element={a}>
+										<L10nText text={a.name || `Unnamed ${Format.capitalize(category.split('-').join(' '))}`} />
+									</ElementScope>
+							}
 							info={LibraryLogic.getInfo(a, category, showMonsters)}
 							onSelect={() => {
 								if (isSmall) {

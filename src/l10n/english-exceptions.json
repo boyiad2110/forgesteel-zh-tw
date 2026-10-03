@@ -1,0 +1,10 @@
+{
+  "element:ancestry-orc:description": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses ' - ' where the sheet uses an em dash."
+  },
+  "element:orc-feature-2-3:description": {
+    "kind": "article",
+    "note": "Forge Steel says 'stirred by passion'; the sheet says 'stirred by a passion'."
+  }
+}

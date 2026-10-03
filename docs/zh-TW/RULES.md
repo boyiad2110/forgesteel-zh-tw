@@ -53,6 +53,10 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/panels/classic-sheet/stats-resources-card/stats-resources-card.tsx`（屬性名稱）
 - `src/components/panels/classic-sheet/components/characteristics-component.tsx`（屬性名稱）
 - `src/components/modals/roll/roll-modal.tsx`（屬性名稱）
+- `src/components/panels/elements/feature-panel/feature-panel.tsx`（特性名稱與描述）
+- `src/components/panels/elements/ancestry-panel/ancestry-panel.tsx`（族裔名稱與描述）
+- `src/components/features/feature-data/choice.tsx`（建造時已選特性的名稱）
+- `src/components/pages/library/library-list/library-list-page.tsx`（圖書館清單上的名稱）
 
 ## 舊的失敗嘗試，不要再做
 

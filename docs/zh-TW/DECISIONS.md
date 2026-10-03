@@ -21,6 +21,10 @@
 - **單字母縮寫 M、A、R、I、P 維持英文。** 側欄、小螢幕只取第一個字母的地方、怪物面板，還有經典表格裡用符號字型畫的字母，都不改。那些字母是符號字型用的，換成中文會畫不出來。
 - **經典表格上，符號字母留著，後面改接中文全名。** 英文模式仍是字母加上英文剩下的部分。中文模式是同一個字母，後面換成這個屬性的中文全名。
 - **「Characteristic」這個詞這批不譯。** 介面文字等 Master Sheet 的「Forge Steel UI」分頁，也就是 P3。
+- **英文只差在標點或冠詞時，視為相同。** 必須列在 `src/l10n/english-exceptions.json`。每一筆寫鍵、差別種類（`punctuation` 或 `article`）、以及短註。`scripts/l10n/check.mjs` 拿快照裡的英文（匯出檔的 `en`，來自 Source Text，這欄本來就有，所以沒有加欄）和 Forge Steel 的英文比。標題行先拿掉再比，跟顯示時一樣。只有標點或冠詞（a、an、the）的差別可以列進去；兩種都有，或差在用字，就不能列。已經相同的英文也不必列。
+- **書上多一句機制、Forge Steel 把那句拆成資料另外顯示時，先留英文。** 例如歐克的 Grounded、Nonstop。等表上有「Forge Steel 版」欄，而且 Marc 核准裁過的中文之後，再譯。
+- **共用標題等 P3。** 例如「Purchased Traits」。那是介面標籤，不是這一條特性專有的名字。
+- **文化語言名 Kalliac 對到表上的 Kalliak，P2-4 再處理。** Forge Steel 寫 Kalliac，表上寫 Kalliak。這批不譯文化分頁。
 
 ## 尚未決定
 

@@ -42,6 +42,15 @@
  * strips the same way and requires the sheet English body to equal the
  * trimmed Forge Steel template. The exported JSON is left unchanged.
  *
+ * Every mapped key's sheet English must equal the Forge Steel English.
+ * Sheet English is the exported `en` field, copied from the snapshot's
+ * Source Text column. stripHeading rows compare the body after the title
+ * is removed, so a rules heading is not itself a difference. A difference
+ * that is only punctuation, or only the articles a/an/the, may be listed in
+ * src/l10n/english-exceptions.json with a kind (`punctuation` or `article`)
+ * and a note. Any other difference fails. An exception whose texts already
+ * match, or whose kind does not match the actual difference, also fails.
+ *
  * Element and enum English are read from the source text (one string literal,
  * no browser and no TypeScript loader). A computed value has no literal, so
  * the check fails closed instead of guessing. ui-english.json is only required
@@ -90,6 +99,42 @@ export const hashEnglish = text => {
  */
 export const normalizeEnglish = text => {
 	return text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+};
+
+const ARTICLES = new Set([ 'a', 'an', 'the' ]);
+
+/** Punctuation becomes a space, then spaces collapse, so a dash and ' - ' agree. */
+export const withoutPunctuation = text => {
+	return normalizeEnglish(text).replace(/\p{P}/gu, ' ').replace(/\s+/g, ' ').trim();
+};
+
+/** Drops the articles a, an, and the. The remaining words and punctuation stay. */
+export const withoutArticles = text => {
+	return normalizeEnglish(text)
+		.split(/\s+/)
+		.filter(word => !ARTICLES.has(word.toLowerCase()))
+		.join(' ')
+		.trim();
+};
+
+/**
+ * How two English strings differ.
+ * `same`, `punctuation`, `article`, or `content`.
+ * Punctuation is tested first. A mix of both is `content` and cannot be listed.
+ */
+export const englishDifference = (forge, sheet) => {
+	const left = normalizeEnglish(forge);
+	const right = normalizeEnglish(sheet);
+	if (left === right) {
+		return 'same';
+	}
+	if (withoutPunctuation(left) === withoutPunctuation(right)) {
+		return 'punctuation';
+	}
+	if (withoutArticles(left) === withoutArticles(right)) {
+		return 'article';
+	}
+	return 'content';
 };
 
 /**
@@ -710,6 +755,120 @@ const loadSheetRows = dir => {
 	return rows;
 };
 
+const EXCEPTION_KINDS = new Set([ 'punctuation', 'article' ]);
+const EXCEPTIONS_FILE = 'src/l10n/english-exceptions.json';
+
+const loadExceptions = root => {
+	const exceptions = new Map();
+	const errors = [];
+	const text = read(path.join(root, EXCEPTIONS_FILE));
+	if (text === null) {
+		return { exceptions, errors };
+	}
+	let data;
+	try {
+		data = JSON.parse(text);
+	} catch (error) {
+		errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, null, error.message));
+		return { exceptions, errors };
+	}
+	if (!data || typeof data !== 'object' || Array.isArray(data)) {
+		errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, null, 'exceptions file must be an object'));
+		return { exceptions, errors };
+	}
+	for (const [ key, value ] of Object.entries(data)) {
+		if (!value || typeof value !== 'object' || Array.isArray(value)) {
+			errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, key, 'each exception must be { kind, note }'));
+			continue;
+		}
+		const extra = Object.keys(value).filter(name => name !== 'kind' && name !== 'note');
+		if (extra.length > 0) {
+			errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, key, `unknown field ${extra[0]}`));
+			continue;
+		}
+		if (!EXCEPTION_KINDS.has(value.kind)) {
+			errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, key, 'kind must be punctuation or article'));
+			continue;
+		}
+		if (typeof value.note !== 'string' || value.note.trim() === '') {
+			errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, key, 'note must be a non-empty string'));
+			continue;
+		}
+		exceptions.set(key, { kind: value.kind, note: value.note });
+	}
+	return { exceptions, errors };
+};
+
+const englishPreview = (sheet, forge) => {
+	let index = 0;
+	const limit = Math.min(sheet.length, forge.length);
+	while (index < limit && sheet[index] === forge[index]) {
+		index += 1;
+	}
+	const start = Math.max(0, index - 24);
+	const sheetBit = sheet.slice(start, index + 24);
+	const forgeBit = forge.slice(start, index + 24);
+	return `sheet ${JSON.stringify(sheetBit)} forge ${JSON.stringify(forgeBit)}`;
+};
+
+/**
+ * Sheet English to compare with Forge Steel English.
+ * A rules row uses the body under the title, matching checkRulesHeading.
+ * Returns null when that body is missing; the rules-heading rule reports it.
+ */
+const comparableSheetEnglish = (entry, sheetEn, forgeEn) => {
+	if (typeof sheetEn !== 'string') {
+		return null;
+	}
+	if (entry.stripHeading) {
+		const body = stripRulesHeading(normalizeEnglish(sheetEn));
+		if (body === null) {
+			return null;
+		}
+		return { sheet: body, forge: normalizeEnglish(forgeEn).trim() };
+	}
+	return { sheet: sheetEn, forge: forgeEn };
+};
+
+const checkSheetEnglish = (entry, sheetEn, forgeEn, exception) => {
+	const pair = comparableSheetEnglish(entry, sheetEn, forgeEn);
+	if (!pair) {
+		return null;
+	}
+	const diff = englishDifference(pair.forge, pair.sheet);
+	if (diff === 'same') {
+		if (exception) {
+			return issue(
+				'sheet-english',
+				EXCEPTIONS_FILE,
+				null,
+				entry.key,
+				'exception is unnecessary; the English already matches'
+			);
+		}
+		return null;
+	}
+	if (!exception) {
+		return issue(
+			'sheet-english',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`sheet English does not match Forge Steel English (${englishPreview(pair.sheet, pair.forge)})`
+		);
+	}
+	if (exception.kind !== diff) {
+		return issue(
+			'sheet-english',
+			EXCEPTIONS_FILE,
+			null,
+			entry.key,
+			`listed as ${exception.kind}, but the difference is ${diff}`
+		);
+	}
+	return null;
+};
+
 const checkRulesHeading = (root, entry, english) => {
 	if (!entry.key.startsWith('data:')) {
 		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, 'stripHeading is only valid on a data: key');
@@ -781,10 +940,25 @@ export const checkMapping = root => {
 	}
 	const parsed = parseMapping(file, text);
 	const errors = [ ...parsed.errors ];
+	const loadedExceptions = loadExceptions(root);
+	errors.push(...loadedExceptions.errors);
+	const mappedKeys = new Set(parsed.entries.map(entry => entry.key));
+	for (const key of loadedExceptions.exceptions.keys()) {
+		if (!mappedKeys.has(key)) {
+			errors.push(issue(
+				'sheet-english',
+				EXCEPTIONS_FILE,
+				null,
+				key,
+				'exception key is not in the mapping table'
+			));
+		}
+	}
 	const sheet = loadSheetIds(path.join(root, 'src/l10n/generated/zh-TW'), file);
 	if (parsed.entries.length > 0) {
 		errors.push(...sheet.errors);
 	}
+	const rows = loadSheetRows(path.join(root, 'src/l10n/generated/zh-TW'));
 	const cache = { current: null };
 	for (const entry of parsed.entries) {
 		if (sheet.errors.length === 0 && !sheet.ids.has(entry.sheetId)) {
@@ -818,6 +992,16 @@ export const checkMapping = root => {
 			if (heading) {
 				errors.push(heading);
 			}
+		}
+		const row = rows.get(entry.sheetId);
+		const englishIssue = checkSheetEnglish(
+			entry,
+			row?.en,
+			resolved.english,
+			loadedExceptions.exceptions.get(entry.key)
+		);
+		if (englishIssue) {
+			errors.push(englishIssue);
 		}
 	}
 	return errors;
