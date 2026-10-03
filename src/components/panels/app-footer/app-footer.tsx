@@ -1,13 +1,15 @@
 import { BookOutlined, DatabaseFilled, InfoCircleOutlined, PlayCircleOutlined, ReadOutlined, SettingOutlined, TeamOutlined, WarningFilled } from '@ant-design/icons';
 import { Button, Divider, Drawer, Flex, Space, Tag } from 'antd';
-import { ButtonConfig, ButtonGroup } from '@/components/controls/button-group/button-group';
+import { ButtonConfig, ButtonGroup, ControlConfig } from '@/components/controls/button-group/button-group';
 import { useDataManager, useOptions } from '@/contexts/data-context';
 import { ConnectionSettings } from '@/models/connection-settings';
 import { Hero } from '@/models/hero';
 import { Modal } from '@/components/modals/modal/modal';
 import { Options } from '@/models/options';
+import { languageLabel } from '@/l10n/language';
 import shield from '@/assets/shield.png';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useLanguage } from '@/l10n/hooks';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useState } from 'react';
 
@@ -33,6 +35,8 @@ interface Props {
 export const AppFooter = (props: Props) => {
 	const isSmall = useIsSmall();
 	const navigation = useNavigation();
+	const { language, toggleLanguage } = useLanguage();
+	const currentLanguage = languageLabel(language);
 	const [ showSidebar, setShowSidebar ] = useState<boolean>(false);
 	const options = useOptions();
 	const dataManager = useDataManager();
@@ -53,7 +57,24 @@ export const AppFooter = (props: Props) => {
 		window.open('https://www.patreon.com/cw/andyaiken', '_blank');
 	};
 
-	const actions: ButtonConfig[] = [
+	const actions: (ButtonConfig | ControlConfig)[] = [
+		{
+			type: 'control',
+			control: (
+				<Button
+					key='language'
+					type='text'
+					className='language-toggle'
+					title={currentLanguage}
+					onClick={e => {
+						e.stopPropagation();
+						toggleLanguage();
+					}}
+				>
+					{currentLanguage}
+				</Button>
+			)
+		},
 		{ type: 'button', label: isSmall ? undefined : 'Reference', icon: <ReadOutlined />, tooltip: 'Reference', onClick: () => props.params.showReference(props.hero) },
 		{ type: 'button', label: isSmall ? undefined : 'Settings', icon: <SettingOutlined />, tooltip: 'Settings', onClick: props.params.showSettings },
 		{ type: 'button', label: isSmall ? undefined : 'About', icon: <InfoCircleOutlined />, tooltip: 'About', onClick: props.params.showAbout },
