@@ -41,6 +41,8 @@ jobs:
 
   build_and_push:
     needs: check
+    # Only the upstream repository may build and push images.
+    if: github.repository == 'andyaiken/forgesteel'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

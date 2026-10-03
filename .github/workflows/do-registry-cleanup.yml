@@ -11,6 +11,8 @@ env:
 
 jobs:
   build_and_push:
+    # Only the upstream repository may modify the container registry.
+    if: github.repository == 'andyaiken/forgesteel'
     runs-on: ubuntu-latest
     steps:
       - name: Install doctl
