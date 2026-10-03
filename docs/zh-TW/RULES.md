@@ -1,0 +1,65 @@
+# 規則
+
+## 只做翻譯
+
+不改現有功能。負責人特別要求時才例外。
+
+## 中文只來自 Master Sheet
+
+Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`。
+
+- 只有狀態是 APPROVED 的列可以進網站。
+- 網站不能超前這張表。
+- 中文由 `scripts/l10n/export-sheet.mjs` 原樣抄進倉庫。人不改寫，AI 也不改寫、不意譯。
+- 表上的英文來自紙本書 Heroes 1.01b，可以和 Forge Steel 畫面上的英文不一樣。
+
+## 上游不動
+
+不改上游的資料、列舉、邏輯、存檔格式、分享碼。翻譯只在顯示當下發生：對照表把 Forge Steel 的鍵對到 Sheet ID，並記下核准時的英文雜湊（enHash）；真正換字的只有少數幾個共用的顯示元件。
+
+## 分支
+
+- `main` 永遠等於上游 `andyaiken/forgesteel`。
+- 工作都走分支，用 pull request 合進 `develop`。
+- 這台電腦上的 `upstream` 不能直接推送，避免誤推到上游。
+
+## 一批一批做
+
+每批都先在負責人自己的電腦上看過、接受了，再 squash 合併。比較大的一批要先寫短設計，負責人點頭之後才寫程式。
+
+每一批「內容」開始前，先給對照預覽：Forge Steel 的鍵、Sheet ID、以及兩邊英文差在哪。這是唯一需要人判斷的部分。
+
+## 少改上游檔案
+
+上游常更新。改到的上游檔案越少，以後合併越不容易打架。到目前為止動過的上游檔案：
+
+- `src/components/modals/settings/settings-modal.tsx`
+- `src/components/controls/markdown/markdown.tsx`
+- `src/components/controls/header-text/header-text.tsx`
+- `src/components/panels/app-footer/app-footer.tsx`
+- `src/components/panels/app-footer/app-footer.scss`
+- `src/style/index.scss`
+- `src/components/pages/classic-sheet/common.scss`
+- `.github/workflows/digitalocean.yml`（部署保護）
+- `.github/workflows/do-registry-cleanup.yml`（部署保護）
+
+## 舊的失敗嘗試，不要再做
+
+- 自己另做一套詞彙，和 Master Sheet 打架。例如 Class 必須是「職業」，Career 必須是「生涯」。
+- 一次改太大片。
+- 為計算出來的招式文字另寫一套邏輯。
+- 在大約 60 個畫面各自掛鉤子。
+- 不跟上游同步。
+- 從那次嘗試裡撿東西來用。
+
+## 倉庫是公開的
+
+草稿譯文、筆記、還沒核准的內容都不要放進倉庫。快照裡可以有什麼，寫在在地化的說明和腳本裡。
+
+## 守門要過
+
+`node scripts/l10n/check.mjs` 必須通過。每個 pull request 也會在 GitHub Actions 跑它（`.github/workflows/l10n-check.yml`）。
+
+## 改了專案狀態就要更新文件
+
+會改變進度或決定的 pull request，要同時更新 [PROGRESS.md](PROGRESS.md)。有新的決定時，也要寫進 [DECISIONS.md](DECISIONS.md)。
