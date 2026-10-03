@@ -65,7 +65,9 @@ export const displayKey = (explicit: string | undefined, text: string | undefine
  * the screen already had — never the sheet's own English copy.
  *
  * In zh-TW, a missing key, a missing table row, a sheet id that is not
- * loaded, or a blank translation also returns `english`.
+ * loaded, or a blank translation also returns `english`. A row with a
+ * Forge Steel version uses that Chinese. A blank Forge Steel translation
+ * returns `english`.
  */
 export const resolveText = (language: Language, key: string | undefined, english: string, table: Record<string, string>, catalog: Catalog | null, stripHeading = false): string => {
 	if (language === 'en' || !key) {
@@ -77,7 +79,15 @@ export const resolveText = (language: Language, key: string | undefined, english
 		return english;
 	}
 
-	const zh = catalog[sheetId]?.zh;
+	const row = catalog[sheetId];
+	if (row?.fs) {
+		if (!row.fs.zh || blank(row.fs.zh)) {
+			return english;
+		}
+		return row.fs.zh;
+	}
+
+	const zh = row?.zh;
 	if (!zh || blank(zh)) {
 		return english;
 	}

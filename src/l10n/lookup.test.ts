@@ -126,6 +126,32 @@ describe('resolveText', () => {
 		};
 		expect(resolveText('zh-TW', key, '\nWhile bleeding.', { [key]: sheetId }, rules, true)).toBe('\nWhile bleeding.');
 	});
+
+	test('a Forge Steel version is preferred in zh-TW and ignored in English', () => {
+		const row = {
+			zh: '書本全文。你的穩度 +1。',
+			en: 'Book English. You have a +1 bonus to stability.',
+			updated: '2026-10-01',
+			fs: { basisHash: 'a'.repeat(64), en: 'Book English.', zh: '書本全文。' }
+		};
+		const withFs = { [orcSheet]: row };
+		expect(resolveText('zh-TW', orcKey, 'Book English.', table, withFs)).toBe('書本全文。');
+		expect(resolveText('en', orcKey, 'Book English.', table, withFs)).toBe('Book English.');
+	});
+
+	test('a blank Forge Steel version stays on the original English', () => {
+		const row = {
+			zh: '書本全文。',
+			en: 'Book English.',
+			updated: '2026-10-01',
+			fs: { basisHash: 'a'.repeat(64), en: 'Book English.', zh: '   ' }
+		};
+		expect(resolveText('zh-TW', orcKey, 'Book English.', table, { [orcSheet]: row })).toBe('Book English.');
+	});
+
+	test('a row without a Forge Steel version still uses the book Chinese', () => {
+		expect(resolveText('zh-TW', orcKey, 'Orc', table, catalog)).toBe('歐克');
+	});
 });
 
 describe('displayKey', () => {
@@ -235,11 +261,78 @@ describe('element scope', () => {
 		expect(displayKey(undefined, feature.description, scope)).toBe('element:orc-feature-1:description');
 	});
 
-	test('unmapped orc text stays in English', () => {
+	test('Purchased Traits stays in English', () => {
 		expect(mapping['element:orc-feature-2:name']).toBeUndefined();
-		expect(mapping['element:orc-feature-2-2:description']).toBeUndefined();
-		expect(mapping['element:orc-feature-2-5:description']).toBeUndefined();
-		const grounded = 'The magic in your blood makes it difficult for others to move you.';
-		expect(resolveText('zh-TW', 'element:orc-feature-2-2:description', grounded, {}, catalog)).toBe(grounded);
+		expect(mapping['element:dwarf-feature-2:name']).toBeUndefined();
+		expect(mapping['element:hakaan-feature-2:name']).toBeUndefined();
+		expect(mapping['element:memonek-feature-3:name']).toBeUndefined();
+	});
+
+	test('orc grounded and nonstop descriptions use the Forge Steel Chinese', () => {
+		const groundedKey = 'element:orc-feature-2-2:description';
+		const nonstopKey = 'element:orc-feature-2-5:description';
+		const groundedId = 'heroes.ancestries.orc.trait.grounded.effect';
+		const nonstopId = 'heroes.ancestries.orc.trait.nonstop.effect';
+		const groundedEnglish = 'The magic in your blood makes it difficult for others to move you.';
+		const nonstopEnglish = 'Your bloodfire supplies you with a constant rush of adrenaline.';
+		expect(mapping[groundedKey]).toMatchObject({ sheetId: groundedId });
+		expect(mapping[nonstopKey]).toMatchObject({ sheetId: nonstopId });
+		expect(catalog[groundedId].fs?.zh).toBe('你血液中的魔力讓他人難以移動你。');
+		expect(catalog[nonstopId].fs?.zh).toBe('你的血焰讓你的腎上腺素持續翻湧。');
+		expect(resolveText('zh-TW', groundedKey, groundedEnglish, { [groundedKey]: groundedId }, catalog)).toBe('你血液中的魔力讓他人難以移動你。');
+		expect(resolveText('zh-TW', nonstopKey, nonstopEnglish, { [nonstopKey]: nonstopId }, catalog)).toBe('你的血焰讓你的腎上腺素持續翻湧。');
+		expect(resolveText('en', groundedKey, groundedEnglish, { [groundedKey]: groundedId }, catalog)).toBe(groundedEnglish);
+		expect(resolveText('en', nonstopKey, nonstopEnglish, { [nonstopKey]: nonstopId }, catalog)).toBe(nonstopEnglish);
+	});
+});
+
+describe('ancestry continuation', () => {
+	const catalog = strings as Catalog;
+
+	test('the mapping gained the dwarf, hakaan, memonek, and orc Forge Steel keys', () => {
+		expect(Object.keys(mapping)).toHaveLength(88);
+	});
+
+	test('dwarf, hakaan, and memonek names use the approved rows', () => {
+		const rows: [string, string, string, string][] = [
+			[ 'element:ancestry-dwarf:name', 'heroes.ancestries.dwarf.name', 'Dwarf', '矮人' ],
+			[ 'element:ancestry-hakaan:name', 'heroes.ancestries.hakaan.name', 'Hakaan', '哈肯人' ],
+			[ 'element:ancestry-memonek:name', 'heroes.ancestries.memonek.name', 'Memonek', '梅莫人' ]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+	});
+
+	test('a trimmed Forge Steel description is the text on screen', () => {
+		const key = 'element:dwarf-feature-2-1:description';
+		const sheetId = 'heroes.ancestries.dwarf.trait.grounded.effect';
+		const english = 'Your heavy stone body and connection to the earth make it difficult for others to move you.';
+		expect(mapping[key]).toMatchObject({ sheetId });
+		expect(catalog[sheetId].fs?.zh).toBe('你岩石般的厚重身軀與大地緊密相連，讓他人難以移動你。');
+		expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(catalog[sheetId].fs?.zh);
+		expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+	});
+
+	test('the items left in English for this batch are not mapped', () => {
+		const unmapped = [
+			'element:memonek-feature-3-5:name',
+			'element:memonek-feature-3-5:description',
+			'element:dwarf-feature-1:description',
+			'element:ancestry-hakaan:description',
+			'element:hakaan-feature-2-5:description',
+			'element:dwarf-feature-2-2b:condition',
+			'element:hakaan-feature-2-1:condition',
+			'element:hakaan-feature-2-3b:condition',
+			'element:memonek-feature-3-2b:condition',
+			'element:hakaan-feature-2-2a:name',
+			'element:hakaan-feature-2-2b:name',
+			'element:hakaan-feature-2-2c:name'
+		];
+		for (const key of unmapped) {
+			expect(mapping[key]).toBeUndefined();
+		}
 	});
 });

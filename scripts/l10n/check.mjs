@@ -51,6 +51,14 @@
  * and a note. Any other difference fails. An exception whose texts already
  * match, or whose kind does not match the actual difference, also fails.
  *
+ * A strings.json row may include `fs`, the Forge Steel version. For a mapped
+ * key whose row has `fs`, English is compared with `fs.en` instead of the
+ * book `en`. `fs.en` must equal the Forge Steel English exactly. `fs.basisHash`
+ * must equal the sha256 of the current book Chinese (`zh`); if it does not,
+ * the check fails and the message says the Forge Steel version is stale.
+ * That key cannot be listed in english-exceptions.json and cannot set
+ * stripHeading. Every `fs` row must be referenced by at least one mapping key.
+ *
  * Element and enum English are read from the source text (one string literal,
  * no browser and no TypeScript loader). A computed value has no literal, so
  * the check fails closed instead of guessing. ui-english.json is only required
@@ -729,6 +737,10 @@ const loadSheetIds = (dir, file) => {
 	return { ids, errors };
 };
 
+const hasForgeSteel = row => {
+	return !!row && typeof row === 'object' && Object.prototype.hasOwnProperty.call(row, 'fs') && row.fs !== undefined;
+};
+
 const loadSheetRows = dir => {
 	const rows = new Map();
 	for (const name of SHEET_FILES) {
@@ -749,7 +761,11 @@ const loadSheetRows = dir => {
 			if (!row || typeof row !== 'object' || rows.has(id)) {
 				continue;
 			}
-			rows.set(id, { en: row.en, zh: row.zh });
+			const stored = { en: row.en, zh: row.zh };
+			if (hasForgeSteel(row)) {
+				stored.fs = row.fs;
+			}
+			rows.set(id, stored);
 		}
 	}
 	return rows;
@@ -809,6 +825,50 @@ const englishPreview = (sheet, forge) => {
 	const sheetBit = sheet.slice(start, index + 24);
 	const forgeBit = forge.slice(start, index + 24);
 	return `sheet ${JSON.stringify(sheetBit)} forge ${JSON.stringify(forgeBit)}`;
+};
+
+const forgeSteelShape = fs => {
+	return !!fs
+		&& typeof fs === 'object'
+		&& !Array.isArray(fs)
+		&& typeof fs.en === 'string'
+		&& typeof fs.zh === 'string'
+		&& typeof fs.basisHash === 'string';
+};
+
+const checkForgeSteelVersion = (entry, row, forgeEn, hasException) => {
+	const found = [];
+	const fs = row.fs;
+	if (!forgeSteelShape(fs)) {
+		found.push(issue('forge-steel', 'src/l10n/mapping.ts', entry.line, entry.key, 'Forge Steel version is missing en, zh, or basisHash'));
+		return found;
+	}
+	if (entry.stripHeading) {
+		found.push(issue('forge-steel', 'src/l10n/mapping.ts', entry.line, entry.key, 'stripHeading cannot be set on a Forge Steel version'));
+	}
+	if (hasException) {
+		found.push(issue('forge-steel', EXCEPTIONS_FILE, null, entry.key, 'Forge Steel version cannot be listed in english-exceptions'));
+	}
+	if (forgeEn !== fs.en) {
+		found.push(issue(
+			'forge-steel',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`Forge Steel English does not match Forge Steel Source Text (${englishPreview(fs.en, forgeEn)})`
+		));
+	}
+	const current = typeof row.zh === 'string' ? hashEnglish(row.zh) : '';
+	if (current !== fs.basisHash) {
+		found.push(issue(
+			'forge-steel',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`Forge Steel version is stale (basis ${fs.basisHash}, book Chinese ${current})`
+		));
+	}
+	return found;
 };
 
 /**
@@ -987,21 +1047,54 @@ export const checkMapping = root => {
 			));
 			continue;
 		}
-		if (entry.stripHeading) {
-			const heading = checkRulesHeading(root, entry, resolved.english);
-			if (heading) {
-				errors.push(heading);
+		const row = rows.get(entry.sheetId);
+		if (hasForgeSteel(row)) {
+			errors.push(...checkForgeSteelVersion(
+				entry,
+				row,
+				resolved.english,
+				loadedExceptions.exceptions.has(entry.key)
+			));
+		} else {
+			if (entry.stripHeading) {
+				const heading = checkRulesHeading(root, entry, resolved.english);
+				if (heading) {
+					errors.push(heading);
+				}
+			}
+			const englishIssue = checkSheetEnglish(
+				entry,
+				row?.en,
+				resolved.english,
+				loadedExceptions.exceptions.get(entry.key)
+			);
+			if (englishIssue) {
+				errors.push(englishIssue);
 			}
 		}
-		const row = rows.get(entry.sheetId);
-		const englishIssue = checkSheetEnglish(
-			entry,
-			row?.en,
-			resolved.english,
-			loadedExceptions.exceptions.get(entry.key)
-		);
-		if (englishIssue) {
-			errors.push(englishIssue);
+	}
+	const stringsFile = 'src/l10n/generated/zh-TW/strings.json';
+	const stringsText = read(path.join(root, stringsFile));
+	if (stringsText !== null) {
+		let stringsData = null;
+		try {
+			stringsData = JSON.parse(stringsText);
+		} catch {
+			stringsData = null;
+		}
+		if (stringsData && typeof stringsData === 'object' && !Array.isArray(stringsData)) {
+			const mappedIds = new Set(parsed.entries.map(entry => entry.sheetId));
+			for (const [ id, row ] of Object.entries(stringsData)) {
+				if (hasForgeSteel(row) && !mappedIds.has(id)) {
+					errors.push(issue(
+						'forge-steel',
+						stringsFile,
+						null,
+						id,
+						'Forge Steel version has no mapping key'
+					));
+				}
+			}
 		}
 	}
 	return errors;

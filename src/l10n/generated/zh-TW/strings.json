@@ -446,6 +446,11 @@
   },
   "heroes.ancestries.dwarf.signature.runic-carving.light.effect": {
     "en": "Your skin sheds light for 10 squares. You can turn this light on and off as a maneuver.",
+    "fs": {
+      "basisHash": "e1db4c8393bafa9c06b6422a262af71b6b72a6b939322df28f094b53a767de31",
+      "en": "Your skin sheds light for 10 squares. You can turn this on and off as a maneuver.",
+      "zh": "你的皮膚會發出照亮 10 格範圍的光芒。你可以使用機動動作開啟或關閉這道光芒。"
+    },
     "updated": "2026-10-01",
     "zh": "你的皮膚會發出照亮 10 格範圍的光芒。你可以使用機動動作開啟或關閉這道光芒。"
   },
@@ -481,6 +486,11 @@
   },
   "heroes.ancestries.dwarf.trait.great-fortitude.effect": {
     "en": "Your hearty constitution prevents you from losing strength. You can’t be made weakened.",
+    "fs": {
+      "basisHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97",
+      "en": "Your hearty constitution prevents you from losing strength.",
+      "zh": "你強健的體魄讓你不會失去力量。"
+    },
     "updated": "2026-10-01",
     "zh": "你強健的體魄讓你不會失去力量。你不會陷入虛弱狀態。"
   },
@@ -491,6 +501,11 @@
   },
   "heroes.ancestries.dwarf.trait.grounded.effect": {
     "en": "Your heavy stone body and connection to the earth make it difficult for others to move you. You have a +1 bonus to stability.",
+    "fs": {
+      "basisHash": "50e08e2287d53a055c6885fed0799e5122d8a292dbf0aaebbd28bfb11d462da7",
+      "en": "Your heavy stone body and connection to the earth make it difficult for others to move you.",
+      "zh": "你岩石般的厚重身軀與大地緊密相連，讓他人難以移動你。"
+    },
     "updated": "2026-10-01",
     "zh": "你岩石般的厚重身軀與大地緊密相連，讓他人難以移動你。你的穩度 +1。"
   },
@@ -501,6 +516,11 @@
   },
   "heroes.ancestries.dwarf.trait.spark-off-your-skin.effect": {
     "en": "Your stone skin affords you potent protection. You have a +6 bonus to Stamina, and that bonus increases by 6 at 4th, 7th, and 10th levels.",
+    "fs": {
+      "basisHash": "1fd76faefbed8c237ec976049885a12abc2116ddc90e914850602a566a371cd1",
+      "en": "Your stone skin affords you potent protection.",
+      "zh": "你的石質皮膚能為你提供強大的防護。"
+    },
     "updated": "2026-10-01",
     "zh": "你的石質皮膚能為你提供強大的防護。你的體力 +6，並在 4 級、7 級和 10 級時再 +6。"
   },
@@ -511,6 +531,11 @@
   },
   "heroes.ancestries.dwarf.trait.stand-tough.effect": {
     "en": "Your body is made to withstand the blows of your enemies. Your Might score is treated as 1 higher for the purpose of resisting potencies, and you gain an edge on Might tests when called for to resist environmental effects or a creature’s traits or abilities.",
+    "fs": {
+      "basisHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d",
+      "en": "Your body is made to withstand the blows of your enemies.",
+      "zh": "你的身軀天生能承受敵人的猛烈攻擊。"
+    },
     "updated": "2026-10-01",
     "zh": "你的身軀天生能承受敵人的猛烈攻擊。抵抗效力時，你的力量會視為提高 1 點。此外，當你需要進行力量考驗來抵抗環境效果或生物的特性與招式時，你會獲得 1 個優勢。"
   },
@@ -521,6 +546,11 @@
   },
   "heroes.ancestries.dwarf.trait.stone-singer.effect": {
     "en": "You have a magic connection to the earth. When you spend 1 uninterrupted hour singing, you can reshape any unworked mundane stone within 3 squares. You can’t destroy this stone, but you can move each square of it anywhere within 3 squares, piling it off to one side to dig a hole or building it up to create a wall.",
+    "fs": {
+      "basisHash": "c35d469ffc570f9c1ef0a7512da8c8436a2c86465a9a1de2fd36816981fd5851",
+      "en": "You have a magic connection to the earth. When you spend 1 uninterrupted hour singing, you can reshape any unworked mundane stone within 3 squares. You can’t destroy this stone, but you can move each square of it anywhere within 3 squares of you, piling it off to one side to dig a hole or building it up to create a wall.",
+      "zh": "你與大地有著魔法的連結。若你花費 1 小時不間斷地歌唱，你可以重塑 3 格內任何未加工的尋常石材。你無法摧毀這些石材，但可以將每 1 格的石材移動到 3 格內的任意位置。例如將岩石搬到旁邊來挖出坑洞，或堆疊起來建造牆壁。"
+    },
     "updated": "2026-10-01",
     "zh": "你與大地有著魔法的連結。若你花費 1 小時不間斷地歌唱，你可以重塑 3 格內任何未加工的尋常石材。你無法摧毀這些石材，但可以將每 1 格的石材移動到 3 格內的任意位置。例如將岩石搬到旁邊來挖出坑洞，或堆疊起來建造牆壁。"
   },
@@ -646,6 +676,11 @@
   },
   "heroes.ancestries.hakaan.trait.great-fortitude.effect": {
     "en": "Your hearty constitution prevents you from losing strength. You can’t be made weakened.",
+    "fs": {
+      "basisHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97",
+      "en": "Your hearty constitution prevents you from losing strength.",
+      "zh": "你強健的體魄讓你不會失去力量。"
+    },
     "updated": "2026-10-01",
     "zh": "你強健的體魄讓你不會失去力量。你不會陷入虛弱狀態。"
   },
@@ -656,6 +691,11 @@
   },
   "heroes.ancestries.hakaan.trait.stand-tough.effect": {
     "en": "Your body is made to withstand the blows of your enemies. Your Might score is treated as 1 higher for the purpose of resisting potencies, and you gain an edge on Might tests when called for to resist environmental effects or a creature’s traits or abilities.",
+    "fs": {
+      "basisHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d",
+      "en": "Your body is made to withstand the blows of your enemies.",
+      "zh": "你的身軀天生能承受敵人的猛烈攻擊。"
+    },
     "updated": "2026-10-01",
     "zh": "你的身軀天生能承受敵人的猛烈攻擊。抵抗效力時，你的力量會視為提高 1 點。此外，當你需要進行力量考驗來抵抗環境效果或生物的特性與招式時，你會獲得 1 個優勢。"
   },
@@ -971,6 +1011,11 @@
   },
   "heroes.ancestries.memonek.trait.lightning-nimbleness.effect": {
     "en": "You can push your body to move at incredible speeds. Your speed is 7.",
+    "fs": {
+      "basisHash": "27555090d69497a0dd3313ce3b670119fd3c69ea705e7e22e38cb5e9c40da668",
+      "en": "You can push your body to move at incredible speeds. Your Speed is 7.",
+      "zh": "你的身體可以達到驚人的移動速度。你的速度為 7。"
+    },
     "updated": "2026-10-01",
     "zh": "你的身體可以達到驚人的移動速度。你的速度為 7。"
   },
@@ -981,6 +1026,11 @@
   },
   "heroes.ancestries.memonek.trait.nonstop.effect": {
     "en": "Your connection to Axiom allows you to regulate your movement. You can’t be made slowed.",
+    "fs": {
+      "basisHash": "f6418f14a3587f240d31f57ea8afc165e75b8d5e54de117f147607d0cb04b2c2",
+      "en": "Your connection to Axiom allows you to regulate your movement.",
+      "zh": "你與公理界的連結能讓你調節自身的移動力。"
+    },
     "updated": "2026-10-01",
     "zh": "你與公理界的連結能讓你調節自身的移動力。你不會陷入緩速狀態。"
   },
@@ -991,6 +1041,11 @@
   },
   "heroes.ancestries.memonek.trait.systematic-mind.effect": {
     "en": "You gain an edge on tests made to parse schematics, maps, and other systematic documents that aren’t inherently chaotic. In addition, you treat any language you don’t know as if you know a related language.",
+    "fs": {
+      "basisHash": "6b0ccc5e8d384b3506468164f81029274a7e06a3c6938ea517ab509044308118",
+      "en": "You treat any language you don’t know as if you know a related language.",
+      "zh": "對於任何你不懂的語言，你都視為懂得某種與之相關的語言。"
+    },
     "updated": "2026-10-01",
     "zh": "當你嘗試解析藍圖、地圖和其他有條理的系統化文件時，相關考驗會獲得 1 個優勢。此外，對於任何你不懂的語言，你都視為懂得某種與之相關的語言。"
   },
@@ -1011,6 +1066,11 @@
   },
   "heroes.ancestries.memonek.trait.useful-emotion.effect": {
     "en": "Velloparatha—the worldsickness—might hinder you, but you know how to turn your pain into something your enemies feel. At the start of any combat, you gain 1 surge.",
+    "fs": {
+      "basisHash": "fa714ee8cab4f5219eab1f467c7553fca9aafce534ca3d99358efd60e2ba0e7e",
+      "en": "Velloparatha - the worldsickness - might hinder, but you know how to turn your pain into something your enemies feel.",
+      "zh": "維洛帕拉症（俗稱躍界病）或許會妨礙你，但你也知道如何將自己的痛苦轉化為敵人能夠感受到的力量。"
+    },
     "updated": "2026-10-01",
     "zh": "維洛帕拉症（俗稱躍界病）或許會妨礙你，但你也知道如何將自己的痛苦轉化為敵人能夠感受到的力量。每場戰鬥開始時，你會獲得 1 點鬥志。"
   },
@@ -1106,6 +1166,11 @@
   },
   "heroes.ancestries.orc.trait.grounded.effect": {
     "en": "The magic in your blood makes it difficult for others to move you. You have a +1 bonus to stability.",
+    "fs": {
+      "basisHash": "8aa2fb0b7cb16c4e745804e5a04669551b21de107121d3c4305276d12e9209fb",
+      "en": "The magic in your blood makes it difficult for others to move you.",
+      "zh": "你血液中的魔力讓他人難以移動你。"
+    },
     "updated": "2026-10-01",
     "zh": "你血液中的魔力讓他人難以移動你。你的穩度 +1。"
   },
@@ -1116,6 +1181,11 @@
   },
   "heroes.ancestries.orc.trait.nonstop.effect": {
     "en": "Your bloodfire supplies you with a constant rush of adrenaline. You can’t be made slowed.",
+    "fs": {
+      "basisHash": "54f0b7fc7a7b3a38ef74727bee6e2a0c68541958d9a3ff8f05bc310fbc50c9db",
+      "en": "Your bloodfire supplies you with a constant rush of adrenaline.",
+      "zh": "你的血焰讓你的腎上腺素持續翻湧。"
+    },
     "updated": "2026-10-01",
     "zh": "你的血焰讓你的腎上腺素持續翻湧。你不會陷入緩速狀態。"
   },
