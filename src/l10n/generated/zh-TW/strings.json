@@ -196,6 +196,11 @@
   },
   "heroes.ancestries.devil.trait.beast-legs.effect": {
     "en": "Your powerful legs make you faster. You have speed 6.",
+    "fs": {
+      "basisHash": "27209c660201722dd99daf55dd39009c5bfd1d65da0bb9d14cb65a377535e351",
+      "en": "Your powerful legs improve your speed. Your Speed is 6.",
+      "zh": "你強壯的雙腿能讓你跑得更快。你的速度為 6。"
+    },
     "updated": "2026-10-01",
     "zh": "你強壯的雙腿能讓你跑得更快。你的速度為 6。"
   },
@@ -226,6 +231,11 @@
   },
   "heroes.ancestries.devil.trait.impressive-horns.effect": {
     "en": "Your cherished horns are larger than the average devil’s, and a hardened representation of your force of will. Whenever you make a saving throw, you succeed on a roll of 5 or higher.",
+    "fs": {
+      "basisHash": "88f47c32a9f71c325c63cbe18b66501ebc09424bab33e3394ed76e52a8449e9d",
+      "en": "Your cherished horns are larger than your average devil’s, and a hardened representation of your force of will. Whenever you make a saving throw, you succeed on a roll of 5 or higher.",
+      "zh": "你珍愛的雙角比一般魔鬼的更大，是你堅定意志力的象徵。每當你進行豁免時，擲出 5 以上就算成功。"
+    },
     "updated": "2026-10-01",
     "zh": "你珍愛的雙角比一般魔鬼的更大，是你堅定意志力的象徵。每當你進行豁免時，擲出 5 以上就算成功。"
   },
@@ -726,6 +736,11 @@
   },
   "heroes.ancestries.high-elf.name": {
     "en": "High Elf",
+    "fs": {
+      "basisHash": "5a3cd78c43a5ebb83c796ffe0447c145f9027bf8e0dfa3f5e76a862d36580aef",
+      "en": "Elf (high)",
+      "zh": "高等精靈"
+    },
     "updated": "2026-10-01",
     "zh": "高等精靈"
   },
@@ -746,6 +761,11 @@
   },
   "heroes.ancestries.high-elf.signature.high-elf-glamor.effect": {
     "en": "A magic glamor makes others perceive you as interesting and engaging, granting you an edge on Presence tests using the Flirt or Persuade skills. This glamor makes you appear and sound slightly different to each creature you meet, since what is engaging to one might be different for another. However, you never appear to be anyone other than yourself.",
+    "fs": {
+      "basisHash": "fa8328874241cb31e2493cf551753d3a6cfa32af167577971828c2494b7fd83d",
+      "en": "A magic glamor makes others perceive you as interesting and engaging. This glamor makes you appear and sound slightly different to each creature you meet, since what is engaging differs from creature to creature.",
+      "zh": "你的魔法魅力會讓人不自覺地被你吸引。由於每個人喜歡的特徵不盡相同，這種魔法魅力會讓你在每個生物眼中呈現出略為不同的外表與聲音。"
+    },
     "updated": "2026-10-01",
     "zh": "你的魔法魅力會讓人不自覺地被你吸引。每當你使用魅惑或遊說技能進行氣場考驗時，你會獲得 1 個優勢。由於每個人喜歡的特徵不盡相同，這種魔法魅力會讓你在每個生物眼中呈現出略為不同的外表與聲音。不過，你看起來仍然是自己的模樣，不會被誤認為其他人。"
   },
@@ -811,6 +831,11 @@
   },
   "heroes.ancestries.high-elf.trait.unstoppable-mind.effect": {
     "en": "Your mind allows you to maintain your focus in any situation. You can’t be made dazed.",
+    "fs": {
+      "basisHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644",
+      "en": "Your mind allows you to maintain your focus in any situation.",
+      "zh": "你的心智能讓你在任何情況下保持專注。"
+    },
     "updated": "2026-10-01",
     "zh": "你的心智能讓你在任何情況下保持專注。你不會陷入暈眩狀態。"
   },
@@ -1261,6 +1286,11 @@
   },
   "heroes.ancestries.polder.signature.small.effect": {
     "en": "Your diminutive stature lets you easily get out of—or into—trouble. Your size is 1S.",
+    "fs": {
+      "basisHash": "2f1aa6123177173801359eb2af735f48941c244693f69eb954431df22be8728c",
+      "en": "Your diminutive stature lets you easily get out of — or into — trouble.",
+      "zh": "你嬌小的身材能讓你更輕易地擺脫（或陷入）麻煩。"
+    },
     "updated": "2026-10-01",
     "zh": "你嬌小的身材能讓你更輕易地擺脫（或陷入）麻煩。你的體型為 1S。"
   },
@@ -1286,6 +1316,11 @@
   },
   "heroes.ancestries.polder.trait.fearless.effect": {
     "en": "Courage is all you know. You can’t be made frightened.",
+    "fs": {
+      "basisHash": "054138f52cef5cfb2c733d447eec33e2e734b7ac4f8ee8810ea4e93a6f4d5707",
+      "en": "Courage is all you know.",
+      "zh": "你天生勇敢無懼。"
+    },
     "updated": "2026-10-01",
     "zh": "你天生勇敢無懼。你不會陷入畏縮狀態。"
   },
@@ -1296,6 +1331,11 @@
   },
   "heroes.ancestries.polder.trait.graceful-retreat.effect": {
     "en": "Your small size makes it easier for you to slip away from the fray. You gain a +1 bonus to the distance you can shift when you take the Disengage move action.",
+    "fs": {
+      "basisHash": "01399d3e0fd13f83e206f2710b8e2f3fb15e8e7b2d29eccf2ca7e3906a8e2ca1",
+      "en": "Your small size makes it easier for you to slip away from the fray.",
+      "zh": "你矮小的體型能讓你更容易從混戰中溜走。"
+    },
     "updated": "2026-10-01",
     "zh": "你矮小的體型能讓你更容易從混戰中溜走。當你執行撤離移動動作時，你的遁移距離 +1。"
   },
