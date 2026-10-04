@@ -5,6 +5,7 @@ import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { Characteristic } from '@/enums/characteristic';
 import { elementScopeFields } from '@/l10n/element-scope';
+import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { mapping } from '@/l10n/mapping';
 import strings from '@/l10n/generated/zh-TW/strings.json';
@@ -289,8 +290,12 @@ describe('element scope', () => {
 describe('ancestry continuation', () => {
 	const catalog = strings as Catalog;
 
-	test('the mapping gained the dwarf, hakaan, memonek, and orc Forge Steel keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(88);
+	test('the mapping still has the dwarf, hakaan, memonek, and orc Forge Steel keys', () => {
+		expect(mapping['element:ancestry-dwarf:name']).toBeDefined();
+		expect(mapping['element:ancestry-hakaan:name']).toBeDefined();
+		expect(mapping['element:ancestry-memonek:name']).toBeDefined();
+		expect(mapping['element:orc-feature-2-2:description']).toBeDefined();
+		expect(mapping['element:orc-feature-2-5:description']).toBeDefined();
 	});
 
 	test('dwarf, hakaan, and memonek names use the approved rows', () => {
@@ -334,5 +339,121 @@ describe('ancestry continuation', () => {
 		for (const key of unmapped) {
 			expect(mapping[key]).toBeUndefined();
 		}
+	});
+});
+
+describe('ancestry third batch', () => {
+	const catalog = strings as Catalog;
+
+	test('this batch adds 45 keys', () => {
+		expect(Object.keys(mapping)).toHaveLength(133);
+	});
+
+	test('devil, high elf, and polder names use the approved Chinese', () => {
+		const rows: [string, string, string, string][] = [
+			[ 'element:ancestry-devil:name', 'heroes.ancestries.devil.name', 'Devil', '魔鬼' ],
+			[ 'element:ancestry-high-elf:name', 'heroes.ancestries.high-elf.name', 'Elf (high)', '高等精靈' ],
+			[ 'element:ancestry-polder:name', 'heroes.ancestries.polder.name', 'Polder', '波德人' ]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+		expect(catalog['heroes.ancestries.high-elf.name'].fs?.zh).toBe('高等精靈');
+		expect(catalog['heroes.ancestries.high-elf.name'].zh).toBe('高等精靈');
+	});
+
+	test('punctuation and article differences are listed as exceptions', () => {
+		expect(exceptions['element:ancestry-devil:description']).toEqual({
+			kind: 'punctuation',
+			note: 'Forge Steel uses \' - \' where the sheet uses an em dash.'
+		});
+		expect(exceptions['element:ancestry-high-elf:description']).toEqual({
+			kind: 'article',
+			note: 'Forge Steel says \'the high elf history\'; the sheet says \'high elf history\'.'
+		});
+		expect(mapping['element:ancestry-devil:description']?.sheetId).toBe('heroes.ancestries.devil.description.1');
+		expect(mapping['element:ancestry-high-elf:description']?.sheetId).toBe('heroes.ancestries.high-elf.description.1');
+	});
+
+	test('a trimmed Forge Steel description is the text on screen', () => {
+		const rows: [string, string, string, string][] = [
+			[
+				'element:high-elf-feature-1a:description',
+				'heroes.ancestries.high-elf.signature.high-elf-glamor.effect',
+				'A magic glamor makes others perceive you as interesting and engaging. This glamor makes you appear and sound slightly different to each creature you meet, since what is engaging differs from creature to creature.',
+				'你的魔法魅力會讓人不自覺地被你吸引。由於每個人喜歡的特徵不盡相同，這種魔法魅力會讓你在每個生物眼中呈現出略為不同的外表與聲音。'
+			],
+			[
+				'element:high-elf-feature-2-5:description',
+				'heroes.ancestries.high-elf.trait.unstoppable-mind.effect',
+				'Your mind allows you to maintain your focus in any situation.',
+				'你的心智能讓你在任何情況下保持專注。'
+			],
+			[
+				'element:polder-feature-2:description',
+				'heroes.ancestries.polder.signature.small.effect',
+				'Your diminutive stature lets you easily get out of — or into — trouble.',
+				'你嬌小的身材能讓你更輕易地擺脫（或陷入）麻煩。'
+			],
+			[
+				'element:polder-feature-3-5:description',
+				'heroes.ancestries.polder.trait.fearless.effect',
+				'Courage is all you know.',
+				'你天生勇敢無懼。'
+			],
+			[
+				'element:polder-feature-3-2:description',
+				'heroes.ancestries.polder.trait.graceful-retreat.effect',
+				'Your small size makes it easier for you to slip away from the fray.',
+				'你矮小的體型能讓你更容易從混戰中溜走。'
+			],
+			[
+				'element:devil-feature-2-2:description',
+				'heroes.ancestries.devil.trait.beast-legs.effect',
+				'Your powerful legs improve your speed. Your Speed is 6.',
+				'你強壯的雙腿能讓你跑得更快。你的速度為 6。'
+			],
+			[
+				'element:devil-feature-2-5:description',
+				'heroes.ancestries.devil.trait.impressive-horns.effect',
+				'Your cherished horns are larger than your average devil’s, and a hardened representation of your force of will. Whenever you make a saving throw, you succeed on a roll of 5 or higher.',
+				'你珍愛的雙角比一般魔鬼的更大，是你堅定意志力的象徵。每當你進行豁免時，擲出 5 以上就算成功。'
+			]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].fs?.en).toBe(english);
+			expect(catalog[sheetId].fs?.zh).toBe(zh);
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+	});
+
+	test('the items left in English for this batch are not mapped', () => {
+		const unmapped = [
+			'element:devil-feature-2-3:name',
+			'element:devil-feature-2-3:description',
+			'element:high-elf-feature-2-0:name',
+			'element:high-elf-feature-2-0:description',
+			'element:polder-feature-1:name',
+			'element:polder-feature-1:description',
+			'element:polder-feature-3-4:name',
+			'element:polder-feature-3-4:description',
+			'element:devil-feature-2:name',
+			'element:high-elf-feature-2:name',
+			'element:polder-feature-3:name',
+			'element:devil-feature-1a:condition',
+			'element:high-elf-feature-2-2:condition',
+			'element:high-elf-feature-2-3:condition',
+			'element:devil-feature-1b:name',
+			'element:devil-feature-2-7b:name'
+		];
+		for (const key of unmapped) {
+			expect(mapping[key]).toBeUndefined();
+		}
+		expect(Object.keys(mapping).some(key => key.startsWith('element:devil-feature-1b'))).toBe(false);
+		expect(Object.keys(mapping).some(key => key.startsWith('element:devil-feature-2-7b'))).toBe(false);
 	});
 });

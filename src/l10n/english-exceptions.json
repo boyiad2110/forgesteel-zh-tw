@@ -18,5 +18,13 @@
   "element:hakaan-feature-2-1:name": {
     "kind": "article",
     "note": "Forge Steel capitalizes the article: 'All Is A Feather'; the sheet says 'All Is a Feather'."
+  },
+  "element:ancestry-devil:description": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses ' - ' where the sheet uses an em dash."
+  },
+  "element:ancestry-high-elf:description": {
+    "kind": "article",
+    "note": "Forge Steel says 'the high elf history'; the sheet says 'high elf history'."
   }
 }
