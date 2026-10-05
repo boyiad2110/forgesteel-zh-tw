@@ -26,5 +26,13 @@
   "element:ancestry-high-elf:description": {
     "kind": "article",
     "note": "Forge Steel says 'the high elf history'; the sheet says 'high elf history'."
+  },
+  "element:human-feature-2-1:name": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses a straight apostrophe in 'Can't'; the sheet uses a curly one."
+  },
+  "element:ancestry-time-raider:description": {
+    "kind": "punctuation",
+    "note": "Forge Steel puts spaces around the em dashes and has no final period."
   }
 }

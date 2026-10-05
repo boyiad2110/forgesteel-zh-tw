@@ -345,8 +345,10 @@ describe('ancestry continuation', () => {
 describe('ancestry third batch', () => {
 	const catalog = strings as Catalog;
 
-	test('this batch adds 45 keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(133);
+	test('the third batch keys stay mapped', () => {
+		expect(mapping['element:ancestry-devil:name']).toBeDefined();
+		expect(mapping['element:ancestry-high-elf:name']).toBeDefined();
+		expect(mapping['element:ancestry-polder:name']).toBeDefined();
 	});
 
 	test('devil, high elf, and polder names use the approved Chinese', () => {
@@ -455,5 +457,133 @@ describe('ancestry third batch', () => {
 		}
 		expect(Object.keys(mapping).some(key => key.startsWith('element:devil-feature-1b'))).toBe(false);
 		expect(Object.keys(mapping).some(key => key.startsWith('element:devil-feature-2-7b'))).toBe(false);
+	});
+});
+
+describe('ancestry fourth batch', () => {
+	const catalog = strings as Catalog;
+
+	test('this batch adds 37 keys', () => {
+		expect(Object.keys(mapping)).toHaveLength(170);
+		expect(Object.keys(exceptions)).toHaveLength(9);
+	});
+
+	test('human, wode elf, and time raider names use the approved Chinese', () => {
+		const rows: [string, string, string, string][] = [
+			[ 'element:ancestry-human:name', 'heroes.ancestries.human.name', 'Human', '人類' ],
+			[ 'element:ancestry-wode-elf:name', 'heroes.ancestries.wode-elf.name', 'Elf (wode)', '幻林精靈' ],
+			[ 'element:ancestry-time-raider:name', 'heroes.ancestries.time-raider.name', 'Time Raider', '時空獵手' ]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+		expect(catalog['heroes.ancestries.wode-elf.name'].fs?.zh).toBe('幻林精靈');
+		expect(catalog['heroes.ancestries.wode-elf.name'].fs?.en).toBe('Elf (wode)');
+	});
+
+	test('punctuation differences are listed as exceptions', () => {
+		expect(exceptions['element:human-feature-2-1:name']).toEqual({
+			kind: 'punctuation',
+			note: 'Forge Steel uses a straight apostrophe in \'Can\'t\'; the sheet uses a curly one.'
+		});
+		expect(exceptions['element:ancestry-time-raider:description']).toEqual({
+			kind: 'punctuation',
+			note: 'Forge Steel puts spaces around the em dashes and has no final period.'
+		});
+		expect(mapping['element:human-feature-2-1:name']?.sheetId).toBe('heroes.ancestries.human.trait.cant-take-hold.name');
+		expect(mapping['element:ancestry-time-raider:description']?.sheetId).toBe('heroes.ancestries.time-raider.description.1');
+	});
+
+	test('the three Perseverence keys share one Forge Steel row and show 堅持不懈', () => {
+		const sheetId = 'heroes.ancestries.human.trait.perseverance.name';
+		const keys = [
+			'element:human-feature-2-2:name',
+			'element:human-feature-2-2a:name',
+			'element:human-feature-2-2b:name'
+		];
+		for (const key of keys) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(resolveText('zh-TW', key, 'Perseverence', { [key]: sheetId }, catalog)).toBe('堅持不懈');
+			expect(resolveText('en', key, 'Perseverence', { [key]: sheetId }, catalog)).toBe('Perseverence');
+		}
+		expect(catalog[sheetId].fs?.en).toBe('Perseverence');
+		expect(catalog[sheetId].fs?.zh).toBe('堅持不懈');
+	});
+
+	test('a trimmed Forge Steel description is the text on screen', () => {
+		const rows: [string, string, string, string][] = [
+			[
+				'element:human-feature-2-2a:description',
+				'heroes.ancestries.human.trait.perseverance.effect',
+				'When you are slowed, your speed is reduced to 3 instead of 2.',
+				'若你處於緩速狀態，你的速度會降至 3，而非 2。'
+			],
+			[
+				'element:human-feature-2-5:description',
+				'heroes.ancestries.human.trait.staying-power.effect',
+				'Your human physiology allows you to fight, run, and stay awake longer than others.',
+				'人類的生理構造能讓你比其他族群更持久地戰鬥、奔跑和保持清醒。'
+			],
+			[
+				'element:wode-elf-feature-1a:description',
+				'heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect',
+				'Tests made to search for you while you are hidden take a bane.',
+				'當你處於隱藏時，其他生物試圖搜索你的考驗都會承受 1 個劣勢。'
+			],
+			[
+				'element:time-raider-feature-2-2a:description',
+				'heroes.ancestries.time-raider.trait.foresight.effect',
+				'You automatically know the location of any creature with concealment who isn’t hidden from you within 20, and you negate the usual bane on strikes against such creatures.',
+				'你會自動知道 20 格內任何對你具有遮蔽但並未處於隱藏的生物位置，而且當你對這些生物發動打擊時，你會無視通常需要承受的 1 個劣勢。'
+			],
+			[
+				'element:time-raider-feature-2-6:description',
+				'heroes.ancestries.time-raider.trait.unstoppable-mind.effect',
+				'Your mind allows you to maintain your focus in any situation.',
+				'你的心智能讓你在任何情況下保持專注。'
+			]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].fs?.en).toBe(english);
+			expect(catalog[sheetId].fs?.zh).toBe(zh);
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+	});
+
+	test('the items left in English for this batch are not mapped', () => {
+		const unmapped = [
+			'element:human-feature-1:name',
+			'element:human-feature-1:description',
+			'element:human-feature-2-3:name',
+			'element:human-feature-2-3:description',
+			'element:human-feature-2-4:name',
+			'element:human-feature-2-4:description',
+			'element:wode-elf-feature-2-5:name',
+			'element:wode-elf-feature-2-5:description',
+			'element:time-raider-feature-2-1:name',
+			'element:time-raider-feature-2-1:description',
+			'element:time-raider-feature-2-2b:name',
+			'element:time-raider-feature-2-2b:description',
+			'element:time-raider-feature-2-5-1:name',
+			'element:time-raider-feature-2-5-1:description',
+			'element:time-raider-feature-2-5-2:name',
+			'element:time-raider-feature-2-5-2:description',
+			'element:time-raider-feature-2-5-3:name',
+			'element:time-raider-feature-2-5-3:description',
+			'element:wode-elf-feature-1:description',
+			'element:time-raider-feature-2-2:description',
+			'element:human-feature-2:name',
+			'element:wode-elf-feature-2:name',
+			'element:time-raider-feature-2:name',
+			'element:wode-elf-feature-2-2:condition',
+			'element:time-raider-feature-2-3b:condition'
+		];
+		for (const key of unmapped) {
+			expect(mapping[key]).toBeUndefined();
+		}
 	});
 });
