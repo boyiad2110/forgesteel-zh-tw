@@ -19,7 +19,8 @@ interface ScopeProps {
  * English by route. Screens mount it through ElementScope. A field translates
  * when the text on screen still equals the data text. Bold and inline-code
  * marks the display adds are ignored for that comparison. A renamed feature
- * or a rewritten sentence stays in English.
+ * or a rewritten sentence stays in English. Chinese keeps a bold when the
+ * marked English condition word has one matching word in that sentence.
  */
 export const L10nScope = (props: ScopeProps) => {
 	return (
