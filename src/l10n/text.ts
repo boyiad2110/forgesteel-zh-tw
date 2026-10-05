@@ -37,11 +37,25 @@ export const stripRulesHeading = (text: string): string | null => {
 };
 
 /**
+ * Display wraps some words before lookup. Condition names become `**slowed**`,
+ * potency notes become inline code, and the same wrap may arrive as HTML.
+ * The words are unchanged, so the lookup compares the plain sentence.
+ * A rewritten sentence (a different number, an extra clause) stays different.
+ */
+const plainForLookup = (text: string) => {
+	return text
+		.replace(/\*\*([^*]+)\*\*/g, '$1')
+		.replace(/`([^`]+)`/g, '$1')
+		.replace(/<\/?(?:strong|b)>/gi, '');
+};
+
+/**
  * Picks the sheet lookup key for one displayed string.
  *
  * An explicit key wins. Otherwise, when the surrounding scope has exactly
  * one field whose English text is this string, the key is
- * `element:<id>:<field>`. Two fields with the same text are left untranslated
+ * `element:<id>:<field>`. Markdown emphasis the display added is ignored
+ * for that comparison. Two fields with the same text are left untranslated
  * rather than guessed. No scope means no key.
  */
 export const displayKey = (explicit: string | undefined, text: string | undefined, scope: L10nScopeState | null): string | undefined => {
@@ -52,12 +66,24 @@ export const displayKey = (explicit: string | undefined, text: string | undefine
 		return undefined;
 	}
 
-	const matches = scope.fields.filter(field => field.text === text);
-	if (matches.length !== 1) {
+	const exact = scope.fields.filter(field => field.text === text);
+	if (exact.length > 1) {
+		return undefined;
+	}
+	if (exact.length === 1) {
+		return `element:${scope.id}:${exact[0].field}`;
+	}
+
+	const plain = plainForLookup(text);
+	if (plain === text) {
+		return undefined;
+	}
+	const loosened = scope.fields.filter(field => plainForLookup(field.text) === plain);
+	if (loosened.length !== 1) {
 		return undefined;
 	}
 
-	return `element:${scope.id}:${matches[0].field}`;
+	return `element:${scope.id}:${loosened[0].field}`;
 };
 
 /**

@@ -178,6 +178,37 @@ describe('displayKey', () => {
 		};
 		expect(displayKey(undefined, 'Orc', doubled)).toBeUndefined();
 	});
+
+	test('bold and code marks still match the original field', () => {
+		const slowed = 'When you are slowed, your speed is reduced to 3 instead of 2.';
+		const grabbed = 'You can have up to two creatures grabbed at a time.';
+		const marked = {
+			id: 'human-feature-2-2a',
+			fields: [
+				{ field: 'name', text: 'Perseverence' },
+				{ field: 'description', text: slowed }
+			]
+		};
+		expect(displayKey(undefined, 'When you are **slowed**, your speed is reduced to 3 instead of 2.', marked)).toBe('element:human-feature-2-2a:description');
+		expect(displayKey(undefined, 'When you are <strong>slowed</strong>, your speed is reduced to 3 instead of 2.', marked)).toBe('element:human-feature-2-2a:description');
+		expect(displayKey(undefined, 'You gain an edge on `Endurance` tests.', {
+			id: 'human-feature-2-2b',
+			fields: [ { field: 'description', text: 'You gain an edge on Endurance tests.' } ]
+		})).toBe('element:human-feature-2-2b:description');
+		const grabScope = {
+			id: 'time-raider-feature-2-4',
+			fields: [ { field: 'description', text: grabbed } ]
+		};
+		expect(displayKey(undefined, 'You can have up to two creatures **grabbed** at a time.', grabScope)).toBe('element:time-raider-feature-2-4:description');
+		expect(displayKey(undefined, 'When you are **slowed**, your speed is reduced to 5 instead of 2.', marked)).toBeUndefined();
+		expect(displayKey(undefined, '**Perseverence**', {
+			id: 'human-feature-2-2a',
+			fields: [
+				{ field: 'name', text: 'Perseverence' },
+				{ field: 'description', text: 'Perseverence' }
+			]
+		})).toBeUndefined();
+	});
 });
 
 describe('translate', () => {
@@ -494,6 +525,30 @@ describe('ancestry fourth batch', () => {
 		});
 		expect(mapping['element:human-feature-2-1:name']?.sheetId).toBe('heroes.ancestries.human.trait.cant-take-hold.name');
 		expect(mapping['element:ancestry-time-raider:description']?.sheetId).toBe('heroes.ancestries.time-raider.description.1');
+	});
+
+	test('a bolded condition word still resolves the approved Chinese', () => {
+		const slowedKey = 'element:human-feature-2-2a:description';
+		const slowedId = 'heroes.ancestries.human.trait.perseverance.effect';
+		const slowed = 'When you are slowed, your speed is reduced to 3 instead of 2.';
+		const slowedBold = 'When you are **slowed**, your speed is reduced to 3 instead of 2.';
+		const slowedZh = '若你處於緩速狀態，你的速度會降至 3，而非 2。';
+		const grabbedKey = 'element:time-raider-feature-2-4:description';
+		const grabbedId = 'heroes.ancestries.time-raider.trait.four-armed-martial-arts.effect';
+		const grabbed = 'Your multiple arms let you take on multiple tasks at the same time. Whenever you use the Grab or Knockback maneuver against an adjacent creature, you can target one additional adjacent creature, using the same power roll for both targets. Additionally, you can have up to two creatures grabbed at a time.';
+		const grabbedBold = 'Your multiple arms let you take on multiple tasks at the same time. Whenever you use the Grab or Knockback maneuver against an adjacent creature, you can target one additional adjacent creature, using the same power roll for both targets. Additionally, you can have up to two creatures **grabbed** at a time.';
+		const grabbedZh = '你的多隻手臂能讓你同時對付多個目標。每當你對 1 個相鄰生物使用擒抱或擊退機動動作時，你可以指定另 1 個相鄰生物作為額外目標，然後對這 2 個目標進行 1 次檢定。此外，你最多可以同時擒抱 2 個生物。';
+
+		expect(displayKey(undefined, slowedBold, { id: 'human-feature-2-2a', fields: [ { field: 'description', text: slowed } ] })).toBe(slowedKey);
+		expect(displayKey(undefined, grabbedBold, { id: 'time-raider-feature-2-4', fields: [ { field: 'description', text: grabbed } ] })).toBe(grabbedKey);
+		expect(mapping[slowedKey]).toMatchObject({ sheetId: slowedId });
+		expect(mapping[grabbedKey]).toMatchObject({ sheetId: grabbedId });
+		expect(catalog[slowedId].fs?.zh).toBe(slowedZh);
+		expect(catalog[grabbedId].zh).toBe(grabbedZh);
+		expect(resolveText('zh-TW', slowedKey, slowedBold, { [slowedKey]: slowedId }, catalog)).toBe(slowedZh);
+		expect(resolveText('zh-TW', grabbedKey, grabbedBold, { [grabbedKey]: grabbedId }, catalog)).toBe(grabbedZh);
+		expect(resolveText('en', slowedKey, slowedBold, { [slowedKey]: slowedId }, catalog)).toBe(slowedBold);
+		expect(resolveText('en', grabbedKey, grabbedBold, { [grabbedKey]: grabbedId }, catalog)).toBe(grabbedBold);
 	});
 
 	test('the three Perseverence keys share one Forge Steel row and show 堅持不懈', () => {

@@ -17,8 +17,9 @@ interface ScopeProps {
  * inside it can be looked up. The same wrapper is used on every screen that
  * renders the element, including Director tools — nothing is forced back to
  * English by route. Screens mount it through ElementScope. A field translates
- * only when the text on screen still equals the data text, so a renamed
- * feature or computed wording stays in English.
+ * when the text on screen still equals the data text. Bold and inline-code
+ * marks the display adds are ignored for that comparison. A renamed feature
+ * or a rewritten sentence stays in English.
  */
 export const L10nScope = (props: ScopeProps) => {
 	return (

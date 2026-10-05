@@ -25,6 +25,7 @@
 - **書上多一句機制、Forge Steel 把那句拆成資料另外顯示時，用 Master Sheet 的「Forge Steel 版」（DEC-0009）。** 書本譯文留在快照裡。正體中文模式優先顯示該列 Forge Steel 版的中文。歐克的 Grounded、Nonstop，以及矮人、哈肯人、梅莫人裡同樣裁過的描述，都走這條。族裔名稱也可以走 Forge Steel 版（例：Elf (high)）。`scripts/l10n/check.mjs` 守門：Forge Steel 的英文必須等於該欄英文；Basis Hash 必須等於目前書本中文的 UTF-8 sha256，不符就失敗，訊息寫明 Forge Steel version is stale（書本中文改過就要重新核准）；這種鍵不能列進 `english-exceptions.json`，也不能設 `stripHeading`。快照裡有 Forge Steel 版、卻沒有任何對照鍵的列也會失敗。
 - **共用標題等 P3。** 例如「Purchased Traits」。那是介面標籤，不是這一條特性專有的名字。
 - **文化語言名 Kalliac 對到表上的 Kalliak，P2-4 再處理。** Forge Steel 寫 Kalliac，表上寫 Kalliak。這批不譯文化分頁。
+- **畫面上只多了強調標記時，仍視為同一句英文（2026-10-05）。** 顯示前會把 slowed、grabbed 這類條件字包成 `**…**`，效力註記則包成行內程式碼。查字時先拿掉 `**`、行內程式碼，以及同等的 `<strong>`／`<b>`，再對資料原文。句子真的被改寫（數字、加字）仍留英文。英文模式仍顯示加粗後的原文。
 
 ## 尚未決定
 
