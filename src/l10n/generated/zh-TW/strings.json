@@ -921,11 +921,21 @@
   },
   "heroes.ancestries.human.trait.perseverance.effect": {
     "en": "Giving up is for other people. You gain an edge on tests made using the Endurance skill. Additionally, when you are slowed, your speed is reduced to 3 instead of 2.",
+    "fs": {
+      "basisHash": "d922e63763d99cd8849ccf9d14ad1e2e11fb8ade299a0c6c62ff226998f9948d",
+      "en": "When you are slowed, your speed is reduced to 3 instead of 2.",
+      "zh": "若你處於緩速狀態，你的速度會降至 3，而非 2。"
+    },
     "updated": "2026-10-01",
     "zh": "你絕不輕言放棄。當你使用耐力技能進行考驗時，你會獲得 1 個優勢。此外，若你處於緩速狀態，你的速度會降至 3，而非 2。"
   },
   "heroes.ancestries.human.trait.perseverance.name": {
     "en": "Perseverance",
+    "fs": {
+      "basisHash": "bfff0a46d708dc7f0b296e9ee9aaa5934115942b035e093ef6f9f32f639b919b",
+      "en": "Perseverence",
+      "zh": "堅持不懈"
+    },
     "updated": "2026-10-01",
     "zh": "堅持不懈"
   },
@@ -941,6 +951,11 @@
   },
   "heroes.ancestries.human.trait.staying-power.effect": {
     "en": "Your human physiology allows you to fight, run, and stay awake longer than others. You increase your number of Recoveries by 2.",
+    "fs": {
+      "basisHash": "f45900223a36c9ab77d4984eef221a3c6e1c2d16841c3c8b5cf345e0461ab62a",
+      "en": "Your human physiology allows you to fight, run, and stay awake longer than others.",
+      "zh": "人類的生理構造能讓你比其他族群更持久地戰鬥、奔跑和保持清醒。"
+    },
     "updated": "2026-10-01",
     "zh": "人類的生理構造能讓你比其他族群更持久地戰鬥、奔跑和保持清醒。你的復元力 +2。"
   },
@@ -1596,6 +1611,11 @@
   },
   "heroes.ancestries.time-raider.trait.foresight.effect": {
     "en": "Your senses extend past mundane obscuration and the veil of the future alike. You automatically know the location of any creature with concealment who isn’t hidden from you within 20, and you negate the usual bane on strikes against such creatures. Additionally, whenever you are targeted by a strike, you can use a triggered action to impose a bane on the power roll.",
+    "fs": {
+      "basisHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21",
+      "en": "You automatically know the location of any creature with concealment who isn’t hidden from you within 20, and you negate the usual bane on strikes against such creatures.",
+      "zh": "你會自動知道 20 格內任何對你具有遮蔽但並未處於隱藏的生物位置，而且當你對這些生物發動打擊時，你會無視通常需要承受的 1 個劣勢。"
+    },
     "updated": "2026-10-01",
     "zh": "你的感官能夠穿越世俗的阻礙與未來的帷幕。你會自動知道 20 格內任何對你具有遮蔽但並未處於隱藏的生物位置，而且當你對這些生物發動打擊時，你會無視通常需要承受的 1 個劣勢。此外，每當你成為打擊的目標時，你可以使用反應動作，讓該次檢定承受 1 個劣勢。"
   },
@@ -1671,6 +1691,11 @@
   },
   "heroes.ancestries.time-raider.trait.unstoppable-mind.effect": {
     "en": "Your mind allows you to maintain your focus in any situation. You can’t be made dazed.",
+    "fs": {
+      "basisHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644",
+      "en": "Your mind allows you to maintain your focus in any situation.",
+      "zh": "你的心智能讓你在任何情況下保持專注。"
+    },
     "updated": "2026-10-01",
     "zh": "你的心智能讓你在任何情況下保持專注。你不會陷入暈眩狀態。"
   },
@@ -1701,6 +1726,11 @@
   },
   "heroes.ancestries.wode-elf.name": {
     "en": "Wode Elf",
+    "fs": {
+      "basisHash": "fc76bea1e48b4a1d25e5d38ef91f8d2f889b3ed2402f99ed651bc6f6ea9acc09",
+      "en": "Elf (wode)",
+      "zh": "幻林精靈"
+    },
     "updated": "2026-10-01",
     "zh": "幻林精靈"
   },
@@ -1721,6 +1751,11 @@
   },
   "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect": {
     "en": "You can magically alter your appearance to better blend in with your surroundings. You gain an edge on tests made to hide and sneak, and tests made to search for you while you are hidden take a bane.",
+    "fs": {
+      "basisHash": "7dba891410cabaa1d4d1b7c38a29e0b00ceac304ba03fdb5bdfa1de89ada489d",
+      "en": "Tests made to search for you while you are hidden take a bane.",
+      "zh": "當你處於隱藏時，其他生物試圖搜索你的考驗都會承受 1 個劣勢。"
+    },
     "updated": "2026-10-01",
     "zh": "你可以運用魔法改變外表，讓自己更容易融入周遭環境。當你進行躲藏和潛行的考驗時，你會獲得 1 個優勢。此外，當你處於隱藏時，其他生物試圖搜索你的考驗都會承受 1 個劣勢。"
   },
