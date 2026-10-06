@@ -2,6 +2,7 @@ import { Divider, Tag } from 'antd';
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
 import { Ability } from '@/models/ability';
 import { AbilityLogic } from '@/logic/ability-logic';
+import { AbilityName } from '@/l10n/ability-text';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { Empty } from '@/components/controls/empty/empty';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -31,7 +32,7 @@ export const AbilitiesPanel = (props: Props) => {
 	const getRow = (data: { ability: Ability, source: string }) => {
 		return (
 			<div key={data.ability.id} className='selectable-row clickable' onClick={() => props.onSelectAbility(data.ability)}>
-				<div><b>{data.ability.name}</b></div>
+				<div><b><AbilityName ability={data.ability} /></b></div>
 				<div>{data.ability.distance.map(d => AbilityLogic.getDistance(d, data.ability, props.hero)).join(' or ')}</div>
 				<div>{data.ability.target}</div>
 				{options.showSources ? <Tag variant='outlined'>{data.source}</Tag> : null}

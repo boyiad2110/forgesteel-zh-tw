@@ -24,6 +24,7 @@ import { PanelMode } from '@/enums/panel-mode';
 import { PowerRollPanel } from '@/components/panels/power-roll/power-roll-panel';
 import { RollModifierPanel } from '@/components/panels/roll-modifier-panel/roll-modifier-panel';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
+import { abilityNameKey } from '@/l10n/ability-text';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useOptions } from '@/contexts/data-context';
 
@@ -48,6 +49,7 @@ export const AbilityPanel = (props: Props) => {
 	const clipboard = useClipboard();
 
 	const keywords = AbilityLogic.getKeywords(props.ability, props.hero);
+	const nameKey = abilityNameKey(props.ability);
 	const isSignature = (props.cost ?? props.ability.cost) === 'signature';
 
 	const getCost = () => {
@@ -279,6 +281,7 @@ export const AbilityPanel = (props: Props) => {
 					<HeaderText
 						ribbon={getRibbon()}
 						tags={props.tags}
+						l10nKey={nameKey}
 					>
 						{props.ability.name || 'Unnamed Ability'}
 					</HeaderText>
@@ -308,6 +311,7 @@ export const AbilityPanel = (props: Props) => {
 				<HeaderText
 					ribbon={getRibbon()}
 					tags={props.tags}
+					l10nKey={nameKey}
 					extra={
 						<ButtonGroup
 							buttons={[

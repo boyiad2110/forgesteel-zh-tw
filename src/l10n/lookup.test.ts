@@ -1,3 +1,4 @@
+import { AbilityName, abilityNameKey, useAbilityName } from '@/l10n/ability-text';
 import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { FeaturePerk, FeatureText } from '@/models/feature';
@@ -6,13 +7,19 @@ import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/cha
 import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text';
+import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-panel';
+import { AbilityData } from '@/data/ability-data';
 import { Characteristic } from '@/enums/characteristic';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { FeatureType } from '@/enums/feature-type';
+import { HeaderText } from '@/components/controls/header-text/header-text';
+import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
+import { OptionsContext } from '@/contexts/data-context';
 import { PartyModal } from '@/components/modals/party/party-modal';
 import { PerkList } from '@/enums/perk-list';
+import { SidebarPanel } from '@/components/panels/hero/sidebar/sidebar-panel';
 import { SkillList } from '@/enums/skill-list';
 import { SkillsCard } from '@/components/panels/classic-sheet/skills-card/skills-card';
 import { core } from '@/data/sourcebooks/official/core';
@@ -914,7 +921,7 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(346);
+		expect(Object.keys(mapping)).toHaveLength(365);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(Object.values(catalog).filter(row => row.fs).length).toBe(74);
 	});
@@ -989,7 +996,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(346);
+		expect(Object.keys(mapping)).toHaveLength(365);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1066,7 +1073,7 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(346);
+		expect(Object.keys(mapping)).toHaveLength(365);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1258,5 +1265,197 @@ describe('skill display batch', () => {
 		const englishPerks = renderPerkChoice();
 		expect(englishPerks).toContain('Alchemy');
 		expect(englishPerks).not.toContain('鍊金');
+	});
+});
+
+const withOptions = (options: ReturnType<typeof FactoryLogic.createOptions>, node: ReturnType<typeof createElement>) => {
+	return createElement(OptionsContext, { value: options }, node);
+};
+
+const actionNames = [
+	[ 'advance', 'Advance', 'term.advance-action', '行進' ],
+	[ 'disengage', 'Disengage', 'term.disengage-action', '撤離' ],
+	[ 'ride', 'Ride', 'term.ride-action', '騎乘' ],
+	[ 'aid-attack', 'Aid Attack', 'term.aid-attack-action', '助攻' ],
+	[ 'catch-breath', 'Catch Breath', 'term.catch-breath-action', '喘息' ],
+	[ 'escape-grab', 'Escape Grab', 'term.escape-grab-action', '掙脫' ],
+	[ 'grab', 'Grab', 'term.grab-action', '擒抱' ],
+	[ 'hide', 'Hide', 'term.hide-action', '躲藏' ],
+	[ 'knockback', 'Knockback', 'term.knockback-action', '擊退' ],
+	[ 'make-assist-test', 'Make Or Assist A Test', 'term.make-or-assist-test-action', '進行或協助考驗' ],
+	[ 'search', 'Search for Hidden Creatures', 'term.search-for-hidden-creatures-action', '搜索隱藏生物' ],
+	[ 'stand-up', 'Stand Up', 'term.stand-up-action', '起身' ],
+	[ 'use-consumable', 'Use Consumable', 'term.use-consumable-action', '使用消耗品' ],
+	[ 'charge', 'Charge', 'term.charge-action', '衝鋒' ],
+	[ 'defend', 'Defend', 'term.defend-action', '防禦' ],
+	[ 'heal', 'Heal', 'term.heal-action', '治療' ],
+	[ 'free-strike', 'Free Strike', 'term.free-strike', '基礎打擊' ],
+	[ 'opportunity-attack', 'Opportunity Attack', 'term.opportunity-attack', '藉機攻擊' ],
+	[ 'claw-dirt', 'Claw Dirt', 'term.claw-dirt', '挖土' ]
+] as const;
+
+describe('action names', () => {
+	const catalog = glossary as Catalog;
+
+	beforeEach(async () => {
+		await loadCatalog();
+		vi.stubGlobal('window', {
+			matchMedia: () => ({
+				matches: false,
+				addEventListener: () => undefined,
+				removeEventListener: () => undefined
+			})
+		});
+	});
+
+	test('this batch adds 19 action name keys', () => {
+		expect(Object.keys(mapping)).toHaveLength(365);
+		expect(actionNames).toHaveLength(19);
+		for (const [ id, english, sheetId, zh ] of actionNames) {
+			const key = `element:${id}:name`;
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].en).toBe(english);
+			expect(catalog[sheetId].zh).toBe(zh);
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+		expect(mapping['element:go-prone:name']).toBeUndefined();
+		expect(mapping['element:swap:name']).toBeUndefined();
+		expect(mapping['element:free-melee:name']).toBeUndefined();
+		expect(mapping['element:free-ranged:name']).toBeUndefined();
+	});
+
+	test('chinese mode renames a stored action, english mode and a typed rename stay as written', () => {
+		const charge = { id: 'charge', name: 'Charge' };
+		const renamed = { id: 'charge', name: 'My Charge' };
+		const Probe = (props: { ability: { id: string, name: string } }) => useAbilityName(props.ability);
+
+		expect(abilityNameKey(charge)).toBe('element:charge:name');
+		expect(abilityNameKey(renamed)).toBeUndefined();
+		expect(abilityNameKey(AbilityData.freeStrikeMelee)).toBeUndefined();
+		expect(abilityNameKey(AbilityData.goProne)).toBe('element:go-prone:name');
+		expect(renderToStaticMarkup(createElement(Probe, { ability: charge }))).toBe('衝鋒');
+		expect(renderToStaticMarkup(createElement(Probe, { ability: renamed }))).toBe('My Charge');
+		expect(renderToStaticMarkup(createElement(Probe, { ability: AbilityData.goProne }))).toBe('Go Prone');
+		expect(renderToStaticMarkup(createElement(Probe, { ability: AbilityData.swap }))).toBe('Swap');
+		expect(renderToStaticMarkup(createElement(Probe, { ability: AbilityData.freeStrikeMelee }))).toBe('Free Strike (melee)');
+
+		setLanguage('en');
+		expect(renderToStaticMarkup(createElement(Probe, { ability: charge }))).toBe('Charge');
+		expect(renderToStaticMarkup(createElement(AbilityName, { ability: AbilityData.opportunityAttack }))).toBe('Opportunity Attack');
+	});
+
+	test('ability titles, the hero list, and sidebar triggers use the approved name', () => {
+		const options = FactoryLogic.createOptions();
+		const title = (ability: { id: string, name: string }) => renderToStaticMarkup(createElement(HeaderText, {
+			l10nKey: abilityNameKey(ability),
+			children: ability.name || 'Unnamed Ability'
+		}));
+
+		expect(title(AbilityData.charge)).toContain('header-text">衝鋒');
+		expect(title(AbilityData.charge)).not.toContain('header-text">Charge');
+		expect(title(AbilityData.advance)).toContain('header-text">行進');
+		expect(title(AbilityData.freeStrikeMelee)).toContain('header-text">Free Strike (melee)');
+		expect(title(AbilityData.freeStrikeMelee)).not.toContain('基礎打擊');
+		expect(title({ id: 'charge', name: 'My Charge' })).toContain('header-text">My Charge');
+		expect(title({ id: 'charge', name: 'My Charge' })).not.toContain('衝鋒');
+
+		const hero = FactoryLogic.createHero();
+		const listed = HeroLogic.getAbilities(hero, [], [ 'charge', 'go-prone', 'swap' ]);
+		listed.push({ ability: AbilityData.freeStrikeMelee, source: 'Standard', level: undefined });
+		options.compactView = true;
+		const rows = renderToStaticMarkup(withOptions(options, createElement(AbilitiesPanel, {
+			title: 'Main Actions',
+			abilities: listed,
+			hero,
+			onSelectAbility: () => undefined
+		})));
+
+		expect(rows).toContain('>衝鋒<');
+		expect(rows).toContain('Go Prone');
+		expect(rows).toContain('Swap');
+		expect(rows).toContain('Free Strike (melee)');
+		expect(rows).not.toContain('>Charge<');
+
+		hero.abilityCustomizations.push({
+			abilityID: 'charge',
+			name: 'My Charge',
+			description: '',
+			notes: '',
+			costModifier: 0,
+			distanceBonus: 0,
+			damageBonus: 0,
+			characteristic: null
+		});
+		const renamed = HeroLogic.getAbilities(hero, [], [ 'charge' ]);
+		const renamedRows = renderToStaticMarkup(withOptions(options, createElement(AbilitiesPanel, {
+			title: 'Main Actions',
+			abilities: renamed,
+			hero,
+			onSelectAbility: () => undefined
+		})));
+		expect(renamedRows).toContain('My Charge');
+		expect(renamedRows).not.toContain('衝鋒');
+
+		const sidebarOptions = FactoryLogic.createOptions();
+		sidebarOptions.shownStandardAbilities = [ 'opportunity-attack', 'charge' ];
+		const plainHero = FactoryLogic.createHero();
+		const sidebar = renderToStaticMarkup(withOptions(sidebarOptions, createElement(SidebarPanel, {
+			hero: plainHero,
+			sourcebooks: [],
+			setTab: () => undefined,
+			onShowState: () => undefined,
+			onShowReference: () => undefined,
+			onAddSquad: () => undefined,
+			onRemoveSquad: () => undefined,
+			onAddMonsterToSquad: () => undefined,
+			onSelectControlledMonster: () => undefined,
+			onSelectControlledSquad: () => undefined,
+			onSetControlledMonsterDefeated: () => undefined,
+			onSetControlledMonsterHidden: () => undefined
+		})));
+		expect(sidebar).toContain('藉機攻擊');
+		expect(sidebar).not.toContain('Opportunity Attack');
+
+		plainHero.abilityCustomizations.push({
+			abilityID: 'opportunity-attack',
+			name: 'My Trigger',
+			description: '',
+			notes: '',
+			costModifier: 0,
+			distanceBonus: 0,
+			damageBonus: 0,
+			characteristic: null
+		});
+		const renamedSidebar = renderToStaticMarkup(withOptions(sidebarOptions, createElement(SidebarPanel, {
+			hero: plainHero,
+			sourcebooks: [],
+			setTab: () => undefined,
+			onShowState: () => undefined,
+			onShowReference: () => undefined,
+			onAddSquad: () => undefined,
+			onRemoveSquad: () => undefined,
+			onAddMonsterToSquad: () => undefined,
+			onSelectControlledMonster: () => undefined,
+			onSelectControlledSquad: () => undefined,
+			onSetControlledMonsterDefeated: () => undefined,
+			onSetControlledMonsterHidden: () => undefined
+		})));
+		expect(renamedSidebar).toContain('My Trigger');
+		expect(renamedSidebar).not.toContain('藉機攻擊');
+
+		setLanguage('en');
+		expect(title(AbilityData.charge)).toContain('header-text">Charge');
+		expect(title(AbilityData.charge)).not.toContain('衝鋒');
+		const englishRows = renderToStaticMarkup(withOptions(options, createElement(AbilitiesPanel, {
+			title: 'Main Actions',
+			abilities: HeroLogic.getAbilities(FactoryLogic.createHero(), [], [ 'charge', 'go-prone', 'swap' ]),
+			hero: FactoryLogic.createHero(),
+			onSelectAbility: () => undefined
+		})));
+		expect(englishRows).toContain('>Charge<');
+		expect(englishRows).toContain('Go Prone');
+		expect(englishRows).toContain('Swap');
+		expect(englishRows).not.toContain('衝鋒');
 	});
 });

@@ -60,6 +60,15 @@
 - **擲骰修正說明整句留 P3（2026-10-06）。** 句中技能名也不換。Marc 已核准。
 - **隨從面板、專案面板的技能欄不在 6-2（2026-10-06）。** 之後跟這兩處的語言一起補。Marc 已核准。
 - **6-2 只換顯示（2026-10-06）。** 排序、搜尋、存檔維持英文。經典表格技能卡英文模式保留 Criminal Und. 縮寫，排版估算不改。feature-component 只在 SkillChoice 時換。不寫 Sheet（沿用 6-1 的 62 個對照）。Marc 已核准。
+- **Glossary 新增 16 列動作名稱（2026-10-06）。** 第 319–334 列，CHG-0060。ID 是 `term.<slug>-action`。中文照抄 Strings `heroes.actions.<slug>.rules` 的標題行。Glossary 標了定稿，這是 Marc 自選的例外。Marc 已核准。
+- **Make Or Assist A Test 的 Source Term 寫 Forge Steel 原樣（2026-10-06）。** 書上寫 Make or Assist a Test。Usage Note 註明書上寫法。不加大小寫例外，也不把這一筆放進 `english-exceptions.json`。Marc 已核准。
+- **Make or Assist a Test、Use Consumable 併入那 16 列（2026-10-06）。** Marc 已核准。
+- **Free Strike、Opportunity Attack、Claw Dirt 直接對既有 Glossary 列（2026-10-06）。** `term.free-strike`（基礎打擊）、`term.opportunity-attack`（藉機攻擊）、`term.claw-dirt`（挖土）。英文完全相同，不加來源列檢查。Marc 已核准。
+- **Free Strike (melee)、Free Strike (ranged)、Go Prone、Swap 留英文（2026-10-06）。** Marc 已核准。
+- **動作描述留到 7-3（2026-10-06）。** 9 段用 Forge Steel 版，5 段直接對照。Escape Grab、Grab、Knockback 留招式批次。Marc 已核准。
+- **動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3（2026-10-06）。** 包括 Main Action 這類標籤，以及 `primary-reference-card.tsx`、`reference-cards.tsx`。Marc 已核准。
+- **P2-7 分三批（2026-10-06）。** 7-1 是網頁上的動作名稱（Reference 的 Abilities 頁、點開招式的視窗、列印頁、英雄頁招式列表、側欄 Triggers）。7-2 是經典表格上的動作名稱。7-3 是動作描述。顯示的名稱仍等於資料英文才換；英雄用 abilityCustomizations 改過的名字維持使用者輸入。存檔、排序、搜尋、比對、剪貼簿維持英文。英文模式不變。Marc 已核准。
+- **來源列檢查擴及動作名稱（2026-10-06）。** 對到 `term.<slug>-action` 的鍵，Glossary 中文必須等於 `heroes.actions.<slug>.rules` 的標題行。來源列不在，或標題改了字，守門就失敗。Marc 已核准。
 
 ## 尚未決定
 

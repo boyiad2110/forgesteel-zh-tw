@@ -63,6 +63,14 @@
  * When that text is gone, the check fails and the message names the Glossary
  * id, the Strings id, and says the source row no longer contains this name.
  *
+ * A mapping whose sheet id is `term.<slug>-action` is checked the same way.
+ * The Glossary Chinese must equal the first line (the heading) of
+ * `heroes.actions.<slug>.rules`. Free Strike, Opportunity Attack, and Claw
+ * Dirt reuse older Glossary rows, so they are not checked here. When the
+ * source row is missing, or the heading no longer equals that Chinese, the
+ * check fails and the message names the Glossary id, the Strings id, and
+ * says the source row no longer contains this name.
+ *
  * A template literal cooks CR LF and a lone CR into LF. The check does the
  * same to every recomputed English string, and to Sheet English before a
  * comparison, so a core.autocrlf checkout hashes like the runtime string.
@@ -916,6 +924,29 @@ const checkSkillSource = (entry, rows, skills) => {
 	return null;
 };
 
+const ACTION_SHEET = /^term\.(.+)-action$/;
+
+/**
+ * Glossary has no Basis Hash. An action name taken from a Strings heading
+ * must still equal that heading. Older rows such as term.free-strike are
+ * not checked here.
+ */
+const checkActionSource = (entry, rows) => {
+	const action = ACTION_SHEET.exec(entry.sheetId);
+	if (!action) {
+		return null;
+	}
+	const sourceId = `heroes.actions.${action[1]}.rules`;
+	const glossaryZh = rows.get(entry.sheetId)?.zh;
+	const sourceZh = rows.get(sourceId)?.zh;
+	const heading = typeof sourceZh === 'string' ? sourceZh.split('\n')[0] : '';
+	const hit = typeof glossaryZh === 'string' && glossaryZh !== '' && heading === glossaryZh;
+	if (!hit) {
+		return issue('action-source', 'src/l10n/mapping.ts', entry.line, entry.key, sourceMiss(entry.sheetId, sourceId));
+	}
+	return null;
+};
+
 export const forgeEnglish = (root, key, cache = { current: null }) => {
 	const element = /^element:([^:]+):([^:]+)$/.exec(key);
 	if (element) {
@@ -1487,6 +1518,10 @@ export const checkMapping = root => {
 			if (sourceIssue) {
 				errors.push(sourceIssue);
 			}
+		}
+		const actionIssue = checkActionSource(entry, rows);
+		if (actionIssue) {
+			errors.push(actionIssue);
 		}
 	}
 	const stringsFile = 'src/l10n/generated/zh-TW/strings.json';

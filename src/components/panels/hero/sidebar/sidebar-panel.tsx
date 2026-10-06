@@ -4,6 +4,7 @@ import { EllipsisOutlined, HeartFilled, PlusOutlined } from '@ant-design/icons';
 import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Ability } from '@/models/ability';
 import { AbilityLogic } from '@/logic/ability-logic';
+import { AbilityName } from '@/l10n/ability-text';
 import { AbilityUsage } from '@/enums/ability-usage';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
 import { ConditionLogic } from '@/logic/condition-logic';
@@ -113,7 +114,7 @@ export const SidebarPanel = (props: Props) => {
 						ability.type.trigger ?
 							<Field
 								compact={true}
-								label={ability.name || 'Unnamed Ability'}
+								label={ability.name ? <AbilityName ability={ability} /> : 'Unnamed Ability'}
 								value={ability.type.trigger}
 							/>
 							: null
@@ -331,7 +332,7 @@ export const SidebarPanel = (props: Props) => {
 					(triggers.length > 0) && !options.singlePage ?
 						useRows ?
 							<div className='selectable-row clickable' onClick={() => props.setTab('Triggers')}>
-								<div>Triggers: <b>{triggers.map(t => t.ability.name).join(', ')}</b></div>
+								<div>Triggers: <b>{triggers.map((t, n) => <span key={t.ability.id}>{n > 0 ? ', ' : null}{t.ability.name ? <AbilityName ability={t.ability} /> : 'Unnamed Ability'}</span>)}</b></div>
 							</div>
 							:
 							<div className='overview-tile clickable' onClick={() => props.setTab('Triggers')}>

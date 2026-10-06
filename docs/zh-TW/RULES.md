@@ -43,7 +43,7 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `.github/workflows/digitalocean.yml`（部署保護）
 - `.github/workflows/do-registry-cleanup.yml`（部署保護）
 - `src/components/modals/reference/reference-modal.tsx`（條件名稱與規則、語言名稱、技能名稱與類別）
-- `src/components/panels/hero/sidebar/sidebar-panel.tsx`（條件名稱與規則、語言名稱、技能名稱與類別）
+- `src/components/panels/hero/sidebar/sidebar-panel.tsx`（條件名稱與規則、語言名稱、技能名稱與類別、動作名稱）
 - `src/components/panels/condition/condition-panel.tsx`（條件名稱與規則）
 - `src/components/panels/health/health-panel.tsx`（條件名稱）
 - `src/components/features/feature-data/condition-immunity.tsx`（條件名稱）
@@ -73,6 +73,8 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/panels/classic-sheet/skills-card/skills-card.tsx`（技能名稱與類別）
 - `src/components/features/feature-data/skill-cancel-choice.tsx`（技能名稱）
 - `src/components/panels/classic-sheet/follower-card/companion-card.tsx`（技能名稱）
+- `src/components/panels/elements/ability-panel/ability-panel.tsx`（動作名稱）
+- `src/components/panels/hero/abilities/abilities-panel.tsx`（動作名稱）
 
 ## 舊的失敗嘗試，不要再做
 
