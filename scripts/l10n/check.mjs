@@ -867,7 +867,7 @@ const SKILL_LIST_SOURCE = {
 const SKILL_GROUP_SOURCE = 'heroes.skills.groups.rules';
 
 const sourceMiss = (glossaryId, sourceId) => {
-	return `${glossaryId} source row ${sourceId} no longer contains this name`;
+	return `${glossaryId} ${sourceId}: source row no longer contains this name`;
 };
 
 /**

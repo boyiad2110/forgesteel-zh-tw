@@ -1,5 +1,6 @@
 import { Button, Divider, Space } from 'antd';
 import { SearchBox, TextInput } from '@/components/controls/text-input/text-input';
+import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Expander } from '@/components/controls/expander/expander';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -7,7 +8,6 @@ import { Modal } from '@/components/modals/modal/modal';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Skill } from '@/models/skill';
 import { SkillList } from '@/enums/skill-list';
-import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';

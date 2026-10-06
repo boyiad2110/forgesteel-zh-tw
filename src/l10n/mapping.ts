@@ -382,5 +382,5 @@ export const mapping: Record<string, MappingEntry> = {
 	'skill:Rumors': { sheetId: 'term.rumors-skill', enHash: '7cde65835071f1c1352478db6812cf1e9abeaad435f05d449184cfe02628556e' },
 	'skill:Society': { sheetId: 'term.society-skill', enHash: 'd5acfd8330f5caaee7d1421788c912dc9c5da654bbc226a904798d1a30de9953' },
 	'skill:Strategy': { sheetId: 'term.strategy-skill', enHash: '6b27710dfaafdcec2b06b7d3c6abe56d98162848b08a9da01e88863e2add413f' },
-	'skill:Timescape': { sheetId: 'term.timescape-skill', enHash: 'a837f5563437ca1f7b30ecb193c2388ffbd68a7535217218ca0e2082de6f667a' },
+	'skill:Timescape': { sheetId: 'term.timescape-skill', enHash: 'a837f5563437ca1f7b30ecb193c2388ffbd68a7535217218ca0e2082de6f667a' }
 };

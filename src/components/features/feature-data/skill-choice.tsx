@@ -1,5 +1,6 @@
 import { Button, Drawer, Flex, Segmented, Select, Space } from 'antd';
 import { Feature, FeatureSkillChoiceData } from '@/models/feature';
+import { SkillName, useSkillNames } from '@/l10n/skill-text';
 import { Collections } from '@/utils/collections';
 import { FeatureType } from '@/enums/feature-type';
 import { Field } from '@/components/controls/field/field';
@@ -9,7 +10,6 @@ import { HeroLogic } from '@/logic/hero-logic';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { SkillList } from '@/enums/skill-list';
-import { SkillName, useSkillNames } from '@/l10n/skill-text';
 import { SkillSelectModal } from '@/components/modals/select/skill-select/skill-select-modal';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';

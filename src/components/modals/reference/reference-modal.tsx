@@ -1,5 +1,6 @@
 import { Button, Flex, Segmented, Space, Tabs } from 'antd';
 import { ConditionName, conditionRulesKey } from '@/l10n/condition-text';
+import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -23,7 +24,6 @@ import { SearchBox } from '@/components/controls/text-input/text-input';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Skill } from '@/models/skill';
 import { SkillList } from '@/enums/skill-list';
-import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
