@@ -11,6 +11,7 @@ import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { languageNameKey } from '@/l10n/language-text';
+import { skillListKey, skillNameKey } from '@/l10n/skill-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
@@ -904,7 +905,7 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(284);
+		expect(Object.keys(mapping)).toHaveLength(346);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(Object.values(catalog).filter(row => row.fs).length).toBe(74);
 	});
@@ -979,7 +980,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(284);
+		expect(Object.keys(mapping)).toHaveLength(346);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1049,5 +1050,55 @@ describe('language first batch', () => {
 
 		setLanguage('en');
 		expect(renderToStaticMarkup(createElement(Probe, { names: stored }))).toBe(stored.join('\n'));
+	});
+});
+
+describe('skill first batch', () => {
+	const catalog = glossary as Catalog;
+
+	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
+		expect(Object.keys(mapping)).toHaveLength(346);
+		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
+		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
+		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
+	});
+
+	test('every core and orden skill maps to its own term.<slug>-skill row', () => {
+		const skills = [ ...core.skills, ...orden.skills ];
+
+		expect(skills).toHaveLength(57);
+		for (const skill of skills) {
+			const key = skillNameKey(skill.name);
+			const slug = skill.name.toLowerCase().replace(/ /g, '-');
+			const sheetId = `term.${slug}-skill`;
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].en).toBe(skill.name);
+			expect(resolveText('zh-TW', key, skill.name, { [key]: sheetId }, catalog)).toBe(catalog[sheetId].zh);
+			expect(resolveText('en', key, skill.name, { [key]: sheetId }, catalog)).toBe(skill.name);
+			expect(resolveText('zh-TW', undefined, skill.description, {}, catalog)).toBe(skill.description);
+		}
+	});
+
+	test('sample names resolve in zh-TW, stay English in English mode, and an unmapped name stays as written', () => {
+		const rows: [ string, string, string, string ][] = [
+			[ skillNameKey('Alchemy'), 'Alchemy', 'term.alchemy-skill', '鍊金' ],
+			[ skillNameKey('Read Person'), 'Read Person', 'term.read-person-skill', '觀色' ],
+			[ skillNameKey('Climb'), 'Climb', 'term.climb-skill', '攀爬' ],
+			[ skillListKey('Lore'), 'Lore', 'term.lore-skill-group', '學識類' ]
+		];
+
+		for (const [ key, english, sheetId, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].zh).toBe(zh);
+			expect(catalog[sheetId].en).toBe(english);
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+
+		expect(catalog['term.climb'].zh).toBe('攀爬');
+		expect(catalog['term.climb'].en).toBe('Climb');
+		expect(resolveText('zh-TW', skillNameKey('Home Brew'), 'Home Brew', {}, catalog)).toBe('Home Brew');
+		expect(resolveText('en', skillNameKey('Home Brew'), 'Home Brew', {}, catalog)).toBe('Home Brew');
+		expect(resolveText('zh-TW', skillListKey('Custom'), 'Custom', {}, catalog)).toBe('Custom');
 	});
 });

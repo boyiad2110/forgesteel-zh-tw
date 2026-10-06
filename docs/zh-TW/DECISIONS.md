@@ -46,6 +46,14 @@
 - **語言分兩批（2026-10-06）。** 5-1 是文化面板與建造頁的語言名稱。5-2 是英雄側欄 sidebar-panel、經典表格 culture-card、reference-modal、sourcebook-panel、party-modal、negotiation-panel。Marc 已核准。
 - **編輯器下拉選單留英文（2026-10-06）。** culture-edit、negotiation-edit、EditLanguage 等不在範圍內，因為下拉值就是存檔內容。Marc 已核准。
 - **5-2 只換語言名稱的顯示（2026-10-06）。** 存檔值、比對、排序、搜尋維持英文。5-1 沒碰過的經典表格 `ChoiceFeatureComponent`、隨從卡、協商表格一起做。`ChoiceFeatureComponent` 只在 LanguageChoice 時換名稱，Choice 與 ItemChoice 不動。程式組出來的「I Speak Their Language (…)」、「Unselected」、「None」、「Related to:」和類型標題留到 P3。sourcebook-panel 編輯模式留英文。經典表格排版估算（sheet-formatter）不改。Marc 已核准。
+- **Glossary 定稿後由 Marc 核准新增技能與類別（2026-10-06）。** 57 個技能與 5 個類別放 Glossary 分頁（不是 Names），Marc 知道 Glossary 標了定稿，是他自選的例外。實際新增 62 列（第 257–318 列，CHG-0059），全部是技能專用列；ID 依 Glossary 後綴慣例 term.<group>-skill-group／term.<slug>-skill。Marc 已核准。
+- **Climb、Jump、Swim、Culture、Timescape 與既有列分開（2026-10-06）。** 這五個技能和 Glossary 既有的 term.climb／term.jump／term.swim／term.culture／term.timescape 英文、中文相同，但含義不同（移動方式、英雄文化、世界觀名詞），分開建技能專用列 term.climb-skill 等（第 314–318 列）；既有列不動，不作技能對照。Marc 已核准。
+- **技能名稱用新鍵型 `skill:<Forge Steel 英文名>`（2026-10-06）。** 技能類別用既有的 enum:SkillList:<類別>。SkillList.Custom 不對照，維持英文。Marc 已核准。
+- **技能中文取自技能表的名稱格，類別取自類別句原字（2026-10-06）。** 技能名稱來自 Strings 第 20–24 列技能表的「中文（English）｜用途」行，可刪去括號英文與用途格，不補字（新刪法）。類別用第 19 列的「工藝類、探索類、交涉類、諜報類、學識類」原字。Marc 已核准。
+- **來源列檢查代替 Basis Hash（2026-10-06）。** Glossary 沒有 Basis Hash，Glossary 列的 Source Reference／Usage Note 寫明來源 Strings 列；check.mjs 守門檢查中文仍在來源 Strings 列的表格行（類別：類別句）裡。Marc 已核准。
+- **技能描述留英文（2026-10-06）。** Marc 已核准。
+- **技能分兩批（2026-10-06）。** 6-1 是建造頁技能選擇、選技能視窗、Reference 技能頁；6-2 是其他顯示技能名稱的位置。Marc 已核准。
+- **程式組出的字、HeaderText 標籤、以及「Other skills」等介面字留到 P3（2026-10-06）。** 搜尋、排序維持英文；編輯器下拉留英文。Marc 已核准。
 
 ## 尚未決定
 

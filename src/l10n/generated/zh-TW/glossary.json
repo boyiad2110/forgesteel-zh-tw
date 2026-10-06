@@ -34,6 +34,16 @@
     "updated": "2026-09-29",
     "zh": "助攻機動動作"
   },
+  "term.alchemy-skill": {
+    "en": "Alchemy",
+    "updated": "2026-10-06",
+    "zh": "鍊金"
+  },
+  "term.alertness-skill": {
+    "en": "Alertness",
+    "updated": "2026-10-06",
+    "zh": "警覺"
+  },
   "term.ally": {
     "en": "Ally",
     "updated": "2026-09-29",
@@ -43,6 +53,11 @@
     "en": "Ancestry",
     "updated": "2026-09-29",
     "zh": "族裔"
+  },
+  "term.architecture-skill": {
+    "en": "Architecture",
+    "updated": "2026-10-06",
+    "zh": "建築"
   },
   "term.area-of-effect": {
     "en": "Area of Effect",
@@ -79,6 +94,11 @@
     "updated": "2026-09-29",
     "zh": "劣勢"
   },
+  "term.blacksmithing-skill": {
+    "en": "Blacksmithing",
+    "updated": "2026-10-06",
+    "zh": "鍛造"
+  },
   "term.bleeding": {
     "en": "Bleeding",
     "updated": "2026-09-29",
@@ -88,6 +108,11 @@
     "en": "Bonus",
     "updated": "2026-09-29",
     "zh": "加值"
+  },
+  "term.brag-skill": {
+    "en": "Brag",
+    "updated": "2026-10-06",
+    "zh": "誇耀"
   },
   "term.breakthrough": {
     "en": "Breakthrough",
@@ -118,6 +143,11 @@
     "en": "Career",
     "updated": "2026-09-29",
     "zh": "生涯"
+  },
+  "term.carpentry-skill": {
+    "en": "Carpentry",
+    "updated": "2026-10-06",
+    "zh": "木工"
   },
   "term.catch-breath-maneuver": {
     "en": "Catch Breath Maneuver",
@@ -164,6 +194,11 @@
     "updated": "2026-09-29",
     "zh": "攀爬"
   },
+  "term.climb-skill": {
+    "en": "Climb",
+    "updated": "2026-10-06",
+    "zh": "攀爬"
+  },
   "term.combat-round": {
     "en": "Combat Round",
     "updated": "2026-09-29",
@@ -178,6 +213,11 @@
     "en": "Complication",
     "updated": "2026-09-29",
     "zh": "糾葛"
+  },
+  "term.conceal-object-skill": {
+    "en": "Conceal Object",
+    "updated": "2026-10-06",
+    "zh": "藏物"
   },
   "term.concealment": {
     "en": "Concealment",
@@ -204,6 +244,11 @@
     "updated": "2026-09-29",
     "zh": "消耗品"
   },
+  "term.cooking-skill": {
+    "en": "Cooking",
+    "updated": "2026-10-06",
+    "zh": "烹飪"
+  },
   "term.cover": {
     "en": "Cover",
     "updated": "2026-09-29",
@@ -213,6 +258,11 @@
     "en": "Crafting Project",
     "updated": "2026-09-29",
     "zh": "工藝類專案"
+  },
+  "term.crafting-skill-group": {
+    "en": "Crafting",
+    "updated": "2026-10-06",
+    "zh": "工藝類"
   },
   "term.crawl": {
     "en": "Crawl",
@@ -229,6 +279,11 @@
     "updated": "2026-09-29",
     "zh": "生物"
   },
+  "term.criminal-underworld-skill": {
+    "en": "Criminal Underworld",
+    "updated": "2026-10-06",
+    "zh": "江湖"
+  },
   "term.critical-hit": {
     "en": "Critical Hit",
     "updated": "2026-09-29",
@@ -242,6 +297,11 @@
   "term.culture": {
     "en": "Culture",
     "updated": "2026-09-29",
+    "zh": "文化"
+  },
+  "term.culture-skill": {
+    "en": "Culture",
+    "updated": "2026-10-06",
     "zh": "文化"
   },
   "term.d10": {
@@ -329,6 +389,11 @@
     "updated": "2026-09-29",
     "zh": "撤離移動動作"
   },
+  "term.disguise-skill": {
+    "en": "Disguise",
+    "updated": "2026-10-06",
+    "zh": "易容"
+  },
   "term.distance": {
     "en": "Distance",
     "updated": "2026-09-29",
@@ -359,6 +424,11 @@
     "updated": "2026-09-29",
     "zh": "張力"
   },
+  "term.drive-skill": {
+    "en": "Drive",
+    "updated": "2026-10-06",
+    "zh": "駕駛"
+  },
   "term.dwarf": {
     "en": "Dwarf",
     "updated": "2026-09-29",
@@ -368,6 +438,11 @@
     "en": "Dying",
     "updated": "2026-09-29",
     "zh": "瀕死"
+  },
+  "term.eavesdrop-skill": {
+    "en": "Eavesdrop",
+    "updated": "2026-10-06",
+    "zh": "竊聽"
   },
   "term.echelon": {
     "en": "Echelon",
@@ -384,6 +459,16 @@
     "updated": "2026-09-29",
     "zh": "元素師"
   },
+  "term.empathize-skill": {
+    "en": "Empathize",
+    "updated": "2026-10-06",
+    "zh": "共感"
+  },
+  "term.endurance-skill": {
+    "en": "Endurance",
+    "updated": "2026-10-06",
+    "zh": "耐力"
+  },
   "term.enemy": {
     "en": "Enemy",
     "updated": "2026-09-29",
@@ -398,6 +483,11 @@
     "en": "EoT",
     "updated": "2026-09-29",
     "zh": "EoT"
+  },
+  "term.escape-artist-skill": {
+    "en": "Escape Artist",
+    "updated": "2026-10-06",
+    "zh": "脫逃"
   },
   "term.escape-grab-maneuver": {
     "en": "Escape Grab Maneuver",
@@ -414,6 +504,11 @@
     "updated": "2026-09-29",
     "zh": "經驗值 (XP)"
   },
+  "term.exploration-skill-group": {
+    "en": "Exploration",
+    "updated": "2026-10-06",
+    "zh": "探索類"
+  },
   "term.falling": {
     "en": "Falling",
     "updated": "2026-09-29",
@@ -428,6 +523,16 @@
     "en": "Flanking",
     "updated": "2026-09-29",
     "zh": "夾擊"
+  },
+  "term.fletching-skill": {
+    "en": "Fletching",
+    "updated": "2026-10-06",
+    "zh": "製箭"
+  },
+  "term.flirt-skill": {
+    "en": "Flirt",
+    "updated": "2026-10-06",
+    "zh": "魅惑"
   },
   "term.fly": {
     "en": "Fly",
@@ -448,6 +553,11 @@
     "en": "Forced Movement",
     "updated": "2026-09-29",
     "zh": "強制移動"
+  },
+  "term.forgery-skill": {
+    "en": "Forgery",
+    "updated": "2026-10-06",
+    "zh": "偽造"
   },
   "term.free-maneuver": {
     "en": "Free Maneuver",
@@ -473,6 +583,11 @@
     "en": "Fury",
     "updated": "2026-09-29",
     "zh": "熾怒者"
+  },
+  "term.gamble-skill": {
+    "en": "Gamble",
+    "updated": "2026-10-06",
+    "zh": "賭博"
   },
   "term.god": {
     "en": "God",
@@ -504,15 +619,30 @@
     "updated": "2026-09-29",
     "zh": "指南"
   },
+  "term.gymnastics-skill": {
+    "en": "Gymnastics",
+    "updated": "2026-10-06",
+    "zh": "體操"
+  },
   "term.hakaan": {
     "en": "Hakaan",
     "updated": "2026-09-29",
     "zh": "哈肯人"
   },
+  "term.handle-animals-skill": {
+    "en": "Handle Animals",
+    "updated": "2026-10-06",
+    "zh": "馴獸"
+  },
   "term.heal-main-action": {
     "en": "Heal Main Action",
     "updated": "2026-09-29",
     "zh": "治療主要動作"
+  },
+  "term.heal-skill": {
+    "en": "Heal",
+    "updated": "2026-10-06",
+    "zh": "醫療"
   },
   "term.hero": {
     "en": "Hero",
@@ -539,6 +669,11 @@
     "updated": "2026-09-29",
     "zh": "躲藏機動動作"
   },
+  "term.hide-skill": {
+    "en": "Hide",
+    "updated": "2026-10-06",
+    "zh": "躲藏"
+  },
   "term.high-elves": {
     "en": "High Elves",
     "updated": "2026-09-29",
@@ -548,6 +683,11 @@
     "en": "High Ground",
     "updated": "2026-09-29",
     "zh": "高地"
+  },
+  "term.history-skill": {
+    "en": "History",
+    "updated": "2026-10-06",
+    "zh": "歷史"
   },
   "term.hover": {
     "en": "Hover",
@@ -579,6 +719,26 @@
     "updated": "2026-09-29",
     "zh": "興趣"
   },
+  "term.interpersonal-skill-group": {
+    "en": "Interpersonal",
+    "updated": "2026-10-06",
+    "zh": "交涉類"
+  },
+  "term.interrogate-skill": {
+    "en": "Interrogate",
+    "updated": "2026-10-06",
+    "zh": "審訊"
+  },
+  "term.intimidate-skill": {
+    "en": "Intimidate",
+    "updated": "2026-10-06",
+    "zh": "威嚇"
+  },
+  "term.intrigue-skill-group": {
+    "en": "Intrigue",
+    "updated": "2026-10-06",
+    "zh": "諜報類"
+  },
   "term.intuition": {
     "en": "Intuition",
     "updated": "2026-09-29",
@@ -589,9 +749,19 @@
     "updated": "2026-09-29",
     "zh": "前置材料"
   },
+  "term.jewelry-skill": {
+    "en": "Jewelry",
+    "updated": "2026-10-06",
+    "zh": "珠寶"
+  },
   "term.jump": {
     "en": "Jump",
     "updated": "2026-09-29",
+    "zh": "跳躍"
+  },
+  "term.jump-skill": {
+    "en": "Jump",
+    "updated": "2026-10-06",
     "zh": "跳躍"
   },
   "term.kit": {
@@ -614,6 +784,11 @@
     "updated": "2026-10-01",
     "zh": "法外"
   },
+  "term.lead-skill": {
+    "en": "Lead",
+    "updated": "2026-10-06",
+    "zh": "領導"
+  },
   "term.level": {
     "en": "Level",
     "updated": "2026-09-29",
@@ -624,6 +799,16 @@
     "updated": "2026-09-29",
     "zh": "共鳴寶物"
   },
+  "term.lie-skill": {
+    "en": "Lie",
+    "updated": "2026-10-06",
+    "zh": "欺瞞"
+  },
+  "term.lift-skill": {
+    "en": "Lift",
+    "updated": "2026-10-06",
+    "zh": "舉重"
+  },
   "term.line": {
     "en": "Line",
     "updated": "2026-09-29",
@@ -633,6 +818,16 @@
     "en": "Line of Effect",
     "updated": "2026-09-29",
     "zh": "效果線"
+  },
+  "term.lore-skill-group": {
+    "en": "Lore",
+    "updated": "2026-10-06",
+    "zh": "學識類"
+  },
+  "term.magic-skill": {
+    "en": "Magic",
+    "updated": "2026-10-06",
+    "zh": "魔法"
   },
   "term.main-action": {
     "en": "Main Action",
@@ -659,6 +854,11 @@
     "updated": "2026-10-01",
     "zh": "尚武"
   },
+  "term.mechanics-skill": {
+    "en": "Mechanics",
+    "updated": "2026-10-06",
+    "zh": "機關"
+  },
   "term.melee": {
     "en": "Melee",
     "updated": "2026-09-29",
@@ -678,6 +878,11 @@
     "en": "Might",
     "updated": "2026-09-29",
     "zh": "力量"
+  },
+  "term.monsters-skill": {
+    "en": "Monsters",
+    "updated": "2026-10-06",
+    "zh": "怪物"
   },
   "term.montage-test": {
     "en": "Montage Test",
@@ -709,6 +914,11 @@
     "updated": "2026-09-29",
     "zh": "尋常"
   },
+  "term.music-skill": {
+    "en": "Music",
+    "updated": "2026-10-06",
+    "zh": "音樂"
+  },
   "term.natural-19-or-20": {
     "en": "Natural 19 or 20",
     "updated": "2026-09-29",
@@ -718,6 +928,16 @@
     "en": "Natural Roll",
     "updated": "2026-09-29",
     "zh": "天然骰值"
+  },
+  "term.nature-skill": {
+    "en": "Nature",
+    "updated": "2026-10-06",
+    "zh": "自然"
+  },
+  "term.navigate-skill": {
+    "en": "Navigate",
+    "updated": "2026-10-06",
+    "zh": "導航"
   },
   "term.negotiation": {
     "en": "Negotiation",
@@ -794,10 +1014,30 @@
     "updated": "2026-09-29",
     "zh": "減值"
   },
+  "term.perform-skill": {
+    "en": "Perform",
+    "updated": "2026-10-06",
+    "zh": "表演"
+  },
   "term.perk": {
     "en": "Perk",
     "updated": "2026-09-29",
     "zh": "專長"
+  },
+  "term.persuade-skill": {
+    "en": "Persuade",
+    "updated": "2026-10-06",
+    "zh": "遊說"
+  },
+  "term.pick-lock-skill": {
+    "en": "Pick Lock",
+    "updated": "2026-10-06",
+    "zh": "開鎖"
+  },
+  "term.pick-pocket-skill": {
+    "en": "Pick Pocket",
+    "updated": "2026-10-06",
+    "zh": "扒竊"
   },
   "term.piety": {
     "en": "Piety",
@@ -859,6 +1099,11 @@
     "updated": "2026-09-29",
     "zh": "伏地"
   },
+  "term.psionics-skill": {
+    "en": "Psionics",
+    "updated": "2026-10-06",
+    "zh": "靈能"
+  },
   "term.pull": {
     "en": "Pull",
     "updated": "2026-09-29",
@@ -884,6 +1129,11 @@
     "updated": "2026-09-29",
     "zh": "被動考驗"
   },
+  "term.read-person-skill": {
+    "en": "Read Person",
+    "updated": "2026-10-06",
+    "zh": "觀色"
+  },
   "term.reason": {
     "en": "Reason",
     "updated": "2026-09-29",
@@ -898,6 +1148,11 @@
     "en": "Recovery Value",
     "updated": "2026-09-29",
     "zh": "復元值"
+  },
+  "term.religion-skill": {
+    "en": "Religion",
+    "updated": "2026-10-06",
+    "zh": "宗教"
   },
   "term.renown": {
     "en": "Renown",
@@ -944,15 +1199,30 @@
     "updated": "2026-09-29",
     "zh": "騎乘移動動作"
   },
+  "term.ride-skill": {
+    "en": "Ride",
+    "updated": "2026-10-06",
+    "zh": "騎術"
+  },
   "term.rolled-damage": {
     "en": "Rolled Damage",
     "updated": "2026-09-29",
     "zh": "檢定傷害"
   },
+  "term.rumors-skill": {
+    "en": "Rumors",
+    "updated": "2026-10-06",
+    "zh": "傳聞"
+  },
   "term.rural": {
     "en": "Rural",
     "updated": "2026-10-01",
     "zh": "鄉村"
+  },
+  "term.sabotage-skill": {
+    "en": "Sabotage",
+    "updated": "2026-10-06",
+    "zh": "拆除"
   },
   "term.sage": {
     "en": "Sage",
@@ -978,6 +1248,11 @@
     "en": "Search for Hidden Creatures Maneuver",
     "updated": "2026-09-29",
     "zh": "搜索隱藏生物機動動作"
+  },
+  "term.search-skill": {
+    "en": "Search",
+    "updated": "2026-10-06",
+    "zh": "搜索"
   },
   "term.secluded": {
     "en": "Secluded",
@@ -1024,6 +1299,16 @@
     "updated": "2026-09-29",
     "zh": "緩速"
   },
+  "term.sneak-skill": {
+    "en": "Sneak",
+    "updated": "2026-10-06",
+    "zh": "潛行"
+  },
+  "term.society-skill": {
+    "en": "Society",
+    "updated": "2026-10-06",
+    "zh": "社會"
+  },
   "term.space": {
     "en": "Space",
     "updated": "2026-09-29",
@@ -1058,6 +1343,11 @@
     "en": "Strained",
     "updated": "2026-09-29",
     "zh": "焦慮"
+  },
+  "term.strategy-skill": {
+    "en": "Strategy",
+    "updated": "2026-10-06",
+    "zh": "戰略"
   },
   "term.strike": {
     "en": "Strike",
@@ -1094,10 +1384,20 @@
     "updated": "2026-09-29",
     "zh": "游泳"
   },
+  "term.swim-skill": {
+    "en": "Swim",
+    "updated": "2026-10-06",
+    "zh": "游泳"
+  },
   "term.tactician": {
     "en": "Tactician",
     "updated": "2026-09-29",
     "zh": "戰術家"
+  },
+  "term.tailoring-skill": {
+    "en": "Tailoring",
+    "updated": "2026-10-06",
+    "zh": "裁縫"
   },
   "term.talent": {
     "en": "Talent",
@@ -1159,10 +1459,20 @@
     "updated": "2026-09-29",
     "zh": "時界"
   },
+  "term.timescape-skill": {
+    "en": "Timescape",
+    "updated": "2026-10-06",
+    "zh": "時界"
+  },
   "term.title": {
     "en": "Title",
     "updated": "2026-09-29",
     "zh": "稱號"
+  },
+  "term.track-skill": {
+    "en": "Track",
+    "updated": "2026-10-06",
+    "zh": "追蹤"
   },
   "term.treasure": {
     "en": "Treasure",

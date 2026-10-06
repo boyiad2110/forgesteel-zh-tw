@@ -9,6 +9,7 @@ import { HeroLogic } from '@/logic/hero-logic';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { SkillList } from '@/enums/skill-list';
+import { SkillName, useSkillNames } from '@/l10n/skill-text';
 import { SkillSelectModal } from '@/components/modals/select/skill-select/skill-select-modal';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
@@ -23,9 +24,11 @@ interface InfoProps {
 }
 
 export const InfoSkillChoice = (props: InfoProps) => {
+	const names = useSkillNames(props.data.selected);
+
 	if (props.data.selected.length > 0) {
 		return (
-			<Field label='Skill' value={props.data.selected.join(', ')} />
+			<Field label='Skill' value={names.join(', ')} />
 		);
 	}
 
@@ -174,7 +177,7 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 								<Flex vertical={true}>
 									{
 										sk ?
-											<Field label={sk.name} value={sk.description} style={{ flex: '1 1 0' }} />
+											<Field label={<SkillName name={sk.name} />} value={sk.description} style={{ flex: '1 1 0' }} />
 											:
 											<div className='ds-text' style={{ flex: '1 1 0' }}>{skill}</div>
 									}

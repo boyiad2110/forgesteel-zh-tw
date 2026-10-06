@@ -23,6 +23,7 @@ import { SearchBox } from '@/components/controls/text-input/text-input';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Skill } from '@/models/skill';
 import { SkillList } from '@/enums/skill-list';
+import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
@@ -172,7 +173,7 @@ export const ReferenceModal = (props: Props) => {
 						SkillList.Lore
 					].map((sl, n1) => (
 						<div key={n1}>
-							<HeaderText>{sl}</HeaderText>
+							<HeaderText><SkillListName list={sl} /></HeaderText>
 							<Space orientation='vertical' style={{ paddingBottom: '20px', width: '100%' }}>
 								{
 									allSkills
@@ -181,7 +182,7 @@ export const ReferenceModal = (props: Props) => {
 											<div key={n2}>
 												<Field
 													highlight={skillNames.includes(s.name)}
-													label={s.name}
+													label={<SkillName name={s.name} />}
 													value={s.description}
 												/>
 												{modifiersFor(s).map(f => <RollModifierPanel key={f.id} modifier={f} />)}

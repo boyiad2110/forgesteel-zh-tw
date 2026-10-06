@@ -7,6 +7,7 @@ import { Modal } from '@/components/modals/modal/modal';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Skill } from '@/models/skill';
 import { SkillList } from '@/enums/skill-list';
+import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
@@ -60,11 +61,11 @@ export const SkillSelectModal = (props: Props) => {
 
 							return (
 								<Space key={list} orientation='vertical' style={{ width: '100%' }}>
-									<HeaderText level={1}>{list}</HeaderText>
+									<HeaderText level={1}><SkillListName list={list} /></HeaderText>
 									{
 										subset.map((s, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-												<HeaderText tags={[ s.list ]}>{s.name}</HeaderText>
+												<HeaderText tags={[ s.list ]}><SkillName name={s.name} /></HeaderText>
 												<Markdown text={s.description} />
 											</SelectablePanel>
 										))
@@ -82,7 +83,7 @@ export const SkillSelectModal = (props: Props) => {
 										{
 											otherSkills.map((s, n) => (
 												<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-													<HeaderText tags={[ s.list ]}>{s.name}</HeaderText>
+													<HeaderText tags={[ s.list ]}><SkillName name={s.name} /></HeaderText>
 													<Markdown text={s.description} />
 												</SelectablePanel>
 											))

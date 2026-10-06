@@ -609,6 +609,148 @@ describe('language names', () => {
 	});
 });
 
+describe('skill names', () => {
+	const skills = `export const core = {
+	skills: [
+		{ name: 'Alchemy', description: 'Make bombs and potions.', list: SkillList.Crafting },
+		{ name: 'Handle Animals', description: 'Animals.', list: SkillList.Interpersonal }
+	],
+	decoy: [
+		{ name: 'NotASkill', description: 'Nope.', list: SkillList.Lore }
+	]
+};
+// { name: 'Commented', description: 'Skipped.', list: SkillList.Crafting }
+`;
+
+	const enums = `export enum SkillList {
+	Crafting = 'Crafting',
+	Exploration = 'Exploration',
+	Interpersonal = 'Interpersonal',
+	Intrigue = 'Intrigue',
+	Lore = 'Lore',
+	Custom = 'Custom'
+}
+`;
+
+	const catalog = rows => {
+		const data = {};
+		for (const [ id, en, zh ] of rows) {
+			data[id] = { en, updated: '2026-10-06', zh };
+		}
+		return `${JSON.stringify(data, null, 2)}\n`;
+	};
+
+	const writeCatalog = (root, rows) => {
+		const text = catalog(rows);
+		for (const name of [ 'glossary.json', 'names.json', 'strings.json' ]) {
+			write(root, `src/l10n/generated/zh-TW/${name}`, text);
+		}
+	};
+
+	const baseRows = [
+		[ 'term.alchemy-skill', 'Alchemy', '鍊金' ],
+		[ 'term.crafting-skill-group', 'Crafting', '工藝類' ],
+		[ 'heroes.skills.crafting.rules', 'Crafting Skills', '技能｜用途\n鍊金（Alchemy）｜製作炸彈與藥水' ],
+		[ 'heroes.skills.groups.rules', 'Skill Groups', '技能分為五個類別：工藝類、探索類、交涉類、諜報類、學識類。' ]
+	];
+
+	const baseMapping = () => [
+		{ key: 'skill:Alchemy', sheetId: 'term.alchemy-skill', enHash: hashEnglish('Alchemy') },
+		{ key: 'skill:Handle Animals', sheetId: 'term.handle-animals-skill', enHash: hashEnglish('Handle Animals') },
+		{ key: 'enum:SkillList:Crafting', sheetId: 'term.crafting-skill-group', enHash: hashEnglish('Crafting') }
+	];
+
+	test('reads a skill-list literal, including a name with a space', () => {
+		const root = scratch();
+		write(root, 'src/data/core.ts', skills);
+		write(root, 'src/enums/skill-list.ts', enums);
+		writeCatalog(root, [
+			...baseRows,
+			[ 'term.handle-animals-skill', 'Handle Animals', '馴獸' ],
+			[ 'heroes.skills.interpersonal.rules', 'Interpersonal Skills', '技能｜用途\n馴獸（Handle Animals）｜與非智慧野生動物互動' ]
+		]);
+		write(root, 'src/l10n/mapping.ts', mappingSource(baseMapping()));
+
+		expect(forgeEnglish(root, 'skill:Alchemy')).toEqual({ english: 'Alchemy' });
+		expect(forgeEnglish(root, 'skill:Handle Animals')).toEqual({ english: 'Handle Animals' });
+		expect(forgeEnglish(root, 'enum:SkillList:Crafting')).toEqual({ english: 'Crafting' });
+		expect(forgeEnglish(root, 'skill:NotASkill').error).toContain('not a literal');
+		expect(forgeEnglish(root, 'skill:Commented').error).toContain('not a literal');
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('fails when the name is not a string literal in a skills array', () => {
+		const root = scratch();
+		write(root, 'src/data/core.ts', 'const name = \'Alchemy\';\nexport const book = {\n\tskills: [\n\t\t{ name, description: \'\', list: SkillList.Crafting }\n\t]\n};\n');
+		write(root, 'src/enums/skill-list.ts', enums);
+		writeCatalog(root, baseRows);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'skill:Alchemy', sheetId: 'term.alchemy-skill', enHash: hashEnglish('Alchemy') }
+		]));
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			'skill "Alchemy" is not a literal name in a src/data skills array'
+		);
+	});
+
+	test('fails when the source row no longer contains the skill name', () => {
+		const root = scratch();
+		write(root, 'src/data/core.ts', skills);
+		write(root, 'src/enums/skill-list.ts', enums);
+		writeCatalog(root, baseRows.map(row => {
+			if (row[0] === 'heroes.skills.crafting.rules') {
+				return [ row[0], row[1], '技能｜用途\n製作炸彈與藥水' ];
+			}
+			return row;
+		}));
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'skill:Alchemy', sheetId: 'term.alchemy-skill', enHash: hashEnglish('Alchemy') }
+		]));
+
+		const text = formatIssues(checkMapping(root));
+
+		expect(text).toContain('term.alchemy-skill');
+		expect(text).toContain('heroes.skills.crafting.rules');
+		expect(text).toContain('source row no longer contains this name');
+	});
+
+	test('fails when the skill-group sentence no longer contains the category', () => {
+		const root = scratch();
+		write(root, 'src/data/core.ts', skills);
+		write(root, 'src/enums/skill-list.ts', enums);
+		writeCatalog(root, baseRows.map(row => {
+			if (row[0] === 'heroes.skills.groups.rules') {
+				return [ row[0], row[1], '技能分為五個類別：探索類、交涉類、諜報類、學識類。' ];
+			}
+			return row;
+		}));
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'enum:SkillList:Crafting', sheetId: 'term.crafting-skill-group', enHash: hashEnglish('Crafting') }
+		]));
+
+		const text = formatIssues(checkMapping(root));
+
+		expect(text).toContain('term.crafting-skill-group');
+		expect(text).toContain('heroes.skills.groups.rules');
+		expect(text).toContain('source row no longer contains this name');
+	});
+
+	test('rejects spelling on a skill key', () => {
+		const root = scratch();
+		write(root, 'src/data/core.ts', skills);
+		write(root, 'src/enums/skill-list.ts', enums);
+		writeCatalog(root, baseRows.map(row => row[0] === 'term.alchemy-skill' ? [ row[0], 'Alchemist', row[2] ] : row));
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'skill:Alchemy', sheetId: 'term.alchemy-skill', enHash: hashEnglish('Alchemy') }
+		]));
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'skill:Alchemy': { kind: 'spelling', note: 'not a language key' }
+		}, null, 2)}\n`);
+
+		expect(formatIssues(checkMapping(root))).toContain('spelling is only valid on a language: key');
+	});
+});
+
 describe('repository', () => {
 	test('reads upstream English from source text', () => {
 		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });
@@ -621,6 +763,11 @@ describe('repository', () => {
 		expect(forgeEnglish(repoRoot, 'language:Kalliac')).toEqual({ english: 'Kalliac' });
 		expect(forgeEnglish(repoRoot, 'language:Zaliac')).toEqual({ english: 'Zaliac' });
 		expect(forgeEnglish(repoRoot, 'language:Ullorvic')).toEqual({ english: 'Ullorvic' });
+		expect(forgeEnglish(repoRoot, 'skill:Alchemy')).toEqual({ english: 'Alchemy' });
+		expect(forgeEnglish(repoRoot, 'skill:Handle Animals')).toEqual({ english: 'Handle Animals' });
+		expect(forgeEnglish(repoRoot, 'skill:Timescape')).toEqual({ english: 'Timescape' });
+		expect(forgeEnglish(repoRoot, 'skill:Climb')).toEqual({ english: 'Climb' });
+		expect(forgeEnglish(repoRoot, 'enum:SkillList:Lore')).toEqual({ english: 'Lore' });
 	});
 
 	test('the two orc rows differ only by punctuation or an article', () => {
