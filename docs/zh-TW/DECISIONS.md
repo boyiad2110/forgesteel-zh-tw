@@ -28,6 +28,12 @@
 - **Strings 第 366 列 `heroes.background.culture.name` 的 TM Check 為 PASS（2026-10-06）。** 理由是無適用 TM（TM-000001–000010 都是條件片語）。
 - **433 平權的 Forge Steel 版刪去「，社群會共同做出影響多數成員的重要決策」（2026-10-06）。** 書本中文第 1 句含英文第 2 句。Forge Steel 只有第 1 句，中文刪去該子句，不補字。Marc 已接受。
 - **畫面上只多了強調標記時，仍視為同一句英文（2026-10-05）。** 顯示前會把 slowed、grabbed 這類條件字包成 `**…**`，效力註記則包成行內程式碼。查字時先拿掉 `**`、行內程式碼，以及同等的 `<strong>`／`<b>`，再對資料原文。句子真的被改寫（數字、加字）仍留英文。英文模式仍顯示加粗後的原文。中文顯示時，把那些加粗的條件詞對回詞彙表的中文，在譯文裡加上同樣的 `**`。詞彙表的條件名不在這一句、但同一句裡有唯一的較長核准詞條前綴（grabbed 對上擒抱），就加粗那個詞。對不上就維持譯文，不加字、也不改別的詞。英文粗體在中文對應處也加粗，不確定加在哪個詞時問 Marc。
+- **職業型文化的名稱走 Forge Steel 版，描述留英文，不在表上加列（2026-10-06）。** 16 個職業型文化的名稱對到書上「文化範例」表既有的列。Forge Steel 只顯示名稱。描述（例：Urban, bureaucratic, creative.）這批不譯。Marc 已核准。
+- **書上表格列含多格時，Forge Steel 版中文可刪去其他格、只留第一格（2026-10-06）。** 例：「工匠公會｜城市｜官僚｜創作」只留「工匠公會」。不補字、不改寫。Marc 已核准。
+- **Pauper Neighborhood 照書顯示「勞工社區」（2026-10-06）。** Forge Steel 名稱是 Pauper Neighborhood，書上是 Laborer neighborhood，對到 `heroes.background.culture.archetypical.laborer-neighborhood`。同一個文化（城市／平權／勞動）。Marc 已核准。
+- **不新增大小寫例外（2026-10-06）。** Forge Steel 版英文欄照抄原文（例：Artisan Guild），不把大小寫差列進 `english-exceptions.json`。
+- **Bespoke Culture 表上無對應，留英文（2026-10-06）。**
+- **建造頁右邊選取摘要（Field）留到 P3（2026-10-06）。** 自訂文化已選面向的 Field 仍是英文。
 
 ## 尚未決定
 

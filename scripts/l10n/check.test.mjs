@@ -455,6 +455,36 @@ describe('forge steel version', () => {
 	});
 });
 
+describe('createCulture calls', () => {
+	test('indexes string-literal calls and skips other arguments', () => {
+		const root = scratch();
+		write(root, 'src/data/cultures.ts', `
+			FactoryLogic.createCulture('Artisan Guild', 'Urban, bureaucratic, creative.', CultureType.Professional);
+			FactoryLogic.createCulture('Pauper Neighborhood', 'Urban, communal, labor.', CultureType.Professional);
+			FactoryLogic.createCulture('A B C', 'Kept.');
+			FactoryLogic.createCulture(ancestry.name, '', CultureType.Ancestral);
+			FactoryLogic.createCulture(name, 'Skipped.');
+			FactoryLogic.createCulture('', 'Empty name.');
+		`);
+
+		expect(forgeEnglish(root, 'element:culture-artisan-guild:name')).toEqual({ english: 'Artisan Guild' });
+		expect(forgeEnglish(root, 'element:culture-artisan-guild:description')).toEqual({ english: 'Urban, bureaucratic, creative.' });
+		expect(forgeEnglish(root, 'element:culture-pauper-neighborhood:name')).toEqual({ english: 'Pauper Neighborhood' });
+		expect(forgeEnglish(root, 'element:culture-pauper-neighborhood:description')).toEqual({ english: 'Urban, communal, labor.' });
+		expect(forgeEnglish(root, 'element:culture-a-b c:name')).toEqual({ english: 'A B C' });
+		expect(forgeEnglish(root, 'element:culture-:name').error).toContain('was not found');
+		expect(forgeEnglish(root, 'element:culture-skipped:name').error).toContain('was not found');
+	});
+
+	test('reports a duplicate id', () => {
+		const root = scratch();
+		write(root, 'src/data/a.ts', 'export const item = {\n\tid: \'culture-artisan-guild\',\n\tname: \'Other\'\n};\n');
+		write(root, 'src/data/b.ts', 'FactoryLogic.createCulture(\'Artisan Guild\', \'One.\');\nFactoryLogic.createCulture(\'Artisan Guild\', \'Two.\');\n');
+
+		expect(forgeEnglish(root, 'element:culture-artisan-guild:name').error).toContain('defined more than once');
+	});
+});
+
 describe('repository', () => {
 	test('reads upstream English from source text', () => {
 		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });
