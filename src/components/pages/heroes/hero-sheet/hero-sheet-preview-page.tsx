@@ -2,6 +2,7 @@ import { Divider, Drawer, FloatButton, Segmented, Select, SelectProps, Space, Sp
 import { useDataManager, useHeroes, useOptions } from '@/contexts/data-context';
 import { useEffect, useMemo, useState } from 'react';
 import { AbilityData } from '@/data/ability-data';
+import { AbilityName } from '@/l10n/ability-text';
 import { Career } from '@/models/career';
 import { CareerCard } from '@/components/panels/classic-sheet/career-card/career-card';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
@@ -127,7 +128,7 @@ export const HeroSheetPreviewPage = (props: Props) => {
 	standardAbilities.forEach(a => {
 		standardAbilityOptions.push({
 			value: a.id,
-			label: <div className='ds-text'>{a.name} <Tag variant='outlined'>{a.actionType}</Tag></div>
+			label: <div className='ds-text'><AbilityName ability={a} /> <Tag variant='outlined'>{a.actionType}</Tag></div>
 		});
 	});
 

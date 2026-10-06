@@ -75,6 +75,9 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/panels/classic-sheet/follower-card/companion-card.tsx`（技能名稱）
 - `src/components/panels/elements/ability-panel/ability-panel.tsx`（動作名稱）
 - `src/components/panels/hero/abilities/abilities-panel.tsx`（動作名稱）
+- `src/components/panels/classic-sheet/ability-card/ability-card.tsx`（動作名稱）
+- `src/components/modals/select/standard-ability-select/standard-ability-select-modal.tsx`（動作名稱）
+- `src/components/pages/heroes/hero-sheet/hero-sheet-preview-page.tsx`（動作名稱）
 
 ## 舊的失敗嘗試，不要再做
 

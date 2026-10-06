@@ -8,8 +8,10 @@ import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text';
 import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-panel';
+import { AbilityCard } from '@/components/panels/classic-sheet/ability-card/ability-card';
 import { AbilityData } from '@/data/ability-data';
 import { Characteristic } from '@/enums/characteristic';
+import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { FeatureType } from '@/enums/feature-type';
@@ -19,9 +21,11 @@ import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { OptionsContext } from '@/contexts/data-context';
 import { PartyModal } from '@/components/modals/party/party-modal';
 import { PerkList } from '@/enums/perk-list';
+import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SidebarPanel } from '@/components/panels/hero/sidebar/sidebar-panel';
 import { SkillList } from '@/enums/skill-list';
 import { SkillsCard } from '@/components/panels/classic-sheet/skills-card/skills-card';
+import { StandardAbilitySelectModal } from '@/components/modals/select/standard-ability-select/standard-ability-select-modal';
 import { core } from '@/data/sourcebooks/official/core';
 import { createElement } from 'react';
 import { elementScopeFields } from '@/l10n/element-scope';
@@ -34,6 +38,12 @@ import { orden } from '@/data/sourcebooks/official/orden';
 import { renderToStaticMarkup } from 'react-dom/server';
 import strings from '@/l10n/generated/zh-TW/strings.json';
 import { useLanguageNames } from '@/l10n/language-text';
+
+vi.mock('dompurify', () => ({
+	default: {
+		sanitize: (html: string) => html
+	}
+}));
 
 const orcKey = 'element:ancestry-orc:name';
 const orcSheet = 'heroes.ancestries.orc.name';
@@ -1457,5 +1467,120 @@ describe('action names', () => {
 		expect(englishRows).toContain('Go Prone');
 		expect(englishRows).toContain('Swap');
 		expect(englishRows).not.toContain('衝鋒');
+	});
+});
+
+describe('action names on the classic sheet', () => {
+	const buildSheet = (ability: typeof AbilityData.charge) => {
+		return ClassicSheetBuilder.buildAbilitySheet(ability, FactoryLogic.createHero(), undefined, FactoryLogic.createOptions());
+	};
+
+	const renderCard = (sheet: ReturnType<typeof buildSheet>) => {
+		return renderToStaticMarkup(createElement(AbilityCard, { ability: sheet }));
+	};
+
+	const renderSelect = () => {
+		return renderToStaticMarkup(createElement(StandardAbilitySelectModal, {
+			abilityIDs: [],
+			onClose: () => undefined,
+			onSelect: () => undefined
+		}));
+	};
+
+	beforeEach(async () => {
+		await loadCatalog();
+		vi.stubGlobal('window', {
+			matchMedia: () => ({
+				matches: false,
+				addEventListener: () => undefined,
+				removeEventListener: () => undefined
+			})
+		});
+	});
+
+	test('ability cards show approved names and leave types, classes, and unmapped names in English', () => {
+		const charge = buildSheet(AbilityData.charge);
+		expect(charge.name).toBe('Charge');
+		const chargeHtml = renderCard(charge);
+		expect(chargeHtml).toContain('ability-name">衝鋒<');
+		expect(chargeHtml).not.toContain('>Charge<');
+		expect(chargeHtml).toContain('<h3>Main Action</h3>');
+		expect(chargeHtml).toContain('main-action');
+
+		const attackHtml = renderCard(buildSheet(AbilityData.opportunityAttack));
+		expect(attackHtml).toContain('藉機攻擊');
+		expect(attackHtml).toContain('<h3>Triggered Action</h3>');
+
+		expect(renderCard(buildSheet(AbilityData.goProne))).toContain('ability-name">Go Prone<');
+		expect(renderCard(buildSheet(AbilityData.swap))).toContain('ability-name">Swap<');
+
+		const melee = buildSheet(AbilityData.freeStrikeMelee);
+		expect(melee.name).toBe('Melee Free Strike');
+		const meleeHtml = renderCard(melee);
+		expect(meleeHtml).toContain('ability-name">Melee Free Strike<');
+		expect(meleeHtml).not.toContain('近戰基礎打擊');
+		expect(meleeHtml).not.toContain('基礎打擊');
+
+		const renamed = { ...charge, name: 'My Charge' };
+		const renamedHtml = renderCard(renamed);
+		expect(renamedHtml).toContain('ability-name">My Charge<');
+		expect(renamedHtml).not.toContain('衝鋒');
+
+		setLanguage('en');
+		expect(renderCard(charge)).toContain('ability-name">Charge<');
+		expect(renderCard(charge)).not.toContain('衝鋒');
+		expect(renderCard(charge)).toContain('<h3>Main Action</h3>');
+		expect(renderCard(charge)).toContain('main-action');
+		expect(renderCard(buildSheet(AbilityData.opportunityAttack))).toContain('ability-name">Opportunity Attack<');
+		expect(renderCard(buildSheet(AbilityData.goProne))).toContain('ability-name">Go Prone<');
+		expect(renderCard(buildSheet(AbilityData.swap))).toContain('ability-name">Swap<');
+		expect(renderCard(melee)).toContain('ability-name">Melee Free Strike<');
+		expect(renderCard(melee)).not.toContain('近戰基礎打擊');
+		expect(renderCard(melee)).not.toContain('基礎打擊');
+		expect(renderCard(renamed)).toContain('ability-name">My Charge<');
+		expect(renderCard(renamed)).not.toContain('衝鋒');
+	});
+
+	test('sheet data and ability size stay the same in both languages', () => {
+		const sheets = [
+			AbilityData.charge,
+			AbilityData.opportunityAttack,
+			AbilityData.goProne,
+			AbilityData.swap,
+			AbilityData.freeStrikeMelee
+		].map(ability => buildSheet(ability));
+
+		expect(sheets.map(sheet => sheet.name)).toEqual([
+			'Charge',
+			'Opportunity Attack',
+			'Go Prone',
+			'Swap',
+			'Melee Free Strike'
+		]);
+		const chinese = sheets.map(sheet => SheetFormatter.calculateAbilitySize(sheet, 50));
+		setLanguage('en');
+		const english = sheets.map(sheet => SheetFormatter.calculateAbilitySize(sheet, 50));
+		expect(english).toEqual(chinese);
+		expect(sheets[0].name).toBe('Charge');
+	});
+
+	test('the select drawer labels the approved names and keeps group titles in English', () => {
+		const html = renderSelect();
+		expect(html).toContain('衝鋒');
+		expect(html).toContain('藉機攻擊');
+		expect(html).toContain('進行或協助考驗');
+		expect(html).toContain('Go Prone');
+		expect(html).toContain('Swap');
+		expect(html).toContain('Main Action');
+		expect(html).toContain('Maneuver');
+
+		setLanguage('en');
+		const english = renderSelect();
+		expect(english).toContain('Charge');
+		expect(english).not.toContain('衝鋒');
+		expect(english).toContain('Go Prone');
+		expect(english).toContain('Swap');
+		expect(english).toContain('Main Action');
+		expect(english).toContain('Maneuver');
 	});
 });
