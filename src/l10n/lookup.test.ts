@@ -1,4 +1,5 @@
 import { Catalog, peekCatalog } from '@/l10n/catalog';
+import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
 import { displayKey, resolveText, translate } from '@/l10n/text';
@@ -653,10 +654,8 @@ describe('ancestry fourth batch', () => {
 describe('ancestry fifth batch', () => {
 	const catalog = strings as Catalog;
 
-	test('this batch adds 19 keys and five Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(189);
+	test('english exceptions stay at nine', () => {
 		expect(Object.keys(exceptions)).toHaveLength(9);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(34);
 	});
 
 	test('revenant and dragon knight names use the approved Chinese', () => {
@@ -790,5 +789,71 @@ describe('ancestry fifth batch', () => {
 		for (const id of generated) {
 			expect(Object.keys(mapping).some(key => key.startsWith(`element:${id}:`))).toBe(false);
 		}
+	});
+});
+
+describe('culture first batch', () => {
+	const catalog = strings as Catalog;
+
+	test('this batch adds 26 keys and 13 Forge Steel rows', () => {
+		expect(Object.keys(mapping)).toHaveLength(215);
+		expect(Object.keys(exceptions)).toHaveLength(9);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(47);
+	});
+
+	test('the 13 aspect names and first-sentence descriptions use the approved Chinese', () => {
+		const rows: [ { id: string, name: string, description: string }, string, string, string ][] = [
+			[ EnvironmentData.nomadic, 'heroes.background.culture.environment.nomadic', '遊牧', '遊牧文化為了生存而不斷從一個地方遷移到另一個地方。' ],
+			[ EnvironmentData.rural, 'heroes.background.culture.environment.rural', '鄉村', '鄉村文化存在於小鎮、村莊或更小的聚落。' ],
+			[ EnvironmentData.secluded, 'heroes.background.culture.environment.secluded', '隱居', '隱居文化存在於單一且相對狹小的結構中（例如建築物或洞穴），幾乎不會與外界文化有所互動。' ],
+			[ EnvironmentData.urban, 'heroes.background.culture.environment.urban', '城市', '城市文化始終以城市為中心。' ],
+			[ EnvironmentData.wilderness, 'heroes.background.culture.environment.wilderness', '荒野', '荒野文化的人民不會試圖征服他們居住的地方，無論是沙漠、森林、沼澤、凍原、海洋，還是更特殊的環境。' ],
+			[ OrganizationData.bureaucratic, 'heroes.background.culture.organization.bureaucratic', '官僚', '官僚文化深深根植於正式的領導制度與成文法律。' ],
+			[ OrganizationData.communal, 'heroes.background.culture.organization.communal', '平權', '平權文化是一個所有成員皆平等的地方。' ],
+			[ UpbringingData.academic, 'heroes.background.culture.upbringing.academic', '學術', '你的英雄由那些收藏、研讀並分享書籍與其他紀錄的人們撫養長大。' ],
+			[ UpbringingData.creative, 'heroes.background.culture.upbringing.creative', '創作', '擁有創作成長經歷的英雄是在善於創作藝術或其他具有交易價值作品的群體中長大的。' ],
+			[ UpbringingData.lawless, 'heroes.background.culture.upbringing.lawless', '法外', '你的英雄在一群從事被他人（無論在其文化內外）視為非法活動的人們中長大。' ],
+			[ UpbringingData.labor, 'heroes.background.culture.upbringing.labor', '勞動', '你的英雄成長於一個靠勞動為生的文化中。' ],
+			[ UpbringingData.martial, 'heroes.background.culture.upbringing.martial', '尚武', '擁有尚武成長經歷的英雄從小在戰士的薰陶下成長。' ],
+			[ UpbringingData.noble, 'heroes.background.culture.upbringing.noble', '貴族', '你的英雄成長於那些統治他人並運用政治手段維持權力的領導者之中。' ]
+		];
+		for (const [ feature, sheetBase, nameZh, descZh ] of rows) {
+			const nameKey = `element:${feature.id}:name`;
+			const descKey = `element:${feature.id}:description`;
+			const nameId = `${sheetBase}.name`;
+			const descId = `${sheetBase}.description`;
+			expect(mapping[nameKey]).toMatchObject({ sheetId: nameId });
+			expect(catalog[nameId].fs).toBeUndefined();
+			expect(resolveText('zh-TW', nameKey, feature.name, { [nameKey]: nameId }, catalog)).toBe(nameZh);
+			expect(resolveText('en', nameKey, feature.name, { [nameKey]: nameId }, catalog)).toBe(feature.name);
+			expect(mapping[descKey]).toMatchObject({ sheetId: descId });
+			expect(catalog[descId].fs?.en).toBe(feature.description);
+			expect(catalog[descId].fs?.zh).toBe(descZh);
+			expect(catalog[descId].zh.startsWith(descZh.replace(/。$/, ''))).toBe(true);
+			expect(resolveText('zh-TW', descKey, feature.description, { [descKey]: descId }, catalog)).toBe(descZh);
+			expect(resolveText('en', descKey, feature.description, { [descKey]: descId }, catalog)).toBe(feature.description);
+		}
+		const communal = catalog['heroes.background.culture.organization.communal.description'];
+		expect(communal.zh).toContain('，社群會共同做出影響多數成員的重要決策');
+		expect(communal.fs?.zh.includes('社群會共同做出')).toBe(false);
+	});
+
+	test('culture names, languages, and skill options stay unmapped', () => {
+		const unmapped = [
+			'culture-bespoke-culture',
+			'culture-artisan-guild',
+			'culture-knightly-order',
+			'culture-orc',
+			'culture-dragon-knight'
+		];
+		for (const id of unmapped) {
+			expect(mapping[`element:${id}:name`]).toBeUndefined();
+			expect(mapping[`element:${id}:description`]).toBeUndefined();
+			expect(mapping[`element:${id}-language:name`]).toBeUndefined();
+			expect(mapping[`element:${id}-language:description`]).toBeUndefined();
+		}
+		expect(mapping['element:up-creative:options']).toBeUndefined();
+		expect(mapping['element:up-labor:options']).toBeUndefined();
+		expect(mapping['element:up-martial:options']).toBeUndefined();
 	});
 });
