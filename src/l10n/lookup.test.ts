@@ -10,6 +10,7 @@ import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { mapping } from '@/l10n/mapping';
+import { orden } from '@/data/sourcebooks/official/orden';
 import strings from '@/l10n/generated/zh-TW/strings.json';
 
 const orcKey = 'element:ancestry-orc:name';
@@ -838,14 +839,11 @@ describe('culture first batch', () => {
 	});
 
 	test('languages, skill options, and cultures outside this batch stay unmapped', () => {
-		const unmapped = [
-			'culture-bespoke-culture',
-			'culture-orc',
-			'culture-dragon-knight'
-		];
-		for (const id of unmapped) {
-			expect(mapping[`element:${id}:name`]).toBeUndefined();
-			expect(mapping[`element:${id}:description`]).toBeUndefined();
+		expect(mapping['element:culture-bespoke-culture:name']).toBeUndefined();
+		expect(mapping['element:culture-bespoke-culture:description']).toBeUndefined();
+		expect(mapping['element:culture-bespoke-culture-language:name']).toBeUndefined();
+		expect(mapping['element:culture-bespoke-culture-language:description']).toBeUndefined();
+		for (const id of [ 'culture-orc', 'culture-dragon-knight' ]) {
 			expect(mapping[`element:${id}-language:name`]).toBeUndefined();
 			expect(mapping[`element:${id}-language:description`]).toBeUndefined();
 		}
@@ -858,12 +856,6 @@ describe('culture first batch', () => {
 describe('culture second batch', () => {
 	const catalog = strings as Catalog;
 	const cultures = core.cultures;
-
-	test('this batch adds 16 name keys and 16 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(231);
-		expect(Object.keys(exceptions)).toHaveLength(9);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(63);
-	});
 
 	test('the 16 professional culture names use the approved Forge Steel Chinese', () => {
 		const rows: [ string, string, string ][] = [
@@ -900,18 +892,72 @@ describe('culture second batch', () => {
 			expect(resolveText('zh-TW', undefined, culture.description, {}, catalog)).toBe(culture.description);
 		}
 	});
+});
 
-	test('an ancestral culture name stays English on its own scope and when unscoped', () => {
+describe('culture third batch', () => {
+	const catalog = strings as Catalog;
+	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
+
+	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
+		expect(Object.keys(mapping)).toHaveLength(242);
+		expect(Object.keys(exceptions)).toHaveLength(9);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(74);
+	});
+
+	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
+		const rows: [ string, string, string ][] = [
+			[ 'devil', 'heroes.background.culture.typical.devil', '魔鬼' ],
+			[ 'dragon-knight', 'heroes.background.culture.typical.dragon-knight', '龍騎士' ],
+			[ 'dwarf', 'heroes.background.culture.typical.dwarf', '矮人' ],
+			[ 'wode-elf', 'heroes.background.culture.typical.wode-elf', '幻林精靈' ],
+			[ 'high-elf', 'heroes.background.culture.typical.high-elf', '高等精靈' ],
+			[ 'hakaan', 'heroes.background.culture.typical.hakaan', '哈肯人' ],
+			[ 'human', 'heroes.background.culture.typical.human', '人類' ],
+			[ 'memonek', 'heroes.background.culture.typical.memonek', '梅莫人' ],
+			[ 'orc', 'heroes.background.culture.typical.orc', '歐克' ],
+			[ 'polder', 'heroes.background.culture.typical.polder', '波德人' ],
+			[ 'time-raider', 'heroes.background.culture.typical.time-raider', '時空獵手' ]
+		];
+		for (const [ slug, sheetId, zh ] of rows) {
+			const culture = cultures.find(item => item.id === `culture-${slug}`);
+			if (!culture) {
+				throw new Error(`missing culture-${slug}`);
+			}
+			const key = `element:culture-${slug}:name`;
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].fs?.en).toBe(culture.name);
+			expect(catalog[sheetId].fs?.zh).toBe(zh);
+			expect(catalog[sheetId].zh.startsWith(`${zh}｜`)).toBe(true);
+			expect(resolveText('zh-TW', key, culture.name, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, culture.name, { [key]: sheetId }, catalog)).toBe(culture.name);
+			expect(mapping[`element:culture-${slug}:description`]).toBeUndefined();
+			expect(resolveText('zh-TW', undefined, culture.description, {}, catalog)).toBe(culture.description);
+		}
+	});
+
+	test('an ancestral culture name resolves inside its culture scope and stays English when unscoped', () => {
 		const scope = {
 			id: 'culture-orc',
 			fields: elementScopeFields({ id: 'culture-orc', name: 'Orc', description: 'Wilderness, communal, creative.' })
 		};
 		const key = displayKey(undefined, 'Orc', scope);
+		const sheetId = 'heroes.background.culture.typical.orc';
 
 		expect(key).toBe('element:culture-orc:name');
-		expect(mapping['element:culture-orc:name']).toBeUndefined();
-		expect(resolveText('zh-TW', key, 'Orc', {}, catalog)).toBe('Orc');
+		expect(resolveText('zh-TW', key, 'Orc', { [key]: sheetId }, catalog)).toBe('歐克');
 		expect(displayKey(undefined, 'Orc', null)).toBeUndefined();
 		expect(resolveText('zh-TW', undefined, 'Orc', { 'element:ancestry-orc:name': 'heroes.ancestries.orc.name' }, catalog)).toBe('Orc');
+	});
+
+	test('the high elf culture row shows 高等精靈 while the ancestry name stays Elf (high)', () => {
+		const key = 'element:culture-high-elf:name';
+		const sheetId = 'heroes.background.culture.typical.high-elf';
+		const culture = cultures.find(item => item.id === 'culture-high-elf');
+		if (!culture) {
+			throw new Error('missing culture-high-elf');
+		}
+
+		expect(resolveText('zh-TW', key, culture.name, { [key]: sheetId }, catalog)).toBe('高等精靈');
+		expect(catalog['heroes.ancestries.high-elf.name'].fs?.en).toBe('Elf (high)');
 	});
 });
