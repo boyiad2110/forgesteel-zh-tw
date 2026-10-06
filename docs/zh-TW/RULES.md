@@ -25,7 +25,7 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 
 ## 一批一批做
 
-每批都先在負責人自己的電腦上看過、接受了，再 squash 合併。比較大的一批要先寫短設計，負責人點頭之後才寫程式。
+每批：對照預覽 → Marc 核准 → 寫入 Sheet → 開 PR（守門、`npm run check`、附截圖）→ Marc 本機預覽說「過」→ squash 合併進 develop。
 
 每一批「內容」開始前，先給對照預覽：Forge Steel 的鍵、Sheet ID、以及兩邊英文差在哪。這是唯一需要人判斷的部分。
 
