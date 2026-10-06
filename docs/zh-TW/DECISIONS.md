@@ -34,18 +34,19 @@
 - **不新增大小寫例外（2026-10-06）。** Forge Steel 版英文欄照抄原文（例：Artisan Guild），不把大小寫差列進 `english-exceptions.json`。
 - **Bespoke Culture 表上無對應，留英文（2026-10-06）。**
 - **建造頁右邊選取摘要（Field）留到 P3（2026-10-06）。** 自訂文化已選面向的 Field 仍是英文。
+- **建造頁自訂文化的「Choose a name for your culture.」留到 P3（2026-10-06）。** 介面字。Marc 已核准。
 - **族裔文化的名稱走 Forge Steel 版，描述留英文，不在表上加列（2026-10-06）。** 11 個族裔文化的名稱對到書上「典型族裔文化」表既有的列。Forge Steel 只顯示名稱。描述（例：Secluded, bureaucratic, creative.）這批不譯。Marc 已核准。
 - **「只留第一格」也適用五格的列，包括典型族裔文化的語言格（2026-10-06）。** 例：「歐克｜卡力語｜荒野｜平權｜創作」只留「歐克」。不補字、不改寫。Marc 已核准。
 - **高等精靈、幻林精靈的文化名稱對到典型族裔文化表自己的列（2026-10-06）。** High Elf／Wode Elf 對到第 378／377 列。族裔名稱列的 Forge Steel 版 Elf (high)／Elf (wode) 不動。Marc 已核准。
-- **雲端代理開 PR 不截圖、不錄影，只列 Marc 驗收位置（2026-10-06）。**
+- **雲端代理的 PR 與回報都只列 Marc 驗收位置，不截圖、不錄影（2026-10-06）。**
 - **語言描述留英文（2026-10-06）。** 不用表格列刪字拼句。那樣會補字，違反 DEC-0009。Marc 已核准。
-- **語言名稱用新鍵型 `language:<Forge Steel 英文名>`（2026-10-06）。** Forge Steel 語言資料沒有 id，不替上游資料補 id。鍵對到 Names 的 `heroes.language.<slug>`。41 個名稱和 Names 的 Source Name 完全相同，含 `The First Language`、`Proto-Ctholl` 這類原樣名稱。Za'hariax（Names 第 25 列，Source Name 是彎引號）這批不對照；Forge Steel 語言清單裡是直引號，和 Source Name 不是同一個字面值。Marc 已核准。
+- **語言名稱用新鍵型 `language:<Forge Steel 英文名>`（2026-10-06）。** Forge Steel 語言資料沒有 id，不替上游資料補 id。鍵對到 Names 的 `heroes.language.<slug>`。41 個名稱和 Names 的 Source Name 完全相同，含 `The First Language`、`Proto-Ctholl` 這類原樣名稱。Za'hariax（Names 第 25 列，Source Name 是彎引號）這批不對照；Forge Steel 語言清單裡是直引號，和 Source Name 不是同一個字面值。沿用 Names 既有列，不寫 Sheet。Marc 已核准。
 - **拼字變體例外只用於 `language:` 鍵（2026-10-06）。** `english-exceptions.json` 新增 `language:Kalliac`，kind 為 `spelling`，對到 `heroes.language.kalliak`（卡力語）。Kalliac 只出現在歐克文化的預選語言 `orc.ts`；Kalliak 是官方拼法；Names K9 已有備註。`scripts/l10n/check.mjs` 限定 `spelling` 只能用在 `language:` 鍵。每一筆 spelling 都要 Marc 核准。例外清單原本只收標點、冠詞，現在多這一類。Marc 已核准。
 - **語言特性名、Field 標籤、類型標籤、以及程式組出的「Choose a language.」留到 P3（2026-10-06）。** 包括 Language、Languages、Default Language、Field 標籤 Language、類型標籤 Common／Regional／Cultural／Dead。Marc 已核准。
 - **選語言抽屜的搜尋維持只認英文（2026-10-06）。** Marc 已核准。
 - **語言分兩批（2026-10-06）。** 5-1 是文化面板與建造頁的語言名稱。5-2 是英雄側欄 sidebar-panel、經典表格 culture-card、reference-modal、sourcebook-panel、party-modal、negotiation-panel。Marc 已核准。
 - **編輯器下拉選單留英文（2026-10-06）。** culture-edit、negotiation-edit、EditLanguage 等不在範圍內，因為下拉值就是存檔內容。Marc 已核准。
-- **5-2 只換語言名稱的顯示（2026-10-06）。** 存檔值、比對、排序、搜尋維持英文。5-1 沒碰過的經典表格 `ChoiceFeatureComponent`、隨從卡、協商表格一起做。`ChoiceFeatureComponent` 只在 LanguageChoice 時換名稱，Choice 與 ItemChoice 不動。程式組出來的「I Speak Their Language (…)」、「Unselected」、「None」、「Related to:」和類型標題留到 P3。sourcebook-panel 編輯模式留英文。經典表格排版估算（sheet-formatter）不改。Marc 已核准。
+- **5-2 只換語言名稱的顯示（2026-10-06）。** 存檔值、比對、排序、搜尋維持英文。5-1 沒碰過的經典表格 `ChoiceFeatureComponent`、隨從卡、協商表格一起做。`ChoiceFeatureComponent` 只在 LanguageChoice 時換名稱，Choice 與 ItemChoice 不動。程式組出來的「I Speak Their Language (…)」、「Unselected」、「None」和類型標題留到 P3。「Related to:」字樣留到 P3，後面的語言名稱換中文。sourcebook-panel 編輯模式留英文。經典表格排版估算（sheet-formatter）不改。Marc 已核准。
 - **Glossary 定稿後由 Marc 核准新增技能與類別（2026-10-06）。** 57 個技能與 5 個類別放 Glossary 分頁（不是 Names），Marc 知道 Glossary 標了定稿，是他自選的例外。實際新增 62 列（第 257–318 列，CHG-0059），全部是技能專用列；ID 依 Glossary 後綴慣例 term.<group>-skill-group／term.<slug>-skill。Marc 已核准。
 - **Climb、Jump、Swim、Culture、Timescape 與既有列分開（2026-10-06）。** 這五個技能和 Glossary 既有的 term.climb／term.jump／term.swim／term.culture／term.timescape 英文、中文相同，但含義不同（移動方式、英雄文化、世界觀名詞），分開建技能專用列 term.climb-skill 等（第 314–318 列）；既有列不動，不作技能對照。Marc 已核准。
 - **技能名稱用新鍵型 `skill:<Forge Steel 英文名>`（2026-10-06）。** 技能類別用既有的 enum:SkillList:<類別>。SkillList.Custom 不對照，維持英文。Marc 已核准。
@@ -58,7 +59,7 @@
 - **側欄分組標題「<類別> Skills」留 P3（2026-10-06）。** 設定「Show skills in groups」打開時的分組標題維持英文。Marc 已核准。
 - **擲骰修正說明整句留 P3（2026-10-06）。** 句中技能名也不換。Marc 已核准。
 - **隨從面板、專案面板的技能欄不在 6-2（2026-10-06）。** 之後跟這兩處的語言一起補。Marc 已核准。
-- **6-2 只換顯示（2026-10-06）。** 排序、搜尋、存檔維持英文。經典表格技能卡英文模式保留 Criminal Und. 縮寫，排版估算不改。feature-component 只在 SkillChoice 時換。Marc 已核准。
+- **6-2 只換顯示（2026-10-06）。** 排序、搜尋、存檔維持英文。經典表格技能卡英文模式保留 Criminal Und. 縮寫，排版估算不改。feature-component 只在 SkillChoice 時換。不寫 Sheet（沿用 6-1 的 62 個對照）。Marc 已核准。
 
 ## 尚未決定
 
