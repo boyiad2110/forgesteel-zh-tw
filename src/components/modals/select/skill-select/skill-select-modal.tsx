@@ -1,5 +1,6 @@
 import { Button, Divider, Space } from 'antd';
 import { SearchBox, TextInput } from '@/components/controls/text-input/text-input';
+import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Expander } from '@/components/controls/expander/expander';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -60,11 +61,11 @@ export const SkillSelectModal = (props: Props) => {
 
 							return (
 								<Space key={list} orientation='vertical' style={{ width: '100%' }}>
-									<HeaderText level={1}>{list}</HeaderText>
+									<HeaderText level={1}><SkillListName list={list} /></HeaderText>
 									{
 										subset.map((s, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-												<HeaderText tags={[ s.list ]}>{s.name}</HeaderText>
+												<HeaderText tags={[ s.list ]}><SkillName name={s.name} /></HeaderText>
 												<Markdown text={s.description} />
 											</SelectablePanel>
 										))
@@ -82,7 +83,7 @@ export const SkillSelectModal = (props: Props) => {
 										{
 											otherSkills.map((s, n) => (
 												<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-													<HeaderText tags={[ s.list ]}>{s.name}</HeaderText>
+													<HeaderText tags={[ s.list ]}><SkillName name={s.name} /></HeaderText>
 													<Markdown text={s.description} />
 												</SelectablePanel>
 											))

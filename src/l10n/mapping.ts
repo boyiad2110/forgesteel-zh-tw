@@ -27,6 +27,12 @@ export interface MappingEntry {
  *                          Forge Steel languages have no id. The key is the
  *                          English name as stored. Kalliac is the orc preset
  *                          spelling of Kalliak.
+ *   skill:<English>        for example skill:Alchemy
+ *                          Forge Steel skills have no id. The key is the
+ *                          English name as stored. Each skill has its own
+ *                          Glossary row, term.<slug>-skill. Climb, Jump, Swim,
+ *                          Culture, and Timescape do not reuse the older
+ *                          movement, culture, or setting rows.
  */
 export const mapping: Record<string, MappingEntry> = {
 	'enum:ConditionType:Bleeding': { sheetId: 'term.bleeding', enHash: '68a89d8475444066a48efe8debcef05fc25306d5f950db02d9bec6cc3e61e4d4' },
@@ -312,5 +318,69 @@ export const mapping: Record<string, MappingEntry> = {
 	'language:Vhoric': { sheetId: 'heroes.language.vhoric', enHash: '508f3ab52cbb07da44fcb86e1cf23e4a1bbc71beef680cbd30df235b845a4c2f' },
 	'language:Voll': { sheetId: 'heroes.language.voll', enHash: '0c7aedeb064042dbfcb99e53a1cca36e67680ed147b38d857e3e00d3daa4b67f' },
 	'language:Yllyric': { sheetId: 'heroes.language.yllyric', enHash: '6c4e8daccb5c5412dc29a442e1d5a7d4e6620490b2a0af42d5aa09d146dd07ce' },
-	'language:Zaliac': { sheetId: 'heroes.language.zaliac', enHash: '5c4d8dcc378ba9fad47237ff88e757e507b4d79237fbd1a57b339197c82fc6f9' }
+	'language:Zaliac': { sheetId: 'heroes.language.zaliac', enHash: '5c4d8dcc378ba9fad47237ff88e757e507b4d79237fbd1a57b339197c82fc6f9' },
+	// Skill names and skill groups. SkillList.Custom stays English.
+	// Climb, Jump, Swim, Culture, and Timescape use term.<slug>-skill.
+	'enum:SkillList:Crafting': { sheetId: 'term.crafting-skill-group', enHash: '000b821603b6642608a49169b354e5bd95c66163c7ffc56cd20bcf1d480ecefd' },
+	'enum:SkillList:Exploration': { sheetId: 'term.exploration-skill-group', enHash: 'f08e7f4a8d5c7b2a62ede2d1643527c2e823bd454f9e8c632d4f55db0f3a3cc0' },
+	'enum:SkillList:Interpersonal': { sheetId: 'term.interpersonal-skill-group', enHash: '21c4ca8a5ab6c91437006c8c71151c00c37aa10a0ede16060cf70007287d4546' },
+	'enum:SkillList:Intrigue': { sheetId: 'term.intrigue-skill-group', enHash: '5039bd27c47a1d798547e12966ef6ecad1ba44163a5563d1f559703c69cce1a7' },
+	'enum:SkillList:Lore': { sheetId: 'term.lore-skill-group', enHash: '12593033bc5d791a872ef1b1a8f9f992bd600828d2551d0f2ab78150b17e2c9e' },
+	'skill:Alchemy': { sheetId: 'term.alchemy-skill', enHash: '2805fc43d2b5517d922a021e11c80de40be40976cabbaa4b2ce11dcf9537490a' },
+	'skill:Architecture': { sheetId: 'term.architecture-skill', enHash: 'cd74053c54816e473883dede0ad3b152f38a41995409eade6b42704919bb1359' },
+	'skill:Blacksmithing': { sheetId: 'term.blacksmithing-skill', enHash: 'e2bae2dd5c2d3de9a9db96a97ba38276e77a4612f169cdb5d2b7b86e903c694f' },
+	'skill:Carpentry': { sheetId: 'term.carpentry-skill', enHash: 'e6cd84fc2ee180bcb29361022fe35f18ab4aa53385e8739126f35c193c0f389f' },
+	'skill:Cooking': { sheetId: 'term.cooking-skill', enHash: 'd3bdb65e5d82d70dce234a5e848a529f39a0dc5069bc6b2f7594e19ee3b40fc8' },
+	'skill:Fletching': { sheetId: 'term.fletching-skill', enHash: '10246a6304ac175fa3fc1b021e07f2ea45fc8b2a01d6f0aa0793a8b9ff53fb72' },
+	'skill:Forgery': { sheetId: 'term.forgery-skill', enHash: '0ce6eefac73747b984dead05600f778900eb3c71407ca1adfe1896e5d0a6b66f' },
+	'skill:Jewelry': { sheetId: 'term.jewelry-skill', enHash: '7afde2cf9e6c28d4572b3f31cff753436988f5e4df3227365456ba10a3647c80' },
+	'skill:Mechanics': { sheetId: 'term.mechanics-skill', enHash: '1c74a0e2ceaaeb28e43c382df4ef36b79abc45b23195d293d0c2a4681c1cc9e2' },
+	'skill:Tailoring': { sheetId: 'term.tailoring-skill', enHash: '7d854f73f443c7cc5f5a4be1bdf0439d57b746226f95fc80e7b02fc0c9ebe714' },
+	'skill:Climb': { sheetId: 'term.climb-skill', enHash: '98ca5f27d9642dc7c9e927251831113e537ac763f9974f4db40a1d7fc9671231' },
+	'skill:Drive': { sheetId: 'term.drive-skill', enHash: '6312b4b9baf12770fd7dc7307169bfa3676fbec14485abe37264952d8502645e' },
+	'skill:Endurance': { sheetId: 'term.endurance-skill', enHash: '98c8abf84e23ff3f2a659b3077ece7a75697e7b0c215e05d86c1f28241689220' },
+	'skill:Gymnastics': { sheetId: 'term.gymnastics-skill', enHash: '766407af68d2456457c4ab0ca53f316840c30b9d8ff63254267ee70d5201b72b' },
+	'skill:Heal': { sheetId: 'term.heal-skill', enHash: '421acf13c1cb044e40e0fe1c1e88656e604113be888d92b2ecbb136252023b17' },
+	'skill:Jump': { sheetId: 'term.jump-skill', enHash: '9ee0ca3e24d60ea0b6a3e02892877bc0e2324d377e87eca76be1176d73c574e4' },
+	'skill:Lift': { sheetId: 'term.lift-skill', enHash: '871eee33f78a556c6b176e4d92b9de9cc55ae22d76b12ae40d6c6ce0a2944d8a' },
+	'skill:Navigate': { sheetId: 'term.navigate-skill', enHash: '5ea5fbe811dbe99a3f3d0d79704d2f54194692b349f2d682bd6fb86a9cbf8f12' },
+	'skill:Ride': { sheetId: 'term.ride-skill', enHash: '439efdc566bb419f29ded4a5eb33673c5d6f899532366b645270af8ce3ad5d1e' },
+	'skill:Swim': { sheetId: 'term.swim-skill', enHash: 'dd4fa375c70c4e4220a96f47a018cd8aff9c88c8c781dd94fa2156cff61b2e59' },
+	'skill:Brag': { sheetId: 'term.brag-skill', enHash: 'b82b0b25dbc806fd7cf63bca047de322ad7745d6a6929f80ff212842b07ad284' },
+	'skill:Empathize': { sheetId: 'term.empathize-skill', enHash: 'e218e9992a4187a1db7b167a3b1a250ca97adbdb7514cf49ef9bccc0c7e71e15' },
+	'skill:Flirt': { sheetId: 'term.flirt-skill', enHash: '23a27e1f697f781c06b865012ce1a9e612313f220f9fdc7caad4597cc6375717' },
+	'skill:Gamble': { sheetId: 'term.gamble-skill', enHash: 'b12075ac7a57a26acbeac376487c2930835903824b71f8e0383bb7e147feacce' },
+	'skill:Handle Animals': { sheetId: 'term.handle-animals-skill', enHash: 'a9aade89c14993c0ad0189707e578af17ffd6b6c0528ad0cfaa776c3ed16a886' },
+	'skill:Interrogate': { sheetId: 'term.interrogate-skill', enHash: '46b20ec6fe2621896f16da672b42a62d14520b202d932962c1420f1f84b020ee' },
+	'skill:Intimidate': { sheetId: 'term.intimidate-skill', enHash: '7879eb29f5ceb4bfa4ca8ebb34c0f3dc56b4446110d7a418c7a3acbb50a847ab' },
+	'skill:Lead': { sheetId: 'term.lead-skill', enHash: '645978287991a6f40bcaf5840f5653b89b75b3bd1ea78cf9f39192e2400ac23e' },
+	'skill:Lie': { sheetId: 'term.lie-skill', enHash: 'e982256a8757352e0ecad24f75858230ba09ccb73473480f6893561fe1cf1b01' },
+	'skill:Music': { sheetId: 'term.music-skill', enHash: '6eb00b4b2614a144d41ccdf709017a675953fae2df6cfd6b397bd9e4d8708461' },
+	'skill:Perform': { sheetId: 'term.perform-skill', enHash: '6adb770a21ae7200bfac6d1e694fc76b3e8b8166c788022362ed1e66055ab88a' },
+	'skill:Persuade': { sheetId: 'term.persuade-skill', enHash: '6303bb818642fe517d9a83d3d512a35a7772874a05b64f2614edf6160850454e' },
+	'skill:Read Person': { sheetId: 'term.read-person-skill', enHash: '6114b5f79a8ab73fe235ebb4e5689e480bccc0979699df5a25a9ef80d8bc0865' },
+	'skill:Alertness': { sheetId: 'term.alertness-skill', enHash: '202f86845400b653e14525dfb2d3254272543fdebd1fe2e60cb68216baf33593' },
+	'skill:Conceal Object': { sheetId: 'term.conceal-object-skill', enHash: '19e50d2a5bf217d0ec638048a29d625aaf48258fe33431f2cf37ccff60ec4f40' },
+	'skill:Disguise': { sheetId: 'term.disguise-skill', enHash: '03bf10496520a845ec7d35e287fd0414782c1139107120b1163aff110cb26372' },
+	'skill:Eavesdrop': { sheetId: 'term.eavesdrop-skill', enHash: '35093974de3a565bf08c54d99c456fc6427f13c2a884958411c9adfb7552c9eb' },
+	'skill:Escape Artist': { sheetId: 'term.escape-artist-skill', enHash: 'e96b85a8f0b5fefd73b53c09444957135d67b02e566bd5eb0bf8b26bd4f80234' },
+	'skill:Hide': { sheetId: 'term.hide-skill', enHash: 'ac20a57bfde0bbc40bfe70895eb1cfacc944aaff06ca784053623c569b3e1b3d' },
+	'skill:Pick Lock': { sheetId: 'term.pick-lock-skill', enHash: '0932976eba5ef8c5d174bc83ca558ab0595320ab823d98e56b691c3f10e9c055' },
+	'skill:Pick Pocket': { sheetId: 'term.pick-pocket-skill', enHash: '99a8c8cb5dc81eda8f1b029b71532db9f29e744ee2a35db152d880b7a0df698e' },
+	'skill:Sabotage': { sheetId: 'term.sabotage-skill', enHash: 'ec4ca2df92b603ace480ec363b3bd1f1ce182f05602b2dd361a08eadfd7574a6' },
+	'skill:Search': { sheetId: 'term.search-skill', enHash: '49c266baaaa70981ea188fa714d5c40cf13830d786a861c9943ae0d26a7f3fe9' },
+	'skill:Sneak': { sheetId: 'term.sneak-skill', enHash: '376453811042f536d54d3cd8477010ce4feebc329a577529b1a58b18361c4983' },
+	'skill:Track': { sheetId: 'term.track-skill', enHash: '051f01f095a28b04433fb7b6cc6785ef57533bfb7d5c784d33a472c56ea125dd' },
+	'skill:Criminal Underworld': { sheetId: 'term.criminal-underworld-skill', enHash: '224ffb29668f6a2f03004861a570f90601c0300e342b74b9bdee8b1d136dba60' },
+	'skill:Culture': { sheetId: 'term.culture-skill', enHash: '51d7a2ae4335df1210bcb79c32ebcda7d6043eda3ce4e191454fc78eebdb1fa8' },
+	'skill:History': { sheetId: 'term.history-skill', enHash: '0e769600933790607b2a13b33ddfade0fa17810eb62c3b28ee23e59516516491' },
+	'skill:Magic': { sheetId: 'term.magic-skill', enHash: 'ed1a5a81b8121ad13a8796e7a7eb113f25d5b18b0a3831bae13d697ba5dae38b' },
+	'skill:Monsters': { sheetId: 'term.monsters-skill', enHash: '31e590820f062bde9bc31e8e5615956b8c2de19a6a1b684224ffce68d582a2ca' },
+	'skill:Nature': { sheetId: 'term.nature-skill', enHash: 'c71ce8ccf3b4493267a168d7315294085b489fb8ccbf15b4cc2639cacd5c81a4' },
+	'skill:Psionics': { sheetId: 'term.psionics-skill', enHash: 'dda3bc3777c06eeb785d17c5f7d7451e90b25dd33be9427f542ab3ab3edd109e' },
+	'skill:Religion': { sheetId: 'term.religion-skill', enHash: 'f8a52d21e659b0e9b473f4e23263def011931bad06bad2146f42b1f5d09c8132' },
+	'skill:Rumors': { sheetId: 'term.rumors-skill', enHash: '7cde65835071f1c1352478db6812cf1e9abeaad435f05d449184cfe02628556e' },
+	'skill:Society': { sheetId: 'term.society-skill', enHash: 'd5acfd8330f5caaee7d1421788c912dc9c5da654bbc226a904798d1a30de9953' },
+	'skill:Strategy': { sheetId: 'term.strategy-skill', enHash: '6b27710dfaafdcec2b06b7d3c6abe56d98162848b08a9da01e88863e2add413f' },
+	'skill:Timescape': { sheetId: 'term.timescape-skill', enHash: 'a837f5563437ca1f7b30ecb193c2388ffbd68a7535217218ca0e2082de6f667a' }
 };

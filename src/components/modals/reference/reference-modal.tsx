@@ -1,5 +1,6 @@
 import { Button, Flex, Segmented, Space, Tabs } from 'antd';
 import { ConditionName, conditionRulesKey } from '@/l10n/condition-text';
+import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -172,7 +173,7 @@ export const ReferenceModal = (props: Props) => {
 						SkillList.Lore
 					].map((sl, n1) => (
 						<div key={n1}>
-							<HeaderText>{sl}</HeaderText>
+							<HeaderText><SkillListName list={sl} /></HeaderText>
 							<Space orientation='vertical' style={{ paddingBottom: '20px', width: '100%' }}>
 								{
 									allSkills
@@ -181,7 +182,7 @@ export const ReferenceModal = (props: Props) => {
 											<div key={n2}>
 												<Field
 													highlight={skillNames.includes(s.name)}
-													label={s.name}
+													label={<SkillName name={s.name} />}
 													value={s.description}
 												/>
 												{modifiersFor(s).map(f => <RollModifierPanel key={f.id} modifier={f} />)}

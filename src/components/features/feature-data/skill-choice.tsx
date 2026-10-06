@@ -1,5 +1,6 @@
 import { Button, Drawer, Flex, Segmented, Select, Space } from 'antd';
 import { Feature, FeatureSkillChoiceData } from '@/models/feature';
+import { SkillName, useSkillNames } from '@/l10n/skill-text';
 import { Collections } from '@/utils/collections';
 import { FeatureType } from '@/enums/feature-type';
 import { Field } from '@/components/controls/field/field';
@@ -23,9 +24,11 @@ interface InfoProps {
 }
 
 export const InfoSkillChoice = (props: InfoProps) => {
+	const names = useSkillNames(props.data.selected);
+
 	if (props.data.selected.length > 0) {
 		return (
-			<Field label='Skill' value={props.data.selected.join(', ')} />
+			<Field label='Skill' value={names.join(', ')} />
 		);
 	}
 
@@ -174,7 +177,7 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 								<Flex vertical={true}>
 									{
 										sk ?
-											<Field label={sk.name} value={sk.description} style={{ flex: '1 1 0' }} />
+											<Field label={<SkillName name={sk.name} />} value={sk.description} style={{ flex: '1 1 0' }} />
 											:
 											<div className='ds-text' style={{ flex: '1 1 0' }}>{skill}</div>
 									}

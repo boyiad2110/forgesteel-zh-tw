@@ -25,6 +25,7 @@
  *   'ui:<id>':               { sheetId, enHash }
  *   'data:<Class>:<field>':  { sheetId, enHash, stripHeading? }
  *   'language:<English>':    { sheetId, enHash }
+ *   'skill:<English>':       { sheetId, enHash }
  *
  * enHash is sha256 hex of the Forge Steel English at approval time.
  * The check recomputes that English in plain Node, with no browser:
@@ -44,6 +45,23 @@
  *              third string argument). The hash is that name. A name that is
  *              not one of those literals fails. Upstream language objects have
  *              no id, so this check does not invent one.
+ *   skill    — the English name after `skill:`. It must be a string-literal
+ *              `name` on an object in a `skills` array under src/data. The
+ *              hash is that name. A name that is not one of those literals
+ *              fails. Upstream skill objects have no id, so this check does
+ *              not invent one.
+ *
+ * Glossary rows have no Basis Hash. A `skill:` key and an `enum:SkillList:`
+ * key are checked against the Strings row that supplied the Chinese:
+ *
+ *   skill — the object's `list: SkillList.X` selects
+ *           `heroes.skills.<x>.rules`. One line of that row's Chinese must
+ *           start with `<Glossary Chinese>（<English>）｜`.
+ *   enum:SkillList — the Glossary Chinese must occur in
+ *           `heroes.skills.groups.rules`.
+ *
+ * When that text is gone, the check fails and the message names the Glossary
+ * id, the Strings id, and says the source row no longer contains this name.
  *
  * A template literal cooks CR LF and a lone CR into LF. The check does the
  * same to every recomputed English string, and to Sheet English before a
@@ -107,7 +125,8 @@ const KEY_PATTERNS = [
 	/^enum:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
 	/^ui:[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/,
 	/^data:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
-	/^language:[A-Za-z0-9]+(?:[ '\u2019-][A-Za-z0-9]+)*$/
+	/^language:[A-Za-z0-9]+(?:[ '\u2019-][A-Za-z0-9]+)*$/,
+	/^skill:[A-Za-z0-9]+(?:[ '\u2019-][A-Za-z0-9]+)*$/
 ];
 const BINARY_EXT = new Set([
 	'.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico',
@@ -748,6 +767,155 @@ const languageEnglish = (root, cache, name) => {
 	return { english: name };
 };
 
+/**
+ * `name` string literals on objects in a `skills` array, with `list: SkillList.X`
+ * when that member is also a literal. A later sibling property ends the array.
+ * A string array such as `skills: [ 'Hide' ]` has no object name, so it is skipped.
+ */
+const skillObjects = text => {
+	const tokens = tokenize(text);
+	const found = [];
+	let depth = 0;
+	let listDepth = null;
+	const stack = [];
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
+		if (token.kind === 'brace' && token.value === '{') {
+			depth += 1;
+			stack.push({ depth, name: undefined, list: undefined });
+			continue;
+		}
+		if (token.kind === 'brace' && token.value === '}') {
+			const top = stack.pop();
+			if (listDepth !== null && top && top.depth === listDepth + 1 && typeof top.name === 'string') {
+				found.push({ name: top.name, list: top.list ?? null });
+			}
+			depth -= 1;
+			if (listDepth !== null && depth < listDepth) {
+				listDepth = null;
+			}
+			continue;
+		}
+		if (token.kind !== 'ident' || tokens[i + 1]?.kind !== 'colon') {
+			continue;
+		}
+		if (token.value === 'skills') {
+			listDepth = depth;
+			continue;
+		}
+		if (listDepth !== null && depth === listDepth) {
+			listDepth = null;
+			continue;
+		}
+		const top = stack[stack.length - 1];
+		if (!top || listDepth === null || top.depth !== depth || depth !== listDepth + 1) {
+			continue;
+		}
+		if (token.value === 'name' && tokens[i + 2]?.kind === 'string' && top.name === undefined) {
+			top.name = tokens[i + 2].value;
+		}
+		if (token.value === 'list' && top.list === undefined) {
+			const enumName = tokens[i + 2];
+			const member = tokens[i + 3];
+			if (enumName?.kind === 'ident' && enumName.value === 'SkillList' && member?.kind === 'ident') {
+				top.list = member.value;
+			}
+		}
+	}
+	return found;
+};
+
+const indexSkills = root => {
+	const skills = new Map();
+	for (const file of walk(path.join(root, 'src/data'))) {
+		if (!file.endsWith('.ts')) {
+			continue;
+		}
+		const text = read(file);
+		if (text === null || text.includes('\0')) {
+			continue;
+		}
+		for (const entry of skillObjects(text)) {
+			const previous = skills.get(entry.name);
+			if (!previous) {
+				skills.set(entry.name, { list: entry.list, conflict: false });
+				continue;
+			}
+			if (previous.list !== entry.list) {
+				previous.conflict = true;
+			}
+		}
+	}
+	return skills;
+};
+
+const skillEnglish = (root, cache, name) => {
+	cache.skills ??= indexSkills(root);
+	if (!cache.skills.has(name)) {
+		return { error: `skill ${JSON.stringify(name)} is not a literal name in a src/data skills array` };
+	}
+	return { english: name };
+};
+
+const SKILL_LIST_SOURCE = {
+	Crafting: 'heroes.skills.crafting.rules',
+	Exploration: 'heroes.skills.exploration.rules',
+	Interpersonal: 'heroes.skills.interpersonal.rules',
+	Intrigue: 'heroes.skills.intrigue.rules',
+	Lore: 'heroes.skills.lore.rules'
+};
+const SKILL_GROUP_SOURCE = 'heroes.skills.groups.rules';
+
+const sourceMiss = (glossaryId, sourceId) => {
+	return `${glossaryId} ${sourceId}: source row no longer contains this name`;
+};
+
+/**
+ * Glossary has no Basis Hash. The Chinese must still be present in the
+ * Strings row named by the Glossary Source Reference.
+ */
+const checkSkillSource = (entry, rows, skills) => {
+	const skill = /^skill:(.+)$/.exec(entry.key);
+	if (skill) {
+		const english = skill[1];
+		const found = skills.get(english);
+		const list = found && !found.conflict ? found.list : null;
+		const sourceId = list ? SKILL_LIST_SOURCE[list] : null;
+		if (!sourceId) {
+			return issue(
+				'skill-source',
+				'src/l10n/mapping.ts',
+				entry.line,
+				entry.key,
+				`${entry.sheetId} has no SkillList source row for ${JSON.stringify(english)}`
+			);
+		}
+		const glossaryZh = rows.get(entry.sheetId)?.zh;
+		const sourceZh = rows.get(sourceId)?.zh;
+		const prefix = `${glossaryZh}（${english}）｜`;
+		const hit = typeof glossaryZh === 'string'
+			&& glossaryZh !== ''
+			&& typeof sourceZh === 'string'
+			&& sourceZh.split('\n').some(line => line.startsWith(prefix));
+		if (!hit) {
+			return issue('skill-source', 'src/l10n/mapping.ts', entry.line, entry.key, sourceMiss(entry.sheetId, sourceId));
+		}
+		return null;
+	}
+	if (/^enum:SkillList:/.test(entry.key)) {
+		const glossaryZh = rows.get(entry.sheetId)?.zh;
+		const sourceZh = rows.get(SKILL_GROUP_SOURCE)?.zh;
+		const hit = typeof glossaryZh === 'string'
+			&& glossaryZh !== ''
+			&& typeof sourceZh === 'string'
+			&& sourceZh.includes(glossaryZh);
+		if (!hit) {
+			return issue('skill-source', 'src/l10n/mapping.ts', entry.line, entry.key, sourceMiss(entry.sheetId, SKILL_GROUP_SOURCE));
+		}
+	}
+	return null;
+};
+
 export const forgeEnglish = (root, key, cache = { current: null }) => {
 	const element = /^element:([^:]+):([^:]+)$/.exec(key);
 	if (element) {
@@ -769,7 +937,11 @@ export const forgeEnglish = (root, key, cache = { current: null }) => {
 	if (language) {
 		return cookedEnglish(languageEnglish(root, cache, language[1]));
 	}
-	return { error: 'key is not an element, enum, data, ui, or language key' };
+	const skill = /^skill:(.+)$/.exec(key);
+	if (skill) {
+		return cookedEnglish(skillEnglish(root, cache, skill[1]));
+	}
+	return { error: 'key is not an element, enum, data, ui, language, or skill key' };
 };
 
 const matchBrace = (text, open) => {
@@ -1307,6 +1479,13 @@ export const checkMapping = root => {
 			);
 			if (englishIssue) {
 				errors.push(englishIssue);
+			}
+		}
+		if (entry.key.startsWith('skill:') || entry.key.startsWith('enum:SkillList:')) {
+			cache.skills ??= indexSkills(root);
+			const sourceIssue = checkSkillSource(entry, rows, cache.skills);
+			if (sourceIssue) {
+				errors.push(sourceIssue);
 			}
 		}
 	}
