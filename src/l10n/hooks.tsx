@@ -65,7 +65,7 @@ export const useDisplayKey = (explicit: string | undefined, text: string | undef
  * to the catalog so a later filled-in table appears without a reload.
  */
 export const useL10nText = (key: string | undefined, english: string): string => {
-	useSyncExternalStore(subscribeToLanguage, getLanguage);
-	useSyncExternalStore(subscribeToCatalog, getCatalogTick);
+	useSyncExternalStore(subscribeToLanguage, getLanguage, getLanguage);
+	useSyncExternalStore(subscribeToCatalog, getCatalogTick, getCatalogTick);
 	return translate(key, english);
 };

@@ -1,6 +1,7 @@
 import { Alert, Button, Flex, Popover, Segmented, Space, Tag } from 'antd';
 import { ConditionName, ConditionRules, conditionRulesKey } from '@/l10n/condition-text';
 import { EllipsisOutlined, HeartFilled, PlusOutlined } from '@ant-design/icons';
+import { SkillListName, SkillName } from '@/l10n/skill-text';
 import { Ability } from '@/models/ability';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -146,10 +147,10 @@ export const SidebarPanel = (props: Props) => {
 				useRows ?
 					<div className='selectable-row clickable' onClick={onShowSkills}>
 						<div>
-							{label}: <b>{skills.map(s => s.name).join(', ')}</b>
+							{label}: <b>{skills.map((s, n) => <span key={s.name}>{n > 0 ? ', ' : null}<SkillName name={s.name} /></span>)}</b>
 							{
 								cancelledSkills.length > 0 ?
-									<> <b><s>{cancelledSkills.map(s => s.name).join(', ')}</s></b></>
+									<> <b><s>{cancelledSkills.map((s, n) => <span key={s.name}>{n > 0 ? ', ' : null}<SkillName name={s.name} /></span>)}</s></b></>
 									: null
 							}
 						</div>
@@ -162,9 +163,9 @@ export const SidebarPanel = (props: Props) => {
 								const rollModifiers = getSkillModifiers(s);
 								return (
 									<div key={s.name} className='ds-text' style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-										{s.name}
+										<SkillName name={s.name} />
 										{rollModifiers.length > 0 ? <RollModifierMarker modifier={rollModifiers[0]} multiple={rollModifiers.length > 1} /> : null}
-										{options.showSkillsInGroups ? null : <Tag variant='outlined'>{s.list}</Tag>}
+										{options.showSkillsInGroups ? null : <Tag variant='outlined'><SkillListName list={s.list} /></Tag>}
 									</div>
 								);
 							})
@@ -172,7 +173,7 @@ export const SidebarPanel = (props: Props) => {
 						{
 							cancelledSkills.map(s => (
 								<div key={s.name} className='ds-text dimmed-text'>
-									<s>{s.name}</s> {options.showSkillsInGroups ? null : <Tag variant='outlined'>{s.list}</Tag>}
+									<s><SkillName name={s.name} /></s> {options.showSkillsInGroups ? null : <Tag variant='outlined'><SkillListName list={s.list} /></Tag>}
 								</div>
 							))
 						}

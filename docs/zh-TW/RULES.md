@@ -43,7 +43,7 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `.github/workflows/digitalocean.yml`（部署保護）
 - `.github/workflows/do-registry-cleanup.yml`（部署保護）
 - `src/components/modals/reference/reference-modal.tsx`（條件名稱與規則、語言名稱、技能名稱與類別）
-- `src/components/panels/hero/sidebar/sidebar-panel.tsx`（條件名稱與規則、語言名稱）
+- `src/components/panels/hero/sidebar/sidebar-panel.tsx`（條件名稱與規則、語言名稱、技能名稱與類別）
 - `src/components/panels/condition/condition-panel.tsx`（條件名稱與規則）
 - `src/components/panels/health/health-panel.tsx`（條件名稱）
 - `src/components/features/feature-data/condition-immunity.tsx`（條件名稱）
@@ -62,14 +62,17 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/modals/select/language-select/language-select-modal.tsx`（選語言抽屜的語言名稱）
 - `src/components/features/feature-data/language.tsx`（語言名稱）
 - `src/components/panels/classic-sheet/culture-card/culture-card.tsx`（語言名稱）
-- `src/components/panels/elements/sourcebook-panel/sourcebook-panel.tsx`（語言名稱）
-- `src/components/modals/party/party-modal.tsx`（語言名稱）
+- `src/components/panels/elements/sourcebook-panel/sourcebook-panel.tsx`（語言名稱、技能名稱）
+- `src/components/modals/party/party-modal.tsx`（語言名稱、技能名稱）
 - `src/components/panels/elements/negotiation-panel/negotiation-panel.tsx`（語言名稱）
-- `src/components/panels/classic-sheet/components/feature-component.tsx`（語言名稱）
-- `src/components/panels/classic-sheet/follower-card/followers-card.tsx`（語言名稱）
+- `src/components/panels/classic-sheet/components/feature-component.tsx`（語言名稱、技能名稱）
+- `src/components/panels/classic-sheet/follower-card/followers-card.tsx`（語言名稱、技能名稱）
 - `src/components/panels/classic-sheet/negotiation-sheet/negotiation-npc-card.tsx`（語言名稱）
 - `src/components/features/feature-data/skill-choice.tsx`（技能名稱）
-- `src/components/modals/select/skill-select/skill-select-modal.tsx`（技能名稱與類別）
+- `src/components/modals/select/skill-select/skill-select-modal.tsx`（技能名稱與類別、類別標籤）
+- `src/components/panels/classic-sheet/skills-card/skills-card.tsx`（技能名稱與類別）
+- `src/components/features/feature-data/skill-cancel-choice.tsx`（技能名稱）
+- `src/components/panels/classic-sheet/follower-card/companion-card.tsx`（技能名稱）
 
 ## 舊的失敗嘗試，不要再做
 

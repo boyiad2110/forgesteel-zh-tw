@@ -2,11 +2,19 @@ import { CharacteristicsComponent } from '@/components/panels/classic-sheet/comp
 import { FollowerSheet } from '@/models/classic-sheets/hero-sheet';
 import { useLanguageNames } from '@/l10n/language-text';
 import { useMemo } from 'react';
+import { useSkillNames } from '@/l10n/skill-text';
 
 import './follower-card.scss';
 
 const FollowerLanguages = (props: { languages?: string[] }) => {
 	const names = useLanguageNames(props.languages ?? []);
+	return (
+		<span>{names.join(', ')}</span>
+	);
+};
+
+const FollowerSkills = (props: { skills?: string[] }) => {
+	const names = useSkillNames(props.skills ?? []);
 	return (
 		<span>{names.join(', ')}</span>
 	);
@@ -32,7 +40,7 @@ export const FollowersCard = (props: Props) => {
 				<CharacteristicsComponent characteristics={follower.characteristics} />
 				<div className='stat skills'>
 					<label>Skills:</label>
-					<span>{follower.skills?.join(', ')}</span>
+					<FollowerSkills skills={follower.skills} />
 				</div>
 				<div className='stat languages'>
 					<label>Languages:</label>

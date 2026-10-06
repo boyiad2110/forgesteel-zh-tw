@@ -1,5 +1,6 @@
 import { Button, Drawer, Segmented, Space } from 'antd';
 import { Feature, FeatureSkillCancelChoiceData } from '@/models/feature';
+import { SkillName, useSkillNames } from '@/l10n/skill-text';
 import { Collections } from '@/utils/collections';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -21,9 +22,11 @@ interface InfoProps {
 }
 
 export const InfoSkillCancelChoice = (props: InfoProps) => {
+	const names = useSkillNames(props.data.selected);
+
 	if (props.data.selected.length > 0) {
 		return (
-			<Field label='Lost Skill' value={<s>{props.data.selected.join(', ')}</s>} />
+			<Field label='Lost Skill' value={<s>{names.join(', ')}</s>} />
 		);
 	}
 
@@ -100,7 +103,7 @@ export const ConfigSkillCancelChoice = (props: ConfigProps) => {
 							key={n}
 							content={
 								sk ?
-									<Field label={<s>{sk.name}</s>} value={sk.description} style={{ flex: '1 1 0' }} />
+									<Field label={<s><SkillName name={sk.name} /></s>} value={sk.description} style={{ flex: '1 1 0' }} />
 									:
 									<div className='ds-text' style={{ flex: '1 1 0' }}><s>{skill}</s></div>
 							}

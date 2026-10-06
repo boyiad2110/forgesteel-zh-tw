@@ -10,6 +10,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Tag } from 'antd';
 import { useLanguageNames } from '@/l10n/language-text';
+import { useSkillNames } from '@/l10n/skill-text';
 
 import './party-modal.scss';
 
@@ -27,6 +28,7 @@ export const PartyModal = (props: Props) => {
 	const skills = SourcebookLogic.getSkills(props.sourcebooks)
 		.map(s => s.name)
 		.filter(s => props.heroes.some(h => HeroLogic.getSkills(h, props.sourcebooks).some(x => x.name === s)));
+	const skillLabels = useSkillNames(skills);
 
 	const itemProficiencies = Collections.distinct(props.heroes.flatMap(h => HeroLogic.getProficiencies(h)), x => x).sort();
 
@@ -145,7 +147,7 @@ export const PartyModal = (props: Props) => {
 								skills.map((s, n) => {
 									return (
 										<tr key={n}>
-											<td className='row-label'>{s}</td>
+											<td className='row-label'>{skillLabels[n]}</td>
 											{
 												props.heroes.map(h => (
 													<td key={h.id} className='row-cell'>

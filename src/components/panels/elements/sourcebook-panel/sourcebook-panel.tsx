@@ -17,6 +17,7 @@ import { NameDescEditPanel } from '../../edit/name-desc-edit/name-desc-edit-pane
 import { NameSuggestions } from '@/components/panels/name-suggestions/name-suggestions';
 import { PanelMode } from '@/enums/panel-mode';
 import { SkillList } from '@/enums/skill-list';
+import { SkillName } from '@/l10n/skill-text';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
@@ -353,7 +354,7 @@ export const SourcebookPanel = (props: Props) => {
 							<HeaderText>
 								Skills
 							</HeaderText>
-							{Collections.sort(sourcebook.skills, s => s.name).map((s, n) => <Field key={`skill-${n}`} label={s.name} value={<Markdown text={s.description} useSpan={true} />} />)}
+							{Collections.sort(sourcebook.skills, s => s.name).map((s, n) => <Field key={`skill-${n}`} label={<SkillName name={s.name} />} value={<Markdown text={s.description} useSpan={true} />} />)}
 						</>
 						: null
 				}
