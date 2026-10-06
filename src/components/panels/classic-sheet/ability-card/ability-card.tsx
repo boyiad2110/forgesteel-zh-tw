@@ -1,4 +1,5 @@
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
+import { AbilityName } from '@/l10n/ability-text';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -144,7 +145,7 @@ export const AbilityCard = (props: Props) => {
 		<div className={getCardClasses(ability)}>
 			<section className='bordered'>
 				<h3>{ability.abilityType}</h3>
-				<h2><span className='ability-name'>{ability.name}</span>{getAbilityCost()}</h2>
+				<h2><span className='ability-name'><AbilityName ability={ability} /></span>{getAbilityCost()}</h2>
 				{ability.description?.length ?
 					<p className='description'>{ability.description}</p>
 					: undefined }

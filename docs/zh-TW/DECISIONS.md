@@ -69,6 +69,11 @@
 - **動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3（2026-10-06）。** 包括 Main Action 這類標籤，以及 `primary-reference-card.tsx`、`reference-cards.tsx`。Marc 已核准。
 - **P2-7 分三批（2026-10-06）。** 7-1 是網頁上的動作名稱（Reference 的 Abilities 頁、點開招式的視窗、列印頁、英雄頁招式列表、側欄 Triggers）。7-2 是經典表格上的動作名稱。7-3 是動作描述。顯示的名稱仍等於資料英文才換；英雄用 abilityCustomizations 改過的名字維持使用者輸入。存檔、排序、搜尋、比對、剪貼簿維持英文。英文模式不變。Marc 已核准。
 - **來源列檢查擴及動作名稱（2026-10-06）。** 對到 `term.<slug>-action` 的鍵，Glossary 中文必須等於 `heroes.actions.<slug>.rules` 的標題行。來源列不在，或標題改了字，守門就失敗。Marc 已核准。
+- **7-2 只換名稱的顯示（2026-10-06）。** 經典表格招式卡（ability-card）、英雄頁 Standard Abilities 檢視、設定裡選基本動作的抽屜、表格預覽頁的 Included Standard Abilities 選單。AbilitySheet 資料、排序、key、class、存檔維持英文。排版估算不改（名稱不參與卡片高度估算與排序）。不寫 Sheet，沿用 7-1 的 19 個對照。Marc 已核准。
+- **ability-component.tsx 不改（2026-10-06）。** 只畫怪物／隨從／同伴／召喚物／機關／地形的招式，不會出現基本動作。Marc 已核准。
+- **經典表格上的 Melee Free Strike／Ranged Free Strike 留英文（2026-10-06）。** 名稱是經典表格程式寫死的，不是資料英文。Glossary 雖有近戰基礎打擊／遠程基礎打擊，這批不新增鍵型。Marc 已核准。
+- **經典表格不套用基本動作的自訂名稱（2026-10-06）。** 上游本來就不套用，畫面上是資料英文名，所以中文模式顯示中文。不修上游這個行為。Marc 已核准。
+- **動作類型標籤仍留 P3（2026-10-06）。** 卡片頂端標籤、Tag、選動作抽屜分組標題。Marc 已核准。
 
 ## 尚未決定
 

@@ -1,6 +1,7 @@
 import { Button, Flex, Space } from 'antd';
 import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { AbilityData } from '@/data/ability-data';
+import { AbilityName } from '@/l10n/ability-text';
 import { Collections } from '@/utils/collections';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Modal } from '@/components/modals/modal/modal';
@@ -74,7 +75,7 @@ export const StandardAbilitySelectModal = (props: Props) => {
 												.map(a => (
 													<Toggle
 														key={a.id}
-														label={a.name}
+														label={<AbilityName ability={a} />}
 														value={abilityIDs.includes(a.id)}
 														onChange={value => {
 															if (value) {
