@@ -461,6 +461,8 @@ describe('createCulture calls', () => {
 		write(root, 'src/data/cultures.ts', `
 			FactoryLogic.createCulture('Artisan Guild', 'Urban, bureaucratic, creative.', CultureType.Professional);
 			FactoryLogic.createCulture('Pauper Neighborhood', 'Urban, communal, labor.', CultureType.Professional);
+			FactoryLogic.createCulture('High Elf', 'Secluded, bureaucratic, martial.', CultureType.Ancestral);
+			FactoryLogic.createCulture('Time Raider', 'Nomadic, communal, martial.', CultureType.Ancestral);
 			FactoryLogic.createCulture('A B C', 'Kept.');
 			FactoryLogic.createCulture(ancestry.name, '', CultureType.Ancestral);
 			FactoryLogic.createCulture(name, 'Skipped.');
@@ -471,6 +473,8 @@ describe('createCulture calls', () => {
 		expect(forgeEnglish(root, 'element:culture-artisan-guild:description')).toEqual({ english: 'Urban, bureaucratic, creative.' });
 		expect(forgeEnglish(root, 'element:culture-pauper-neighborhood:name')).toEqual({ english: 'Pauper Neighborhood' });
 		expect(forgeEnglish(root, 'element:culture-pauper-neighborhood:description')).toEqual({ english: 'Urban, communal, labor.' });
+		expect(forgeEnglish(root, 'element:culture-high-elf:name')).toEqual({ english: 'High Elf' });
+		expect(forgeEnglish(root, 'element:culture-time-raider:name')).toEqual({ english: 'Time Raider' });
 		expect(forgeEnglish(root, 'element:culture-a-b c:name')).toEqual({ english: 'A B C' });
 		expect(forgeEnglish(root, 'element:culture-:name').error).toContain('was not found');
 		expect(forgeEnglish(root, 'element:culture-skipped:name').error).toContain('was not found');

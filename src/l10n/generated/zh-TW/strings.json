@@ -2251,21 +2251,41 @@
   },
   "heroes.background.culture.typical.devil": {
     "en": "Devil Anjali Urban Bureaucratic Academic",
+    "fs": {
+      "basisHash": "a03b186ebcdb8263c164b678e94605bcc2c8da58969bc880ad53582bf6164a76",
+      "en": "Devil",
+      "zh": "魔鬼"
+    },
     "updated": "2026-10-02",
     "zh": "魔鬼｜安賈利語｜城市｜官僚｜學術"
   },
   "heroes.background.culture.typical.dragon-knight": {
     "en": "Dragon knight Vastariax Secluded Bureaucratic Martial",
+    "fs": {
+      "basisHash": "aa32eb32d7e91a70b06ebb7a6d4c4b5dac989e2e2a12c62ad15b6fa09a2c5368",
+      "en": "Dragon Knight",
+      "zh": "龍騎士"
+    },
     "updated": "2026-10-02",
     "zh": "龍騎士｜華斯塔里亞語｜隱居｜官僚｜尚武"
   },
   "heroes.background.culture.typical.dwarf": {
     "en": "Dwarf Zaliac Secluded Bureaucratic Creative",
+    "fs": {
+      "basisHash": "d8775bc44015f683aa0cc9ab8c3540aaa7592c240b9acff7ad7b351b1905df63",
+      "en": "Dwarf",
+      "zh": "矮人"
+    },
     "updated": "2026-10-02",
     "zh": "矮人｜札力語｜隱居｜官僚｜創作"
   },
   "heroes.background.culture.typical.hakaan": {
     "en": "Hakaan Vhoric Rural Communal Labor",
+    "fs": {
+      "basisHash": "e3e3380a0751ae07a02f356a5cebaa0e4b068975e07ed888d37d97982bee2969",
+      "en": "Hakaan",
+      "zh": "哈肯人"
+    },
     "updated": "2026-10-02",
     "zh": "哈肯人｜沃瑞語｜鄉村｜平權｜勞動"
   },
@@ -2276,36 +2296,71 @@
   },
   "heroes.background.culture.typical.high-elf": {
     "en": "High elf Hyrallic Secluded Bureaucratic Martial",
+    "fs": {
+      "basisHash": "1bf061e2778d8a8f379a20a2b5f5eefc3c9a84978b783a22d70f8352eb3e8bbc",
+      "en": "High Elf",
+      "zh": "高等精靈"
+    },
     "updated": "2026-10-02",
     "zh": "高等精靈｜赫拉語｜隱居｜官僚｜尚武"
   },
   "heroes.background.culture.typical.human": {
     "en": "Human Vaslorian Urban Communal Labor",
+    "fs": {
+      "basisHash": "b5a626e8ad4a8e8acdbe4a9117c2fee3bed63f9b4a119e953d73c074000b8681",
+      "en": "Human",
+      "zh": "人類"
+    },
     "updated": "2026-10-02",
     "zh": "人類｜華斯洛里亞語｜城市｜平權｜勞動"
   },
   "heroes.background.culture.typical.memonek": {
     "en": "Memonek Axiomatic Nomadic Communal Academic",
+    "fs": {
+      "basisHash": "9da4a4a5b5702a2010791289d4671f500ec243f6c95f1ca81c327674240afdbc",
+      "en": "Memonek",
+      "zh": "梅莫人"
+    },
     "updated": "2026-10-02",
     "zh": "梅莫人｜公理語｜遊牧｜平權｜學術"
   },
   "heroes.background.culture.typical.orc": {
     "en": "Orc Kalliak Wilderness Communal Creative",
+    "fs": {
+      "basisHash": "e127ed0136ca44cfd456ef41ff5970211c63d08aff4b290257a5b884c23cc08e",
+      "en": "Orc",
+      "zh": "歐克"
+    },
     "updated": "2026-10-02",
     "zh": "歐克｜卡力語｜荒野｜平權｜創作"
   },
   "heroes.background.culture.typical.polder": {
     "en": "Polder Khoursirian Urban Communal Creative",
+    "fs": {
+      "basisHash": "c192517d4c1950ec6ed7616341c4439e3753f4de6f4b529e82e18a23206bf7fc",
+      "en": "Polder",
+      "zh": "波德人"
+    },
     "updated": "2026-10-02",
     "zh": "波德人｜科爾瑟語｜城市｜平權｜創作"
   },
   "heroes.background.culture.typical.time-raider": {
     "en": "Time raider Voll Nomadic Communal Martial",
+    "fs": {
+      "basisHash": "549464e12ee8d7849fe08290c9ca18fa50fa24ec290c74945579685c4513432e",
+      "en": "Time Raider",
+      "zh": "時空獵手"
+    },
     "updated": "2026-10-02",
     "zh": "時空獵手｜沃爾語｜遊牧｜平權｜尚武"
   },
   "heroes.background.culture.typical.wode-elf": {
     "en": "Wode elf Yllyric Wilderness Bureaucratic Martial",
+    "fs": {
+      "basisHash": "10da4df3b5853c04e2560b7e67c68cbf3d7a87b2017d3eee2de149b4c136e9e5",
+      "en": "Wode Elf",
+      "zh": "幻林精靈"
+    },
     "updated": "2026-10-02",
     "zh": "幻林精靈｜伊林語｜荒野｜官僚｜尚武"
   },

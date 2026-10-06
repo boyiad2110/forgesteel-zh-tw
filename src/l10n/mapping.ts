@@ -255,5 +255,16 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:culture-outlaw-band:name': { sheetId: 'heroes.background.culture.archetypical.outlaw-band', enHash: '57ffff93a6e70978828068257d7e339937e168202e997872ff70779ee0827324' },
 	'element:culture-pirate-crew:name': { sheetId: 'heroes.background.culture.archetypical.pirate-crew', enHash: '65b98d29fa5de666a14f7705435e43cfa79bca92881fdb65d7e1774a09b0328c' },
 	'element:culture-telepathic-hive:name': { sheetId: 'heroes.background.culture.archetypical.telepathic-hive', enHash: 'c17bbc0b4f8f5d1188341d7476c4de1376d0827ef6b2ebd0ff8a809b7ed650dd' },
-	'element:culture-traveling-entertainers:name': { sheetId: 'heroes.background.culture.archetypical.traveling-entertainers', enHash: 'af6c95eb67f113a4c8e0daf7ff0fafe65cb31cc5135af4d0c35db91e2b9b2182' }
+	'element:culture-traveling-entertainers:name': { sheetId: 'heroes.background.culture.archetypical.traveling-entertainers', enHash: 'af6c95eb67f113a4c8e0daf7ff0fafe65cb31cc5135af4d0c35db91e2b9b2182' },
+	'element:culture-devil:name': { sheetId: 'heroes.background.culture.typical.devil', enHash: 'c0f6167a002bd71c5d28c568799370996272b5ce04442b5708d5d5d05ddd2bc0' },
+	'element:culture-dragon-knight:name': { sheetId: 'heroes.background.culture.typical.dragon-knight', enHash: '35ed09f692203dd985281205a7ef02d040bf299eeddd69f2db5febbc879683ba' },
+	'element:culture-dwarf:name': { sheetId: 'heroes.background.culture.typical.dwarf', enHash: 'b528f9d1a283287ee3e1e93968211f7e59410dd7310bd08996bc77b19523441a' },
+	'element:culture-wode-elf:name': { sheetId: 'heroes.background.culture.typical.wode-elf', enHash: 'dbe720c1f761e3c517f40c2d8fe73df207e8f7c0ec41d4cc3e448b763d890326' },
+	'element:culture-high-elf:name': { sheetId: 'heroes.background.culture.typical.high-elf', enHash: '2a8e80c97798a59afc89a7bd5e570117a17b6e815db9ad63561ce92ec952639d' },
+	'element:culture-hakaan:name': { sheetId: 'heroes.background.culture.typical.hakaan', enHash: 'acd87b2316c931b3acccf3a78b9c3f011ed99ad5f9fa17dabd4cc9533dfb3768' },
+	'element:culture-human:name': { sheetId: 'heroes.background.culture.typical.human', enHash: '9ffa865f2bc6e850157bb454ef3e00fa789e3f8cc631552941a99ba3fcddde51' },
+	'element:culture-memonek:name': { sheetId: 'heroes.background.culture.typical.memonek', enHash: '0e1fd6e2ceaf92a0e06bc2784094565f7198b7041e0ddddeffdf68501cdd7cac' },
+	'element:culture-orc:name': { sheetId: 'heroes.background.culture.typical.orc', enHash: '3907af2e3409c8737e09736dee955306c798dc0c1ce5a728d2d806278f4d8e0b' },
+	'element:culture-polder:name': { sheetId: 'heroes.background.culture.typical.polder', enHash: 'd39f1c8346b07d054954131835abf22ca0b5c1d5451f2670686ed862405c0ab1' },
+	'element:culture-time-raider:name': { sheetId: 'heroes.background.culture.typical.time-raider', enHash: 'fe9b12309571605520d0b65bda36dde11b48b11db90390197d4c3a9407937aaa' }
 };
