@@ -10,6 +10,7 @@ import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
+import { LanguageName } from '@/l10n/language-text';
 import { LanguageType } from '@/enums/language-type';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
@@ -218,13 +219,16 @@ export const ReferenceModal = (props: Props) => {
 											<div key={n2}>
 												<Field
 													highlight={languageNames.includes(l.name)}
-													label={l.name}
+													label={<LanguageName name={l.name} />}
 													value={l.description}
 												/>
 												{
 													l.related.length > 0 ?
 														<div style={{ padding: '0 0 5px 10px' }}>
-															Related to: {l.related.join(', ')}
+															Related to: {l.related.flatMap((name, index) => [
+																index > 0 ? ', ' : '',
+																<LanguageName key={index} name={name} />
+															])}
 														</div>
 														: null
 												}

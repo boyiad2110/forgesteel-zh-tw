@@ -2,9 +2,9 @@
 
 ## 目前狀態 / 下一步
 
-P2-5 語言 5-1（語言名稱：文化面板與建造頁）待接受。
+P2-5 語言 5-2（語言名稱：英雄側欄、經典表格、Reference、來源書、小隊、協商）待接受。
 
-下一步：P2-5 語言 5-2（英雄側欄 sidebar-panel、經典表格 culture-card、reference-modal、sourcebook-panel、party-modal、negotiation-panel）。
+下一步：P2-6 skill groups。仍要先給對照預覽。
 
 ## 已完成
 
@@ -27,7 +27,8 @@ P2-5 語言 5-1（語言名稱：文化面板與建造頁）待接受。
 | P2-4 文化第一批 | 13 個文化面向（環境、組織、成長經歷） | #15 | 已接受 | 2026-10-06 |
 | P2-4 文化第二批 | 16 個職業型文化名稱 | #16 | 已接受 | 2026-10-06 |
 | P2-4 文化第三批 | 11 個族裔文化名稱 | #17 | 已接受 | 2026-10-06 |
-| P2-5 語言 5-1 | 語言名稱（文化面板與建造頁） | #18 | 待接受 | |
+| P2-5 語言 5-1 | 語言名稱（文化面板與建造頁） | #18 | 已接受 | 2026-10-06 |
+| P2-5 語言 5-2 | 語言名稱（英雄側欄、經典表格、Reference、來源書、小隊、協商） | #19 | 待接受 | |
 
 ## 後面預計做的
 
@@ -37,8 +38,8 @@ P2-5 語言 5-1（語言名稱：文化面板與建造頁）待接受。
 2. 五個屬性名稱（P2-2，已接受）。「Characteristic」這個詞等 P3
 3. ancestries：歐克（P2-3，已接受）；矮人、哈肯人、梅莫人，以及 Forge Steel 版支援（P2-3 族裔續批，已接受）；魔鬼、高等精靈、波德人（P2-3 族裔第三批，已接受）；人類、幻林精靈、時空獵手（P2-3 族裔第四批，已接受）；還魂屍、龍騎士（P2-3 族裔第五批，已接受）。族裔到此全部做完。招式（各族的可購買招式、特色招式）留到之後的招式批次
 4. cultures（P2-4）：第一批 13 個文化面向（已接受）。第二批 16 個職業型文化名稱（已接受）。第三批 11 個族裔文化名稱（已接受）
-5. languages（P2-5）：5-1 語言名稱，文化面板與建造頁（待接受）。5-2 英雄側欄 sidebar-panel、經典表格 culture-card、reference-modal、sourcebook-panel、party-modal、negotiation-panel。語言描述留英文。特性名、Field 標籤 Language、類型標籤、以及「Choose a language.」等 P3。選語言抽屜的搜尋維持只認英文。編輯器下拉留英文
-6. skill groups
+5. languages（P2-5）：5-1 語言名稱，文化面板與建造頁（已接受）。5-2 語言名稱，英雄側欄、經典表格、Reference、來源書、小隊、協商（待接受）。語言描述留英文。特性名、Field 標籤 Language、類型標籤、「I Speak Their Language (…)」、「Unselected」、「None」、「Related to:」、類型標題，以及「Choose a language.」等 P3。sourcebook-panel 編輯模式留英文。經典表格排版估算不改。選語言抽屜的搜尋維持只認英文。編輯器下拉留英文
+6. skill groups（P2-6）。仍要先給對照預覽
 7. basic actions
 8. 招式批次：各族的可購買招式、特色招式。注意 Forge Steel 名稱和書不同：Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）
 9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視、符文銘刻、虹彩鱗片 6 個選項等

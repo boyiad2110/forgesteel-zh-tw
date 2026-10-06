@@ -1,5 +1,6 @@
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
+import { useLanguageNames } from '@/l10n/language-text';
 
 import './culture-card.scss';
 
@@ -9,12 +10,14 @@ interface Props {
 
 export const CultureCard = (props: Props) => {
 	const character = props.character;
+	const languageNames = useLanguageNames(character.languages ?? []);
 
 	const getLanguages = () => {
-		return character.languages?.map(l => {
-			let lang = <li key={l}>{l}</li>;
+		return character.languages?.map((l, n) => {
+			const name = languageNames[n];
+			let lang = <li key={l}>{name}</li>;
 			if (l.includes('I Speak')) {
-				lang = <li key={l}><em>{l}</em></li>;
+				lang = <li key={l}><em>{name}</em></li>;
 			}
 			return lang;
 		});

@@ -45,6 +45,7 @@
 - **選語言抽屜的搜尋維持只認英文（2026-10-06）。** Marc 已核准。
 - **語言分兩批（2026-10-06）。** 5-1 是文化面板與建造頁的語言名稱。5-2 是英雄側欄 sidebar-panel、經典表格 culture-card、reference-modal、sourcebook-panel、party-modal、negotiation-panel。Marc 已核准。
 - **編輯器下拉選單留英文（2026-10-06）。** culture-edit、negotiation-edit、EditLanguage 等不在範圍內，因為下拉值就是存檔內容。Marc 已核准。
+- **5-2 只換語言名稱的顯示（2026-10-06）。** 存檔值、比對、排序、搜尋維持英文。5-1 沒碰過的經典表格 `ChoiceFeatureComponent`、隨從卡、協商表格一起做。`ChoiceFeatureComponent` 只在 LanguageChoice 時換名稱，Choice 與 ItemChoice 不動。程式組出來的「I Speak Their Language (…)」、「Unselected」、「None」、「Related to:」和類型標題留到 P3。sourcebook-panel 編輯模式留英文。經典表格排版估算（sheet-formatter）不改。Marc 已核准。
 
 ## 尚未決定
 

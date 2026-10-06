@@ -1,5 +1,6 @@
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { NegotiationSheet } from '@/models/classic-sheets/negotiation-sheet';
+import { useLanguageNames } from '@/l10n/language-text';
 import { useMemo } from 'react';
 
 import rollT1Icon from '@/assets/icons/power-roll-t1.svg';
@@ -14,6 +15,7 @@ interface Props {
 
 export const NegotiationNpcCard = (props: Props) => {
 	const negotiation = useMemo(() => props.negotiation, [ props.negotiation ]);
+	const languageNames = useLanguageNames(negotiation.languages);
 	return (
 		<div className='negotiation-npc card'>
 			<h2>Negotiating NPC</h2>
@@ -87,7 +89,7 @@ export const NegotiationNpcCard = (props: Props) => {
 			<section className='bordered'>
 				<h3>Skills and Languages</h3>
 				<p className='languages'>
-					Languages: {negotiation.languages.join(', ')}
+					Languages: {languageNames.join(', ')}
 				</p>
 			</section>
 		</div>

@@ -1,8 +1,16 @@
 import { CharacteristicsComponent } from '@/components/panels/classic-sheet/components/characteristics-component';
 import { FollowerSheet } from '@/models/classic-sheets/hero-sheet';
+import { useLanguageNames } from '@/l10n/language-text';
 import { useMemo } from 'react';
 
 import './follower-card.scss';
+
+const FollowerLanguages = (props: { languages?: string[] }) => {
+	const names = useLanguageNames(props.languages ?? []);
+	return (
+		<span>{names.join(', ')}</span>
+	);
+};
 
 interface Props {
 	followers: FollowerSheet[];
@@ -28,7 +36,7 @@ export const FollowersCard = (props: Props) => {
 				</div>
 				<div className='stat languages'>
 					<label>Languages:</label>
-					<span>{follower.languages?.join(', ')}</span>
+					<FollowerLanguages languages={follower.languages} />
 				</div>
 			</div>
 		);
