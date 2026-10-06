@@ -23,6 +23,10 @@ export interface MappingEntry {
  *   enum:<Enum>:<Member>   for example enum:Characteristic:Might
  *   data:<Class>:<field>   for example data:ConditionData:bleeding
  *   ui:<id>                for example ui:library.ancestries
+ *   language:<English>     for example language:Caelian
+ *                          Forge Steel languages have no id. The key is the
+ *                          English name as stored. Kalliac is the orc preset
+ *                          spelling of Kalliak.
  */
 export const mapping: Record<string, MappingEntry> = {
 	'enum:ConditionType:Bleeding': { sheetId: 'term.bleeding', enHash: '68a89d8475444066a48efe8debcef05fc25306d5f950db02d9bec6cc3e61e4d4' },
@@ -266,5 +270,47 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:culture-memonek:name': { sheetId: 'heroes.background.culture.typical.memonek', enHash: '0e1fd6e2ceaf92a0e06bc2784094565f7198b7041e0ddddeffdf68501cdd7cac' },
 	'element:culture-orc:name': { sheetId: 'heroes.background.culture.typical.orc', enHash: '3907af2e3409c8737e09736dee955306c798dc0c1ce5a728d2d806278f4d8e0b' },
 	'element:culture-polder:name': { sheetId: 'heroes.background.culture.typical.polder', enHash: 'd39f1c8346b07d054954131835abf22ca0b5c1d5451f2670686ed862405c0ab1' },
-	'element:culture-time-raider:name': { sheetId: 'heroes.background.culture.typical.time-raider', enHash: 'fe9b12309571605520d0b65bda36dde11b48b11db90390197d4c3a9407937aaa' }
+	'element:culture-time-raider:name': { sheetId: 'heroes.background.culture.typical.time-raider', enHash: 'fe9b12309571605520d0b65bda36dde11b48b11db90390197d4c3a9407937aaa' },
+	'language:Ananjali': { sheetId: 'heroes.language.ananjali', enHash: 'ec6713cb0cdeea64edc8269dca9e115172ed51a533845d12568799c3707f142e' },
+	'language:Anjali': { sheetId: 'heroes.language.anjali', enHash: '7cd39aaf0b7dc275a53e236075e9a1cbfddee01b9758bf393878fd51bb5a3b1f' },
+	'language:Axiomatic': { sheetId: 'heroes.language.axiomatic', enHash: 'e3adb8eb333c6ca2d333a2f86b7546bc20f25cf4b93f3735a8fc75cdc87098b3' },
+	'language:Caelian': { sheetId: 'heroes.language.caelian', enHash: '7c4e2070efa5c2154d2ca9844558e5ec562a549b1a431cafc25792625c96ac7d' },
+	'language:Filliaric': { sheetId: 'heroes.language.filliaric', enHash: '5d9066d21caf30a8d9b4611dbcde991db591a31ed489cd0db07fb602d3d4f7ec' },
+	'language:The First Language': { sheetId: 'heroes.language.first-language', enHash: '460df6da81fde1fa694bd5454ca29e7b796946897ffafa11789a9778157cd78b' },
+	'language:Higaran': { sheetId: 'heroes.language.higaran', enHash: 'b6abef9f9c550f93f54e76f2fcd550a145a294befb48c8f7e6ab7f7f297793d5' },
+	'language:High Kuric': { sheetId: 'heroes.language.high-kuric', enHash: '2407b26ae3f61a9e43064d7ab43ff329306e2f46143f7a54cdc3dbe0f46fa1ba' },
+	'language:High Rhyvian': { sheetId: 'heroes.language.high-rhyvian', enHash: 'f508335b25a4846fceffc1eaf9d9f5b97f2c843091c598738d77e1381ec8f87f' },
+	'language:Hyrallic': { sheetId: 'heroes.language.hyrallic', enHash: 'ed9dd724da0cb98eb8fa638fa927da63dca1b8302c897db90f0f495eb83e15c0' },
+	'language:Illyvric': { sheetId: 'heroes.language.illyvric', enHash: '853f1383e07800b49750df5f6cbafa66894a4d62b563a9e95aa0506f6095c60b' },
+	'language:Kalliak': { sheetId: 'heroes.language.kalliak', enHash: '83ff229f32bb4f2fb0148b420769ede36823b45a8d5a05ecfe61e765efa6863c' },
+	'language:Kalliac': { sheetId: 'heroes.language.kalliak', enHash: '01a0d435686fdf5bf91abdb1b6606975b578b2db6f7be002bfa2a88405ececd7' },
+	'language:Kethaic': { sheetId: 'heroes.language.kethaic', enHash: 'f4f1e7b8a27ca6247a9f1311aed44d5a141775a8710ce758d26a70296ee562c1' },
+	'language:Khamish': { sheetId: 'heroes.language.khamish', enHash: '60dc238258a336b4c433e73d7b170198b5c97a9679fe1a035e7d76aa17c7f7d8' },
+	'language:Khelt': { sheetId: 'heroes.language.khelt', enHash: '0966e477a3a541bd2e436dd28a99f9e703bd43c03f61810bb48d14f4bde82150' },
+	'language:Kheltivari': { sheetId: 'heroes.language.kheltivari', enHash: 'd22587485f822e3ee69bcbf6d57d35aaf8007727eb8382fea144a464a63b8229' },
+	'language:Khemharic': { sheetId: 'heroes.language.khemharic', enHash: '85c20da03436e2252a147622d8bc556b63f0a933508549aa54444c527e968c6e' },
+	'language:Khoursirian': { sheetId: 'heroes.language.khoursirian', enHash: '0627c4744ff454e344bcf696464685bbbfb3ce482caeecb9338648234c9b2dd1' },
+	'language:Low Kuric': { sheetId: 'heroes.language.low-kuric', enHash: 'aeaca27a16950ebff2a6ebfcd46736212852ffeda9f119bdd2597a896f868630' },
+	'language:Low Rhyvian': { sheetId: 'heroes.language.low-rhyvian', enHash: 'e4e280fb2fa0df3dbb160f685e973a4a410520d54b192f6617830a5ee77a89a3' },
+	'language:Mindspeech': { sheetId: 'heroes.language.mindspeech', enHash: '6d037c0722ef5b7d6400dea41ae124ac646ae3655beee91f5ea4ebd07075bd2f' },
+	'language:Oaxuatl': { sheetId: 'heroes.language.oaxuatl', enHash: 'f866f7d1077a69f08ec3f1e2488551547e582467fd660db29932ab4050ca1343' },
+	'language:Old Variac': { sheetId: 'heroes.language.old-variac', enHash: 'f04e6ce6ab02e494c41e3cd6f3d357208ca6623b867163a1774368180a78579c' },
+	'language:Phaedran': { sheetId: 'heroes.language.phaedran', enHash: 'c658dcd20bccf15a7bc12ec063fb6773507f70e319dfbd8ad4f47dfa9967eda2' },
+	'language:Phorialtic': { sheetId: 'heroes.language.phorialtic', enHash: '1a9b0bc81b5e50cc4d4704024b5c8a75d781ee98d68d9a0b512bfee04f83a170' },
+	'language:Proto-Ctholl': { sheetId: 'heroes.language.proto-ctholl', enHash: '92245e0c04a28135fe91f14d5cccbf8eeb383cd609c7ee9e0759c1b18ab91c0b' },
+	'language:Rallarian': { sheetId: 'heroes.language.rallarian', enHash: '267574bb7862fcee6f1e76190b9bc6b53da7d242d3238d3852bba8e53c50575c' },
+	'language:Riojan': { sheetId: 'heroes.language.riojan', enHash: '714365b1bfdb8a61730a5e365eae039ca06c808bcf0e2a6e49274e543572c5d6' },
+	'language:Szetch': { sheetId: 'heroes.language.szetch', enHash: 'a6d4fc4dc79fcd59c3f692428ecb01e7e61d3c4a8c71da49fc71a17944078768' },
+	'language:Tholl': { sheetId: 'heroes.language.tholl', enHash: 'e6084bba5a2d9d9d0a13b484abbe4af31e64b12c8e4fbcade49ca5debf8c6954' },
+	'language:Ullorvic': { sheetId: 'heroes.language.ullorvic', enHash: 'e12e95a1bb3665e123e6e907c437d7e7f71920a624dea85f508c460eafe51861' },
+	'language:Urollialic': { sheetId: 'heroes.language.urollialic', enHash: '0c66e92089cd82dad2c7374f0c196e64ec40a0571d64f48db6b60d96099f4ea1' },
+	'language:Uvalic': { sheetId: 'heroes.language.uvalic', enHash: 'ee1633ff8a288a20c047c858b3fcd78a919964326520d9d9035d94ce2b4d8bd0' },
+	'language:Vaniric': { sheetId: 'heroes.language.vaniric', enHash: '71886b4ea609fef48e0a3fd654dab8c4defb53fcd0c754a943d56e451d58053b' },
+	'language:Variac': { sheetId: 'heroes.language.variac', enHash: '1a004405bf81a35f3271a4245ba87634bb9c45d0b37432ae0964b810a5d04a53' },
+	'language:Vaslorian': { sheetId: 'heroes.language.vaslorian', enHash: '6d9a2d2adbd249dda508af5d3129f206513753a27e508014a54200d13a86c625' },
+	'language:Vastariax': { sheetId: 'heroes.language.vastariax', enHash: '31db36ecb403a951878b8b2b58c66aaf523e511b69091a68bd28bf4ed548d1ac' },
+	'language:Vhoric': { sheetId: 'heroes.language.vhoric', enHash: '508f3ab52cbb07da44fcb86e1cf23e4a1bbc71beef680cbd30df235b845a4c2f' },
+	'language:Voll': { sheetId: 'heroes.language.voll', enHash: '0c7aedeb064042dbfcb99e53a1cca36e67680ed147b38d857e3e00d3daa4b67f' },
+	'language:Yllyric': { sheetId: 'heroes.language.yllyric', enHash: '6c4e8daccb5c5412dc29a442e1d5a7d4e6620490b2a0af42d5aa09d146dd07ce' },
+	'language:Zaliac': { sheetId: 'heroes.language.zaliac', enHash: '5c4d8dcc378ba9fad47237ff88e757e507b4d79237fbd1a57b339197c82fc6f9' }
 };

@@ -335,7 +335,7 @@ describe('sheet english', () => {
 			'element:demo-item:name': { kind: 'wording', note: 'not allowed' }
 		}, null, 2)}\n`);
 
-		expect(formatIssues(checkMapping(root))).toContain('kind must be punctuation or article');
+		expect(formatIssues(checkMapping(root))).toContain('kind must be punctuation, article, or spelling');
 	});
 });
 
@@ -489,11 +489,138 @@ describe('createCulture calls', () => {
 	});
 });
 
+describe('language names', () => {
+	const orden = `export const orden = {
+	name: 'Orden',
+	skills: [
+		{ name: 'Timescape', description: 'Planets.' }
+	],
+	languages: [
+		{ name: 'Caelian', description: 'The common tongue.', type: LanguageType.Common, related: [] },
+		{ name: 'The First Language', description: 'Magic.', type: LanguageType.Cultural, related: [] },
+		{ name: 'Proto-Ctholl', description: 'Demons.', type: LanguageType.Cultural, related: [ 'Tholl' ] }
+	],
+	decoy: [
+		{ name: 'NotLanguage', description: 'Nope.' }
+	]
+};
+`;
+
+	test('reads a language-list literal and a culture preset, and ignores nearby names', () => {
+		const root = scratch();
+		write(root, 'src/data/orden.ts', orden);
+		write(root, 'src/data/orc.ts', `
+			// FactoryLogic.createCulture('Commented', 'Skipped.', CultureType.Ancestral, EnvironmentData.wilderness, OrganizationData.communal, UpbringingData.creative, 'Commented');
+			FactoryLogic.createCulture('Orc', 'Wilderness, communal, creative.', CultureType.Ancestral, EnvironmentData.wilderness, OrganizationData.communal, UpbringingData.creative, 'Kalliac');
+			FactoryLogic.createCulture('Bespoke Culture', 'Choose any.', CultureType.Bespoke);
+		`);
+		write(root, 'src/data/lore.ts', 'export const source = \'Texts or lore in Kalliac\';\n');
+		sheet(root, [ 'heroes.language.caelian', 'heroes.language.first-language', 'heroes.language.proto-ctholl', 'heroes.language.kalliak' ], {
+			'heroes.language.caelian': 'Caelian',
+			'heroes.language.first-language': 'The First Language',
+			'heroes.language.proto-ctholl': 'Proto-Ctholl',
+			'heroes.language.kalliak': 'Kalliak'
+		});
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'language:Caelian', sheetId: 'heroes.language.caelian', enHash: hashEnglish('Caelian') },
+			{ key: 'language:The First Language', sheetId: 'heroes.language.first-language', enHash: hashEnglish('The First Language') },
+			{ key: 'language:Proto-Ctholl', sheetId: 'heroes.language.proto-ctholl', enHash: hashEnglish('Proto-Ctholl') },
+			{ key: 'language:Kalliac', sheetId: 'heroes.language.kalliak', enHash: hashEnglish('Kalliac') }
+		]));
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'language:Kalliac': { kind: 'spelling', note: 'orc preset; official spelling is Kalliak' }
+		}, null, 2)}\n`);
+
+		expect(forgeEnglish(root, 'language:Caelian')).toEqual({ english: 'Caelian' });
+		expect(forgeEnglish(root, 'language:The First Language')).toEqual({ english: 'The First Language' });
+		expect(forgeEnglish(root, 'language:Proto-Ctholl')).toEqual({ english: 'Proto-Ctholl' });
+		expect(forgeEnglish(root, 'language:Kalliac')).toEqual({ english: 'Kalliac' });
+		expect(forgeEnglish(root, 'language:Timescape').error).toContain('not a literal');
+		expect(forgeEnglish(root, 'language:NotLanguage').error).toContain('not a literal');
+		expect(forgeEnglish(root, 'language:Commented').error).toContain('not a literal');
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('fails when the name is only inside a longer string', () => {
+		const root = scratch();
+		write(root, 'src/data/lore.ts', 'export const source = \'Texts or lore in Kalliac\';\n');
+		sheet(root, [ 'heroes.language.kalliak' ], { 'heroes.language.kalliak': 'Kalliak' });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'language:Kalliac', sheetId: 'heroes.language.kalliak', enHash: hashEnglish('Kalliac') }
+		]));
+
+		expect(formatIssues(checkMapping(root))).toContain(
+			'language "Kalliac" is not a literal in a src/data language list or a culture preset language'
+		);
+	});
+
+	test('fails when a spelling difference is not listed', () => {
+		const root = scratch();
+		write(root, 'src/data/orc.ts', 'FactoryLogic.createCulture(\'Orc\', \'Wilderness.\', CultureType.Ancestral, EnvironmentData.wilderness, OrganizationData.communal, UpbringingData.creative, \'Kalliac\');\n');
+		sheet(root, [ 'heroes.language.kalliak' ], { 'heroes.language.kalliak': 'Kalliak' });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'language:Kalliac', sheetId: 'heroes.language.kalliak', enHash: hashEnglish('Kalliac') }
+		]));
+
+		expect(formatIssues(checkMapping(root))).toContain('sheet English does not match Forge Steel English');
+	});
+
+	test('rejects spelling on an element key', () => {
+		const root = scratch();
+		write(root, 'src/data/item.ts', 'export const item = {\n\tid: \'demo-item\',\n\tname: \'Kalliac\'\n};\n');
+		sheet(root, [ 'heroes.language.kalliak' ], { 'heroes.language.kalliak': 'Kalliak' });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'element:demo-item:name', sheetId: 'heroes.language.kalliak', enHash: hashEnglish('Kalliac') }
+		]));
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'element:demo-item:name': { kind: 'spelling', note: 'not a language key' }
+		}, null, 2)}\n`);
+
+		expect(formatIssues(checkMapping(root))).toContain('spelling is only valid on a language: key');
+	});
+
+	test('rejects a spelling exception whose English already matches', () => {
+		const root = scratch();
+		write(root, 'src/data/orden.ts', orden);
+		sheet(root, [ 'heroes.language.caelian' ], { 'heroes.language.caelian': 'Caelian' });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'language:Caelian', sheetId: 'heroes.language.caelian', enHash: hashEnglish('Caelian') }
+		]));
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'language:Caelian': { kind: 'spelling', note: 'already the same' }
+		}, null, 2)}\n`);
+
+		expect(formatIssues(checkMapping(root))).toContain('exception is unnecessary; the English already matches');
+	});
+
+	test('rejects spelling when the difference is only punctuation', () => {
+		const root = scratch();
+		write(root, 'src/data/orden.ts', 'export const orden = {\n\tlanguages: [\n\t\t{ name: \'Proto-Ctholl\', description: \'Demons.\' }\n\t]\n};\n');
+		sheet(root, [ 'heroes.language.proto-ctholl' ], { 'heroes.language.proto-ctholl': 'Proto Ctholl' });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'language:Proto-Ctholl', sheetId: 'heroes.language.proto-ctholl', enHash: hashEnglish('Proto-Ctholl') }
+		]));
+		write(root, 'src/l10n/english-exceptions.json', `${JSON.stringify({
+			'language:Proto-Ctholl': { kind: 'spelling', note: 'hyphen versus space' }
+		}, null, 2)}\n`);
+
+		expect(englishDifference('Proto-Ctholl', 'Proto Ctholl')).toBe('punctuation');
+		expect(formatIssues(checkMapping(root))).toContain('listed as spelling, but the difference is punctuation');
+	});
+});
+
 describe('repository', () => {
 	test('reads upstream English from source text', () => {
 		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });
 		expect(forgeEnglish(repoRoot, 'enum:Characteristic:Might')).toEqual({ english: 'Might' });
 		expect(forgeEnglish(repoRoot, 'data:ConditionData:weakened').english.trim()).toBe('A creature who is weakened takes a bane on power rolls.');
+		expect(forgeEnglish(repoRoot, 'language:Caelian')).toEqual({ english: 'Caelian' });
+		expect(forgeEnglish(repoRoot, 'language:The First Language')).toEqual({ english: 'The First Language' });
+		expect(forgeEnglish(repoRoot, 'language:Proto-Ctholl')).toEqual({ english: 'Proto-Ctholl' });
+		expect(forgeEnglish(repoRoot, 'language:Kalliak')).toEqual({ english: 'Kalliak' });
+		expect(forgeEnglish(repoRoot, 'language:Kalliac')).toEqual({ english: 'Kalliac' });
+		expect(forgeEnglish(repoRoot, 'language:Zaliac')).toEqual({ english: 'Zaliac' });
+		expect(forgeEnglish(repoRoot, 'language:Ullorvic')).toEqual({ english: 'Ullorvic' });
 	});
 
 	test('the two orc rows differ only by punctuation or an article', () => {

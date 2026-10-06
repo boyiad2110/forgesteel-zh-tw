@@ -3,6 +3,7 @@ import { SearchBox, TextInput } from '@/components/controls/text-input/text-inpu
 import { Expander } from '@/components/controls/expander/expander';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Language } from '@/models/language';
+import { LanguageName } from '@/l10n/language-text';
 import { LanguageType } from '@/enums/language-type';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
@@ -48,7 +49,7 @@ export const LanguageSelectModal = (props: Props) => {
 									{
 										subset.map((l, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(l)}>
-												<HeaderText>{l.name}</HeaderText>
+												<HeaderText><LanguageName name={l.name} /></HeaderText>
 												<Markdown text={l.description} />
 											</SelectablePanel>
 										))

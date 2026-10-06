@@ -1,5 +1,6 @@
 import { Button, Drawer, Segmented, Select, Space } from 'antd';
 import { Feature, FeatureLanguageChoiceData } from '@/models/feature';
+import { LanguageName, useLanguageNames } from '@/l10n/language-text';
 import { Collections } from '@/utils/collections';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -23,9 +24,11 @@ interface InfoProps {
 }
 
 export const InfoLanguageChoice = (props: InfoProps) => {
+	const names = useLanguageNames(props.data.selected);
+
 	if (props.data.selected.length > 0) {
 		return (
-			<Field label='Language' value={props.data.selected.join(', ')} />
+			<Field label='Language' value={names.join(', ')} />
 		);
 	}
 
@@ -158,9 +161,9 @@ export const ConfigLanguageChoice = (props: ConfigProps) => {
 							key={n}
 							content={
 								lang ?
-									<Field label={lang.name} value={lang.description} style={{ flex: '1 1 0' }} />
+									<Field label={<LanguageName name={lang.name} />} value={lang.description} style={{ flex: '1 1 0' }} />
 									:
-									<div className='ds-text' style={{ flex: '1 1 0' }}>{language}</div>
+									<div className='ds-text' style={{ flex: '1 1 0' }}><LanguageName name={language} /></div>
 							}
 							onRemove={() => {
 								const dataCopy = Utils.copy(props.data);
