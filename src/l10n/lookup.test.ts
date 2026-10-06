@@ -944,7 +944,7 @@ describe('culture third batch', () => {
 		const sheetId = 'heroes.background.culture.typical.orc';
 
 		expect(key).toBe('element:culture-orc:name');
-		expect(resolveText('zh-TW', key, 'Orc', { [key]: sheetId }, catalog)).toBe('歐克');
+		expect(resolveText('zh-TW', key, 'Orc', { 'element:culture-orc:name': sheetId }, catalog)).toBe('歐克');
 		expect(displayKey(undefined, 'Orc', null)).toBeUndefined();
 		expect(resolveText('zh-TW', undefined, 'Orc', { 'element:ancestry-orc:name': 'heroes.ancestries.orc.name' }, catalog)).toBe('Orc');
 	});
