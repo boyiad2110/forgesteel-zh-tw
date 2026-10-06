@@ -239,5 +239,21 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:up-martial:name': { sheetId: 'heroes.background.culture.upbringing.martial.name', enHash: '3d45b4ae2f59073c71c3586b7c7014632383dfaba211b4ae5517d1dd5c492fa5' },
 	'element:up-martial:description': { sheetId: 'heroes.background.culture.upbringing.martial.description', enHash: 'd1d790febad473ac5b524f628d572293d8b2e931c35ddce1a6cb756f77c7c4df' },
 	'element:up-noble:name': { sheetId: 'heroes.background.culture.upbringing.noble.name', enHash: '190d375ec3483f8f4bbad889ebfe75b071a4a04a13913d68245bf8534069a1c2' },
-	'element:up-noble:description': { sheetId: 'heroes.background.culture.upbringing.noble.description', enHash: 'e2d6186a0079e47a7c34f850acc95608c0313bd6b54474dfbe2c59eec73a6f9e' }
+	'element:up-noble:description': { sheetId: 'heroes.background.culture.upbringing.noble.description', enHash: 'e2d6186a0079e47a7c34f850acc95608c0313bd6b54474dfbe2c59eec73a6f9e' },
+	'element:culture-artisan-guild:name': { sheetId: 'heroes.background.culture.archetypical.artisan-guild', enHash: '78374475012278c9140c505ccc1ef4b58acadd60d09bf387090a34beaac4e903' },
+	'element:culture-borderland-homestead:name': { sheetId: 'heroes.background.culture.archetypical.borderland-homestead', enHash: '6b217447cac7803d59786406d5ff1e778cb11ac0dcf54efdf28196b2edda2f97' },
+	'element:culture-college-conclave:name': { sheetId: 'heroes.background.culture.archetypical.college-conclave', enHash: '5123827f4a2597698e738a5d3adedb632a48c5dad2b5b2c6de3356ed8b733590' },
+	'element:culture-criminal-gang:name': { sheetId: 'heroes.background.culture.archetypical.criminal-gang', enHash: '85c32ecc283eca1f1d7a445511ec1fc422bc572c28030e0e2c56c5b47d32753a' },
+	'element:culture-farming-village:name': { sheetId: 'heroes.background.culture.archetypical.farming-village', enHash: 'a117eddbd0da5a27744461bd923496202e7fe6c02f86a26811ecd1f820da411e' },
+	'element:culture-herding-community:name': { sheetId: 'heroes.background.culture.archetypical.herding-community', enHash: 'caff33f992b4c407844a65f8cdd2f6cbe5027c74df02e60e0e3cbf71088aefb2' },
+	'element:culture-knightly-order:name': { sheetId: 'heroes.background.culture.archetypical.knightly-order', enHash: 'ee3fe14fb2b395af55a1552f470d26ff1a31c9a81f844f79306b1684d279ddde' },
+	'element:culture-pauper-neighborhood:name': { sheetId: 'heroes.background.culture.archetypical.laborer-neighborhood', enHash: '2034b07136c81b7101aa708407d39fa7a3584aa8603ee2b528d30d7b8f283f1c' },
+	'element:culture-mercenary-band:name': { sheetId: 'heroes.background.culture.archetypical.mercenary-band', enHash: '6d255968ef0990362952a1d7e0fcd2488ec04b460a044d16640c0f405b11c7dc' },
+	'element:culture-merchant-caravan:name': { sheetId: 'heroes.background.culture.archetypical.merchant-caravan', enHash: '75bc96e6d3b96a8b7492925004b00c2046eaf3273f669e341379af36757eb937' },
+	'element:culture-monastic-order:name': { sheetId: 'heroes.background.culture.archetypical.monastic-order', enHash: '7d2a75f99f477b71d02e85ae106ed3960dde3be63ea4581e9fd49f238c25165c' },
+	'element:culture-noble-house:name': { sheetId: 'heroes.background.culture.archetypical.noble-house', enHash: '261fdd61202a381ee4a0603e6111cd37201f39d012f17fec489ffb9762d14f47' },
+	'element:culture-outlaw-band:name': { sheetId: 'heroes.background.culture.archetypical.outlaw-band', enHash: '57ffff93a6e70978828068257d7e339937e168202e997872ff70779ee0827324' },
+	'element:culture-pirate-crew:name': { sheetId: 'heroes.background.culture.archetypical.pirate-crew', enHash: '65b98d29fa5de666a14f7705435e43cfa79bca92881fdb65d7e1774a09b0328c' },
+	'element:culture-telepathic-hive:name': { sheetId: 'heroes.background.culture.archetypical.telepathic-hive', enHash: 'c17bbc0b4f8f5d1188341d7476c4de1376d0827ef6b2ebd0ff8a809b7ed650dd' },
+	'element:culture-traveling-entertainers:name': { sheetId: 'heroes.background.culture.archetypical.traveling-entertainers', enHash: 'af6c95eb67f113a4c8e0daf7ff0fafe65cb31cc5135af4d0c35db91e2b9b2182' }
 };

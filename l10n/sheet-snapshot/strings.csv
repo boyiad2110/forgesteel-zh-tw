@@ -604,23 +604,23 @@ heroes.ancestries.wode-elf.traits.heading,APPROVED,幻林精靈特性,Wode Elf T
 heroes.ancestries.wode-elf.traits.intro,APPROVED,幻林精靈英雄可以獲得以下特性。,Wode elf heroes have access to the following traits.,2026-10-01,,,,
 heroes.background.culture.alertness-sidebar.heading,APPROVED,但我真的很想要「警覺」,But I Really Want Alertness,2026-10-02,,,,
 heroes.background.culture.alertness-sidebar.rules,APPROVED,如果你建立的文化沒有提供你想要的技能，可以詢問導演是否能修改各文化面向所提供的選項。例如，你完全可以主張，擁有「貴族」成長經歷的文化應該讓角色可以選擇「警覺」技能；畢竟，生活在那些覬覦你權力的人群之中，就代表你必須時時留意周遭。,"If the culture you create doesn’t grant a skill that you want, check with your Director about modifying what the culture’s aspects offer. For instance, you can easily make the case that a culture with the noble upbringing aspect should give a character access to the Alertness skill, given that living among those who covet your power means always being aware of your surroundings.",2026-10-02,,,,
-heroes.background.culture.archetypical.artisan-guild,APPROVED,工匠公會｜城市｜官僚｜創作,Artisan guild Urban Bureaucratic Creative,2026-10-02,,,,
-heroes.background.culture.archetypical.borderland-homestead,APPROVED,邊境家園｜荒野｜平權｜勞動,Borderland homestead Wilderness Communal Labor,2026-10-02,,,,
-heroes.background.culture.archetypical.college-conclave,APPROVED,學院集會｜城市｜官僚｜學術,College conclave Urban Bureaucratic Academic,2026-10-02,,,,
-heroes.background.culture.archetypical.criminal-gang,APPROVED,犯罪幫派｜城市｜平權｜法外,Criminal gang Urban Communal Lawless,2026-10-02,,,,
-heroes.background.culture.archetypical.farming-village,APPROVED,農耕村落｜鄉村｜官僚｜勞動,Farming village Rural Bureaucratic Labor,2026-10-02,,,,
+heroes.background.culture.archetypical.artisan-guild,APPROVED,工匠公會｜城市｜官僚｜創作,Artisan guild Urban Bureaucratic Creative,2026-10-02,Artisan Guild,工匠公會,APPROVED,3e56db6cea84a2e99b4f8389b4bd3534ba092b79adad588205c3606f05463d56
+heroes.background.culture.archetypical.borderland-homestead,APPROVED,邊境家園｜荒野｜平權｜勞動,Borderland homestead Wilderness Communal Labor,2026-10-02,Borderland Homestead,邊境家園,APPROVED,40702a5b76cb980099884f1fd84a2e7494b786ce6d90d2d299ba40ccc9b2c1a6
+heroes.background.culture.archetypical.college-conclave,APPROVED,學院集會｜城市｜官僚｜學術,College conclave Urban Bureaucratic Academic,2026-10-02,College Conclave,學院集會,APPROVED,b9d4bdefc7094ff5e6f7c0a8743a2fdab50ea55c8371b0acf691735b974dbfac
+heroes.background.culture.archetypical.criminal-gang,APPROVED,犯罪幫派｜城市｜平權｜法外,Criminal gang Urban Communal Lawless,2026-10-02,Criminal Gang,犯罪幫派,APPROVED,fc560fd48514953e36d085dcc06beee98b546de011f4abca4b1ec5a5864f3992
+heroes.background.culture.archetypical.farming-village,APPROVED,農耕村落｜鄉村｜官僚｜勞動,Farming village Rural Bureaucratic Labor,2026-10-02,Farming Village,農耕村落,APPROVED,4b4810204b59f3393519e6938719aab965730928b95d722905b1edd421969d2c
 heroes.background.culture.archetypical.heading,APPROVED,文化範例,Archetypical Cultures,2026-10-02,,,,
-heroes.background.culture.archetypical.herding-community,APPROVED,牧民社群｜遊牧｜平權｜勞動,Herding community Nomadic Communal Labor,2026-10-02,,,,
-heroes.background.culture.archetypical.knightly-order,APPROVED,騎士團｜隱居｜官僚｜尚武,Knightly order Secluded Bureaucratic Martial,2026-10-02,,,,
-heroes.background.culture.archetypical.laborer-neighborhood,APPROVED,勞工社區｜城市｜平權｜勞動,Laborer neighborhood Urban Communal Labor,2026-10-02,,,,
-heroes.background.culture.archetypical.mercenary-band,APPROVED,傭兵團｜遊牧｜官僚｜尚武,Mercenary band Nomadic Bureaucratic Martial,2026-10-02,,,,
-heroes.background.culture.archetypical.merchant-caravan,APPROVED,商隊｜遊牧｜官僚｜創作,Merchant caravan Nomadic Bureaucratic Creative,2026-10-02,,,,
-heroes.background.culture.archetypical.monastic-order,APPROVED,修道會｜隱居｜官僚｜學術,Monastic order Secluded Bureaucratic Academic,2026-10-02,,,,
-heroes.background.culture.archetypical.noble-house,APPROVED,貴族世家｜城市｜官僚｜貴族,Noble house Urban Bureaucratic Noble,2026-10-02,,,,
-heroes.background.culture.archetypical.outlaw-band,APPROVED,亡命團體｜荒野｜平權｜法外,Outlaw band Wilderness Communal Lawless,2026-10-02,,,,
-heroes.background.culture.archetypical.pirate-crew,APPROVED,海盜團｜遊牧｜平權｜法外,Pirate crew Nomadic Communal Lawless,2026-10-02,,,,
-heroes.background.culture.archetypical.telepathic-hive,APPROVED,心靈巢穴｜隱居｜平權｜創作,Telepathic hive Secluded Communal Creative,2026-10-02,,,,
-heroes.background.culture.archetypical.traveling-entertainers,APPROVED,巡迴藝人｜遊牧｜平權｜創作,Traveling entertainers Nomadic Communal Creative,2026-10-02,,,,
+heroes.background.culture.archetypical.herding-community,APPROVED,牧民社群｜遊牧｜平權｜勞動,Herding community Nomadic Communal Labor,2026-10-02,Herding Community,牧民社群,APPROVED,f03f7e856e2d0f81c365a8e6412df4309224eb6fc5383a59521d9133ae84be6f
+heroes.background.culture.archetypical.knightly-order,APPROVED,騎士團｜隱居｜官僚｜尚武,Knightly order Secluded Bureaucratic Martial,2026-10-02,Knightly Order,騎士團,APPROVED,9997466607a689ae6bd9fafe058dd0a4592a96294b53137e7590607c4658e259
+heroes.background.culture.archetypical.laborer-neighborhood,APPROVED,勞工社區｜城市｜平權｜勞動,Laborer neighborhood Urban Communal Labor,2026-10-02,Pauper Neighborhood,勞工社區,APPROVED,a8cc895422b545f9cd6a06dedb2a0e24ec20ce9230200b49afc7ca99a35bca08
+heroes.background.culture.archetypical.mercenary-band,APPROVED,傭兵團｜遊牧｜官僚｜尚武,Mercenary band Nomadic Bureaucratic Martial,2026-10-02,Mercenary Band,傭兵團,APPROVED,9943c041ea9aecd9c76abb05ed27321d90bb5b91eabb03fb3cce582aaef098a7
+heroes.background.culture.archetypical.merchant-caravan,APPROVED,商隊｜遊牧｜官僚｜創作,Merchant caravan Nomadic Bureaucratic Creative,2026-10-02,Merchant Caravan,商隊,APPROVED,78430fce4f67873ec62cf7943b4cfe45f7dc2e1127d825e9faecfdaf096ac7d0
+heroes.background.culture.archetypical.monastic-order,APPROVED,修道會｜隱居｜官僚｜學術,Monastic order Secluded Bureaucratic Academic,2026-10-02,Monastic Order,修道會,APPROVED,6fed9b892d5b106b83bd0ebfbe97b785e03ce6d1b34a42536095808dd9ae3fc9
+heroes.background.culture.archetypical.noble-house,APPROVED,貴族世家｜城市｜官僚｜貴族,Noble house Urban Bureaucratic Noble,2026-10-02,Noble House,貴族世家,APPROVED,242e19ece7d9ecc97befa216b2a2a504d476e7e61e4937514a18a9c0d269e235
+heroes.background.culture.archetypical.outlaw-band,APPROVED,亡命團體｜荒野｜平權｜法外,Outlaw band Wilderness Communal Lawless,2026-10-02,Outlaw Band,亡命團體,APPROVED,da5341e6c83823500381656cada9c8d027c342874cc99c0a6d494e5289ce8faa
+heroes.background.culture.archetypical.pirate-crew,APPROVED,海盜團｜遊牧｜平權｜法外,Pirate crew Nomadic Communal Lawless,2026-10-02,Pirate Crew,海盜團,APPROVED,49ca3f416d4243a4a623658761fdef68adba0880a12882325f1c221dbaff79ea
+heroes.background.culture.archetypical.telepathic-hive,APPROVED,心靈巢穴｜隱居｜平權｜創作,Telepathic hive Secluded Communal Creative,2026-10-02,Telepathic Hive,心靈巢穴,APPROVED,35265132c94b65fab06b6eee5bc344fc8a81c2d922cfef5682933a1547a96ac1
+heroes.background.culture.archetypical.traveling-entertainers,APPROVED,巡迴藝人｜遊牧｜平權｜創作,Traveling entertainers Nomadic Communal Creative,2026-10-02,Traveling Entertainers,巡迴藝人,APPROVED,ba94bc4cb899e34a6669842a8f18e1514e59bcabf016ed6ca6bf33b272756416
 heroes.background.culture.benefits.heading,APPROVED,文化增益,Culture Benefits,2026-10-02,,,,
 heroes.background.culture.benefits.rules,APPROVED,"你選擇或創建的文化會給你以下好處：
 • 除了凱利安語（通用語），你還會說自己文化的語言。

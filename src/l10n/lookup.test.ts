@@ -5,6 +5,7 @@ import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/cha
 import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { Characteristic } from '@/enums/characteristic';
+import { core } from '@/data/sourcebooks/official/core';
 import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
@@ -795,10 +796,8 @@ describe('ancestry fifth batch', () => {
 describe('culture first batch', () => {
 	const catalog = strings as Catalog;
 
-	test('this batch adds 26 keys and 13 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(215);
+	test('english exceptions stay at nine', () => {
 		expect(Object.keys(exceptions)).toHaveLength(9);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(47);
 	});
 
 	test('the 13 aspect names and first-sentence descriptions use the approved Chinese', () => {
@@ -838,11 +837,9 @@ describe('culture first batch', () => {
 		expect(communal.fs?.zh.includes('社群會共同做出')).toBe(false);
 	});
 
-	test('culture names, languages, and skill options stay unmapped', () => {
+	test('languages, skill options, and cultures outside this batch stay unmapped', () => {
 		const unmapped = [
 			'culture-bespoke-culture',
-			'culture-artisan-guild',
-			'culture-knightly-order',
 			'culture-orc',
 			'culture-dragon-knight'
 		];
@@ -855,5 +852,66 @@ describe('culture first batch', () => {
 		expect(mapping['element:up-creative:options']).toBeUndefined();
 		expect(mapping['element:up-labor:options']).toBeUndefined();
 		expect(mapping['element:up-martial:options']).toBeUndefined();
+	});
+});
+
+describe('culture second batch', () => {
+	const catalog = strings as Catalog;
+	const cultures = core.cultures;
+
+	test('this batch adds 16 name keys and 16 Forge Steel rows', () => {
+		expect(Object.keys(mapping)).toHaveLength(231);
+		expect(Object.keys(exceptions)).toHaveLength(9);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(63);
+	});
+
+	test('the 16 professional culture names use the approved Forge Steel Chinese', () => {
+		const rows: [ string, string, string ][] = [
+			[ 'artisan-guild', 'heroes.background.culture.archetypical.artisan-guild', '工匠公會' ],
+			[ 'borderland-homestead', 'heroes.background.culture.archetypical.borderland-homestead', '邊境家園' ],
+			[ 'college-conclave', 'heroes.background.culture.archetypical.college-conclave', '學院集會' ],
+			[ 'criminal-gang', 'heroes.background.culture.archetypical.criminal-gang', '犯罪幫派' ],
+			[ 'farming-village', 'heroes.background.culture.archetypical.farming-village', '農耕村落' ],
+			[ 'herding-community', 'heroes.background.culture.archetypical.herding-community', '牧民社群' ],
+			[ 'knightly-order', 'heroes.background.culture.archetypical.knightly-order', '騎士團' ],
+			[ 'pauper-neighborhood', 'heroes.background.culture.archetypical.laborer-neighborhood', '勞工社區' ],
+			[ 'mercenary-band', 'heroes.background.culture.archetypical.mercenary-band', '傭兵團' ],
+			[ 'merchant-caravan', 'heroes.background.culture.archetypical.merchant-caravan', '商隊' ],
+			[ 'monastic-order', 'heroes.background.culture.archetypical.monastic-order', '修道會' ],
+			[ 'noble-house', 'heroes.background.culture.archetypical.noble-house', '貴族世家' ],
+			[ 'outlaw-band', 'heroes.background.culture.archetypical.outlaw-band', '亡命團體' ],
+			[ 'pirate-crew', 'heroes.background.culture.archetypical.pirate-crew', '海盜團' ],
+			[ 'telepathic-hive', 'heroes.background.culture.archetypical.telepathic-hive', '心靈巢穴' ],
+			[ 'traveling-entertainers', 'heroes.background.culture.archetypical.traveling-entertainers', '巡迴藝人' ]
+		];
+		for (const [ slug, sheetId, zh ] of rows) {
+			const culture = cultures.find(item => item.id === `culture-${slug}`);
+			if (!culture) {
+				throw new Error(`missing culture-${slug}`);
+			}
+			const key = `element:culture-${slug}:name`;
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].fs?.en).toBe(culture.name);
+			expect(catalog[sheetId].fs?.zh).toBe(zh);
+			expect(catalog[sheetId].zh.startsWith(`${zh}｜`)).toBe(true);
+			expect(resolveText('zh-TW', key, culture.name, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, culture.name, { [key]: sheetId }, catalog)).toBe(culture.name);
+			expect(mapping[`element:culture-${slug}:description`]).toBeUndefined();
+			expect(resolveText('zh-TW', undefined, culture.description, {}, catalog)).toBe(culture.description);
+		}
+	});
+
+	test('an ancestral culture name stays English on its own scope and when unscoped', () => {
+		const scope = {
+			id: 'culture-orc',
+			fields: elementScopeFields({ id: 'culture-orc', name: 'Orc', description: 'Wilderness, communal, creative.' })
+		};
+		const key = displayKey(undefined, 'Orc', scope);
+
+		expect(key).toBe('element:culture-orc:name');
+		expect(mapping['element:culture-orc:name']).toBeUndefined();
+		expect(resolveText('zh-TW', key, 'Orc', {}, catalog)).toBe('Orc');
+		expect(displayKey(undefined, 'Orc', null)).toBeUndefined();
+		expect(resolveText('zh-TW', undefined, 'Orc', { 'element:ancestry-orc:name': 'heroes.ancestries.orc.name' }, catalog)).toBe('Orc');
 	});
 });

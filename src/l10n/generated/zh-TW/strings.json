@@ -1881,26 +1881,51 @@
   },
   "heroes.background.culture.archetypical.artisan-guild": {
     "en": "Artisan guild Urban Bureaucratic Creative",
+    "fs": {
+      "basisHash": "3e56db6cea84a2e99b4f8389b4bd3534ba092b79adad588205c3606f05463d56",
+      "en": "Artisan Guild",
+      "zh": "工匠公會"
+    },
     "updated": "2026-10-02",
     "zh": "工匠公會｜城市｜官僚｜創作"
   },
   "heroes.background.culture.archetypical.borderland-homestead": {
     "en": "Borderland homestead Wilderness Communal Labor",
+    "fs": {
+      "basisHash": "40702a5b76cb980099884f1fd84a2e7494b786ce6d90d2d299ba40ccc9b2c1a6",
+      "en": "Borderland Homestead",
+      "zh": "邊境家園"
+    },
     "updated": "2026-10-02",
     "zh": "邊境家園｜荒野｜平權｜勞動"
   },
   "heroes.background.culture.archetypical.college-conclave": {
     "en": "College conclave Urban Bureaucratic Academic",
+    "fs": {
+      "basisHash": "b9d4bdefc7094ff5e6f7c0a8743a2fdab50ea55c8371b0acf691735b974dbfac",
+      "en": "College Conclave",
+      "zh": "學院集會"
+    },
     "updated": "2026-10-02",
     "zh": "學院集會｜城市｜官僚｜學術"
   },
   "heroes.background.culture.archetypical.criminal-gang": {
     "en": "Criminal gang Urban Communal Lawless",
+    "fs": {
+      "basisHash": "fc560fd48514953e36d085dcc06beee98b546de011f4abca4b1ec5a5864f3992",
+      "en": "Criminal Gang",
+      "zh": "犯罪幫派"
+    },
     "updated": "2026-10-02",
     "zh": "犯罪幫派｜城市｜平權｜法外"
   },
   "heroes.background.culture.archetypical.farming-village": {
     "en": "Farming village Rural Bureaucratic Labor",
+    "fs": {
+      "basisHash": "4b4810204b59f3393519e6938719aab965730928b95d722905b1edd421969d2c",
+      "en": "Farming Village",
+      "zh": "農耕村落"
+    },
     "updated": "2026-10-02",
     "zh": "農耕村落｜鄉村｜官僚｜勞動"
   },
@@ -1911,56 +1936,111 @@
   },
   "heroes.background.culture.archetypical.herding-community": {
     "en": "Herding community Nomadic Communal Labor",
+    "fs": {
+      "basisHash": "f03f7e856e2d0f81c365a8e6412df4309224eb6fc5383a59521d9133ae84be6f",
+      "en": "Herding Community",
+      "zh": "牧民社群"
+    },
     "updated": "2026-10-02",
     "zh": "牧民社群｜遊牧｜平權｜勞動"
   },
   "heroes.background.culture.archetypical.knightly-order": {
     "en": "Knightly order Secluded Bureaucratic Martial",
+    "fs": {
+      "basisHash": "9997466607a689ae6bd9fafe058dd0a4592a96294b53137e7590607c4658e259",
+      "en": "Knightly Order",
+      "zh": "騎士團"
+    },
     "updated": "2026-10-02",
     "zh": "騎士團｜隱居｜官僚｜尚武"
   },
   "heroes.background.culture.archetypical.laborer-neighborhood": {
     "en": "Laborer neighborhood Urban Communal Labor",
+    "fs": {
+      "basisHash": "a8cc895422b545f9cd6a06dedb2a0e24ec20ce9230200b49afc7ca99a35bca08",
+      "en": "Pauper Neighborhood",
+      "zh": "勞工社區"
+    },
     "updated": "2026-10-02",
     "zh": "勞工社區｜城市｜平權｜勞動"
   },
   "heroes.background.culture.archetypical.mercenary-band": {
     "en": "Mercenary band Nomadic Bureaucratic Martial",
+    "fs": {
+      "basisHash": "9943c041ea9aecd9c76abb05ed27321d90bb5b91eabb03fb3cce582aaef098a7",
+      "en": "Mercenary Band",
+      "zh": "傭兵團"
+    },
     "updated": "2026-10-02",
     "zh": "傭兵團｜遊牧｜官僚｜尚武"
   },
   "heroes.background.culture.archetypical.merchant-caravan": {
     "en": "Merchant caravan Nomadic Bureaucratic Creative",
+    "fs": {
+      "basisHash": "78430fce4f67873ec62cf7943b4cfe45f7dc2e1127d825e9faecfdaf096ac7d0",
+      "en": "Merchant Caravan",
+      "zh": "商隊"
+    },
     "updated": "2026-10-02",
     "zh": "商隊｜遊牧｜官僚｜創作"
   },
   "heroes.background.culture.archetypical.monastic-order": {
     "en": "Monastic order Secluded Bureaucratic Academic",
+    "fs": {
+      "basisHash": "6fed9b892d5b106b83bd0ebfbe97b785e03ce6d1b34a42536095808dd9ae3fc9",
+      "en": "Monastic Order",
+      "zh": "修道會"
+    },
     "updated": "2026-10-02",
     "zh": "修道會｜隱居｜官僚｜學術"
   },
   "heroes.background.culture.archetypical.noble-house": {
     "en": "Noble house Urban Bureaucratic Noble",
+    "fs": {
+      "basisHash": "242e19ece7d9ecc97befa216b2a2a504d476e7e61e4937514a18a9c0d269e235",
+      "en": "Noble House",
+      "zh": "貴族世家"
+    },
     "updated": "2026-10-02",
     "zh": "貴族世家｜城市｜官僚｜貴族"
   },
   "heroes.background.culture.archetypical.outlaw-band": {
     "en": "Outlaw band Wilderness Communal Lawless",
+    "fs": {
+      "basisHash": "da5341e6c83823500381656cada9c8d027c342874cc99c0a6d494e5289ce8faa",
+      "en": "Outlaw Band",
+      "zh": "亡命團體"
+    },
     "updated": "2026-10-02",
     "zh": "亡命團體｜荒野｜平權｜法外"
   },
   "heroes.background.culture.archetypical.pirate-crew": {
     "en": "Pirate crew Nomadic Communal Lawless",
+    "fs": {
+      "basisHash": "49ca3f416d4243a4a623658761fdef68adba0880a12882325f1c221dbaff79ea",
+      "en": "Pirate Crew",
+      "zh": "海盜團"
+    },
     "updated": "2026-10-02",
     "zh": "海盜團｜遊牧｜平權｜法外"
   },
   "heroes.background.culture.archetypical.telepathic-hive": {
     "en": "Telepathic hive Secluded Communal Creative",
+    "fs": {
+      "basisHash": "35265132c94b65fab06b6eee5bc344fc8a81c2d922cfef5682933a1547a96ac1",
+      "en": "Telepathic Hive",
+      "zh": "心靈巢穴"
+    },
     "updated": "2026-10-02",
     "zh": "心靈巢穴｜隱居｜平權｜創作"
   },
   "heroes.background.culture.archetypical.traveling-entertainers": {
     "en": "Traveling entertainers Nomadic Communal Creative",
+    "fs": {
+      "basisHash": "ba94bc4cb899e34a6669842a8f18e1514e59bcabf016ed6ca6bf33b272756416",
+      "en": "Traveling Entertainers",
+      "zh": "巡迴藝人"
+    },
     "updated": "2026-10-02",
     "zh": "巡迴藝人｜遊牧｜平權｜創作"
   },

@@ -28,7 +28,12 @@
  * enHash is sha256 hex of the Forge Steel English at approval time.
  * The check recomputes that English in plain Node, with no browser:
  *
- *   element  — the string literal on the object in src/data whose id matches
+ *   element  — the string literal on the object in src/data whose id matches.
+ *              FactoryLogic.createCulture is included when the name and the
+ *              description are both string literals. The id is
+ *              culture-${name.replace(' ', '-').toLowerCase()}, and replace
+ *              changes only the first space. An empty name, or an argument
+ *              that is not a string literal, is skipped.
  *   enum     — the string literal assigned to that member in src/enums
  *   ui       — the value of that id in src/l10n/ui-english.json
  *   data     — the template literal on that static field of the class in src/data
@@ -373,9 +378,43 @@ const objectsWithId = text => {
 	return found;
 };
 
+/**
+ * FactoryLogic.createCulture uses name.replace(' ', '-'), which changes only
+ * the first space. A call is indexed only when both arguments are string
+ * literals and the name is not empty (an empty name becomes a guid).
+ */
+const culturesFromCalls = text => {
+	const tokens = tokenize(text);
+	const found = [];
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
+		if (token.kind !== 'ident' || token.value !== 'createCulture') {
+			continue;
+		}
+		const name = tokens[i + 1];
+		const description = tokens[i + 2];
+		if (name?.kind !== 'string' || description?.kind !== 'string' || name.value === '') {
+			continue;
+		}
+		const id = `culture-${name.value.replace(' ', '-').toLowerCase()}`;
+		const fields = new Map();
+		fields.set('id', { text: id, line: token.line });
+		fields.set('name', { text: name.value, line: name.line });
+		fields.set('description', { text: description.value, line: description.line });
+		found.push({ fields });
+	}
+	return found;
+};
+
 const indexElements = root => {
 	const index = new Map();
 	const duplicates = new Set();
+	const remember = (id, record) => {
+		if (index.has(id)) {
+			duplicates.add(id);
+		}
+		index.set(id, record);
+	};
 	for (const file of walk(path.join(root, 'src/data'))) {
 		if (!file.endsWith('.ts')) {
 			continue;
@@ -384,12 +423,12 @@ const indexElements = root => {
 		if (text === null || text.includes('\0')) {
 			continue;
 		}
+		const rel = posix(path.relative(root, file));
 		for (const object of objectsWithId(text)) {
-			const id = object.fields.get('id').text;
-			if (index.has(id)) {
-				duplicates.add(id);
-			}
-			index.set(id, { fields: object.fields, file: posix(path.relative(root, file)) });
+			remember(object.fields.get('id').text, { fields: object.fields, file: rel });
+		}
+		for (const culture of culturesFromCalls(text)) {
+			remember(culture.fields.get('id').text, { fields: culture.fields, file: rel });
 		}
 	}
 	return { index, duplicates };

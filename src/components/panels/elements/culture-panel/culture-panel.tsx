@@ -1,4 +1,5 @@
 import { Culture } from '@/models/culture';
+import { ElementScope } from '@/l10n/element-scope';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -30,25 +31,27 @@ export const CulturePanel = (props: Props) => {
 
 	return (
 		<ErrorBoundary>
-			<div className={props.mode === PanelMode.Full ? 'culture-panel' : 'culture-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('culture', props.culture.id) : undefined}>
-				<HeaderText
-					level={1}
-					tags={tags}
-				>
-					{props.culture.name || 'Unnamed Culture'}
-				</HeaderText>
-				<Markdown text={props.culture.description} />
-				{
-					props.mode === PanelMode.Full ?
-						<div style={{ paddingTop: '10px' }}>
-							<FeaturePanel feature={props.culture.language} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
-							{props.culture.environment ? <FeaturePanel feature={props.culture.environment} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} /> : null}
-							{props.culture.organization ? <FeaturePanel feature={props.culture.organization} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} /> : null}
-							{props.culture.upbringing ? <FeaturePanel feature={props.culture.upbringing} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} /> : null}
-						</div>
-						: null
-				}
-			</div>
+			<ElementScope element={props.culture}>
+				<div className={props.mode === PanelMode.Full ? 'culture-panel' : 'culture-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('culture', props.culture.id) : undefined}>
+					<HeaderText
+						level={1}
+						tags={tags}
+					>
+						{props.culture.name || 'Unnamed Culture'}
+					</HeaderText>
+					<Markdown text={props.culture.description} />
+					{
+						props.mode === PanelMode.Full ?
+							<div style={{ paddingTop: '10px' }}>
+								<FeaturePanel feature={props.culture.language} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
+								{props.culture.environment ? <FeaturePanel feature={props.culture.environment} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} /> : null}
+								{props.culture.organization ? <FeaturePanel feature={props.culture.organization} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} /> : null}
+								{props.culture.upbringing ? <FeaturePanel feature={props.culture.upbringing} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} /> : null}
+							</div>
+							: null
+					}
+				</div>
+			</ElementScope>
 		</ErrorBoundary>
 	);
 };
