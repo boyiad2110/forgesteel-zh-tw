@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
 import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
-import { skillListKey, skillNameKey } from '@/l10n/skill-text';
+import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text';
 import { Characteristic } from '@/enums/characteristic';
 import { core } from '@/data/sourcebooks/official/core';
 import { createElement } from 'react';
@@ -1100,5 +1100,22 @@ describe('skill first batch', () => {
 		expect(resolveText('zh-TW', skillNameKey('Home Brew'), 'Home Brew', {}, catalog)).toBe('Home Brew');
 		expect(resolveText('en', skillNameKey('Home Brew'), 'Home Brew', {}, catalog)).toBe('Home Brew');
 		expect(resolveText('zh-TW', skillListKey('Custom'), 'Custom', {}, catalog)).toBe('Custom');
+	});
+
+	test('useSkillListNames maps Lore and leaves Custom unchanged', async () => {
+		await loadCatalog();
+		const stored = [ 'Lore', 'Custom' ];
+		const Probe = (props: { lists: readonly string[] }) => {
+			const names = useSkillListNames(props.lists);
+			return names.join('\n');
+		};
+
+		expect(renderToStaticMarkup(createElement(Probe, { lists: stored }))).toBe([
+			'學識類',
+			'Custom'
+		].join('\n'));
+
+		setLanguage('en');
+		expect(renderToStaticMarkup(createElement(Probe, { lists: stored }))).toBe(stored.join('\n'));
 	});
 });

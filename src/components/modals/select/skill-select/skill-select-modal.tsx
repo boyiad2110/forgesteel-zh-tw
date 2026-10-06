@@ -1,6 +1,6 @@
 import { Button, Divider, Space } from 'antd';
 import { SearchBox, TextInput } from '@/components/controls/text-input/text-input';
-import { SkillListName, SkillName } from '@/l10n/skill-text';
+import { SkillListName, SkillName, useSkillListNames } from '@/l10n/skill-text';
 import { Expander } from '@/components/controls/expander/expander';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -15,6 +15,8 @@ import { useState } from 'react';
 
 import './skill-select-modal.scss';
 
+const skillLists = [ SkillList.Crafting, SkillList.Exploration, SkillList.Interpersonal, SkillList.Intrigue, SkillList.Lore, SkillList.Custom ];
+
 interface Props {
 	skills: Skill[];
 	sourcebooks: Sourcebook[];
@@ -27,6 +29,8 @@ interface Props {
 export const SkillSelectModal = (props: Props) => {
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ customSkill, setCustomSkill ] = useState<string>('');
+	const listLabels = useSkillListNames(skillLists);
+	const listLabel = (list: SkillList) => listLabels[skillLists.indexOf(list)] ?? list;
 
 	const excluded = props.excludeSkills || [];
 
@@ -53,7 +57,7 @@ export const SkillSelectModal = (props: Props) => {
 			content={
 				<div className='skill-select-modal'>
 					{
-						[ SkillList.Crafting, SkillList.Exploration, SkillList.Interpersonal, SkillList.Intrigue, SkillList.Lore, SkillList.Custom ].map(list => {
+						skillLists.map(list => {
 							const subset = skills.filter(s => s.list === list);
 							if (subset.length === 0) {
 								return null;
@@ -65,7 +69,7 @@ export const SkillSelectModal = (props: Props) => {
 									{
 										subset.map((s, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-												<HeaderText tags={[ s.list ]}><SkillName name={s.name} /></HeaderText>
+												<HeaderText tags={[ listLabel(s.list) ]}><SkillName name={s.name} /></HeaderText>
 												<Markdown text={s.description} />
 											</SelectablePanel>
 										))
@@ -83,7 +87,7 @@ export const SkillSelectModal = (props: Props) => {
 										{
 											otherSkills.map((s, n) => (
 												<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
-													<HeaderText tags={[ s.list ]}><SkillName name={s.name} /></HeaderText>
+													<HeaderText tags={[ listLabel(s.list) ]}><SkillName name={s.name} /></HeaderText>
 													<Markdown text={s.description} />
 												</SelectablePanel>
 											))

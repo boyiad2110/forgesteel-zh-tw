@@ -19,6 +19,7 @@ import { ModifierLogic } from '@/logic/modifier-logic';
 import { PerkList } from '@/enums/perk-list';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
+import { SkillName } from '@/l10n/skill-text';
 
 import rollT1 from '@/assets/icons/power-roll-t1.svg';
 import rollT2 from '@/assets/icons/power-roll-t2.svg';
@@ -111,7 +112,8 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 	let selectedOptions;
 	if (feature.data.selected.length) {
 		selectedOptions = feature.data.selected.map(s => typeof s === 'string' ? s : s.name).map(s => {
-			return (<div className='feature-iteration' key={s}>{s}</div>);
+			const shown = feature.type === FeatureType.SkillChoice ? <SkillName name={s} /> : s;
+			return (<div className='feature-iteration' key={s}>{shown}</div>);
 		});
 	} else {
 		selectedOptions = [

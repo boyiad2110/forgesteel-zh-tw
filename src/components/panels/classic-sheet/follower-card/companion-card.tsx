@@ -8,10 +8,18 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { StaminaComponent } from '@/components/panels/classic-sheet/components/stamina-component';
 import { Utils } from '@/utils/utils';
 import { useMemo } from 'react';
+import { useSkillNames } from '@/l10n/skill-text';
 
 import './follower-card.scss';
 
 import starIcon from '@/assets/icons/star.svg';
+
+const CompanionSkills = (props: { skills: string[] }) => {
+	const names = useSkillNames(props.skills);
+	return (
+		<span>{names.join(', ')}</span>
+	);
+};
 
 interface Props {
 	companion: FollowerSheet;
@@ -56,7 +64,7 @@ export const CompanionCard = (props: Props) => {
 						companion.skills?.length ?
 							<div className='stat skills'>
 								<label>Skills:</label>
-								<span>{companion.skills?.join(', ')}</span>
+								<CompanionSkills skills={companion.skills} />
 							</div>
 							: null
 					}

@@ -45,6 +45,17 @@ export const useSkillListName = (list: string): string => {
 	return useL10nText(skillListKey(list), list);
 };
 
+/**
+ * Group names for a list, in the same order. One subscription, so the list
+ * length can change. English mode returns the stored names unchanged.
+ * SkillList.Custom has no row, so it stays the Forge Steel English.
+ */
+export const useSkillListNames = (lists: readonly string[]): string[] => {
+	useSyncExternalStore(subscribeToLanguage, getLanguage, getLanguage);
+	useSyncExternalStore(subscribeToCatalog, getCatalogTick, getCatalogTick);
+	return lists.map(list => translate(skillListKey(list), list));
+};
+
 /** One skill group. Use this inside a list, where a hook cannot be called. */
 export const SkillListName = (props: { list: string }) => {
 	return useSkillListName(props.list);
