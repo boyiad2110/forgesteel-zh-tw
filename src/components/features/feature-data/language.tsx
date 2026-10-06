@@ -6,6 +6,7 @@ import { Hero } from '@/models/hero';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { useLanguageName } from '@/l10n/language-text';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -16,8 +17,10 @@ interface InfoProps {
 }
 
 export const InfoLanguage = (props: InfoProps) => {
+	const name = useLanguageName(props.data.language);
+
 	return (
-		<Field label='Language' value={props.data.language} />
+		<Field label='Language' value={name} />
 	);
 };
 

@@ -58,6 +58,9 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/features/feature-data/choice.tsx`（建造時已選特性的名稱）
 - `src/components/pages/library/library-list/library-list-page.tsx`（圖書館清單上的名稱）
 - `src/components/panels/elements/culture-panel/culture-panel.tsx`（文化名稱）
+- `src/components/features/feature-data/language-choice.tsx`（已選語言名稱）
+- `src/components/modals/select/language-select/language-select-modal.tsx`（選語言抽屜的語言名稱）
+- `src/components/features/feature-data/language.tsx`（語言名稱）
 
 ## 舊的失敗嘗試，不要再做
 

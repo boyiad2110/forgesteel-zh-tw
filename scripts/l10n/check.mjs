@@ -24,6 +24,7 @@
  *   'enum:<Enum>:<Member>':  { sheetId, enHash }
  *   'ui:<id>':               { sheetId, enHash }
  *   'data:<Class>:<field>':  { sheetId, enHash, stripHeading? }
+ *   'language:<English>':    { sheetId, enHash }
  *
  * enHash is sha256 hex of the Forge Steel English at approval time.
  * The check recomputes that English in plain Node, with no browser:
@@ -37,6 +38,12 @@
  *   enum     — the string literal assigned to that member in src/enums
  *   ui       — the value of that id in src/l10n/ui-english.json
  *   data     — the template literal on that static field of the class in src/data
+ *   language — the English name after `language:`. It must be a string-literal
+ *              `name` on an object in a `languages` array under src/data, or
+ *              the preset-language string of FactoryLogic.createCulture (the
+ *              third string argument). The hash is that name. A name that is
+ *              not one of those literals fails. Upstream language objects have
+ *              no id, so this check does not invent one.
  *
  * A template literal cooks CR LF and a lone CR into LF. The check does the
  * same to every recomputed English string, and to Sheet English before a
@@ -55,6 +62,10 @@
  * src/l10n/english-exceptions.json with a kind (`punctuation` or `article`)
  * and a note. Any other difference fails. An exception whose texts already
  * match, or whose kind does not match the actual difference, also fails.
+ * `spelling` is a third kind, and only on a `language:` key: the Forge Steel
+ * name is not the sheet Source Name (Kalliac versus Kalliak). Each spelling
+ * exception must be approved by Marc. The check rejects `spelling` on every
+ * other key type.
  *
  * A strings.json row may include `fs`, the Forge Steel version. For a mapped
  * key whose row has `fs`, English is compared with `fs.en` instead of the
@@ -95,7 +106,8 @@ const KEY_PATTERNS = [
 	/^element:[a-z0-9]+(?:[-_][a-z0-9]+)*:[A-Za-z][A-Za-z0-9]*$/,
 	/^enum:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
 	/^ui:[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/,
-	/^data:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/
+	/^data:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
+	/^language:[A-Za-z0-9]+(?:[ '\u2019-][A-Za-z0-9]+)*$/
 ];
 const BINARY_EXT = new Set([
 	'.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico',
@@ -579,6 +591,163 @@ const cookedEnglish = resolved => {
 	return resolved;
 };
 
+/**
+ * `name` string literals on objects in a `languages` array.
+ * A later sibling property of the same object ends the array.
+ */
+const languageListNames = text => {
+	const tokens = tokenize(text);
+	const names = [];
+	let depth = 0;
+	let listDepth = null;
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
+		if (token.kind === 'brace' && token.value === '{') {
+			depth += 1;
+			continue;
+		}
+		if (token.kind === 'brace' && token.value === '}') {
+			depth -= 1;
+			if (listDepth !== null && depth < listDepth) {
+				listDepth = null;
+			}
+			continue;
+		}
+		if (token.kind !== 'ident' || tokens[i + 1]?.kind !== 'colon') {
+			continue;
+		}
+		if (token.value === 'languages') {
+			listDepth = depth;
+			continue;
+		}
+		if (listDepth !== null && depth === listDepth) {
+			listDepth = null;
+			continue;
+		}
+		if (listDepth !== null && depth === listDepth + 1 && token.value === 'name' && tokens[i + 2]?.kind === 'string') {
+			names.push(tokens[i + 2].value);
+		}
+	}
+	return names;
+};
+
+/** String literals that are arguments of one call, not of a nested call. */
+const topLevelStrings = (text, openParen) => {
+	const strings = [];
+	let depth = 1;
+	let i = openParen + 1;
+	let line = lineOf(text, openParen);
+	while (i < text.length && depth > 0) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(text, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = readString(text, i, line);
+			if (depth === 1 && parsed.ok) {
+				strings.push(parsed.value);
+			}
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (char === '(') {
+			depth += 1;
+		} else if (char === ')') {
+			depth -= 1;
+		}
+		i += 1;
+	}
+	return strings;
+};
+
+/**
+ * The preset language is the third string argument of createCulture.
+ * The first two are the culture name and description.
+ */
+const presetLanguages = text => {
+	const names = [];
+	let i = 0;
+	let line = 1;
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(text, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = readString(text, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (text.startsWith('createCulture', i)) {
+			const before = i > 0 ? text[i - 1] : '';
+			const afterIndex = i + 'createCulture'.length;
+			const after = text[afterIndex] ?? '';
+			if (!/[A-Za-z0-9_$]/.test(before) && !/[A-Za-z0-9_$]/.test(after)) {
+				let j = afterIndex;
+				while (j < text.length && /[ \t\r\n]/.test(text[j])) {
+					j += 1;
+				}
+				if (text[j] === '(') {
+					const strings = topLevelStrings(text, j);
+					if (strings.length >= 3 && strings[2] !== '') {
+						names.push(strings[2]);
+					}
+				}
+			}
+			i = afterIndex;
+			continue;
+		}
+		i += 1;
+	}
+	return names;
+};
+
+const indexLanguageNames = root => {
+	const names = new Set();
+	for (const file of walk(path.join(root, 'src/data'))) {
+		if (!file.endsWith('.ts')) {
+			continue;
+		}
+		const text = read(file);
+		if (text === null || text.includes('\0')) {
+			continue;
+		}
+		for (const name of languageListNames(text)) {
+			names.add(name);
+		}
+		for (const name of presetLanguages(text)) {
+			names.add(name);
+		}
+	}
+	return names;
+};
+
+const languageEnglish = (root, cache, name) => {
+	cache.languages ??= indexLanguageNames(root);
+	if (!cache.languages.has(name)) {
+		return { error: `language ${JSON.stringify(name)} is not a literal in a src/data language list or a culture preset language` };
+	}
+	return { english: name };
+};
+
 export const forgeEnglish = (root, key, cache = { current: null }) => {
 	const element = /^element:([^:]+):([^:]+)$/.exec(key);
 	if (element) {
@@ -596,7 +765,11 @@ export const forgeEnglish = (root, key, cache = { current: null }) => {
 	if (ui) {
 		return cookedEnglish(uiEnglish(root, ui[1]));
 	}
-	return { error: 'key is not an element, enum, data, or ui key' };
+	const language = /^language:(.+)$/.exec(key);
+	if (language) {
+		return cookedEnglish(languageEnglish(root, cache, language[1]));
+	}
+	return { error: 'key is not an element, enum, data, ui, or language key' };
 };
 
 const matchBrace = (text, open) => {
@@ -813,7 +986,7 @@ const loadSheetRows = dir => {
 	return rows;
 };
 
-const EXCEPTION_KINDS = new Set([ 'punctuation', 'article' ]);
+const EXCEPTION_KINDS = new Set([ 'punctuation', 'article', 'spelling' ]);
 const EXCEPTIONS_FILE = 'src/l10n/english-exceptions.json';
 
 const loadExceptions = root => {
@@ -845,7 +1018,7 @@ const loadExceptions = root => {
 			continue;
 		}
 		if (!EXCEPTION_KINDS.has(value.kind)) {
-			errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, key, 'kind must be punctuation or article'));
+			errors.push(issue('sheet-english', EXCEPTIONS_FILE, null, key, 'kind must be punctuation, article, or spelling'));
 			continue;
 		}
 		if (typeof value.note !== 'string' || value.note.trim() === '') {
@@ -947,6 +1120,27 @@ const checkSheetEnglish = (entry, sheetEn, forgeEn, exception) => {
 				null,
 				entry.key,
 				'exception is unnecessary; the English already matches'
+			);
+		}
+		return null;
+	}
+	if (exception?.kind === 'spelling') {
+		if (!entry.key.startsWith('language:')) {
+			return issue(
+				'sheet-english',
+				EXCEPTIONS_FILE,
+				null,
+				entry.key,
+				'spelling is only valid on a language: key'
+			);
+		}
+		if (diff !== 'content') {
+			return issue(
+				'sheet-english',
+				EXCEPTIONS_FILE,
+				null,
+				entry.key,
+				`listed as spelling, but the difference is ${diff}`
 			);
 		}
 		return null;

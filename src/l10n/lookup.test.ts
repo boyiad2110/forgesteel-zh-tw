@@ -9,7 +9,9 @@ import { core } from '@/data/sourcebooks/official/core';
 import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
+import { languageNameKey } from '@/l10n/language-text';
 import { mapping } from '@/l10n/mapping';
+import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
 import strings from '@/l10n/generated/zh-TW/strings.json';
 
@@ -497,8 +499,8 @@ describe('ancestry third batch', () => {
 describe('ancestry fourth batch', () => {
 	const catalog = strings as Catalog;
 
-	test('english exceptions stay at nine', () => {
-		expect(Object.keys(exceptions)).toHaveLength(9);
+	test('english exceptions stay at ten', () => {
+		expect(Object.keys(exceptions)).toHaveLength(10);
 	});
 
 	test('human, wode elf, and time raider names use the approved Chinese', () => {
@@ -656,8 +658,8 @@ describe('ancestry fourth batch', () => {
 describe('ancestry fifth batch', () => {
 	const catalog = strings as Catalog;
 
-	test('english exceptions stay at nine', () => {
-		expect(Object.keys(exceptions)).toHaveLength(9);
+	test('english exceptions stay at ten', () => {
+		expect(Object.keys(exceptions)).toHaveLength(10);
 	});
 
 	test('revenant and dragon knight names use the approved Chinese', () => {
@@ -797,8 +799,8 @@ describe('ancestry fifth batch', () => {
 describe('culture first batch', () => {
 	const catalog = strings as Catalog;
 
-	test('english exceptions stay at nine', () => {
-		expect(Object.keys(exceptions)).toHaveLength(9);
+	test('english exceptions stay at ten', () => {
+		expect(Object.keys(exceptions)).toHaveLength(10);
 	});
 
 	test('the 13 aspect names and first-sentence descriptions use the approved Chinese', () => {
@@ -899,8 +901,8 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(242);
-		expect(Object.keys(exceptions)).toHaveLength(9);
+		expect(Object.keys(mapping)).toHaveLength(284);
+		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(Object.values(catalog).filter(row => row.fs).length).toBe(74);
 	});
 
@@ -959,5 +961,71 @@ describe('culture third batch', () => {
 
 		expect(resolveText('zh-TW', key, culture.name, { [key]: sheetId }, catalog)).toBe('高等精靈');
 		expect(catalog['heroes.ancestries.high-elf.name'].fs?.en).toBe('Elf (high)');
+	});
+});
+
+describe('language first batch', () => {
+	const catalog = names as Catalog;
+	const samples = new Map<string, string>([
+		[ 'Caelian', '凱利安語' ],
+		[ 'Kalliak', '卡力語' ],
+		[ 'Zaliac', '札力語' ],
+		[ 'The First Language', '太古語' ],
+		[ 'Proto-Ctholl', '原墮語' ],
+		[ 'Ullorvic', '烏洛維克語' ]
+	]);
+
+	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
+		expect(Object.keys(mapping)).toHaveLength(284);
+		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
+		expect(Object.keys(exceptions)).toHaveLength(10);
+		expect(exceptions['language:Kalliac']).toEqual({
+			kind: 'spelling',
+			note: 'Kalliac appears only as the orc culture preset language in src/data/ancestries/orc.ts. Kalliak is the official spelling. Names K9 already notes this.'
+		});
+	});
+
+	test('the 41 matching language names use the approved Chinese, and descriptions stay English', () => {
+		const listed = orden.languages.filter(language => language.name !== 'Za\'hariax');
+		const seen = new Set<string>();
+
+		expect(listed).toHaveLength(41);
+		expect(orden.languages.some(language => language.name === 'Za\u2019hariax')).toBe(false);
+
+		for (const language of listed) {
+			const key = languageNameKey(language.name);
+			const entry = mapping[key];
+			if (!entry) {
+				throw new Error(`missing ${key}`);
+			}
+			const sheetId = entry.sheetId;
+			expect(sheetId.startsWith('heroes.language.')).toBe(true);
+			expect(catalog[sheetId].en).toBe(language.name);
+			expect(resolveText('zh-TW', key, language.name, { [key]: sheetId }, catalog)).toBe(catalog[sheetId].zh);
+			expect(resolveText('en', key, language.name, { [key]: sheetId }, catalog)).toBe(language.name);
+			expect(resolveText('zh-TW', undefined, language.description, {}, catalog)).toBe(language.description);
+			const sample = samples.get(language.name);
+			if (sample) {
+				expect(catalog[sheetId].zh).toBe(sample);
+				seen.add(language.name);
+			}
+		}
+
+		expect(seen.size).toBe(samples.size);
+		expect(mapping['language:Za\'hariax']).toBeUndefined();
+		expect(mapping['language:Za\u2019hariax']).toBeUndefined();
+	});
+
+	test('Kalliac displays 卡力語 and English mode keeps the Forge Steel spelling', () => {
+		const key = languageNameKey('Kalliac');
+		const sheetId = 'heroes.language.kalliak';
+
+		expect(key).toBe('language:Kalliac');
+		expect(mapping[key]).toMatchObject({ sheetId });
+		expect(catalog[sheetId].en).toBe('Kalliak');
+		expect(catalog[sheetId].zh).toBe('卡力語');
+		expect(resolveText('zh-TW', key, 'Kalliac', { [key]: sheetId }, catalog)).toBe('卡力語');
+		expect(resolveText('en', key, 'Kalliac', { [key]: sheetId }, catalog)).toBe('Kalliac');
+		expect(resolveText('zh-TW', undefined, 'Spoken by orcs; an offshoot of Zaliac.', {}, catalog)).toBe('Spoken by orcs; an offshoot of Zaliac.');
 	});
 });

@@ -34,5 +34,9 @@
   "element:ancestry-time-raider:description": {
     "kind": "punctuation",
     "note": "Forge Steel puts spaces around the em dashes and has no final period."
+  },
+  "language:Kalliac": {
+    "kind": "spelling",
+    "note": "Kalliac appears only as the orc culture preset language in src/data/ancestries/orc.ts. Kalliak is the official spelling. Names K9 already notes this."
   }
 }
