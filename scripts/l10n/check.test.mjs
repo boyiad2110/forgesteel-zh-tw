@@ -751,6 +751,85 @@ describe('skill names', () => {
 	});
 });
 
+describe('action names', () => {
+	const actions = `export const book = {
+	id: 'advance',
+	name: 'Advance'
+};
+export const strike = {
+	id: 'free-strike',
+	name: 'Free Strike'
+};
+`;
+
+	const catalog = rows => {
+		const data = {};
+		for (const [ id, en, zh ] of rows) {
+			data[id] = { en, updated: '2026-10-06', zh };
+		}
+		return `${JSON.stringify(data, null, 2)}\n`;
+	};
+
+	const writeCatalog = (root, rows) => {
+		const text = catalog(rows);
+		for (const name of [ 'glossary.json', 'names.json', 'strings.json' ]) {
+			write(root, `src/l10n/generated/zh-TW/${name}`, text);
+		}
+	};
+
+	test('passes when the glossary chinese equals the rules heading', () => {
+		const root = scratch();
+		write(root, 'src/data/ability-data.ts', actions);
+		writeCatalog(root, [
+			[ 'term.advance-action', 'Advance', '行進' ],
+			[ 'heroes.actions.advance.rules', 'Advance', '行進\n\n規則' ],
+			[ 'term.free-strike', 'Free Strike', '基礎打擊' ]
+		]);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'element:advance:name', sheetId: 'term.advance-action', enHash: hashEnglish('Advance') },
+			{ key: 'element:free-strike:name', sheetId: 'term.free-strike', enHash: hashEnglish('Free Strike') }
+		]));
+
+		expect(forgeEnglish(root, 'element:advance:name')).toEqual({ english: 'Advance' });
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('fails when the heading no longer equals the glossary chinese', () => {
+		const root = scratch();
+		write(root, 'src/data/ability-data.ts', actions);
+		writeCatalog(root, [
+			[ 'term.advance-action', 'Advance', '行進' ],
+			[ 'heroes.actions.advance.rules', 'Advance', '前進\n\n規則' ]
+		]);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'element:advance:name', sheetId: 'term.advance-action', enHash: hashEnglish('Advance') }
+		]));
+
+		const text = formatIssues(checkMapping(root));
+
+		expect(text).toContain('term.advance-action');
+		expect(text).toContain('heroes.actions.advance.rules');
+		expect(text).toContain('source row no longer contains this name');
+	});
+
+	test('fails when the source row is missing', () => {
+		const root = scratch();
+		write(root, 'src/data/ability-data.ts', actions);
+		writeCatalog(root, [
+			[ 'term.advance-action', 'Advance', '行進' ]
+		]);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'element:advance:name', sheetId: 'term.advance-action', enHash: hashEnglish('Advance') }
+		]));
+
+		const text = formatIssues(checkMapping(root));
+
+		expect(text).toContain('term.advance-action');
+		expect(text).toContain('heroes.actions.advance.rules');
+		expect(text).toContain('source row no longer contains this name');
+	});
+});
+
 describe('repository', () => {
 	test('reads upstream English from source text', () => {
 		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });
@@ -768,6 +847,10 @@ describe('repository', () => {
 		expect(forgeEnglish(repoRoot, 'skill:Timescape')).toEqual({ english: 'Timescape' });
 		expect(forgeEnglish(repoRoot, 'skill:Climb')).toEqual({ english: 'Climb' });
 		expect(forgeEnglish(repoRoot, 'enum:SkillList:Lore')).toEqual({ english: 'Lore' });
+		expect(forgeEnglish(repoRoot, 'element:charge:name')).toEqual({ english: 'Charge' });
+		expect(forgeEnglish(repoRoot, 'element:make-assist-test:name')).toEqual({ english: 'Make Or Assist A Test' });
+		expect(forgeEnglish(repoRoot, 'element:search:name')).toEqual({ english: 'Search for Hidden Creatures' });
+		expect(forgeEnglish(repoRoot, 'element:opportunity-attack:name')).toEqual({ english: 'Opportunity Attack' });
 	});
 
 	test('the two orc rows differ only by punctuation or an article', () => {

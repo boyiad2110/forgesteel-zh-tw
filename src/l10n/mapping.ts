@@ -20,6 +20,9 @@ export interface MappingEntry {
  *
  * Keys:
  *   element:<id>:<field>   for example element:ancestry-orc:name
+ *                          Basic action names use element:<ability id>:name.
+ *                          Sixteen point at term.<slug>-action. Free Strike,
+ *                          Opportunity Attack, and Claw Dirt reuse older rows.
  *   enum:<Enum>:<Member>   for example enum:Characteristic:Might
  *   data:<Class>:<field>   for example data:ConditionData:bleeding
  *   ui:<id>                for example ui:library.ancestries
@@ -382,5 +385,26 @@ export const mapping: Record<string, MappingEntry> = {
 	'skill:Rumors': { sheetId: 'term.rumors-skill', enHash: '7cde65835071f1c1352478db6812cf1e9abeaad435f05d449184cfe02628556e' },
 	'skill:Society': { sheetId: 'term.society-skill', enHash: 'd5acfd8330f5caaee7d1421788c912dc9c5da654bbc226a904798d1a30de9953' },
 	'skill:Strategy': { sheetId: 'term.strategy-skill', enHash: '6b27710dfaafdcec2b06b7d3c6abe56d98162848b08a9da01e88863e2add413f' },
-	'skill:Timescape': { sheetId: 'term.timescape-skill', enHash: 'a837f5563437ca1f7b30ecb193c2388ffbd68a7535217218ca0e2082de6f667a' }
+	'skill:Timescape': { sheetId: 'term.timescape-skill', enHash: 'a837f5563437ca1f7b30ecb193c2388ffbd68a7535217218ca0e2082de6f667a' },
+	// Basic action names. The description stays English until a later batch.
+	// Free Strike (melee), Free Strike (ranged), Go Prone, and Swap stay English.
+	'element:advance:name': { sheetId: 'term.advance-action', enHash: '775988890d65203232eff854d2c0862ce648c94ab0d1fcab68aa7bcca91866f9' },
+	'element:disengage:name': { sheetId: 'term.disengage-action', enHash: '8f5776cce47ea63d30932c17fd969bac2dc2ffadeb131a2ea1d9127965dad72c' },
+	'element:ride:name': { sheetId: 'term.ride-action', enHash: '439efdc566bb419f29ded4a5eb33673c5d6f899532366b645270af8ce3ad5d1e' },
+	'element:aid-attack:name': { sheetId: 'term.aid-attack-action', enHash: 'd1e7274d40f1da0ef2cbb2f902068184be60488e19a876a8c5786c1f1dda29f1' },
+	'element:catch-breath:name': { sheetId: 'term.catch-breath-action', enHash: '230e167f8546b9c509d6faf962879b5500c0b3d224bbee807ada00968f565b27' },
+	'element:escape-grab:name': { sheetId: 'term.escape-grab-action', enHash: 'd50c7f1d7a01ef6d5773baf2e5e7e4ffe451254d4d601c0316b954b882ed8d69' },
+	'element:grab:name': { sheetId: 'term.grab-action', enHash: '7d935f258918d1a5b94b12c6509388a466f996c68ca6f254dc1ced2738a38a4b' },
+	'element:hide:name': { sheetId: 'term.hide-action', enHash: 'ac20a57bfde0bbc40bfe70895eb1cfacc944aaff06ca784053623c569b3e1b3d' },
+	'element:knockback:name': { sheetId: 'term.knockback-action', enHash: 'bb0db9f7893c418a1de33224b102a5509425596f4fbe3c88f8851acf87e07bed' },
+	'element:make-assist-test:name': { sheetId: 'term.make-or-assist-test-action', enHash: '1c19cf7db5c8c5717c7e3e7fd5e0fd37ed9ac1d5ca6bf985d60c5d874f24b93b' },
+	'element:search:name': { sheetId: 'term.search-for-hidden-creatures-action', enHash: '22e45bf72db8c3d296f21a514176c74ab97f4ae1e6360acc72ac40379d0d7421' },
+	'element:stand-up:name': { sheetId: 'term.stand-up-action', enHash: 'b394d16a2847c239901a2cd0275ad8c7dc246f20b65ffd0bdca2a38c3ec36005' },
+	'element:use-consumable:name': { sheetId: 'term.use-consumable-action', enHash: 'b1b086e014f189bf68a02149a05afa09db0fdd1444e2326a8bdcdd84d177863a' },
+	'element:charge:name': { sheetId: 'term.charge-action', enHash: 'ff9f88ce353a222860a9f826971a2b2ee3da6b06c696d67537285890506d4bda' },
+	'element:defend:name': { sheetId: 'term.defend-action', enHash: '8e2b77617882e02292923215f823f9bcecf697a16e793ad38e172f98c6c64023' },
+	'element:heal:name': { sheetId: 'term.heal-action', enHash: '421acf13c1cb044e40e0fe1c1e88656e604113be888d92b2ecbb136252023b17' },
+	'element:free-strike:name': { sheetId: 'term.free-strike', enHash: '680c9c6887cc1413346ab691e8b538f3843254747329ac35a49e36f7adf00524' },
+	'element:opportunity-attack:name': { sheetId: 'term.opportunity-attack', enHash: '61ffd11e24708ab572358bdc0a90e4b6fbb094b593dff29b17a677eca541a20f' },
+	'element:claw-dirt:name': { sheetId: 'term.claw-dirt', enHash: 'dbcc873f14302c46216fb18e163aec6658aa255f8ba431c0b6c2efdc6f7e530f' }
 };

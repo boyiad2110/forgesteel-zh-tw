@@ -19,6 +19,11 @@
     "updated": "2026-09-29",
     "zh": "相鄰"
   },
+  "term.advance-action": {
+    "en": "Advance",
+    "updated": "2026-10-06",
+    "zh": "行進"
+  },
   "term.advance-move-action": {
     "en": "Advance Move Action",
     "updated": "2026-09-29",
@@ -28,6 +33,11 @@
     "en": "Agility",
     "updated": "2026-09-29",
     "zh": "敏捷"
+  },
+  "term.aid-attack-action": {
+    "en": "Aid Attack",
+    "updated": "2026-10-06",
+    "zh": "助攻"
   },
   "term.aid-attack-maneuver": {
     "en": "Aid Attack Maneuver",
@@ -149,6 +159,11 @@
     "updated": "2026-10-06",
     "zh": "木工"
   },
+  "term.catch-breath-action": {
+    "en": "Catch Breath",
+    "updated": "2026-10-06",
+    "zh": "喘息"
+  },
   "term.catch-breath-maneuver": {
     "en": "Catch Breath Maneuver",
     "updated": "2026-09-29",
@@ -168,6 +183,11 @@
     "en": "Characteristics",
     "updated": "2026-09-29",
     "zh": "屬性"
+  },
+  "term.charge-action": {
+    "en": "Charge",
+    "updated": "2026-10-06",
+    "zh": "衝鋒"
   },
   "term.charge-main-action": {
     "en": "Charge Main Action",
@@ -354,6 +374,11 @@
     "updated": "2026-09-29",
     "zh": "暈眩"
   },
+  "term.defend-action": {
+    "en": "Defend",
+    "updated": "2026-10-06",
+    "zh": "防禦"
+  },
   "term.defend-main-action": {
     "en": "Defend Main Action",
     "updated": "2026-09-29",
@@ -383,6 +408,11 @@
     "en": "Discipline",
     "updated": "2026-09-29",
     "zh": "紀律"
+  },
+  "term.disengage-action": {
+    "en": "Disengage",
+    "updated": "2026-10-06",
+    "zh": "撤離"
   },
   "term.disengage-move-action": {
     "en": "Disengage Move Action",
@@ -489,6 +519,11 @@
     "updated": "2026-10-06",
     "zh": "脫逃"
   },
+  "term.escape-grab-action": {
+    "en": "Escape Grab",
+    "updated": "2026-10-06",
+    "zh": "掙脫"
+  },
   "term.escape-grab-maneuver": {
     "en": "Escape Grab Maneuver",
     "updated": "2026-09-29",
@@ -594,6 +629,11 @@
     "updated": "2026-09-29",
     "zh": "神明"
   },
+  "term.grab-action": {
+    "en": "Grab",
+    "updated": "2026-10-06",
+    "zh": "擒抱"
+  },
   "term.grab-maneuver": {
     "en": "Grab Maneuver",
     "updated": "2026-09-29",
@@ -634,6 +674,11 @@
     "updated": "2026-10-06",
     "zh": "馴獸"
   },
+  "term.heal-action": {
+    "en": "Heal",
+    "updated": "2026-10-06",
+    "zh": "治療"
+  },
   "term.heal-main-action": {
     "en": "Heal Main Action",
     "updated": "2026-09-29",
@@ -663,6 +708,11 @@
     "en": "Heroic Resource",
     "updated": "2026-09-29",
     "zh": "英雄資源"
+  },
+  "term.hide-action": {
+    "en": "Hide",
+    "updated": "2026-10-06",
+    "zh": "躲藏"
   },
   "term.hide-maneuver": {
     "en": "Hide Maneuver",
@@ -769,6 +819,11 @@
     "updated": "2026-09-29",
     "zh": "套裝"
   },
+  "term.knockback-action": {
+    "en": "Knockback",
+    "updated": "2026-10-06",
+    "zh": "擊退"
+  },
   "term.knockback-maneuver": {
     "en": "Knockback Maneuver",
     "updated": "2026-09-29",
@@ -833,6 +888,11 @@
     "en": "Main Action",
     "updated": "2026-09-29",
     "zh": "主要動作"
+  },
+  "term.make-or-assist-test-action": {
+    "en": "Make Or Assist A Test",
+    "updated": "2026-10-06",
+    "zh": "進行或協助考驗"
   },
   "term.malice": {
     "en": "Malice",
@@ -1194,6 +1254,11 @@
     "updated": "2026-09-29",
     "zh": "獎勵"
   },
+  "term.ride-action": {
+    "en": "Ride",
+    "updated": "2026-10-06",
+    "zh": "騎乘"
+  },
   "term.ride-move-action": {
     "en": "Ride Move Action",
     "updated": "2026-09-29",
@@ -1243,6 +1308,11 @@
     "en": "Saving Throw",
     "updated": "2026-09-29",
     "zh": "豁免"
+  },
+  "term.search-for-hidden-creatures-action": {
+    "en": "Search for Hidden Creatures",
+    "updated": "2026-10-06",
+    "zh": "搜索隱藏生物"
   },
   "term.search-for-hidden-creatures-maneuver": {
     "en": "Search for Hidden Creatures Maneuver",
@@ -1333,6 +1403,11 @@
     "en": "Stamina",
     "updated": "2026-09-29",
     "zh": "體力"
+  },
+  "term.stand-up-action": {
+    "en": "Stand Up",
+    "updated": "2026-10-06",
+    "zh": "起身"
   },
   "term.stand-up-maneuver": {
     "en": "Stand Up Maneuver",
@@ -1523,6 +1598,11 @@
     "en": "Urban",
     "updated": "2026-10-01",
     "zh": "城市"
+  },
+  "term.use-consumable-action": {
+    "en": "Use Consumable",
+    "updated": "2026-10-06",
+    "zh": "使用消耗品"
   },
   "term.vasloria": {
     "en": "Vasloria",

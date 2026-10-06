@@ -3,8 +3,10 @@ term.ability,APPROVED,招式,Ability,2026-09-29
 term.ability-roll,APPROVED,招式檢定,Ability Roll,2026-09-29
 term.academic,APPROVED,學術,Academic,2026-10-01
 term.adjacent,APPROVED,相鄰,Adjacent,2026-09-29
+term.advance-action,APPROVED,行進,Advance,2026-10-06
 term.advance-move-action,APPROVED,行進移動動作,Advance Move Action,2026-09-29
 term.agility,APPROVED,敏捷,Agility,2026-09-29
+term.aid-attack-action,APPROVED,助攻,Aid Attack,2026-10-06
 term.aid-attack-maneuver,APPROVED,助攻機動動作,Aid Attack Maneuver,2026-09-29
 term.alchemy-skill,APPROVED,鍊金,Alchemy,2026-10-06
 term.alertness-skill,APPROVED,警覺,Alertness,2026-10-06
@@ -29,10 +31,12 @@ term.burst,APPROVED,爆發,Burst,2026-09-29
 term.capital,APPROVED,元城,Capital,2026-09-29
 term.career,APPROVED,生涯,Career,2026-09-29
 term.carpentry-skill,APPROVED,木工,Carpentry,2026-10-06
+term.catch-breath-action,APPROVED,喘息,Catch Breath,2026-10-06
 term.catch-breath-maneuver,APPROVED,喘息機動動作,Catch Breath Maneuver,2026-09-29
 term.ceiling,APPROVED,天花板,Ceiling,2026-09-29
 term.censor,APPROVED,懲戒者,Censor,2026-09-29
 term.characteristic,APPROVED,屬性,Characteristics,2026-09-29
+term.charge-action,APPROVED,衝鋒,Charge,2026-10-06
 term.charge-main-action,APPROVED,衝鋒主要動作,Charge Main Action,2026-09-29
 term.clarity,APPROVED,明晰,Clarity,2026-09-29
 term.class,APPROVED,職業,Class,2026-09-29
@@ -70,12 +74,14 @@ term.damage-type,APPROVED,傷害類型,Damage Type,2026-09-29
 term.damage-weakness,APPROVED,傷害弱點,Damage Weakness,2026-09-29
 term.damaging-terrain,APPROVED,致傷地形,Damaging Terrain,2026-09-29
 term.dazed,APPROVED,暈眩,Dazed,2026-09-29
+term.defend-action,APPROVED,防禦,Defend,2026-10-06
 term.defend-main-action,APPROVED,防禦主要動作,Defend Main Action,2026-09-29
 term.devil,APPROVED,魔鬼,Devil,2026-09-29
 term.difficult-terrain,APPROVED,困難地形,Difficult Terrain,2026-09-29
 term.dig-maneuver,APPROVED,鑽地機動動作,Dig Maneuver,2026-09-29
 term.director,APPROVED,導演,Director,2026-09-29
 term.discipline,APPROVED,紀律,Discipline,2026-09-29
+term.disengage-action,APPROVED,撤離,Disengage,2026-10-06
 term.disengage-move-action,APPROVED,撤離移動動作,Disengage Move Action,2026-09-29
 term.disguise-skill,APPROVED,易容,Disguise,2026-10-06
 term.distance,APPROVED,射程,Distance,2026-09-29
@@ -97,6 +103,7 @@ term.enemy,APPROVED,敵人,Enemy,2026-09-29
 term.environment,APPROVED,生活環境,Environment,2026-10-01
 term.eot,APPROVED,EoT,EoT,2026-09-29
 term.escape-artist-skill,APPROVED,脫逃,Escape Artist,2026-10-06
+term.escape-grab-action,APPROVED,掙脫,Escape Grab,2026-10-06
 term.escape-grab-maneuver,APPROVED,掙脫機動動作,Escape Grab Maneuver,2026-09-29
 term.essence,APPROVED,精髓,Essence,2026-09-29
 term.experience-xp,APPROVED,經驗值 (XP),Experience (XP),2026-09-29
@@ -118,6 +125,7 @@ term.frightened,APPROVED,畏縮,Frightened,2026-09-29
 term.fury,APPROVED,熾怒者,Fury,2026-09-29
 term.gamble-skill,APPROVED,賭博,Gamble,2026-10-06
 term.god,APPROVED,神明,God,2026-09-29
+term.grab-action,APPROVED,擒抱,Grab,2026-10-06
 term.grab-maneuver,APPROVED,擒抱機動動作,Grab Maneuver,2026-09-29
 term.grabbed,APPROVED,擒制,Grabbed,2026-09-29
 term.ground,APPROVED,地面,Ground,2026-09-29
@@ -126,12 +134,14 @@ term.guide,APPROVED,指南,Guide,2026-09-29
 term.gymnastics-skill,APPROVED,體操,Gymnastics,2026-10-06
 term.hakaan,APPROVED,哈肯人,Hakaan,2026-09-29
 term.handle-animals-skill,APPROVED,馴獸,Handle Animals,2026-10-06
+term.heal-action,APPROVED,治療,Heal,2026-10-06
 term.heal-main-action,APPROVED,治療主要動作,Heal Main Action,2026-09-29
 term.heal-skill,APPROVED,醫療,Heal,2026-10-06
 term.hero,APPROVED,英雄,Hero,2026-09-29
 term.hero-token,APPROVED,英雄幣,Hero Tokens,2026-09-29
 term.heroic-ability,APPROVED,英雄招式,Heroic Ability,2026-09-29
 term.heroic-resource,APPROVED,英雄資源,Heroic Resource,2026-09-29
+term.hide-action,APPROVED,躲藏,Hide,2026-10-06
 term.hide-maneuver,APPROVED,躲藏機動動作,Hide Maneuver,2026-09-29
 term.hide-skill,APPROVED,躲藏,Hide,2026-10-06
 term.high-elves,APPROVED,高等精靈,High Elves,2026-09-29
@@ -153,6 +163,7 @@ term.jewelry-skill,APPROVED,珠寶,Jewelry,2026-10-06
 term.jump,APPROVED,跳躍,Jump,2026-09-29
 term.jump-skill,APPROVED,跳躍,Jump,2026-10-06
 term.kit,APPROVED,套裝,Kit,2026-09-29
+term.knockback-action,APPROVED,擊退,Knockback,2026-10-06
 term.knockback-maneuver,APPROVED,擊退機動動作,Knockback Maneuver,2026-09-29
 term.labor,APPROVED,勞動,Labor,2026-10-01
 term.lawless,APPROVED,法外,Lawless,2026-10-01
@@ -166,6 +177,7 @@ term.line-of-effect,APPROVED,效果線,Line of Effect,2026-09-29
 term.lore-skill-group,APPROVED,學識類,Lore,2026-10-06
 term.magic-skill,APPROVED,魔法,Magic,2026-10-06
 term.main-action,APPROVED,主要動作,Main Action,2026-09-29
+term.make-or-assist-test-action,APPROVED,進行或協助考驗,Make Or Assist A Test,2026-10-06
 term.malice,APPROVED,惡意,Malice,2026-09-29
 term.maneuver,APPROVED,機動動作,Maneuver,2026-09-29
 term.manifold,APPROVED,衍界,Manifold,2026-09-29
@@ -238,6 +250,7 @@ term.restrained,APPROVED,束縛,Restrained,2026-09-29
 term.retainer,APPROVED,隨從,Retainer,2026-09-29
 term.revenant,APPROVED,還魂屍,Revenant,2026-09-29
 term.reward,APPROVED,獎勵,Reward,2026-09-29
+term.ride-action,APPROVED,騎乘,Ride,2026-10-06
 term.ride-move-action,APPROVED,騎乘移動動作,Ride Move Action,2026-09-29
 term.ride-skill,APPROVED,騎術,Ride,2026-10-06
 term.rolled-damage,APPROVED,檢定傷害,Rolled Damage,2026-09-29
@@ -248,6 +261,7 @@ term.sage,APPROVED,學者,Sage,2026-09-29
 term.saint,APPROVED,聖者,Saint,2026-09-29
 term.save-ends,APPROVED,豁免解除,Save Ends,2026-09-29
 term.saving-throw,APPROVED,豁免,Saving Throw,2026-09-29
+term.search-for-hidden-creatures-action,APPROVED,搜索隱藏生物,Search for Hidden Creatures,2026-10-06
 term.search-for-hidden-creatures-maneuver,APPROVED,搜索隱藏生物機動動作,Search for Hidden Creatures Maneuver,2026-09-29
 term.search-skill,APPROVED,搜索,Search,2026-10-06
 term.secluded,APPROVED,隱居,Secluded,2026-10-01
@@ -266,6 +280,7 @@ term.speed,APPROVED,速度,Speed,2026-09-29
 term.square,APPROVED,方格,Square,2026-09-29
 term.stability,APPROVED,穩度,Stability,2026-09-29
 term.stamina,APPROVED,體力,Stamina,2026-09-29
+term.stand-up-action,APPROVED,起身,Stand Up,2026-10-06
 term.stand-up-maneuver,APPROVED,起身機動動作,Stand Up Maneuver,2026-09-29
 term.strained,APPROVED,焦慮,Strained,2026-09-29
 term.strategy-skill,APPROVED,戰略,Strategy,2026-10-06
@@ -304,6 +319,7 @@ term.underwater-combat,APPROVED,水下戰鬥,Underwater combat,2026-09-29
 term.untyped-damage,APPROVED,普通傷害,Untyped Damage,2026-09-29
 term.upbringing,APPROVED,成長經歷,Upbringing,2026-10-01
 term.urban,APPROVED,城市,Urban,2026-10-01
+term.use-consumable-action,APPROVED,使用消耗品,Use Consumable,2026-10-06
 term.vasloria,APPROVED,華斯洛里亞,Vasloria,2026-09-29
 term.vertical,APPROVED,垂直,Vertical,2026-09-29
 term.victory,APPROVED,勝利值,Victories,2026-09-29
