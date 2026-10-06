@@ -369,8 +369,9 @@ describe('forge steel version', () => {
 	const bookZh = 'Book Chinese line.';
 	const sheetId = 'heroes.demo';
 
-	const writeFs = (root, { fsEn = forge, basisHash = hashEnglish(bookZh), mapped = true, exception = false, stripHeading = false } = {}) => {
-		write(root, 'src/data/item.ts', `export const item = {\n\tid: 'demo-item',\n\tdescription: '${forge}'\n};\n`);
+	const writeFs = (root, { english = forge, fsEn = forge, basisHash = hashEnglish(bookZh), mapped = true, exception = false, stripHeading = false } = {}) => {
+		const literal = english.includes('\n') || english.includes('`') ? `\`${english}\`` : `'${english}'`;
+		write(root, 'src/data/item.ts', `export const item = {\n\tid: 'demo-item',\n\tdescription: ${literal}\n};\n`);
 		write(root, 'src/l10n/generated/zh-TW/glossary.json', '{}\n');
 		write(root, 'src/l10n/generated/zh-TW/names.json', '{}\n');
 		write(root, 'src/l10n/generated/zh-TW/strings.json', `${JSON.stringify({
@@ -382,7 +383,7 @@ describe('forge steel version', () => {
 			}
 		}, null, 2)}\n`);
 		const entries = mapped
-			? [ { key: 'element:demo-item:description', sheetId, enHash: hashEnglish(forge), stripHeading } ]
+			? [ { key: 'element:demo-item:description', sheetId, enHash: hashEnglish(english), stripHeading } ]
 			: [];
 		write(root, 'src/l10n/mapping.ts', entries.length === 0 ? 'export const mapping = {\n};\n' : mappingSource(entries));
 		if (exception) {
@@ -438,6 +439,19 @@ describe('forge steel version', () => {
 		writeFs(root, { stripHeading: true });
 
 		expect(formatIssues(checkMapping(root))).toContain('stripHeading cannot be set on a Forge Steel version');
+	});
+
+	test('trims Forge Steel English before comparing it to Forge Steel Source Text', () => {
+		const body = 'warriors - a reputation';
+		const leading = scratch();
+		writeFs(leading, { english: `\n${body}`, fsEn: body });
+		expect(checkMapping(leading)).toEqual([]);
+
+		const mismatch = scratch();
+		writeFs(mismatch, { english: `\n${body}`, fsEn: 'warriors—a reputation' });
+		const text = formatIssues(checkMapping(mismatch));
+		expect(text).toContain('Forge Steel English does not match Forge Steel Source Text');
+		expect(text).not.toContain('sheet English does not match');
 	});
 });
 

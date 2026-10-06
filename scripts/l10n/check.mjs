@@ -53,11 +53,14 @@
  *
  * A strings.json row may include `fs`, the Forge Steel version. For a mapped
  * key whose row has `fs`, English is compared with `fs.en` instead of the
- * book `en`. `fs.en` must equal the Forge Steel English exactly. `fs.basisHash`
- * must equal the sha256 of the current book Chinese (`zh`); if it does not,
- * the check fails and the message says the Forge Steel version is stale.
- * That key cannot be listed in english-exceptions.json and cannot set
- * stripHeading. Every `fs` row must be referenced by at least one mapping key.
+ * book `en`. `fs.en` must equal the Forge Steel English with leading and
+ * trailing whitespace removed (a template that starts with a newline still
+ * matches the sheet cell). `enHash` stays the sha256 of that English before
+ * trimming. `fs.basisHash` must equal the sha256 of the current book Chinese
+ * (`zh`); if it does not, the check fails and the message says the Forge Steel
+ * version is stale. That key cannot be listed in english-exceptions.json and
+ * cannot set stripHeading. Every `fs` row must be referenced by at least one
+ * mapping key.
  *
  * Element and enum English are read from the source text (one string literal,
  * no browser and no TypeScript loader). A computed value has no literal, so
@@ -849,13 +852,14 @@ const checkForgeSteelVersion = (entry, row, forgeEn, hasException) => {
 	if (hasException) {
 		found.push(issue('forge-steel', EXCEPTIONS_FILE, null, entry.key, 'Forge Steel version cannot be listed in english-exceptions'));
 	}
-	if (forgeEn !== fs.en) {
+	const comparable = forgeEn.trim();
+	if (comparable !== fs.en) {
 		found.push(issue(
 			'forge-steel',
 			'src/l10n/mapping.ts',
 			entry.line,
 			entry.key,
-			`Forge Steel English does not match Forge Steel Source Text (${englishPreview(fs.en, forgeEn)})`
+			`Forge Steel English does not match Forge Steel Source Text (${englishPreview(fs.en, comparable)})`
 		));
 	}
 	const current = typeof row.zh === 'string' ? hashEnglish(row.zh) : '';

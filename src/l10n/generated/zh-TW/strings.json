@@ -391,6 +391,11 @@
   },
   "heroes.ancestries.dragon-knight.trait.wings.effect": {
     "en": "You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might score (minimum 1 round) before you fall. While using your wings to fly at 3rd level or lower, you have damage weakness 5.",
+    "fs": {
+      "basisHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc",
+      "en": "You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might (minimum of 1 round) before you fall prone. While using your wings to fly at 1st, 2nd, and 3rd level, you have damage weakness 5.",
+      "zh": "你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。"
+    },
     "updated": "2026-10-01",
     "zh": "你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。"
   },
@@ -1401,6 +1406,11 @@
   },
   "heroes.ancestries.revenant.description.1": {
     "en": "The dead walk among us. Some of them are happier about it than others.",
+    "fs": {
+      "basisHash": "126f8ea80ad17140cc42cd8433a41d88529cf0a0cfd2e80a93c967b0e1caacdb",
+      "en": "The dead walk among us. Some of them are happier about it than others. Unlike the necromantic rituals that produce wights and wraiths and zombies, revenants rise from the grave through a combination of an unjust death and a burning desire for vengeance. Creatures sustained on pure will, they have no need of food or water or air - and, unlike their zombified cousins, they retain all their memories and personality from life.",
+      "zh": "死者行走在我們之間，但不是所有死者都樂於接受這種情況。不同於製造屍妖、怨靈和殭屍的死靈儀式，還魂屍是因為枉死與強烈的復仇心而從墳墓中爬出來。他們之所以能夠存在於世上，不是依靠食物、水或空氣，而是純粹的意志力。與殭屍不同的是，還魂屍保留了生前的所有記憶和個性。"
+    },
     "updated": "2026-10-01",
     "zh": "死者行走在我們之間，但不是所有死者都樂於接受這種情況。"
   },
@@ -1451,6 +1461,11 @@
   },
   "heroes.ancestries.revenant.signature.tough-but-withered.effect.2": {
     "en": "Additionally, when your Stamina reaches the negative of your winded value, you become inert instead of dying. You fall prone and can’t stand. You continue to observe your surroundings, but you can’t speak, take main actions, maneuvers, move actions, or triggered actions. While inert this way, if you take any fire damage, your body is destroyed and you die. Otherwise, after 12 hours, you regain Stamina equal to your recovery value.",
+    "fs": {
+      "basisHash": "aec2b4179c251ddcde8297a0a6cf70a0e5095aebed30d3aba44a704af9d0c4f2",
+      "en": "When your Stamina reaches the negative of your winded value, you become inert instead of dying. You fall prone and can’t stand. You continue to observe your surroundings, but you can’t speak, take main actions, maneuvers, move actions, or triggered actions. While inert this way, if you take any fire damage, your body is destroyed and you die. Otherwise, after 12 hours, you regain Stamina equal to your recovery value.",
+      "zh": "當你的體力降至疲態值的負數時，你會陷入呆滯，而非死亡。你會伏地且無法起身。你能繼續觀察周圍環境，但無法說話，也無法執行主要動作、機動動作、移動動作和反應動作。在這種呆滯狀態下，若你受到任何火焰傷害，你的軀體就會被摧毀，你也會真正死亡。否則，在 12 小時後，你會恢復等於你復元值的體力。"
+    },
     "updated": "2026-10-01",
     "zh": "此外，當你的體力降至疲態值的負數時，你會陷入呆滯，而非死亡。你會伏地且無法起身。你能繼續觀察周圍環境，但無法說話，也無法執行主要動作、機動動作、移動動作和反應動作。在這種呆滯狀態下，若你受到任何火焰傷害，你的軀體就會被摧毀，你也會真正死亡。否則，在 12 小時後，你會恢復等於你復元值的體力。"
   },
@@ -1466,6 +1481,11 @@
   },
   "heroes.ancestries.revenant.trait.bloodless.effect": {
     "en": "For you, an open wound is indistinguishable from a scratch. You can’t be made bleeding even while dying.",
+    "fs": {
+      "basisHash": "d3d4ed304869889a923e4db45c3adb9c205fac5fee9a77d9a224dc4017bcce6f",
+      "en": "For you, an open wound is indistinguishable from a scratch.",
+      "zh": "對你而言，開放性傷口與輕微擦傷沒有區別。"
+    },
     "updated": "2026-10-01",
     "zh": "對你而言，開放性傷口與輕微擦傷沒有區別。你不會陷入出血狀態（即使瀕死也不會）。"
   },
@@ -1521,6 +1541,11 @@
   },
   "heroes.ancestries.revenant.trait.vengeance-mark.effect.1": {
     "en": "As a maneuver, you place a magic sigil on a creature within 10 squares. When you place a sigil, you decide where it appears on the creature’s body, and whether the sigil is visible to only you or to all creatures.",
+    "fs": {
+      "basisHash": "259787d2048258c47f4bd831308137b2fdda9de2908a5716730727726979241c",
+      "en": "As a maneuver, you place a magic sigil on a creature within 10 squares of you. When you place a sigil, you can decide where it appears on the creature’s body, and whether the sigil is visible to only you or to all creatures.\n\nYou always know the direction to the exact location of a creature who bears one of your sigils and is on the same world. You can have an active number of sigils equal to your level, and can remove a sigil from a creature at will (no action required). If you already have the maximum number of sigils activated and you place a new one, your oldest sigil disappears with no other effect.",
+      "zh": "使用機動動作，你可以在 10 格內的 1 個生物身上放置 1 個魔法符印。放置符印時，你可以決定符印出現在生物身體的哪個位置，以及符印是只有你看得見，還是所有生物都看得見。\n\n你始終知道相同世界中帶有你符印之生物的位置方向。你最多可以擁有數量等於你等級的符印，並且可以隨意解除生物身上的符印（無需動作）。若你在符印數量已滿的情況下放置新的符印，最舊的符印就會消失，不會產生任何效果。"
+    },
     "updated": "2026-10-01",
     "zh": "使用機動動作，你可以在 10 格內的 1 個生物身上放置 1 個魔法符印。放置符印時，你可以決定符印出現在生物身體的哪個位置，以及符印是只有你看得見，還是所有生物都看得見。"
   },
