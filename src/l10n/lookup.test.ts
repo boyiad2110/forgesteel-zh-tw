@@ -494,8 +494,7 @@ describe('ancestry third batch', () => {
 describe('ancestry fourth batch', () => {
 	const catalog = strings as Catalog;
 
-	test('this batch adds 37 keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(170);
+	test('english exceptions stay at nine', () => {
 		expect(Object.keys(exceptions)).toHaveLength(9);
 	});
 
@@ -647,6 +646,149 @@ describe('ancestry fourth batch', () => {
 		];
 		for (const key of unmapped) {
 			expect(mapping[key]).toBeUndefined();
+		}
+	});
+});
+
+describe('ancestry fifth batch', () => {
+	const catalog = strings as Catalog;
+
+	test('this batch adds 19 keys and five Forge Steel rows', () => {
+		expect(Object.keys(mapping)).toHaveLength(189);
+		expect(Object.keys(exceptions)).toHaveLength(9);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(34);
+	});
+
+	test('revenant and dragon knight names use the approved Chinese', () => {
+		const rows: [string, string, string, string][] = [
+			[ 'element:ancestry-revenant:name', 'heroes.ancestries.revenant.name', 'Revenant', '還魂屍' ],
+			[ 'element:ancestry-dragon-knight:name', 'heroes.ancestries.dragon-knight.name', 'Dragon Knight', '龍騎士' ],
+			[ 'element:revenant-feature-1:name', 'heroes.ancestries.revenant.signature.former-life.name', 'Former Life', '昔日人生' ],
+			[ 'element:revenant-feature-3:name', 'heroes.ancestries.revenant.signature.tough-but-withered.name', 'Tough But Withered', '枯而不朽' ],
+			[ 'element:revenant-feature-4-2:name', 'heroes.ancestries.revenant.trait.undead-influence.name', 'Undead Influence', '亡靈威儀' ],
+			[ 'element:revenant-feature-4-3:name', 'heroes.ancestries.revenant.trait.bloodless.name', 'Bloodless', '無血之軀' ],
+			[ 'element:dragon-knight-feature-1:name', 'heroes.ancestries.dragon-knight.signature.wyrmplate.name', 'Wyrmplate', '龍鱗' ]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+	});
+
+	test('shared trait names resolve from one sheet row', () => {
+		const vengeance = 'heroes.ancestries.revenant.trait.vengeance-mark.name';
+		for (const key of [ 'element:revenant-feature-4-5:name', 'element:revenant-feature-4-5-1:name' ]) {
+			expect(mapping[key]).toMatchObject({ sheetId: vengeance });
+			expect(resolveText('zh-TW', key, 'Vengeance Mark', { [key]: vengeance }, catalog)).toBe('復仇符印');
+		}
+		const wings = 'heroes.ancestries.dragon-knight.trait.wings.name';
+		for (const key of [ 'element:dragon-knight-feature-2-11:name', 'element:dragon-knight-feature-2-11a:name' ]) {
+			expect(mapping[key]).toMatchObject({ sheetId: wings });
+			expect(resolveText('zh-TW', key, 'Wings', { [key]: wings }, catalog)).toBe('飛翼');
+		}
+	});
+
+	test('a directly matching description uses the book Chinese', () => {
+		const rows: [string, string, string, string][] = [
+			[
+				'element:ancestry-dragon-knight:description',
+				'heroes.ancestries.dragon-knight.description.1',
+				'The ritual of Dracogenesis that grants the power to create a generation of dragon knights—also known as draconians or wyrmwights—is obscure and supremely difficult for even an experienced sorcerer to master. Small populations of draconians in Khemhara, Higara, and Khoursir attest to this. Descendants of original generations created millennia ago by powerful wizards, they have never been numerous. A typical clutch yields only a single egg. After only a few generations, these draconians begin to show new adaptations like feathers or frilled ridges.',
+				'能夠創造龍騎士（又名為龍人或龍裔）的龍生儀式極為晦澀，即使是經驗豐富的術士也難以掌握。即使在凱姆哈拉、希伽拉和科爾瑟地區也只有少數龍人出沒，證明了這種儀式有多困難。這些龍人源自強大巫師於千年前創造的原始世代，生育率極低，一窩只會產下一顆蛋，因此族群數量一直未能壯大。短短幾代後，這些龍人便開始展現新的適應特徵，例如羽毛或突脊。'
+			],
+			[
+				'element:revenant-feature-1:description',
+				'heroes.ancestries.revenant.signature.former-life.effect',
+				'Choose the ancestry you were before you died. Your size is that ancestry’s size and your speed is 5. Unless you select one of the Previous Life traits (see below), you don’t receive any other ancestral traits from your original ancestry.',
+				'選擇你死前的族裔。你的體型與原族裔相同，速度為 5。除非你選擇【前世特性】，否則你不會獲得原族裔的任何族裔特性。'
+			],
+			[
+				'element:dragon-knight-feature-1:description',
+				'heroes.ancestries.dragon-knight.signature.wyrmplate.effect',
+				'Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.',
+				'你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。'
+			]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].fs).toBeUndefined();
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+	});
+
+	test('Forge Steel versions are the text on screen', () => {
+		const revenantDescription = 'The dead walk among us. Some of them are happier about it than others. Unlike the necromantic rituals that produce wights and wraiths and zombies, revenants rise from the grave through a combination of an unjust death and a burning desire for vengeance. Creatures sustained on pure will, they have no need of food or water or air - and, unlike their zombified cousins, they retain all their memories and personality from life.';
+		const revenantZh = '死者行走在我們之間，但不是所有死者都樂於接受這種情況。不同於製造屍妖、怨靈和殭屍的死靈儀式，還魂屍是因為枉死與強烈的復仇心而從墳墓中爬出來。他們之所以能夠存在於世上，不是依靠食物、水或空氣，而是純粹的意志力。與殭屍不同的是，還魂屍保留了生前的所有記憶和個性。';
+		const inert = 'When your Stamina reaches the negative of your winded value, you become inert instead of dying. You fall prone and can’t stand. You continue to observe your surroundings, but you can’t speak, take main actions, maneuvers, move actions, or triggered actions. While inert this way, if you take any fire damage, your body is destroyed and you die. Otherwise, after 12 hours, you regain Stamina equal to your recovery value.';
+		const inertZh = '當你的體力降至疲態值的負數時，你會陷入呆滯，而非死亡。你會伏地且無法起身。你能繼續觀察周圍環境，但無法說話，也無法執行主要動作、機動動作、移動動作和反應動作。在這種呆滯狀態下，若你受到任何火焰傷害，你的軀體就會被摧毀，你也會真正死亡。否則，在 12 小時後，你會恢復等於你復元值的體力。';
+		const bloodless = 'For you, an open wound is indistinguishable from a scratch.';
+		const bloodlessZh = '對你而言，開放性傷口與輕微擦傷沒有區別。';
+		const sigil = 'As a maneuver, you place a magic sigil on a creature within 10 squares of you. When you place a sigil, you can decide where it appears on the creature’s body, and whether the sigil is visible to only you or to all creatures.\n\nYou always know the direction to the exact location of a creature who bears one of your sigils and is on the same world. You can have an active number of sigils equal to your level, and can remove a sigil from a creature at will (no action required). If you already have the maximum number of sigils activated and you place a new one, your oldest sigil disappears with no other effect.';
+		const sigilZh = '使用機動動作，你可以在 10 格內的 1 個生物身上放置 1 個魔法符印。放置符印時，你可以決定符印出現在生物身體的哪個位置，以及符印是只有你看得見，還是所有生物都看得見。\n\n你始終知道相同世界中帶有你符印之生物的位置方向。你最多可以擁有數量等於你等級的符印，並且可以隨意解除生物身上的符印（無需動作）。若你在符印數量已滿的情況下放置新的符印，最舊的符印就會消失，不會產生任何效果。';
+		const wings = 'You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might (minimum of 1 round) before you fall prone. While using your wings to fly at 1st, 2nd, and 3rd level, you have damage weakness 5.';
+		const wingsZh = '你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。';
+		const rows: [string, string, string, string][] = [
+			[ 'element:ancestry-revenant:description', 'heroes.ancestries.revenant.description.1', revenantDescription, revenantZh ],
+			[ 'element:revenant-feature-3:description', 'heroes.ancestries.revenant.signature.tough-but-withered.effect.2', inert, inertZh ],
+			[ 'element:revenant-feature-4-3:description', 'heroes.ancestries.revenant.trait.bloodless.effect', bloodless, bloodlessZh ],
+			[ 'element:revenant-feature-4-5-1:description', 'heroes.ancestries.revenant.trait.vengeance-mark.effect.1', sigil, sigilZh ],
+			[ 'element:dragon-knight-feature-2-11a:description', 'heroes.ancestries.dragon-knight.trait.wings.effect', wings, wingsZh ]
+		];
+		for (const [ key, sheetId, english, zh ] of rows) {
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].fs?.en).toBe(english);
+			expect(catalog[sheetId].fs?.zh).toBe(zh);
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+		expect(catalog['heroes.ancestries.revenant.description.1'].zh).toBe('死者行走在我們之間，但不是所有死者都樂於接受這種情況。');
+		expect(revenantZh.startsWith(catalog['heroes.ancestries.revenant.description.1'].zh)).toBe(true);
+		expect(catalog['heroes.ancestries.revenant.trait.bloodless.effect'].zh).toContain('你不會陷入出血狀態');
+		expect(bloodlessZh.includes('出血')).toBe(false);
+		expect(sigilZh.includes('\n\n')).toBe(true);
+		expect(inertZh.startsWith('此外')).toBe(false);
+	});
+
+	test('the items left in English for this batch are not mapped', () => {
+		const unmapped = [
+			'element:revenant-feature-4-5-2:name',
+			'element:revenant-feature-4-5-2:description',
+			'element:dragon-knight-feature-2-1:name',
+			'element:dragon-knight-feature-2-1:description',
+			'element:dragon-knight-feature-2-8:name',
+			'element:dragon-knight-feature-2-9:name',
+			'element:dragon-knight-feature-2-9:description',
+			'element:dragon-knight-feature-2-10:name',
+			'element:dragon-knight-feature-2-10:description',
+			'element:dragon-knight-feature-2-2:name',
+			'element:dragon-knight-feature-2-3:name',
+			'element:dragon-knight-feature-2-4:name',
+			'element:dragon-knight-feature-2-5:name',
+			'element:dragon-knight-feature-2-6:name',
+			'element:dragon-knight-feature-2-7:name',
+			'element:revenant-feature-4:name',
+			'element:dragon-knight-feature-2:name',
+			'element:revenant-feature-4-2:condition'
+		];
+		for (const key of unmapped) {
+			expect(mapping[key]).toBeUndefined();
+		}
+		const generated = [
+			'revenant-feature-2',
+			'revenant-feature-4-1',
+			'revenant-feature-4-4',
+			'dragon-knight-feature-1-1',
+			'dragon-knight-feature-1-2',
+			'dragon-knight-feature-1-3',
+			'dragon-knight-feature-1-4',
+			'dragon-knight-feature-1-5',
+			'dragon-knight-feature-1-6',
+			'dragon-knight-feature-2-11b'
+		];
+		for (const id of generated) {
+			expect(Object.keys(mapping).some(key => key.startsWith(`element:${id}:`))).toBe(false);
 		}
 	});
 });
