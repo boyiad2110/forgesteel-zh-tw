@@ -22,8 +22,8 @@ export const useLanguageName = (name: string): string => {
  * can change. English mode returns the stored names unchanged.
  */
 export const useLanguageNames = (names: readonly string[]): string[] => {
-	useSyncExternalStore(subscribeToLanguage, getLanguage);
-	useSyncExternalStore(subscribeToCatalog, getCatalogTick);
+	useSyncExternalStore(subscribeToLanguage, getLanguage, getLanguage);
+	useSyncExternalStore(subscribeToCatalog, getCatalogTick, getCatalogTick);
 	return names.map(name => translate(languageNameKey(name), name));
 };
 

@@ -13,6 +13,7 @@ import { Format } from '@/utils/format';
 import { Fragment } from 'react';
 import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
+import { LanguageName } from '@/l10n/language-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { ModifierLogic } from '@/logic/modifier-logic';
 import { PerkList } from '@/enums/perk-list';
@@ -46,7 +47,8 @@ const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice |
 	let selectedOptions;
 	if (feature.data.selected.length > 0) {
 		selectedOptions = feature.data.selected.map(s => typeof s === 'string' ? s : s.name).map(s => {
-			return (<div className='feature-iteration' key={s}>{s}</div>);
+			const shown = feature.type === FeatureType.LanguageChoice ? <LanguageName name={s} /> : s;
+			return (<div className='feature-iteration' key={s}>{shown}</div>);
 		});
 	} else {
 		selectedOptions = [

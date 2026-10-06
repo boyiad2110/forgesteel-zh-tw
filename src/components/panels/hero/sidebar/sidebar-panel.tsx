@@ -35,6 +35,7 @@ import { Skill } from '@/models/skill';
 import { SkillList } from '@/enums/skill-list';
 import { Sourcebook } from '@/models/sourcebook';
 import { Toggle } from '@/components/controls/toggle/toggle';
+import { useLanguageNames } from '@/l10n/language-text';
 import { useOptions } from '@/contexts/data-context';
 import { useState } from 'react';
 
@@ -58,6 +59,8 @@ interface Props {
 export const SidebarPanel = (props: Props) => {
 	const [ page, setPage ] = useState<string>('hero');
 	const options = useOptions();
+	const languages = HeroLogic.getLanguages(props.hero, props.sourcebooks);
+	const languageNames = useLanguageNames(languages.map(l => l.name));
 
 	const useRows = options.singlePage && options.compactView;
 
@@ -186,7 +189,6 @@ export const SidebarPanel = (props: Props) => {
 		const heroicResources = HeroLogic.getHeroicResources(props.hero);
 		const surgeGains = HeroLogic.getSurgeGains(props.hero);
 		const triggers = abilities.filter(a => a.ability.type.usage === AbilityUsage.Trigger);
-		const languages = HeroLogic.getLanguages(props.hero, props.sourcebooks);
 		const skills = HeroLogic.getSkills(props.hero, props.sourcebooks);
 		const rollModifiers = HeroLogic.getRollModifiers(props.hero);
 		const cancelledSkills = HeroLogic.getCancelledSkills(props.hero, props.sourcebooks);
@@ -381,14 +383,14 @@ export const SidebarPanel = (props: Props) => {
 				{
 					useRows ?
 						<div className='selectable-row clickable' onClick={onShowLanguages}>
-							<div>Languages: <b>{languages.map(l => l.name).join(', ')}</b></div>
+							<div>Languages: <b>{languageNames.join(', ')}</b></div>
 						</div>
 						:
 						<div className='overview-tile clickable' onClick={onShowLanguages}>
 							<HeaderText>Languages</HeaderText>
 							{
 								languages.length > 0 ?
-									languages.map(l => <div key={l.name} className='ds-text'>{l.name}</div>)
+									languages.map((l, n) => <div key={l.name} className='ds-text'>{languageNames[n]}</div>)
 									:
 									<div className='ds-text dimmed-text'>None</div>
 							}

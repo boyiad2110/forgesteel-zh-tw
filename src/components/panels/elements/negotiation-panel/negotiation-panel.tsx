@@ -1,6 +1,7 @@
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
+import { LanguageName } from '@/l10n/language-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Negotiation } from '@/models/negotiation';
 import { NegotiationLogic } from '@/logic/negotiation-logic';
@@ -59,7 +60,7 @@ export const NegotiationPanel = (props: Props) => {
 	const getLanguages = () => {
 		return (
 			<>
-				{props.negotiation.languages.map(l => SourcebookLogic.getLanguage(l, props.sourcebooks)).filter(l => !!l).map((l, n) => <Field key={n} label={l.name} value={l.description} />)}
+				{props.negotiation.languages.map(l => SourcebookLogic.getLanguage(l, props.sourcebooks)).filter(l => !!l).map((l, n) => <Field key={n} label={<LanguageName name={l.name} />} value={l.description} />)}
 				{props.negotiation.languages.length === 0 ? <div className='ds-text dimmed-text'>None</div> : null}
 			</>
 		);

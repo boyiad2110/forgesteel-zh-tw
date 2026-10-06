@@ -11,6 +11,7 @@ import { Expander } from '@/components/controls/expander/expander';
 import { Field } from '@/components/controls/field/field';
 import { Format } from '@/utils/format';
 import { HeaderText } from '@/components/controls/header-text/header-text';
+import { LanguageName } from '@/l10n/language-text';
 import { LanguageType } from '@/enums/language-type';
 import { NameDescEditPanel } from '../../edit/name-desc-edit/name-desc-edit-panel';
 import { NameSuggestions } from '@/components/panels/name-suggestions/name-suggestions';
@@ -342,7 +343,7 @@ export const SourcebookPanel = (props: Props) => {
 							<HeaderText>
 								Languages
 							</HeaderText>
-							{Collections.sort(sourcebook.languages, l => l.name).map((l, n) => <Field key={`lang-${n}`} label={l.name} value={<Markdown text={l.description} useSpan={true} />} />)}
+							{Collections.sort(sourcebook.languages, l => l.name).map((l, n) => <Field key={`lang-${n}`} label={<LanguageName name={l.name} />} value={<Markdown text={l.description} useSpan={true} />} />)}
 						</>
 						: null
 				}

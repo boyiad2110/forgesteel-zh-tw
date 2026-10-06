@@ -1,4 +1,4 @@
-import { Catalog, peekCatalog } from '@/l10n/catalog';
+import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
@@ -6,6 +6,7 @@ import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { Characteristic } from '@/enums/characteristic';
 import { core } from '@/data/sourcebooks/official/core';
+import { createElement } from 'react';
 import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
@@ -13,7 +14,9 @@ import { languageNameKey } from '@/l10n/language-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
+import { renderToStaticMarkup } from 'react-dom/server';
 import strings from '@/l10n/generated/zh-TW/strings.json';
+import { useLanguageNames } from '@/l10n/language-text';
 
 const orcKey = 'element:ancestry-orc:name';
 const orcSheet = 'heroes.ancestries.orc.name';
@@ -1027,5 +1030,24 @@ describe('language first batch', () => {
 		expect(resolveText('zh-TW', key, 'Kalliac', { [key]: sheetId }, catalog)).toBe('卡力語');
 		expect(resolveText('en', key, 'Kalliac', { [key]: sheetId }, catalog)).toBe('Kalliac');
 		expect(resolveText('zh-TW', undefined, 'Spoken by orcs; an offshoot of Zaliac.', {}, catalog)).toBe('Spoken by orcs; an offshoot of Zaliac.');
+	});
+
+	test('useLanguageNames keeps the stored order, maps Kalliac, and leaves an unmapped name unchanged', async () => {
+		await loadCatalog();
+		const stored = [ 'Zaliac', 'Kalliac', 'I Speak Their Language (Orc)', 'Caelian' ];
+		const Probe = (props: { names: readonly string[] }) => {
+			const names = useLanguageNames(props.names);
+			return names.join('\n');
+		};
+
+		expect(renderToStaticMarkup(createElement(Probe, { names: stored }))).toBe([
+			'札力語',
+			'卡力語',
+			'I Speak Their Language (Orc)',
+			'凱利安語'
+		].join('\n'));
+
+		setLanguage('en');
+		expect(renderToStaticMarkup(createElement(Probe, { names: stored }))).toBe(stored.join('\n'));
 	});
 });

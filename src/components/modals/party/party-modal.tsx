@@ -9,6 +9,7 @@ import { Modal } from '@/components/modals/modal/modal';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Tag } from 'antd';
+import { useLanguageNames } from '@/l10n/language-text';
 
 import './party-modal.scss';
 
@@ -22,6 +23,7 @@ export const PartyModal = (props: Props) => {
 	const languages = SourcebookLogic.getLanguages(props.sourcebooks)
 		.map(l => l.name)
 		.filter(l => props.heroes.some(h => HeroLogic.getLanguages(h, props.sourcebooks).some(x => x.name === l)));
+	const languageLabels = useLanguageNames(languages);
 	const skills = SourcebookLogic.getSkills(props.sourcebooks)
 		.map(s => s.name)
 		.filter(s => props.heroes.some(h => HeroLogic.getSkills(h, props.sourcebooks).some(x => x.name === s)));
@@ -116,7 +118,7 @@ export const PartyModal = (props: Props) => {
 								languages.map((l, n) => {
 									return (
 										<tr key={n}>
-											<td className='row-label'>{l}</td>
+											<td className='row-label'>{languageLabels[n]}</td>
 											{
 												props.heroes.map(h => (
 													<td key={h.id} className='row-cell'>
