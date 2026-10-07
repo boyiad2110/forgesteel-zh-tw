@@ -1,8 +1,8 @@
 import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { Language, getLanguage } from '@/l10n/language';
+import { plainForLookup, projectCalculatedText } from '@/l10n/calculated-text';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { mapping } from '@/l10n/mapping';
-import { projectCalculatedText } from '@/l10n/calculated-text';
 
 export interface L10nField {
 	field: string;
@@ -36,19 +36,6 @@ export const stripRulesHeading = (text: string): string | null => {
 		return null;
 	}
 	return body;
-};
-
-/**
- * Display wraps some words before lookup. Condition names become `**slowed**`,
- * potency notes become inline code, and the same wrap may arrive as HTML.
- * The words are unchanged, so the lookup compares the plain sentence.
- * A rewritten sentence (a different number, an extra clause) stays different.
- */
-const plainForLookup = (text: string) => {
-	return text
-		.replace(/\*\*([^*]+)\*\*/g, '$1')
-		.replace(/`([^`]+)`/g, '$1')
-		.replace(/<\/?(?:strong|b)>/gi, '');
 };
 
 /**

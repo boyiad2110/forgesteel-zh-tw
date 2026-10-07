@@ -1,5 +1,9 @@
 # 規則
 
+## 專案目標
+
+把 Forge Steel 的原文顯示成對應的正確中文：原文顯示什麼，中文就該顯示什麼。已核准的文字段若由上游自動計算改變數值，正體中文必須同步顯示該數值；固定中文蓋掉計算結果不算完成。動態數值只取自上游英文計算結果，用共用顯示轉接器與核准中文的位置綁定，不為每個招式另寫計算或改寫句子的函式。無法可靠對應時，寧可顯示完整計算後英文，也不能用固定中文遮住數值或假裝翻譯成功；這是暫時保護，須補足對應綁定才算完成該段中文化（Marc 明確要求，2026-10-07）。
+
 ## 只做翻譯
 
 不改現有功能。負責人特別要求時才例外。
@@ -14,6 +18,8 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - 表上的英文來自紙本書 Heroes 1.01b，可以和 Forge Steel 畫面上的英文不一樣。
 
 動態數值顯示（Marc 核准，2026-10-07）：核准中文原樣保存；顯示時可以把已核准綁定位置換成 Forge Steel 英文計算結果中的數字。DEC-0009 仍適用於靜態譯文。`src/l10n/calculation-bindings.json` 只記鍵、位置、文字雜湊與數字後的空白；守門比對原英文與核准中文的 sha256。中文層只投射上游已算出的值，遇到未支援的改寫則保留完整計算後英文。
+
+原文查鍵只用於已有動態綁定的文字段；其餘仍檢查計算後英文是否等於資料英文（可忽略既有強調標記）。共用轉接器也會檢查未綁定的 Forge Steel 版英文，真正改寫時不能直接回傳固定中文。測試遍歷已翻譯的基本動作與族裔文字段，在不同等級與力量下檢查數值改動都有中文綁定。
 
 ## 語言名稱
 
@@ -81,7 +87,7 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/panels/classic-sheet/skills-card/skills-card.tsx`（技能名稱與類別）
 - `src/components/features/feature-data/skill-cancel-choice.tsx`（技能名稱）
 - `src/components/panels/classic-sheet/follower-card/companion-card.tsx`（技能名稱）
-- `src/components/panels/elements/ability-panel/ability-panel.tsx`（動作名稱、動作描述、族裔招式描述、基本動作效果段的動態數值）
+- `src/components/panels/elements/ability-panel/ability-panel.tsx`（動作名稱、動作描述、族裔招式描述、核准文字段的動態數值）
 - `src/components/panels/hero/abilities/abilities-panel.tsx`（動作名稱）
 - `src/components/panels/classic-sheet/ability-card/ability-card.tsx`（動作名稱、動作描述、族裔招式描述）
 - `src/components/modals/select/standard-ability-select/standard-ability-select-modal.tsx`（動作名稱）
