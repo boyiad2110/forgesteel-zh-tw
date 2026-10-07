@@ -13,6 +13,10 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - 中文由 `scripts/l10n/export-sheet.mjs` 原樣抄進倉庫。人不改寫，AI 也不改寫、不意譯。
 - 表上的英文來自紙本書 Heroes 1.01b，可以和 Forge Steel 畫面上的英文不一樣。
 
+## 語言名稱
+
+文件、PR、回報與介面一律稱「正體中文」。
+
 ## 上游不動
 
 不改上游的資料、列舉、邏輯、存檔格式、分享碼。翻譯只在顯示當下發生：對照表把 Forge Steel 的鍵對到 Sheet ID，並記下核准時的英文雜湊（enHash）；真正換字的只有少數幾個共用的顯示元件。
@@ -25,7 +29,9 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 
 ## 一批一批做
 
-每批：對照預覽 → Marc 核准 → 寫入 Sheet → 開 PR（守門、`npm run check`；PR 與回報都只列 Marc 驗收位置，不截圖、不錄影）→ Marc 本機預覽說「過」→ squash 合併進 develop。
+每批：對照預覽（每項待決事項附建議）→ Marc 核准 → 寫入 Sheet → 開 PR（守門、`npm run check`；PR 與回報都只列 Marc 驗收位置，不截圖、不錄影）→ Marc 本機切到 PR 分支、照驗收點預覽 → Marc 說「過」→ squash 合併進 develop → 本機切回 develop。
+
+每批也要更新 Master Sheet：Project State 與 Status 寫目前批次與下一步（合併後改成已接受）；有翻譯或結構變動時，Changelog 加一筆（只記翻譯或結構變動）。
 
 每一批「內容」開始前，先給對照預覽：Forge Steel 的鍵、Sheet ID、以及兩邊英文差在哪。這是唯一需要人判斷的部分。
 

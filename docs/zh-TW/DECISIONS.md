@@ -22,7 +22,7 @@
 - **經典表格上，符號字母留著，後面改接中文全名。** 英文模式仍是字母加上英文剩下的部分。中文模式是同一個字母，後面換成這個屬性的中文全名。
 - **「Characteristic」這個詞這批不譯。** 介面文字等 Master Sheet 的「Forge Steel UI」分頁，也就是 P3。
 - **英文只差在標點或冠詞時，視為相同。** 必須列在 `src/l10n/english-exceptions.json`。每一筆寫鍵、差別種類（`punctuation` 或 `article`）、以及短註。`scripts/l10n/check.mjs` 拿快照裡的英文（匯出檔的 `en`，來自 Source Text，這欄本來就有，所以沒有加欄）和 Forge Steel 的英文比。標題行先拿掉再比，跟顯示時一樣。只有標點或冠詞（a、an、the）的差別可以列進去；兩種都有，或差在用字，就不能列。已經相同的英文也不必列。2026-10-06 起，`language:` 鍵可以另列 `spelling`（拼字變體）；每一筆都要 Marc 核准，其他鍵不能用。
-- **Forge Steel 英文和書不同、且不只是標點或冠詞差異時，用 Master Sheet 的「Forge Steel 版」（DEC-0009）。** 書本譯文留在快照裡。正體中文模式優先顯示該列 Forge Steel 版的中文。Forge Steel 版中文只能從書本中文刪字（整句或句首連接詞；2026-10-07 起也可刪句中括號參照，見同日決定），不補字、不改寫；例：126 飛翼不補「倒地」。Forge Steel 一段英文跨書上多列時，Forge Steel 版放第一列，中文為各列原文相接、英文分段處空一行；U 欄註明併入哪列；過期偵測只看第一列，Marc 已接受（2026-10-06）。歐克的 Grounded、Nonstop，以及矮人、哈肯人、梅莫人裡同樣裁過的描述，都走這條。族裔名稱也可以走 Forge Steel 版（例：Elf (high)）。`scripts/l10n/check.mjs` 守門：比對 Forge Steel 版英文時先去掉頭尾空白，再和該欄英文比（2026-10-06；enHash 仍是未去空白的英文雜湊）；Basis Hash 必須等於目前書本中文的 UTF-8 sha256，不符就失敗，訊息寫明 Forge Steel version is stale（書本中文改過就要重新核准）；這種鍵不能列進 `english-exceptions.json`，也不能設 `stripHeading`。快照裡有 Forge Steel 版、卻沒有任何對照鍵的列也會失敗。
+- **Forge Steel 英文和書不同、且不只是標點或冠詞差異時，用 Master Sheet 的「Forge Steel 版」（DEC-0009）。** 書本譯文留在快照裡。正體中文模式優先顯示該列 Forge Steel 版的中文。Forge Steel 版中文只能從書本中文刪字（整句或句首連接詞；表格其他格、括號英文與用途格、句中括號參照、行首標籤「效果：」也可刪，各見該日決定），不補字、不改寫；例：126 飛翼不補「倒地」。Forge Steel 一段英文跨書上多列時，Forge Steel 版放第一列，中文為各列原文相接、英文分段處空一行；U 欄註明併入哪列；過期偵測只看第一列，Marc 已接受（2026-10-06）。歐克的 Grounded、Nonstop，以及矮人、哈肯人、梅莫人裡同樣裁過的描述，都走這條。族裔名稱也可以走 Forge Steel 版（例：Elf (high)）。`scripts/l10n/check.mjs` 守門：比對 Forge Steel 版英文時先去掉頭尾空白，再和該欄英文比（2026-10-06；enHash 仍是未去空白的英文雜湊）；Basis Hash 必須等於目前書本中文的 UTF-8 sha256，不符就失敗，訊息寫明 Forge Steel version is stale（書本中文改過就要重新核准）；這種鍵不能列進 `english-exceptions.json`，也不能設 `stripHeading`。快照裡有 Forge Steel 版、卻沒有任何對照鍵的列也會失敗。
 - **共用標題等 P3。** 例如「Purchased Traits」。那是介面標籤，不是這一條特性專有的名字。Choose 1 of the following options、傷害類型選項名稱、Edge／When 條件文字等程式組出的文字也一樣。
 - **Kalliac／Kalliak：表不改，Kalliak 是官方拼法（2026-10-06）。** Heroes 1.01b 寫 Kalliak。Forge Steel 只有 `src/data/ancestries/orc.ts` 的歐克文化語言，以及 Sanctuary Horn（`src/data/items/leveled-implement-data.ts`）拼成 Kalliac。上游不改。P2-5 語言 5-1 把 Kalliac 對到 Names 的 `heroes.language.kalliak`，例外清單新增 `spelling`。細節見下方同一天的決定。
 - **Strings 第 366 列 `heroes.background.culture.name` 的 TM Check 為 PASS（2026-10-06）。** 理由是無適用 TM（TM-000001–000010 都是條件片語）。
@@ -80,11 +80,23 @@
 - **新鍵型 `section:<ability id>:<n>`（2026-10-07）。** 招式的第 n 個文字段。stripHeading 可用在 data 與 section 鍵。Marc 已核准。
 - **7-3 也換經典表格招式卡的描述（2026-10-07）。** 排版估算不改（中文顯示寬度約為英文的 0.5–0.7 倍）。只在顯示文字仍等於資料英文時才換（加了 Effect 前綴或被改寫的段維持英文）。Marc 已核准。
 - **Master Sheet 寫入動作描述的 Forge Steel 版（2026-10-07）。** Strings 第 34、37、40、42、43、45、47、48、49 列 P–V，Changelog CHG-0061。Marc 已核准。
-- **待修：「拆分到在其他」（2026-10-07）。** Strings 第 33 列（Disengage，直接對照）與第 34 列（Ride，Forge Steel 版）的書本譯文「拆分到在其他機動動作和主要動作之間」多一個「在」。這批不改，畫面照現有譯文顯示。之後若 Marc 修 Sheet：第 33 列改完重出快照即可；第 34 列的 H 欄改了之後，Forge Steel 版會被守門判為過期（stale），要同時改 R 欄並重算 T 欄（Basis Hash）再出快照。Marc 已核准這批不改。
+- **待修：「拆分到在其他」（2026-10-07）。** Strings 第 33 列（Disengage，直接對照）與第 34 列（Ride，Forge Steel 版）的書本譯文「拆分到在其他機動動作和主要動作之間」多一個「在」。這批不改，畫面照現有譯文顯示。之後若 Marc 修 Sheet：第 33 列改完重出快照即可；第 34 列的 H 欄改了之後，Forge Steel 版會被守門判為過期（stale），要同時改 R 欄並重算 T 欄（Basis Hash）再出快照。Marc 已核准這批不改。（已在 8-1 修正，見下方 CHG-0063 那條。）
 - **Remember your Oath、Draconic Pride 的名稱走 Forge Steel 版（2026-10-07）。** 中文與書本相同，不刪字。英文差在大小寫（Remember your Oath／Remember Your Oath）與用字（Draconic／Draconian）。依「不新增大小寫例外」與 Artisan Guild 先例，不把大小寫差列進 `english-exceptions.json`。Changelog CHG-0062。Marc 已核准。
 - **Strings 第 33、34 列「拆分到在其他」已改為「拆分到其他」（2026-10-07）。** Changelog CHG-0063。第 33 列（Disengage）只改書本中文。第 34 列（Ride）同步更新 Forge Steel 版中文與 Basis Hash。Marc 已核准。
 - **招式批次分三批（2026-10-07）。** 8-1 是族裔招式名稱。8-2 是族裔描述與內文段。8-3 是 Escape Grab、Grab、Knockback 的內文段。Marc 已核准對照預覽全照建議。
+- **一列只能有一個 Forge Steel 版時，選規則句（2026-10-07）。** 第 91 列（Glowing Eyes）、第 191 列（Glamor of Terror）的書本中文第 1 句是 Forge Steel 的 description，第 2 句是文字段。Forge Steel 版選文字段（`section:devil-feature-2-3:0`、`section:high-elf-feature-2-0:0`），description 留英文。不改 Sheet 結構（不讓一列有多個 Forge Steel 版）。8-2 執行。Marc 已核准。
+- **第 38、39、41 列選「效果：」那行（2026-10-07）。** Escape Grab、Grab、Knockback 各自只能有一個 Forge Steel 版，選 sections 第 2 段（`section:escape-grab:2`、`section:grab:2`、`section:knockback:2`）。其他段（引言 s0、Grab 的 s3、擲骰行）留英文。8-3 執行，不改程式。Marc 已核准。
+- **Forge Steel 版新刪法：行首標籤「效果：」（2026-10-07）。** 只在 Forge Steel 英文也沒有 Effect: 時才刪。不補字、不改寫。用於 8-3 的第 38、39、41 列。因為選的是「效果：」那行，「引言句英文 the following→this」那一項不適用。Marc 已核准。
+- **擲骰（tier）文字不新增鍵型，留英文（2026-10-07）。** 族裔招式的擲骰行在 Strings 沒有列。tier 字是 `getTierEffect` 解析英文再組出來的；翻譯運算後的字是 RULES 列的失敗嘗試，先翻資料又會弄壞解析。基本動作第 38、39、41 列的 T1–T3 行同樣留英文。等 P4 職業招式再整體評估。Marc 已核准。
+- **招式關鍵字留英文（2026-10-07）。** Area、Magic、Melee、Psionic、Ranged、Strike、Weapon。不用 `enum:AbilityKeyword:<Member>`。排到 P3 或之後另開關鍵字批。Glossary 只有 Melee、Ranged、Strike，其他查無專用列。Marc 已核准。
+- **招式的距離、目標、觸發句留英文（2026-10-07）。** 表上沒有獨立列；距離是 `getDistance` 組出來的字；觸發句多數是改寫。Distance／Target／Trigger 標籤本身是 P3。Marc 已核准。
+- **Shadowmeld 文字段走 Forge Steel 版，中文不刪字（2026-10-07）。** 第 287 列（`section:polder-feature-1:0`）。Q 照抄 Forge Steel 原文，包括少了 made、把 creatures 打成 creates、多一個分段；R 等於 H，不刪字。上游不改。8-2 執行。Marc 已核准。
+- **Forge Steel 改寫的招式段留英文（2026-10-07）。** 共 18 段：Draconian Guard 的 description、觸發句、文字段；Remember your Oath 的文字段；The Wode Defends 的 description；Detect the Supernatural 的 description；Resist the Unnatural 的觸發句、文字段；Determination 的文字段；Keeper of Order 的觸發句、文字段；Reactive Tumble 的觸發句、文字段；Beyondsight 的 description、文字段；Foresight（2-2b）的觸發句、文字段；Psionic Bolt 的 description。DEC-0009 只准刪字。Marc 已核准。
+- **`abilityNameKey`／`abilitySectionKey` 只擴到族裔招式（2026-10-07）。** 從族裔資料收集招式 id，保留「畫面英文等於資料英文」的條件。8-1 已擴 `abilityNameKey`；8-2 擴 `abilitySectionKey`，並新增族裔招式 description 的鍵。職業、套組、領域、專長招式不擴。Marc 已核准。
+- **只有引言的列不對照（2026-10-07）。** 第 177、331、356 列（You have the following signature ability…、Choose one signature ability…）。Forge Steel 畫面沒有這句。Marc 已核准。
+- **職業、套組、領域、專長的招式不在招式批次（2026-10-07）。** 職業排在 P4，Strings 上也沒有這些列。Marc 已核准。
+- **Foresight（`time-raider-feature-2-2b`）只做名稱（2026-10-07）。** 名稱直接對第 349 列（8-1 已做）。文字段是改寫，而且第 350 列已是 2-2a 的 Forge Steel 版，所以留英文。Marc 已核准。
 
 ## 尚未決定
 
-目前沒有。
+網站這邊目前沒有。Master Sheet Project State 的 Open Decisions 是 1：Glossary 第 160 列 `term.enhancement`（Enhancement）翻譯未定、狀態 NEW（CHG-0013、CHG-0014）。那是書本翻譯的事，和網站批次無關，AI 不自行補完。
