@@ -6,7 +6,7 @@ P2-7 完成；招式批次 8-1（族裔招式名稱，19 鍵）已接受（#26�
 
 招式批次 8-2（族裔描述與內文段）已通過 Marc 驗收，已接受（#28，2026-10-07）。新增 17 鍵（description 10、文字段 7），mapping 398→415；Forge Steel 版 85→93。Master Sheet Strings 第 58、65、69、91、191、245、287、304 列 P–V，CHG-0064（2026-10-07）。
 
-招式批次 8-3（Escape Grab、Grab、Knockback 的「效果：」段）對照預覽已核准；Master Sheet Strings 第 38、39、41 列 P–V 已寫入，新增 CHG-0065。mapping 415→418、Forge Steel 版 93→96。守門與匯出一致性檢查通過；ESLint、TypeScript 通過，完整 Vitest 760/760 通過（將逾時上限調至 10 秒）。`npm run check` 的預設 Vitest 有 1 個既有來源掃描測試逾時；`npm audit` 顯示既有 4 個相依套件漏洞（1 moderate、3 high），本批未改依賴。準備開 PR，待 Marc 本機驗收。
+招式批次 8-3（Escape Grab、Grab、Knockback 的「效果：」段）對照預覽已核准；Master Sheet Strings 第 38、39、41 列 P–V 已寫入，新增 CHG-0065。mapping 415→418、Forge Steel 版 93→96。PR #29 已開在 `codex/ability-rule-sections-8-3`，等待 Marc 本機驗收。守門與匯出一致性檢查通過；ESLint、TypeScript 通過，完整 Vitest 760/760 通過（將逾時上限調至 10 秒）。`npm run check` 的預設 Vitest 有 1 個既有來源掃描測試逾時；`npm audit` 顯示既有 4 個相依套件漏洞（1 moderate、3 high），本批未改依賴。
 
 8-2 驗證：`node scripts/l10n/check.mjs` 通過；`npm run check` 的 ESLint、TypeScript、760 個測試通過（本機以 `VITEST_MAX_WORKERS=1` 避免既有來源掃描測試在平行執行時逾時）。最後 `npm audit` 回報既有相依套件 4 個漏洞（1 moderate、3 high），整體指令 exit 1；本批未修改 `package.json`／`package-lock.json`，未處理相依套件更新。
 
