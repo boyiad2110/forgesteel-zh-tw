@@ -46,7 +46,12 @@
   },
   "heroes.actions.escape-grab.rules": {
     "en": "Escape Grab\n\nA creature who is grabbed by another creature, an object, or an effect (see Grab below) can attempt to escape by using the following ability.\n\nEscape Grab\nManeuver\nSelf | Self\nPower Roll + Might or Agility:\n≤11 No effect.\n12–16 You can escape the grab, but if you do, a creature who has you grabbed can make a melee free strike against you before you are no longer grabbed.\n17+ You are no longer grabbed.\nEffect: You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.\n\nSee Conditions in Chapter 5: Classes for information on the grabbed condition.",
-    "updated": "2026-09-30",
+    "fs": {
+      "basisHash": "482f1c7035dcc7829c1cd66d9e9e057a9e2c134e0eba771c3e897efb69efd076",
+      "en": "You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.",
+      "zh": "若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。"
+    },
+    "updated": "2026-10-07",
     "zh": "掙脫\n\n被其他生物、物體或效果擒制的生物（詳見下文「擒抱」），可以使用以下招式來嘗試掙脫。\n\n掙脫\n機動動作\n自身｜自身\n檢定 + 力量或敏捷：\nT1：你無法掙脫。\nT2：你可以掙脫，但若這麼做，擒抱你的生物可以在你掙脫前對你發動 1 次近戰基礎打擊。\nT3：你順利掙脫，不再被擒制。\n效果：若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。\n\n擒制狀態的相關資訊詳見第 5 章〈職業〉的「狀態」。"
   },
   "heroes.actions.free-maneuvers.rules": {
@@ -66,7 +71,12 @@
   },
   "heroes.actions.grab.rules": {
     "en": "Grab\n\nA creature seeking to keep a foe close and locked down can attempt to grab a creature using the following ability.\n\nGrab\nMelee, Weapon Maneuver\nMelee 1 | One creature\nPower Roll + Might:\n≤11 No effect.\n12–16 You can grab the target, but if you do, the target can make a melee free strike against you before they are grabbed.\n17+ The target is grabbed by you.\nEffect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.\n\nUnless otherwise indicated, a creature can grab only one creature at a time.\n\nSee Conditions in Chapter 5: Classes for information on the grabbed condition.",
-    "updated": "2026-09-30",
+    "fs": {
+      "basisHash": "5f4377eae7766310706ba0d8a5b915638006d2360540d2f9d6e0d9c696d7dab5",
+      "en": "You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
+      "zh": "你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。"
+    },
+    "updated": "2026-10-07",
     "zh": "擒抱\n\n若你想將敵人控制在近身距離並限制他的行動，可以使用以下招式來嘗試擒制目標。\n\n擒抱\n近戰、武器　機動動作\n近戰 1｜1 個生物\n檢定 + 力量：\nT1：你無法擒抱目標。\nT2：你可以擒抱目標，但若這麼做，目標可以在被擒制前對你發動 1 次近戰基礎打擊。\nT3：你順利擒抱目標，目標被你擒制。\n效果：你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。\n\n除非另有說明，你同時只能擒抱 1 個生物。\n\n擒制狀態的相關資訊詳見第 5 章〈職業〉的「狀態」。"
   },
   "heroes.actions.heal.rules": {
@@ -86,7 +96,12 @@
   },
   "heroes.actions.knockback.rules": {
     "en": "Knockback\n\nA creature wanting to push an adjacent creature away from them can attempt to shove that creature using the following ability.\n\nKnockback\nMelee, Weapon Maneuver\nMelee 1 | One creature\nPower Roll + Might:\n≤11 Push 1\n12–16 Push 2\n17+ Push 3\nEffect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
-    "updated": "2026-09-30",
+    "fs": {
+      "basisHash": "cd8cd4548276259d72fac6e0bfb0d56d8bd66c295261872dcea3487bafafc719",
+      "en": "You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
+      "zh": "你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。"
+    },
+    "updated": "2026-10-07",
     "zh": "擊退\n\n若你想要推開相鄰的生物，你可以使用以下招式來嘗試推撞該生物。\n\n擊退\n近戰、武器　機動動作\n近戰 1｜1 個生物\n檢定 + 力量：\nT1：推動 1\nT2：推動 2\nT3：推動 3\n效果：你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。"
   },
   "heroes.actions.main-actions.rules": {

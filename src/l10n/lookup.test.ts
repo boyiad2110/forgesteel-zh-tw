@@ -11,6 +11,7 @@ import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-pan
 import { Ability } from '@/models/ability';
 import { AbilityCard } from '@/components/panels/classic-sheet/ability-card/ability-card';
 import { AbilityData } from '@/data/ability-data';
+import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { AncestryData } from '@/data/ancestry-data';
 import { Characteristic } from '@/enums/characteristic';
@@ -39,6 +40,7 @@ import { languageNameKey } from '@/l10n/language-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
+import { projectCalculatedText } from '@/l10n/calculated-text';
 import { renderToStaticMarkup } from 'react-dom/server';
 import strings from '@/l10n/generated/zh-TW/strings.json';
 import { useLanguageNames } from '@/l10n/language-text';
@@ -914,9 +916,9 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(Object.keys(exceptions)).toHaveLength(10);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(93);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(96);
 	});
 
 	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
@@ -989,7 +991,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1066,7 +1068,7 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1302,7 +1304,7 @@ describe('action names', () => {
 	});
 
 	test('this batch adds 19 action name keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(actionNames).toHaveLength(19);
 		for (const [ id, english, sheetId, zh ] of actionNames) {
 			const key = `element:${id}:name`;
@@ -1614,7 +1616,7 @@ describe('action descriptions', () => {
 	});
 
 	test('fourteen section keys point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(direct).toHaveLength(5);
 		expect(forgeSteel).toHaveLength(9);
 		for (const [ id, sheetId ] of direct) {
@@ -1647,6 +1649,59 @@ describe('action descriptions', () => {
 		expect(abilitySectionKey('grab', 1, 'No effect.')).toBeUndefined();
 		expect(abilitySectionKey('free-melee', 0, 'One creature or object')).toBeUndefined();
 		expect(abilitySectionKey('custom-ability', 0, stand.text)).toBeUndefined();
+	});
+
+	test.each([ -1, 0, 2, 3 ])('Grab and Knockback render the upstream calculated Might value %i', might => {
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.characteristics = FactoryLogic.createCharacteristics(might, 0, 0, 0, 0);
+		const grab = renderPanel(AbilityData.grab, hero);
+		const knockback = renderPanel(AbilityData.knockback, hero);
+
+		expect(grab).toContain('你通常只能擒抱體型');
+		expect(grab).toContain(`體型 ≦ ${might} 的生物。`);
+		expect(grab).not.toContain('You can usually target only creatures');
+		expect(knockback).toContain('你通常只能擊退體型');
+		expect(knockback).toContain(`體型 ≦ ${might} 的生物。`);
+		expect(knockback).not.toContain('You can usually target only creatures');
+	});
+
+	test('a calculation toggle restores the approved wording and uses newly calculated values', () => {
+		const row = strings['heroes.actions.grab.rules'].fs;
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.characteristics = FactoryLogic.createCharacteristics(2, 0, 0, 0, 0);
+		const key = 'section:grab:2';
+		const table = { [key]: mapping[key].sheetId };
+		const display = (calculated: string) => resolveText('zh-TW', key, calculated, table, peekCatalog());
+
+		expect(display(AbilityLogic.getTextEffect(row.en, hero))).toContain('體型 ≦ 2 的生物。');
+		expect(display(row.en)).toBe(row.zh);
+		hero.class.characteristics = FactoryLogic.createCharacteristics(3, 0, 0, 0, 0);
+		expect(display(AbilityLogic.getTextEffect(row.en, hero))).toContain('體型 ≦ 3 的生物。');
+		expect(display(AbilityLogic.getTextEffect(row.en, undefined))).toBe(row.zh);
+	});
+
+	test('missing translations, English mode, and unrecognized rewrites retain calculated English', () => {
+		const row = strings['heroes.actions.grab.rules'].fs;
+		const key = 'section:grab:2';
+		const table = { [key]: mapping[key].sheetId };
+		const calculated = row.en.replace(/your Might score\.$/, '3.');
+		expect(resolveText('en', key, calculated, table, peekCatalog())).toBe(calculated);
+		expect(resolveText('zh-TW', key, calculated, table, {})).toBe(calculated);
+		expect(projectCalculatedText(key, row.en, calculated + ' Extra rule.', row.zh)).toBe(calculated + ' Extra rule.');
+		const unsupported = row.en.replace(/your Might score\.$/, 'unknown.');
+		expect(projectCalculatedText(key, row.en, unsupported, row.zh)).toBe(unsupported);
+		expect(projectCalculatedText(key, row.en, calculated, row.zh + 'extra')).toBe(calculated);
+	});
+
+	test('Escape Grab keeps its approved text and calculates the Might or Agility roll', () => {
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.characteristics = FactoryLogic.createCharacteristics(2, 3, 0, 0, 0);
+		const panel = renderPanel(AbilityData.escapeGrab, hero);
+		expect(panel).toContain('2d10 + 3');
+		expect(panel).toContain('你進行此招式會承受 1 個劣勢。');
 	});
 
 	test('the full ability panel shows the fourteen descriptions and leaves the rest in English', () => {
@@ -1951,7 +2006,7 @@ describe('ancestry ability names', () => {
 	});
 
 	test('nineteen ancestry ability names point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(ancestryAbilityNames).toHaveLength(19);
 		expect(collectAncestryAbilities().map(ability => ability.id).sort()).toEqual(ancestryAbilityNames.map(row => row[0]).sort());
 

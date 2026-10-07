@@ -6,7 +6,7 @@ P2-7 完成；招式批次 8-1（族裔招式名稱，19 鍵）已接受（#26�
 
 招式批次 8-2（族裔描述與內文段）已通過 Marc 驗收，已接受（#28，2026-10-07）。新增 17 鍵（description 10、文字段 7），mapping 398→415；Forge Steel 版 85→93。Master Sheet Strings 第 58、65、69、91、191、245、287、304 列 P–V，CHG-0064（2026-10-07）。
 
-下一步：招式批次 8-3（Escape Grab、Grab、Knockback 的「效果：」段），先給對照預覽。
+招式批次 8-3（Escape Grab、Grab、Knockback 的「效果：」段）對照預覽已核准；Master Sheet Strings 第 38、39、41 列 P–V 已寫入，新增 CHG-0065。mapping 415→418、Forge Steel 版 93→96。Marc 核准保留自動計算並顯示正確中文後，新增擒抱、擊退的動態數值綁定；Strings U39、U41 補註 CHG-0066，核准譯文原樣保存。上游計算結果中的數字投射到中文，關閉閃電時恢復原文；未知改寫保留完整計算後英文。Marc 於 2026-10-07 回覆「驗收通過」，本批已接受（PR #29）。守門、匯出一致性、ESLint、TypeScript 通過，完整 Vitest 771/771 通過（`--maxWorkers=1 --testTimeout=10000`）。本機 Edge 無頭瀏覽器確認擒抱／擊退閃電開關、力量 2→3、英／正體中文切換與掙脫擲骰加值；無截圖或錄影，招式資料維持原樣。新測試在暫時恢復固定中文時有 4 個數值案例失敗，還原修正後通過。`npm run check` 的預設 Vitest 仍有 1 個既有來源掃描測試逾時；`npm audit` 仍為既有 4 個漏洞（1 moderate、3 high），本批未改依賴。
 
 8-2 驗證：`node scripts/l10n/check.mjs` 通過；`npm run check` 的 ESLint、TypeScript、760 個測試通過（本機以 `VITEST_MAX_WORKERS=1` 避免既有來源掃描測試在平行執行時逾時）。最後 `npm audit` 回報既有相依套件 4 個漏洞（1 moderate、3 high），整體指令 exit 1；本批未修改 `package.json`／`package-lock.json`，未處理相依套件更新。
 
@@ -40,6 +40,7 @@ P2-7 完成；招式批次 8-1（族裔招式名稱，19 鍵）已接受（#26�
 | P2-7 基本動作 7-3 | 基本動作描述（Reference 的 Abilities 頁、招式視窗、列印頁、經典表格招式卡、英雄頁 Standard Abilities 檢視） | #25 | 已接受 | 2026-10-07 |
 | P2-8 招式批次 8-1 | 族裔招式名稱 19 個（建造頁族裔可購買特性選項、英雄頁招式列表與招式視窗、經典表格招式卡、圖書館族裔頁；Remember your Oath、Draconic Pride 走 Forge Steel 版；Strings 第 33、34 列「在」已修） | #26 | 已接受 | 2026-10-07 |
 | P2-8 招式批次 8-2 | 族裔招式描述 10 鍵與內文段 7 鍵；Strings 第 58、65、69、91、191、245、287、304 列 P–V（CHG-0064），mapping 415 鍵、Forge Steel 版 93 列 | #28 | 已接受 | 2026-10-07 |
+| P2-8 招式批次 8-3 | Escape Grab、Grab、Knockback 效果段；Strings 第 38、39、41 列 P–V（CHG-0065）；擒抱／擊退動態數值綁定（CHG-0066）；mapping 418 鍵、Forge Steel 版 96 列 | #29 | 已接受 | 2026-10-07 |
 
 ## 後面預計做的
 
@@ -51,8 +52,8 @@ P2-7 完成；招式批次 8-1（族裔招式名稱，19 鍵）已接受（#26�
 4. cultures（P2-4）：第一批 13 個文化面向（已接受）。第二批 16 個職業型文化名稱（已接受）。第三批 11 個族裔文化名稱（已接受）
 5. languages（P2-5）：5-1 語言名稱，文化面板與建造頁（已接受）。5-2 語言名稱，英雄側欄、經典表格、Reference、來源書、小隊、協商（已接受）。語言描述留英文。特性名、Field 標籤 Language、類型標籤、「I Speak Their Language (…)」、「Unselected」、「None」、「Related to:」、類型標題，以及「Choose a language.」等 P3。sourcebook-panel 編輯模式留英文。經典表格排版估算不改。選語言抽屜的搜尋維持只認英文。編輯器下拉留英文
 6. skill groups（P2-6）：6-1 技能名稱與類別，建造頁技能選擇、選技能視窗、Reference（已接受）。6-2 技能名稱與類別，英雄側欄、小隊、來源書、經典表格技能卡／隨從卡／同伴卡／特性、失去技能糾葛、選技能視窗標籤（已接受）。隨從面板、專案面板的技能與語言留待後補。擲骰修正說明、分組標題 P3。技能描述留英文。搜尋排序維持英文
-7. basic actions（P2-7）：7-1 網頁名稱，Reference 的 Abilities 頁、招式視窗、列印頁、英雄頁招式列表、側欄 Triggers（已接受）。7-2 經典表格名稱（已接受）。7-3 動作描述（已接受：9 段 Forge Steel 版、5 段直接對照）。Escape Grab、Grab、Knockback 的描述留招式批次 8-3。Opportunity Attack、Go Prone、Swap 的描述留英文。Melee Free Strike／Ranged Free Strike、Go Prone、Swap 留英文。動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3
-8. 招式批次（P2-8）：8-1 族裔招式名稱 19 個（已接受，#26）。Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）的名稱走 Forge Steel 版，中文與書本相同。8-2 族裔描述與內文段（已接受，#28）：description 10 鍵（直接對照 6、Forge Steel 版 4）、文字段 7 鍵（直接對照 3、Forge Steel 版 4）；Sheet 寫 8 列 P–V（第 58、65、69、91、191、245、287、304 列）；程式改 `src/l10n/ability-text.ts`（`abilitySectionKey` 擴到族裔招式、新增 description 鍵）、`ability-panel.tsx`（description：compact 與 full 兩處）、`ability-card.tsx`（description）。8-3 Escape Grab、Grab、Knockback 的「效果：」段（第 38、39、41 列各 1 段，`section:<id>:2`）；Sheet 寫 3 列 P–V；不改程式。擲骰（tier）、關鍵字、距離、目標、觸發句、Forge Steel 改寫的段留英文；第 177、331、356 列的引言不對照；Foresight（2-2b）只做名稱。職業、套組、領域、專長招式不在這批。矮人、哈肯人、歐克沒有招式
+7. basic actions（P2-7）：7-1 網頁名稱，Reference 的 Abilities 頁、招式視窗、列印頁、英雄頁招式列表、側欄 Triggers（已接受）。7-2 經典表格名稱（已接受）。7-3 動作描述（已接受：9 段 Forge Steel 版、5 段直接對照）。Escape Grab、Grab、Knockback 的「效果：」段已於招式批次 8-3 接受；簡略描述仍留英文。Opportunity Attack、Go Prone、Swap 的描述留英文。Melee Free Strike／Ranged Free Strike、Go Prone、Swap 留英文。動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3
+8. 招式批次（P2-8）：8-1 族裔招式名稱 19 個（已接受，#26）。Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）的名稱走 Forge Steel 版，中文與書本相同。8-2 族裔描述與內文段（已接受，#28）：description 10 鍵（直接對照 6、Forge Steel 版 4）、文字段 7 鍵（直接對照 3、Forge Steel 版 4）；Sheet 寫 8 列 P–V（第 58、65、69、91、191、245、287、304 列）；程式改 `src/l10n/ability-text.ts`（`abilitySectionKey` 擴到族裔招式、新增 description 鍵）、`ability-panel.tsx`（description：compact 與 full 兩處）、`ability-card.tsx`（description）。8-3 Escape Grab、Grab、Knockback 的「效果：」段（第 38、39、41 列各 1 段，`section:<id>:2`）已接受（#29，2026-10-07）：Sheet 寫 3 列 P–V 並新增 CHG-0065。Grab／Knockback 以原始英文字串查翻譯鍵，再將上游計算數值投射到核准中文（`calculation-bindings.json`／`calculated-text.ts`）；關閉計算恢復原文。Strings U39、U41 補註 CHG-0066，Project State／Status 已更新；Marc 已驗收閃電開關與力量 2→3。擲骰（tier）、關鍵字、距離、目標、觸發句、Forge Steel 改寫的段留英文；第 177、331、356 列的引言不對照；Foresight（2-2b）只做名稱。職業、套組、領域、專長招式不在這批。矮人、哈肯人、歐克沒有招式
 9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視、符文銘刻、虹彩鱗片 6 個選項等
 
 同一階段也要排進：隱藏社群與第三方來源書。

@@ -13,6 +13,8 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - 中文由 `scripts/l10n/export-sheet.mjs` 原樣抄進倉庫。人不改寫，AI 也不改寫、不意譯。
 - 表上的英文來自紙本書 Heroes 1.01b，可以和 Forge Steel 畫面上的英文不一樣。
 
+動態數值顯示（Marc 核准，2026-10-07）：核准中文原樣保存；顯示時可以把已核准綁定位置換成 Forge Steel 英文計算結果中的數字。DEC-0009 仍適用於靜態譯文。`src/l10n/calculation-bindings.json` 只記鍵、位置、文字雜湊與數字後的空白；守門比對原英文與核准中文的 sha256。中文層只投射上游已算出的值，遇到未支援的改寫則保留完整計算後英文。
+
 ## 語言名稱
 
 文件、PR、回報與介面一律稱「正體中文」。
@@ -79,7 +81,7 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 - `src/components/panels/classic-sheet/skills-card/skills-card.tsx`（技能名稱與類別）
 - `src/components/features/feature-data/skill-cancel-choice.tsx`（技能名稱）
 - `src/components/panels/classic-sheet/follower-card/companion-card.tsx`（技能名稱）
-- `src/components/panels/elements/ability-panel/ability-panel.tsx`（動作名稱、動作描述、族裔招式描述）
+- `src/components/panels/elements/ability-panel/ability-panel.tsx`（動作名稱、動作描述、族裔招式描述、基本動作效果段的動態數值）
 - `src/components/panels/hero/abilities/abilities-panel.tsx`（動作名稱）
 - `src/components/panels/classic-sheet/ability-card/ability-card.tsx`（動作名稱、動作描述、族裔招式描述）
 - `src/components/modals/select/standard-ability-select/standard-ability-select-modal.tsx`（動作名稱）
@@ -89,7 +91,7 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 
 - 自己另做一套詞彙，和 Master Sheet 打架。例如 Class 必須是「職業」，Career 必須是「生涯」。
 - 一次改太大片。
-- 為計算出來的招式文字另寫一套邏輯。
+- 為計算出來的招式文字另寫一套計算邏輯。動態顯示可以依上面的核准綁定，取用既有英文計算結果。
 - 在大約 60 個畫面各自掛鉤子。
 - 不跟上游同步。
 - 從那次嘗試裡撿東西來用。

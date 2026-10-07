@@ -213,7 +213,7 @@ export const AbilityPanel = (props: Props) => {
 			case 'text': {
 				const text = parseText(section.text);
 				return (
-					<Markdown key={index} text={text} l10nKey={abilitySectionKey(props.ability.id, index, text)} />
+					<Markdown key={index} text={text} l10nKey={abilitySectionKey(props.ability.id, index, section.text)} />
 				);
 			}
 			case 'field': {

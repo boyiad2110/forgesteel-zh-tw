@@ -466,5 +466,9 @@ export const mapping: Record<string, MappingEntry> = {
 	'section:revenant-feature-4-5-2:1': { sheetId: 'heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.effect', enHash: '43668074d2e4d78945149606efeb26cc9d1e57f223b2407c6ac26fc6020c37dd' },
 	'element:time-raider-feature-2-5-1:description': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.concussive-slam.tagline', enHash: '472136cc6ab42c48b0d281f36d66af58fc39186464a77ba49f8d0bffe9450b5f' },
 	'element:time-raider-feature-2-5-3:description': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.tagline', enHash: '2d3b3402db89c12f71bff73d4c97e7f5b0b350365da0d0743e6e3a494ac3166c' },
-	'section:time-raider-feature-2-5-3:0': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.effect', enHash: '94671bdde9bfe42885a5e69d0fa46d00e343da51005f300bcb152eda52ef098b' }
+	'section:time-raider-feature-2-5-3:0': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.effect', enHash: '94671bdde9bfe42885a5e69d0fa46d00e343da51005f300bcb152eda52ef098b' },
+	// Basic action rule sections (batch 8-3).
+	'section:escape-grab:2': { sheetId: 'heroes.actions.escape-grab.rules', enHash: 'b918a3bddf98a638cb74e45cc5d6d1a0d285dbde797561ea967f40afcfd65590' },
+	'section:grab:2': { sheetId: 'heroes.actions.grab.rules', enHash: '75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f' },
+	'section:knockback:2': { sheetId: 'heroes.actions.knockback.rules', enHash: '75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f' }
 };
