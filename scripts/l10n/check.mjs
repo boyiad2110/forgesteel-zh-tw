@@ -1994,10 +1994,60 @@ export const checkGenerated = root => {
 	return [ issue('generated', 'src/l10n/generated/zh-TW', null, null, detail) ];
 };
 
+/** Display bindings carry positions, never an independent Chinese translation. */
+export const checkCalculationBindings = root => {
+	const file = 'src/l10n/calculation-bindings.json';
+	const text = read(path.join(root, file));
+	if (text === null) {
+		return [];
+	}
+	let bindings;
+	try {
+		bindings = JSON.parse(text);
+	} catch (error) {
+		return [ issue('calculation-binding', file, null, null, error.message) ];
+	}
+	if (!bindings || typeof bindings !== 'object' || Array.isArray(bindings)) {
+		return [ issue('calculation-binding', file, null, null, 'bindings must be an object') ];
+	}
+	const entries = parseMapping('src/l10n/mapping.ts', read(path.join(root, 'src/l10n/mapping.ts')) ?? '').entries;
+	const rows = loadSheetRows(path.join(root, 'src/l10n/generated/zh-TW'));
+	const fields = new Set([ 'sheetId', 'enHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix' ]);
+	const errors = [];
+	const validSpan = (span, length) => Array.isArray(span) && span.length === 2 && span.every(Number.isInteger) && span[0] >= 0 && span[0] < span[1] && span[1] <= length;
+	for (const [ key, binding ] of Object.entries(bindings)) {
+		const fail = detail => errors.push(issue('calculation-binding', file, null, key, detail));
+		if (!binding || typeof binding !== 'object' || Array.isArray(binding) || Object.keys(binding).some(field => !fields.has(field))) {
+			fail('invalid binding fields');
+			continue;
+		}
+		const entry = entries.find(entry => entry.key === key);
+		const row = rows.get(binding.sheetId)?.fs;
+		if (!entry || entry.sheetId !== binding.sheetId || !row) {
+			fail('binding must reference its mapped approved Forge Steel row');
+			continue;
+		}
+		if (binding.enHash !== entry.enHash || binding.enHash !== hashEnglish(row.en)) {
+			fail('English binding is stale; reapprove its source positions');
+		}
+		if (binding.zhHash !== hashEnglish(row.zh)) {
+			fail('Chinese binding is stale; reapprove its target positions');
+		}
+		if (binding.sourceLength !== row.en.length || binding.targetLength !== row.zh.length || !validSpan(binding.sourceSpan, row.en.length) || !validSpan(binding.targetSpan, row.zh.length)) {
+			fail('invalid text length or UTF-16 span');
+		}
+		if (typeof binding.valueSuffix !== 'string' || !/^\s*$/.test(binding.valueSuffix)) {
+			fail('valueSuffix may contain only display whitespace');
+		}
+	}
+	return errors;
+};
+
 export const runCheck = (root = repoRoot) => {
 	return [
 		...checkCjk(root),
 		...checkMapping(root),
+		...checkCalculationBindings(root),
 		...checkGenerated(root)
 	];
 };

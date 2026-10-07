@@ -2,6 +2,7 @@ import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { Language, getLanguage } from '@/l10n/language';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { mapping } from '@/l10n/mapping';
+import { projectCalculatedText } from '@/l10n/calculated-text';
 
 export interface L10nField {
 	field: string;
@@ -258,7 +259,7 @@ export const resolveText = (language: Language, key: string | undefined, english
 		if (!row.fs.zh || blank(row.fs.zh)) {
 			return english;
 		}
-		return carryConditionBold(english, row.fs.zh);
+		return carryConditionBold(english, projectCalculatedText(key, row.fs.en, english, row.fs.zh));
 	}
 
 	const zh = row?.zh;

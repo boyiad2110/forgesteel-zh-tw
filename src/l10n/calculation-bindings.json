@@ -1,0 +1,34 @@
+{
+  "section:grab:2": {
+    "sheetId": "heroes.actions.grab.rules",
+    "enHash": "75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f",
+    "zhHash": "e766faabb1a464276a17c379546cfe5b4af6759f751034199a092a59dfa0d21a",
+    "sourceSpan": [
+      161,
+      177
+    ],
+    "targetSpan": [
+      39,
+      42
+    ],
+    "sourceLength": 178,
+    "targetLength": 46,
+    "valueSuffix": " "
+  },
+  "section:knockback:2": {
+    "sheetId": "heroes.actions.knockback.rules",
+    "enHash": "75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f",
+    "zhHash": "fd187bfb805d89e35e74849a92a20ed217f95ca5055dff71f3e12f75cd112208",
+    "sourceSpan": [
+      161,
+      177
+    ],
+    "targetSpan": [
+      39,
+      42
+    ],
+    "sourceLength": 178,
+    "targetLength": 46,
+    "valueSuffix": " "
+  }
+}

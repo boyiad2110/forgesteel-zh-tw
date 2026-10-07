@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, test } from 'vitest';
-import { KEY_PATTERNS, checkCjk, checkGenerated, checkMapping, englishDifference, forgeEnglish, formatIssues, hashEnglish, runCheck, stripRulesHeading } from './check.mjs';
+import { KEY_PATTERNS, checkCalculationBindings, checkCjk, checkGenerated, checkMapping, englishDifference, forgeEnglish, formatIssues, hashEnglish, runCheck, stripRulesHeading } from './check.mjs';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const roots = [];
@@ -83,6 +83,59 @@ describe('cjk', () => {
 		write(root, 'src/panels/hero.ts', 'const title = \'Hero\';\n');
 
 		expect(checkCjk(root)).toEqual([]);
+	});
+});
+
+describe('calculated display bindings', () => {
+	const fixture = () => {
+		const root = scratch();
+		const key = 'section:demo:0';
+		const en = 'Maximum equal to your Might score.';
+		const zh = 'Maximum: Might.';
+		const binding = {
+			sheetId: 'demo', enHash: hashEnglish(en), zhHash: hashEnglish(zh),
+			sourceSpan: [ en.indexOf('your Might'), en.length - 1 ],
+			targetSpan: [ zh.indexOf('Might'), zh.length - 1 ],
+			sourceLength: en.length, targetLength: zh.length, valueSuffix: ''
+		};
+		const store = (english = en, chinese = zh) => {
+			write(root, 'src/l10n/generated/zh-TW/strings.json', JSON.stringify({ demo: {
+				en, zh, updated: '2026-10-07', fs: { en: english, zh: chinese, basisHash: hashEnglish(zh) }
+			} }));
+			write(root, 'src/l10n/calculation-bindings.json', JSON.stringify({ [key]: binding }));
+		};
+		write(root, 'src/l10n/mapping.ts', mappingSource([ { key, sheetId: 'demo', enHash: binding.enHash } ]));
+		store();
+		return { root, en, zh, binding, store };
+	};
+
+	test('accepts bindings to unchanged approved text', () => {
+		expect(checkCalculationBindings(fixture().root)).toEqual([]);
+	});
+
+	test('detects a same-length Chinese edit and an English source edit', () => {
+		const { root, en, zh, store } = fixture();
+		store(en, zh.replace('Might', 'Other'));
+		expect(formatIssues(checkCalculationBindings(root))).toContain('Chinese binding is stale');
+		store(en.replace('Might', 'Other'), zh);
+		expect(formatIssues(checkCalculationBindings(root))).toContain('English binding is stale');
+	});
+
+	test('rejects invalid replacement positions and added wording', () => {
+		const { root, binding, store } = fixture();
+		binding.targetSpan[1] = binding.targetLength + 1;
+		binding.valueSuffix = ' extra words';
+		store();
+		const errors = formatIssues(checkCalculationBindings(root));
+		expect(errors).toContain('invalid text length or UTF-16 span');
+		expect(errors).toContain('valueSuffix may contain only display whitespace');
+	});
+
+	test('rejects a binding to a different sheet row', () => {
+		const { root, binding, store } = fixture();
+		binding.sheetId = 'another';
+		store();
+		expect(formatIssues(checkCalculationBindings(root))).toContain('mapped approved Forge Steel row');
 	});
 });
 
