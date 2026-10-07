@@ -1,5 +1,5 @@
+import { AbilityName, abilitySectionKey } from '@/l10n/ability-text';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
-import { AbilityName } from '@/l10n/ability-text';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -125,6 +125,7 @@ export const AbilityCard = (props: Props) => {
 				<Markdown
 					text={text}
 					className='ability-effect'
+					l10nKey={abilitySectionKey(ability.id, key, text)}
 				/>
 			</div>
 		);

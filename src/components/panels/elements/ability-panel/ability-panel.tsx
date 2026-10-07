@@ -3,6 +3,7 @@ import { Alert, Flex, Space, Tag } from 'antd';
 import { CSSProperties, useState } from 'react';
 import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
+import { abilityNameKey, abilitySectionKey } from '@/l10n/ability-text';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -24,7 +25,6 @@ import { PanelMode } from '@/enums/panel-mode';
 import { PowerRollPanel } from '@/components/panels/power-roll/power-roll-panel';
 import { RollModifierPanel } from '@/components/panels/roll-modifier-panel/roll-modifier-panel';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
-import { abilityNameKey } from '@/l10n/ability-text';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useOptions } from '@/contexts/data-context';
 
@@ -210,8 +210,9 @@ export const AbilityPanel = (props: Props) => {
 	const getSection = (section: AbilitySectionText | AbilitySectionField | AbilitySectionRoll | AbilitySectionPackage, index: number) => {
 		switch (section.type) {
 			case 'text': {
+				const text = parseText(section.text);
 				return (
-					<Markdown key={index} text={parseText(section.text)} />
+					<Markdown key={index} text={text} l10nKey={abilitySectionKey(props.ability.id, index, text)} />
 				);
 			}
 			case 'field': {

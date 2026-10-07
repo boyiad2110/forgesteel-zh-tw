@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, test } from 'vitest';
-import { checkCjk, checkGenerated, checkMapping, englishDifference, forgeEnglish, formatIssues, hashEnglish, runCheck, stripRulesHeading } from './check.mjs';
+import { KEY_PATTERNS, checkCjk, checkGenerated, checkMapping, englishDifference, forgeEnglish, formatIssues, hashEnglish, runCheck, stripRulesHeading } from './check.mjs';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const roots = [];
@@ -243,7 +243,7 @@ describe('rules heading', () => {
 			{ key: 'enum:ConditionType:Bleeding', sheetId: 'term.bleeding', enHash: hashEnglish('Bleeding'), stripHeading: true }
 		]));
 
-		expect(formatIssues(checkMapping(root))).toContain('stripHeading is only valid on a data: key');
+		expect(formatIssues(checkMapping(root))).toContain('stripHeading is only valid on a data: or section: key');
 	});
 });
 
@@ -827,6 +827,191 @@ export const strike = {
 		expect(text).toContain('term.advance-action');
 		expect(text).toContain('heroes.actions.advance.rules');
 		expect(text).toContain('source row no longer contains this name');
+	});
+});
+
+describe('action descriptions', () => {
+	const ability = (id, sections) => `export const book = FactoryLogic.createAbility({
+	id: '${id}',
+	name: 'Demo',
+	sections: [
+${sections}
+	]
+});
+`;
+
+	const textCall = literal => `\t\tFactoryLogic.createAbilitySectionText(${literal})`;
+
+	const writeSheets = (root, rows) => {
+		write(root, 'src/l10n/generated/zh-TW/glossary.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/names.json', '{}\n');
+		write(root, 'src/l10n/generated/zh-TW/strings.json', `${JSON.stringify(rows, null, 2)}\n`);
+	};
+
+	test('reads a single-quoted literal', () => {
+		const root = scratch();
+		const english = 'When a creature takes the Advance move action, they move.';
+		write(root, 'src/data/ability-data.ts', ability('advance', textCall(`'${english}'`)));
+
+		expect(forgeEnglish(root, 'section:advance:0')).toEqual({ english });
+	});
+
+	test('reads a template that starts with a newline and compares Forge Steel Source Text after trimming', () => {
+		const root = scratch();
+		const english = '\nWhen a creature takes the Charge main action, they move.';
+		write(root, 'src/data/ability-data.ts', ability('charge', textCall('`' + english + '`')));
+		const resolved = forgeEnglish(root, 'section:charge:0');
+		const sheetId = 'heroes.actions.charge.rules';
+		const bookZh = '書本中文';
+
+		expect(resolved).toEqual({ english });
+		expect(hashEnglish(resolved.english)).toBe(hashEnglish(english));
+
+		writeSheets(root, {
+			[sheetId]: {
+				en: 'Book English that differs.',
+				fs: { basisHash: hashEnglish(bookZh), en: english.trim(), zh: '衝鋒中文' },
+				updated: '2026-10-07',
+				zh: bookZh
+			}
+		});
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'section:charge:0', sheetId, enHash: hashEnglish(english) }
+		]));
+
+		expect(checkMapping(root)).toEqual([]);
+	});
+
+	test('fails when the section is a roll or a field, or the index is out of range', () => {
+		const root = scratch();
+		write(root, 'src/data/ability-data.ts', ability('grab', [
+			`\t\tFactoryLogic.createAbilitySectionRoll(
+			FactoryLogic.createPowerRoll({
+				tier1: 'No effect.',
+				tier2: 'Push 1',
+				tier3: 'Push 2'
+			})
+		)`,
+			`\t\tFactoryLogic.createAbilitySectionField({
+			name: 'Spend',
+			effect: 'You spend it.'
+		})`,
+			textCall('\'A literal.\'')
+		].join(',\n')));
+
+		expect(forgeEnglish(root, 'section:grab:0').error).toContain('roll section');
+		expect(forgeEnglish(root, 'section:grab:1').error).toContain('field section');
+		expect(forgeEnglish(root, 'section:grab:3').error).toContain('out of range');
+	});
+
+	test('fails when the ability id is missing or defined more than once', () => {
+		const root = scratch();
+		const source = ability('advance', textCall('\'Move.\''));
+		write(root, 'src/data/a.ts', source);
+		write(root, 'src/data/b.ts', source);
+
+		expect(forgeEnglish(root, 'section:missing:0').error).toContain('was not found');
+		expect(forgeEnglish(root, 'section:advance:0').error).toContain('defined more than once');
+	});
+
+	test('fails when the argument is not a literal or the template has an interpolation', () => {
+		const root = scratch();
+		write(root, 'src/data/ability-data.ts', [
+			ability('literal', textCall('label')),
+			ability('interp', textCall('`Hello ${name}`'))
+		].join('\n'));
+
+		expect(forgeEnglish(root, 'section:literal:0').error).toContain('not a string literal');
+		expect(forgeEnglish(root, 'section:interp:0').error).toContain('interpolation');
+	});
+
+	test('a section key with stripHeading accepts a matching body and refuses a different one', () => {
+		const english = 'When a creature takes the Advance move action, they move.';
+		const sheetId = 'heroes.actions.advance.rules';
+		const pass = scratch();
+		write(pass, 'src/data/ability-data.ts', ability('advance', textCall(`'${english}'`)));
+		writeSheets(pass, {
+			[sheetId]: { en: `Advance\n\n${english}`, updated: '2026-10-07', zh: '行進\n\n若你執行行進。' }
+		});
+		write(pass, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'section:advance:0', sheetId, enHash: hashEnglish(english), stripHeading: true }
+		]));
+
+		expect(checkMapping(pass)).toEqual([]);
+
+		const fail = scratch();
+		write(fail, 'src/data/ability-data.ts', ability('advance', textCall(`'${english}'`)));
+		writeSheets(fail, {
+			[sheetId]: { en: 'Advance\n\nA different body.', updated: '2026-10-07', zh: '行進\n\n若你執行行進。' }
+		});
+		write(fail, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'section:advance:0', sheetId, enHash: hashEnglish(english), stripHeading: true }
+		]));
+
+		expect(formatIssues(checkMapping(fail))).toContain('sheet English body does not match');
+	});
+
+	test('refuses stripHeading on an element key', () => {
+		const root = scratch();
+		write(root, 'src/data/item.ts', dataFile);
+		sheet(root, [ 'term.demo' ], { 'term.demo': 'Orc' });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'element:demo-item:name', sheetId: 'term.demo', enHash: hashEnglish('Orc'), stripHeading: true }
+		]));
+
+		expect(formatIssues(checkMapping(root))).toContain('stripHeading is only valid on a data: or section: key');
+	});
+
+	test('fails when a section key with a Forge Steel version sets stripHeading or a stale basis hash', () => {
+		const english = 'A creature can use this main action to make a free strike.';
+		const sheetId = 'heroes.actions.free-strike.rules';
+		const bookZh = '書本中文';
+		const writeFs = (root, { stripHeading = false, basisHash = hashEnglish(bookZh) } = {}) => {
+			write(root, 'src/data/ability-data.ts', ability('free-strike', textCall(`'${english}'`)));
+			writeSheets(root, {
+				[sheetId]: {
+					en: 'Book English that differs.',
+					fs: { basisHash, en: english, zh: '你可以使用此主要動作來發動 1 次基礎打擊。' },
+					updated: '2026-10-07',
+					zh: bookZh
+				}
+			});
+			write(root, 'src/l10n/mapping.ts', mappingSource([
+				{ key: 'section:free-strike:0', sheetId, enHash: hashEnglish(english), stripHeading }
+			]));
+		};
+
+		const headed = scratch();
+		writeFs(headed, { stripHeading: true });
+		expect(formatIssues(checkMapping(headed))).toContain('stripHeading cannot be set on a Forge Steel version');
+
+		const stale = scratch();
+		writeFs(stale, { basisHash: hashEnglish('other') });
+		expect(formatIssues(checkMapping(stale))).toContain('Forge Steel version is stale');
+	});
+
+	test('KEY_PATTERNS rejects a padded, non-numeric, or capitalized section key', () => {
+		const matches = key => KEY_PATTERNS.some(pattern => pattern.test(key));
+
+		expect(matches('section:charge:0')).toBe(true);
+		expect(matches('section:make-assist-test:10')).toBe(true);
+		expect(matches('section:charge:01')).toBe(false);
+		expect(matches('section:charge:x')).toBe(false);
+		expect(matches('section:Charge:0')).toBe(false);
+
+		const root = scratch();
+		write(root, 'src/data/ability-data.ts', ability('charge', textCall('\'Charge.\'')));
+		sheet(root, [ 'heroes.actions.charge.rules' ]);
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'section:charge:01', sheetId: 'heroes.actions.charge.rules', enHash: hashEnglish('Charge.') },
+			{ key: 'section:charge:x', sheetId: 'heroes.actions.charge.rules', enHash: hashEnglish('Charge.') },
+			{ key: 'section:Charge:0', sheetId: 'heroes.actions.charge.rules', enHash: hashEnglish('Charge.') }
+		]));
+		const text = formatIssues(checkMapping(root));
+
+		expect(text).toContain('[section:charge:01] malformed key');
+		expect(text).toContain('[section:charge:x] malformed key');
+		expect(text).toContain('[section:Charge:0] malformed key');
 	});
 });
 
