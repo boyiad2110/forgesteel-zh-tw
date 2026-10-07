@@ -1,3 +1,4 @@
+import { hasCalculationBinding, plainForLookup } from '@/l10n/calculated-text';
 import { Ability } from '@/models/ability';
 import { AbilityData } from '@/data/ability-data';
 import { AncestryData } from '@/data/ancestry-data';
@@ -68,18 +69,24 @@ export const abilityNameKey = (ability: { id: string, name: string }): string | 
  * once `**bold**` marks are removed and both sides are trimmed. A classic-sheet
  * `**Effect:**` prefix, a rewritten sentence, a roll or field section, and an
  * action that is not one of these stay as written. Mapped action sections can
- * receive a key; unmapped ones stay as written.
+ * receive a key; unmapped ones stay as written. With canonical source supplied,
+ * only an approved calculation binding may key rewritten display text.
  */
-export const abilitySectionKey = (abilityId: string, index: number, shown: string): string | undefined => {
+export const abilitySectionKey = (abilityId: string, index: number, shown: string, canonical?: string): string | undefined => {
 	const section = abilities.get(abilityId)?.sections[index];
 	if (!section || section.type !== 'text') {
 		return undefined;
 	}
-	const plain = shown.replace(/\*\*([^*]+)\*\*/g, '$1').trim();
-	if (plain !== section.text.trim()) {
+	const source = plainForLookup(section.text).trim();
+	if (canonical !== undefined && plainForLookup(canonical).trim() !== source) {
 		return undefined;
 	}
-	return `section:${abilityId}:${index}`;
+	const key = `section:${abilityId}:${index}`;
+	const lookup = canonical !== undefined && hasCalculationBinding(key) ? canonical : shown;
+	if (plainForLookup(lookup).trim() !== source) {
+		return undefined;
+	}
+	return key;
 };
 
 /** Only an ancestry ability's unchanged, non-empty description can be keyed. */

@@ -30,5 +30,21 @@
     "sourceLength": 178,
     "targetLength": 46,
     "valueSuffix": " "
+  },
+  "section:devil-feature-2-3:0": {
+    "sheetId": "heroes.ancestries.devil.trait.glowing-eyes.effect",
+    "enHash": "ddac078bbe860f9535ebacfb2aeb22a4713fa7d6f2a2143eeaf27fbc3e43ce3c",
+    "zhHash": "82a846ed00dbda139c71793b086f8ca3d267bdc8ea5997b25e75c79c5f044dc0",
+    "sourceSpan": [
+      126,
+      136
+    ],
+    "targetSpan": [
+      40,
+      43
+    ],
+    "sourceLength": 137,
+    "targetLength": 49,
+    "valueSuffix": " "
   }
 }

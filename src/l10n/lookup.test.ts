@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
 import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
+import { hasCalculationBinding, plainForLookup, projectCalculatedText } from '@/l10n/calculated-text';
 import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text';
 import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-panel';
 import { Ability } from '@/models/ability';
@@ -40,7 +41,6 @@ import { languageNameKey } from '@/l10n/language-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
-import { projectCalculatedText } from '@/l10n/calculated-text';
 import { renderToStaticMarkup } from 'react-dom/server';
 import strings from '@/l10n/generated/zh-TW/strings.json';
 import { useLanguageNames } from '@/l10n/language-text';
@@ -1702,6 +1702,86 @@ describe('action descriptions', () => {
 		const panel = renderPanel(AbilityData.escapeGrab, hero);
 		expect(panel).toContain('2d10 + 3');
 		expect(panel).toContain('你進行此招式會承受 1 個劣勢。');
+	});
+
+	test.each([ 1, 2, 3, 10 ])('Glowing Eyes renders the upstream calculated level %i in Chinese', level => {
+		const ability = collectAncestryAbilities().find(item => item.id === 'devil-feature-2-3')!;
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.level = level;
+		const before = JSON.stringify({ ability, hero });
+		const panel = renderPanel(ability, hero);
+		expect(panel).toContain(`對該生物造成等於 1d10 + ${level} 的心靈傷害。`);
+		expect(panel).not.toContain('1d10 + 你等級');
+		expect(panel).not.toContain('psychic damage equal to');
+		expect(JSON.stringify({ ability, hero })).toBe(before);
+	});
+
+	test('Glowing Eyes toggles between approved wording and newly calculated levels', () => {
+		const ability = collectAncestryAbilities().find(item => item.id === 'devil-feature-2-3')!;
+		const row = strings['heroes.ancestries.devil.trait.glowing-eyes.effect'].fs;
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.level = 2;
+		const table = { 'section:devil-feature-2-3:0': 'heroes.ancestries.devil.trait.glowing-eyes.effect' };
+		const display = (calculate: boolean, language: 'en' | 'zh-TW' = 'zh-TW') => {
+			const calculated = AbilityLogic.getTextEffect(row.en, calculate ? hero : undefined);
+			return resolveText(language, abilitySectionKey(ability.id, 0, calculated, row.en), calculated, table, peekCatalog());
+		};
+		expect(display(true)).toContain('對該生物造成等於 1d10 + 2 的心靈傷害。');
+		expect(display(false)).toBe(row.zh);
+		hero.class.level = 3;
+		expect(display(true)).toContain('對該生物造成等於 1d10 + 3 的心靈傷害。');
+		expect(display(true, 'en')).toBe(AbilityLogic.getTextEffect(row.en, hero));
+		expect(display(true)).toContain('1d10 + 3');
+		expect(renderPanel(ability)).toContain(row.zh);
+		const custom = { ...ability, sections: [ { type: 'text' as const, text: row.en + ' Custom effect.' } ] };
+		expect(renderPanel(custom, hero)).toContain('Custom effect.');
+		expect(renderPanel(custom, hero)).not.toContain(row.zh);
+	});
+
+	test('unbound or structurally changed text never hides calculated English behind fixed Chinese', () => {
+		const key = 'section:high-elf-feature-2-0:0';
+		const row = (strings as Catalog)[mapping[key].sheetId].fs!;
+		const calculated = row.en + ' Additional effect: 3 damage.';
+		expect(abilitySectionKey('high-elf-feature-2-0', 0, calculated, row.en)).toBeUndefined();
+		expect(projectCalculatedText(key, row.en, calculated, row.zh)).toBe(calculated);
+		expect(resolveText('zh-TW', key, calculated, { [key]: mapping[key].sheetId }, peekCatalog())).toBe(calculated);
+		const formatted = row.en.replace('frightened', '**frightened**');
+		expect(abilitySectionKey('high-elf-feature-2-0', 0, formatted, row.en)).toBe(key);
+		expect(plainForLookup(resolveText('zh-TW', key, formatted, { [key]: mapping[key].sheetId }, peekCatalog()))).toBe(row.zh);
+	});
+
+	test.each([ [ 1, -1 ], [ 3, 2 ], [ 10, 3 ] ])('every translated numeric section has a Chinese calculation binding at level %i / Might %i', (level, might) => {
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.level = level;
+		hero.class.characteristics = FactoryLogic.createCharacteristics(might, 3, 4, 1, 0);
+		let checked = 0;
+		for (const ability of [ ...AbilityData.standardAbilities, ...collectAncestryAbilities() ]) {
+			ability.sections.forEach((section, index) => {
+				if (section.type !== 'text') {
+					return;
+				}
+				const key = abilitySectionKey(ability.id, index, section.text);
+				if (!key || !mapping[key]) {
+					return;
+				}
+				const calculated = AbilityLogic.getTextEffect(section.text, hero);
+				if (plainForLookup(calculated) === plainForLookup(section.text)) {
+					return;
+				}
+				checked += 1;
+				expect(hasCalculationBinding(key), key).toBe(true);
+				const liveKey = abilitySectionKey(ability.id, index, calculated, section.text);
+				expect(liveKey, key).toBe(key);
+				const entry = mapping[key];
+				const chinese = resolveText('zh-TW', liveKey, calculated, { [key]: entry.sheetId }, peekCatalog(), entry.stripHeading);
+				expect(chinese, key).not.toBe(calculated);
+				expect(chinese, key).not.toBe(peekCatalog()![entry.sheetId].fs?.zh);
+			});
+		}
+		expect(checked).toBeGreaterThan(0);
 	});
 
 	test('the full ability panel shows the fourteen descriptions and leaves the rest in English', () => {

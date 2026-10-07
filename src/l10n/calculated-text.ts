@@ -13,6 +13,16 @@ interface CalculationBinding {
 
 const table: Record<string, CalculationBinding> = bindings;
 
+/** Display emphasis does not change the authored English. */
+export const plainForLookup = (text: string) => {
+	return text
+		.replace(/\*\*([^*]+)\*\*/g, '$1')
+		.replace(/`([^`]+)`/g, '$1')
+		.replace(/<\/?(?:strong|b)>/gi, '');
+};
+
+export const hasCalculationBinding = (key: string): boolean => Object.hasOwn(table, key);
+
 /**
  * Projects one scalar already produced by the upstream English calculator.
  * The guard checks both approved text hashes and the UTF-16 slice positions.
@@ -22,7 +32,7 @@ const table: Record<string, CalculationBinding> = bindings;
 export const projectCalculatedText = (key: string, canonical: string, calculated: string, chinese: string): string => {
 	const binding = table[key];
 	if (!binding) {
-		return chinese;
+		return plainForLookup(calculated).trim() === plainForLookup(canonical).trim() ? chinese : calculated;
 	}
 	if (canonical.length !== binding.sourceLength || chinese.length !== binding.targetLength) {
 		return calculated;
