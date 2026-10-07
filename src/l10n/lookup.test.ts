@@ -914,9 +914,9 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(Object.keys(exceptions)).toHaveLength(10);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(93);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(96);
 	});
 
 	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
@@ -989,7 +989,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1066,7 +1066,7 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1302,7 +1302,7 @@ describe('action names', () => {
 	});
 
 	test('this batch adds 19 action name keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(actionNames).toHaveLength(19);
 		for (const [ id, english, sheetId, zh ] of actionNames) {
 			const key = `element:${id}:name`;
@@ -1614,7 +1614,7 @@ describe('action descriptions', () => {
 	});
 
 	test('fourteen section keys point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(direct).toHaveLength(5);
 		expect(forgeSteel).toHaveLength(9);
 		for (const [ id, sheetId ] of direct) {
@@ -1951,7 +1951,7 @@ describe('ancestry ability names', () => {
 	});
 
 	test('nineteen ancestry ability names point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(415);
+		expect(Object.keys(mapping)).toHaveLength(418);
 		expect(ancestryAbilityNames).toHaveLength(19);
 		expect(collectAncestryAbilities().map(ability => ability.id).sort()).toEqual(ancestryAbilityNames.map(row => row[0]).sort());
 

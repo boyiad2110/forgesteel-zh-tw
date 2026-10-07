@@ -71,7 +71,7 @@ Power Roll + Might or Agility:
 17+ You are no longer grabbed.
 Effect: You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.
 
-See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-09-30,,,,
+See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-10-07,"You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.",若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。,APPROVED,482f1c7035dcc7829c1cd66d9e9e057a9e2c134e0eba771c3e897efb69efd076
 heroes.actions.free-maneuvers.rules,APPROVED,"免費機動動作
 
 例如開啟未上鎖的門、從地上撿起箭矢、將物體交給相鄰的盟友，或是拔出武器等瑣碎行為，都不需要使用機動動作或主要動作。你可以在自己的回合中執行這些簡單的免費機動動作。免費機動動作雖然遵循一般機動動作的規則，但通常不限次數。
@@ -124,7 +124,7 @@ Effect: You can usually target only creatures of your size or smaller. If your M
 
 Unless otherwise indicated, a creature can grab only one creature at a time.
 
-See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-09-30,,,,
+See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-10-07,"You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。,APPROVED,5f4377eae7766310706ba0d8a5b915638006d2360540d2f9d6e0d9c696d7dab5
 heroes.actions.heal.rules,APPROVED,"治療
 
 若你使用治療主要動作，你可以透過醫療手段或鼓舞人心的話語，讓 1 個相鄰的生物恢復活力並繼續戰鬥。目標生物可以花費 1 點復元力來恢復體力，或是針對他正在承受的 1 個效果進行豁免（前提是該效果可以透過豁免來解除）。","Heal
@@ -157,7 +157,7 @@ Power Roll + Might:
 ≤11 Push 1
 12–16 Push 2
 17+ Push 3
-Effect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",2026-09-30,,,,
+Effect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",2026-10-07,"You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。,APPROVED,cd8cd4548276259d72fac6e0bfb0d56d8bd66c295261872dcea3487bafafc719
 heroes.actions.main-actions.rules,APPROVED,"主要動作
 
 當你執行主要動作時，最常見的用途是發動由職業、套裝或寶物賦予的特殊招式（詳見第 5 章〈職業〉的「招式」）。這些招式可以讓你執行最獨特、最具特色且最有影響力的動作。
