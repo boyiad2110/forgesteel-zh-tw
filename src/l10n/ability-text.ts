@@ -64,7 +64,7 @@ export const abilityNameKey = (ability: { id: string, name: string }): string | 
  * The key for one text section of a basic action or ancestry ability.
  *
  * Only when the ability is one of the standard actions or ancestry abilities, the data section at
- * this index is a text section, and the text on screen is still that English
+ * this index is a text section, and the supplied text still matches that English
  * once `**bold**` marks are removed and both sides are trimmed. A classic-sheet
  * `**Effect:**` prefix, a rewritten sentence, a roll or field section, and an
  * action that is not one of these stay as written. Mapped action sections can
