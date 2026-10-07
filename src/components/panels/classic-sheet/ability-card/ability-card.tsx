@@ -1,4 +1,4 @@
-import { AbilityName, abilitySectionKey } from '@/l10n/ability-text';
+import { AbilityDescription, AbilityName, abilitySectionKey } from '@/l10n/ability-text';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
@@ -148,7 +148,7 @@ export const AbilityCard = (props: Props) => {
 				<h3>{ability.abilityType}</h3>
 				<h2><span className='ability-name'><AbilityName ability={ability} /></span>{getAbilityCost()}</h2>
 				{ability.description?.length ?
-					<p className='description'>{ability.description}</p>
+					<p className='description'><AbilityDescription ability={ability} /></p>
 					: undefined }
 				{getStatsSection()}
 				{ability.qualifiers?.map((q, i) => {

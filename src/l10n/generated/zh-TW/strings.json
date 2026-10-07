@@ -256,6 +256,11 @@
   },
   "heroes.ancestries.devil.trait.glowing-eyes.effect": {
     "en": "Your eyes are a solid, vibrant color that flares to show your excitement or rage. Whenever you take damage from a creature, you can use a triggered action to deal that creature psychic damage equal to 1d10 + your level.",
+    "fs": {
+      "basisHash": "a43b87697d70cf84f72255ca1e91805dbbbbaae6c3486b604ec7cd0cd7351f1f",
+      "en": "Whenever you take damage from a creature, you can use a triggered action to deal that creature psychic damage equal to 1d10 + your level.",
+      "zh": "每當你受到生物造成的傷害時，你可以使用反應動作，對該生物造成等於 1d10 + 你等級的心靈傷害。"
+    },
     "updated": "2026-10-01",
     "zh": "你的雙眼呈現單一的鮮艷顏色，當你感到興奮或憤怒時會閃爍發光。每當你受到生物造成的傷害時，你可以使用反應動作，對該生物造成等於 1d10 + 你等級的心靈傷害。"
   },
@@ -841,6 +846,11 @@
   },
   "heroes.ancestries.high-elf.trait.glamor-of-terror.effect": {
     "en": "When a foe strikes, you reverse the magic of your glamor to instill fear into their heart. Whenever you take damage from a creature, you can use a triggered action to make that creature frightened of you until the end of their next turn.",
+    "fs": {
+      "basisHash": "6c82d0638cbfbd2e934ec9d7902e8b3f185dd696ef5b87fed4431114723aa190",
+      "en": "Whenever you take damage from a creature, you can use a triggered action to make that creature frightened of you until the end of their next turn.",
+      "zh": "每當你受到生物造成的傷害時，你可以使用反應動作讓該生物對你陷入畏縮狀態，直到他下個回合結束。"
+    },
     "updated": "2026-10-01",
     "zh": "當敵人攻擊你時，你可以反轉魅術的魔力，將恐懼注入對方心中。每當你受到生物造成的傷害時，你可以使用反應動作讓該生物對你陷入畏縮狀態，直到他下個回合結束。"
   },
@@ -946,6 +956,11 @@
   },
   "heroes.ancestries.human.signature.detect-supernatural.effect": {
     "en": "As a maneuver, you can open your awareness to detect supernatural creatures and phenomena. Until the end of your next turn, you know the location of any supernatural object, or any undead, construct, or creature from another world within 5 squares, even if you don’t have line of effect to that object or creature. You know if you’re detecting an item or a creature, and you know the nature of any creature you detect.",
+    "fs": {
+      "basisHash": "142053d97fe838e4abcee39895faff3dc5134a01f3bef10141dc8b60a87c696d",
+      "en": "Until the end of your next turn, you know the location of any supernatural object, undead, construct, or creature from another world within 5 squares, even if you don’t have line of effect to that object or creature. You know if you’re detecting an item or a creature, and you know the nature of any creature you detect.",
+      "zh": "直到你下個回合結束前，你知道 5 格內任何超常物體、亡靈、構裝體或異界生物的位置，即使你對他們沒有效果線也能如此。你能分辨偵測到的是物體還是生物，並且能知道那些生物的本質。"
+    },
     "updated": "2026-10-01",
     "zh": "使用機動動作，你可以啟動感知能力來偵測超常生物和現象。直到你下個回合結束前，你知道 5 格內任何超常物體、亡靈、構裝體或異界生物的位置，即使你對他們沒有效果線也能如此。你能分辨偵測到的是物體還是生物，並且能知道那些生物的本質。"
   },
@@ -971,6 +986,11 @@
   },
   "heroes.ancestries.human.trait.determination.effect": {
     "en": "A tolerance for pain and distress allows you to push through difficult situations. If you are frightened, slowed, or weakened, you can use a maneuver to immediately end one of those conditions.",
+    "fs": {
+      "basisHash": "ea710b813a080399d4ec707fbfa83fa3f787442e3d835f43dfe913cee01a868a",
+      "en": "A tolerance for pain and distress allows you to push through difficult situations.",
+      "zh": "你可以忍受痛苦和壓力，在困境中堅持前行。"
+    },
     "updated": "2026-10-01",
     "zh": "你可以忍受痛苦和壓力，在困境中堅持前行。若你處於畏縮、緩速或虛弱狀態，你可以使用機動動作立刻解除其中 1 種狀態。"
   },
@@ -1001,6 +1021,11 @@
   },
   "heroes.ancestries.human.trait.resist-the-unnatural.effect": {
     "en": "Your instinctive resilience protects you from injuries beyond the routine. Whenever you take damage that isn’t untyped, you can use a triggered action to take half the damage.",
+    "fs": {
+      "basisHash": "e7533774183898b3a5ca7c0a7eb1bb04a9a9ee70cadcf71b4118ab9018fd8530",
+      "en": "Your instinctive resilience protects you from injuries beyond the routine.",
+      "zh": "你與生俱來的韌性會保護你免受異常傷害。"
+    },
     "updated": "2026-10-01",
     "zh": "你與生俱來的韌性會保護你免受異常傷害。每當你受到任何傷害時，只要不是普通傷害，你可以使用反應動作將該傷害減半。"
   },
@@ -1101,6 +1126,11 @@
   },
   "heroes.ancestries.memonek.trait.keeper-of-order.effect": {
     "en": "Your connection to Axiom, the plane of Uttermost Law, allows you to manage chaos around you. Once per round when you or an adjacent creature makes a power roll, you can use a free triggered action to remove an edge or a bane on the roll, to turn a double edge into an edge, or to turn a double bane into a bane.",
+    "fs": {
+      "basisHash": "fb8b1389aab8b9fe447be20a68ebd871a551a76238cbf81ffe977129d1ecff5b",
+      "en": "Your connection to Axiom, the plane of Uttermost Law, allows you to manage chaos around you.",
+      "zh": "你與「至律位面」公理界的連結能讓你控制周圍的混亂。"
+    },
     "updated": "2026-10-01",
     "zh": "你與「至律位面」公理界的連結能讓你控制周圍的混亂。每輪 1 次，當你自己或 1 個與你相鄰的生物進行檢定時，你可以使用免費反應動作，移除該次檢定的 1 個優勢或劣勢、將雙優勢轉為單優勢，或將雙劣勢轉為單劣勢。"
   },
@@ -1346,6 +1376,11 @@
   },
   "heroes.ancestries.polder.signature.shadowmeld.effect": {
     "en": "You flatten yourself into a shadow against a wall or floor you are touching, and become hidden from any creature you have cover or concealment from or who isn’t observing you. While in shadow form, you have full awareness of your surroundings, and strikes made against you and tests made to search for you take a bane. You can’t move or be force moved, and you can’t take main actions or maneuvers except to exit this form or to direct creatures under your control, such as one you summon using an ability. Any ability or effect that targets more than 1 square affects you in this form only if it explicitly affects the surface you are flattened against. You can exit this form as a maneuver. If the surface you are flattened against is destroyed, this ability ends and you take 1d6 damage that can’t be reduced in any way.",
+    "fs": {
+      "basisHash": "735d2307f49d8ed1e366943488ab699162ab7ce31fa5b327efe212991ca4eb97",
+      "en": "You flatten yourself into a shadow against a wall or floor you are touching, and become hidden from any creature you have cover or concealment from or who isn’t observing you. While in shadow form, you have full awareness of your surroundings, and strikes against you and tests made to search for you take a bane. You can’t move or be force moved, and you can’t take main actions or maneuvers except to exit this form or to direct creates under your control, such as one you summon using an ability. Any ability or effect that targets more than 1 square affects you in this form only if it explicitly affects the surface you are flattened against. You can exit this form as a maneuver.\n\nIf the surface you are flattened against is destroyed, this ability ends and you take 1d6 damage that can’t be reduced in any way.",
+      "zh": "你將自己化為平貼於牆面或地面的影子。此時，若你對 1 個生物具有掩護或遮蔽，或該生物觀察不到你，你就會對他處於隱藏。在影子形態中，你能完全感知周遭的環境，而且對你發動的任何打擊和搜索考驗都會承受 1 個劣勢。你無法移動或被強制移動，也無法執行主要動作和機動動作（除了脫離此形態或指揮受你控制的生物，例如你發動招式召喚的生物）。影響多格的招式或效果，只有在明確影響你所貼附的表面時，你才會受到影響。你可以使用機動動作脫離此形態。\n\n若你所貼附的表面被摧毀，此招式會立刻終止，而且你會受到 1d6 點傷害（無法以任何方式減免）。"
+    },
     "updated": "2026-10-01",
     "zh": "你將自己化為平貼於牆面或地面的影子。此時，若你對 1 個生物具有掩護或遮蔽，或該生物觀察不到你，你就會對他處於隱藏。在影子形態中，你能完全感知周遭的環境，而且對你發動的任何打擊和搜索考驗都會承受 1 個劣勢。你無法移動或被強制移動，也無法執行主要動作和機動動作（除了脫離此形態或指揮受你控制的生物，例如你發動招式召喚的生物）。影響多格的招式或效果，只有在明確影響你所貼附的表面時，你才會受到影響。你可以使用機動動作脫離此形態。\n\n若你所貼附的表面被摧毀，此招式會立刻終止，而且你會受到 1d6 點傷害（無法以任何方式減免）。"
   },
@@ -1441,6 +1476,11 @@
   },
   "heroes.ancestries.polder.trait.reactive-tumble.effect": {
     "en": "Staying light on your feet lets you quickly get back into position. Whenever you are force moved, you can use a free triggered action to shift 1 square after the forced movement is resolved.",
+    "fs": {
+      "basisHash": "f406282ec426dacf12bec6305ebb7a5b8f7b3737c2f67184226522db44608acb",
+      "en": "Staying light on your feet lets you quickly get back into position.",
+      "zh": "保持輕盈的步伐能讓你快速回到有利位置。"
+    },
     "updated": "2026-10-01",
     "zh": "保持輕盈的步伐能讓你快速回到有利位置。每當你被強制移動時，在該次強制移動結算後，你可以使用免費反應動作遁移 1 格。"
   },

@@ -97,6 +97,8 @@
 - **職業、套組、領域、專長的招式不在招式批次（2026-10-07）。** 職業排在 P4，Strings 上也沒有這些列。Marc 已核准。
 - **Foresight（`time-raider-feature-2-2b`）只做名稱（2026-10-07）。** 名稱直接對第 349 列（8-1 已做）。文字段是改寫，而且第 350 列已是 2-2a 的 Forge Steel 版，所以留英文。Marc 已核准。
 
+- **8-2 的 17 鍵與 8 列 Forge Steel 版已定稿（2026-10-07）。** Marc 明確回覆「8-2 全照建議定稿」。Strings 第 58、65、69、91、191、245、287、304 列 P–V，CHG-0064；description 10 鍵（直接對照 6、Forge Steel 版 4），文字段 7 鍵（直接對照 3、Forge Steel 版 4）。第 287 列 Q 沿用 7-3 方案 A 去掉頭尾空白，段內分段與拼字差異保留；enHash 仍取 Forge Steel 未去空白原文。中文只刪字、不改寫；第 287 列 R 等於 H。實作只換顯示，經典表格加了 Effect 前綴的文字段仍留英文，資料與排版估算不改。待 Marc 本機驗收，回「過」才合併。
+
 ## 尚未決定
 
 網站這邊目前沒有。Master Sheet Project State 的 Open Decisions 是 1：Glossary 第 160 列 `term.enhancement`（Enhancement）翻譯未定、狀態 NEW（CHG-0013、CHG-0014）。那是書本翻譯的事，和網站批次無關，AI 不自行補完。

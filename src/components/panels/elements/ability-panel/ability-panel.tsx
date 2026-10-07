@@ -3,7 +3,7 @@ import { Alert, Flex, Space, Tag } from 'antd';
 import { CSSProperties, useState } from 'react';
 import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
-import { abilityNameKey, abilitySectionKey } from '@/l10n/ability-text';
+import { abilityDescriptionKey, abilityNameKey, abilitySectionKey } from '@/l10n/ability-text';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -50,6 +50,7 @@ export const AbilityPanel = (props: Props) => {
 
 	const keywords = AbilityLogic.getKeywords(props.ability, props.hero);
 	const nameKey = abilityNameKey(props.ability);
+	const descriptionKey = abilityDescriptionKey(props.ability);
 	const isSignature = (props.cost ?? props.ability.cost) === 'signature';
 
 	const getCost = () => {
@@ -286,7 +287,7 @@ export const AbilityPanel = (props: Props) => {
 					>
 						{props.ability.name || 'Unnamed Ability'}
 					</HeaderText>
-					<Markdown text={props.ability.description} className='ability-description-text' />
+					<Markdown text={props.ability.description} className='ability-description-text' l10nKey={descriptionKey} />
 				</div>
 			</ErrorBoundary>
 		);
@@ -333,7 +334,7 @@ export const AbilityPanel = (props: Props) => {
 				>
 					{props.ability.name || 'Unnamed Ability'}
 				</HeaderText>
-				<Markdown text={props.ability.description} className='ability-description-text' />
+				<Markdown text={props.ability.description} className='ability-description-text' l10nKey={descriptionKey} />
 				{
 					keywords.length > 0 ?
 						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{k}</Tag>)}</Flex>

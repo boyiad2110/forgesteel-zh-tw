@@ -1,4 +1,4 @@
-import { AbilityName, abilityNameKey, abilitySectionKey, useAbilityName } from '@/l10n/ability-text';
+import { AbilityName, abilityDescriptionKey, abilityNameKey, abilitySectionKey, useAbilityName } from '@/l10n/ability-text';
 import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { Feature, FeaturePerk, FeatureText } from '@/models/feature';
@@ -401,7 +401,6 @@ describe('ancestry continuation', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:memonek-feature-3-5:description',
 			'element:dwarf-feature-1:description',
 			'element:ancestry-hakaan:description',
 			'element:hakaan-feature-2-5:description',
@@ -514,8 +513,6 @@ describe('ancestry third batch', () => {
 		const unmapped = [
 			'element:devil-feature-2-3:description',
 			'element:high-elf-feature-2-0:description',
-			'element:polder-feature-1:description',
-			'element:polder-feature-3-4:description',
 			'element:devil-feature-2:name',
 			'element:high-elf-feature-2:name',
 			'element:polder-feature-3:name',
@@ -661,14 +658,10 @@ describe('ancestry fourth batch', () => {
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
 			'element:human-feature-1:description',
-			'element:human-feature-2-3:description',
-			'element:human-feature-2-4:description',
 			'element:wode-elf-feature-2-5:description',
 			'element:time-raider-feature-2-1:description',
 			'element:time-raider-feature-2-2b:description',
-			'element:time-raider-feature-2-5-1:description',
 			'element:time-raider-feature-2-5-2:description',
-			'element:time-raider-feature-2-5-3:description',
 			'element:wode-elf-feature-1:description',
 			'element:time-raider-feature-2-2:description',
 			'element:human-feature-2:name',
@@ -784,10 +777,7 @@ describe('ancestry fifth batch', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:revenant-feature-4-5-2:description',
 			'element:dragon-knight-feature-2-1:description',
-			'element:dragon-knight-feature-2-9:description',
-			'element:dragon-knight-feature-2-10:description',
 			'element:dragon-knight-feature-2-2:name',
 			'element:dragon-knight-feature-2-3:name',
 			'element:dragon-knight-feature-2-4:name',
@@ -924,9 +914,9 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(398);
+		expect(Object.keys(mapping)).toHaveLength(415);
 		expect(Object.keys(exceptions)).toHaveLength(10);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(85);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(93);
 	});
 
 	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
@@ -999,7 +989,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(398);
+		expect(Object.keys(mapping)).toHaveLength(415);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1076,7 +1066,7 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(398);
+		expect(Object.keys(mapping)).toHaveLength(415);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1312,7 +1302,7 @@ describe('action names', () => {
 	});
 
 	test('this batch adds 19 action name keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(398);
+		expect(Object.keys(mapping)).toHaveLength(415);
 		expect(actionNames).toHaveLength(19);
 		for (const [ id, english, sheetId, zh ] of actionNames) {
 			const key = `element:${id}:name`;
@@ -1624,7 +1614,7 @@ describe('action descriptions', () => {
 	});
 
 	test('fourteen section keys point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(398);
+		expect(Object.keys(mapping)).toHaveLength(415);
 		expect(direct).toHaveLength(5);
 		expect(forgeSteel).toHaveLength(9);
 		for (const [ id, sheetId ] of direct) {
@@ -1808,6 +1798,132 @@ const collectAncestryAbilities = (): Ability[] => {
 	return found;
 };
 
+describe('ancestry ability descriptions and text sections', () => {
+	const approved = [
+		[ 'human-feature-1', 0, '直到你下個回合結束前，你知道 5 格內任何超常物體、亡靈、構裝體或異界生物的位置，即使你對他們沒有效果線也能如此。你能分辨偵測到的是物體還是生物，並且能知道那些生物的本質。' ],
+		[ 'human-feature-2-4', 'description', '你可以忍受痛苦和壓力，在困境中堅持前行。' ],
+		[ 'human-feature-2-3', 'description', '你與生俱來的韌性會保護你免受異常傷害。' ],
+		[ 'devil-feature-2-3', 0, '每當你受到生物造成的傷害時，你可以使用反應動作，對該生物造成等於 1d10 + 你等級的心靈傷害。' ],
+		[ 'dragon-knight-feature-2-9', 'description', '你發出震天怒吼，撼動敵人的心志。' ],
+		[ 'dragon-knight-feature-2-10', 'description', '狂怒的能量噴湧而出，席捲你的敵人。' ],
+		[ 'dragon-knight-feature-2-10', 1, '你可以為招式選擇以下 1 種傷害類型：酸蝕、寒冷、腐朽、火焰、閃電、毒素。' ],
+		[ 'high-elf-feature-2-0', 0, '每當你受到生物造成的傷害時，你可以使用反應動作讓該生物對你陷入畏縮狀態，直到他下個回合結束。' ],
+		[ 'memonek-feature-3-5', 'description', '你與「至律位面」公理界的連結能讓你控制周圍的混亂。' ],
+		[ 'polder-feature-1', 'description', '你化為一道真正的影子。' ],
+		[ 'polder-feature-1', 0, '你將自己化為平貼於牆面或地面的影子。此時，若你對 1 個生物具有掩護或遮蔽，或該生物觀察不到你，你就會對他處於隱藏。在影子形態中，你能完全感知周遭的環境，而且對你發動的任何打擊和搜索考驗都會承受 1 個劣勢。你無法移動或被強制移動，也無法執行主要動作和機動動作（除了脫離此形態或指揮受你控制的生物，例如你發動招式召喚的生物）。影響多格的招式或效果，只有在明確影響你所貼附的表面時，你才會受到影響。你可以使用機動動作脫離此形態。\n\n若你所貼附的表面被摧毀，此招式會立刻終止，而且你會受到 1d6 點傷害（無法以任何方式減免）。' ],
+		[ 'polder-feature-3-4', 'description', '保持輕盈的步伐能讓你快速回到有利位置。' ],
+		[ 'revenant-feature-4-5-2', 'description', '你放在生物身上的魔法符印爆散出一股能量。' ],
+		[ 'revenant-feature-4-5-2', 1, '生物身上的符印隨即消失。' ],
+		[ 'time-raider-feature-2-5-1', 'description', '你將一股無形的力量猛烈砸向目標。' ],
+		[ 'time-raider-feature-2-5-3', 'description', '你讓自己或盟友瞬間爆發出更快的速度。' ],
+		[ 'time-raider-feature-2-5-3', 0, '目標的速度獲得等於你理智、直覺或氣場的加值（由你選擇），直到你下個回合開始。' ]
+	] as const;
+	const byId = (id: string) => {
+		const ability = collectAncestryAbilities().find(item => item.id === id);
+		if (!ability) {
+			throw new Error(id);
+		}
+		return ability;
+	};
+	const panel = (ability: Ability, mode = PanelMode.Full) => renderToStaticMarkup(withOptions(
+		FactoryLogic.createOptions(), createElement(AbilityPanel, { ability, mode })
+	));
+	const card = (ability: Ability) => renderToStaticMarkup(createElement(AbilityCard, {
+		ability: ClassicSheetBuilder.buildAbilitySheet(ability, FactoryLogic.createHero(), undefined, FactoryLogic.createOptions())
+	}));
+	const plain = (html: string) => html.replace(/<[^>]*>/g, '');
+
+	beforeEach(async () => {
+		await loadCatalog();
+		vi.stubGlobal('window', {
+			matchMedia: () => ({ matches: false, addEventListener: () => undefined, removeEventListener: () => undefined })
+		});
+	});
+
+	test('ten descriptions translate in full panels, compact panels, and classic cards', () => {
+		for (const [ id, field, zh ] of approved) {
+			if (field !== 'description') {
+				continue;
+			}
+			const ability = byId(id);
+			const before = JSON.stringify(ability);
+			for (const html of [ panel(ability), panel(ability, PanelMode.Compact), card(ability) ]) {
+				expect(plain(html)).toContain(zh);
+				expect(plain(html)).not.toContain(ability.description);
+			}
+			expect(JSON.stringify(ability)).toBe(before);
+			setLanguage('en');
+			for (const html of [ panel(ability), panel(ability, PanelMode.Compact), card(ability) ]) {
+				expect(plain(html)).toContain(ability.description);
+				expect(plain(html)).not.toContain(zh);
+			}
+			setLanguage('zh-TW');
+		}
+	});
+
+	test('seven text sections translate in full panels and retain English in English mode', () => {
+		for (const [ id, field, zh ] of approved) {
+			if (field === 'description') {
+				continue;
+			}
+			const ability = byId(id);
+			const section = ability.sections[field];
+			if (section.type !== 'text') {
+				throw new Error(id);
+			}
+			for (const paragraph of zh.split('\n\n')) {
+				expect(plain(panel(ability))).toContain(paragraph);
+			}
+			setLanguage('en');
+			expect(plain(panel(ability))).toContain(section.text.trim().split('\n')[0]);
+			setLanguage('zh-TW');
+		}
+	});
+
+	test('custom descriptions, rewritten sections, and non-ancestry abilities remain unchanged', () => {
+		const pride = byId('dragon-knight-feature-2-9');
+		const custom = { ...pride, description: 'My custom roar.' };
+		expect(abilityDescriptionKey(custom)).toBeUndefined();
+		expect(panel(custom)).toContain('My custom roar.');
+		expect(card(custom)).toContain('My custom roar.');
+		expect(abilityDescriptionKey({ id: 'class-ability', description: pride.description })).toBeUndefined();
+		expect(abilityDescriptionKey({ ...pride, description: '' })).toBeUndefined();
+		const shadow = byId('polder-feature-1');
+		const section = shadow.sections[0];
+		if (section.type !== 'text') {
+			throw new Error('shadow section');
+		}
+		expect(abilitySectionKey(shadow.id, 0, section.text)).toBe('section:polder-feature-1:0');
+		expect(abilitySectionKey(shadow.id, 0, section.text + ' extra')).toBeUndefined();
+		expect(abilitySectionKey(shadow.id, 0, '**Effect:** ' + section.text)).toBeUndefined();
+		expect(abilitySectionKey('class-ability', 0, section.text)).toBeUndefined();
+		expect(abilitySectionKey(pride.id, 0, 'roll')).toBeUndefined();
+	});
+
+	test('classic card prefixes and layout estimates keep their existing behavior', () => {
+		const shadow = byId('polder-feature-1');
+		const sheet = ClassicSheetBuilder.buildAbilitySheet(shadow, FactoryLogic.createHero(), undefined, FactoryLogic.createOptions());
+		const before = JSON.stringify(sheet);
+		const size = SheetFormatter.calculateAbilitySize(sheet, 50);
+		expect(plain(card(shadow))).toContain('You flatten yourself into a shadow');
+		expect(plain(card(shadow))).toContain('你化為一道真正的影子。');
+		setLanguage('en');
+		expect(SheetFormatter.calculateAbilitySize(sheet, 50)).toEqual(size);
+		expect(JSON.stringify(sheet)).toBe(before);
+	});
+
+	test('single-version descriptions and the deferred rewritten ability text stay English', () => {
+		for (const id of [ 'devil-feature-2-3', 'high-elf-feature-2-0', 'dragon-knight-feature-2-1', 'wode-elf-feature-2-5', 'human-feature-1', 'time-raider-feature-2-1', 'time-raider-feature-2-5-2' ]) {
+			const ability = byId(id);
+			expect(plain(panel(ability))).toContain(ability.description);
+			expect(mapping[`element:${id}:description`]).toBeUndefined();
+		}
+		for (const id of [ 'dragon-knight-feature-2-8', 'human-feature-2-3', 'human-feature-2-4', 'memonek-feature-3-5', 'polder-feature-3-4', 'time-raider-feature-2-1', 'time-raider-feature-2-2b' ]) {
+			expect(mapping[`section:${id}:0`]).toBeUndefined();
+		}
+	});
+});
+
 describe('ancestry ability names', () => {
 	const catalog = strings as Catalog;
 
@@ -1835,7 +1951,7 @@ describe('ancestry ability names', () => {
 	});
 
 	test('nineteen ancestry ability names point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(398);
+		expect(Object.keys(mapping)).toHaveLength(415);
 		expect(ancestryAbilityNames).toHaveLength(19);
 		expect(collectAncestryAbilities().map(ability => ability.id).sort()).toEqual(ancestryAbilityNames.map(row => row[0]).sort());
 
@@ -1877,10 +1993,11 @@ describe('ancestry ability names', () => {
 		if (!oath || oath.sections[0].type !== 'text') {
 			throw new Error('remember your oath section 0 is text');
 		}
-		expect(abilitySectionKey(oath.id, 0, oath.sections[0].text)).toBeUndefined();
+		expect(abilitySectionKey(oath.id, 0, oath.sections[0].text)).toBe('section:dragon-knight-feature-2-8:0');
+		expect(mapping['section:dragon-knight-feature-2-8:0']).toBeUndefined();
 	});
 
-	test('chinese mode renames ancestry abilities and leaves descriptions in English', () => {
+	test('chinese mode renames ancestry abilities and keeps unmapped text English', () => {
 		const abilities = collectAncestryAbilities();
 		const byId = (id: string) => {
 			const ability = abilities.find(item => item.id === id);
@@ -1891,10 +2008,10 @@ describe('ancestry ability names', () => {
 		};
 		const shown = [
 			[ 'dragon-knight-feature-2-8', '銘記誓言', 'Remember your Oath', 'As a maneuver, you can recite the following oath.' ],
-			[ 'dragon-knight-feature-2-9', '龍人霸氣', 'Draconic Pride', 'You let loose a mighty roar to shake your foes’ spirits.' ],
-			[ 'dragon-knight-feature-2-10', '龍息', 'Dragon Breath', 'A furious exhalation of energy washes over your foes.' ],
+			[ 'dragon-knight-feature-2-9', '龍人霸氣', 'Draconic Pride', '你發出震天怒吼，撼動敵人的心志。' ],
+			[ 'dragon-knight-feature-2-10', '龍息', 'Dragon Breath', '狂怒的能量噴湧而出，席捲你的敵人。' ],
 			[ 'dragon-knight-feature-2-1', '龍人守衛', 'Draconian Guard', 'You can swing your wings around and guard against a blow.' ],
-			[ 'polder-feature-1', '融影術', 'Shadowmeld', 'You become an actual shadow.' ]
+			[ 'polder-feature-1', '融影術', 'Shadowmeld', '你化為一道真正的影子。' ]
 		] as const;
 
 		for (const [ id, zh, english, description ] of shown) {
@@ -1913,7 +2030,7 @@ describe('ancestry ability names', () => {
 		expect(breath).toContain('Area');
 		expect(breath).toContain('Magic');
 		expect(breath).toContain('2 damage');
-		expect(breath).not.toContain('狂怒的能量噴湧而出');
+		expect(breath).toContain('狂怒的能量噴湧而出');
 		expect(renderPanel(byId('dragon-knight-feature-2-8'))).not.toContain('你可以使用機動動作誦讀以下誓言');
 
 		setLanguage('en');
