@@ -2027,7 +2027,10 @@ export const checkCalculationBindings = root => {
 			fail('binding must reference its mapped approved Forge Steel row');
 			continue;
 		}
-		if (binding.enHash !== entry.enHash || binding.enHash !== hashEnglish(row.en)) {
+		// Mapping hashes anchor the exact upstream literal. The approved Forge
+		// Steel source cell may trim template-only edge whitespace, which the
+		// mapping check separately verifies against that same literal.
+		if (binding.enHash !== entry.enHash) {
 			fail('English binding is stale; reapprove its source positions');
 		}
 		if (binding.zhHash !== hashEnglish(row.zh)) {

@@ -23,9 +23,10 @@ export interface ElementOverlay {
  * Fields the surrounding screen may translate.
  *
  * A non-empty overlay is a rename or a rewritten description, so that field
- * is left out and the text on screen stays in English. Computed wording stays
- * in English too: the scope keeps the data text, and a display string that no
- * longer matches it is not looked up.
+ * is left out. The scope keeps the original data text; computed wording can
+ * use a key only when that exact field has an explicit calculation binding,
+ * whose projection adapter validates the displayed value. Unknown rewrites
+ * stay in English.
  */
 export const elementScopeFields = (element: ElementText, overlay?: ElementOverlay | null): L10nField[] => {
 	const fields: L10nField[] = [];
@@ -40,7 +41,8 @@ export const elementScopeFields = (element: ElementText, overlay?: ElementOverla
 
 /**
  * Mounts element:<id>:name and element:<id>:description for one data object.
- * HeaderText and Markdown inside look those up only when the text still matches.
+ * HeaderText and Markdown look up matching fields; explicitly bound calculated
+ * fields use the same key with projection validation.
  */
 export const ElementScope = (props: { element: ElementText, overlay?: ElementOverlay | null, children: ReactNode }) => {
 	return (

@@ -12,6 +12,8 @@ P2-7 完成；招式批次 8-1（族裔招式名稱，19 鍵）已接受（#26�
 
 8-3 追修（2026-10-07）：治理稽核確認共用原文查鍵會讓閃耀熾目的固定中文蓋掉上游等級數值，Marc 已核准修正，並要求原文數字變動時中文必須同步。原文查鍵改為只允許已有顯示綁定的段落；共用轉接器拒絕未綁定的真實改寫，補上閃耀熾目的 `your level` →「你等級」位置綁定。新增等級 1／2／3／10、開關／英語／自訂內容／不改資料的回歸測試，以及遍歷全部已翻譯文字段的動態數值覆蓋測試。Strings U91 補註 CHG-0067；mapping 418 鍵、Forge Steel 版 96 列，靜態譯文不變。Marc 於 2026-10-07 回覆「驗收通過」，追修已接受（PR #30）；本輪停在結案。驗證：守門、匯出一致性、ESLint（無警告）、TypeScript 通過；完整 Vitest 780/780 通過（--maxWorkers=1 --testTimeout=10000）。本機 Edge 無頭頁面確認閃耀熾目的閃電開關、等級 2→3、英／正體中文切換，並回歸擒抱／擊退／掙脫；無截圖、錄影，招式原始資料不變。原版的閃耀熾目 4 個等級數值案例先失敗，修正後通過。npm run check 的既有來源掃描測試仍超過預設 5 秒；npm audit 為既有 4 個漏洞，本次未改依賴。
 
+P2-9-1（2026-10-07）：Marc 已核准哈肯人總覽與命定末視對照及命定末視動態復元值綁定。Master Sheet Strings 204、220 的 P–V 與 CHG-0068 已寫入；205、221–222 列於 Forge Steel Note 標示併列，Hacaarl 依 DEC-0009 不補。實作新增兩個元素對照、核准文字數值綁定，以及只對明確綁定欄位提供候選鍵的保護。守門、快照一致性、ESLint、TypeScript 通過；尚待建立 PR 並供 Marc 本機預覽驗收。
+
 ## 已完成
 
 | 批次 | 內容 | PR | 狀態 | 接受日 |
@@ -57,7 +59,7 @@ P2-7 完成；招式批次 8-1（族裔招式名稱，19 鍵）已接受（#26�
 6. skill groups（P2-6）：6-1 技能名稱與類別，建造頁技能選擇、選技能視窗、Reference（已接受）。6-2 技能名稱與類別，英雄側欄、小隊、來源書、經典表格技能卡／隨從卡／同伴卡／特性、失去技能糾葛、選技能視窗標籤（已接受）。隨從面板、專案面板的技能與語言留待後補。擲骰修正說明、分組標題 P3。技能描述留英文。搜尋排序維持英文
 7. basic actions（P2-7）：7-1 網頁名稱，Reference 的 Abilities 頁、招式視窗、列印頁、英雄頁招式列表、側欄 Triggers（已接受）。7-2 經典表格名稱（已接受）。7-3 動作描述（已接受：9 段 Forge Steel 版、5 段直接對照）。Escape Grab、Grab、Knockback 的「效果：」段已於招式批次 8-3 接受；簡略描述仍留英文。Opportunity Attack、Go Prone、Swap 的描述留英文。Melee Free Strike／Ranged Free Strike、Go Prone、Swap 留英文。動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3
 8. 招式批次（P2-8）：8-1 族裔招式名稱 19 個（已接受，#26）。Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）的名稱走 Forge Steel 版，中文與書本相同。8-2 族裔描述與內文段（已接受，#28）：description 10 鍵（直接對照 6、Forge Steel 版 4）、文字段 7 鍵（直接對照 3、Forge Steel 版 4）；Sheet 寫 8 列 P–V（第 58、65、69、91、191、245、287、304 列）；程式改 `src/l10n/ability-text.ts`（`abilitySectionKey` 擴到族裔招式、新增 description 鍵）、`ability-panel.tsx`（description：compact 與 full 兩處）、`ability-card.tsx`（description）。8-3 Escape Grab、Grab、Knockback 的「效果：」段（第 38、39、41 列各 1 段，`section:<id>:2`）已接受（#29，2026-10-07）：Sheet 寫 3 列 P–V 並新增 CHG-0065。Grab／Knockback 以原始英文字串查翻譯鍵，再將上游計算數值投射到核准中文（`calculation-bindings.json`／`calculated-text.ts`）；關閉計算恢復原文。Strings U39、U41 補註 CHG-0066，Project State／Status 已更新；Marc 已驗收閃電開關與力量 2→3。擲骰（tier）、關鍵字、距離、目標、觸發句、Forge Steel 改寫的段留英文；第 177、331、356 列的引言不對照；Foresight（2-2b）只做名稱。職業、套組、領域、專長招式不在這批。矮人、哈肯人、歐克沒有招式
-9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視、符文銘刻、虹彩鱗片 6 個選項等
+9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視（P2-9-1 實作中）、符文銘刻、虹彩鱗片 6 個選項等
 
 同一階段也要排進：隱藏社群與第三方來源書。
 
