@@ -24,8 +24,8 @@ export interface MappingEntry {
  *                          element:<ability id>:name. Sixteen action names
  *                          point at term.<slug>-action. Free Strike,
  *                          Opportunity Attack, and Claw Dirt reuse older rows.
- *                          Ancestry ability names are batch 8-1. Descriptions
- *                          and text sections stay for later batches.
+ *                          Ancestry ability names, descriptions, and text sections
+ *                          are mapped in batches 8-1 and 8-2.
  *   enum:<Enum>:<Member>   for example enum:Characteristic:Might
  *   data:<Class>:<field>   for example data:ConditionData:bleeding
  *   ui:<id>                for example ui:library.ancestries
@@ -448,5 +448,23 @@ export const mapping: Record<string, MappingEntry> = {
 	'section:charge:0': { sheetId: 'heroes.actions.charge.rules', enHash: 'f63ef4b588bc976419a247b38247433fc1e9be184eb9cf6956647765fb3f5ff6' },
 	'section:defend:0': { sheetId: 'heroes.actions.defend.rules', enHash: '02759e0e7e193dfd5ff881dca7abaccca68e0f9847d28a0e624606b88cdafa74' },
 	'section:free-strike:0': { sheetId: 'heroes.actions.free-strike.rules', enHash: 'cb156132e328993d956f05ebf8725eebcfb0028874769a38577fa569229d3399' },
-	'section:heal:0': { sheetId: 'heroes.actions.heal.rules', enHash: '623397c39539eb7ad300dc5677d310defaa28d1d29dc9c079004cb3978cab80a', stripHeading: true }
+	'section:heal:0': { sheetId: 'heroes.actions.heal.rules', enHash: '623397c39539eb7ad300dc5677d310defaa28d1d29dc9c079004cb3978cab80a', stripHeading: true },
+	// Ancestry ability descriptions and text sections (batch 8-2).
+	'section:human-feature-1:0': { sheetId: 'heroes.ancestries.human.signature.detect-supernatural.effect', enHash: 'e5373b170fa5e34166f2b7c6db33dc0674bdb41c94df5066f210596279064e80' },
+	'element:human-feature-2-4:description': { sheetId: 'heroes.ancestries.human.trait.determination.effect', enHash: 'b6aa804e2404de5326477cd43e2f1068455741b34ae44fd6c923aa7dfa37233a' },
+	'element:human-feature-2-3:description': { sheetId: 'heroes.ancestries.human.trait.resist-the-unnatural.effect', enHash: '0e6d09d209a52f7990f512c669aefb812f9ccd599aaacd9019f9b839232937c8' },
+	'section:devil-feature-2-3:0': { sheetId: 'heroes.ancestries.devil.trait.glowing-eyes.effect', enHash: 'ddac078bbe860f9535ebacfb2aeb22a4713fa7d6f2a2143eeaf27fbc3e43ce3c' },
+	'element:dragon-knight-feature-2-9:description': { sheetId: 'heroes.ancestries.dragon-knight.trait.draconian-pride.tagline', enHash: 'e25dcbb505181698217b4bc7faca6ad18504e4bb9fdd3d83a08efc47a016e3fc' },
+	'element:dragon-knight-feature-2-10:description': { sheetId: 'heroes.ancestries.dragon-knight.trait.dragon-breath.tagline', enHash: '130e3189c932ed591761ccc1bfc8c9ba960bdf86b7b77292c0b22753022c0167' },
+	'section:dragon-knight-feature-2-10:1': { sheetId: 'heroes.ancestries.dragon-knight.trait.dragon-breath.effect', enHash: 'b6e96f92e0dcf1b0e1aeba4b327ed4cdfb812fe8e2da3c57ef0ef0e1f6804a6c' },
+	'section:high-elf-feature-2-0:0': { sheetId: 'heroes.ancestries.high-elf.trait.glamor-of-terror.effect', enHash: '0fa4eca2024c4228f68d3fe74e8776d657244adee0448319d17674a6fb7b5c9a' },
+	'element:memonek-feature-3-5:description': { sheetId: 'heroes.ancestries.memonek.trait.keeper-of-order.effect', enHash: '20d6f3f9aa57ed0d3bfdef21a4a63114cd49e5e9ecf003fd5af424cb2f007a0d' },
+	'element:polder-feature-1:description': { sheetId: 'heroes.ancestries.polder.signature.shadowmeld.tagline', enHash: '1a09ad91bcb696a104beebc7a971d59ad7c7f3510761a57235f81432ea95d687' },
+	'section:polder-feature-1:0': { sheetId: 'heroes.ancestries.polder.signature.shadowmeld.effect', enHash: '22f0a40817bdb6af4b81d7cdfcb2e45af8adfed2838de0c21092608fa51d1064' },
+	'element:polder-feature-3-4:description': { sheetId: 'heroes.ancestries.polder.trait.reactive-tumble.effect', enHash: 'b0a4bbfe98e6e0960ac134389987a76d03e01c21931be2ffefdc7a7386917887' },
+	'element:revenant-feature-4-5-2:description': { sheetId: 'heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.tagline', enHash: 'ac6f7b782a72384740298d969383a45e9a0fe46337846ef95c8a716acaedb2b2' },
+	'section:revenant-feature-4-5-2:1': { sheetId: 'heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.effect', enHash: '43668074d2e4d78945149606efeb26cc9d1e57f223b2407c6ac26fc6020c37dd' },
+	'element:time-raider-feature-2-5-1:description': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.concussive-slam.tagline', enHash: '472136cc6ab42c48b0d281f36d66af58fc39186464a77ba49f8d0bffe9450b5f' },
+	'element:time-raider-feature-2-5-3:description': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.tagline', enHash: '2d3b3402db89c12f71bff73d4c97e7f5b0b350365da0d0743e6e3a494ac3166c' },
+	'section:time-raider-feature-2-5-3:0': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.effect', enHash: '94671bdde9bfe42885a5e69d0fa46d00e343da51005f300bcb152eda52ef098b' }
 };
