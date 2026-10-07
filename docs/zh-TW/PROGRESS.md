@@ -10,7 +10,7 @@ P2-7 完成；招式批次 8-1（族裔招式名稱，19 鍵）已接受（#26�
 
 8-2 驗證：`node scripts/l10n/check.mjs` 通過；`npm run check` 的 ESLint、TypeScript、760 個測試通過（本機以 `VITEST_MAX_WORKERS=1` 避免既有來源掃描測試在平行執行時逾時）。最後 `npm audit` 回報既有相依套件 4 個漏洞（1 moderate、3 high），整體指令 exit 1；本批未修改 `package.json`／`package-lock.json`，未處理相依套件更新。
 
-8-3 追修（2026-10-07）：治理稽核確認共用原文查鍵會讓閃耀熾目的固定中文蓋掉上游等級數值，Marc 已核准修正，並要求原文數字變動時中文必須同步。原文查鍵改為只允許已有顯示綁定的段落；共用轉接器拒絕未綁定的真實改寫，補上閃耀熾目的 `your level` →「你等級」位置綁定。新增等級 1／2／3／10、開關／英語／自訂內容／不改資料的回歸測試，以及遍歷全部已翻譯文字段的動態數值覆蓋測試。Strings U91 補註 CHG-0067；mapping 418 鍵、Forge Steel 版 96 列，靜態譯文不變。分支 `codex/calculated-chinese-followup`，修正 PR 等 Marc 本機驗收；本輪不開始下一批內容。驗證：守門、匯出一致性、ESLint（無警告）、TypeScript 通過；完整 Vitest 780/780 通過（--maxWorkers=1 --testTimeout=10000）。本機 Edge 無頭頁面確認閃耀熾目的閃電開關、等級 2→3、英／正體中文切換，並回歸擒抱／擊退／掙脫；無截圖、錄影，招式原始資料不變。原版的閃耀熾目 4 個等級數值案例先失敗，修正後通過。npm run check 的既有來源掃描測試仍超過預設 5 秒；npm audit 為既有 4 個漏洞，本次未改依賴。
+8-3 追修（2026-10-07）：治理稽核確認共用原文查鍵會讓閃耀熾目的固定中文蓋掉上游等級數值，Marc 已核准修正，並要求原文數字變動時中文必須同步。原文查鍵改為只允許已有顯示綁定的段落；共用轉接器拒絕未綁定的真實改寫，補上閃耀熾目的 `your level` →「你等級」位置綁定。新增等級 1／2／3／10、開關／英語／自訂內容／不改資料的回歸測試，以及遍歷全部已翻譯文字段的動態數值覆蓋測試。Strings U91 補註 CHG-0067；mapping 418 鍵、Forge Steel 版 96 列，靜態譯文不變。分支 `codex/calculated-chinese-followup`，修正 PR #30（https://github.com/boyiad2110/forgesteel-zh-tw/pull/30）等 Marc 本機驗收；本輪不開始下一批內容。驗證：守門、匯出一致性、ESLint（無警告）、TypeScript 通過；完整 Vitest 780/780 通過（--maxWorkers=1 --testTimeout=10000）。本機 Edge 無頭頁面確認閃耀熾目的閃電開關、等級 2→3、英／正體中文切換，並回歸擒抱／擊退／掙脫；無截圖、錄影，招式原始資料不變。原版的閃耀熾目 4 個等級數值案例先失敗，修正後通過。npm run check 的既有來源掃描測試仍超過預設 5 秒；npm audit 為既有 4 個漏洞，本次未改依賴。
 
 ## 已完成
 
