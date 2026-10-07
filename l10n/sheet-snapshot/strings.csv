@@ -17,7 +17,11 @@ heroes.actions.catch-breath.rules,APPROVED,"喘息
 
 A creature who uses the Catch Breath maneuver spends a Recovery and regains Stamina equal to their recovery value. (See below for Stamina. See Recoveries in Chapter 1: The Basics.)
 
-A creature who is dying (see Dying and Death in Stamina below) can’t use the Catch Breath maneuver, but other creatures can help them spend Recoveries in other ways.",2026-09-30,,,,
+A creature who is dying (see Dying and Death in Stamina below) can’t use the Catch Breath maneuver, but other creatures can help them spend Recoveries in other ways.",2026-09-30,"A creature who uses the Catch Breath maneuver spends a Recovery and regains Stamina equal to their recovery value.
+
+A creature who is dying can’t use the Catch Breath maneuver, but other creatures can help them spend Recoveries in other ways.","若你使用喘息機動動作，你會花費 1 點復元力，並恢復等於復元值的體力。
+
+瀕死的生物無法使用喘息機動動作，但其他生物可以用其他方式協助他們花費復元力。",APPROVED,3fb14e4ecef0dbcdd51d01b3fbcc2ba3c19aee74306c19aa8407a5e4d365d7eb
 heroes.actions.charge.rules,APPROVED,"衝鋒
 
 當你執行衝鋒主要動作時，你會以直線方式移動最多等於自身速度的距離（期間不能跳躍），然後在移動結束時對 1 個目標發動 1 次近戰基礎打擊（詳見下文「基礎打擊」）。若你擁有帶有「衝鋒」關鍵詞的招式，你也可以發動該招式來取代基礎打擊。
@@ -26,12 +30,16 @@ heroes.actions.charge.rules,APPROVED,"衝鋒
 
 When a creature takes the Charge main action, they move up to their speed in a straight line without jumping, then make a melee free strike (see Free Strikes below) against a target when they end their move. If the creature has an ability with the Charge keyword, they can use that ability against the target instead of a free strike.
 
-A creature can’t move through difficult terrain or shift when they charge. They can fly or burrow as part of the Charge main action if they have that movement available to them, but they can’t climb or swim while charging unless they can automatically use that movement at full speed.",2026-09-30,,,,
+A creature can’t move through difficult terrain or shift when they charge. They can fly or burrow as part of the Charge main action if they have that movement available to them, but they can’t climb or swim while charging unless they can automatically use that movement at full speed.",2026-09-30,"When a creature takes the Charge main action, they move up to their speed in a straight line, then make a melee free strike against a target when they end their move. If the creature has an ability with the Charge keyword, they can use that ability against the target instead of a free strike.
+
+A creature can’t move through difficult terrain or shift when they charge. They can fly or burrow as part of the Charge main action if they have that movement available to them, but they can’t climb or swim while charging unless they can automatically use that movement at full speed.","當你執行衝鋒主要動作時，你會以直線方式移動最多等於自身速度的距離，然後在移動結束時對 1 個目標發動 1 次近戰基礎打擊。若你擁有帶有「衝鋒」關鍵詞的招式，你也可以發動該招式來取代基礎打擊。
+
+你在衝鋒期間無法穿越困難地形或進行遁移。若你擁有相應的移動能力，你可以在衝鋒期間飛行或掘地，但在衝鋒期間無法攀爬或游泳，除非你能夠自動以全速進行這類移動。",APPROVED,36e5b5e7ae3d74b7c95d813ea96c58a43636d0e8d2989002253fa3770d5d914f
 heroes.actions.defend.rules,APPROVED,"防禦
 
 若你執行防禦主要動作，針對你進行的所有招式檢定都會承受雙劣勢，直到你下個回合開始。此外，若你被要求進行考驗來抵抗環境效果、生物的特性或招式，你的考驗會獲得雙優勢。若有其他生物正被你嘲諷，你無法從此動作中獲得任何好處（詳見第 5 章〈職業〉的「狀態」）。","Defend
 
-When a creature takes the Defend main action, ability rolls made against them have a double bane until the start of their next turn. Additionally, you have a double edge on tests when called for to resist environmental effects or a creature’s traits or abilities. A creature gains no benefit from this action while another creature is taunted by them (see Conditions in Chapter 5: Classes).",2026-09-30,,,,
+When a creature takes the Defend main action, ability rolls made against them have a double bane until the start of their next turn. Additionally, you have a double edge on tests when called for to resist environmental effects or a creature’s traits or abilities. A creature gains no benefit from this action while another creature is taunted by them (see Conditions in Chapter 5: Classes).",2026-09-30,"When a creature takes the Defend main action, ability rolls made against them have a double bane until the start of their next turn. Additionally, you have a double edge on tests when called for to resist environmental effects or a creature’s traits or abilities. A creature gains no benefit from this action while another creature is taunted by them.",若你執行防禦主要動作，針對你進行的所有招式檢定都會承受雙劣勢，直到你下個回合開始。此外，若你被要求進行考驗來抵抗環境效果、生物的特性或招式，你的考驗會獲得雙優勢。若有其他生物正被你嘲諷，你無法從此動作中獲得任何好處。,APPROVED,972638f75ab55b7f99d4f72b1e1fa036c9c3cdf1dc9fab59c48afeefd03fec10
 heroes.actions.disengage.rules,APPROVED,"撤離
 
 若你執行撤離移動動作，你可以遁移 1 格。某些職業特性、套裝和其他機制會允許你在撤離時遁移超過 1 格。若是如此，你可以隨意將這段遁移拆分到在其他機動動作和主要動作之間。","Disengage
@@ -85,7 +93,7 @@ heroes.actions.free-strike.rules,APPROVED,"基礎打擊
 
 你可以使用此主要動作來發動 1 次基礎打擊（詳見下文「基礎打擊」）。大多數時候，最好的選擇是使用由職業、套裝或其他特性賦予、效果更強的主要動作，就像導演通常會使用生物數據欄中的主要動作一樣。不過，當其他手段都派不上用場時，基礎打擊永遠可用。例如，熾怒者若沒有其他遠程打擊選項，在對抗飛行敵人時，可能會使用臨時武器發動【遠程武器基礎打擊】招式。","Free Strike
 
-A creature can use this main action to make a free strike (see Free Strikes below). Most of the time, you’ll want to use the more impactful main actions granted by your class, kit, or other feature, just as the Director will use the main actions in a creature’s stat block, but free strikes are available for when all else fails. For instance, a fury who has no other options for ranged strikes might use the Ranged Weapon Free Strike ability with an improvised weapon when battling a flying foe.",2026-09-30,,,,
+A creature can use this main action to make a free strike (see Free Strikes below). Most of the time, you’ll want to use the more impactful main actions granted by your class, kit, or other feature, just as the Director will use the main actions in a creature’s stat block, but free strikes are available for when all else fails. For instance, a fury who has no other options for ranged strikes might use the Ranged Weapon Free Strike ability with an improvised weapon when battling a flying foe.",2026-09-30,A creature can use this main action to make a free strike.,你可以使用此主要動作來發動 1 次基礎打擊。,APPROVED,64087c51d1bea36490cca8829ff59ae7611b784b732c2a1ba0232b4b9fdd5fb0
 heroes.actions.grab.rules,APPROVED,"擒抱
 
 若你想將敵人控制在近身距離並限制他的行動，可以使用以下招式來嘗試擒制目標。
@@ -126,7 +134,7 @@ heroes.actions.hide.rules,APPROVED,"躲藏
 
 若你具有掩護或遮蔽，你可以使用躲藏機動動作，嘗試躲避沒有觀察到你的其他生物。完整規則請見第 9 章〈考驗〉的「躲藏與潛行」。","Hide
 
-Using the Hide maneuver, a creature attempts to hide from other creatures who aren’t observing them while they have cover or concealment. See Hide and Sneak in Chapter 9: Tests for full details.",2026-09-30,,,,
+Using the Hide maneuver, a creature attempts to hide from other creatures who aren’t observing them while they have cover or concealment. See Hide and Sneak in Chapter 9: Tests for full details.",2026-09-30,"Using the Hide maneuver, a creature attempts to hide from other creatures who aren’t observing them while they have cover or concealment.",若你具有掩護或遮蔽，你可以使用躲藏機動動作，嘗試躲避沒有觀察到你的其他生物。,APPROVED,8babd7b7fd7ca95670c2a3fa98c416f3c7ddbec0ee578ab9407348c96010962d
 heroes.actions.knockback.rules,APPROVED,"擊退
 
 若你想要推開相鄰的生物，你可以使用以下招式來嘗試推撞該生物。
@@ -171,7 +179,11 @@ heroes.actions.make-or-assist-test.rules,APPROVED,"進行或協助考驗
 
 Many tests are maneuvers if made in combat. Searching a chest with a Reason test, picking a door’s lock with an Agility test, or lifting a portcullis with a Might test would all be maneuvers. Assisting a test is also a maneuver in combat (see Assist a Test in Chapter 9: Tests).
 
-Complex or time-consuming tests might require a main action if made in combat—or could take so long that they can’t be made during combat at all. Other tests that take no time at all, such as a Reason test to recall lore about mummies, are usually free maneuvers in combat. The Director has the final say regarding which tests can be made as maneuvers.",2026-09-30,,,,
+Complex or time-consuming tests might require a main action if made in combat—or could take so long that they can’t be made during combat at all. Other tests that take no time at all, such as a Reason test to recall lore about mummies, are usually free maneuvers in combat. The Director has the final say regarding which tests can be made as maneuvers.",2026-09-30,"Many tests are maneuvers if made in combat. Searching a chest with a Reason test, picking a door’s lock with an Agility test, or lifting a portcullis with a Might test would all be maneuvers. Assisting a test is also a maneuver in combat.
+
+Complex or time-consuming tests might require a main action if made in combat—or could take so long that they can’t be made during combat at all. Other tests that take no time at all, such as a Reason test to recall lore about mummies, are usually free maneuvers in combat. The Director has the final say regarding which tests can be made as maneuvers.","在戰鬥中，許多考驗都屬於機動動作。例如用理智考驗來搜索寶箱、用敏捷考驗來打開門鎖，或用力量考驗來抬起閘門等，都算是機動動作。在戰鬥中協助他人進行考驗同樣也是機動動作。
+
+在戰鬥中，較複雜或耗時的考驗可能需要使用主要動作來執行，甚至可能耗時太久而根本無法在戰鬥中完成。另一方面，幾乎不花時間的考驗通常屬於免費機動動作（例如用理智考驗來回想木乃伊的相關知識）。哪些考驗可以作為機動動作進行，最終由導演決定。",APPROVED,6c93a9bfc18ff0752d25dbf45a97c008f7514ade0db9e57e14544d7f9c88612e
 heroes.actions.maneuvers.rules,APPROVED,"機動動作
 
 機動動作需要的專注力和體能消耗比主要動作更少（詳見下文）。你可以使用機動動作來移動其他生物、飲用藥水或進行類似的行為。
@@ -220,12 +232,12 @@ heroes.actions.ride.rules,APPROVED,"騎乘
 
 你必須騎乘在其他生物身上才能使用騎乘移動動作（詳見下文「騎乘戰鬥」）。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到在其他機動動作和主要動作之間。","Ride
 
-A creature can take the Ride move action only while mounted on another creature (see Mounted Combat below). When a creature takes the Ride move action, they cause their mount to move up to the mount’s speed, taking the rider with them. Alternatively, a creature can use the Ride move action to have their mount use the Disengage move action as a free triggered action. A creature can use the Ride move action only once per round. A mounted creature can only have this move action applied to them once per round. This movement can be broken up with the rider’s maneuver and main action however they wish.",2026-09-30,,,,
+A creature can take the Ride move action only while mounted on another creature (see Mounted Combat below). When a creature takes the Ride move action, they cause their mount to move up to the mount’s speed, taking the rider with them. Alternatively, a creature can use the Ride move action to have their mount use the Disengage move action as a free triggered action. A creature can use the Ride move action only once per round. A mounted creature can only have this move action applied to them once per round. This movement can be broken up with the rider’s maneuver and main action however they wish.",2026-09-30,"A creature can take the Ride move action only while mounted on another creature. When a creature takes the Ride move action, they cause their mount to move up to the mount’s speed, taking the rider with them. Alternatively, a creature can use the Ride move action to have their mount use the Disengage move action as a free triggered action. A creature can use the Ride move action only once per round. A mounted creature can only have this move action applied to them once per round. This movement can be broken with the rider’s maneuver and main action however they wish.",你必須騎乘在其他生物身上才能使用騎乘移動動作。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到在其他機動動作和主要動作之間。,APPROVED,af12070186774538b0cf47a89987b47f30e527ef1319417270939c6cc196f64b
 heroes.actions.search-for-hidden-creatures.rules,APPROVED,"搜索隱藏生物
 
 你可以使用搜索隱藏生物機動動作來嘗試尋找對你隱藏的生物（詳見第 9 章〈考驗〉的「躲藏與潛行」）。","Search for Hidden Creatures
 
-The Search for Hidden Creatures maneuver allows a creature to attempt to locate creatures hidden from them (see Hide and Sneak in Chapter 9: Tests).",2026-09-30,,,,
+The Search for Hidden Creatures maneuver allows a creature to attempt to locate creatures hidden from them (see Hide and Sneak in Chapter 9: Tests).",2026-09-30,The Search for Hidden Creatures maneuver allows a creature to attempt to locate creatures hidden from them.,你可以使用搜索隱藏生物機動動作來嘗試尋找對你隱藏的生物。,APPROVED,b9d4c0d4556c3fd35cdea41e45a6ed823f04c8eee7c80dfbdcd289e940bd9f7f
 heroes.actions.stand-up.rules,APPROVED,"起身
 
 若你處於伏地狀態，你可以使用起身機動動作站起來並解除伏地狀態。此外，你也可以使用此機動動作讓 1 個相鄰且自願的伏地生物站起來。","Stand Up
@@ -263,7 +275,7 @@ heroes.actions.use-consumable.rules,APPROVED,"使用消耗品
 
 除非另有說明，否則你可以透過使用消耗品機動動作來啟動消耗品（例如藥水）。若某件消耗品能讓使用者受益，你可以使用此機動動作將該消耗品使用在自己身上，或是使用在相鄰且自願的生物身上。詳見第 13 章〈獎勵〉的「消耗品」。","Use Consumable
 
-Unless otherwise noted in its description, a creature can activate a consumable treasure such as a potion with the Use Consumable maneuver. A creature can use this maneuver to administer a consumable treasure that benefits the user either to themself or to a willing adjacent creature. See Consumables in Chapter 13: Rewards.",2026-09-30,,,,
+Unless otherwise noted in its description, a creature can activate a consumable treasure such as a potion with the Use Consumable maneuver. A creature can use this maneuver to administer a consumable treasure that benefits the user either to themself or to a willing adjacent creature. See Consumables in Chapter 13: Rewards.",2026-09-30,"Unless otherwise noted in its description, a creature can activate a consumable treasure such as a potion with the Use Consumable maneuver. A creature can use this maneuver to administer a consumable treasure that benefits the user either to themself or to a willing adjacent creature.",除非另有說明，否則你可以透過使用消耗品機動動作來啟動消耗品（例如藥水）。若某件消耗品能讓使用者受益，你可以使用此機動動作將該消耗品使用在自己身上，或是使用在相鄰且自願的生物身上。,APPROVED,670988e71bbf79efda88e19b6cd9ded851f6e88065f4f03d4b34ca68ec3c45f1
 heroes.ancestries.devil.description.1,APPROVED,魔鬼是地獄七城的原生族裔，是皮膚呈紅色或藍色的類人生物，色澤從鮮豔的深紅到深紫不等。每個魔鬼天生都帶有某種地獄特徵，例如犄角、尾巴、偶蹄、叉舌、尖牙或翅膀。,"The native ancestry of the Seven Cities of Hell, devils are humanoids with red or blue skin expressed in a wide variety of hues, from bright crimson to deep purple. Each devil is born with some hellmark—horns, a tail, cloven hooves, a forked tongue, fanged incisors, or even wings.",2026-10-01,,,,
 heroes.ancestries.devil.description.2,APPROVED,地獄被七座城市所統治，每座城市由不同的大魔鬼掌管。這些大魔鬼不斷互相謀算，只盼有朝一日能登上地獄王座。,"Hell is dominated by the Seven Cities of Hell, each ruled by a different archdevil who constantly plots and schemes against the others in the hope of ascending to the Throne of Hell.",2026-10-01,,,,
 heroes.ancestries.devil.description.3,APPROVED,那些成為「商人」（魔鬼對公務員的稱呼）的魔鬼，每天都在官僚體系中服務，希望能夠不斷晉升。渴望快速攀升官階的魔鬼會報名參加「交易計畫」。透過這種方式，在凡間中執行正確儀式的凡人可以召喚魔鬼，而該魔鬼會代表大魔鬼與召喚者進行談判。大魔鬼能以召喚者的靈魂作為代價，提供暫時的強大力量，而被召喚的魔鬼則扮演仲介的角色。,"Those devils who join “the trade,” as their civil service is called, spend their days in bureaucratic service hoping or scheming for promotion. Devils looking for a quick path up the bureaucratic ladder sign up for the Exchange, whereby mortals in the mundane world who perform the right rituals can summon a devil, who bargains with the supplicant on behalf of their archdevil. Archdevils can grant temporary worldly power in exchange for a supplicant’s soul, with the summoned devil acting as the broker.",2026-10-01,,,,

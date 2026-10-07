@@ -22,7 +22,7 @@
 - **經典表格上，符號字母留著，後面改接中文全名。** 英文模式仍是字母加上英文剩下的部分。中文模式是同一個字母，後面換成這個屬性的中文全名。
 - **「Characteristic」這個詞這批不譯。** 介面文字等 Master Sheet 的「Forge Steel UI」分頁，也就是 P3。
 - **英文只差在標點或冠詞時，視為相同。** 必須列在 `src/l10n/english-exceptions.json`。每一筆寫鍵、差別種類（`punctuation` 或 `article`）、以及短註。`scripts/l10n/check.mjs` 拿快照裡的英文（匯出檔的 `en`，來自 Source Text，這欄本來就有，所以沒有加欄）和 Forge Steel 的英文比。標題行先拿掉再比，跟顯示時一樣。只有標點或冠詞（a、an、the）的差別可以列進去；兩種都有，或差在用字，就不能列。已經相同的英文也不必列。2026-10-06 起，`language:` 鍵可以另列 `spelling`（拼字變體）；每一筆都要 Marc 核准，其他鍵不能用。
-- **Forge Steel 英文和書不同、且不只是標點或冠詞差異時，用 Master Sheet 的「Forge Steel 版」（DEC-0009）。** 書本譯文留在快照裡。正體中文模式優先顯示該列 Forge Steel 版的中文。Forge Steel 版中文只能從書本中文刪字（整句或句首連接詞），不補字、不改寫；例：126 飛翼不補「倒地」。Forge Steel 一段英文跨書上多列時，Forge Steel 版放第一列，中文為各列原文相接、英文分段處空一行；U 欄註明併入哪列；過期偵測只看第一列，Marc 已接受（2026-10-06）。歐克的 Grounded、Nonstop，以及矮人、哈肯人、梅莫人裡同樣裁過的描述，都走這條。族裔名稱也可以走 Forge Steel 版（例：Elf (high)）。`scripts/l10n/check.mjs` 守門：比對 Forge Steel 版英文時先去掉頭尾空白，再和該欄英文比（2026-10-06；enHash 仍是未去空白的英文雜湊）；Basis Hash 必須等於目前書本中文的 UTF-8 sha256，不符就失敗，訊息寫明 Forge Steel version is stale（書本中文改過就要重新核准）；這種鍵不能列進 `english-exceptions.json`，也不能設 `stripHeading`。快照裡有 Forge Steel 版、卻沒有任何對照鍵的列也會失敗。
+- **Forge Steel 英文和書不同、且不只是標點或冠詞差異時，用 Master Sheet 的「Forge Steel 版」（DEC-0009）。** 書本譯文留在快照裡。正體中文模式優先顯示該列 Forge Steel 版的中文。Forge Steel 版中文只能從書本中文刪字（整句或句首連接詞；2026-10-07 起也可刪句中括號參照，見同日決定），不補字、不改寫；例：126 飛翼不補「倒地」。Forge Steel 一段英文跨書上多列時，Forge Steel 版放第一列，中文為各列原文相接、英文分段處空一行；U 欄註明併入哪列；過期偵測只看第一列，Marc 已接受（2026-10-06）。歐克的 Grounded、Nonstop，以及矮人、哈肯人、梅莫人裡同樣裁過的描述，都走這條。族裔名稱也可以走 Forge Steel 版（例：Elf (high)）。`scripts/l10n/check.mjs` 守門：比對 Forge Steel 版英文時先去掉頭尾空白，再和該欄英文比（2026-10-06；enHash 仍是未去空白的英文雜湊）；Basis Hash 必須等於目前書本中文的 UTF-8 sha256，不符就失敗，訊息寫明 Forge Steel version is stale（書本中文改過就要重新核准）；這種鍵不能列進 `english-exceptions.json`，也不能設 `stripHeading`。快照裡有 Forge Steel 版、卻沒有任何對照鍵的列也會失敗。
 - **共用標題等 P3。** 例如「Purchased Traits」。那是介面標籤，不是這一條特性專有的名字。Choose 1 of the following options、傷害類型選項名稱、Edge／When 條件文字等程式組出的文字也一樣。
 - **Kalliac／Kalliak：表不改，Kalliak 是官方拼法（2026-10-06）。** Heroes 1.01b 寫 Kalliak。Forge Steel 只有 `src/data/ancestries/orc.ts` 的歐克文化語言，以及 Sanctuary Horn（`src/data/items/leveled-implement-data.ts`）拼成 Kalliac。上游不改。P2-5 語言 5-1 把 Kalliac 對到 Names 的 `heroes.language.kalliak`，例外清單新增 `spelling`。細節見下方同一天的決定。
 - **Strings 第 366 列 `heroes.background.culture.name` 的 TM Check 為 PASS（2026-10-06）。** 理由是無適用 TM（TM-000001–000010 都是條件片語）。
@@ -74,6 +74,13 @@
 - **經典表格上的 Melee Free Strike／Ranged Free Strike 留英文（2026-10-06）。** 名稱是經典表格程式寫死的，不是資料英文。Glossary 雖有近戰基礎打擊／遠程基礎打擊，這批不新增鍵型。Marc 已核准。
 - **經典表格不套用基本動作的自訂名稱（2026-10-06）。** 上游本來就不套用，畫面上是資料英文名，所以中文模式顯示中文。不修上游這個行為。Marc 已核准。
 - **動作類型標籤仍留 P3（2026-10-06）。** 卡片頂端標籤、Tag、選動作抽屜分組標題。Marc 已核准。
+- **Forge Steel 版新刪法：句中括號參照（2026-10-07）。** Forge Steel 版中文除了整句、句首連接詞、表格其他格、括號英文與用途格之外，也可刪去句中的括號參照（書上「（詳見…）」，對應英文 see … 的括號）。只在 Forge Steel 英文也刪了時才刪，不補字、不改寫。用於 7-3 的 Ride、Catch Breath、Make Or Assist A Test、Search、Charge、Defend、Free Strike。Marc 已核准。
+- **Charge 的 Forge Steel 版刪去「（期間不能跳躍）」（2026-10-07）。** Forge Steel 原文沒有 without jumping，中文照 Forge Steel。Marc 已核准。
+- **Free Strike 的 Forge Steel 版只留第 1 句（2026-10-07）。** Marc 已核准。
+- **新鍵型 `section:<ability id>:<n>`（2026-10-07）。** 招式的第 n 個文字段。stripHeading 可用在 data 與 section 鍵。Marc 已核准。
+- **7-3 也換經典表格招式卡的描述（2026-10-07）。** 排版估算不改（中文顯示寬度約為英文的 0.5–0.7 倍）。只在顯示文字仍等於資料英文時才換（加了 Effect 前綴或被改寫的段維持英文）。Marc 已核准。
+- **Master Sheet 寫入動作描述的 Forge Steel 版（2026-10-07）。** Strings 第 34、37、40、42、43、45、47、48、49 列 P–V，Changelog CHG-0061。Marc 已核准。
+- **待修：「拆分到在其他」（2026-10-07）。** Strings 第 33 列（Disengage，直接對照）與第 34 列（Ride，Forge Steel 版）的書本譯文「拆分到在其他機動動作和主要動作之間」多一個「在」。這批不改，畫面照現有譯文顯示。之後若 Marc 修 Sheet：第 33 列改完重出快照即可；第 34 列的 H 欄改了之後，Forge Steel 版會被守門判為過期（stale），要同時改 R 欄並重算 T 欄（Basis Hash）再出快照。Marc 已核准這批不改。
 
 ## 尚未決定
 

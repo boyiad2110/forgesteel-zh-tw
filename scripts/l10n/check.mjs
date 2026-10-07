@@ -24,6 +24,7 @@
  *   'enum:<Enum>:<Member>':  { sheetId, enHash }
  *   'ui:<id>':               { sheetId, enHash }
  *   'data:<Class>:<field>':  { sheetId, enHash, stripHeading? }
+ *   'section:<ability id>:<n>': { sheetId, enHash, stripHeading? }
  *   'language:<English>':    { sheetId, enHash }
  *   'skill:<English>':       { sheetId, enHash }
  *
@@ -50,6 +51,14 @@
  *              hash is that name. A name that is not one of those literals
  *              fails. Upstream skill objects have no id, so this check does
  *              not invent one.
+ *   section  — the string or template literal passed to
+ *              FactoryLogic.createAbilitySectionText for section n of the
+ *              FactoryLogic.createAbility({ ... }) object under src/data whose
+ *              id matches. The argument must be one literal and must not
+ *              contain a ${} interpolation. A missing id, an id defined more
+ *              than once, no sections array, an index past the end, a section
+ *              that is not createAbilitySectionText, or an argument that is
+ *              not a literal fails closed. The message says which.
  *
  * Glossary rows have no Basis Hash. A `skill:` key and an `enum:SkillList:`
  * key are checked against the Strings row that supplied the Chinese:
@@ -76,9 +85,10 @@
  * comparison, so a core.autocrlf checkout hashes like the runtime string.
  *
  * stripHeading means the sheet row is a title line, a blank line, then the
- * rules. The display strips that title when it shows the Chinese. The check
- * strips the same way and requires the sheet English body to equal the
- * trimmed Forge Steel template. The exported JSON is left unchanged.
+ * rules. It is valid on a data: key and a section: key. The display strips
+ * that title when it shows the Chinese. The check strips the same way and
+ * requires the sheet English body to equal the trimmed Forge Steel English.
+ * The exported JSON is left unchanged.
  *
  * Every mapped key's sheet English must equal the Forge Steel English.
  * Sheet English is the exported `en` field, copied from the snapshot's
@@ -128,11 +138,12 @@ const CJK_ALLOWLIST = new Set([
 
 const HAN = /\p{Script=Han}/u;
 const HASH = /^[0-9a-f]{64}$/;
-const KEY_PATTERNS = [
+export const KEY_PATTERNS = [
 	/^element:[a-z0-9]+(?:[-_][a-z0-9]+)*:[A-Za-z][A-Za-z0-9]*$/,
 	/^enum:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
 	/^ui:[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/,
 	/^data:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
+	/^section:[a-z0-9]+(?:[-_][a-z0-9]+)*:(?:0|[1-9][0-9]*)$/,
 	/^language:[A-Za-z0-9]+(?:[ '\u2019-][A-Za-z0-9]+)*$/,
 	/^skill:[A-Za-z0-9]+(?:[ '\u2019-][A-Za-z0-9]+)*$/
 ];
@@ -333,6 +344,73 @@ const readString = (text, i, line) => {
 	return { ok: false, i, line };
 };
 
+/**
+ * Skip one string while matching braces. A template may contain ${}.
+ * readString refuses those; this only needs the closing quote.
+ */
+const skipLiteral = (text, i, line) => {
+	const quote = text[i];
+	i += 1;
+	if (quote !== '`') {
+		while (i < text.length) {
+			const char = text[i];
+			if (char === '\n') {
+				line += 1;
+				return { i, line };
+			}
+			if (char === '\\') {
+				if ((text[i + 1] ?? '') === '\n') {
+					line += 1;
+				}
+				i += 2;
+				continue;
+			}
+			if (char === quote) {
+				return { i: i + 1, line };
+			}
+			i += 1;
+		}
+		return { i, line };
+	}
+	let expr = 0;
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		if (char === '\\') {
+			if ((text[i + 1] ?? '') === '\n') {
+				line += 1;
+			}
+			i += 2;
+			continue;
+		}
+		if (expr === 0 && char === '`') {
+			return { i: i + 1, line };
+		}
+		if (expr === 0 && char === '$' && text[i + 1] === '{') {
+			expr = 1;
+			i += 2;
+			continue;
+		}
+		if (expr > 0 && (char === '\'' || char === '"' || char === '`')) {
+			const nested = skipLiteral(text, i, line);
+			i = nested.i;
+			line = nested.line;
+			continue;
+		}
+		if (expr > 0 && char === '{') {
+			expr += 1;
+		} else if (expr > 0 && char === '}') {
+			expr -= 1;
+		}
+		i += 1;
+	}
+	return { i, line };
+};
+
 const tokenize = text => {
 	const tokens = [];
 	let i = 0;
@@ -356,10 +434,14 @@ const tokenize = text => {
 		}
 		if (char === '\'' || char === '"' || char === '`') {
 			const parsed = readString(text, i, line);
-			i = parsed.i;
-			line = parsed.line;
 			if (parsed.ok) {
 				tokens.push({ kind: 'string', value: parsed.value, line });
+				i = parsed.i;
+				line = parsed.line;
+			} else {
+				const skipped = skipLiteral(text, i, line);
+				i = skipped.i;
+				line = skipped.line;
 			}
 			continue;
 		}
@@ -972,7 +1054,11 @@ export const forgeEnglish = (root, key, cache = { current: null }) => {
 	if (skill) {
 		return cookedEnglish(skillEnglish(root, cache, skill[1]));
 	}
-	return { error: 'key is not an element, enum, data, ui, language, or skill key' };
+	const section = /^section:([^:]+):([^:]+)$/.exec(key);
+	if (section) {
+		return cookedEnglish(sectionEnglish(root, cache, section[1], section[2]));
+	}
+	return { error: 'key is not an element, enum, data, ui, language, skill, or section key' };
 };
 
 const matchBrace = (text, open) => {
@@ -993,7 +1079,7 @@ const matchBrace = (text, open) => {
 			continue;
 		}
 		if (char === '\'' || char === '"' || char === '`') {
-			const parsed = readString(text, i, line);
+			const parsed = skipLiteral(text, i, line);
 			i = parsed.i;
 			line = parsed.line;
 			continue;
@@ -1009,6 +1095,348 @@ const matchBrace = (text, open) => {
 		i += 1;
 	}
 	return -1;
+};
+
+/** Same walk as matchBrace, for a `[` … `]` array. */
+const matchBracket = (text, open) => {
+	let depth = 0;
+	let i = open;
+	let line = lineOf(text, open);
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(text, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = skipLiteral(text, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (char === '[') {
+			depth += 1;
+		} else if (char === ']') {
+			depth -= 1;
+			if (depth === 0) {
+				return i;
+			}
+		}
+		i += 1;
+	}
+	return -1;
+};
+
+/** Comma-separated pieces at the top of one sections array body. */
+const splitTopLevel = text => {
+	const parts = [];
+	let start = 0;
+	let paren = 0;
+	let brace = 0;
+	let bracket = 0;
+	let i = 0;
+	let line = 1;
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(text, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = skipLiteral(text, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (char === '(') {
+			paren += 1;
+		} else if (char === ')') {
+			paren -= 1;
+		} else if (char === '{') {
+			brace += 1;
+		} else if (char === '}') {
+			brace -= 1;
+		} else if (char === '[') {
+			bracket += 1;
+		} else if (char === ']') {
+			bracket -= 1;
+		} else if (char === ',' && paren === 0 && brace === 0 && bracket === 0) {
+			parts.push(text.slice(start, i));
+			start = i + 1;
+		}
+		i += 1;
+	}
+	parts.push(text.slice(start));
+	return parts.map(part => part.trim()).filter(part => part.length > 0);
+};
+
+/**
+ * One createAbilitySectionText argument: a single string or a template
+ * literal with no ${} interpolation. Anything else fails closed.
+ */
+const textSectionLiteral = element => {
+	const trimmed = element.trim();
+	const call = 'FactoryLogic.createAbilitySectionText';
+	if (!trimmed.startsWith(call)) {
+		if (trimmed.includes('createAbilitySectionRoll')) {
+			return { error: 'is a roll section, not createAbilitySectionText' };
+		}
+		if (trimmed.includes('createAbilitySectionField') || trimmed.includes('createAbilitySectionSpend')) {
+			return { error: 'is a field section, not createAbilitySectionText' };
+		}
+		if (trimmed.includes('createAbilitySectionPackage')) {
+			return { error: 'is a package section, not createAbilitySectionText' };
+		}
+		return { error: 'is not createAbilitySectionText' };
+	}
+	let i = call.length;
+	while (i < trimmed.length && /[ \t\r\n]/.test(trimmed[i])) {
+		i += 1;
+	}
+	if (trimmed[i] !== '(') {
+		return { error: 'argument is not a string literal' };
+	}
+	i += 1;
+	while (i < trimmed.length && /[ \t\r\n]/.test(trimmed[i])) {
+		i += 1;
+	}
+	const quote = trimmed[i];
+	if (quote !== '\'' && quote !== '"' && quote !== '`') {
+		return { error: 'argument is not a string literal' };
+	}
+	const parsed = readString(trimmed, i, 1);
+	if (!parsed.ok) {
+		if (quote === '`' && trimmed[parsed.i] === '$' && trimmed[parsed.i + 1] === '{') {
+			return { error: 'template has an interpolation' };
+		}
+		return { error: 'argument is not a string literal' };
+	}
+	let j = parsed.i;
+	while (j < trimmed.length && /[ \t\r\n]/.test(trimmed[j])) {
+		j += 1;
+	}
+	if (trimmed[j] !== ')') {
+		return { error: 'argument is not a string literal' };
+	}
+	j += 1;
+	while (j < trimmed.length && /[ \t\r\n]/.test(trimmed[j])) {
+		j += 1;
+	}
+	if (j !== trimmed.length) {
+		return { error: 'argument is not a string literal' };
+	}
+	return { english: parsed.value };
+};
+
+/** The string value of one depth-1 field, using the shared tokenizer. */
+const depth1String = (objectText, name) => {
+	const tokens = tokenize(objectText);
+	let depth = 0;
+	for (let i = 0; i < tokens.length; i++) {
+		const token = tokens[i];
+		if (token.kind === 'brace' && token.value === '{') {
+			depth += 1;
+			continue;
+		}
+		if (token.kind === 'brace' && token.value === '}') {
+			depth -= 1;
+			continue;
+		}
+		const colon = tokens[i + 1];
+		const value = tokens[i + 2];
+		if (depth === 1 && token.kind === 'ident' && token.value === name && colon?.kind === 'colon' && value?.kind === 'string') {
+			return value.value;
+		}
+	}
+	return null;
+};
+
+/** Index of the value after a depth-1 `name:` property. */
+const depth1ValueAt = (objectText, name) => {
+	let depth = 0;
+	let i = 0;
+	let line = 1;
+	while (i < objectText.length) {
+		const char = objectText[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(objectText, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = skipLiteral(objectText, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (char === '{') {
+			depth += 1;
+			i += 1;
+			continue;
+		}
+		if (char === '}') {
+			depth -= 1;
+			i += 1;
+			continue;
+		}
+		if (depth === 1 && objectText.startsWith(name, i)) {
+			const before = i > 0 ? objectText[i - 1] : '';
+			const after = objectText[i + name.length] ?? '';
+			if (!/[A-Za-z0-9_$]/.test(before) && !/[A-Za-z0-9_$]/.test(after)) {
+				let j = i + name.length;
+				while (j < objectText.length && /[ \t\r\n]/.test(objectText[j])) {
+					j += 1;
+				}
+				if (objectText[j] === ':') {
+					j += 1;
+					while (j < objectText.length && /[ \t\r\n]/.test(objectText[j])) {
+						j += 1;
+					}
+					return j;
+				}
+			}
+		}
+		i += 1;
+	}
+	return -1;
+};
+
+/**
+ * FactoryLogic.createAbility({ ... }) objects. The id comes from objectsWithId
+ * and must also be the depth-1 string field, so a nested id is not the ability.
+ */
+const abilitiesFromCalls = text => {
+	const found = [];
+	const needle = 'FactoryLogic.createAbility';
+	let i = 0;
+	let line = 1;
+	while (i < text.length) {
+		const char = text[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(text, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = skipLiteral(text, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (text.startsWith(needle, i)) {
+			const before = i > 0 ? text[i - 1] : '';
+			const after = text[i + needle.length] ?? '';
+			if (!/[A-Za-z0-9_$]/.test(before) && !/[A-Za-z0-9_$]/.test(after)) {
+				let j = i + needle.length;
+				while (j < text.length && /[ \t\r\n]/.test(text[j])) {
+					j += 1;
+				}
+				if (text[j] === '(') {
+					j += 1;
+					while (j < text.length && /[ \t\r\n]/.test(text[j])) {
+						j += 1;
+					}
+					if (text[j] === '{') {
+						const close = matchBrace(text, j);
+						if (close > j) {
+							const objectText = text.slice(j, close + 1);
+							const id = depth1String(objectText, 'id');
+							const listed = id !== null && objectsWithId(objectText).some(object => object.fields.get('id').text === id);
+							if (listed) {
+								const valueAt = depth1ValueAt(objectText, 'sections');
+								let sections = null;
+								if (valueAt >= 0 && objectText[valueAt] === '[') {
+									const end = matchBracket(objectText, valueAt);
+									if (end > valueAt) {
+										sections = splitTopLevel(objectText.slice(valueAt + 1, end)).map(textSectionLiteral);
+									}
+								}
+								found.push({ id, sections });
+							}
+						}
+					}
+				}
+			}
+			i += needle.length;
+			continue;
+		}
+		i += 1;
+	}
+	return found;
+};
+
+const indexAbilitySections = root => {
+	const index = new Map();
+	const duplicates = new Set();
+	for (const file of walk(path.join(root, 'src/data'))) {
+		if (!file.endsWith('.ts')) {
+			continue;
+		}
+		const text = read(file);
+		if (text === null || text.includes('\0')) {
+			continue;
+		}
+		for (const ability of abilitiesFromCalls(text)) {
+			if (index.has(ability.id)) {
+				duplicates.add(ability.id);
+			}
+			index.set(ability.id, ability);
+		}
+	}
+	return { index, duplicates };
+};
+
+const sectionEnglish = (root, cache, id, indexText) => {
+	if (!/^(?:0|[1-9][0-9]*)$/.test(indexText)) {
+		return { error: `section index ${JSON.stringify(indexText)} is not a whole number` };
+	}
+	const index = Number(indexText);
+	cache.abilities ??= indexAbilitySections(root);
+	const { index: abilities, duplicates } = cache.abilities;
+	if (duplicates.has(id)) {
+		return { error: `ability id ${id} is defined more than once under src/data` };
+	}
+	const ability = abilities.get(id);
+	if (!ability) {
+		return { error: `ability id ${id} was not found under src/data` };
+	}
+	if (!ability.sections) {
+		return { error: `ability ${id} has no sections` };
+	}
+	if (index >= ability.sections.length) {
+		return { error: `ability ${id} section index ${index} is out of range` };
+	}
+	const section = ability.sections[index];
+	if (section.error) {
+		return { error: `ability ${id} section ${index} ${section.error}` };
+	}
+	return { english: section.english };
 };
 
 const parseMapping = (file, text) => {
@@ -1370,8 +1798,8 @@ const checkSheetEnglish = (entry, sheetEn, forgeEn, exception) => {
 };
 
 const checkRulesHeading = (root, entry, english) => {
-	if (!entry.key.startsWith('data:')) {
-		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, 'stripHeading is only valid on a data: key');
+	if (!entry.key.startsWith('data:') && !entry.key.startsWith('section:')) {
+		return issue('rules-heading', 'src/l10n/mapping.ts', entry.line, entry.key, 'stripHeading is only valid on a data: or section: key');
 	}
 	const rows = loadSheetRows(path.join(root, 'src/l10n/generated/zh-TW'));
 	const row = rows.get(entry.sheetId);

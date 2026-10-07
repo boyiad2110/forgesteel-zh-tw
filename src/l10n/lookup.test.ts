@@ -1,4 +1,4 @@
-import { AbilityName, abilityNameKey, useAbilityName } from '@/l10n/ability-text';
+import { AbilityName, abilityNameKey, abilitySectionKey, useAbilityName } from '@/l10n/ability-text';
 import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { FeaturePerk, FeatureText } from '@/models/feature';
@@ -10,6 +10,7 @@ import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text
 import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-panel';
 import { AbilityCard } from '@/components/panels/classic-sheet/ability-card/ability-card';
 import { AbilityData } from '@/data/ability-data';
+import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { FactoryLogic } from '@/logic/factory-logic';
@@ -19,6 +20,7 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { OptionsContext } from '@/contexts/data-context';
+import { PanelMode } from '@/enums/panel-mode';
 import { PartyModal } from '@/components/modals/party/party-modal';
 import { PerkList } from '@/enums/perk-list';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
@@ -43,6 +45,14 @@ vi.mock('dompurify', () => ({
 	default: {
 		sanitize: (html: string) => html
 	}
+}));
+
+vi.mock('@/hooks/use-clipboard', () => ({
+	useClipboard: () => ({
+		hasData: () => false,
+		getData: () => null,
+		setData: () => undefined
+	})
 }));
 
 const orcKey = 'element:ancestry-orc:name';
@@ -931,9 +941,9 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(365);
+		expect(Object.keys(mapping)).toHaveLength(379);
 		expect(Object.keys(exceptions)).toHaveLength(10);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(74);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(83);
 	});
 
 	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
@@ -1006,7 +1016,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(365);
+		expect(Object.keys(mapping)).toHaveLength(379);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1083,7 +1093,7 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(365);
+		expect(Object.keys(mapping)).toHaveLength(379);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1319,7 +1329,7 @@ describe('action names', () => {
 	});
 
 	test('this batch adds 19 action name keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(365);
+		expect(Object.keys(mapping)).toHaveLength(379);
 		expect(actionNames).toHaveLength(19);
 		for (const [ id, english, sheetId, zh ] of actionNames) {
 			const key = `element:${id}:name`;
@@ -1524,7 +1534,7 @@ describe('action names on the classic sheet', () => {
 		const renamed = { ...charge, name: 'My Charge' };
 		const renamedHtml = renderCard(renamed);
 		expect(renamedHtml).toContain('ability-name">My Charge<');
-		expect(renamedHtml).not.toContain('衝鋒');
+		expect(renamedHtml).not.toContain('ability-name">衝鋒<');
 
 		setLanguage('en');
 		expect(renderCard(charge)).toContain('ability-name">Charge<');
@@ -1582,5 +1592,181 @@ describe('action names on the classic sheet', () => {
 		expect(english).toContain('Swap');
 		expect(english).toContain('Main Action');
 		expect(english).toContain('Maneuver');
+	});
+});
+
+describe('action descriptions', () => {
+	const direct = [
+		[ 'advance', 'heroes.actions.advance.rules' ],
+		[ 'disengage', 'heroes.actions.disengage.rules' ],
+		[ 'aid-attack', 'heroes.actions.aid-attack.rules' ],
+		[ 'stand-up', 'heroes.actions.stand-up.rules' ],
+		[ 'heal', 'heroes.actions.heal.rules' ]
+	] as const;
+
+	const forgeSteel = [
+		[ 'ride', 'heroes.actions.ride.rules' ],
+		[ 'catch-breath', 'heroes.actions.catch-breath.rules' ],
+		[ 'hide', 'heroes.actions.hide.rules' ],
+		[ 'make-assist-test', 'heroes.actions.make-or-assist-test.rules' ],
+		[ 'search', 'heroes.actions.search-for-hidden-creatures.rules' ],
+		[ 'use-consumable', 'heroes.actions.use-consumable.rules' ],
+		[ 'charge', 'heroes.actions.charge.rules' ],
+		[ 'defend', 'heroes.actions.defend.rules' ],
+		[ 'free-strike', 'heroes.actions.free-strike.rules' ]
+	] as const;
+
+	const renderPanel = (ability: typeof AbilityData.charge, hero?: ReturnType<typeof FactoryLogic.createHero>) => {
+		const options = FactoryLogic.createOptions();
+		return renderToStaticMarkup(withOptions(options, createElement(AbilityPanel, {
+			ability,
+			hero,
+			mode: PanelMode.Full
+		})));
+	};
+
+	const buildSheet = (ability: typeof AbilityData.charge) => {
+		return ClassicSheetBuilder.buildAbilitySheet(ability, FactoryLogic.createHero(), undefined, FactoryLogic.createOptions());
+	};
+
+	beforeEach(async () => {
+		await loadCatalog();
+		vi.stubGlobal('window', {
+			matchMedia: () => ({
+				matches: false,
+				addEventListener: () => undefined,
+				removeEventListener: () => undefined
+			})
+		});
+	});
+
+	test('fourteen section keys point at the approved rows', () => {
+		expect(Object.keys(mapping)).toHaveLength(379);
+		expect(direct).toHaveLength(5);
+		expect(forgeSteel).toHaveLength(9);
+		for (const [ id, sheetId ] of direct) {
+			expect(mapping[`section:${id}:0`]).toEqual({
+				sheetId,
+				enHash: expect.any(String),
+				stripHeading: true
+			});
+		}
+		for (const [ id, sheetId ] of forgeSteel) {
+			expect(mapping[`section:${id}:0`]).toEqual({
+				sheetId,
+				enHash: expect.any(String)
+			});
+			expect(mapping[`section:${id}:0`].stripHeading).toBeUndefined();
+		}
+	});
+
+	test('a section key is only the unchanged text of a standard action', () => {
+		const stand = AbilityData.standUp.sections[0];
+		if (stand.type !== 'text') {
+			throw new Error('stand up section 0 is text');
+		}
+		const shown = stand.text.replace('prone', '**prone**');
+
+		expect(abilitySectionKey('stand-up', 0, stand.text)).toBe('section:stand-up:0');
+		expect(abilitySectionKey('stand-up', 0, shown)).toBe('section:stand-up:0');
+		expect(abilitySectionKey('stand-up', 0, `**Effect:** ${stand.text}`)).toBeUndefined();
+		expect(abilitySectionKey('stand-up', 0, `${stand.text} extra`)).toBeUndefined();
+		expect(abilitySectionKey('grab', 1, 'No effect.')).toBeUndefined();
+		expect(abilitySectionKey('free-melee', 0, 'One creature or object')).toBeUndefined();
+		expect(abilitySectionKey('custom-ability', 0, stand.text)).toBeUndefined();
+	});
+
+	test('the full ability panel shows the fourteen descriptions and leaves the rest in English', () => {
+		const ride = renderPanel(AbilityData.ride);
+		expect(ride).toContain('你必須騎乘在其他生物身上才能使用騎乘移動動作');
+		expect(ride).not.toContain('騎乘戰鬥');
+
+		const strike = renderPanel(AbilityData.freeStrike);
+		expect(strike).toContain('你可以使用此主要動作來發動 1 次基礎打擊。');
+		expect(strike).not.toContain('大多數時候');
+
+		const charge = renderPanel(AbilityData.charge);
+		expect(charge).toContain('當你執行衝鋒主要動作時');
+		expect(charge).not.toContain('期間不能跳躍');
+		expect(renderPanel(AbilityData.charge, FactoryLogic.createHero())).toContain('當你執行衝鋒主要動作時');
+		expect(renderPanel(AbilityData.charge, FactoryLogic.createHero())).not.toContain('期間不能跳躍');
+
+		const advance = renderPanel(AbilityData.advance);
+		expect(advance).toContain('若你執行行進移動動作');
+		expect(advance).not.toContain('<p>行進</p>');
+		expect(renderPanel(AbilityData.advance, FactoryLogic.createHero())).toContain('若你執行行進移動動作');
+
+		const stand = renderPanel(AbilityData.standUp);
+		expect(stand).toContain('若你處於伏地狀態，你可以使用起身機動動作站起來並解除伏地狀態。');
+		expect(stand).toContain('<strong>伏地</strong>');
+
+		const defend = renderPanel(AbilityData.defend);
+		expect(defend).toContain('<strong>嘲諷</strong>');
+
+		expect(renderPanel(AbilityData.disengage)).toContain('若你執行撤離移動動作');
+		expect(renderPanel(AbilityData.disengage)).not.toContain('<p>撤離</p>');
+		expect(renderPanel(AbilityData.aidAttack)).toContain('若你使用助攻機動動作');
+		expect(renderPanel(AbilityData.aidAttack)).not.toContain('<p>助攻</p>');
+		expect(renderPanel(AbilityData.heal)).toContain('若你使用治療主要動作');
+		expect(renderPanel(AbilityData.heal)).not.toContain('<p>治療</p>');
+		expect(renderPanel(AbilityData.catchBreath)).toContain('若你使用喘息機動動作');
+		expect(renderPanel(AbilityData.hide)).toContain('若你具有掩護或遮蔽');
+		expect(renderPanel(AbilityData.makeAssistTest)).toContain('在戰鬥中，許多考驗都屬於機動動作');
+		expect(renderPanel(AbilityData.search)).toContain('你可以使用搜索隱藏生物機動動作來嘗試尋找對你隱藏的生物');
+		expect(renderPanel(AbilityData.useConsumable)).toContain('除非另有說明，否則你可以透過使用消耗品機動動作');
+
+		expect(renderPanel(AbilityData.escapeGrab)).toContain('can attempt to escape by using this ability');
+		expect(renderPanel(AbilityData.escapeGrab)).not.toContain('被其他生物、物體或效果擒制的生物');
+		expect(renderPanel(AbilityData.grab)).toContain('can attempt to grab a creature using this ability');
+		expect(renderPanel(AbilityData.grab)).not.toContain('若你想將敵人控制在近身距離');
+		expect(renderPanel(AbilityData.knockback)).toContain('can attempt to shove that creature using this ability');
+		expect(renderPanel(AbilityData.knockback)).not.toContain('若你想要推開相鄰的生物');
+		expect(renderPanel(AbilityData.opportunityAttack)).toContain('Whenever a creature has an enemy adjacent');
+		expect(renderPanel(AbilityData.goProne)).toContain('<strong>prone</strong> as a free maneuver.');
+		expect(renderPanel(AbilityData.swap)).toContain('You can convert your main action into a maneuver');
+
+		setLanguage('en');
+		expect(renderPanel(AbilityData.ride)).toContain('A creature can take the Ride move action only while mounted');
+		expect(renderPanel(AbilityData.ride)).not.toContain('你必須騎乘在其他生物身上');
+		expect(renderPanel(AbilityData.freeStrike)).toContain('A creature can use this main action to make a free strike.');
+		expect(renderPanel(AbilityData.freeStrike)).not.toContain('你可以使用此主要動作');
+		expect(renderPanel(AbilityData.charge)).toContain('When a creature takes the Charge main action');
+		expect(renderPanel(AbilityData.charge)).not.toContain('當你執行衝鋒主要動作時');
+		expect(renderPanel(AbilityData.advance)).toContain('When a creature takes the Advance move action');
+		expect(renderPanel(AbilityData.advance)).not.toContain('若你執行行進移動動作');
+		expect(renderPanel(AbilityData.standUp)).toContain('if they are <strong>prone</strong>');
+		expect(renderPanel(AbilityData.standUp)).not.toContain('伏地');
+		expect(renderPanel(AbilityData.defend)).toContain('<strong>taunted</strong>');
+		expect(renderPanel(AbilityData.defend)).not.toContain('嘲諷');
+		expect(renderPanel(AbilityData.escapeGrab)).toContain('can attempt to escape by using this ability');
+		expect(renderPanel(AbilityData.grab)).toContain('can attempt to grab a creature using this ability');
+		expect(renderPanel(AbilityData.knockback)).toContain('can attempt to shove that creature using this ability');
+		expect(renderPanel(AbilityData.opportunityAttack)).toContain('Whenever a creature has an enemy adjacent');
+		expect(renderPanel(AbilityData.goProne)).toContain('<strong>prone</strong> as a free maneuver.');
+		expect(renderPanel(AbilityData.swap)).toContain('You can convert your main action into a maneuver');
+	});
+
+	test('classic ability cards translate the fourteen descriptions and keep the sheet English', () => {
+		const charge = buildSheet(AbilityData.charge);
+		expect(charge.sections[0]).toContain('When a creature takes the Charge main action');
+		const chargeHtml = renderToStaticMarkup(createElement(AbilityCard, { ability: charge }));
+		expect(chargeHtml).toContain('當你執行衝鋒主要動作時');
+		expect(chargeHtml).not.toContain('期間不能跳躍');
+
+		const grab = buildSheet(AbilityData.grab);
+		const grabHtml = renderToStaticMarkup(createElement(AbilityCard, { ability: grab }));
+		expect(grabHtml).toContain('A creature seeking to keep a foe close');
+		expect(grabHtml).not.toContain('若你想將敵人控制在近身距離');
+
+		const sheets = [ charge, grab ];
+		const chinese = sheets.map(sheet => SheetFormatter.calculateAbilitySize(sheet, 50));
+		setLanguage('en');
+		const english = sheets.map(sheet => SheetFormatter.calculateAbilitySize(sheet, 50));
+		expect(english).toEqual(chinese);
+		expect(charge.sections[0]).toContain('When a creature takes the Charge main action');
+
+		const englishHtml = renderToStaticMarkup(createElement(AbilityCard, { ability: charge }));
+		expect(englishHtml).toContain('When a creature takes the Charge main action');
+		expect(englishHtml).not.toContain('當你執行衝鋒主要動作時');
 	});
 });

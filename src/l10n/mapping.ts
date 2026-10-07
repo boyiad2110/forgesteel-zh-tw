@@ -36,6 +36,8 @@ export interface MappingEntry {
  *                          Glossary row, term.<slug>-skill. Climb, Jump, Swim,
  *                          Culture, and Timescape do not reuse the older
  *                          movement, culture, or setting rows.
+ *   section:<ability id>:<n>  for example section:charge:0
+ *                          The nth text section of an ability.
  */
 export const mapping: Record<string, MappingEntry> = {
 	'enum:ConditionType:Bleeding': { sheetId: 'term.bleeding', enHash: '68a89d8475444066a48efe8debcef05fc25306d5f950db02d9bec6cc3e61e4d4' },
@@ -386,7 +388,7 @@ export const mapping: Record<string, MappingEntry> = {
 	'skill:Society': { sheetId: 'term.society-skill', enHash: 'd5acfd8330f5caaee7d1421788c912dc9c5da654bbc226a904798d1a30de9953' },
 	'skill:Strategy': { sheetId: 'term.strategy-skill', enHash: '6b27710dfaafdcec2b06b7d3c6abe56d98162848b08a9da01e88863e2add413f' },
 	'skill:Timescape': { sheetId: 'term.timescape-skill', enHash: 'a837f5563437ca1f7b30ecb193c2388ffbd68a7535217218ca0e2082de6f667a' },
-	// Basic action names. The description stays English until a later batch.
+	// Basic action names. Descriptions are the section keys below.
 	// Free Strike (melee), Free Strike (ranged), Go Prone, and Swap stay English.
 	'element:advance:name': { sheetId: 'term.advance-action', enHash: '775988890d65203232eff854d2c0862ce648c94ab0d1fcab68aa7bcca91866f9' },
 	'element:disengage:name': { sheetId: 'term.disengage-action', enHash: '8f5776cce47ea63d30932c17fd969bac2dc2ffadeb131a2ea1d9127965dad72c' },
@@ -406,5 +408,22 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:heal:name': { sheetId: 'term.heal-action', enHash: '421acf13c1cb044e40e0fe1c1e88656e604113be888d92b2ecbb136252023b17' },
 	'element:free-strike:name': { sheetId: 'term.free-strike', enHash: '680c9c6887cc1413346ab691e8b538f3843254747329ac35a49e36f7adf00524' },
 	'element:opportunity-attack:name': { sheetId: 'term.opportunity-attack', enHash: '61ffd11e24708ab572358bdc0a90e4b6fbb094b593dff29b17a677eca541a20f' },
-	'element:claw-dirt:name': { sheetId: 'term.claw-dirt', enHash: 'dbcc873f14302c46216fb18e163aec6658aa255f8ba431c0b6c2efdc6f7e530f' }
+	'element:claw-dirt:name': { sheetId: 'term.claw-dirt', enHash: 'dbcc873f14302c46216fb18e163aec6658aa255f8ba431c0b6c2efdc6f7e530f' },
+	// Basic action descriptions (text sections). Escape Grab, Grab, and Knockback
+	// text sections wait for the ability batch. Opportunity Attack, Go Prone, and
+	// Swap descriptions stay English. Claw Dirt has no text section.
+	'section:advance:0': { sheetId: 'heroes.actions.advance.rules', enHash: '0b03b533cf96c69b286dcdd7961618155b0e0c070332d7644239e717cfd3fa52', stripHeading: true },
+	'section:disengage:0': { sheetId: 'heroes.actions.disengage.rules', enHash: 'ecc92cbd463a9d5d3eda4ba32ca7ca75d4e2ac66af2aabe601bb3ab5a23c286d', stripHeading: true },
+	'section:ride:0': { sheetId: 'heroes.actions.ride.rules', enHash: '7430b780b71e02fc019a7107da8ccfed317fe85fa4d91ff60fa75160665b2634' },
+	'section:aid-attack:0': { sheetId: 'heroes.actions.aid-attack.rules', enHash: '85376014c12d691454188683a5c1df69ee7f70e901990d22ec059d4106aec7cc', stripHeading: true },
+	'section:catch-breath:0': { sheetId: 'heroes.actions.catch-breath.rules', enHash: '9d2002f16825033f2620c1f2d3497ac53c858984acbb95378ab86f1fdc82e801' },
+	'section:hide:0': { sheetId: 'heroes.actions.hide.rules', enHash: '352726ce4330032038bae35fcc52de47114a864658fb3243af6e3d87a8f245a7' },
+	'section:make-assist-test:0': { sheetId: 'heroes.actions.make-or-assist-test.rules', enHash: '81e61c4372d2b58b926694041f04b5adf6d5e323a743143d14f1beda4809b552' },
+	'section:search:0': { sheetId: 'heroes.actions.search-for-hidden-creatures.rules', enHash: 'be058205592f7b0ebe14108d22ef4a9885654d81344057ceb9c0e03b9852555e' },
+	'section:stand-up:0': { sheetId: 'heroes.actions.stand-up.rules', enHash: '1ef297f3a40249cc72af296887d3f7c89568e9786690cfd0dc3173924e3ead94', stripHeading: true },
+	'section:use-consumable:0': { sheetId: 'heroes.actions.use-consumable.rules', enHash: 'c4dd70e2b56ed5f9b033f273146c6309565e773dd052f0d1fb8ebdc08a46aa4e' },
+	'section:charge:0': { sheetId: 'heroes.actions.charge.rules', enHash: 'f63ef4b588bc976419a247b38247433fc1e9be184eb9cf6956647765fb3f5ff6' },
+	'section:defend:0': { sheetId: 'heroes.actions.defend.rules', enHash: '02759e0e7e193dfd5ff881dca7abaccca68e0f9847d28a0e624606b88cdafa74' },
+	'section:free-strike:0': { sheetId: 'heroes.actions.free-strike.rules', enHash: 'cb156132e328993d956f05ebf8725eebcfb0028874769a38577fa569229d3399' },
+	'section:heal:0': { sheetId: 'heroes.actions.heal.rules', enHash: '623397c39539eb7ad300dc5677d310defaa28d1d29dc9c079004cb3978cab80a', stripHeading: true }
 };
