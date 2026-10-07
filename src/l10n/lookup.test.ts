@@ -1,16 +1,18 @@
 import { AbilityName, abilityNameKey, abilitySectionKey, useAbilityName } from '@/l10n/ability-text';
 import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
-import { FeaturePerk, FeatureText } from '@/models/feature';
+import { Feature, FeaturePerk, FeatureText } from '@/models/feature';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
 import { displayKey, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text';
 import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-panel';
+import { Ability } from '@/models/ability';
 import { AbilityCard } from '@/components/panels/classic-sheet/ability-card/ability-card';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
+import { AncestryData } from '@/data/ancestry-data';
 import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { FactoryLogic } from '@/logic/factory-logic';
@@ -399,7 +401,6 @@ describe('ancestry continuation', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:memonek-feature-3-5:name',
 			'element:memonek-feature-3-5:description',
 			'element:dwarf-feature-1:description',
 			'element:ancestry-hakaan:description',
@@ -511,13 +512,9 @@ describe('ancestry third batch', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:devil-feature-2-3:name',
 			'element:devil-feature-2-3:description',
-			'element:high-elf-feature-2-0:name',
 			'element:high-elf-feature-2-0:description',
-			'element:polder-feature-1:name',
 			'element:polder-feature-1:description',
-			'element:polder-feature-3-4:name',
 			'element:polder-feature-3-4:description',
 			'element:devil-feature-2:name',
 			'element:high-elf-feature-2:name',
@@ -663,23 +660,14 @@ describe('ancestry fourth batch', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:human-feature-1:name',
 			'element:human-feature-1:description',
-			'element:human-feature-2-3:name',
 			'element:human-feature-2-3:description',
-			'element:human-feature-2-4:name',
 			'element:human-feature-2-4:description',
-			'element:wode-elf-feature-2-5:name',
 			'element:wode-elf-feature-2-5:description',
-			'element:time-raider-feature-2-1:name',
 			'element:time-raider-feature-2-1:description',
-			'element:time-raider-feature-2-2b:name',
 			'element:time-raider-feature-2-2b:description',
-			'element:time-raider-feature-2-5-1:name',
 			'element:time-raider-feature-2-5-1:description',
-			'element:time-raider-feature-2-5-2:name',
 			'element:time-raider-feature-2-5-2:description',
-			'element:time-raider-feature-2-5-3:name',
 			'element:time-raider-feature-2-5-3:description',
 			'element:wode-elf-feature-1:description',
 			'element:time-raider-feature-2-2:description',
@@ -796,14 +784,9 @@ describe('ancestry fifth batch', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:revenant-feature-4-5-2:name',
 			'element:revenant-feature-4-5-2:description',
-			'element:dragon-knight-feature-2-1:name',
 			'element:dragon-knight-feature-2-1:description',
-			'element:dragon-knight-feature-2-8:name',
-			'element:dragon-knight-feature-2-9:name',
 			'element:dragon-knight-feature-2-9:description',
-			'element:dragon-knight-feature-2-10:name',
 			'element:dragon-knight-feature-2-10:description',
 			'element:dragon-knight-feature-2-2:name',
 			'element:dragon-knight-feature-2-3:name',
@@ -941,9 +924,9 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(379);
+		expect(Object.keys(mapping)).toHaveLength(398);
 		expect(Object.keys(exceptions)).toHaveLength(10);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(83);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(85);
 	});
 
 	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
@@ -1016,7 +999,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(379);
+		expect(Object.keys(mapping)).toHaveLength(398);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1093,7 +1076,7 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(379);
+		expect(Object.keys(mapping)).toHaveLength(398);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1329,7 +1312,7 @@ describe('action names', () => {
 	});
 
 	test('this batch adds 19 action name keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(379);
+		expect(Object.keys(mapping)).toHaveLength(398);
 		expect(actionNames).toHaveLength(19);
 		for (const [ id, english, sheetId, zh ] of actionNames) {
 			const key = `element:${id}:name`;
@@ -1641,7 +1624,7 @@ describe('action descriptions', () => {
 	});
 
 	test('fourteen section keys point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(379);
+		expect(Object.keys(mapping)).toHaveLength(398);
 		expect(direct).toHaveLength(5);
 		expect(forgeSteel).toHaveLength(9);
 		for (const [ id, sheetId ] of direct) {
@@ -1768,5 +1751,180 @@ describe('action descriptions', () => {
 		const englishHtml = renderToStaticMarkup(createElement(AbilityCard, { ability: charge }));
 		expect(englishHtml).toContain('When a creature takes the Charge main action');
 		expect(englishHtml).not.toContain('當你執行衝鋒主要動作時');
+	});
+});
+
+const ancestryAbilityNames = [
+	[ 'devil-feature-2-3', 'Glowing Eyes', 'heroes.ancestries.devil.trait.glowing-eyes.name', '閃耀熾目', false ],
+	[ 'dragon-knight-feature-2-1', 'Draconian Guard', 'heroes.ancestries.dragon-knight.trait.draconian-guard.name', '龍人守衛', false ],
+	[ 'dragon-knight-feature-2-8', 'Remember your Oath', 'heroes.ancestries.dragon-knight.trait.remember-your-oath.name', '銘記誓言', true ],
+	[ 'dragon-knight-feature-2-9', 'Draconic Pride', 'heroes.ancestries.dragon-knight.trait.draconian-pride.name', '龍人霸氣', true ],
+	[ 'dragon-knight-feature-2-10', 'Dragon Breath', 'heroes.ancestries.dragon-knight.trait.dragon-breath.name', '龍息', false ],
+	[ 'high-elf-feature-2-0', 'Glamor of Terror', 'heroes.ancestries.high-elf.trait.glamor-of-terror.name', '恐怖魅術', false ],
+	[ 'wode-elf-feature-2-5', 'The Wode Defends', 'heroes.ancestries.wode-elf.trait.the-wode-defends.name', '幻林護衛', false ],
+	[ 'human-feature-1', 'Detect the Supernatural', 'heroes.ancestries.human.signature.detect-supernatural.name', '偵測超常', false ],
+	[ 'human-feature-2-3', 'Resist the Unnatural', 'heroes.ancestries.human.trait.resist-the-unnatural.name', '抵抗異常', false ],
+	[ 'human-feature-2-4', 'Determination', 'heroes.ancestries.human.trait.determination.name', '堅定決心', false ],
+	[ 'memonek-feature-3-5', 'Keeper of Order', 'heroes.ancestries.memonek.trait.keeper-of-order.name', '秩序守護者', false ],
+	[ 'polder-feature-1', 'Shadowmeld', 'heroes.ancestries.polder.signature.shadowmeld.name', '融影術', false ],
+	[ 'polder-feature-3-4', 'Reactive Tumble', 'heroes.ancestries.polder.trait.reactive-tumble.name', '緊急翻滾', false ],
+	[ 'revenant-feature-4-5-2', 'Detonate Sigil', 'heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.name', '引爆符印', false ],
+	[ 'time-raider-feature-2-1', 'Beyondsight', 'heroes.ancestries.time-raider.trait.beyondsight.name', '透視力', false ],
+	[ 'time-raider-feature-2-2b', 'Foresight', 'heroes.ancestries.time-raider.trait.foresight.name', '預視力', false ],
+	[ 'time-raider-feature-2-5-1', 'Concussive Slam', 'heroes.ancestries.time-raider.trait.psionic-gift.concussive-slam.name', '猛力衝擊', false ],
+	[ 'time-raider-feature-2-5-2', 'Psionic Bolt', 'heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.name', '靈能射線', false ],
+	[ 'time-raider-feature-2-5-3', 'Minor Acceleration', 'heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.name', '微幅加速', false ]
+] as const;
+
+const collectAncestryAbilities = (): Ability[] => {
+	const found: Ability[] = [];
+	const visit = (feature: Feature) => {
+		if (feature.type === FeatureType.Ability) {
+			found.push(feature.data.ability);
+			return;
+		}
+		if (feature.type === FeatureType.Choice) {
+			feature.data.options.forEach(option => visit(option.feature));
+			return;
+		}
+		if (feature.type === FeatureType.Multiple) {
+			feature.data.features.forEach(visit);
+		}
+	};
+	[
+		AncestryData.devil,
+		AncestryData.dragonKnight,
+		AncestryData.dwarf,
+		AncestryData.highElf,
+		AncestryData.wodeElf,
+		AncestryData.hakaan,
+		AncestryData.human,
+		AncestryData.memonek,
+		AncestryData.orc,
+		AncestryData.polder,
+		AncestryData.revenant,
+		AncestryData.timeRaider
+	].forEach(ancestry => ancestry.features.forEach(visit));
+	return found;
+};
+
+describe('ancestry ability names', () => {
+	const catalog = strings as Catalog;
+
+	const renderPanel = (ability: Ability) => {
+		return renderToStaticMarkup(withOptions(FactoryLogic.createOptions(), createElement(AbilityPanel, {
+			ability,
+			mode: PanelMode.Full
+		})));
+	};
+
+	const renderCard = (ability: Ability) => {
+		const sheet = ClassicSheetBuilder.buildAbilitySheet(ability, FactoryLogic.createHero(), undefined, FactoryLogic.createOptions());
+		return renderToStaticMarkup(createElement(AbilityCard, { ability: sheet }));
+	};
+
+	beforeEach(async () => {
+		await loadCatalog();
+		vi.stubGlobal('window', {
+			matchMedia: () => ({
+				matches: false,
+				addEventListener: () => undefined,
+				removeEventListener: () => undefined
+			})
+		});
+	});
+
+	test('nineteen ancestry ability names point at the approved rows', () => {
+		expect(Object.keys(mapping)).toHaveLength(398);
+		expect(ancestryAbilityNames).toHaveLength(19);
+		expect(collectAncestryAbilities().map(ability => ability.id).sort()).toEqual(ancestryAbilityNames.map(row => row[0]).sort());
+
+		for (const [ id, english, sheetId, zh, forgeSteel ] of ancestryAbilityNames) {
+			const key = `element:${id}:name`;
+			expect(mapping[key]).toMatchObject({ sheetId });
+			expect(catalog[sheetId].zh).toBe(zh);
+			if (forgeSteel) {
+				expect(catalog[sheetId].fs?.en).toBe(english);
+				expect(catalog[sheetId].fs?.zh).toBe(zh);
+				expect(catalog[sheetId].en).not.toBe(english);
+			} else {
+				expect(catalog[sheetId].fs).toBeUndefined();
+				expect(catalog[sheetId].en).toBe(english);
+			}
+			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
+			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
+		}
+
+		const foresight = 'heroes.ancestries.time-raider.trait.foresight.name';
+		expect(mapping['element:time-raider-feature-2-2:name'].sheetId).toBe(foresight);
+		expect(mapping['element:time-raider-feature-2-2a:name'].sheetId).toBe(foresight);
+		expect(mapping['element:time-raider-feature-2-2b:name'].sheetId).toBe(foresight);
+	});
+
+	test('a name key is only the stored English of these nineteen abilities', () => {
+		const abilities = collectAncestryAbilities();
+		expect(abilities).toHaveLength(19);
+		for (const ability of abilities) {
+			expect(abilityNameKey(ability)).toBe(`element:${ability.id}:name`);
+			expect(abilityNameKey({ id: ability.id, name: `My ${ability.name}` })).toBeUndefined();
+		}
+		expect(abilityNameKey({ id: 'not-an-ability', name: 'Glowing Eyes' })).toBeUndefined();
+		expect(abilityNameKey({ id: 'dragon-knight-feature-2-2', name: 'Prismatic Scales (acid)' })).toBeUndefined();
+		expect(abilityNameKey(AbilityData.freeStrikeMelee)).toBeUndefined();
+		expect(abilityNameKey(AbilityData.charge)).toBe('element:charge:name');
+
+		const oath = abilities.find(ability => ability.id === 'dragon-knight-feature-2-8');
+		if (!oath || oath.sections[0].type !== 'text') {
+			throw new Error('remember your oath section 0 is text');
+		}
+		expect(abilitySectionKey(oath.id, 0, oath.sections[0].text)).toBeUndefined();
+	});
+
+	test('chinese mode renames ancestry abilities and leaves descriptions in English', () => {
+		const abilities = collectAncestryAbilities();
+		const byId = (id: string) => {
+			const ability = abilities.find(item => item.id === id);
+			if (!ability) {
+				throw new Error(id);
+			}
+			return ability;
+		};
+		const shown = [
+			[ 'dragon-knight-feature-2-8', '銘記誓言', 'Remember your Oath', 'As a maneuver, you can recite the following oath.' ],
+			[ 'dragon-knight-feature-2-9', '龍人霸氣', 'Draconic Pride', 'You let loose a mighty roar to shake your foes’ spirits.' ],
+			[ 'dragon-knight-feature-2-10', '龍息', 'Dragon Breath', 'A furious exhalation of energy washes over your foes.' ],
+			[ 'dragon-knight-feature-2-1', '龍人守衛', 'Draconian Guard', 'You can swing your wings around and guard against a blow.' ],
+			[ 'polder-feature-1', '融影術', 'Shadowmeld', 'You become an actual shadow.' ]
+		] as const;
+
+		for (const [ id, zh, english, description ] of shown) {
+			const ability = byId(id);
+			const panel = renderPanel(ability);
+			const card = renderCard(ability);
+			expect(panel).toContain(`header-text">${zh}`);
+			expect(panel).not.toContain(`header-text">${english}`);
+			expect(panel).toContain(description);
+			expect(card).toContain(`ability-name">${zh}<`);
+			expect(card).not.toContain(`ability-name">${english}<`);
+			expect(card).toContain(description);
+		}
+
+		const breath = renderPanel(byId('dragon-knight-feature-2-10'));
+		expect(breath).toContain('Area');
+		expect(breath).toContain('Magic');
+		expect(breath).toContain('2 damage');
+		expect(breath).not.toContain('狂怒的能量噴湧而出');
+		expect(renderPanel(byId('dragon-knight-feature-2-8'))).not.toContain('你可以使用機動動作誦讀以下誓言');
+
+		setLanguage('en');
+		for (const [ id, zh, english ] of shown) {
+			const ability = byId(id);
+			const panel = renderPanel(ability);
+			const card = renderCard(ability);
+			expect(panel).toContain(`header-text">${english}`);
+			expect(panel).not.toContain(zh);
+			expect(card).toContain(`ability-name">${english}<`);
+			expect(card).not.toContain(zh);
+		}
 	});
 });

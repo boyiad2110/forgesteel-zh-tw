@@ -20,9 +20,12 @@ export interface MappingEntry {
  *
  * Keys:
  *   element:<id>:<field>   for example element:ancestry-orc:name
- *                          Basic action names use element:<ability id>:name.
- *                          Sixteen point at term.<slug>-action. Free Strike,
+ *                          Basic action names and ancestry ability names use
+ *                          element:<ability id>:name. Sixteen action names
+ *                          point at term.<slug>-action. Free Strike,
  *                          Opportunity Attack, and Claw Dirt reuse older rows.
+ *                          Ancestry ability names are batch 8-1. Descriptions
+ *                          and text sections stay for later batches.
  *   enum:<Enum>:<Member>   for example enum:Characteristic:Might
  *   data:<Class>:<field>   for example data:ConditionData:bleeding
  *   ui:<id>                for example ui:library.ancestries
@@ -409,6 +412,26 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:free-strike:name': { sheetId: 'term.free-strike', enHash: '680c9c6887cc1413346ab691e8b538f3843254747329ac35a49e36f7adf00524' },
 	'element:opportunity-attack:name': { sheetId: 'term.opportunity-attack', enHash: '61ffd11e24708ab572358bdc0a90e4b6fbb094b593dff29b17a677eca541a20f' },
 	'element:claw-dirt:name': { sheetId: 'term.claw-dirt', enHash: 'dbcc873f14302c46216fb18e163aec6658aa255f8ba431c0b6c2efdc6f7e530f' },
+	// Ancestry ability names (8-1). Descriptions and text sections stay for later batches.
+	'element:devil-feature-2-3:name': { sheetId: 'heroes.ancestries.devil.trait.glowing-eyes.name', enHash: '98d48aa4fdf09ef07c0b43aebab267330e92822b0ad864315e0ac5faa26a3566' },
+	'element:dragon-knight-feature-2-1:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.draconian-guard.name', enHash: 'fa7464da2771a582a01ace11be8a4df28257174ec207115b9faadeb77a60af04' },
+	'element:dragon-knight-feature-2-8:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.remember-your-oath.name', enHash: '0196045fb91ce5d2f9002ddf70ad9fc69f4f6871de7462c3a7d29f67afc315c5' },
+	'element:dragon-knight-feature-2-9:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.draconian-pride.name', enHash: 'e22029dfed0e55aeb42019a5fc693630e785b2e86b2140b2ce03a681ae40d72a' },
+	'element:dragon-knight-feature-2-10:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.dragon-breath.name', enHash: '3b439567997b03617938fd2b0048bb122fcf93edc85c2ea4e96f8a3d2fab9211' },
+	'element:high-elf-feature-2-0:name': { sheetId: 'heroes.ancestries.high-elf.trait.glamor-of-terror.name', enHash: '7efbe61cd51e822ba64c3931f5d62ea30b007c068fd5aa9a151b336d1e1ffe2c' },
+	'element:wode-elf-feature-2-5:name': { sheetId: 'heroes.ancestries.wode-elf.trait.the-wode-defends.name', enHash: '454a9437abc69550b0ddc1ede373b8d6871522180ecb8656d1d99301cc42e2f8' },
+	'element:human-feature-1:name': { sheetId: 'heroes.ancestries.human.signature.detect-supernatural.name', enHash: '173d3e8c2b5fb7a943463cde5c413c7daf6aee5302268106d8de72f2f356397b' },
+	'element:human-feature-2-3:name': { sheetId: 'heroes.ancestries.human.trait.resist-the-unnatural.name', enHash: 'c69855f74634389cf618d959c4871ad9490c5e39cf39c51a27cfc810a9c1d866' },
+	'element:human-feature-2-4:name': { sheetId: 'heroes.ancestries.human.trait.determination.name', enHash: 'c07513328104b15e2b3be00a018a690231b1fdf8fa441b5103182b3d8199aa55' },
+	'element:memonek-feature-3-5:name': { sheetId: 'heroes.ancestries.memonek.trait.keeper-of-order.name', enHash: 'dc43f808048484c2eba2ce8d0dd6e955e167683e7d67cdaf0e2f513d28b4bc35' },
+	'element:polder-feature-1:name': { sheetId: 'heroes.ancestries.polder.signature.shadowmeld.name', enHash: 'bab9c005ba3157f5a0b0613cfb16796e7a7a49e2c6e1291dd93dae1911dbee3a' },
+	'element:polder-feature-3-4:name': { sheetId: 'heroes.ancestries.polder.trait.reactive-tumble.name', enHash: '365e0de1fbea0eafb56495de220d5d53db1bc98fd60ab9ce146283d9097f8894' },
+	'element:revenant-feature-4-5-2:name': { sheetId: 'heroes.ancestries.revenant.trait.vengeance-mark.detonate-sigil.name', enHash: '2dcc77e7400227bf07d2e7aa251415b71db0234a201cf3640871e2fd4ed73fb4' },
+	'element:time-raider-feature-2-1:name': { sheetId: 'heroes.ancestries.time-raider.trait.beyondsight.name', enHash: '3f711382950aa3234157d02d463034f939df5d38a3b6f9b9cc349e951504670d' },
+	'element:time-raider-feature-2-2b:name': { sheetId: 'heroes.ancestries.time-raider.trait.foresight.name', enHash: '572c6fa88957f80fbd1b4809950606b76b1e7e85fd82e9cd06c0e9fcd0ad9b5c' },
+	'element:time-raider-feature-2-5-1:name': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.concussive-slam.name', enHash: '2eb0fe6c52f754f651789c6ce509dde28f4a3be7fc97a119a6656edcfc49b88c' },
+	'element:time-raider-feature-2-5-2:name': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.name', enHash: '5b4e096d1df47a980268c08fcd409b381b0355df121469d27899c6928e416774' },
+	'element:time-raider-feature-2-5-3:name': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.name', enHash: '8af4f14348a0bf3fcfaf5ab4ab625eac57dd5c24fe0af937ae416c37fc99b86e' },
 	// Basic action descriptions (text sections). Escape Grab, Grab, and Knockback
 	// text sections wait for the ability batch. Opportunity Attack, Go Prone, and
 	// Swap descriptions stay English. Claw Dirt has no text section.

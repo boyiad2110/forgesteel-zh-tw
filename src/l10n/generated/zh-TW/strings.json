@@ -42,7 +42,7 @@
   "heroes.actions.disengage.rules": {
     "en": "Disengage\n\nWhen a creature takes the Disengage move action, they can shift 1 square. Certain class features, kits, and other rules allow a creature to shift more than 1 square when they disengage. A creature who does so can break up their shift with their maneuver and main action however they wish.",
     "updated": "2026-09-30",
-    "zh": "撤離\n\n若你執行撤離移動動作，你可以遁移 1 格。某些職業特性、套裝和其他機制會允許你在撤離時遁移超過 1 格。若是如此，你可以隨意將這段遁移拆分到在其他機動動作和主要動作之間。"
+    "zh": "撤離\n\n若你執行撤離移動動作，你可以遁移 1 格。某些職業特性、套裝和其他機制會允許你在撤離時遁移超過 1 格。若是如此，你可以隨意將這段遁移拆分到其他機動動作和主要動作之間。"
   },
   "heroes.actions.escape-grab.rules": {
     "en": "Escape Grab\n\nA creature who is grabbed by another creature, an object, or an effect (see Grab below) can attempt to escape by using the following ability.\n\nEscape Grab\nManeuver\nSelf | Self\nPower Roll + Might or Agility:\n≤11 No effect.\n12–16 You can escape the grab, but if you do, a creature who has you grabbed can make a melee free strike against you before you are no longer grabbed.\n17+ You are no longer grabbed.\nEffect: You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.\n\nSee Conditions in Chapter 5: Classes for information on the grabbed condition.",
@@ -127,12 +127,12 @@
   "heroes.actions.ride.rules": {
     "en": "Ride\n\nA creature can take the Ride move action only while mounted on another creature (see Mounted Combat below). When a creature takes the Ride move action, they cause their mount to move up to the mount’s speed, taking the rider with them. Alternatively, a creature can use the Ride move action to have their mount use the Disengage move action as a free triggered action. A creature can use the Ride move action only once per round. A mounted creature can only have this move action applied to them once per round. This movement can be broken up with the rider’s maneuver and main action however they wish.",
     "fs": {
-      "basisHash": "af12070186774538b0cf47a89987b47f30e527ef1319417270939c6cc196f64b",
+      "basisHash": "459688f6098e9175a35c8cb6923013f496047fd965585dbc7b86b0ebc7c34360",
       "en": "A creature can take the Ride move action only while mounted on another creature. When a creature takes the Ride move action, they cause their mount to move up to the mount’s speed, taking the rider with them. Alternatively, a creature can use the Ride move action to have their mount use the Disengage move action as a free triggered action. A creature can use the Ride move action only once per round. A mounted creature can only have this move action applied to them once per round. This movement can be broken with the rider’s maneuver and main action however they wish.",
-      "zh": "你必須騎乘在其他生物身上才能使用騎乘移動動作。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到在其他機動動作和主要動作之間。"
+      "zh": "你必須騎乘在其他生物身上才能使用騎乘移動動作。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到其他機動動作和主要動作之間。"
     },
     "updated": "2026-09-30",
-    "zh": "騎乘\n\n你必須騎乘在其他生物身上才能使用騎乘移動動作（詳見下文「騎乘戰鬥」）。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到在其他機動動作和主要動作之間。"
+    "zh": "騎乘\n\n你必須騎乘在其他生物身上才能使用騎乘移動動作（詳見下文「騎乘戰鬥」）。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到其他機動動作和主要動作之間。"
   },
   "heroes.actions.search-for-hidden-creatures.rules": {
     "en": "Search for Hidden Creatures\n\nThe Search for Hidden Creatures maneuver allows a creature to attempt to locate creatures hidden from them (see Hide and Sneak in Chapter 9: Tests).",
@@ -386,6 +386,11 @@
   },
   "heroes.ancestries.dragon-knight.trait.draconian-pride.name": {
     "en": "Draconian Pride",
+    "fs": {
+      "basisHash": "4c4d821cacbe03f7058b076dde6619a907956e6670895b77c3060291084117d2",
+      "en": "Draconic Pride",
+      "zh": "龍人霸氣"
+    },
     "updated": "2026-10-01",
     "zh": "龍人霸氣"
   },
@@ -426,6 +431,11 @@
   },
   "heroes.ancestries.dragon-knight.trait.remember-your-oath.name": {
     "en": "Remember Your Oath",
+    "fs": {
+      "basisHash": "fe225223d1bcbcdf9cb261d6852694e2c1cc9f3ab1658f7fb0a730c626ad1b0e",
+      "en": "Remember your Oath",
+      "zh": "銘記誓言"
+    },
     "updated": "2026-10-01",
     "zh": "銘記誓言"
   },

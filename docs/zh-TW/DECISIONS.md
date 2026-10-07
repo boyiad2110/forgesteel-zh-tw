@@ -81,6 +81,9 @@
 - **7-3 也換經典表格招式卡的描述（2026-10-07）。** 排版估算不改（中文顯示寬度約為英文的 0.5–0.7 倍）。只在顯示文字仍等於資料英文時才換（加了 Effect 前綴或被改寫的段維持英文）。Marc 已核准。
 - **Master Sheet 寫入動作描述的 Forge Steel 版（2026-10-07）。** Strings 第 34、37、40、42、43、45、47、48、49 列 P–V，Changelog CHG-0061。Marc 已核准。
 - **待修：「拆分到在其他」（2026-10-07）。** Strings 第 33 列（Disengage，直接對照）與第 34 列（Ride，Forge Steel 版）的書本譯文「拆分到在其他機動動作和主要動作之間」多一個「在」。這批不改，畫面照現有譯文顯示。之後若 Marc 修 Sheet：第 33 列改完重出快照即可；第 34 列的 H 欄改了之後，Forge Steel 版會被守門判為過期（stale），要同時改 R 欄並重算 T 欄（Basis Hash）再出快照。Marc 已核准這批不改。
+- **Remember your Oath、Draconic Pride 的名稱走 Forge Steel 版（2026-10-07）。** 中文與書本相同，不刪字。英文差在大小寫（Remember your Oath／Remember Your Oath）與用字（Draconic／Draconian）。依「不新增大小寫例外」與 Artisan Guild 先例，不把大小寫差列進 `english-exceptions.json`。Changelog CHG-0062。Marc 已核准。
+- **Strings 第 33、34 列「拆分到在其他」已改為「拆分到其他」（2026-10-07）。** Changelog CHG-0063。第 33 列（Disengage）只改書本中文。第 34 列（Ride）同步更新 Forge Steel 版中文與 Basis Hash。Marc 已核准。
+- **招式批次分三批（2026-10-07）。** 8-1 是族裔招式名稱。8-2 是族裔描述與內文段。8-3 是 Escape Grab、Grab、Knockback 的內文段。Marc 已核准對照預覽全照建議。
 
 ## 尚未決定
 
