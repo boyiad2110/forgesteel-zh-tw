@@ -1649,6 +1649,17 @@ describe('action descriptions', () => {
 		expect(abilitySectionKey('custom-ability', 0, stand.text)).toBeUndefined();
 	});
 
+	test('Grab and Knockback text stays translated with automatic calculations enabled', () => {
+		const hero = FactoryLogic.createHero();
+		const grab = renderPanel(AbilityData.grab, hero);
+		const knockback = renderPanel(AbilityData.knockback, hero);
+
+		expect(grab).toContain('你通常只能擒抱體型');
+		expect(grab).not.toContain('You can usually target only creatures');
+		expect(knockback).toContain('你通常只能擊退體型');
+		expect(knockback).not.toContain('You can usually target only creatures');
+	});
+
 	test('the full ability panel shows the fourteen descriptions and leaves the rest in English', () => {
 		const ride = renderPanel(AbilityData.ride);
 		expect(ride).toContain('你必須騎乘在其他生物身上才能使用騎乘移動動作');

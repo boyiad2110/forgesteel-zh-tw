@@ -67,8 +67,8 @@ export const abilityNameKey = (ability: { id: string, name: string }): string | 
  * this index is a text section, and the text on screen is still that English
  * once `**bold**` marks are removed and both sides are trimmed. A classic-sheet
  * `**Effect:**` prefix, a rewritten sentence, a roll or field section, and an
- * action that is not one of these stay as written. Escape Grab, Grab, and
- * Knockback can receive a key; nothing maps it, so they stay English.
+ * action that is not one of these stay as written. Mapped action sections can
+ * receive a key; unmapped ones stay as written.
  */
 export const abilitySectionKey = (abilityId: string, index: number, shown: string): string | undefined => {
 	const section = abilities.get(abilityId)?.sections[index];
