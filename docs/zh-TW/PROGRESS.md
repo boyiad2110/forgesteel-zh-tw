@@ -4,13 +4,13 @@
 
 2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。P2-9-3 虹彩鱗片六個選項已通過 Marc 本機驗收，PR #35 squash 合併至 develop（d5f353a2）；集中預期總數為 427／105／10。本機 develop 已同步，本批結案。
 
-快照 CSV 與核准動態 Note 整合維護已通過 Marc 本機驗收，PR #37 於 2026-10-08 squash 合併至 develop（6e21b001）。P2-6-3 隨從與專案面板技能／語言名稱已由 Marc 驗收通過，PR #39 squash 合併至 develop（9236f0f7）；本機已同步，集中總數仍為 427／105／10。下一個 P2 內容範圍先提出對照預覽，P3 仍待 Master Sheet 的 Forge Steel UI 分頁。
+快照 CSV 與核准動態 Note 整合維護已通過 Marc 本機驗收，PR #37 於 2026-10-08 squash 合併至 develop（6e21b001）。P2-6-3 隨從與專案面板技能／語言名稱已由 Marc 驗收通過，PR #39 squash 合併至 develop（9236f0f7）；本機已同步；P2-5-3 已接受並合併 PR #41（1bbc7725），集中總數為 428／105／11。下一個 P2 內容範圍先提出對照預覽，P3 仍待 Master Sheet 的 Forge Steel UI 分頁。
 
-## P2-5-3 Orden 語言名稱：Za’hariax（進行中）
+## P2-5-3 Orden 語言名稱：Za’hariax（已接受）
 
 Marc 於 2026-10-08 核准預覽。Forge Steel 的語言名稱為 Za'hariax，Master Sheet Names 第 25 列的既有 APPROVED Source Name 是 Za’hariax、Target Name 是「札哈里亞語」。兩者只有直引號／彎引號差異；不改 Sheet 或名稱資料。本批新增 `language:Za'hariax` 對照並列出該鍵的 punctuation 例外；技能／語言 helper 已支援既有顯示位置，不增加畫面 hook、動態句型或 Forge Steel 版。42 個 Orden 語言名稱都涵蓋後，總 mapping 428、Forge Steel Strings 105、英文例外 11。
 
-驗證（2026-10-08）：在地化守門、集中 inventory 測試 3/3、ESLint、TypeScript、`git diff --check` 通過。完整 `npm run check` 的 Lint 與 TypeScript 通過；Vitest 34 檔中 4 檔通過、30 檔因 Windows 沙盒暫存模組檔 ENOENT 無法載入，並有 1 個既有來源掃描測試超過 5 秒；106 項測試通過。另一次執行本批 lookup 測試也受相同暫存檔問題及缺少 sass-embedded 阻擋，沒有執行到該檔測試。完整檢查在 Vitest 失敗後未執行 npm audit；本批未改依賴，既有 audit 結果另案處理。production build 未執行。PR #41 已開啟，待 Marc 本機驗收；尚未合併。
+驗證（2026-10-08）：在地化守門、集中 inventory 測試 3/3、ESLint、TypeScript、`git diff --check` 通過。完整 `npm run check` 的 Lint 與 TypeScript 通過；Vitest 34 檔中 4 檔通過、30 檔因 Windows 沙盒暫存模組檔 ENOENT 無法載入，並有 1 個既有來源掃描測試超過 5 秒；106 項測試通過。另一次執行本批 lookup 測試也受相同暫存檔問題及缺少 sass-embedded 阻擋，沒有執行到該檔測試。完整檢查在 Vitest 失敗後未執行 npm audit；本批未改依賴，既有 audit 結果另案處理。production build 未執行。Marc 於 2026-10-08 本機人工驗收通過；PR #41 squash 合併至 develop（1bbc77256c7ada4a4325b0a126ee2831c2634ced），本機已切回 develop 並快轉同步；集中總數 428／105／11。GitHub Localization check #115 的守門與完整 Vitest 通過。
 
 ## P2-6-3 隨從與專案面板名稱（已接受）
 
@@ -110,6 +110,7 @@ Marc 確認復元值能自動更新，核准把「你會恢復等於 13 的體�
 | P2-4 文化第三批 | 11 個族裔文化名稱 | #17 | 已接受 | 2026-10-06 |
 | P2-5 語言 5-1 | 語言名稱（文化面板與建造頁） | #18 | 已接受 | 2026-10-06 |
 | P2-5 語言 5-2 | 語言名稱（英雄側欄、經典表格、Reference、來源書、小隊、協商） | #19 | 已接受 | 2026-10-06 |
+| P2-5-3 | Orden 語言 Za’hariax 對照既有核准名稱「札哈里亞語」 | #41 | 已接受 | 2026-10-08 |
 | P2-6 技能 6-1 | 技能名稱與類別（建造頁技能選擇、選技能視窗、Reference 技能頁） | #20 | 已接受 | 2026-10-06 |
 | P2-6 技能 6-2 | 技能名稱與類別（英雄側欄、小隊、來源書、經典表格技能卡／隨從卡／同伴卡／特性、失去技能糾葛、選技能視窗標籤） | #21 | 已接受 | 2026-10-06 |
 | P2-6-3 | 隨從詳情、專案候選與已選隨從的技能／語言名稱 | #39 | 已接受 | 2026-10-08 |
@@ -133,7 +134,7 @@ Marc 確認復元值能自動更新，核准把「你會恢復等於 13 的體�
 2. 五個屬性名稱（P2-2，已接受）。「Characteristic」這個詞等 P3
 3. ancestries：歐克（P2-3，已接受）；矮人、哈肯人、梅莫人，以及 Forge Steel 版支援（P2-3 族裔續批，已接受）；魔鬼、高等精靈、波德人（P2-3 族裔第三批，已接受）；人類、幻林精靈、時空獵手（P2-3 族裔第四批，已接受）；還魂屍、龍騎士（P2-3 族裔第五批，已接受）。族裔到此全部做完。招式（各族的可購買招式、特色招式）留到之後的招式批次（見第 8 項）
 4. cultures（P2-4）：第一批 13 個文化面向（已接受）。第二批 16 個職業型文化名稱（已接受）。第三批 11 個族裔文化名稱（已接受）
-5. languages（P2-5）：5-1 語言名稱，文化面板與建造頁（已接受）。5-2 語言名稱，英雄側欄、經典表格、Reference、來源書、小隊、協商（已接受）。語言描述留英文。特性名、Field 標籤 Language、類型標籤、「I Speak Their Language (…)」、「Unselected」、「None」、「Related to:」、類型標題，以及「Choose a language.」等 P3。sourcebook-panel 編輯模式留英文。經典表格排版估算不改。選語言抽屜的搜尋維持只認英文。編輯器下拉留英文
+5. languages（P2-5）：5-1 語言名稱，文化面板與建造頁（已接受）。5-2 語言名稱，英雄側欄、經典表格、Reference、來源書、小隊、協商（已接受）。5-3 Orden 語言 Za’hariax 對照既有核准名稱「札哈里亞語」（已接受，#41）。語言描述留英文。特性名、Field 標籤 Language、類型標籤、「I Speak Their Language (…)」、「Unselected」、「None」、「Related to:」、類型標題，以及「Choose a language.」等 P3。sourcebook-panel 編輯模式留英文。經典表格排版估算不改。選語言抽屜的搜尋維持只認英文。編輯器下拉留英文
 6. skill groups（P2-6）：6-1 技能名稱與類別，建造頁技能選擇、選技能視窗、Reference（已接受）。6-2 技能名稱與類別，英雄側欄、小隊、來源書、經典表格技能卡／隨從卡／同伴卡／特性、失去技能糾葛、選技能視窗標籤（已接受）。6-3 隨從詳情、專案候選與已選隨從的技能／語言名稱（已接受）。擲骰修正說明、分組標題 P3。技能描述留英文。搜尋排序維持英文
 7. basic actions（P2-7）：7-1 網頁名稱，Reference 的 Abilities 頁、招式視窗、列印頁、英雄頁招式列表、側欄 Triggers（已接受）。7-2 經典表格名稱（已接受）。7-3 動作描述（已接受：9 段 Forge Steel 版、5 段直接對照）。Escape Grab、Grab、Knockback 的「效果：」段已於招式批次 8-3 接受；簡略描述仍留英文。Opportunity Attack、Go Prone、Swap 的描述留英文。Melee Free Strike／Ranged Free Strike、Go Prone、Swap 留英文。動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3
 8. 招式批次（P2-8）：8-1 族裔招式名稱 19 個（已接受，#26）。Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）的名稱走 Forge Steel 版，中文與書本相同。8-2 族裔描述與內文段（已接受，#28）：description 10 鍵（直接對照 6、Forge Steel 版 4）、文字段 7 鍵（直接對照 3、Forge Steel 版 4）；Sheet 寫 8 列 P–V（第 58、65、69、91、191、245、287、304 列）；程式改 `src/l10n/ability-text.ts`（`abilitySectionKey` 擴到族裔招式、新增 description 鍵）、`ability-panel.tsx`（description：compact 與 full 兩處）、`ability-card.tsx`（description）。8-3 Escape Grab、Grab、Knockback 的「效果：」段（第 38、39、41 列各 1 段，`section:<id>:2`）已接受（#29，2026-10-07）：Sheet 寫 3 列 P–V 並新增 CHG-0065。Grab／Knockback 以原始英文字串查翻譯鍵，再將上游計算數值投射到核准中文（`calculation-bindings.json`／`calculated-text.ts`）；關閉計算恢復原文。Strings U39、U41 補註 CHG-0066，Project State／Status 已更新；Marc 已驗收閃電開關與力量 2→3。擲骰（tier）、關鍵字、距離、目標、觸發句、Forge Steel 改寫的段留英文；第 177、331、356 列的引言不對照；Foresight（2-2b）只做名稱。職業、套組、領域、專長招式不在這批。矮人、哈肯人、歐克沒有招式
