@@ -531,6 +531,11 @@
   },
   "heroes.ancestries.dwarf.signature.runic-carving.intro": {
     "en": "You can carve a rune onto your skin with 10 uninterrupted minutes of work, which is activated by the magic within your body. The rune you carve determines the benefit you receive, chosen from among the following:",
+    "fs": {
+      "basisHash": "67342c0deeb5d75683750d30f0affa30e6527ca2f9534f12b1034037c315bcfe",
+      "en": "You can carve a rune onto your skin with 10 uninterrupted minutes of work, which is activated by the magic within your body. The rune you carve determines the benefit you receive.\n\nYou can have one rune active at a time, and can change or remove a rune with 10 uninterrupted minutes of work.",
+      "zh": "你可以花費不間斷的 10 分鐘在皮膚上銘刻符文，這些符文會透過你體內的魔力啟動。你銘刻的符文類型會決定你獲得的效果。\n\n你同時只能啟動 1 種符文。更改或移除符文都需要不間斷的 10 分鐘。"
+    },
     "updated": "2026-10-01",
     "zh": "你可以花費不間斷的 10 分鐘在皮膚上銘刻符文，這些符文會透過你體內的魔力啟動。你銘刻的符文類型會決定你獲得的效果。從以下選擇 1 項："
   },

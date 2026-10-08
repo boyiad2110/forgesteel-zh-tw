@@ -109,6 +109,8 @@
 
 - **P2-9-1 經驗納入後續批次治理（2026-10-08）。** Marc 要求把 P2-9-1 稽核經驗及改善方式寫入治理文件，供新對話接續。稽核未發現另寫計算器、改上游資料／邏輯或各畫面新增翻譯；兩份 Forge Steel 靜態中文都是書本核准中文的原樣接合，動態 Note 與 Sheet 一致。主要改善為預覽提前核准自然動態中文、先確認環境再調整設定、明確記錄檢查缺口、同步快照及減少重複維護。操作規則集中於 RULES「後續批次執行與驗證」，不另建立一套流程。9-1 的分項驗證不能追認成完整 npm run check／本批 npm audit 通過；快照自動整合與既有總鍵數斷言集中化仍待實作，見 PROGRESS。
 
+- **P2-9-2 符文銘刻主說明（2026-10-08）。** Marc 核准以 Strings 第 134 列作 Forge Steel 版，合併第 141 列限制段。Forge Steel Source Text 保存上游兩段原文；Forge Steel Target Text 原樣接合兩列書本核准中文，僅刪去對應 Forge Steel 已刪除的「從以下選擇 1 項：」，段落間空一行。新增 `element:dwarf-feature-1:description` 對照。值 10 分鐘、20 格、10 格、1 哩均為固定原文，本項不涉及自動計算或動態句型。DEC-0009 仍限制靜態譯文不得補字、改寫；動態顯示核准規則不適用於本項。Strings P–V 與核准紀錄見 CHG-0071；實作與驗收進度見 PROGRESS。
+
 ## 尚未決定
 
 網站這邊目前沒有。Master Sheet Project State 的 Open Decisions 是 1：Glossary 第 160 列 `term.enhancement`（Enhancement）翻譯未定、狀態 NEW（CHG-0013、CHG-0014）。那是書本翻譯的事，和網站批次無關，AI 不自行補完。
