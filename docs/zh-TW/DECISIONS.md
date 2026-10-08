@@ -111,6 +111,8 @@
 
 - **P2-9-2 符文銘刻主說明（2026-10-08）。** Marc 核准以 Strings 第 134 列作 Forge Steel 版，合併第 141 列限制段。Forge Steel Source Text 保存上游兩段原文；Forge Steel Target Text 原樣接合兩列書本核准中文，僅刪去對應 Forge Steel 已刪除的「從以下選擇 1 項：」，段落間空一行。新增 `element:dwarf-feature-1:description` 對照。值 10 分鐘、20 格、10 格、1 哩均為固定原文，本項不涉及自動計算或動態句型。DEC-0009 仍限制靜態譯文不得補字、改寫；動態顯示核准規則不適用於本項。Strings P–V 與核准紀錄見 CHG-0071；實作與驗收進度見 PROGRESS。
 
+- **在地化全域總數集中檢查（2026-10-08）。** P2-9-2 新增一個 mapping 與一列 Forge Steel 版後，六組歷史批次測試仍預期全域 mapping 為 420，CI 失敗；Forge Steel Strings 列數也須由 98 更新為 99。Marc 選擇另開維護 PR，集中 mapping、Forge Steel Strings 列與英文例外總數於 `src/l10n/inventory.test.ts`，各以獨立測試核對明確預期值；各內容批次保留自身鍵與行為檢查。維護 PR 先沿用 develop 的 420／98／10，合併後 P2-9-2 更新基底與集中預期值 421／99／10。不從實際結果產生預期值，不放寬成下限；快照自動整合另列待辦。
+
 ## 尚未決定
 
 網站這邊目前沒有。Master Sheet Project State 的 Open Decisions 是 1：Glossary 第 160 列 `term.enhancement`（Enhancement）翻譯未定、狀態 NEW（CHG-0013、CHG-0014）。那是書本翻譯的事，和網站批次無關，AI 不自行補完。

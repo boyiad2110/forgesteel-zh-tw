@@ -2,13 +2,27 @@
 
 ## 目前狀態 / 下一步
 
-2026-10-08 接續摘要：P2-9-1 已驗收、PR #31 已 squash 合併（68289deb）。治理文件 PR #32 已於 2026-10-08 通過 Marc 驗收並合併至 develop。P2-9-2 符文銘刻對照預覽已由 Marc 核准，目前實作中；虹彩鱗片六個選項另批。
+2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。本輪停在結案，下一內容批次先提出對照預覽；虹彩鱗片另批。
+
+## 在地化總數測試維護
+
+維護分支 `codex/l10n-inventory-tests` 從 `develop @ a609c698` 建立。維護 PR #34（https://github.com/boyiad2110/forgesteel-zh-tw/pull/34）於 2026-10-08 通過 Marc 驗收並 squash 合併（12115ea18501e1038fb0f0624f0457673c33278e），合併前 GitHub CI 通過。`src/l10n/inventory.test.ts` 集中 mapping、Forge Steel Strings 列與英文例外總數，各以獨立測試檢查；維護批次的基底預期值為 420／98／10。移除 `lookup.test.ts` 的重複全域總數斷言，保留各批鍵、例外內容與翻譯行為檢查。新增內容後只更新集中預期值，不以實際總數推導預期值、不改成寬鬆下限。維護 PR 不含 #33 的譯文或新增對照鍵。
+
+驗證（2026-10-08，基底 a609c698）：守門、匯出一致性、Lint 無警告、TypeScript 通過；相關測試 105/105、完整 Vitest 788/788（33 檔，`--maxWorkers=1 --testTimeout=30000`）通過。暫時把三種預期值各降低 1，三個測試各自失敗，還原後完整測試通過；12 處重複全域斷言改為 3 個集中測試，移除 4 個只檢查總數的舊測試並新增 3 個，總測試數 789→788，內容與行為斷言保留。沙盒測試曾遇暫存檔 ENOENT，以原設定於沙盒外重跑相關測試通過，未改專案設定。
+
+完整 `npm run check` 預設執行仍在既有來源掃描測試 5 秒逾時處失敗（787 通過、1 逾時），audit 未接續執行；另補本批 `npm audit`，回報既有 4 個漏洞（1 moderate、3 high），exit 1。未改依賴，沒有宣稱整體檢查通過。
+
+上述維護批次程式驗證對應 e61e1908；後續僅補 PR 連結，未變更測試或執行程式。維護已接受；#33 已同步新基底，mapping／Forge Steel Strings 預期值改為 421／99，重新驗證完成，依既有內容驗收結果結案。快照自動取得 CSV 與動態 Note 的整合仍待實作。
 
 ## P2-9-2 符文銘刻
 
 Marc 於 2026-10-08 核准預覽：Strings 第 134 列的 Forge Steel 主說明刪去「從以下選擇 1 項：」，接上第 141 列已核准限制段，中間空一行；不新增文字、不改寫。Master Sheet 已更新第 134 列 P–V、Status 與 CHG-0071；第 141 列是合併來源。新增鍵 `element:dwarf-feature-1:description`；其餘 7 鍵沿用。上游數值皆固定，不新增動態句型或計算綁定。
 
-目前分支 `codex/p2-9-2-runic-carving`，從 `develop @ a609c698` 建立。PR #33（https://github.com/boyiad2110/forgesteel-zh-tw/pull/33）已開啟，等待 Marc 本機驗收。驗證：在地化守門、匯出一致性、ESLint、TypeScript 通過；本輪未執行 Vitest 或完整 `npm run check`。驗收通過前不合併。無截圖或錄影。
+本批已接受，PR #33（https://github.com/boyiad2110/forgesteel-zh-tw/pull/33）的內容已通過 Marc 本機驗收。分支 `codex/p2-9-2-runic-carving` 從 `develop @ a609c698` 建立，已同步維護 PR #34 合併後的 `develop @ 12115ea1`。譯文、快照與對照鍵保持已驗收版本，僅將集中預期值改為 421／99／10；讀回 Master Sheet 第 134 列確認原文、核准中文與 Basis Hash 完全一致。無截圖或錄影。
+
+整合驗證（2026-10-08，基底 12115ea1）：守門、匯出一致性、Lint 無警告、TypeScript、git diff --check 通過；完整 Vitest 788/788（33 檔，`--maxWorkers=1 --testTimeout=30000`）通過。完整 `npm run check` 預設執行仍在既有來源掃描測試 5 秒逾時處失敗（787 通過、1 逾時），未接續 audit；另補本批 `npm audit`，仍回報既有 4 個漏洞（1 moderate、3 high），exit 1，未改依賴。初次實作曾未執行 Vitest／完整檢查，CI 六個舊總數斷言失敗已另開 #34 處理；本次補上整合測試，不宣稱完整 `npm run check` 通過。GitHub 最終合併與 CI 紀錄見 PR #33。
+
+## P2-9-1 治理紀錄
 
 治理改善：已記錄動態中文提前預覽、環境排錯順序、檢查結果如實記錄、快照同步及減少重複維護。9-1 稽核重跑相關測試 169/169、守門與匯出一致性通過；這不補足當時完整 npm run check／本批 npm audit 的紀錄缺口。尚待實作：同次自動取得 CSV 與動態 Note；集中既有總鍵數斷言。P2-9-1 治理文件回合未改上述程式或翻譯內容。
 
