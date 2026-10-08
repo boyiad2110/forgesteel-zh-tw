@@ -8,7 +8,7 @@
 
 Marc 於 2026-10-08 核准六個 Forge Steel 選項名稱「虹彩鱗片（酸蝕／寒冷／腐朽／火焰／閃電／毒素）」，並指定數值顯示沿用英文順序，例如「酸蝕 2」。此為 DEC-0009 的六項限縮例外，DEC-0010 與 Master Sheet Strings 942–947、CHG-0073 已記錄。範圍只含六個名稱，以及經典表格裡這六項的計算值行；其他免疫摘要與共用 UI 仍為 P3。
 
-本機分支 `codex/p2-9-3-prismatic-scales` 從 `develop @ b6e2e8e4` 建立。新增六個名稱 mapping，並只在經典表格將這六項的傷害值顯示成核准中文傷害類型加 Forge Steel 上游計算值；集中預期總數更新為 427／105／10。守門、匯出一致性、Lint、TypeScript、全套測試與 build 通過。預設完整檢查仍受既有來源掃描測試 5 秒逾時影響；提高至 30 秒並限制單一 worker 後 794/794 通過。`npm audit` 回報既有 4 個漏洞（1 moderate、3 high），未改依賴。等待 Marc 本機預覽驗收，再依既定流程處理 PR 與合併；快照自動整合維持待辦。
+本機分支 `codex/p2-9-3-prismatic-scales` 從 `develop @ b6e2e8e4` 建立。新增六個名稱 mapping，並只在經典表格將這六項的傷害值顯示成核准中文傷害類型加 Forge Steel 上游計算值；集中預期總數更新為 427／105／10。PR #35 已建立：https://github.com/boyiad2110/forgesteel-zh-tw/pull/35。守門、匯出一致性、Lint、TypeScript、全套測試與 build 通過。預設完整檢查仍受既有來源掃描測試 5 秒逾時影響；提高至 30 秒並限制單一 worker 後 794/794 通過。`npm audit` 回報既有 4 個漏洞（1 moderate、3 high），未改依賴。等待 Marc 本機預覽驗收；依既定流程驗收後再合併。快照自動整合維持待辦。
 
 ## 在地化總數測試維護
 
