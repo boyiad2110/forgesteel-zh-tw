@@ -71,7 +71,7 @@ Power Roll + Might or Agility:
 17+ You are no longer grabbed.
 Effect: You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.
 
-See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-10-07,"You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.",若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。,APPROVED,482f1c7035dcc7829c1cd66d9e9e057a9e2c134e0eba771c3e897efb69efd076
+See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-09-30,"You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.",若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。,APPROVED,482f1c7035dcc7829c1cd66d9e9e057a9e2c134e0eba771c3e897efb69efd076
 heroes.actions.free-maneuvers.rules,APPROVED,"免費機動動作
 
 例如開啟未上鎖的門、從地上撿起箭矢、將物體交給相鄰的盟友，或是拔出武器等瑣碎行為，都不需要使用機動動作或主要動作。你可以在自己的回合中執行這些簡單的免費機動動作。免費機動動作雖然遵循一般機動動作的規則，但通常不限次數。
@@ -124,7 +124,7 @@ Effect: You can usually target only creatures of your size or smaller. If your M
 
 Unless otherwise indicated, a creature can grab only one creature at a time.
 
-See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-10-07,"You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。,APPROVED,5f4377eae7766310706ba0d8a5b915638006d2360540d2f9d6e0d9c696d7dab5
+See Conditions in Chapter 5: Classes for information on the grabbed condition.",2026-09-30,"You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。,APPROVED,5f4377eae7766310706ba0d8a5b915638006d2360540d2f9d6e0d9c696d7dab5
 heroes.actions.heal.rules,APPROVED,"治療
 
 若你使用治療主要動作，你可以透過醫療手段或鼓舞人心的話語，讓 1 個相鄰的生物恢復活力並繼續戰鬥。目標生物可以花費 1 點復元力來恢復體力，或是針對他正在承受的 1 個效果進行豁免（前提是該效果可以透過豁免來解除）。","Heal
@@ -157,7 +157,7 @@ Power Roll + Might:
 ≤11 Push 1
 12–16 Push 2
 17+ Push 3
-Effect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",2026-10-07,"You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。,APPROVED,cd8cd4548276259d72fac6e0bfb0d56d8bd66c295261872dcea3487bafafc719
+Effect: You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",2026-09-30,"You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。,APPROVED,cd8cd4548276259d72fac6e0bfb0d56d8bd66c295261872dcea3487bafafc719
 heroes.actions.main-actions.rules,APPROVED,"主要動作
 
 當你執行主要動作時，最常見的用途是發動由職業、套裝或寶物賦予的特殊招式（詳見第 5 章〈職業〉的「招式」）。這些招式可以讓你執行最獨特、最具特色且最有影響力的動作。
@@ -324,6 +324,12 @@ heroes.ancestries.dragon-knight.trait.dragon-breath.name,APPROVED,龍息,Dragon 
 heroes.ancestries.dragon-knight.trait.dragon-breath.tagline,APPROVED,狂怒的能量噴湧而出，席捲你的敵人。,A furious exhalation of energy washes over your foes.,2026-10-01,,,,
 heroes.ancestries.dragon-knight.trait.prismatic-scales.effect,APPROVED,從你的【龍鱗】特性中選擇 1 種傷害免疫。你始終擁有此免疫（此外仍保有【龍鱗】賦予的免疫）。,"Select one damage immunity granted by your Wyrmplate trait. You always have this immunity, in addition to the immunity granted by Wyrmplate.",2026-10-01,,,,
 heroes.ancestries.dragon-knight.trait.prismatic-scales.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-01,,,,
+heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (acid),虹彩鱗片（酸蝕）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
+heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (cold),虹彩鱗片（寒冷）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
+heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (corruption),虹彩鱗片（腐朽）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
+heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (fire),虹彩鱗片（火焰）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
+heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (lightning),虹彩鱗片（閃電）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
+heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (poison),虹彩鱗片（毒素）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
 heroes.ancestries.dragon-knight.trait.remember-your-oath.effect,APPROVED,你可以使用機動動作誦讀以下誓言。直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。,"As a maneuver, you can recite the following oath. Until the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",2026-10-01,,,,
 heroes.ancestries.dragon-knight.trait.remember-your-oath.name,APPROVED,銘記誓言,Remember Your Oath,2026-10-01,Remember your Oath,銘記誓言,APPROVED,fe225223d1bcbcdf9cb261d6852694e2c1cc9f3ab1658f7fb0a730c626ad1b0e
 heroes.ancestries.dragon-knight.trait.remember-your-oath.oath,APPROVED,"縱使太陽停在天際，
@@ -380,7 +386,7 @@ heroes.ancestries.dwarf.trait.stone-singer.effect,APPROVED,你與大地有著魔
 heroes.ancestries.dwarf.trait.stone-singer.name,APPROVED,石謳師,Stone Singer,2026-10-01,,,,
 heroes.ancestries.dwarf.traits.heading,APPROVED,矮人特性,Dwarf Traits,2026-10-01,,,,
 heroes.ancestries.dwarf.traits.intro,APPROVED,矮人英雄可以獲得以下特性。,Dwarf heroes have access to the following traits.,2026-10-01,,,,
-heroes.ancestries.hakaan.description.1,APPROVED,儘管哈肯人天性友善外向，但只要他們罕見地出現在人類社會中，都會被視為黑暗的預兆。,"In spite of their friendly, outgoing nature, the rare presence of a hakaan in human society is considered a harbinger. An omen of dark times.",2026-10-01,"In spite of their friendly, outgoing nature, the rare presence of a hakaan in human society is considered a harbinger - an omen of dark times. Descended from a tribe of giants in upper Vanigar, the original Haka’an tribe made a bargain with Holkatja the Vanigar trickster god. They traded some of their gigantic size and strength for the ability to see the future.","儘管哈肯人天性友善外向，但只要他們罕見地出現在人類社會中，都會被視為黑暗的預兆。哈肯人源自北方華尼伽的巨人部落，最早的哈肯人部落與華尼伽的詭計之神霍卡提雅達成交易，用部分體型和力量換取了預見未來的能力。","APPROVED","c180600ef4d6f8e7ae1ef69c5d6f9973a3370058af94a1b96457b0caac6802e5"
+heroes.ancestries.hakaan.description.1,APPROVED,儘管哈肯人天性友善外向，但只要他們罕見地出現在人類社會中，都會被視為黑暗的預兆。,"In spite of their friendly, outgoing nature, the rare presence of a hakaan in human society is considered a harbinger. An omen of dark times.",2026-10-01,"In spite of their friendly, outgoing nature, the rare presence of a hakaan in human society is considered a harbinger - an omen of dark times. Descended from a tribe of giants in upper Vanigar, the original Haka’an tribe made a bargain with Holkatja the Vanigar trickster god. They traded some of their gigantic size and strength for the ability to see the future.",儘管哈肯人天性友善外向，但只要他們罕見地出現在人類社會中，都會被視為黑暗的預兆。哈肯人源自北方華尼伽的巨人部落，最早的哈肯人部落與華尼伽的詭計之神霍卡提雅達成交易，用部分體型和力量換取了預見未來的能力。,APPROVED,c180600ef4d6f8e7ae1ef69c5d6f9973a3370058af94a1b96457b0caac6802e5
 heroes.ancestries.hakaan.description.2,APPROVED,哈肯人源自北方華尼伽的巨人部落，最早的哈肯人部落與華尼伽的詭計之神霍卡提雅達成交易，用部分體型和力量換取了預見未來的能力。,"Descended from a tribe of giants in upper Vanigar, the original Haka’an tribe made a bargain with Holkatya the Vanigar trickster god. They traded some of their gigantic size and strength for the ability to see the future.",2026-10-01,,,,
 heroes.ancestries.hakaan.description.3,APPROVED,但是霍卡提雅背叛了他們，哈肯人唯一能夠預見的未來就是自己死亡的時刻與方式。這些異象都不是一些平凡瑣碎的悲劇，沒有哈肯人曾預見自己會被葡萄噎死。這種「命定末視」總是意義重大，總是戲劇性十足。,"But Holkatya betrayed them, and the only future a hakaan is allowed to see is the moment and nature of their own death. These visions are never of some mundane tragedy. No hakaan ever received a vision of dying from choking on a grape. This Doomsight is always momentous. Always dramatic.",2026-10-01,,,,
 heroes.ancestries.hakaan.description.4,APPROVED,命定末視可能會在任何時刻降臨，而且只有少數哈肯人擁有，但當它來臨時，置之不理被認為是極度狂妄自大的行為。試圖逃避命定末視不僅會導致痛苦與悲慘的死亡，還會讓你的家族蒙受永遠的恥辱。,"The Doomsight can happen at any moment. It does not come for all or even most hakaan, but when it comes, it is considered an act of overwhelming hubris to ignore it. Trying to escape the Doomsight means a painful, tragic death, and cursing your family to live with shame.",2026-10-01,,,,
@@ -403,7 +409,7 @@ Additionally, when your Stamina reaches the negative of your winded value and yo
 
 若你沒有預先決定死亡遭遇，你也可以在陷入瀕死時進入命定狀態（無需動作，但需經導演同意）。這種選擇應該保留給因為英勇行為而瀕死的情況，例如與首領殊死一戰、拯救平民，或因為先前的行為而遭遇相應的後果，而不是單純因為你只玩一場冒險而沒有顧忌。
 
-此外，若你的體力降至疲態值的負數，但未處於命定狀態，你會變成碎石，而非死亡。在這種情況下，你無法感知周圍環境，也無法以任何方式恢復體力或復原。在 12 小時後，你會恢復等於你復元值的體力。","APPROVED","64bf8c7bd5a06ae11706fbc33f10db745b1bb8b133a5e647580c7cb506e159e2"
+此外，若你的體力降至疲態值的負數，但未處於命定狀態，你會變成碎石，而非死亡。在這種情況下，你無法感知周圍環境，也無法以任何方式恢復體力或復原。在 12 小時後，你會恢復等於你復元值的體力。",APPROVED,64bf8c7bd5a06ae11706fbc33f10db745b1bb8b133a5e647580c7cb506e159e2
 heroes.ancestries.hakaan.trait.doomsight.effect.2,APPROVED,若你沒有預先決定死亡遭遇，你也可以在陷入瀕死時進入命定狀態（無需動作，但需經導演同意）。這種選擇應該保留給因為英勇行為而瀕死的情況，例如與首領殊死一戰、拯救平民，或因為先前的行為而遭遇相應的後果，而不是單純因為你只玩一場冒險而沒有顧忌。,"If you don’t predetermine your death encounter, you can choose to become doomed while you are dying with the Director’s approval (no action required). Doing so should be reserved for encounters in which you are dying as a result of suitable heroism, such as making a last stand against a boss or saving civilians, or when the consequences of your actions have finally caught up to you—not because you’re playing a one-shot and have nothing to lose, Hacaarl.",2026-10-01,,,,
 heroes.ancestries.hakaan.trait.doomsight.effect.3,APPROVED,此外，若你的體力降至疲態值的負數，但未處於命定狀態，你會變成碎石，而非死亡。在這種情況下，你無法感知周圍環境，也無法以任何方式恢復體力或復原。在 12 小時後，你會恢復等於你復元值的體力。,"Additionally, when your Stamina reaches the negative of your winded value and you are not doomed, you turn to rubble instead of experiencing death. You are unaware of your surroundings in this state, and you can’t regain Stamina or have this effect undone in any way. After 12 hours, you regain Stamina equal to your recovery value.",2026-10-01,,,,
 heroes.ancestries.hakaan.trait.doomsight.name,APPROVED,命定末視,Doomsight,2026-10-01,,,,
@@ -1162,9 +1168,3 @@ Having a wide range of specific skills means you’ll frequently make tests that
 Since you don’t need to worry about your character covering a wide spread of skills, you’re free to choose the skills you think fit your hero best and are the most fun to work with. Maybe you’re thinking about an elementalist who has a gymnastic background in jumping and tumbling, and who also studied religion and blacksmithing. Having that kind of specific backstory is a big part of cinematic storytelling.
 
 The rules for skills allow for them to be flexibly applied to any test that is appropriate for the skill. This encourages clever thinking. A player can ask the Director, “I want to impress the duke with a story about how I ascended the sheer Cliffs of Azgahnan. Can I use my Climb skill for a +2 bonus to my Presence test?” Getting creative like that is a lot of fun. It paints a visual picture, and it’s good tactical thinking! However, if the skills in a game are too broad in the kinds of activities they represent, players inevitably end up applying the same skill over and over again to as many tests as possible. This isn’t fun for anyone, and doesn’t make a very compelling story.",2026-09-30,,,,
-heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (acid),虹彩鱗片（酸蝕）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
-heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (cold),虹彩鱗片（寒冷）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
-heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (corruption),虹彩鱗片（腐朽）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
-heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (fire),虹彩鱗片（火焰）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
-heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (lightning),虹彩鱗片（閃電）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
-heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (poison),虹彩鱗片（毒素）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0

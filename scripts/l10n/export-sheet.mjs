@@ -70,8 +70,7 @@ const TABS = [
 ];
 
 const fail = message => {
-	console.error(message);
-	process.exit(1);
+	throw new Error(message);
 };
 
 const parseArgs = argv => {
@@ -120,7 +119,7 @@ const readText = file => {
  * Quoted fields may contain commas, newlines, and "" escapes.
  * Field text is returned verbatim (no trim, no newline normalization).
  */
-const parseCsv = (text, file) => {
+export const parseCsv = (text, file) => {
 	const rows = [];
 	let row = [];
 	let field = '';
@@ -516,19 +515,23 @@ const loadCalculationDisplays = (snapshotDir, tabs, errors) => {
 	}
 };
 
-const main = () => {
-	const options = parseArgs(process.argv.slice(2));
-	const source = readSource(options.snapshotDir);
+export const buildCatalog = snapshotDir => {
+	const source = readSource(snapshotDir);
 	const seen = new Map();
 	const errors = [];
-	const tabs = TABS.map(spec => loadTab(options.snapshotDir, spec, seen, errors));
-	loadCalculationDisplays(options.snapshotDir, tabs, errors);
+	const tabs = TABS.map(spec => loadTab(snapshotDir, spec, seen, errors));
+	loadCalculationDisplays(snapshotDir, tabs, errors);
 
 	if (errors.length > 0) {
 		fail(errors.join('\n'));
 	}
 
-	const files = buildOutput(source, tabs);
+	return buildOutput(source, tabs);
+};
+
+const main = () => {
+	const options = parseArgs(process.argv.slice(2));
+	const files = buildCatalog(options.snapshotDir);
 	if (options.check) {
 		checkOutput(options.outDir, files);
 	} else {
@@ -536,4 +539,11 @@ const main = () => {
 	}
 };
 
-main();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+	try {
+		main();
+	} catch (error) {
+		console.error(error.message);
+		process.exitCode = 1;
+	}
+}

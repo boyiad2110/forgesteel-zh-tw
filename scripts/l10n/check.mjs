@@ -1859,7 +1859,7 @@ export const checkCjk = root => {
 	return errors;
 };
 
-export const checkMapping = root => {
+export const checkMapping = (root, catalogRoot = root) => {
 	const file = 'src/l10n/mapping.ts';
 	const full = path.join(root, file);
 	const text = read(full);
@@ -1882,11 +1882,11 @@ export const checkMapping = root => {
 			));
 		}
 	}
-	const sheet = loadSheetIds(path.join(root, 'src/l10n/generated/zh-TW'), file);
+	const sheet = loadSheetIds(path.join(catalogRoot, 'src/l10n/generated/zh-TW'), file);
 	if (parsed.entries.length > 0) {
 		errors.push(...sheet.errors);
 	}
-	const rows = loadSheetRows(path.join(root, 'src/l10n/generated/zh-TW'));
+	const rows = loadSheetRows(path.join(catalogRoot, 'src/l10n/generated/zh-TW'));
 	const cache = { current: null };
 	for (const entry of parsed.entries) {
 		if (sheet.errors.length === 0 && !sheet.ids.has(entry.sheetId)) {
@@ -1925,7 +1925,7 @@ export const checkMapping = root => {
 			));
 		} else {
 			if (entry.stripHeading) {
-				const heading = checkRulesHeading(root, entry, resolved.english);
+				const heading = checkRulesHeading(catalogRoot, entry, resolved.english);
 				if (heading) {
 					errors.push(heading);
 				}
@@ -1953,7 +1953,7 @@ export const checkMapping = root => {
 		}
 	}
 	const stringsFile = 'src/l10n/generated/zh-TW/strings.json';
-	const stringsText = read(path.join(root, stringsFile));
+	const stringsText = read(path.join(catalogRoot, stringsFile));
 	if (stringsText !== null) {
 		let stringsData = null;
 		try {
@@ -1995,7 +1995,7 @@ export const checkGenerated = root => {
 };
 
 /** Display bindings carry positions; optional sentence templates must come from the approved Sheet snapshot. */
-export const checkCalculationBindings = root => {
+export const checkCalculationBindings = (root, catalogRoot = root) => {
 	const file = 'src/l10n/calculation-bindings.json';
 	const text = read(path.join(root, file));
 	if (text === null) {
@@ -2011,7 +2011,7 @@ export const checkCalculationBindings = root => {
 		return [ issue('calculation-binding', file, null, null, 'bindings must be an object') ];
 	}
 	const entries = parseMapping('src/l10n/mapping.ts', read(path.join(root, 'src/l10n/mapping.ts')) ?? '').entries;
-	const rows = loadSheetRows(path.join(root, 'src/l10n/generated/zh-TW'));
+	const rows = loadSheetRows(path.join(catalogRoot, 'src/l10n/generated/zh-TW'));
 	const fields = new Set([ 'sheetId', 'enHash', 'sourceHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix', 'useDisplayTemplate' ]);
 	const errors = [];
 	const validSpan = (span, length) => Array.isArray(span) && span.length === 2 && span.every(Number.isInteger) && span[0] >= 0 && span[0] < span[1] && span[1] <= length;
@@ -2058,12 +2058,12 @@ export const checkCalculationBindings = root => {
 	return errors;
 };
 
-export const runCheck = (root = repoRoot) => {
+export const runCheck = (root = repoRoot, catalogRoot = root) => {
 	return [
 		...checkCjk(root),
-		...checkMapping(root),
-		...checkCalculationBindings(root),
-		...checkGenerated(root)
+		...checkMapping(root, catalogRoot),
+		...checkCalculationBindings(root, catalogRoot),
+		...checkGenerated(catalogRoot)
 	];
 };
 
