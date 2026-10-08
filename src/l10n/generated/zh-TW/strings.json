@@ -444,6 +444,66 @@
     "updated": "2026-10-01",
     "zh": "虹彩鱗片"
   },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name": {
+    "en": "Prismatic Scales",
+    "fs": {
+      "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+      "en": "Prismatic Scales (acid)",
+      "zh": "虹彩鱗片（酸蝕）"
+    },
+    "updated": "2026-10-08",
+    "zh": "虹彩鱗片"
+  },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name": {
+    "en": "Prismatic Scales",
+    "fs": {
+      "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+      "en": "Prismatic Scales (cold)",
+      "zh": "虹彩鱗片（寒冷）"
+    },
+    "updated": "2026-10-08",
+    "zh": "虹彩鱗片"
+  },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name": {
+    "en": "Prismatic Scales",
+    "fs": {
+      "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+      "en": "Prismatic Scales (corruption)",
+      "zh": "虹彩鱗片（腐朽）"
+    },
+    "updated": "2026-10-08",
+    "zh": "虹彩鱗片"
+  },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name": {
+    "en": "Prismatic Scales",
+    "fs": {
+      "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+      "en": "Prismatic Scales (fire)",
+      "zh": "虹彩鱗片（火焰）"
+    },
+    "updated": "2026-10-08",
+    "zh": "虹彩鱗片"
+  },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name": {
+    "en": "Prismatic Scales",
+    "fs": {
+      "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+      "en": "Prismatic Scales (lightning)",
+      "zh": "虹彩鱗片（閃電）"
+    },
+    "updated": "2026-10-08",
+    "zh": "虹彩鱗片"
+  },
+  "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name": {
+    "en": "Prismatic Scales",
+    "fs": {
+      "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+      "en": "Prismatic Scales (poison)",
+      "zh": "虹彩鱗片（毒素）"
+    },
+    "updated": "2026-10-08",
+    "zh": "虹彩鱗片"
+  },
   "heroes.ancestries.dragon-knight.trait.remember-your-oath.effect": {
     "en": "As a maneuver, you can recite the following oath. Until the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",
     "updated": "2026-10-01",

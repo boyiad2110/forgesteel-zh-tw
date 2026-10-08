@@ -113,6 +113,8 @@
 
 - **在地化全域總數集中檢查（2026-10-08）。** P2-9-2 新增一個 mapping 與一列 Forge Steel 版後，六組歷史批次測試仍預期全域 mapping 為 420，CI 失敗；Forge Steel Strings 列數也須由 98 更新為 99。Marc 選擇另開維護 PR，集中 mapping、Forge Steel Strings 列與英文例外總數於 `src/l10n/inventory.test.ts`，各以獨立測試核對明確預期值；各內容批次保留自身鍵與行為檢查。維護 PR 先沿用 develop 的 420／98／10，合併後 P2-9-2 更新基底與集中預期值 421／99／10。不從實際結果產生預期值，不放寬成下限；快照自動整合另列待辦。
 
+- **P2-9-3 虹彩鱗片六個選項（2026-10-08）。** Marc 核准六個網站名稱「虹彩鱗片（酸蝕／寒冷／腐朽／火焰／閃電／毒素）」，作為 DEC-0009 的限縮例外：僅可在這六個 Forge Steel 名稱中，把傷害類型接在既有核准名稱後，不擴及其他靜態譯文。經典表格中的這六個免疫值保留 Forge Steel 原順序，以正體中文傷害類型加上游計算值呈現（例：「酸蝕 2」）；不更動計算邏輯，也不翻譯其他共用免疫摘要或 UI。Master Sheet Strings 942–947 與 CHG-0073 記錄六項名稱；實作與驗收見 PROGRESS。
+
 ## 尚未決定
 
 網站這邊目前沒有。Master Sheet Project State 的 Open Decisions 是 1：Glossary 第 160 列 `term.enhancement`（Enhancement）翻譯未定、狀態 NEW（CHG-0013、CHG-0014）。那是書本翻譯的事，和網站批次無關，AI 不自行補完。

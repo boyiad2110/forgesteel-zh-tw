@@ -771,12 +771,6 @@ describe('ancestry fifth batch', () => {
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
 			'element:dragon-knight-feature-2-1:description',
-			'element:dragon-knight-feature-2-2:name',
-			'element:dragon-knight-feature-2-3:name',
-			'element:dragon-knight-feature-2-4:name',
-			'element:dragon-knight-feature-2-5:name',
-			'element:dragon-knight-feature-2-6:name',
-			'element:dragon-knight-feature-2-7:name',
 			'element:revenant-feature-4:name',
 			'element:dragon-knight-feature-2:name',
 			'element:revenant-feature-4-2:condition'
@@ -1238,6 +1232,49 @@ describe('skill display batch', () => {
 		const englishPerks = renderPerkChoice();
 		expect(englishPerks).toContain('Alchemy');
 		expect(englishPerks).not.toContain('鍊金');
+	});
+});
+
+describe('Prismatic Scales option display batch', () => {
+	const options = [
+		[ 'dragon-knight-feature-2-2', 'Prismatic Scales (acid)', '虹彩鱗片（酸蝕）', '酸蝕' ],
+		[ 'dragon-knight-feature-2-3', 'Prismatic Scales (cold)', '虹彩鱗片（寒冷）', '寒冷' ],
+		[ 'dragon-knight-feature-2-4', 'Prismatic Scales (corruption)', '虹彩鱗片（腐朽）', '腐朽' ],
+		[ 'dragon-knight-feature-2-5', 'Prismatic Scales (fire)', '虹彩鱗片（火焰）', '火焰' ],
+		[ 'dragon-knight-feature-2-6', 'Prismatic Scales (lightning)', '虹彩鱗片（閃電）', '閃電' ],
+		[ 'dragon-knight-feature-2-7', 'Prismatic Scales (poison)', '虹彩鱗片（毒素）', '毒素' ]
+	] as const;
+
+	beforeEach(async () => {
+		await loadCatalog();
+	});
+
+	test.each(options)('%s shows its approved Chinese name and the upstream value in source order', (id, englishName, chineseName, chineseType) => {
+		const choice = AncestryData.dragonKnight.features.find(feature => feature.id === 'dragon-knight-feature-2');
+		if (!choice || choice.type !== FeatureType.Choice) {
+			throw new Error('Dragon Knight purchased traits choice is missing');
+		}
+		const feature = choice.data.options.find(option => option.feature.id === id)?.feature;
+		if (!feature || feature.type !== FeatureType.DamageModifier) {
+			throw new Error(`${id} is not a damage modifier option`);
+		}
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.level = 2;
+		const render = () => renderToStaticMarkup(createElement(FeatureComponent, { feature, hero }));
+
+		setLanguage('zh-TW');
+		const levelTwo = render();
+		expect(levelTwo).toContain(chineseName);
+		expect(levelTwo).toContain(`${chineseType} 2`);
+		expect(levelTwo).not.toContain(`${englishName} 2`);
+		hero.class.level = 3;
+		expect(render()).toContain(`${chineseType} 3`);
+
+		setLanguage('en');
+		const english = render();
+		expect(english).toContain(englishName);
+		expect(english).toContain(`${feature.data.modifiers[0].damageType} 3`);
 	});
 });
 
