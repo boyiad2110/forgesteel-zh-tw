@@ -2,21 +2,31 @@
 
 ## 目前狀態 / 下一步
 
-2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。P2-9-2 符文銘刻 PR #33 已通過 Marc 本機驗收，尚未合併；CI 因六組歷史批次測試寫死 mapping 420 而失敗，本批實際為 421，另有被前置失敗遮住的 Forge Steel Strings 列數 98→99。Marc 核准另開維護 PR 集中總數檢查，先合併維護 PR，再更新 #33 的基底與集中預期數量。虹彩鱗片另批。
+2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。本輪停在結案，下一內容批次先提出對照預覽；虹彩鱗片另批。
 
 ## 在地化總數測試維護
 
-維護分支 `codex/l10n-inventory-tests` 從 `develop @ a609c698` 建立。維護 PR #34（https://github.com/boyiad2110/forgesteel-zh-tw/pull/34）已開啟，等待 Marc 驗收。`src/l10n/inventory.test.ts` 集中 mapping、Forge Steel Strings 列與英文例外總數，各以獨立測試檢查；基底預期值為 420／98／10。移除 `lookup.test.ts` 的重複全域總數斷言，保留各批鍵、例外內容與翻譯行為檢查。新增內容後只更新集中預期值，不以實際總數推導預期值、不改成寬鬆下限。維護 PR 不含 #33 的譯文或新增對照鍵。
+維護分支 `codex/l10n-inventory-tests` 從 `develop @ a609c698` 建立。維護 PR #34（https://github.com/boyiad2110/forgesteel-zh-tw/pull/34）於 2026-10-08 通過 Marc 驗收並 squash 合併（12115ea18501e1038fb0f0624f0457673c33278e），合併前 GitHub CI 通過。`src/l10n/inventory.test.ts` 集中 mapping、Forge Steel Strings 列與英文例外總數，各以獨立測試檢查；維護批次的基底預期值為 420／98／10。移除 `lookup.test.ts` 的重複全域總數斷言，保留各批鍵、例外內容與翻譯行為檢查。新增內容後只更新集中預期值，不以實際總數推導預期值、不改成寬鬆下限。維護 PR 不含 #33 的譯文或新增對照鍵。
 
 驗證（2026-10-08，基底 a609c698）：守門、匯出一致性、Lint 無警告、TypeScript 通過；相關測試 105/105、完整 Vitest 788/788（33 檔，`--maxWorkers=1 --testTimeout=30000`）通過。暫時把三種預期值各降低 1，三個測試各自失敗，還原後完整測試通過；12 處重複全域斷言改為 3 個集中測試，移除 4 個只檢查總數的舊測試並新增 3 個，總測試數 789→788，內容與行為斷言保留。沙盒測試曾遇暫存檔 ENOENT，以原設定於沙盒外重跑相關測試通過，未改專案設定。
 
 完整 `npm run check` 預設執行仍在既有來源掃描測試 5 秒逾時處失敗（787 通過、1 逾時），audit 未接續執行；另補本批 `npm audit`，回報既有 4 個漏洞（1 moderate、3 high），exit 1。未改依賴，沒有宣稱整體檢查通過。
 
-上述程式驗證對應 e61e1908；後續僅補 PR 連結，未變更測試或執行程式。下一步：維護 PR #34 待 Marc 驗收後 squash 合併；#33 更新至新基底，mapping／Forge Steel Strings 預期值改為 421／99，重新驗證後依既有內容驗收結果結案。快照自動取得 CSV 與動態 Note 的整合仍待實作。
+上述維護批次程式驗證對應 e61e1908；後續僅補 PR 連結，未變更測試或執行程式。維護已接受；#33 已同步新基底，mapping／Forge Steel Strings 預期值改為 421／99，重新驗證完成，依既有內容驗收結果結案。快照自動取得 CSV 與動態 Note 的整合仍待實作。
+
+## P2-9-2 符文銘刻
+
+Marc 於 2026-10-08 核准預覽：Strings 第 134 列的 Forge Steel 主說明刪去「從以下選擇 1 項：」，接上第 141 列已核准限制段，中間空一行；不新增文字、不改寫。Master Sheet 已更新第 134 列 P–V、Status 與 CHG-0071；第 141 列是合併來源。新增鍵 `element:dwarf-feature-1:description`；其餘 7 鍵沿用。上游數值皆固定，不新增動態句型或計算綁定。
+
+本批已接受，PR #33（https://github.com/boyiad2110/forgesteel-zh-tw/pull/33）的內容已通過 Marc 本機驗收。分支 `codex/p2-9-2-runic-carving` 從 `develop @ a609c698` 建立，已同步維護 PR #34 合併後的 `develop @ 12115ea1`。譯文、快照與對照鍵保持已驗收版本，僅將集中預期值改為 421／99／10；讀回 Master Sheet 第 134 列確認原文、核准中文與 Basis Hash 完全一致。無截圖或錄影。
+
+整合驗證（2026-10-08，基底 12115ea1）：守門、匯出一致性、Lint 無警告、TypeScript、git diff --check 通過；完整 Vitest 788/788（33 檔，`--maxWorkers=1 --testTimeout=30000`）通過。完整 `npm run check` 預設執行仍在既有來源掃描測試 5 秒逾時處失敗（787 通過、1 逾時），未接續 audit；另補本批 `npm audit`，仍回報既有 4 個漏洞（1 moderate、3 high），exit 1，未改依賴。初次實作曾未執行 Vitest／完整檢查，CI 六個舊總數斷言失敗已另開 #34 處理；本次補上整合測試，不宣稱完整 `npm run check` 通過。GitHub 最終合併與 CI 紀錄見 PR #33。
 
 ## P2-9-1 治理紀錄
 
-治理改善：已記錄動態中文提前預覽、環境排錯順序、檢查結果如實記錄、快照同步及減少重複維護。9-1 稽核重跑相關測試 169/169、守門與匯出一致性通過；這不補足當時完整 npm run check／本批 npm audit 的紀錄缺口。尚待實作：同次自動取得 CSV 與動態 Note；集中既有總鍵數斷言。本輪未改上述程式，也未修改翻譯內容。
+上述 P2-9-2 整合程式驗證對應 6e4a2b10；其後僅補結案表與待辦狀態，未再修改程式或譯文。
+
+治理改善：已記錄動態中文提前預覽、環境排錯順序、檢查結果如實記錄、快照同步及減少重複維護。9-1 稽核重跑相關測試 169/169、守門與匯出一致性通過；這不補足當時完整 npm run check／本批 npm audit 的紀錄缺口。尚待實作：同次自動取得 CSV 與動態 Note；集中既有總鍵數斷言。P2-9-1 治理文件回合未改上述程式或翻譯內容。
 
 本輪治理文件驗證（2026-10-08，程式版本 68289deb）：文件差異、守門、匯出一致性通過。完整 `npm run check` 執行一次，Lint／TypeScript 通過，Vitest 788 通過、1 個既有來源掃描測試超過預設 5 秒，整體 exit 1 且未執行 audit；另補跑 `npm audit --json`，回報 4 個漏洞（1 moderate、3 high），exit 1。本輪未修改依賴；沒有宣稱整體檢查通過，也未為純文件變更反覆重跑遊戲測試。治理文件 PR #32 已驗收通過，結案後本機切回 develop；上述測試逾時與 audit 結果仍保留，未宣稱已修復。下一個內容批次未開始。
 
@@ -77,6 +87,8 @@ Marc 確認復元值能自動更新，核准把「你會恢復等於 13 的體�
 | P2-8 招式批次 8-3 追修 | 閃耀熾目等級數值綁定、共用查鍵限制與完整計算後英文備援；Strings U91（CHG-0067）；mapping 418 鍵、Forge Steel 版 96 列 | #30 | 已接受 | 2026-10-07 |
 
 | P2-9-1 | 哈肯人總覽、命定末視，以及核准動態中文句型；mapping 420 鍵、Forge Steel 版 98 列 | #31 | 已接受 | 2026-10-08 |
+| 在地化總數測試維護 | 集中 mapping、Forge Steel Strings 列與英文例外總數；保留各批鍵與行為檢查 | #34 | 已接受 | 2026-10-08 |
+| P2-9-2 | 符文銘刻主說明；Strings 第 134 列併入第 141 列（CHG-0071）；mapping 421 鍵、Forge Steel 版 99 列 | #33 | 已接受 | 2026-10-08 |
 
 ## 後面預計做的
 
@@ -90,7 +102,7 @@ Marc 確認復元值能自動更新，核准把「你會恢復等於 13 的體�
 6. skill groups（P2-6）：6-1 技能名稱與類別，建造頁技能選擇、選技能視窗、Reference（已接受）。6-2 技能名稱與類別，英雄側欄、小隊、來源書、經典表格技能卡／隨從卡／同伴卡／特性、失去技能糾葛、選技能視窗標籤（已接受）。隨從面板、專案面板的技能與語言留待後補。擲骰修正說明、分組標題 P3。技能描述留英文。搜尋排序維持英文
 7. basic actions（P2-7）：7-1 網頁名稱，Reference 的 Abilities 頁、招式視窗、列印頁、英雄頁招式列表、側欄 Triggers（已接受）。7-2 經典表格名稱（已接受）。7-3 動作描述（已接受：9 段 Forge Steel 版、5 段直接對照）。Escape Grab、Grab、Knockback 的「效果：」段已於招式批次 8-3 接受；簡略描述仍留英文。Opportunity Attack、Go Prone、Swap 的描述留英文。Melee Free Strike／Ranged Free Strike、Go Prone、Swap 留英文。動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3
 8. 招式批次（P2-8）：8-1 族裔招式名稱 19 個（已接受，#26）。Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）的名稱走 Forge Steel 版，中文與書本相同。8-2 族裔描述與內文段（已接受，#28）：description 10 鍵（直接對照 6、Forge Steel 版 4）、文字段 7 鍵（直接對照 3、Forge Steel 版 4）；Sheet 寫 8 列 P–V（第 58、65、69、91、191、245、287、304 列）；程式改 `src/l10n/ability-text.ts`（`abilitySectionKey` 擴到族裔招式、新增 description 鍵）、`ability-panel.tsx`（description：compact 與 full 兩處）、`ability-card.tsx`（description）。8-3 Escape Grab、Grab、Knockback 的「效果：」段（第 38、39、41 列各 1 段，`section:<id>:2`）已接受（#29，2026-10-07）：Sheet 寫 3 列 P–V 並新增 CHG-0065。Grab／Knockback 以原始英文字串查翻譯鍵，再將上游計算數值投射到核准中文（`calculation-bindings.json`／`calculated-text.ts`）；關閉計算恢復原文。Strings U39、U41 補註 CHG-0066，Project State／Status 已更新；Marc 已驗收閃電開關與力量 2→3。擲骰（tier）、關鍵字、距離、目標、觸發句、Forge Steel 改寫的段留英文；第 177、331、356 列的引言不對照；Foresight（2-2b）只做名稱。職業、套組、領域、專長招式不在這批。矮人、哈肯人、歐克沒有招式
-9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視（P2-9-1 已接受，#31）、符文銘刻、虹彩鱗片 6 個選項等
+9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視（P2-9-1 已接受，#31）、符文銘刻（P2-9-2 已接受，#33）；虹彩鱗片 6 個選項另批，尚未開始
 
 同一階段也要排進：隱藏社群與第三方來源書。
 

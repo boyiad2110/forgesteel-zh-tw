@@ -405,7 +405,6 @@ describe('ancestry continuation', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:dwarf-feature-1:description',
 			'element:dwarf-feature-2-2b:condition',
 			'element:hakaan-feature-2-1:condition',
 			'element:hakaan-feature-2-3b:condition',

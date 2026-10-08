@@ -81,6 +81,7 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:ancestry-dwarf:name': { sheetId: 'heroes.ancestries.dwarf.name', enHash: 'b528f9d1a283287ee3e1e93968211f7e59410dd7310bd08996bc77b19523441a' },
 	'element:ancestry-dwarf:description': { sheetId: 'heroes.ancestries.dwarf.description.1', enHash: '5d63686ee1dfe4acf27425ca2a2132c1d3656ddd40b301f47ac9a15dcc4927e0' },
 	'element:dwarf-feature-1:name': { sheetId: 'heroes.ancestries.dwarf.signature.runic-carving.name', enHash: '4b89d4015d8d743be31f421beea9ef1d3178340086f2dfa04e8bc11696bc876d' },
+	'element:dwarf-feature-1:description': { sheetId: 'heroes.ancestries.dwarf.signature.runic-carving.intro', enHash: '29caf9e91697af042ea0bfa7027edcb8da60b9925faa1d0fc92e8412e989971a' },
 	'element:dwarf-feature-1a:name': { sheetId: 'heroes.ancestries.dwarf.signature.runic-carving.detection.name', enHash: 'e3818c7886164dae9924fa5fb18ad2433eebae0564363c66912e0cfb7e25973d' },
 	'element:dwarf-feature-1a:description': { sheetId: 'heroes.ancestries.dwarf.signature.runic-carving.detection.effect', enHash: 'eb8c9c0643d9dd3ab6c9fc2f05c18061f83bca86a9ca9e044c215b4f68819a21' },
 	'element:dwarf-feature-1b:name': { sheetId: 'heroes.ancestries.dwarf.signature.runic-carving.light.name', enHash: 'dbcd5e7bb7a0f538810de44c3efbd813037ee3fa358747bb71fa58e157af45f7' },
