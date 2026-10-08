@@ -22,6 +22,8 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
+import { useLanguageNames } from '@/l10n/language-text';
+import { useSkillNames } from '@/l10n/skill-text';
 import { useState } from 'react';
 
 import './project-panel.scss';
@@ -34,6 +36,34 @@ interface Props {
 	onChange?: (project: Project) => void;
 	addItemAndDeleteProject?: (item: Item, project: Project) => void;
 }
+
+const ProjectFollowerDetails = (props: { follower: Follower; project: Project }) => {
+	const skills = useSkillNames(props.follower.skills);
+	const languages = useLanguageNames(props.follower.languages);
+	const getCharacteristic = (characteristic: Characteristic) => {
+		const value = props.follower.characteristics.find(ch => ch.characteristic === characteristic)?.value;
+		return value ?? 0;
+	};
+
+	return (
+		<div>
+			<HeaderText tags={[ props.follower.type ]}>
+				{props.follower.name || 'Unnamed Follower'}
+			</HeaderText>
+			<Field
+				label='Characteristics'
+				value={
+					[ Characteristic.Might, Characteristic.Agility, Characteristic.Reason, Characteristic.Intuition, Characteristic.Presence ]
+						.filter(ch => props.project.characteristic.includes(ch))
+						.map(ch => `${ch} ${getCharacteristic(ch)}`)
+						.join(', ')
+				}
+			/>
+			<Field label='Skills' value={skills.join(', ')} />
+			<Field label='Languages' value={languages.join(', ')} />
+		</div>
+	);
+};
 
 export const ProjectPanel = (props: Props) => {
 	const [ project, setProject ] = useState<Project>(Utils.copy(props.project));
@@ -128,38 +158,8 @@ export const ProjectPanel = (props: Props) => {
 		};
 
 		const getFollower = (follower: Follower, project: Project) => {
-			const getCharacteristic = (characteristic: Characteristic) => {
-				if (!follower) {
-					return 0;
-				}
-
-				const c = follower.characteristics.find(ch => ch.characteristic === characteristic);
-				return c ? c.value : 0;
-			};
-
 			return (
-				<div>
-					<HeaderText tags={[ follower.type ]}>
-						{follower.name || 'Unnamed Follower'}
-					</HeaderText>
-					<Field
-						label='Characteristics'
-						value={
-							[ Characteristic.Might, Characteristic.Agility, Characteristic.Reason, Characteristic.Intuition, Characteristic.Presence ]
-								.filter(ch => project.characteristic.includes(ch))
-								.map(ch => `${ch} ${getCharacteristic(ch)}`)
-								.join(', ')
-						}
-					/>
-					<Field
-						label='Skills'
-						value={follower.skills.join(', ')}
-					/>
-					<Field
-						label='Languages'
-						value={follower.languages.join(', ')}
-					/>
-				</div>
+				<ProjectFollowerDetails follower={follower} project={project} />
 			);
 		};
 
