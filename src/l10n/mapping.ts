@@ -329,6 +329,7 @@ export const mapping: Record<string, MappingEntry> = {
 	'language:Vhoric': { sheetId: 'heroes.language.vhoric', enHash: '508f3ab52cbb07da44fcb86e1cf23e4a1bbc71beef680cbd30df235b845a4c2f' },
 	'language:Voll': { sheetId: 'heroes.language.voll', enHash: '0c7aedeb064042dbfcb99e53a1cca36e67680ed147b38d857e3e00d3daa4b67f' },
 	'language:Yllyric': { sheetId: 'heroes.language.yllyric', enHash: '6c4e8daccb5c5412dc29a442e1d5a7d4e6620490b2a0af42d5aa09d146dd07ce' },
+	'language:Za\'hariax': { sheetId: 'heroes.language.zahariax', enHash: '0a4ab84961c95d64cdf923facd2315c72ff28154f89da5df5c0bda075866ff09' },
 	'language:Zaliac': { sheetId: 'heroes.language.zaliac', enHash: '5c4d8dcc378ba9fad47237ff88e757e507b4d79237fbd1a57b339197c82fc6f9' },
 	// Skill names and skill groups. SkillList.Custom stays English.
 	// Climb, Jump, Swim, Culture, and Timescape use term.<slug>-skill.

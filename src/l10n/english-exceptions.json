@@ -38,5 +38,9 @@
   "language:Kalliac": {
     "kind": "spelling",
     "note": "Kalliac appears only as the orc culture preset language in src/data/ancestries/orc.ts. Kalliak is the official spelling. Names K9 already notes this."
+  },
+  "language:Za'hariax": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses a straight apostrophe; the approved Names row 25 uses a curly apostrophe."
   }
 }
