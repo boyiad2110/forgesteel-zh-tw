@@ -4,7 +4,9 @@
 
 2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。P2-9-3 虹彩鱗片六個選項已通過 Marc 本機驗收，PR #35 squash 合併至 develop（d5f353a2）；集中預期總數為 427／105／10。本機 develop 已同步，本批結案。
 
-## 快照 CSV 與核准動態 Note 整合維護（待驗收）
+快照 CSV 與核准動態 Note 整合維護已通過 Marc 本機驗收，PR #37 於 2026-10-08 squash 合併至 develop（6e21b001）。集中總數仍為 427／105／10；本批結案，下一內容批次先提出對照預覽。P3 仍待 Master Sheet 的 Forge Steel UI 分頁。
+
+## 快照 CSV 與核准動態 Note 整合維護（已接受）
 
 Marc 於 2026-10-08 核准維護範圍與流程。分支 `codex/l10n-snapshot-refresh` 從 `develop @ ee46cd14` 建立；集中總數維持 427／105／10，不新增譯文、mapping、句型或綁定，不改 runtime、上游計算、依賴與測試設定。P3、Enhancement、來源掃描逾時與 audit 漏洞另案。
 
@@ -16,7 +18,7 @@ Marc 於 2026-10-08 核准維護範圍與流程。分支 `codex/l10n-snapshot-re
 
 最終完整 `npm run check` 原設定：Lint／TypeScript 通過，Vitest 819 通過、1 個既有來源掃描測試超過 5 秒，exit 1 且未接續 audit；另補本批 `npm audit --json` 為既有 4 個漏洞（1 moderate、3 high），exit 1。初次沙盒相關測試曾因 Vitest 模組暫存檔 ENOENT 未載入整合測試，已以原設定在沙盒外重跑；不改設定或依賴，不宣稱整體檢查通過。
 
-PR #37（https://github.com/boyiad2110/forgesteel-zh-tw/pull/37）已建立。最終程式驗證對應 3e6c8bcf，後續只補版本及狀態紀錄，不重跑遊戲測試；實作仍待 Marc 本機驗收，不標示已接受，無截圖或錄影。
+Marc 於 2026-10-08 回覆「過」，本批已接受。PR #37（https://github.com/boyiad2110/forgesteel-zh-tw/pull/37）最終 GitHub l10n CI 通過，已 squash 合併至 develop（6e21b0017daa84cca767e6c1816a6087c03b9cd8）。本機切回 develop 並同步後，守門及匯出一致性通過，工作目錄乾淨。最終程式驗證對應 3e6c8bcf；合併後僅補驗收與狀態紀錄，不重跑遊戲測試。既有預設逾時與 audit 4 個漏洞保留，無截圖或錄影；本輪停在結案。
 
 ## P2-9-3 虹彩鱗片六個選項
 
