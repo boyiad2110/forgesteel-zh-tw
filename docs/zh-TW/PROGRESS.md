@@ -10,7 +10,7 @@
 
 Marc 於 2026-10-08 核准預覽。Forge Steel 的語言名稱為 Za'hariax，Master Sheet Names 第 25 列的既有 APPROVED Source Name 是 Za’hariax、Target Name 是「札哈里亞語」。兩者只有直引號／彎引號差異；不改 Sheet 或名稱資料。本批新增 `language:Za'hariax` 對照並列出該鍵的 punctuation 例外；技能／語言 helper 已支援既有顯示位置，不增加畫面 hook、動態句型或 Forge Steel 版。42 個 Orden 語言名稱都涵蓋後，總 mapping 428、Forge Steel Strings 105、英文例外 11。
 
-驗證（2026-10-08）：在地化守門、集中 inventory 測試 3/3、ESLint、TypeScript、`git diff --check` 通過。完整 `npm run check` 的 Lint 與 TypeScript 通過；Vitest 34 檔中 4 檔通過、30 檔因 Windows 沙盒暫存模組檔 ENOENT 無法載入，並有 1 個既有來源掃描測試超過 5 秒；106 項測試通過。另一次執行本批 lookup 測試也受相同暫存檔問題及缺少 sass-embedded 阻擋，沒有執行到該檔測試。完整檢查在 Vitest 失敗後未執行 npm audit；本批未改依賴，既有 audit 結果另案處理。production build 未執行。待 PR 與 Marc 本機驗收。
+驗證（2026-10-08）：在地化守門、集中 inventory 測試 3/3、ESLint、TypeScript、`git diff --check` 通過。完整 `npm run check` 的 Lint 與 TypeScript 通過；Vitest 34 檔中 4 檔通過、30 檔因 Windows 沙盒暫存模組檔 ENOENT 無法載入，並有 1 個既有來源掃描測試超過 5 秒；106 項測試通過。另一次執行本批 lookup 測試也受相同暫存檔問題及缺少 sass-embedded 阻擋，沒有執行到該檔測試。完整檢查在 Vitest 失敗後未執行 npm audit；本批未改依賴，既有 audit 結果另案處理。production build 未執行。PR #41 已開啟，待 Marc 本機驗收；尚未合併。
 
 ## P2-6-3 隨從與專案面板名稱（已接受）
 
