@@ -1,14 +1,17 @@
+import type { CalculationDisplay } from '@/l10n/catalog';
 import bindings from '@/l10n/calculation-bindings.json';
 
 interface CalculationBinding {
 	sheetId: string;
 	enHash: string;
+	sourceHash?: string;
 	zhHash: string;
 	sourceSpan: number[];
 	targetSpan: number[];
 	sourceLength: number;
 	targetLength: number;
 	valueSuffix: string;
+	useDisplayTemplate?: boolean;
 }
 
 const table: Record<string, CalculationBinding> = bindings;
@@ -29,7 +32,7 @@ export const hasCalculationBinding = (key: string): boolean => Object.hasOwn(tab
  * No hero data or arithmetic enters this display adapter. A different rewrite
  * retains the complete calculated English, rather than hiding its values.
  */
-export const projectCalculatedText = (key: string, canonical: string, calculated: string, chinese: string): string => {
+export const projectCalculatedText = (key: string, canonical: string, calculated: string, chinese: string, display?: CalculationDisplay): string => {
 	const binding = table[key];
 	if (!binding) {
 		return plainForLookup(calculated).trim() === plainForLookup(canonical).trim() ? chinese : calculated;
@@ -55,5 +58,13 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 	if (!/^-?\d+$/.test(value)) {
 		return calculated;
 	}
-	return calculated.slice(0, leadingLength) + chinese.slice(0, targetStart) + value + binding.valueSuffix + chinese.slice(targetEnd) + calculated.slice(trailingStart);
+	let replacement = value + binding.valueSuffix;
+	if (binding.useDisplayTemplate) {
+		if (!display || display.target !== chinese.slice(targetStart, targetEnd)
+			|| display.template.split('{value}').length !== 2 || /[{}]/.test(display.template.replace('{value}', ''))) {
+			return calculated;
+		}
+		replacement = display.template.replace('{value}', value);
+	}
+	return calculated.slice(0, leadingLength) + chinese.slice(0, targetStart) + replacement + chinese.slice(targetEnd) + calculated.slice(trailingStart);
 };

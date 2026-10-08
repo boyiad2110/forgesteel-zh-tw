@@ -19,6 +19,8 @@ import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
+import { FeatureField } from '@/enums/feature-field';
+import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
 import { FeatureType } from '@/enums/feature-type';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { HeroLogic } from '@/logic/hero-logic';
@@ -404,8 +406,6 @@ describe('ancestry continuation', () => {
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
 			'element:dwarf-feature-1:description',
-			'element:ancestry-hakaan:description',
-			'element:hakaan-feature-2-5:description',
 			'element:dwarf-feature-2-2b:condition',
 			'element:hakaan-feature-2-1:condition',
 			'element:hakaan-feature-2-3b:condition',
@@ -916,9 +916,9 @@ describe('culture third batch', () => {
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
 	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(418);
+		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(Object.keys(exceptions)).toHaveLength(10);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(96);
+		expect(Object.values(catalog).filter(row => row.fs).length).toBe(98);
 	});
 
 	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
@@ -991,7 +991,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(418);
+		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
 		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
@@ -1068,7 +1068,7 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(418);
+		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1267,6 +1267,72 @@ const withOptions = (options: ReturnType<typeof FactoryLogic.createOptions>, nod
 	return createElement(OptionsContext, { value: options }, node);
 };
 
+describe('Doomsight calculated Chinese display', () => {
+	const key = 'element:hakaan-feature-2-5:description';
+	const sheetId = mapping[key].sheetId;
+	const row = (strings as Catalog)[sheetId].fs!;
+	const choice = AncestryData.hakaan.features.find(feature => feature.type === FeatureType.Choice)!;
+	const feature = choice.data.options.find(option => option.feature.id === 'hakaan-feature-2-5')!.feature;
+	const hero = () => {
+		const result = FactoryLogic.createHero();
+		result.features = [ FactoryLogic.feature.createBonus({ id: 'stamina', field: FeatureField.Stamina, value: 39 }) ];
+		return result;
+	};
+	const render = (current?: ReturnType<typeof hero>, item = feature) => renderToStaticMarkup(withOptions(
+		FactoryLogic.createOptions(), createElement(FeaturePanel, { feature: item, hero: current, mode: PanelMode.Full })
+	));
+	beforeEach(async () => {
+		await loadCatalog();
+		vi.stubGlobal('window', { matchMedia: () => ({ matches: false, addEventListener: () => undefined, removeEventListener: () => undefined }) });
+	});
+
+	test('Recovery changes from 13 to 16 in natural Chinese without mutating hero or feature data', () => {
+		const current = hero();
+		const before = JSON.stringify({ current, feature });
+		expect(HeroLogic.getRecoveryValue(current)).toBe(13);
+		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+		expect(render(current)).not.toContain('你會恢復等於');
+		expect(JSON.stringify({ current, feature })).toBe(before);
+		current.features = [ FactoryLogic.feature.createBonus({ id: 'stamina', field: FeatureField.Stamina, value: 48 }) ];
+		expect(HeroLogic.getRecoveryValue(current)).toBe(16);
+		expect(render(current)).toContain('在 12 小時後，你會恢復 16 點體力。');
+	});
+
+	test('no hero keeps the approved three paragraphs; language switching keeps the current calculated value', () => {
+		expect(render()).toContain('在 12 小時後，你會恢復等於你復元值的體力。');
+		const staticText = resolveText('zh-TW', key, row.en, { [key]: sheetId }, strings as Catalog);
+		expect(staticText).toBe(row.zh);
+		expect(staticText.split('\n\n')).toHaveLength(3);
+		const current = hero();
+		setLanguage('en');
+		expect(render(current)).toContain('After 12 hours, you regain Stamina equal to 13.');
+		setLanguage('zh-TW');
+		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+	});
+
+	test('a custom rewrite retains all calculated English', () => {
+		const custom = { ...feature, description: feature.description + '\n\nCustom additional effect.' };
+		const output = render(hero(), custom);
+		expect(output).toContain('Working with your Director');
+		expect(output).toContain('After 12 hours, you regain Stamina equal to 13.');
+		expect(output).toContain('Custom additional effect.');
+		expect(output).not.toContain('你會恢復');
+	});
+
+	test('missing, mismatched, or malformed templates cannot replace the calculated English', () => {
+		const calculated = AbilityLogic.getTextEffect(row.en, hero());
+		for (const display of [
+			undefined,
+			{ target: 'Other text', template: '{value}' },
+			{ target: row.calculationDisplay!.target, template: '{value} {value}' },
+			{ target: row.calculationDisplay!.target, template: '{unknown}' }
+		]) {
+			expect(projectCalculatedText(key, row.en, calculated, row.zh, display)).toBe(calculated);
+		}
+		expect(projectCalculatedText(key, row.en, calculated + ' Additional effect.', row.zh, row.calculationDisplay)).toBe(calculated + ' Additional effect.');
+	});
+});
+
 const actionNames = [
 	[ 'advance', 'Advance', 'term.advance-action', '行進' ],
 	[ 'disengage', 'Disengage', 'term.disengage-action', '撤離' ],
@@ -1304,7 +1370,7 @@ describe('action names', () => {
 	});
 
 	test('this batch adds 19 action name keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(418);
+		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(actionNames).toHaveLength(19);
 		for (const [ id, english, sheetId, zh ] of actionNames) {
 			const key = `element:${id}:name`;
@@ -1616,7 +1682,7 @@ describe('action descriptions', () => {
 	});
 
 	test('fourteen section keys point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(418);
+		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(direct).toHaveLength(5);
 		expect(forgeSteel).toHaveLength(9);
 		for (const [ id, sheetId ] of direct) {
@@ -2086,7 +2152,7 @@ describe('ancestry ability names', () => {
 	});
 
 	test('nineteen ancestry ability names point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(418);
+		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(ancestryAbilityNames).toHaveLength(19);
 		expect(collectAncestryAbilities().map(ability => ability.id).sort()).toEqual(ancestryAbilityNames.map(row => row[0]).sort());
 

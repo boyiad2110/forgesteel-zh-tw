@@ -250,7 +250,7 @@ export const resolveText = (language: Language, key: string | undefined, english
 		if (!row.fs.zh || blank(row.fs.zh)) {
 			return english;
 		}
-		return carryConditionBold(english, projectCalculatedText(key, row.fs.en, english, row.fs.zh));
+		return carryConditionBold(english, projectCalculatedText(key, row.fs.en, english, row.fs.zh, row.fs.calculationDisplay));
 	}
 
 	const zh = row?.zh;

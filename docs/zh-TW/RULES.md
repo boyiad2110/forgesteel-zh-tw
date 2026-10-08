@@ -21,6 +21,8 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 
 原文查鍵只用於已有動態綁定的文字段；其餘仍檢查計算後英文是否等於資料英文（可忽略既有強調標記）。共用轉接器也會檢查未綁定的 Forge Steel 版英文，真正改寫時不能直接回傳固定中文。測試遍歷已翻譯的基本動作與族裔文字段，在不同等級與力量下檢查數值改動都有中文綁定。
 
+動態中文句型（Marc 核准，2026-10-07）：計算後的顯示可使用另行核准的語序與量詞；DEC-0009 繼續限制靜態譯文。核准句型存於 Master Sheet Forge Steel Note 的 `Calculation Display:` JSON 紀錄，包含 APPROVED、target 及單一 `{value}` 的 template；`l10n/sheet-snapshot/calculation-displays.json` 保存原樣 Note，更新快照時須同步擷取。匯出器產生 fs.calculationDisplay，守門要求目標片語等於綁定範圍；runtime 缺少或不合法句型則保留完整計算後英文。先只啟用命定末視，其他項目逐項核准；不另算數字。
+
 ## 語言名稱
 
 文件、PR、回報與介面一律稱「正體中文」。

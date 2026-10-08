@@ -105,6 +105,8 @@
 
 - **P2-9-1：哈肯人總覽與命定末視（2026-10-07）。** Marc 核准 Strings 204＋205 合併為總覽、220＋221＋222 合併為命定末視 Forge Steel 版；譯文只接合書本核准中文，不補字、不改寫。Hacaarl 在書本中文未譯出，Forge Steel 版不補。命定末視的 `your Recovery value` 以共用顯示轉接器投射上游已計算數字至核准中文「你復元值」位置；未知改寫保留完整計算後英文。該段資料模板含排版用的頭尾空白，Forge Steel Source Text 依既有方案儲存裁去頭尾空白的文字；mapping enHash 仍雜湊未裁切的上游原文，綁定位置則以核准 Forge Steel 版文字為準。共用查鍵只會替單一且有動態綁定的元素欄位提供候選鍵，轉接器仍須驗證實際數字位置。
 
+- **P2-9-1 動態中文句型（2026-10-07）。** Marc 核准命定末視計算後顯示「在 12 小時後，你會恢復 {value} 點體力。」。DEC-0009 繼續限制靜態譯文；動態顯示可使用另行核准的語序與量詞，不更改書本或 Forge Steel 靜態譯文。句型記錄於 Master Sheet Strings U220（CHG-0069），原樣 Note 快照匯出為 fs.calculationDisplay；綁定記錄啟用句型及目標範圍，程式函式不寫獨立中文句子。共用轉接器只投射上游數字，未知改寫保留完整計算後英文。先只啟用命定末視，其他項目逐項對照核准。追修進度見 PROGRESS。
+
 ## 尚未決定
 
 網站這邊目前沒有。Master Sheet Project State 的 Open Decisions 是 1：Glossary 第 160 列 `term.enhancement`（Enhancement）翻譯未定、狀態 NEW（CHG-0013、CHG-0014）。那是書本翻譯的事，和網站批次無關，AI 不自行補完。

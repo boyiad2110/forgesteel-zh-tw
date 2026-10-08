@@ -1,7 +1,13 @@
+export interface CalculationDisplay {
+	target: string;
+	template: string;
+}
+
 export interface ForgeSteelText {
 	basisHash: string;
 	en: string;
 	zh: string;
+	calculationDisplay?: CalculationDisplay;
 }
 
 export interface SheetEntry {
@@ -41,7 +47,14 @@ const isForgeSteelText = (value: unknown): value is ForgeSteelText => {
 		return false;
 	}
 	const forge = value as Record<string, unknown>;
-	return typeof forge.basisHash === 'string' && typeof forge.en === 'string' && typeof forge.zh === 'string';
+	if (typeof forge.basisHash !== 'string' || typeof forge.en !== 'string' || typeof forge.zh !== 'string') {
+		return false;
+	}
+	if (forge.calculationDisplay === undefined) {
+		return true;
+	}
+	const display = forge.calculationDisplay as CalculationDisplay | null;
+	return !!display && typeof display.target === 'string' && typeof display.template === 'string';
 };
 
 const isSheetEntry = (value: unknown): value is SheetEntry => {

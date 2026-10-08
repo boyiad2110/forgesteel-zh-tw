@@ -743,6 +743,10 @@
     "en": "Working with your Director, you can predetermine an encounter in which you will die. When that encounter begins, you become doomed. While doomed, you automatically obtain a tier 3 outcome on tests and ability rolls, and you don’t die no matter how low your Stamina falls. You then die immediately at the end of the encounter, and can’t be returned to life by any means.",
     "fs": {
       "basisHash": "64bf8c7bd5a06ae11706fbc33f10db745b1bb8b133a5e647580c7cb506e159e2",
+      "calculationDisplay": {
+        "target": "等於你復元值的體力",
+        "template": " {value} 點體力"
+      },
       "en": "Working with your Director, you can predetermine an encounter in which you will die. When that encounter begins, you become doomed. While doomed, you automatically obtain a tier 3 outcome on tests and ability rolls, and you don’t die no matter how low your Stamina falls. You then die immediately at the end of the encounter, and can’t be returned to life by any means.\n\nIf you don’t predetermine your death encounter, you can choose to become doomed while you are dying with the Director’s approval (no action required). Doing so should be reserved for encounters in which you are dying as a result of suitable heroism, such as making a last stand against a boss or saving civilians, or when the consequences of your actions have finally caught up to you — not because you’re playing a one-shot and have nothing to lose, Hacaarl.\n\nAdditionally, when your Stamina reaches the negative of your winded value and you are not doomed, you turn to rubble instead of experiencing death. You are unaware of your surroundings in this state, and you can’t regain Stamina or have this effect undone in any way. After 12 hours, you regain Stamina equal to your Recovery value.",
       "zh": "與你的導演合作，你可以預先決定哪場遭遇你將會死亡。當該遭遇開始時，你會進入「命定」狀態。處於命定狀態時，你進行的任何考驗和招式檢定都會自動獲得 T3 結果，而且無論你的體力降到多低都不會死亡。然而，你會在遭遇結束時立刻死亡，而且無法透過任何方式復活。\n\n若你沒有預先決定死亡遭遇，你也可以在陷入瀕死時進入命定狀態（無需動作，但需經導演同意）。這種選擇應該保留給因為英勇行為而瀕死的情況，例如與首領殊死一戰、拯救平民，或因為先前的行為而遭遇相應的後果，而不是單純因為你只玩一場冒險而沒有顧忌。\n\n此外，若你的體力降至疲態值的負數，但未處於命定狀態，你會變成碎石，而非死亡。在這種情況下，你無法感知周圍環境，也無法以任何方式恢復體力或復原。在 12 小時後，你會恢復等於你復元值的體力。"
     },
