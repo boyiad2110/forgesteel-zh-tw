@@ -8,7 +8,7 @@
 
 Marc 於 2026-10-08 核准預覽：Strings 第 134 列的 Forge Steel 主說明刪去「從以下選擇 1 項：」，接上第 141 列已核准限制段，中間空一行；不新增文字、不改寫。Master Sheet 已更新第 134 列 P–V、Status 與 CHG-0071；第 141 列是合併來源。新增鍵 `element:dwarf-feature-1:description`；其餘 7 鍵沿用。上游數值皆固定，不新增動態句型或計算綁定。
 
-目前分支 `codex/p2-9-2-runic-carving`，從 `develop @ a609c698` 建立。驗證：在地化守門、匯出一致性、ESLint、TypeScript 通過；本輪未執行 Vitest 或完整 `npm run check`。尚待完成文件與差異檢視、開 PR，交 Marc 本機驗收。驗收通過前不合併。無截圖或錄影。
+目前分支 `codex/p2-9-2-runic-carving`，從 `develop @ a609c698` 建立。PR #33（https://github.com/boyiad2110/forgesteel-zh-tw/pull/33）已開啟，等待 Marc 本機驗收。驗證：在地化守門、匯出一致性、ESLint、TypeScript 通過；本輪未執行 Vitest 或完整 `npm run check`。驗收通過前不合併。無截圖或錄影。
 
 治理改善：已記錄動態中文提前預覽、環境排錯順序、檢查結果如實記錄、快照同步及減少重複維護。9-1 稽核重跑相關測試 169/169、守門與匯出一致性通過；這不補足當時完整 npm run check／本批 npm audit 的紀錄缺口。尚待實作：同次自動取得 CSV 與動態 Note；集中既有總鍵數斷言。P2-9-1 治理文件回合未改上述程式或翻譯內容。
 
