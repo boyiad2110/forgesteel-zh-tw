@@ -1994,7 +1994,7 @@ export const checkGenerated = root => {
 	return [ issue('generated', 'src/l10n/generated/zh-TW', null, null, detail) ];
 };
 
-/** Display bindings carry positions, never an independent Chinese translation. */
+/** Display bindings carry positions; optional sentence templates must come from the approved Sheet snapshot. */
 export const checkCalculationBindings = root => {
 	const file = 'src/l10n/calculation-bindings.json';
 	const text = read(path.join(root, file));
@@ -2012,7 +2012,7 @@ export const checkCalculationBindings = root => {
 	}
 	const entries = parseMapping('src/l10n/mapping.ts', read(path.join(root, 'src/l10n/mapping.ts')) ?? '').entries;
 	const rows = loadSheetRows(path.join(root, 'src/l10n/generated/zh-TW'));
-	const fields = new Set([ 'sheetId', 'enHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix' ]);
+	const fields = new Set([ 'sheetId', 'enHash', 'sourceHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix', 'useDisplayTemplate' ]);
 	const errors = [];
 	const validSpan = (span, length) => Array.isArray(span) && span.length === 2 && span.every(Number.isInteger) && span[0] >= 0 && span[0] < span[1] && span[1] <= length;
 	for (const [ key, binding ] of Object.entries(bindings)) {
@@ -2027,7 +2027,10 @@ export const checkCalculationBindings = root => {
 			fail('binding must reference its mapped approved Forge Steel row');
 			continue;
 		}
-		if (binding.enHash !== entry.enHash || binding.enHash !== hashEnglish(row.en)) {
+		// Mapping hashes anchor the exact upstream literal. The approved Forge
+		// Steel source cell may trim template-only edge whitespace, which the
+		// mapping check separately verifies against that same literal.
+		if (binding.enHash !== entry.enHash || (binding.sourceHash ?? binding.enHash) !== hashEnglish(row.en)) {
 			fail('English binding is stale; reapprove its source positions');
 		}
 		if (binding.zhHash !== hashEnglish(row.zh)) {
@@ -2038,6 +2041,18 @@ export const checkCalculationBindings = root => {
 		}
 		if (typeof binding.valueSuffix !== 'string' || !/^\s*$/.test(binding.valueSuffix)) {
 			fail('valueSuffix may contain only display whitespace');
+		}
+		if (binding.useDisplayTemplate !== undefined && binding.useDisplayTemplate !== true) {
+			fail('useDisplayTemplate must be true or absent');
+		}
+		if (binding.useDisplayTemplate || row.calculationDisplay) {
+			const display = row.calculationDisplay;
+			if (!binding.useDisplayTemplate || !display || typeof display.target !== 'string'
+				|| !validSpan(binding.targetSpan, row.zh.length) || display.target !== row.zh.slice(...binding.targetSpan)
+				|| typeof display.template !== 'string' || display.template.split('{value}').length !== 2
+				|| /[{}]/.test(display.template.replace('{value}', ''))) {
+				fail('display template must match its approved Sheet target span and contain exactly one {value}');
+			}
 		}
 	}
 	return errors;

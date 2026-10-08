@@ -1,4 +1,5 @@
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -98,9 +99,9 @@ describe('calculated display bindings', () => {
 			targetSpan: [ zh.indexOf('Might'), zh.length - 1 ],
 			sourceLength: en.length, targetLength: zh.length, valueSuffix: ''
 		};
-		const store = (english = en, chinese = zh) => {
+		const store = (english = en, chinese = zh, calculationDisplay) => {
 			write(root, 'src/l10n/generated/zh-TW/strings.json', JSON.stringify({ demo: {
-				en, zh, updated: '2026-10-07', fs: { en: english, zh: chinese, basisHash: hashEnglish(zh) }
+				en, zh, updated: '2026-10-07', fs: { en: english, zh: chinese, basisHash: hashEnglish(zh), calculationDisplay }
 			} }));
 			write(root, 'src/l10n/calculation-bindings.json', JSON.stringify({ [key]: binding }));
 		};
@@ -136,6 +137,43 @@ describe('calculated display bindings', () => {
 		binding.sheetId = 'another';
 		store();
 		expect(formatIssues(checkCalculationBindings(root))).toContain('mapped approved Forge Steel row');
+	});
+
+	test('templates require an approved Sheet target matching the binding span', () => {
+		const { root, en, zh, binding, store } = fixture();
+		binding.useDisplayTemplate = true;
+		store();
+		expect(formatIssues(checkCalculationBindings(root))).toContain('display template must match');
+		store(en, zh, { target: 'Might', template: '{value} points' });
+		expect(checkCalculationBindings(root)).toEqual([]);
+		store(en, zh, { target: 'Maximum', template: '{value} points' });
+		expect(formatIssues(checkCalculationBindings(root))).toContain('display template must match');
+		store(en, zh, { target: 'Might', template: '{value} {value}' });
+		expect(formatIssues(checkCalculationBindings(root))).toContain('exactly one {value}');
+	});
+});
+
+describe('approved calculation display export', () => {
+	test.each([
+		[ 'unapproved', { status: 'REVIEW' } ],
+		[ 'unknown target', { target: 'not present in the approved Chinese' } ],
+		[ 'duplicated value', { template: '{value} {value}' } ],
+		[ 'unknown placeholder', { template: '{unknown}' } ]
+	])('refuses %s metadata before generating a catalog', (_name, changes) => {
+		const root = scratch();
+		const snapshot = path.join(root, 'snapshot');
+		cpSync(path.join(repoRoot, 'l10n/sheet-snapshot'), snapshot, { recursive: true });
+		const file = path.join(snapshot, 'calculation-displays.json');
+		const notes = JSON.parse(readFileSync(file, 'utf8'));
+		const id = 'heroes.ancestries.hakaan.trait.doomsight.effect.1';
+		const marker = 'Calculation Display: ';
+		const line = notes[id].split('\n').find(line => line.startsWith(marker));
+		const display = { ...JSON.parse(line.slice(marker.length)), ...changes };
+		notes[id] = marker + JSON.stringify(display);
+		writeFileSync(file, JSON.stringify(notes));
+		const result = spawnSync(process.execPath, [ path.join(repoRoot, 'scripts/l10n/export-sheet.mjs'), '--snapshot', snapshot, '--out', path.join(root, 'out') ], { encoding: 'utf8' });
+		expect(result.status).toBe(1);
+		expect(result.stderr).toContain('expected an APPROVED');
 	});
 });
 

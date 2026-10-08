@@ -46,5 +46,23 @@
     "sourceLength": 137,
     "targetLength": 49,
     "valueSuffix": " "
+  },
+  "element:hakaan-feature-2-5:description": {
+    "sheetId": "heroes.ancestries.hakaan.trait.doomsight.effect.1",
+    "enHash": "38b177ec15a461533aa5ad16a539618b7d39874fb6a8d509b2838d590555ce05",
+    "zhHash": "b028f6a5f55d7dcc32cde72dbbaa47ebf5988fe3d09ac73d57ab65178f189c17",
+    "sourceSpan": [
+      1144,
+      1163
+    ],
+    "targetSpan": [
+      331,
+      340
+    ],
+    "sourceLength": 1164,
+    "targetLength": 341,
+    "valueSuffix": " ",
+    "useDisplayTemplate": true,
+    "sourceHash": "3a1a0e23c2887baf8495e79405f0579450d063de2d13df64637c13a763ca8a1b"
   }
 }

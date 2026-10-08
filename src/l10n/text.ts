@@ -1,6 +1,6 @@
 import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { Language, getLanguage } from '@/l10n/language';
-import { plainForLookup, projectCalculatedText } from '@/l10n/calculated-text';
+import { hasCalculationBinding, plainForLookup, projectCalculatedText } from '@/l10n/calculated-text';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { mapping } from '@/l10n/mapping';
 
@@ -41,11 +41,12 @@ export const stripRulesHeading = (text: string): string | null => {
 /**
  * Picks the sheet lookup key for one displayed string.
  *
- * An explicit key wins. Otherwise, when the surrounding scope has exactly
- * one field whose English text is this string, the key is
- * `element:<id>:<field>`. Markdown emphasis the display added is ignored
- * for that comparison. Two fields with the same text are left untranslated
- * rather than guessed. No scope means no key.
+ * An explicit key wins. Otherwise a matching field produces its
+ * `element:<id>:<field>` key. Markdown emphasis the display added is ignored
+ * for that comparison. A changed display string may select a key only when
+ * the scope has exactly one field with an explicit calculation binding; the
+ * projection adapter then validates the computed value. Ambiguous fields
+ * and unknown rewrites remain untranslated.
  */
 export const displayKey = (explicit: string | undefined, text: string | undefined, scope: L10nScopeState | null): string | undefined => {
 	if (explicit) {
@@ -64,15 +65,18 @@ export const displayKey = (explicit: string | undefined, text: string | undefine
 	}
 
 	const plain = plainForLookup(text);
-	if (plain === text) {
-		return undefined;
-	}
-	const loosened = scope.fields.filter(field => plainForLookup(field.text) === plain);
-	if (loosened.length !== 1) {
-		return undefined;
+	if (plain !== text) {
+		const loosened = scope.fields.filter(field => plainForLookup(field.text) === plain);
+		if (loosened.length === 1) {
+			return `element:${scope.id}:${loosened[0].field}`;
+		}
 	}
 
-	return `element:${scope.id}:${loosened[0].field}`;
+	// Calculated display text may differ from its source field. Only expose a
+	// key for a single field with an explicit numeric binding; the projection
+	// adapter still rejects every change outside that approved number span.
+	const bound = scope.fields.filter(field => hasCalculationBinding(`element:${scope.id}:${field.field}`));
+	return bound.length === 1 ? `element:${scope.id}:${bound[0].field}` : undefined;
 };
 
 /**
@@ -246,7 +250,7 @@ export const resolveText = (language: Language, key: string | undefined, english
 		if (!row.fs.zh || blank(row.fs.zh)) {
 			return english;
 		}
-		return carryConditionBold(english, projectCalculatedText(key, row.fs.en, english, row.fs.zh));
+		return carryConditionBold(english, projectCalculatedText(key, row.fs.en, english, row.fs.zh, row.fs.calculationDisplay));
 	}
 
 	const zh = row?.zh;
