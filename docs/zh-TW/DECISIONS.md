@@ -109,6 +109,8 @@
 
 - **P2-9-1 經驗納入後續批次治理（2026-10-08）。** Marc 要求把 P2-9-1 稽核經驗及改善方式寫入治理文件，供新對話接續。稽核未發現另寫計算器、改上游資料／邏輯或各畫面新增翻譯；兩份 Forge Steel 靜態中文都是書本核准中文的原樣接合，動態 Note 與 Sheet 一致。主要改善為預覽提前核准自然動態中文、先確認環境再調整設定、明確記錄檢查缺口、同步快照及減少重複維護。操作規則集中於 RULES「後續批次執行與驗證」，不另建立一套流程。9-1 的分項驗證不能追認成完整 npm run check／本批 npm audit 通過；快照自動整合與既有總鍵數斷言集中化仍待實作，見 PROGRESS。
 
+- **在地化全域總數集中檢查（2026-10-08）。** P2-9-2 新增一個 mapping 與一列 Forge Steel 版後，六組歷史批次測試仍預期全域 mapping 為 420，CI 失敗；Forge Steel Strings 列數也須由 98 更新為 99。Marc 選擇另開維護 PR，集中 mapping、Forge Steel Strings 列與英文例外總數於 `src/l10n/inventory.test.ts`，各以獨立測試核對明確預期值；各內容批次保留自身鍵與行為檢查。維護 PR 先沿用 develop 的 420／98／10，合併後 P2-9-2 更新基底與集中預期值 421／99／10。不從實際結果產生預期值，不放寬成下限；快照自動整合另列待辦。
+
 ## 尚未決定
 
 網站這邊目前沒有。Master Sheet Project State 的 Open Decisions 是 1：Glossary 第 160 列 `term.enhancement`（Enhancement）翻譯未定、狀態 NEW（CHG-0013、CHG-0014）。那是書本翻譯的事，和網站批次無關，AI 不自行補完。
