@@ -6,13 +6,13 @@
 
 ## 在地化總數測試維護
 
-維護分支 `codex/l10n-inventory-tests` 從 `develop @ a609c698` 建立。`src/l10n/inventory.test.ts` 集中 mapping、Forge Steel Strings 列與英文例外總數，各以獨立測試檢查；基底預期值為 420／98／10。移除 `lookup.test.ts` 的重複全域總數斷言，保留各批鍵、例外內容與翻譯行為檢查。新增內容後只更新集中預期值，不以實際總數推導預期值、不改成寬鬆下限。維護 PR 不含 #33 的譯文或新增對照鍵。
+維護分支 `codex/l10n-inventory-tests` 從 `develop @ a609c698` 建立。維護 PR #34（https://github.com/boyiad2110/forgesteel-zh-tw/pull/34）已開啟，等待 Marc 驗收。`src/l10n/inventory.test.ts` 集中 mapping、Forge Steel Strings 列與英文例外總數，各以獨立測試檢查；基底預期值為 420／98／10。移除 `lookup.test.ts` 的重複全域總數斷言，保留各批鍵、例外內容與翻譯行為檢查。新增內容後只更新集中預期值，不以實際總數推導預期值、不改成寬鬆下限。維護 PR 不含 #33 的譯文或新增對照鍵。
 
 驗證（2026-10-08，基底 a609c698）：守門、匯出一致性、Lint 無警告、TypeScript 通過；相關測試 105/105、完整 Vitest 788/788（33 檔，`--maxWorkers=1 --testTimeout=30000`）通過。暫時把三種預期值各降低 1，三個測試各自失敗，還原後完整測試通過；12 處重複全域斷言改為 3 個集中測試，移除 4 個只檢查總數的舊測試並新增 3 個，總測試數 789→788，內容與行為斷言保留。沙盒測試曾遇暫存檔 ENOENT，以原設定於沙盒外重跑相關測試通過，未改專案設定。
 
 完整 `npm run check` 預設執行仍在既有來源掃描測試 5 秒逾時處失敗（787 通過、1 逾時），audit 未接續執行；另補本批 `npm audit`，回報既有 4 個漏洞（1 moderate、3 high），exit 1。未改依賴，沒有宣稱整體檢查通過。
 
-下一步：維護 PR 待 Marc 驗收後 squash 合併；#33 更新至新基底，mapping／Forge Steel Strings 預期值改為 421／99，重新驗證後依既有內容驗收結果結案。快照自動取得 CSV 與動態 Note 的整合仍待實作。
+上述程式驗證對應 e61e1908；後續僅補 PR 連結，未變更測試或執行程式。下一步：維護 PR #34 待 Marc 驗收後 squash 合併；#33 更新至新基底，mapping／Forge Steel Strings 預期值改為 421／99，重新驗證後依既有內容驗收結果結案。快照自動取得 CSV 與動態 Note 的整合仍待實作。
 
 ## P2-9-1 治理紀錄
 
