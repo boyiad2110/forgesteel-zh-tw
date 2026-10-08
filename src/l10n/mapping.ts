@@ -473,5 +473,12 @@ export const mapping: Record<string, MappingEntry> = {
 	// Basic action rule sections (batch 8-3).
 	'section:escape-grab:2': { sheetId: 'heroes.actions.escape-grab.rules', enHash: 'b918a3bddf98a638cb74e45cc5d6d1a0d285dbde797561ea967f40afcfd65590' },
 	'section:grab:2': { sheetId: 'heroes.actions.grab.rules', enHash: '75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f' },
-	'section:knockback:2': { sheetId: 'heroes.actions.knockback.rules', enHash: '75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f' }
+	'section:knockback:2': { sheetId: 'heroes.actions.knockback.rules', enHash: '75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f' },
+	// Dragon Knight Prismatic Scales options (batch P2-9-3).
+	'element:dragon-knight-feature-2-2:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name', enHash: '88d50a2dd9b91d2a7a4c2485a7739dedfebd40d63ca873f5b344c31b3c9b2ac8' },
+	'element:dragon-knight-feature-2-3:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name', enHash: '79e0a469352896120ed8a4e1d0a6cc2d4edd8bac49e4f1515b587d65086e853c' },
+	'element:dragon-knight-feature-2-4:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name', enHash: '5df00d8bbf95e3ae64e3b538ed37b188d881508a41f6b11ae8a4c9bdf59010ad' },
+	'element:dragon-knight-feature-2-5:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name', enHash: '69a7a94f293b4f1491075eb59b86cc9d7105139fe744f0c3b8b0bff071976556' },
+	'element:dragon-knight-feature-2-6:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name', enHash: 'e72a4e2fb64bcf91cc22fc886791ac3497f88690a8f49cf08fd05bf1df3dca21' },
+	'element:dragon-knight-feature-2-7:name': { sheetId: 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name', enHash: '31b764045030d76114c1cbc0aba0ab5c898566209f0216e8a377ab06d1be690c' }
 };

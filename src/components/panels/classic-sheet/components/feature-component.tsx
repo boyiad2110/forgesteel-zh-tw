@@ -20,6 +20,7 @@ import { PerkList } from '@/enums/perk-list';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
+import { useL10nText } from '@/l10n/hooks';
 
 import rollT1 from '@/assets/icons/power-roll-t1.svg';
 import rollT2 from '@/assets/icons/power-roll-t2.svg';
@@ -259,7 +260,21 @@ const AbilityModifierComponent = (feature: FeatureAbilityDamage | FeatureAbility
 	);
 };
 
+const isPrismaticScalesOption = (id: string) => /^dragon-knight-feature-2-[2-7]$/.test(id);
+
+const PrismaticScalesName = (props: { feature: FeatureDamageModifier }) => {
+	return useL10nText(`element:${props.feature.id}:name`, props.feature.name || '');
+};
+
+const PrismaticScalesDamageValue = (props: { feature: FeatureDamageModifier, damageType: string, value: number }) => {
+	const translatedName = useL10nText(`element:${props.feature.id}:name`, props.feature.name || '');
+	const match = translatedName.match(/（([^）]+)）$/);
+	const damageType = match?.[1] || props.damageType;
+	return <>{damageType} {props.value}</>;
+};
+
 const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero) => {
+	const isPrismaticScales = isPrismaticScalesOption(feature.id);
 	const modifiersMap = feature.data.modifiers.reduce((map, m) => {
 		const modifiers = map.get(m.type) || [];
 		modifiers.push(m);
@@ -271,7 +286,9 @@ const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero) =>
 		const typeMods = modifiersMap.get(type)?.map(m => {
 			return (
 				<div className={`feature-iteration damage-type ${m.damageType.toLocaleLowerCase()}`} key={`${m.type}-${m.damageType}`}>
-					{m.damageType} {hero ? ModifierLogic.calculateModifierValue(m, hero) : m.value}
+					{isPrismaticScales ?
+						<PrismaticScalesDamageValue feature={feature} damageType={m.damageType} value={hero ? ModifierLogic.calculateModifierValue(m, hero) : m.value} />
+						: `${m.damageType} ${hero ? ModifierLogic.calculateModifierValue(m, hero) : m.value}`}
 				</div>
 			);
 		});
@@ -287,7 +304,7 @@ const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero) =>
 
 	return (
 		<>
-			<div className='feature-title'>{feature.name}</div>
+			<div className='feature-title'>{isPrismaticScales ? <PrismaticScalesName feature={feature} /> : feature.name}</div>
 			{modifiers}
 		</>
 	);
