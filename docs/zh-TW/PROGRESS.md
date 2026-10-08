@@ -16,7 +16,7 @@ Marc 於 2026-10-08 核准維護範圍與流程。分支 `codex/l10n-snapshot-re
 
 完整 `npm run check` 原設定：Lint／TypeScript 通過，Vitest 818 通過、1 個既有來源掃描測試超過 5 秒，exit 1 且未接續 audit；另補本批 `npm audit --json` 為既有 4 個漏洞（1 moderate、3 high），exit 1。初次沙盒相關測試曾因 Vitest 模組暫存檔 ENOENT 未載入整合測試，已以原設定在沙盒外重跑；不改設定或依賴，不宣稱整體檢查通過。
 
-實作仍待 Marc 本機驗收，不標示已接受；無截圖或錄影。PR 與本批程式版本於提交後補記。
+PR #37（https://github.com/boyiad2110/forgesteel-zh-tw/pull/37）已建立，程式驗證對應 da0d8e96；後續只補 PR 與狀態紀錄，不重跑遊戲測試。實作仍待 Marc 本機驗收，不標示已接受；無截圖或錄影。
 
 ## P2-9-3 虹彩鱗片六個選項
 
