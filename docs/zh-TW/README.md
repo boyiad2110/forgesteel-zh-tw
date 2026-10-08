@@ -13,5 +13,6 @@
 ## Master Sheet 與本機驗收
 
 - Master Sheet 那邊先讀 Project State，再讀 Status、Changelog。
+- 更新快照依 [SNAPSHOT.md](SNAPSHOT.md)，同次擷取 CSV 所需欄位與核准動態 Note，再離線整合與守門。
 - Marc 的本機 repo：`C:\TRPG\Draw Steel site\forgesteel-zh-tw`。
 - 表格預覽頁的入口：把英雄頁網址的 `#/hero/view/<ID>` 改成 `#/hero/sheet/<ID>`。

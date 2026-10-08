@@ -51,7 +51,7 @@
       "en": "You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.",
       "zh": "若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。"
     },
-    "updated": "2026-10-07",
+    "updated": "2026-09-30",
     "zh": "掙脫\n\n被其他生物、物體或效果擒制的生物（詳見下文「擒抱」），可以使用以下招式來嘗試掙脫。\n\n掙脫\n機動動作\n自身｜自身\n檢定 + 力量或敏捷：\nT1：你無法掙脫。\nT2：你可以掙脫，但若這麼做，擒抱你的生物可以在你掙脫前對你發動 1 次近戰基礎打擊。\nT3：你順利掙脫，不再被擒制。\n效果：若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。\n\n擒制狀態的相關資訊詳見第 5 章〈職業〉的「狀態」。"
   },
   "heroes.actions.free-maneuvers.rules": {
@@ -76,7 +76,7 @@
       "en": "You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
       "zh": "你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。"
     },
-    "updated": "2026-10-07",
+    "updated": "2026-09-30",
     "zh": "擒抱\n\n若你想將敵人控制在近身距離並限制他的行動，可以使用以下招式來嘗試擒制目標。\n\n擒抱\n近戰、武器　機動動作\n近戰 1｜1 個生物\n檢定 + 力量：\nT1：你無法擒抱目標。\nT2：你可以擒抱目標，但若這麼做，目標可以在被擒制前對你發動 1 次近戰基礎打擊。\nT3：你順利擒抱目標，目標被你擒制。\n效果：你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。\n\n除非另有說明，你同時只能擒抱 1 個生物。\n\n擒制狀態的相關資訊詳見第 5 章〈職業〉的「狀態」。"
   },
   "heroes.actions.heal.rules": {
@@ -101,7 +101,7 @@
       "en": "You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
       "zh": "你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。"
     },
-    "updated": "2026-10-07",
+    "updated": "2026-09-30",
     "zh": "擊退\n\n若你想要推開相鄰的生物，你可以使用以下招式來嘗試推撞該生物。\n\n擊退\n近戰、武器　機動動作\n近戰 1｜1 個生物\n檢定 + 力量：\nT1：推動 1\nT2：推動 2\nT3：推動 3\n效果：你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。"
   },
   "heroes.actions.main-actions.rules": {

@@ -23,6 +23,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseCalculationDisplay } from './sheet-capture.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 
@@ -70,8 +71,7 @@ const TABS = [
 ];
 
 const fail = message => {
-	console.error(message);
-	process.exit(1);
+	throw new Error(message);
 };
 
 const parseArgs = argv => {
@@ -120,7 +120,7 @@ const readText = file => {
  * Quoted fields may contain commas, newlines, and "" escapes.
  * Field text is returned verbatim (no trim, no newline normalization).
  */
-const parseCsv = (text, file) => {
+export const parseCsv = (text, file) => {
 	const rows = [];
 	let row = [];
 	let field = '';
@@ -496,39 +496,33 @@ const loadCalculationDisplays = (snapshotDir, tabs, errors) => {
 	const strings = tabs.find(tab => tab.spec.file === 'strings.csv').entries;
 	for (const [ id, note ] of Object.entries(notes)) {
 		try {
-			const lines = typeof note === 'string' ? note.split(/\r?\n/).filter(line => line.startsWith('Calculation Display: ')) : [];
-			if (lines.length !== 1 || !strings[id]?.fs) {
+			if (!strings[id]?.fs) {
 				throw new Error('expected one Calculation Display record on an approved Forge Steel row');
 			}
-			const display = JSON.parse(lines[0].slice('Calculation Display: '.length));
-			if (!display || typeof display !== 'object' || Array.isArray(display)
-				|| Object.keys(display).length !== 3 || display.status !== 'APPROVED'
-				|| typeof display.target !== 'string' || !display.target
-				|| strings[id].fs.zh.split(display.target).length !== 2
-				|| typeof display.template !== 'string' || display.template.split('{value}').length !== 2
-				|| /[{}]/.test(display.template.replace('{value}', ''))) {
-				throw new Error('expected an APPROVED { status, target, template } with one unique target and one {value} placeholder');
-			}
-			strings[id].fs.calculationDisplay = { target: display.target, template: display.template };
+			strings[id].fs.calculationDisplay = parseCalculationDisplay(note, strings[id].fs.zh);
 		} catch (error) {
 			errors.push(`calculation-displays.json [${id}]: ${error.message}`);
 		}
 	}
 };
 
-const main = () => {
-	const options = parseArgs(process.argv.slice(2));
-	const source = readSource(options.snapshotDir);
+export const buildCatalog = snapshotDir => {
+	const source = readSource(snapshotDir);
 	const seen = new Map();
 	const errors = [];
-	const tabs = TABS.map(spec => loadTab(options.snapshotDir, spec, seen, errors));
-	loadCalculationDisplays(options.snapshotDir, tabs, errors);
+	const tabs = TABS.map(spec => loadTab(snapshotDir, spec, seen, errors));
+	loadCalculationDisplays(snapshotDir, tabs, errors);
 
 	if (errors.length > 0) {
 		fail(errors.join('\n'));
 	}
 
-	const files = buildOutput(source, tabs);
+	return buildOutput(source, tabs);
+};
+
+const main = () => {
+	const options = parseArgs(process.argv.slice(2));
+	const files = buildCatalog(options.snapshotDir);
 	if (options.check) {
 		checkOutput(options.outDir, files);
 	} else {
@@ -536,4 +530,11 @@ const main = () => {
 	}
 };
 
-main();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+	try {
+		main();
+	} catch (error) {
+		console.error(error.message);
+		process.exitCode = 1;
+	}
+}

@@ -4,6 +4,20 @@
 
 2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。P2-9-3 虹彩鱗片六個選項已通過 Marc 本機驗收，PR #35 squash 合併至 develop（d5f353a2）；集中預期總數為 427／105／10。本機 develop 已同步，本批結案。
 
+## 快照 CSV 與核准動態 Note 整合維護（待驗收）
+
+Marc 於 2026-10-08 核准維護範圍與流程。分支 `codex/l10n-snapshot-refresh` 從 `develop @ ee46cd14` 建立；集中總數維持 427／105／10，不新增譯文、mapping、句型或綁定，不改 runtime、上游計算、依賴與測試設定。P3、Enhancement、來源掃描逾時與 audit 漏洞另案。
+
+`sheet-capture.mjs` 使用連接器前後修改時間確認同次取得，依欄名投影三頁核准必要欄位與動態 Note；原始草稿只留記憶體。`refresh-sheet.mjs` 預設試跑，同時重建 CSV、Note 與 source，沿用既有匯出器及守門驗證暫存產物，成功才更新快照與產物；可捕捉寫入失敗還原，斷電／強制終止不保證復原。操作方式見 SNAPSHOT.md。
+
+實際取得 Sheet：第一次前後修改時間不一致，已丟棄；重取一致時間為 `2026-10-08T04:11:01.924Z`。Glossary 332、Names 42、Strings 535、動態 Note 1。命定末視 Note 原樣一致，英文與正體中文內容未變；掙脫／擒抱／擊退的舊快照 Last Updated 誤用 Forge Steel 日期，本次依書本 Last Updated 同步為 2026-09-30，不改 Sheet。CSV 按 ID 排序，六個虹彩鱗片列移回排序位置；重跑同份輸入零變更。
+
+驗證（2026-10-08，基底 ee46cd14）：守門、匯出一致性、腳本語法與 git diff --check 通過；初次相關測試 88/88 通過。最後檢閱將既有句型驗證共用於擷取與匯出，補上「未核准句型不得進暫存輸入」測試；最終完整 Vitest 820/820（34 檔，`--maxWorkers=1 --testTimeout=30000`）通過，新增 26 項擷取／整合／失敗還原測試。暫時讓守門讀舊產物，目標範圍回歸測試失敗；還原後完整測試通過。再次透過 captureSheet 取得資料與前份輸入完全相同，最終共用驗證也產生相同輸入；核准內容與基底逐項一致。
+
+最終完整 `npm run check` 原設定：Lint／TypeScript 通過，Vitest 819 通過、1 個既有來源掃描測試超過 5 秒，exit 1 且未接續 audit；另補本批 `npm audit --json` 為既有 4 個漏洞（1 moderate、3 high），exit 1。初次沙盒相關測試曾因 Vitest 模組暫存檔 ENOENT 未載入整合測試，已以原設定在沙盒外重跑；不改設定或依賴，不宣稱整體檢查通過。
+
+PR #37（https://github.com/boyiad2110/forgesteel-zh-tw/pull/37）已建立。最終程式驗證對應 3e6c8bcf，後續只補版本及狀態紀錄，不重跑遊戲測試；實作仍待 Marc 本機驗收，不標示已接受，無截圖或錄影。
+
 ## P2-9-3 虹彩鱗片六個選項
 
 Marc 於 2026-10-08 核准六個 Forge Steel 選項名稱「虹彩鱗片（酸蝕／寒冷／腐朽／火焰／閃電／毒素）」，並指定數值顯示沿用英文順序，例如「酸蝕 2」。此為 DEC-0009 的六項限縮例外，DEC-0010 與 Master Sheet Strings 942–947、CHG-0073 已記錄。範圍只含六個名稱，以及經典表格裡這六項的計算值行；其他免疫摘要與共用 UI 仍為 P3。
@@ -108,7 +122,7 @@ Marc 確認復元值能自動更新，核准把「你會恢復等於 13 的體�
 6. skill groups（P2-6）：6-1 技能名稱與類別，建造頁技能選擇、選技能視窗、Reference（已接受）。6-2 技能名稱與類別，英雄側欄、小隊、來源書、經典表格技能卡／隨從卡／同伴卡／特性、失去技能糾葛、選技能視窗標籤（已接受）。隨從面板、專案面板的技能與語言留待後補。擲骰修正說明、分組標題 P3。技能描述留英文。搜尋排序維持英文
 7. basic actions（P2-7）：7-1 網頁名稱，Reference 的 Abilities 頁、招式視窗、列印頁、英雄頁招式列表、側欄 Triggers（已接受）。7-2 經典表格名稱（已接受）。7-3 動作描述（已接受：9 段 Forge Steel 版、5 段直接對照）。Escape Grab、Grab、Knockback 的「效果：」段已於招式批次 8-3 接受；簡略描述仍留英文。Opportunity Attack、Go Prone、Swap 的描述留英文。Melee Free Strike／Ranged Free Strike、Go Prone、Swap 留英文。動作類型標籤、分組標題、Reference Abilities 分頁標籤、經典表格參考卡留 P3
 8. 招式批次（P2-8）：8-1 族裔招式名稱 19 個（已接受，#26）。Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）的名稱走 Forge Steel 版，中文與書本相同。8-2 族裔描述與內文段（已接受，#28）：description 10 鍵（直接對照 6、Forge Steel 版 4）、文字段 7 鍵（直接對照 3、Forge Steel 版 4）；Sheet 寫 8 列 P–V（第 58、65、69、91、191、245、287、304 列）；程式改 `src/l10n/ability-text.ts`（`abilitySectionKey` 擴到族裔招式、新增 description 鍵）、`ability-panel.tsx`（description：compact 與 full 兩處）、`ability-card.tsx`（description）。8-3 Escape Grab、Grab、Knockback 的「效果：」段（第 38、39、41 列各 1 段，`section:<id>:2`）已接受（#29，2026-10-07）：Sheet 寫 3 列 P–V 並新增 CHG-0065。Grab／Knockback 以原始英文字串查翻譯鍵，再將上游計算數值投射到核准中文（`calculation-bindings.json`／`calculated-text.ts`）；關閉計算恢復原文。Strings U39、U41 補註 CHG-0066，Project State／Status 已更新；Marc 已驗收閃電開關與力量 2→3。擲骰（tier）、關鍵字、距離、目標、觸發句、Forge Steel 改寫的段留英文；第 177、331、356 列的引言不對照；Foresight（2-2b）只做名稱。職業、套組、領域、專長招式不在這批。矮人、哈肯人、歐克沒有招式
-9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視（P2-9-1 已接受，#31）、符文銘刻（P2-9-2 已接受，#33）；虹彩鱗片 6 個選項另批，尚未開始
+9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視（P2-9-1 已接受，#31）、符文銘刻（P2-9-2 已接受，#33）；虹彩鱗片 6 個選項（P2-9-3 已接受，#35；結案文件 #36）。
 
 同一階段也要排進：隱藏社群與第三方來源書。
 
