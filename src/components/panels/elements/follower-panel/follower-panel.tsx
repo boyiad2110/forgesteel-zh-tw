@@ -6,6 +6,8 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { PanelMode } from '@/enums/panel-mode';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { StatsRow } from '@/components/panels/stats-row/stats-row';
+import { useLanguageNames } from '@/l10n/language-text';
+import { useSkillNames } from '@/l10n/skill-text';
 
 import './follower-panel.scss';
 
@@ -13,6 +15,21 @@ interface Props {
 	follower: Follower;
 	mode?: PanelMode;
 }
+
+const FollowerDetails = (props: { follower: Follower }) => {
+	const skills = useSkillNames([ ...props.follower.skills ].sort());
+	const languages = useLanguageNames([ 'Caelian', ...props.follower.languages ].sort());
+
+	return (
+		<>
+			<StatsRow>
+				{props.follower.characteristics.map(ch => <Field key={ch.characteristic} orientation='vertical' label={ch.characteristic} value={ch.value} />)}
+			</StatsRow>
+			<Field label='Skills' value={skills.join(', ') || '(none)'} />
+			<Field label='Languages' value={languages.join(', ') || '(none)'} />
+		</>
+	);
+};
 
 export const FollowerPanel = (props: Props) => {
 	return (
@@ -27,13 +44,7 @@ export const FollowerPanel = (props: Props) => {
 				<Markdown text={props.follower.description || `${props.follower.type} follower.`} />
 				{
 					props.mode === PanelMode.Full ?
-						<>
-							<StatsRow>
-								{props.follower.characteristics.map(ch => <Field key={ch.characteristic} orientation='vertical' label={ch.characteristic} value={ch.value} />)}
-							</StatsRow>
-							<Field label='Skills' value={props.follower.skills.sort().join(', ') || '(none)'} />
-							<Field label='Languages' value={[ 'Caelian', ...props.follower.languages ].sort().join(', ') || '(none)'} />
-						</>
+						<FollowerDetails follower={props.follower} />
 						: null
 				}
 			</div>
