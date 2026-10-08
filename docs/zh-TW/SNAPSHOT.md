@@ -9,7 +9,7 @@
 3. `readMetadata` 對接 Google Drive `get_file_metadata`，讀 `id,mimeType,modifiedTime`；連接器回傳欄名為 `id,mime_type,modified_time`。
 4. `readTab` 對接 `get_spreadsheet_range`，回傳 `structuredContent`。依 metadata 對三頁讀完整、有界的資料區域，保留標題列。若分次讀取，先合併且只保留一個標題列；工具錯誤、截斷或未取得的區段都停止，不用先前回應補齊。本批範圍：Glossary／Names `A1:M1000`、Strings `A1:V1000`。
 5. `captureSheet` 先讀修改時間，再取得三頁，最後再讀修改時間。不一致時整次丟棄並重新取得。這是跨請求的一致性檢查，不是 Google 版本鎖定。
-6. 原始回應只留在執行環境記憶體；只將回傳的核准欄位寫入暫存輸入。不把完整 Sheet 回應或草稿存進 repo、log 或公開 PR。
+6. 原始回應只留在執行環境記憶體；動態句型若未核准或不合法，擷取即失敗，不產生暫存輸入。只將回傳的核准欄位寫入暫存輸入，不把完整 Sheet 回應或草稿存進 repo、log 或公開 PR。
 
 動態 Note 指的是 Strings 的 **Forge Steel Note 欄位文字**（目前 U 欄），不是 Google CellData.note 或留言。所有欄位以標題辨識，以 String ID 關聯，不固定第 220 列。只保留具有 Calculation Display 紀錄的核准 Forge Steel 列之完整原樣 Note，其他欄位筆記不擷取。書本 APPROVED、Forge Steel 版未核准的列只保留書本欄位。
 

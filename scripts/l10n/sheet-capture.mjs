@@ -8,6 +8,22 @@ export const TAB_HEADERS = {
 		'Forge Steel Basis Hash', 'Forge Steel Note' ]
 };
 
+/** Shared by capture and export: reject draft templates before any disk write. */
+export function parseCalculationDisplay(note, zh) {
+	const lines = typeof note === 'string' ? note.split(/\r?\n/).filter(line => line.startsWith('Calculation Display: ')) : [];
+	if (lines.length !== 1) throw new Error('expected one Calculation Display record on an approved Forge Steel row');
+	const display = JSON.parse(lines[0].slice('Calculation Display: '.length));
+	if (!display || typeof display !== 'object' || Array.isArray(display)
+		|| Object.keys(display).length !== 3 || display.status !== 'APPROVED'
+		|| typeof display.target !== 'string' || !display.target
+		|| zh.split(display.target).length !== 2
+		|| typeof display.template !== 'string' || display.template.split('{value}').length !== 2
+		|| /[{}]/.test(display.template.replace('{value}', ''))) {
+		throw new Error('expected an APPROVED { status, target, template } with one unique target and one {value} placeholder');
+	}
+	return { target: display.target, template: display.template };
+}
+
 export function projectCapture(before, tables, after) {
 	if (before?.id !== SHEET_ID || after?.id !== SHEET_ID
 		|| before.mime_type !== 'application/vnd.google-apps.spreadsheet'
@@ -38,6 +54,7 @@ export function projectCapture(before, tables, after) {
 			if (name === 'Strings' && projected[7] !== 'APPROVED') projected.fill('', 5);
 			// Only approved dynamic records need the complete Note text in the bundle.
 			if (name === 'Strings' && !/(^|\r?\n)\s*Calculation Display:/.test(projected[9])) projected[9] = '';
+			if (name === 'Strings' && projected[9]) parseCalculationDisplay(projected[9], projected[6]);
 			rows.push(projected);
 		}
 		tabs[name] = { headers, rows };

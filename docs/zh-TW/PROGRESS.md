@@ -12,11 +12,11 @@ Marc 於 2026-10-08 核准維護範圍與流程。分支 `codex/l10n-snapshot-re
 
 實際取得 Sheet：第一次前後修改時間不一致，已丟棄；重取一致時間為 `2026-10-08T04:11:01.924Z`。Glossary 332、Names 42、Strings 535、動態 Note 1。命定末視 Note 原樣一致，英文與正體中文內容未變；掙脫／擒抱／擊退的舊快照 Last Updated 誤用 Forge Steel 日期，本次依書本 Last Updated 同步為 2026-09-30，不改 Sheet。CSV 按 ID 排序，六個虹彩鱗片列移回排序位置；重跑同份輸入零變更。
 
-驗證（2026-10-08，基底 ee46cd14）：守門、匯出一致性、腳本語法與 git diff --check 通過；相關測試 88/88、完整 Vitest 819/819（34 檔，`--maxWorkers=1 --testTimeout=30000`）通過，新增 25 項擷取／整合／失敗還原測試。暫時讓守門讀舊產物，目標範圍回歸測試失敗；還原後完整測試通過。再次透過 captureSheet 取得資料與前份輸入完全相同，核准內容與基底逐項一致。
+驗證（2026-10-08，基底 ee46cd14）：守門、匯出一致性、腳本語法與 git diff --check 通過；初次相關測試 88/88 通過。最後檢閱將既有句型驗證共用於擷取與匯出，補上「未核准句型不得進暫存輸入」測試；最終完整 Vitest 820/820（34 檔，`--maxWorkers=1 --testTimeout=30000`）通過，新增 26 項擷取／整合／失敗還原測試。暫時讓守門讀舊產物，目標範圍回歸測試失敗；還原後完整測試通過。再次透過 captureSheet 取得資料與前份輸入完全相同，最終共用驗證也產生相同輸入；核准內容與基底逐項一致。
 
-完整 `npm run check` 原設定：Lint／TypeScript 通過，Vitest 818 通過、1 個既有來源掃描測試超過 5 秒，exit 1 且未接續 audit；另補本批 `npm audit --json` 為既有 4 個漏洞（1 moderate、3 high），exit 1。初次沙盒相關測試曾因 Vitest 模組暫存檔 ENOENT 未載入整合測試，已以原設定在沙盒外重跑；不改設定或依賴，不宣稱整體檢查通過。
+最終完整 `npm run check` 原設定：Lint／TypeScript 通過，Vitest 819 通過、1 個既有來源掃描測試超過 5 秒，exit 1 且未接續 audit；另補本批 `npm audit --json` 為既有 4 個漏洞（1 moderate、3 high），exit 1。初次沙盒相關測試曾因 Vitest 模組暫存檔 ENOENT 未載入整合測試，已以原設定在沙盒外重跑；不改設定或依賴，不宣稱整體檢查通過。
 
-PR #37（https://github.com/boyiad2110/forgesteel-zh-tw/pull/37）已建立，程式驗證對應 da0d8e96；後續只補 PR 與狀態紀錄，不重跑遊戲測試。實作仍待 Marc 本機驗收，不標示已接受；無截圖或錄影。
+PR #37（https://github.com/boyiad2110/forgesteel-zh-tw/pull/37）已建立。最終程式版本於本次提交後補記；實作仍待 Marc 本機驗收，不標示已接受，無截圖或錄影。
 
 ## P2-9-3 虹彩鱗片六個選項
 

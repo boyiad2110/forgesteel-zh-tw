@@ -75,6 +75,11 @@ describe('one connector capture', () => {
 		tables.Strings.values[1][7] = 'REVIEW';
 		expect(projectCapture(metadata, tables, metadata).tabs.Strings.rows[0].slice(5)).toEqual([ '', '', '', '', '' ]);
 	});
+	test('an unapproved dynamic template is rejected in memory before writing the bundle', () => {
+		const { tables } = fixture();
+		tables.Strings.values[1][9] = 'Calculation Display: ' + JSON.stringify({ ...display, status: 'REVIEW' });
+		expect(() => projectCapture(metadata, tables, metadata)).toThrow('expected an APPROVED');
+	});
 	test.each([ 'changed time', 'wrong sheet', 'missing time', 'missing tab', 'missing header', 'duplicate header' ])('rejects %s', reason => {
 		const { tables } = fixture();
 		const after = { ...metadata };
@@ -94,7 +99,7 @@ describe('one connector capture', () => {
 describe('staged integration and publication', () => {
 	test('preserves quotes, newlines, spaces and exact Note; sorts IDs deterministically', () => {
 		const { input } = fixture();
-		input.tabs.Strings.rows[0][2] = '原樣  "引號",\r\n第二行';
+		input.tabs.Strings.rows[0][2] = zh + '  "引號",\r\n第二行';
 		input.tabs.Glossary.rows.push([ 'term.aaa', 'APPROVED', '首列', 'First', '2026-10-08' ]);
 		input.tabs.Strings.rows[0][9] += '\r\n';
 		const files = buildSnapshot(input);
