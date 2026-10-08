@@ -10,7 +10,7 @@
 
 Marc 於 2026-10-08 核准只沿用既有 APPROVED 對照，補上隨從完整詳情、專案候選隨從及已選隨從摘要中的技能與語言名稱。六處欄位顯示共用既有 57 個技能鍵、42 個語言鍵（含 Kalliac spelling 例外）；不新增譯文、對照鍵或 Forge Steel 版，集中總數維持 427／105／10。UI 標籤仍留英文，P3 待 Forge Steel UI 分頁。
 
-已在 `codex/p2-6-3-follower-project-localization` 修改兩個共用面板。守門、`git diff --check`、兩檔 ESLint 與 TypeScript 通過。Vitest 與 production build 均因本機缺少 `sass-embedded` 而無法載入 Sass；`npm ls sass sass-embedded --depth=0` 顯示僅安裝 `sass@1.105.0`。未改依賴或專案設定。等待可用環境完成測試後再送 PR 供本機驗收。
+已在 `codex/p2-6-3-follower-project-localization` 修改兩個共用面板，提交 `e2c83dea`；PR #39（https://github.com/boyiad2110/forgesteel-zh-tw/pull/39）已開啟，GitHub Localization check 執行中。守門、`git diff --check`、兩檔 ESLint 與 TypeScript 通過。Vitest 與 production build 均因本機缺少 `sass-embedded` 而無法載入 Sass；`npm ls sass sass-embedded --depth=0` 顯示僅安裝 `sass@1.105.0`。未改依賴或專案設定。待 CI 完成並由 Marc 本機驗收。
 
 ## 快照 CSV 與核准動態 Note 整合維護（已接受）
 
