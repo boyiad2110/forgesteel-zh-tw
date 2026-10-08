@@ -8,6 +8,8 @@
 
 和這三份不一致的舊筆記，以這三份為準。
 
+2026-10-08 已整理 P2-9-1 經驗：RULES 的「後續批次執行與驗證」是執行方式；DECISIONS 保留決策理由；PROGRESS 區分已完成與尚待實作的改善。不要把待辦當成已完成，也不要因舊段落寫「計算後留英文」而忽略後來核准的動態顯示決策。
+
 ## Master Sheet 與本機驗收
 
 - Master Sheet 那邊先讀 Project State，再讀 Status、Changelog。
