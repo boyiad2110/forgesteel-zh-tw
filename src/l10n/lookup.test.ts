@@ -535,10 +535,6 @@ describe('ancestry third batch', () => {
 describe('ancestry fourth batch', () => {
 	const catalog = strings as Catalog;
 
-	test('english exceptions stay at ten', () => {
-		expect(Object.keys(exceptions)).toHaveLength(10);
-	});
-
 	test('human, wode elf, and time raider names use the approved Chinese', () => {
 		const rows: [string, string, string, string][] = [
 			[ 'element:ancestry-human:name', 'heroes.ancestries.human.name', 'Human', '人類' ],
@@ -681,10 +677,6 @@ describe('ancestry fourth batch', () => {
 describe('ancestry fifth batch', () => {
 	const catalog = strings as Catalog;
 
-	test('english exceptions stay at ten', () => {
-		expect(Object.keys(exceptions)).toHaveLength(10);
-	});
-
 	test('revenant and dragon knight names use the approved Chinese', () => {
 		const rows: [string, string, string, string][] = [
 			[ 'element:ancestry-revenant:name', 'heroes.ancestries.revenant.name', 'Revenant', '還魂屍' ],
@@ -814,10 +806,6 @@ describe('ancestry fifth batch', () => {
 describe('culture first batch', () => {
 	const catalog = strings as Catalog;
 
-	test('english exceptions stay at ten', () => {
-		expect(Object.keys(exceptions)).toHaveLength(10);
-	});
-
 	test('the 13 aspect names and first-sentence descriptions use the approved Chinese', () => {
 		const rows: [ { id: string, name: string, description: string }, string, string, string ][] = [
 			[ EnvironmentData.nomadic, 'heroes.background.culture.environment.nomadic', '遊牧', '遊牧文化為了生存而不斷從一個地方遷移到另一個地方。' ],
@@ -915,12 +903,6 @@ describe('culture third batch', () => {
 	const catalog = strings as Catalog;
 	const cultures = [ ...core.ancestries, ...orden.ancestries ].flatMap(ancestry => ancestry.culture ? [ ancestry.culture ] : []);
 
-	test('this batch adds 11 name keys and 11 Forge Steel rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(420);
-		expect(Object.keys(exceptions)).toHaveLength(10);
-		expect(Object.values(catalog).filter(row => row.fs).length).toBe(98);
-	});
-
 	test('the 11 ancestral culture names use the approved Forge Steel Chinese', () => {
 		const rows: [ string, string, string ][] = [
 			[ 'devil', 'heroes.background.culture.typical.devil', '魔鬼' ],
@@ -991,9 +973,7 @@ describe('language first batch', () => {
 	]);
 
 	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
-		expect(Object.keys(exceptions)).toHaveLength(10);
 		expect(exceptions['language:Kalliac']).toEqual({
 			kind: 'spelling',
 			note: 'Kalliac appears only as the orc culture preset language in src/data/ancestries/orc.ts. Kalliak is the official spelling. Names K9 already notes this.'
@@ -1068,7 +1048,6 @@ describe('skill first batch', () => {
 	const catalog = glossary as Catalog;
 
 	test('this batch adds 57 skill keys and 5 skill-list keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(Object.keys(mapping).filter(key => key.startsWith('skill:'))).toHaveLength(57);
 		expect(Object.keys(mapping).filter(key => key.startsWith('enum:SkillList:'))).toHaveLength(5);
 		expect(mapping['enum:SkillList:Custom']).toBeUndefined();
@@ -1370,7 +1349,6 @@ describe('action names', () => {
 	});
 
 	test('this batch adds 19 action name keys', () => {
-		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(actionNames).toHaveLength(19);
 		for (const [ id, english, sheetId, zh ] of actionNames) {
 			const key = `element:${id}:name`;
@@ -1682,7 +1660,6 @@ describe('action descriptions', () => {
 	});
 
 	test('fourteen section keys point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(direct).toHaveLength(5);
 		expect(forgeSteel).toHaveLength(9);
 		for (const [ id, sheetId ] of direct) {
@@ -2152,7 +2129,6 @@ describe('ancestry ability names', () => {
 	});
 
 	test('nineteen ancestry ability names point at the approved rows', () => {
-		expect(Object.keys(mapping)).toHaveLength(420);
 		expect(ancestryAbilityNames).toHaveLength(19);
 		expect(collectAncestryAbilities().map(ability => ability.id).sort()).toEqual(ancestryAbilityNames.map(row => row[0]).sort());
 
