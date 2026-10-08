@@ -960,25 +960,29 @@ describe('language first batch', () => {
 		[ 'Caelian', '凱利安語' ],
 		[ 'Kalliak', '卡力語' ],
 		[ 'Zaliac', '札力語' ],
+		[ 'Za\'hariax', '札哈里亞語' ],
 		[ 'The First Language', '太古語' ],
 		[ 'Proto-Ctholl', '原墮語' ],
 		[ 'Ullorvic', '烏洛維克語' ]
 	]);
 
-	test('this batch adds 42 language keys and the Kalliac spelling exception', () => {
-		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(42);
+	test('Orden language names include the Za’hariax punctuation exception and Kalliac spelling alias', () => {
+		expect(Object.keys(mapping).filter(key => key.startsWith('language:'))).toHaveLength(43);
 		expect(exceptions['language:Kalliac']).toEqual({
 			kind: 'spelling',
 			note: 'Kalliac appears only as the orc culture preset language in src/data/ancestries/orc.ts. Kalliak is the official spelling. Names K9 already notes this.'
 		});
+		expect(exceptions['language:Za\'hariax']).toEqual({
+			kind: 'punctuation',
+			note: 'Forge Steel uses a straight apostrophe; the approved Names row 25 uses a curly apostrophe.'
+		});
 	});
 
-	test('the 41 matching language names use the approved Chinese, and descriptions stay English', () => {
-		const listed = orden.languages.filter(language => language.name !== 'Za\'hariax');
+	test('the 42 Orden language names use approved Chinese, and descriptions stay English', () => {
+		const listed = orden.languages;
 		const seen = new Set<string>();
 
-		expect(listed).toHaveLength(41);
-		expect(orden.languages.some(language => language.name === 'Za\u2019hariax')).toBe(false);
+		expect(listed).toHaveLength(42);
 
 		for (const language of listed) {
 			const key = languageNameKey(language.name);
@@ -988,7 +992,12 @@ describe('language first batch', () => {
 			}
 			const sheetId = entry.sheetId;
 			expect(sheetId.startsWith('heroes.language.')).toBe(true);
-			expect(catalog[sheetId].en).toBe(language.name);
+			if (language.name === 'Za\'hariax') {
+				expect(catalog[sheetId].en).toBe('Za’hariax');
+				expect(exceptions['language:Za\'hariax'].kind).toBe('punctuation');
+			} else {
+				expect(catalog[sheetId].en).toBe(language.name);
+			}
 			expect(resolveText('zh-TW', key, language.name, { [key]: sheetId }, catalog)).toBe(catalog[sheetId].zh);
 			expect(resolveText('en', key, language.name, { [key]: sheetId }, catalog)).toBe(language.name);
 			expect(resolveText('zh-TW', undefined, language.description, {}, catalog)).toBe(language.description);
@@ -1000,8 +1009,8 @@ describe('language first batch', () => {
 		}
 
 		expect(seen.size).toBe(samples.size);
-		expect(mapping['language:Za\'hariax']).toBeUndefined();
-		expect(mapping['language:Za\u2019hariax']).toBeUndefined();
+		expect(mapping['language:Za\'hariax']).toMatchObject({ sheetId: 'heroes.language.zahariax' });
+		expect(mapping['language:Za’hariax']).toBeUndefined();
 	});
 
 	test('Kalliac displays 卡力語 and English mode keeps the Forge Steel spelling', () => {
