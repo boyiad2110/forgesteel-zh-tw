@@ -2,7 +2,7 @@
 
 ## 目前狀態 / 下一步
 
-2026-10-09：Marc 核准 P2-1-5「玩家族裔與文化選擇流程名稱一致性」，從 develop @ b9d8bb60 建立分支 `codex/player-selection-flow-l10n`。範圍為還魂屍 Former Life 族裔下拉、族裔特性候選下拉，以及 27 個官方文化卡既有三面向摘要；沿用 12 個族裔、112 個既有族裔特性鍵、27 個文化名稱與 13 個面向名稱。共用文化摘要僅在官方原 ID／名稱／描述、三面向及原組合格式吻合時顯示核准面向名稱，否則完整保留原文；英語模式保留英文。此決定限縮取代 2026-10-06 文化摘要留英文決定，任意描述不翻譯。共用 CulturePanel 的 Library 等使用點納入回歸；右側 Field 摘要及 UI 標籤仍留 P3。預期不新增譯文、mapping、Forge Steel 版或英文例外，總數維持 428／105／11。本批實作、測試與人工驗收待完成。
+2026-10-09：Marc 核准 P2-1-5「玩家族裔與文化選擇流程名稱一致性」。程式提交 `7f2f0055`，PR #51（https://github.com/boyiad2110/forgesteel-zh-tw/pull/51）已開至 develop，GitHub Localization check 通過，等待 Marc 本機人工驗收。範圍為還魂屍 Former Life 族裔下拉、族裔特性候選下拉，以及 27 個官方文化卡既有三面向摘要；沿用 12 個族裔、112 個既有族裔特性鍵、27 個文化名稱與 13 個面向名稱。共用文化摘要僅在官方原 ID／名稱／描述、三面向及原組合格式吻合時顯示核准面向名稱，否則完整保留原文；英語模式保留英文。DECISIONS 已記錄此限縮決定取代 2026-10-06 文化摘要留英文決定；任意描述不翻譯。共用 CulturePanel 的 Library 等使用點納入回歸；右側 Field 摘要及 UI 標籤仍留 P3。總數維持 428／105／11，無新增譯文、mapping、Forge Steel 版或英文例外。改動回歸 6/6，完整 Vitest 834/834（37 檔、單 worker、30 秒）、TypeScript、改動檔 ESLint、l10n 守門、匯出一致性、inventory 3/3、git diff --check 與正式建置通過。原始 `npm run check` 的來源掃描測試仍超預設 5 秒逾時（833 通過、1 逾時），audit 未執行；沙盒 Sass 錯誤已於沙盒外以原設定重跑成功，未改依賴或設定。
 
 2026-10-09：P2-SOURCES「內建官方來源與來源入口」已通過 Marc 本機驗收，PR #43 squash 合併至 develop（5081a1c8），本批已接受。集中總數維持 428／105／11。P3 等 Forge Steel UI 分頁；Enhancement、既有來源掃描逾時與 audit 4 個漏洞另案。
 
