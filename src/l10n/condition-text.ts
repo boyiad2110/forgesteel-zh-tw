@@ -53,8 +53,9 @@ export const conditionRulesKey = (type: ConditionType): string | undefined => {
 };
 
 /** The condition name to draw. The value passed in is still the English enum. */
-export const ConditionName = (props: { type: ConditionType }) => {
-	return useL10nText(nameKey(props.type), props.type);
+export const ConditionName = (props: { type: ConditionType, english?: string }) => {
+	const english = props.english ?? props.type;
+	return useL10nText(english === props.type ? nameKey(props.type) : undefined, english);
 };
 
 /** The rules paragraph to draw. Unmapped conditions keep `english`. */

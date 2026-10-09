@@ -1,14 +1,17 @@
-import { Alert, Button, Divider, Flex, InputNumber, Popover, Segmented, Space, Tag } from 'antd';
-import { ConditionEndType, ConditionType } from '@/enums/condition-type';
+import { Alert, Button, Flex, InputNumber, Segmented, Space, Tag } from 'antd';
 import { Collections } from '@/utils/collections';
 import { Condition } from '@/models/condition';
+import { ConditionAddMenu } from '@/components/panels/condition-add-menu/condition-add-menu';
+import { ConditionLogic } from '@/logic/condition-logic';
 import { ConditionName } from '@/l10n/condition-text';
 import { ConditionPanel } from '@/components/panels/condition/condition-panel';
+import { ConditionType } from '@/enums/condition-type';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
 import { DropdownButton } from '@/components/controls/dropdown-button/dropdown-button';
 import { Empty } from '@/components/controls/empty/empty';
 import { Encounter } from '@/models/encounter';
 import { EncounterSlot } from '@/models/encounter';
+import { ExtractedCondition } from '@/logic/condition-extraction-logic';
 import { Field } from '@/components/controls/field/field';
 import { Format } from '@/utils/format';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -32,6 +35,7 @@ import './health-panel.scss';
 interface HeroProps {
 	hero: Hero;
 	showEncounterControls: boolean;
+	encounterConditions?: ExtractedCondition[];
 	onChange?: (hero: Hero) => void;
 }
 
@@ -196,7 +200,8 @@ export const HeroHealthPanel = (props: HeroProps) => {
 			}}
 			conditions={{
 				current: hero.state.conditions,
-				immunities: HeroLogic.getConditionImmunities(hero)
+				immunities: HeroLogic.getConditionImmunities(hero),
+				fromEncounter: props.encounterConditions || []
 			}}
 			addCondition={addCondition}
 			editCondition={editCondition}
@@ -207,6 +212,7 @@ export const HeroHealthPanel = (props: HeroProps) => {
 
 interface MonsterProps {
 	monster: Monster;
+	encounterConditions?: ExtractedCondition[];
 	onChange?: (monster: Monster) => void;
 }
 
@@ -382,7 +388,8 @@ export const MonsterHealthPanel = (props: MonsterProps) => {
 			}}
 			conditions={{
 				current: monster.state.conditions,
-				immunities: MonsterLogic.getConditionImmunities(monster)
+				immunities: MonsterLogic.getConditionImmunities(monster),
+				fromEncounter: props.encounterConditions || []
 			}}
 			addCondition={addCondition}
 			editCondition={editCondition}
@@ -394,6 +401,7 @@ export const MonsterHealthPanel = (props: MonsterProps) => {
 interface MinionGroupProps {
 	slot: EncounterSlot;
 	encounter?: Encounter;
+	encounterConditions?: ExtractedCondition[];
 	onChange?: (slot: EncounterSlot) => void;
 }
 
@@ -516,7 +524,8 @@ export const MinionGroupHealthPanel = (props: MinionGroupProps) => {
 			}
 			conditions={{
 				current: slot.state.conditions,
-				immunities: []
+				immunities: [],
+				fromEncounter: props.encounterConditions || []
 			}}
 			addCondition={addCondition}
 			editCondition={editCondition}
@@ -566,6 +575,7 @@ interface Props {
 	conditions: {
 		current: Condition[];
 		immunities: ConditionType[];
+		fromEncounter: ExtractedCondition[];
 	};
 	addCondition: (condition: Condition) => void;
 	editCondition: (condition: Condition) => void;
@@ -595,24 +605,6 @@ const HealthPanel = (props: Props) => {
 			props.staminaTemp.addTemp(damageValue);
 		}
 		setDamageValue(0);
-	};
-
-	const addCondition = (type: ConditionType) => {
-		props.addCondition({
-			id: Utils.guid(),
-			type: type,
-			text: '',
-			ends: ConditionEndType.UntilRemoved
-		});
-	};
-
-	const addSpecial = (text: string) => {
-		props.addCondition({
-			id: Utils.guid(),
-			type: ConditionType.Quick,
-			text: text,
-			ends: ConditionEndType.UntilRemoved
-		});
 	};
 
 	const getHealthControls = () => {
@@ -718,7 +710,7 @@ const HealthPanel = (props: Props) => {
 				}
 			}
 			props.conditions.current.forEach(c => {
-				tags.push(c.type === ConditionType.Quick ? c.text : <ConditionName type={c.type} />);
+				tags.push(<ConditionName type={c.type} english={ConditionLogic.getName(c)} />);
 			});
 		}
 
@@ -858,39 +850,15 @@ Your allies can help you spend Recoveries in combat, and you can spend Recoverie
 			<HeaderText
 				extra={
 					<Space>
-						<Popover
-							trigger='click'
-							content={
-								<Space orientation='vertical'>
-									<div className='conditions-grid'>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Bleeding)}><ConditionName type={ConditionType.Bleeding} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Dazed)}><ConditionName type={ConditionType.Dazed} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Frightened)}><ConditionName type={ConditionType.Frightened} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Grabbed)}><ConditionName type={ConditionType.Grabbed} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Prone)}><ConditionName type={ConditionType.Prone} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Restrained)}><ConditionName type={ConditionType.Restrained} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Slowed)}><ConditionName type={ConditionType.Slowed} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Taunted)}><ConditionName type={ConditionType.Taunted} /></Button>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Weakened)}><ConditionName type={ConditionType.Weakened} /></Button>
-									</div>
-									<Divider />
-									<div className='conditions-grid'>
-										<Button block={true} type='text' onClick={() => addSpecial('Judged')}>Judged</Button>
-										<Button block={true} type='text' onClick={() => addSpecial('Marked')}>Marked</Button>
-										<Button block={true} type='text' onClick={() => addSpecial('Surprised')}>Surprised</Button>
-									</div>
-									<Divider />
-									<div className='conditions-grid'>
-										<Button block={true} type='text' onClick={() => addCondition(ConditionType.Custom)}>{ConditionType.Custom}</Button>
-									</div>
-								</Space>
-							}
+						<ConditionAddMenu
+							encounterConditions={props.conditions.fromEncounter}
+							onAdd={props.addCondition}
 						>
 							<Button>
 								<PlusOutlined />
 								Add
 							</Button>
-						</Popover>
+						</ConditionAddMenu>
 					</Space>
 				}
 			>

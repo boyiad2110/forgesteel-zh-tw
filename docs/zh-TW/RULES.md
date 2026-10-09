@@ -1,133 +1,37 @@
-# 規則
+# 現行規則
 
-## 專案目標
+本文件只列現在有效的規則。決策理由與限縮例外見 [DECISIONS](DECISIONS.md)，歷史不是目前待辦。
 
-把 Forge Steel 的原文顯示成對應的正確中文：原文顯示什麼，中文就該顯示什麼。已核准的文字段若由上游自動計算改變數值，正體中文必須同步顯示該數值；固定中文蓋掉計算結果不算完成。動態數值只取自上游英文計算結果，用共用顯示轉接器與核准中文的位置綁定，不為每個招式另寫計算或改寫句子的函式。無法可靠對應時，寧可顯示完整計算後英文，也不能用固定中文遮住數值或假裝翻譯成功；這是暫時保護，須補足對應綁定才算完成該段中文化（Marc 明確要求，2026-10-07）。
+## 來源與顯示
 
-## 只做翻譯
+- 中文 Master Sheet 是唯一來源，只匯入 APPROVED；匯出原樣保存，不自行改寫／意譯。公開 repo 不存未核准譯文或私有筆記。
+- 保留上游遊戲資料、列舉、邏輯、存檔格式、分享碼。同步上游帶入的原生更新不算中文化改寫。對照集中 `src/l10n`，少改上游元件，不另建每畫面翻譯系統。
+- 名稱須核對官方 ID 與原英文；改名、自訂、Homebrew、未知或未對照值保留原值。內建來源僅官方；Homebrew 功能保留，社群／第三方入口隱藏。搜尋／排序仍依英文資料。
+- 在文件、PR、介面稱「正體中文」；預設 zh-TW，語言只存 localStorage `forgesteel-language`，不進英雄檔或分享碼。
+- 靜態 Forge Steel 版須 Marc 核准，只能依 DEC-0009 刪字、接合既有核准中文；不補字、不改寫。表上英文可以與網站不同，必須有對照來源、enHash 及 Basis Hash。多列依賴遵循 DEC-0010；不再只檢查首列。
+- 英文差異例外僅已核准的標點／冠詞；拼字變體僅核准 language 鍵。不可新增大小寫例外。未知改寫回退英文，不更新 hash 掩蓋內容變化。
+- UI、共用標籤與提示等 Forge Steel UI 分頁定稿才實作。已核准名稱值與未核准標籤分開盤點；既有延後位置不因有 mapping 就自動算完成。
+- 屬性單字母 M/A/R/I/P 與符號字型不改；經典表格保留符號並接核准全名。文化摘要只翻完全吻合的官方三面向組合，自由描述保留。
 
-不改現有功能。負責人特別要求時才例外。
+## 動態內容
 
-## 中文只來自 Master Sheet
+原文顯示什麼，中文就顯示什麼。中文層只取上游已算出的數字，不自行計算、不為各招式另寫算式。核准中文原樣保存；位置與來源／中文 hash 存於 calculation-bindings.json。自然語序與量詞只採 Master Sheet APPROVED Calculation Display Note 的 target/template，同次快照匯出。未知改寫、無法對應或非法句型保留完整計算後英文；這是保護，不是中文化完成。
 
-Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`。
+內容預覽先辨識上游改寫，列未計算中文、至少兩組計算後英文／中文、需要核准的語序與備援。強調標記可依既有機制忽略後查鍵及對應中文加粗，不能藉此忽略真正加字或數值改變。
 
-- 只有狀態是 APPROVED 的列可以進網站。
-- 網站不能超前這張表。
-- 中文由 `scripts/l10n/export-sheet.mjs` 原樣抄進倉庫。人不改寫，AI 也不改寫、不意譯。
-- 表上的英文來自紙本書 Heroes 1.01b，可以和 Forge Steel 畫面上的英文不一樣。
+## 批次、分支與狀態
 
-動態數值顯示（Marc 核准，2026-10-07）：核准中文原樣保存；顯示時可以把已核准綁定位置換成 Forge Steel 英文計算結果中的數字。DEC-0009 仍適用於靜態譯文。`src/l10n/calculation-bindings.json` 只記鍵、位置、文字雜湊與數字後的空白；守門比對原英文與核准中文的 sha256。中文層只投射上游已算出的值，遇到未支援的改寫則保留完整計算後英文。
+- 每批範圍單一：預覽（鍵、Sheet ID、兩種英文、中文、差異、建議、動態限制）→ Marc 核准 → 必要 Sheet 寫入 → 工作分支 PR → 驗證 → Marc 驗收 → 合併 develop（一般內容 squash；同步 PR 用 merge commit 保留上游祖先）。
+- **本次維護例外（2026-10-10）**：Marc 明確要求完成附件 1–5 且免人工驗收，故可依完整自動驗證與瀏覽器文字／DOM 操作自行合併。不擴及新譯文核准或正式發布，不冒稱人工驗收。
+- `main` 永遠等於上游；develop 工作必須走 PR。必要檢查與保護見 UPSTREAM。上游不能直接推送，分叉不自動部署。
+- Sheet、mapping、進度狀態維持單一寫入者；一般內容單一執行者，獨立盤點／審查才並行。
+- 每批範圍、來源、版本、驗收位置、限制放原 PR 一次，依 BATCH-TEMPLATE；合併後只更新簡短狀態與連結，多批可集中結案。改狀態更新 PROGRESS；新決定更新 DECISIONS；待辦一律記 TODO 的下一動作。
+- 涉及 Sheet 批次更新 Project State／Status，只有翻譯或結構變动才加 Changelog。快照須依 SNAPSHOT 同次取得三頁核准欄位與 Note；修改時間不一致就停止，不能沿用舊 Note。
 
-原文查鍵只用於已有動態綁定的文字段；其餘仍檢查計算後英文是否等於資料英文（可忽略既有強調標記）。共用轉接器也會檢查未綁定的 Forge Steel 版英文，真正改寫時不能直接回傳固定中文。測試遍歷已翻譯的基本動作與族裔文字段，在不同等級與力量下檢查數值改動都有中文綁定。
+## 驗證
 
-動態中文句型（Marc 核准，2026-10-07）：計算後的顯示可使用另行核准的語序與量詞；DEC-0009 繼續限制靜態譯文。核准句型存於 Master Sheet Forge Steel Note 的 `Calculation Display:` JSON 紀錄，包含 APPROVED、target 及單一 `{value}` 的 template；`l10n/sheet-snapshot/calculation-displays.json` 保存原樣 Note，更新快照時須同步擷取。匯出器產生 fs.calculationDisplay，守門要求目標片語等於綁定範圍；runtime 缺少或不合法句型則保留完整計算後英文。先只啟用命定末視，其他項目逐項核准；不另算數字。
-
-## 語言名稱
-
-文件、PR、回報與介面一律稱「正體中文」。
-
-## 上游不動
-
-不改上游的資料、列舉、邏輯、存檔格式、分享碼。翻譯只在顯示當下發生：對照表把 Forge Steel 的鍵對到 Sheet ID，並記下核准時的英文雜湊（enHash）；真正換字的只有少數幾個共用的顯示元件。
-
-## 分支
-
-- `main` 永遠等於上游 `andyaiken/forgesteel`。
-- 工作都走分支，用 pull request 合進 `develop`。
-- 這台電腦上的 `upstream` 不能直接推送，避免誤推到上游。
-
-## 一批一批做
-
-每批：對照預覽（每項待決事項附建議）→ Marc 核准 → 寫入 Sheet → 開 PR（守門、`npm run check`；PR 與回報都只列 Marc 驗收位置，不截圖、不錄影）→ Marc 本機切到 PR 分支、照驗收點預覽 → Marc 說「過」→ squash 合併進 develop → 本機切回 develop。
-
-每批也要更新 Master Sheet：Project State 與 Status 寫目前批次與下一步（合併後改成已接受）；有翻譯或結構變動時，Changelog 加一筆（只記翻譯或結構變動）。
-
-每一批「內容」開始前，先給對照預覽：Forge Steel 的鍵、Sheet ID、Forge Steel 原文、書本原文、核准中文、差異與建議。涉及動態顯示時，一併列出下節的計算後中文與限制，等 Marc 核准。
-
-## 後續批次執行與驗證（2026-10-08）
-
-- **預覽先辨識動態文字。** 檢查上游是否會改寫文字；若會，列出未計算的核准中文、至少兩個不同數值的計算後英文及中文、是否需要核准語序或量詞，以及未知改寫的完整英文備援。數字正確但中文不自然，也應在預覽時提出；不得自行改寫靜態譯文。
-- **範圍保持單一。** 每批以一組可獨立驗收的內容為界。若需要改共用轉接器、匯出器或守門，先揭露影響與方案，再依核准範圍實作；不要順手擴至其他未核准項目。沿用共用顯示層，不另算數字、不增加各畫面專用翻譯。
-- **排錯先確認環境。** 遇到 Sass、暫存檔或權限問題，先確認依賴與執行環境，再用原設定於允許的環境驗證。只有證據指向專案設定才修改設定。替代設定僅供定位，不能作為完成證據；結束前移除臨時檔，不順手改依賴。
-- **每個 PR 保留完整檢查（2026-10-10 維護）。** 分叉統一入口為 `node scripts/l10n/verify.mjs`，依序執行守門（含匯出一致性）、Lint、TypeScript、Vitest、正式建置與 npm audit；前項失敗仍執行後項，任一失敗整體即失敗。CI 使用相同入口分項回報。上游 `npm run check` 不修改；本次驗證入口維護仍跑它確認相容性，後續批次以統一入口涵蓋原有要求，不重複執行相同檢查。`--only` 只供定位／補跑，分項通過不等於整體通過；過去 audit 結果不能冒充本批結果。純文件回合沿用下一條規則。
-- **測試依影響安排。** 新增對照先核對原文、Sheet／快照與實際顯示；修改共用機制先跑相關回歸，再做完整檢查。動態測試涵蓋數值更新、計算開關、語言切換、未知改寫備援及資料不變。同一程式版本已完成驗證後，僅補文件時檢查文件差異與狀態一致性，不反覆重跑遊戲測試；引用既有驗證須保留日期、程式版本及限制。
-- **快照一起核對。** 依 [SNAPSHOT.md](SNAPSHOT.md)，由連接器同次取得三頁核准欄位及相關動態 Note，確認前後修改時間一致，再交由整合腳本重建快照、匯出與守門；失敗不得沿用舊 Note。網站與匯出器仍不讀線上 Sheet。此維護已人工驗收並合併（PR #37，2026-10-08）。
-- **減少維護連動。** 新測試以本批鍵與行為為主；總鍵數應集中檢查，不在各批重複寫死。既有重複斷言的整理另列維護待辦，不混入內容批次。文件只補本批變化、驗證限制與下一步，不重複貼整段歷史。
-
-上述規則以最新核准決策為準：DEC-0009 限制靜態譯文；已核准的動態位置／句型可取用上游計算結果。完整英文備援是保護措施，不能把尚未支援的核准動態段落宣稱為中文化完成。
-
-## 少改上游檔案
-
-上游常更新。改到的上游檔案越少，以後合併越不容易打架。到目前為止動過的上游檔案：
-
-- `src/data/sourcebook-data.ts`（內建只載入官方來源）
-- `src/utils/feature-flags.ts`（移除社群預覽的可啟用入口）
-- `src/components/modals/sourcebooks/sourcebooks-modal.tsx`（來源視窗只保留 Official／Homebrew）
-- `src/components/panels/hero-sourcebooks/hero-sourcebooks-panel.tsx`（英雄來源選擇只保留 Official／Homebrew）
-- `src/components/modals/settings/settings-modal.tsx`
-- `src/components/controls/markdown/markdown.tsx`
-- `src/components/controls/header-text/header-text.tsx`
-- `src/components/panels/app-footer/app-footer.tsx`
-- `src/components/panels/app-footer/app-footer.scss`
-- `src/style/index.scss`
-- `src/components/pages/classic-sheet/common.scss`
-- `.github/workflows/digitalocean.yml`（部署保護）
-- `.github/workflows/do-registry-cleanup.yml`（部署保護）
-- `src/components/modals/reference/reference-modal.tsx`（條件名稱與規則、語言名稱、技能名稱與類別）
-- `src/components/panels/hero/sidebar/sidebar-panel.tsx`（條件名稱與規則、語言名稱、技能名稱與類別、動作名稱）
-- `src/components/panels/condition/condition-panel.tsx`（條件名稱與規則）
-- `src/components/panels/health/health-panel.tsx`（條件名稱）
-- `src/components/features/feature-data/condition-immunity.tsx`（條件名稱）
-- `src/components/modals/hero-customize/hero-customize-modal.tsx`（條件名稱）
-- `src/components/panels/classic-sheet/conditions-card/conditions-card.tsx`（條件名稱）
-- `src/components/panels/hero/stats/stats-panel.tsx`（屬性名稱）
-- `src/components/panels/classic-sheet/stats-resources-card/stats-resources-card.tsx`（屬性名稱）
-- `src/components/panels/classic-sheet/components/characteristics-component.tsx`（屬性名稱）
-- `src/components/modals/roll/roll-modal.tsx`（屬性名稱）
-- `src/components/panels/elements/feature-panel/feature-panel.tsx`（特性名稱與描述）
-- `src/components/panels/elements/ancestry-panel/ancestry-panel.tsx`（族裔名稱與描述）
-- `src/components/features/feature-data/choice.tsx`（建造時已選特性的名稱）
-- `src/components/pages/library/library-list/library-list-page.tsx`（圖書館清單上的名稱）
-- `src/components/panels/elements/culture-panel/culture-panel.tsx`（文化名稱）
-- `src/components/features/feature-data/language-choice.tsx`（已選語言名稱）
-- `src/components/modals/select/language-select/language-select-modal.tsx`（選語言抽屜的語言名稱）
-- `src/components/features/feature-data/language.tsx`（語言名稱）
-- `src/components/panels/classic-sheet/culture-card/culture-card.tsx`（語言名稱）
-- `src/components/panels/elements/sourcebook-panel/sourcebook-panel.tsx`（語言名稱、技能名稱）
-- `src/components/modals/party/party-modal.tsx`（語言名稱、技能名稱）
-- `src/components/panels/elements/negotiation-panel/negotiation-panel.tsx`（語言名稱）
-- `src/components/panels/classic-sheet/components/feature-component.tsx`（語言名稱、技能名稱）
-- `src/components/panels/classic-sheet/follower-card/followers-card.tsx`（語言名稱、技能名稱）
-- `src/components/panels/classic-sheet/negotiation-sheet/negotiation-npc-card.tsx`（語言名稱）
-- `src/components/features/feature-data/skill-choice.tsx`（技能名稱）
-- `src/components/modals/select/skill-select/skill-select-modal.tsx`（技能名稱與類別、類別標籤）
-- `src/components/panels/classic-sheet/skills-card/skills-card.tsx`（技能名稱與類別）
-- `src/components/features/feature-data/skill-cancel-choice.tsx`（技能名稱）
-- `src/components/panels/classic-sheet/follower-card/companion-card.tsx`（技能名稱）
-- `src/components/panels/elements/ability-panel/ability-panel.tsx`（動作名稱、動作描述、族裔招式描述、核准文字段的動態數值）
-- `src/components/panels/hero/abilities/abilities-panel.tsx`（動作名稱）
-- `src/components/panels/classic-sheet/ability-card/ability-card.tsx`（動作名稱、動作描述、族裔招式描述）
-- `src/components/modals/select/standard-ability-select/standard-ability-select-modal.tsx`（動作名稱）
-- `src/components/pages/heroes/hero-sheet/hero-sheet-preview-page.tsx`（動作名稱）
-
-## 舊的失敗嘗試，不要再做
-
-- 自己另做一套詞彙，和 Master Sheet 打架。例如 Class 必須是「職業」，Career 必須是「生涯」。
-- 一次改太大片。
-- 為計算出來的招式文字另寫一套計算邏輯。動態顯示可以依上面的核准綁定，取用既有英文計算結果。
-- 在大約 60 個畫面各自掛鉤子。
-- 不跟上游同步。
-- 從那次嘗試裡撿東西來用。
-
-## 倉庫是公開的
-
-草稿譯文、筆記、還沒核准的內容都不要放進倉庫。快照裡可以有什麼，寫在在地化的說明和腳本裡。
-
-## 守門要過
-
-`node scripts/l10n/check.mjs` 必須通過。每個 pull request 也會在 GitHub Actions 跑它（`.github/workflows/l10n-check.yml`）。
-
-## 改了專案狀態就要更新文件
-
-會改變進度或決定的 pull request，要同時更新 [PROGRESS.md](PROGRESS.md)。有新的決定時，也要寫進 [DECISIONS.md](DECISIONS.md)。
+- 完整入口 `node scripts/l10n/verify.mjs`：守門（含匯出一致性）→ Lint → TypeScript → Vitest → 正式建置 → audit。前項失敗仍跑後項，任何失敗整體 exit 1。CI 使用同入口、六項分開顯示；必要狀態 l10n 覆蓋六項。
+- 上游 `npm run check` 保持原樣；完整入口已涵蓋其要求，不重複相同檢查。`--only` 只供定位／補跑，不能當成整體通過；audit 使用本批實際結果，不沿用舊數量或忽略漏洞。
+- Sass／暫存／權限異常先 `--doctor`，確認 lockfile 安裝後以原設定在適合環境重跑。臨時設定不作完成證據，不因沙盒錯誤猜缺套件；結束前清理暫存檔。
+- 依影響先跑回歸再完整驗證。共用機制涵蓋數值、計算開關、語言切換、未知備援、資料不變；少量可重複瀏覽器檢查旅程與列印 DOM，不截圖、不錄影。
+- 總數只在 inventory.test.ts 集中，批次測試驗自己的鍵與行為。同程式版本只補文件時，檢查 diff／連結／狀態一致性並引用日期、版本、限制，不重跑全部遊戲測試。守門含匯出一致性，不重複跑 export-sheet --check。

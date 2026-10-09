@@ -1,18 +1,33 @@
 # 先讀這裡
 
-這份資料夾是正體中文版跨對話的唯一依據。換人、換助手、換一天繼續做之前，依下面的順序讀完。
+本專案保留現有顯示層中文化架構。先讀此摘要即可接手；詳細內容依任務載入。
 
-1. [RULES.md](RULES.md)：什麼可以改、什麼不能改。
-2. [DECISIONS.md](DECISIONS.md)：已經拍板的事。網站這邊目前沒有還懸著的決定（Master Sheet 的 Open Decisions 1 是書本 Glossary 的 Enhancement，見 DECISIONS「尚未決定」）。
-3. [PROGRESS.md](PROGRESS.md)：做到哪一批、下一步是什麼。
+## 現況與下一步
 
-和這三份不一致的舊筆記，以這三份為準。
+- 維護順序 1 已合併 PR #53；順序 2–5 的狀態、驗證版本與遠端結果見 [PROGRESS](PROGRESS.md)。
+- 核准清冊：428 個 mapping／105 列 Forge Steel Strings 版／11 個英文例外。這是防錯清冊，不是產品中文化完成率。
+- 下一內容批次：自訂文化已選面向 Field 的核准名稱補線，先看 [COVERAGE](COVERAGE.md)。UI 標籤另批；2026-10-10 實讀 Master Sheet metadata，尚無 Forge Steel UI 分頁。
+- Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
 
-2026-10-08 已整理 P2-9-1 經驗：RULES 的「後續批次執行與驗證」是執行方式；DECISIONS 保留決策理由；PROGRESS 區分已完成與尚待實作的改善。不要把待辦當成已完成，也不要因舊段落寫「計算後留英文」而忽略後來核准的動態顯示決策。
+## 不可違反的界線
 
-## Master Sheet 與本機驗收
+1. 中文只取 Master Sheet 的 APPROVED；不得自行補譯、改寫或把草稿放公開 repo。Sheet：`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`。
+2. 只在顯示時套用中文；不改遊戲資料、計算、存檔或分享碼。自訂／改名／未知內容保留原值。
+3. 動態數值投射上游計算結果；未知改寫保留完整計算後英文。英文備援不算該段中文化完成。
+4. `main` 是上游鏡像；工作分支經 PR 合進 `develop`。上游 push URL 維持禁用；分叉不自動部署。
+5. 完整驗證：`node scripts/l10n/verify.mjs`，任一檢查失敗整體即失敗。不要把分項結果說成全通過；不截圖、不錄影。
+6. 一般內容批次仍先對照預覽與 Marc 核准。本次 2026-10-10 維護 1–5 明確授權免人工驗收，不擴及未核准譯文。
 
-- Master Sheet 那邊先讀 Project State，再讀 Status、Changelog。
-- 更新快照依 [SNAPSHOT.md](SNAPSHOT.md)，同次擷取 CSV 所需欄位與核准動態 Note，再離線整合與守門。
-- Marc 的本機 repo：`C:\TRPG\Draw Steel site\forgesteel-zh-tw`。
-- 表格預覽頁的入口：把英雄頁網址的 `#/hero/view/<ID>` 改成 `#/hero/sheet/<ID>`。
+## 任務路由
+
+| 任務 | 讀取 |
+|---|---|
+| 改程式／治理 | [RULES](RULES.md)，只再讀相關決策 |
+| 快照與 Note | [SNAPSHOT](SNAPSHOT.md)；先讀線上 Project State、Status，單一寫入者 |
+| 上游同步／分支規則 | [UPSTREAM](UPSTREAM.md) |
+| 顯示覆蓋／P3 | [COVERAGE](COVERAGE.md) |
+| P4／多來源過期 | [P4-STRUCTURE](P4-STRUCTURE.md) |
+| 結案 | [BATCH-TEMPLATE](BATCH-TEMPLATE.md)，補原 PR 一次 |
+| 例外與決策理由 | [DECISIONS](DECISIONS.md)；只有需要時讀其中的歷史索引 |
+
+本機：`C:\TRPG\Draw Steel site\forgesteel-zh-tw`。經典表格入口：`#/hero/view/<ID>` 改為 `#/hero/sheet/<ID>`。

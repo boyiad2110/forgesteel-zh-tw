@@ -49,3 +49,12 @@ jobs:
       - name: Dependency audit
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: node scripts/l10n/verify.mjs --only audit
+
+      - name: Install browser for player regression
+        id: browser
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npx playwright install --with-deps chromium
+
+      - name: Player journey browser regression
+        if: ${{ !cancelled() && steps.browser.outcome == 'success' }}
+        run: node scripts/l10n/browser-smoke.mjs

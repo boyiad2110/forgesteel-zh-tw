@@ -127,6 +127,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { checkSourceDependencies } from './source-dependencies.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, '../..');
@@ -2063,6 +2064,7 @@ export const runCheck = (root = repoRoot, catalogRoot = root) => {
 		...checkCjk(root),
 		...checkMapping(root, catalogRoot),
 		...checkCalculationBindings(root, catalogRoot),
+		...checkSourceDependencies(root, catalogRoot),
 		...checkGenerated(catalogRoot)
 	];
 };
