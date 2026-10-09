@@ -347,12 +347,12 @@ export const SidebarPanel = (props: Props) => {
 					conditionImmunities.length > 0 ?
 						useRows ?
 							<div className='selectable-row clickable' onClick={onShowConditions}>
-								<div>Cannot Be: <b>{conditionImmunities.join(', ')}</b></div>
+								<div>Cannot Be: <b>{conditionImmunities.map((c, n) => <span key={c}>{n > 0 ? ', ' : null}<ConditionName type={c} /></span>)}</b></div>
 							</div>
 							:
 							<div className='overview-tile clickable' onClick={onShowConditions}>
 								<HeaderText>Cannot Be</HeaderText>
-								{conditionImmunities.map((c, n) => <div key={n} className='ds-text'>{c}</div>)}
+								{conditionImmunities.map(c => <div key={c} className='ds-text'><ConditionName type={c} /></div>)}
 							</div>
 						: null
 				}

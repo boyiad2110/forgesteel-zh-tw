@@ -1193,6 +1193,65 @@ describe('condition immunity display', () => {
 		expect(text(classicSheet())).toContain('Dazed');
 		expect(text(classicSheet())).toContain('Slowed');
 	});
+
+	test('shows approved condition names in both hero sidebar layouts, with English fallbacks', async () => {
+		await loadCatalog();
+		const hero = FactoryLogic.createHero();
+		hero.features = [ FactoryLogic.feature.createConditionImmunity({
+			id: 'condition-immunity',
+			name: 'Condition Immunity',
+			conditions: [
+				ConditionType.Weakened,
+				ConditionType.Taunted,
+				ConditionType.Slowed,
+				ConditionType.Restrained,
+				ConditionType.Prone,
+				ConditionType.Grabbed,
+				ConditionType.Frightened,
+				ConditionType.Dazed,
+				ConditionType.Bleeding,
+				ConditionType.Custom
+			]
+		}) ];
+		const sidebar = (singlePage: boolean, compactView: boolean) => {
+			const options = FactoryLogic.createOptions();
+			options.singlePage = singlePage;
+			options.compactView = compactView;
+			return renderToStaticMarkup(withOptions(options, createElement(SidebarPanel, {
+				hero,
+				sourcebooks: [],
+				setTab: () => undefined,
+				onShowState: () => undefined,
+				onShowReference: () => undefined,
+				onAddSquad: () => undefined,
+				onRemoveSquad: () => undefined,
+				onAddMonsterToSquad: () => undefined,
+				onSelectControlledMonster: () => undefined,
+				onSelectControlledSquad: () => undefined,
+				onSetControlledMonsterDefeated: () => undefined,
+				onSetControlledMonsterHidden: () => undefined
+			})));
+		};
+		const plain = (html: string) => html.replace(/<[^>]+>/g, '');
+		const chineseNames = [ '出血', '暈眩', '畏縮', '擒制', '伏地', '束縛', '緩速', '嘲諷', '虛弱' ];
+		const englishNames = [ 'Bleeding', 'Dazed', 'Frightened', 'Grabbed', 'Prone', 'Restrained', 'Slowed', 'Taunted', 'Weakened' ];
+
+		const layouts: [ boolean, boolean ][] = [ [ false, false ], [ true, true ] ];
+		for (const layout of layouts) {
+			const chinese = plain(sidebar(...layout));
+			chineseNames.forEach(name => expect(chinese).toContain(name));
+			englishNames.forEach(name => expect(chinese).not.toContain(name));
+			expect(chinese).toContain('Custom Condition');
+		}
+		expect(plain(sidebar(true, true))).toContain('出血, Custom Condition, 暈眩, 畏縮, 擒制, 伏地, 束縛, 緩速, 嘲諷, 虛弱');
+
+		setLanguage('en');
+		const english = plain(sidebar(false, false));
+		englishNames.forEach(name => expect(english).toContain(name));
+		chineseNames.forEach(name => expect(english).not.toContain(name));
+		expect(english).toContain('Custom Condition');
+		setLanguage('zh-TW');
+	});
 });
 
 describe('skill display batch', () => {
