@@ -27,13 +27,17 @@ npm ci
 npm run start
 ```
 
-瀏覽器開啟 http://localhost:5173 。提交前要跑在地化守門。它故意沒有放進 `npm run check`，以免和上游那一行衝突：
+瀏覽器開啟 http://localhost:5173 。分叉的完整驗證入口：
 
 ```bash
-node scripts/l10n/check.mjs
+node scripts/l10n/verify.mjs
 ```
 
-`npm run check` 是上游的檢查，可以另外跑，但不能代替上面這條。
+依序執行在地化守門（含匯出一致性）、Lint、TypeScript、Vitest、正式建置、npm audit。前項失敗仍執行後項，最後列出各項退出碼與耗時；任何一項失敗，整體退出碼為 1。稽核漏洞與網路失敗均不忽略。
+
+`node scripts/l10n/verify.mjs --doctor` 只列環境與依賴版本；`--only guard|lint|types|tests|build|audit` 選一項補跑，不能當成完整驗證。環境或 Sass 異常先跑 doctor，確認依鎖定檔安裝依賴，再用原設定重跑；不要看到 Sass 錯誤就直接新增 sass-embedded。
+
+GitHub Localization check 使用相同入口，六項各自顯示為一步；依賴安裝成功後，前項失敗不會跳過後項。上游 `npm run check` 保持原樣（Lint、TypeScript、Vitest、audit，遇錯即停），本批相容性驗證仍需執行；它不含在地化守門或正式建置。單獨守門仍可用 `node scripts/l10n/check.mjs`，不必接著重跑匯出一致性。
 
 ## 同步上游
 

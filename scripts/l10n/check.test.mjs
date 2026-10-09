@@ -1108,25 +1108,28 @@ ${sections}
 
 describe('repository', () => {
 	test('reads upstream English from source text', () => {
-		expect(forgeEnglish(repoRoot, 'element:ancestry-orc:name')).toEqual({ english: 'Orc' });
-		expect(forgeEnglish(repoRoot, 'enum:Characteristic:Might')).toEqual({ english: 'Might' });
-		expect(forgeEnglish(repoRoot, 'data:ConditionData:weakened').english.trim()).toBe('A creature who is weakened takes a bane on power rolls.');
-		expect(forgeEnglish(repoRoot, 'language:Caelian')).toEqual({ english: 'Caelian' });
-		expect(forgeEnglish(repoRoot, 'language:The First Language')).toEqual({ english: 'The First Language' });
-		expect(forgeEnglish(repoRoot, 'language:Proto-Ctholl')).toEqual({ english: 'Proto-Ctholl' });
-		expect(forgeEnglish(repoRoot, 'language:Kalliak')).toEqual({ english: 'Kalliak' });
-		expect(forgeEnglish(repoRoot, 'language:Kalliac')).toEqual({ english: 'Kalliac' });
-		expect(forgeEnglish(repoRoot, 'language:Zaliac')).toEqual({ english: 'Zaliac' });
-		expect(forgeEnglish(repoRoot, 'language:Ullorvic')).toEqual({ english: 'Ullorvic' });
-		expect(forgeEnglish(repoRoot, 'skill:Alchemy')).toEqual({ english: 'Alchemy' });
-		expect(forgeEnglish(repoRoot, 'skill:Handle Animals')).toEqual({ english: 'Handle Animals' });
-		expect(forgeEnglish(repoRoot, 'skill:Timescape')).toEqual({ english: 'Timescape' });
-		expect(forgeEnglish(repoRoot, 'skill:Climb')).toEqual({ english: 'Climb' });
-		expect(forgeEnglish(repoRoot, 'enum:SkillList:Lore')).toEqual({ english: 'Lore' });
-		expect(forgeEnglish(repoRoot, 'element:charge:name')).toEqual({ english: 'Charge' });
-		expect(forgeEnglish(repoRoot, 'element:make-assist-test:name')).toEqual({ english: 'Make Or Assist A Test' });
-		expect(forgeEnglish(repoRoot, 'element:search:name')).toEqual({ english: 'Search for Hidden Creatures' });
-		expect(forgeEnglish(repoRoot, 'element:opportunity-attack:name')).toEqual({ english: 'Opportunity Attack' });
+		// Match checkMapping: build each source index once for this repository read.
+		const cache = { current: null };
+		const readEnglish = key => forgeEnglish(repoRoot, key, cache);
+		expect(readEnglish('element:ancestry-orc:name')).toEqual({ english: 'Orc' });
+		expect(readEnglish('enum:Characteristic:Might')).toEqual({ english: 'Might' });
+		expect(readEnglish('data:ConditionData:weakened').english.trim()).toBe('A creature who is weakened takes a bane on power rolls.');
+		expect(readEnglish('language:Caelian')).toEqual({ english: 'Caelian' });
+		expect(readEnglish('language:The First Language')).toEqual({ english: 'The First Language' });
+		expect(readEnglish('language:Proto-Ctholl')).toEqual({ english: 'Proto-Ctholl' });
+		expect(readEnglish('language:Kalliak')).toEqual({ english: 'Kalliak' });
+		expect(readEnglish('language:Kalliac')).toEqual({ english: 'Kalliac' });
+		expect(readEnglish('language:Zaliac')).toEqual({ english: 'Zaliac' });
+		expect(readEnglish('language:Ullorvic')).toEqual({ english: 'Ullorvic' });
+		expect(readEnglish('skill:Alchemy')).toEqual({ english: 'Alchemy' });
+		expect(readEnglish('skill:Handle Animals')).toEqual({ english: 'Handle Animals' });
+		expect(readEnglish('skill:Timescape')).toEqual({ english: 'Timescape' });
+		expect(readEnglish('skill:Climb')).toEqual({ english: 'Climb' });
+		expect(readEnglish('enum:SkillList:Lore')).toEqual({ english: 'Lore' });
+		expect(readEnglish('element:charge:name')).toEqual({ english: 'Charge' });
+		expect(readEnglish('element:make-assist-test:name')).toEqual({ english: 'Make Or Assist A Test' });
+		expect(readEnglish('element:search:name')).toEqual({ english: 'Search for Hidden Creatures' });
+		expect(readEnglish('element:opportunity-attack:name')).toEqual({ english: 'Opportunity Attack' });
 	});
 
 	test('the two orc rows differ only by punctuation or an article', () => {

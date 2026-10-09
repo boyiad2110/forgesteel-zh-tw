@@ -2,6 +2,10 @@
 
 ## 目前狀態 / 下一步
 
+2026-10-10：MAINT-VERIFICATION「驗證穩定性與 CI」由 Marc 核准實作，分支 `codex/verification-maintenance`，基底 develop `fc0da193`。範圍：來源掃描測試共用快取、分叉統一驗證入口與環境診斷、CI 六項檢查獨立回報。總數維持 428／105／11；不改翻譯、runtime、上游設定或依賴。尚未人工驗收或合併。
+
+本批驗證：修改前已重現來源掃描測試在 5 秒預設限制逾時（5.62 秒）；修改後相關測試 73/73 通過。統一入口在沙盒外以原設定完成六項檢查：守門、Lint（0 error、7 個既有匯入排序 warning）、TypeScript、Vitest 844/844（38 檔，預設 workers／逾時）及正式建置通過；audit 實際執行，回報 4 個漏洞（1 moderate、3 high：brace-expansion／minimatch、fast-uri、source-map-js），exit 1，整體正確回傳失敗，未忽略或修改依賴。耗時依序約 4.0／35.9／23.5／68.1／11.4／3.2 秒。沙盒內初次全套測試遇暫存模組 ENOENT（32 檔無法載入、117 項通過）及建置失敗，已以同一設定在沙盒外驗證；doctor 可確認已安裝 sass，不將沙盒錯誤當成缺少 sass-embedded。新增 10 項驗證入口測試涵蓋失敗後續跑、audit 失敗、程序錯誤、中斷、完整成功與參數限制；CI YAML 結構檢查及 git diff --check 通過。原始 npm run check 相容性驗證進行中。
+
 2026-10-10：P2-1-5「玩家族裔與文化選擇流程名稱一致性」已通過 Marc 本機人工驗收；程式 PR #51（https://github.com/boyiad2110/forgesteel-zh-tw/pull/51）squash 合併至 develop（`63e6bff10502e50682d2518f38848ed1f16e8824`），本機 develop 已同步至同一版本。驗收涵蓋 Former Life 族裔下拉與族裔特性候選／已選值、27 個官方文化卡三面向摘要及自訂文化面向、Library 共用 CulturePanel、英雄總覽／精簡列、特性詳情、經典表格、英／正體中文切換與自訂／改名／Homebrew／未知內容保留；選擇、詳情、搜尋排序及模式切換正常，經典表格無明顯截斷、重疊或溢出。沿用 12 個族裔、112 個既有族裔特性鍵、27 個文化名稱及 13 個面向名稱；共用文化摘要僅在官方原 ID／名稱／描述、三面向及原組合格式吻合時顯示核准面向名稱，其他描述完整保留；英語模式保留英文。右側 Field 摘要及 UI 標籤仍留 P3。總數維持 428／105／11，無新增譯文、mapping、Forge Steel 版或英文例外。改動回歸 6/6，完整 Vitest 834/834（37 檔、單 worker、30 秒）、TypeScript、改動檔 ESLint、l10n 守門、匯出一致性、inventory 3/3、git diff --check、正式建置及 GitHub Localization check 通過。原始 `npm run check` 的來源掃描測試仍超預設 5 秒逾時（833 通過、1 逾時），audit 未執行；此既有限制另案處理。無截圖或錄影。
 
 2026-10-09：P2-SOURCES「內建官方來源與來源入口」已通過 Marc 本機驗收，PR #43 squash 合併至 develop（5081a1c8），本批已接受。集中總數維持 428／105／11。P3 等 Forge Steel UI 分頁；Enhancement、既有來源掃描逾時與 audit 4 個漏洞另案。

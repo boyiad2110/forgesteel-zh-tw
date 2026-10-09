@@ -23,10 +23,29 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        id: install
         run: npm ci
 
       - name: Localization guard
-        run: node scripts/l10n/check.mjs
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/l10n/verify.mjs --only guard
+
+      - name: Lint
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/l10n/verify.mjs --only lint
+
+      - name: Type check
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/l10n/verify.mjs --only types
 
       - name: Test
-        run: npx vitest run
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/l10n/verify.mjs --only tests
+
+      - name: Production build
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/l10n/verify.mjs --only build
+
+      - name: Dependency audit
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: node scripts/l10n/verify.mjs --only audit
