@@ -17,6 +17,7 @@ import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability
 import { AncestryData } from '@/data/ancestry-data';
 import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
+import { ConditionType } from '@/enums/condition-type';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { FeatureField } from '@/enums/feature-field';
@@ -25,6 +26,7 @@ import { FeatureType } from '@/enums/feature-type';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
+import { InfoConditionImmunity } from '@/components/features/feature-data/condition-immunity';
 import { OptionsContext } from '@/contexts/data-context';
 import { PanelMode } from '@/enums/panel-mode';
 import { PartyModal } from '@/components/modals/party/party-modal';
@@ -1168,6 +1170,30 @@ const renderPerkChoice = () => {
 	});
 	return renderToStaticMarkup(createElement(FeatureComponent, { feature }));
 };
+
+describe('condition immunity display', () => {
+	test('shows approved condition names in details and the classic sheet, with English fallbacks', async () => {
+		await loadCatalog();
+		const feature = FactoryLogic.feature.createConditionImmunity({
+			id: 'condition-immunity',
+			name: 'Unstoppable Mind',
+			conditions: [ ConditionType.Dazed, ConditionType.Slowed, ConditionType.Custom ]
+		});
+		const details = () => renderToStaticMarkup(createElement(InfoConditionImmunity, { data: feature.data, feature }));
+		const classicSheet = () => renderToStaticMarkup(createElement(FeatureComponent, { feature }));
+		const text = (html: string) => html.replace(/<[^>]+>/g, '');
+
+		expect(text(details())).toContain('暈眩, 緩速, Custom Condition');
+		expect(text(classicSheet())).toContain('暈眩');
+		expect(text(classicSheet())).toContain('緩速');
+		expect(text(classicSheet())).toContain('Custom Condition');
+
+		setLanguage('en');
+		expect(text(details())).toContain('Dazed, Slowed, Custom Condition');
+		expect(text(classicSheet())).toContain('Dazed');
+		expect(text(classicSheet())).toContain('Slowed');
+	});
+});
 
 describe('skill display batch', () => {
 	beforeEach(async () => {

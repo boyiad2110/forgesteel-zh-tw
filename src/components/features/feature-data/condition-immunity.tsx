@@ -18,7 +18,10 @@ interface InfoProps {
 
 export const InfoConditionImmunity = (props: InfoProps) => {
 	return (
-		<Field label='Cannot Be' value={props.data.conditions.join(', ')} />
+		<Field
+			label='Cannot Be'
+			value={props.data.conditions.map((condition, index) => <span key={`${condition}-${index}`}>{index > 0 ? ', ' : ''}<ConditionName type={condition} /></span>)}
+		/>
 	);
 };
 

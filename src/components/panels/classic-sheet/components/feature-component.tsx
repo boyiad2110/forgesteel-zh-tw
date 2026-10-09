@@ -4,6 +4,7 @@ import { AbilityComponent } from '@/components/panels/classic-sheet/components/a
 import { AbilityUsage } from '@/enums/ability-usage';
 import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
+import { ConditionName } from '@/l10n/condition-text';
 import { DamageModifier } from '@/models/damage-modifier';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
@@ -331,7 +332,7 @@ const DomainFeatureComponent = (feature: FeatureDomain | FeatureDomainFeature) =
 
 const ConditionImmunityFeatureComponent = (feature: FeatureConditionImmunity) => {
 	const immunities = feature.data.conditions.map(c => {
-		return (<div className='feature-iteration' key={`immunity-${c.toString}`}>{c.toString()}</div>);
+		return (<div className='feature-iteration' key={`immunity-${c.toString}`}><ConditionName type={c} /></div>);
 	});
 	return (
 		<>
