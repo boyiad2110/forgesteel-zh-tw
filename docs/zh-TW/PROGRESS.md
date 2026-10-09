@@ -6,7 +6,7 @@
 
 2026-10-09：P2-1-2「條件免疫名稱顯示補齊」已通過 Marc 本機驗收，PR #45 squash 合併至 develop（31510b4e），本批結案；集中總數維持 428／105／11。P3 介面標籤仍待 Forge Steel UI 分頁；既有測試逾時與 audit 4 個漏洞另案。
 
-2026-10-09：P2-1-3「英雄側欄條件免疫名稱」依核准範圍實作中；補一般卡片與精簡列兩處，沿用九個 APPROVED `ConditionName` 對照，不新增譯文、mapping 或例外，總數維持 428／105／11。標籤留 P3；怪物詳情與怪物列印頁另批。回歸測試已加入；單檔 110/110、完整 Vitest 828/828（單 worker／30 秒）通過。沙盒內 Vitest 曾遇 Windows 暫存模組 ENOENT；沙盒外原始 `npm run check` 則因既有來源掃描測試超過 5 秒逾時退出，既有 audit 4 個漏洞已另行確認。待 PR 檢查及 Marc 本機驗收。
+2026-10-09：P2-1-3「英雄側欄條件免疫名稱」已通過 Marc 本機驗收並 squash 合併 PR #47 至 develop（`47b1be6df2370c923479606b303362094cb6200a`）；補一般卡片與精簡列兩處，沿用九個 APPROVED `ConditionName` 對照，不新增譯文、mapping 或例外，總數維持 428／105／11。標籤留 P3；怪物詳情與怪物列印頁另批。單檔 110/110、完整 Vitest 828/828（單 worker／30 秒）通過；既有來源掃描測試 5 秒逾時與 audit 4 個漏洞另案。
 
 2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。P2-9-3 虹彩鱗片六個選項已通過 Marc 本機驗收，PR #35 squash 合併至 develop（d5f353a2）；集中預期總數為 427／105／10。本機 develop 已同步，本批結案。
 
@@ -148,11 +148,11 @@ Marc 於 2026-10-09 核准沿用既有九個 APPROVED Glossary 對照，補齊�
 
 回歸測試以多個核准條件及自訂條件確認兩處顯示與英文備援。Marc 於 2026-10-09 本機驗收通過特性詳情與經典表格的正體中文名稱及英／正體中文切換；[PR #45](https://github.com/boyiad2110/forgesteel-zh-tw/pull/45) squash 合併至 develop（`31510b4e754a4c66a9c2bf2a848b4e09f9c391ae`），本機已快轉同步。GitHub Localization check 通過。合併版本驗證：守門、匯出一致性、全專案 ESLint、TypeScript 及 Vitest 827/827（單 worker／30 秒）通過；預設 `npm run check` 仍因既有來源掃描測試超過 5 秒逾時而退出，未接續 audit；另跑 `npm audit` 仍為既有 4 個漏洞（1 moderate、3 high），未改依賴。英雄側欄摘要與列印頁不在本批範圍，後續另行評估。總數維持 428／105／11；無截圖或錄影。
 
-## P2-1-3 英雄側欄條件免疫名稱（實作中）
+## P2-1-3 英雄側欄條件免疫名稱（已接受）
 
 Marc 核准補齊英雄側欄 `Cannot Be` 摘要的一般卡片與精簡列，沿用九個 APPROVED 條件名稱及 `ConditionName`。排序、逗號分隔、點擊行為、英文模式及未對照名稱備援維持原行為；不新增譯文、mapping 或例外，總數維持 428／105／11。標籤仍留 P3；怪物詳情與怪物列印頁另行評估。
 
-回歸測試涵蓋九個核准名稱、兩種版面、英文模式及未對照條件。沙盒內完整 Vitest 曾受 Windows 暫存模組 ENOENT 影響；沙盒外單檔 110/110、完整 Vitest 828/828（單 worker／30 秒）通過。沙盒外原始 `npm run check` 的 Lint／TypeScript 通過，Vitest 827 項通過、1 個既有來源掃描測試超過預設 5 秒逾時，exit 1、未接續 audit；另補 `npm audit --json`，仍有既有 4 個漏洞（1 moderate、3 high），未改依賴。待 GitHub 檢查與 Marc 本機驗收。無截圖或錄影。
+回歸測試涵蓋九個核准名稱、兩種版面、英文模式及未對照條件。沙盒內完整 Vitest 曾受 Windows 暫存模組 ENOENT 影響；沙盒外單檔 110/110、完整 Vitest 828/828（單 worker／30 秒）、改動檔 ESLint、TypeScript、在地化守門與匯出一致性通過。原始 `npm run check` 的 Lint／TypeScript 通過，Vitest 827 項通過、1 個既有來源掃描測試超過預設 5 秒逾時，exit 1、未接續 audit；另補 `npm audit --json`，仍有既有 4 個漏洞（1 moderate、3 high），未改依賴。Marc 於 2026-10-09 本機驗收一般卡片與精簡列的正體中文條件名稱及英／正體中文切換，回覆驗收通過；[PR #47](https://github.com/boyiad2110/forgesteel-zh-tw/pull/47) GitHub Localization check 通過並 squash 合併至 develop（`47b1be6df2370c923479606b303362094cb6200a`）。不新增譯文、mapping 或例外；總數維持 428／105／11。結案只更新文件及 Master Sheet，不重跑遊戲測試；無截圖或錄影。
 
 ## 後面預計做的
 
