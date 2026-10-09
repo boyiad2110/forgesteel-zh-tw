@@ -2,19 +2,19 @@
 
 ## 目前狀態 / 下一步
 
-2026-10-09：P2-SOURCES「內建官方來源與來源入口」已依 Marc 核准的四檔方案完成程式與技術驗證，PR #43 已建立；本批尚待 Marc 本機驗收，不合併。集中總數維持 428／105／11。P3 等 Forge Steel UI 分頁；Enhancement、既有來源掃描逾時與 audit 4 個漏洞另案。
+2026-10-09：P2-SOURCES「內建官方來源與來源入口」已通過 Marc 本機驗收，PR #43 squash 合併至 develop（5081a1c8），本批已接受。集中總數維持 428／105／11。P3 等 Forge Steel UI 分頁；Enhancement、既有來源掃描逾時與 audit 4 個漏洞另案。
 
 2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。P2-9-3 虹彩鱗片六個選項已通過 Marc 本機驗收，PR #35 squash 合併至 develop（d5f353a2）；集中預期總數為 427／105／10。本機 develop 已同步，本批結案。
 
 快照 CSV 與核准動態 Note 整合維護已通過 Marc 本機驗收，PR #37 於 2026-10-08 squash 合併至 develop（6e21b001）。P2-6-3 隨從與專案面板技能／語言名稱已由 Marc 驗收通過，PR #39 squash 合併至 develop（9236f0f7）；本機已同步；P2-5-3 已接受並合併 PR #41（1bbc7725），集中總數為 428／105／11。下一個 P2 內容範圍先提出對照預覽，P3 仍待 Master Sheet 的 Forge Steel UI 分頁。
 
-## P2-SOURCES 內建官方來源與來源入口（待驗收）
+## P2-SOURCES 內建官方來源與來源入口（已接受）
 
 Marc 於 2026-10-09 核准最小範圍與驗收條件。分支 `codex/official-sourcebooks-only` 從 `develop @ 57d66e34` 建立；四個程式檔移除 Community、六個第三方來源及 Community 預覽／Age of Secrets 的載入、瀏覽與選擇入口。官方四份來源及既有 Patreon／Playtest 條件保留；Homebrew 建立、匯入與儲存流程保留。Library 與建造選單沿用集中來源清單，沒有逐頁新增過濾。原始資料、來源列舉、英雄格式及分享壓縮字典不變；不做既有非官方英雄相容或移轉。譯文、mapping、快照與集中預期總數 428／105／11 不變。
 
 驗證（2026-10-09）：守門、匯出一致性、Lint、TypeScript、`git diff --check`、本批六項回歸及 inventory 3/3 通過。本批回歸在修改前有四項預期失敗，修改後通過。完整 Vitest 826/826（35 檔，`--maxWorkers=1 --testTimeout=30000`）及原始設定的 production build 通過。原始 `npm run check` 在沙盒外執行，Lint／TypeScript 通過，Vitest 825 通過、1 個既有來源掃描測試超過預設 5 秒，exit 1，未接續 audit；另補本批 `npm audit --json`，仍為既有 4 個漏洞（1 moderate、3 high），exit 1。不宣稱完整 check 通過，不改依賴或設定。初次沙盒檢查曾遇暫存模組 ENOENT，build 曾誤報缺少 sass-embedded；確認已安裝 sass 後，同一設定在沙盒外建置通過。
 
-本機驗收位置：Library → Sourcebooks（只含 Official／Homebrew）；Homebrew 建立、匯入、重載保存及內容瀏覽；新英雄 Start 的來源分組；英雄頁 Settings 的來源分組；英／正體中文切換。無截圖或錄影。[PR #43](https://github.com/boyiad2110/forgesteel-zh-tw/pull/43) 尚待 Marc 人工驗收，驗收通過前不合併。上述程式與正式建置驗證對應 `87680ac9`；後續僅補 PR 連結，不重跑遊戲測試。
+本機驗收位置：Library → Sourcebooks（只含 Official／Homebrew）；Homebrew 建立、匯入、重載保存及內容瀏覽；新英雄 Start 的來源分組；英雄頁 Settings 的來源分組；英／正體中文切換。無截圖或錄影。Marc 於 2026-10-09 回覆驗收通過；[PR #43](https://github.com/boyiad2110/forgesteel-zh-tw/pull/43) squash 合併至 develop（`5081a1c832c2f7d5363ab2eedb7073e990d0e761`），本機已快轉同步。上述程式與正式建置驗證對應 `87680ac9`；GitHub Localization check #120 對應 `44115499`，通過。結案僅更新文件及 Master Sheet，驗證守門、匯出一致性與文件差異，不重跑遊戲測試。
 
 獨立無頭 Edge 已在本批正式建置驗證上述操作：保留既有社群旗標時仍只有四份官方來源及兩個來源分頁；建立與匯入 Homebrew 後重載資料保留；匯入族裔出現在 Library，英／正體中文切換正常；新英雄能勾選 Homebrew 並選用其族裔，保存後 Settings 仍只提供 Official／Homebrew。未發現瀏覽器 page error。正式建置未產生社群／第三方來源的獨立 chunk；這不代表移除凍結分享字典裡的原始文字。測試瀏覽器與暫時 QA 腳本已關閉／移除；不替代 Marc 人工驗收。
 
@@ -152,7 +152,7 @@ Marc 確認復元值能自動更新，核准把「你會恢復等於 13 的體�
 8. 招式批次（P2-8）：8-1 族裔招式名稱 19 個（已接受，#26）。Remember your Oath（書：Remember Your Oath）、Draconic Pride（書：Draconian Pride）的名稱走 Forge Steel 版，中文與書本相同。8-2 族裔描述與內文段（已接受，#28）：description 10 鍵（直接對照 6、Forge Steel 版 4）、文字段 7 鍵（直接對照 3、Forge Steel 版 4）；Sheet 寫 8 列 P–V（第 58、65、69、91、191、245、287、304 列）；程式改 `src/l10n/ability-text.ts`（`abilitySectionKey` 擴到族裔招式、新增 description 鍵）、`ability-panel.tsx`（description：compact 與 full 兩處）、`ability-card.tsx`（description）。8-3 Escape Grab、Grab、Knockback 的「效果：」段（第 38、39、41 列各 1 段，`section:<id>:2`）已接受（#29，2026-10-07）：Sheet 寫 3 列 P–V 並新增 CHG-0065。Grab／Knockback 以原始英文字串查翻譯鍵，再將上游計算數值投射到核准中文（`calculation-bindings.json`／`calculated-text.ts`）；關閉計算恢復原文。Strings U39、U41 補註 CHG-0066，Project State／Status 已更新；Marc 已驗收閃電開關與力量 2→3。擲骰（tier）、關鍵字、距離、目標、觸發句、Forge Steel 改寫的段留英文；第 177、331、356 列的引言不對照；Foresight（2-2b）只做名稱。職業、套組、領域、專長招式不在這批。矮人、哈肯人、歐克沒有招式
 9. 跟書對不上的項目（排在 P2-4 與招式批次之後）：哈肯人總覽、命定末視（P2-9-1 已接受，#31）、符文銘刻（P2-9-2 已接受，#33）；虹彩鱗片 6 個選項（P2-9-3 已接受，#35；結案文件 #36）。
 
-同一階段：P2-SOURCES 內建僅載入官方來源、移除社群與第三方入口，已核准實作，待本機驗收。
+同一階段：P2-SOURCES 內建僅載入官方來源、移除社群與第三方入口，已驗收通過並合併 PR #43，本批結案。
 
 **P3。** 介面文字。等 Master Sheet 有「Forge Steel UI」分頁之後才做。在那之前介面維持英文。
 
