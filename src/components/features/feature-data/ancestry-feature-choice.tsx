@@ -10,6 +10,7 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
+import { PlayerName } from '@/l10n/player-name';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
@@ -126,7 +127,14 @@ export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
 				allowClear={true}
 				placeholder='Select a feature from an ancestry'
 				options={sortedFeatures.map(f => ({ label: f.name, value: f.id, desc: f.description || f.type, disabled: currentFeatureIDs.includes(f.id) }))}
-				optionRender={option => <Field disabled={option.data.disabled} label={option.data.label} value={option.data.desc} />}
+				optionRender={option => {
+					const feature = sortedFeatures.find(f => f.id === option.data.value);
+					return <Field disabled={option.data.disabled} label={feature ? <PlayerName element={feature} /> : option.data.label} value={option.data.desc} />;
+				}}
+				labelRender={option => {
+					const feature = sortedFeatures.find(f => f.id === option.value);
+					return feature ? <PlayerName element={feature} /> : option.label;
+				}}
 				value={props.data.selected ? props.data.selected.id : null}
 				onChange={value => {
 					const dataCopy = Utils.copy(props.data);
