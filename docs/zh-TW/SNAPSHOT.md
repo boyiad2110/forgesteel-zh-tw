@@ -62,4 +62,4 @@ node scripts/l10n/check.mjs
 - 完整重建動態 Note 集合，不合併舊 Note 掩蓋遺漏。沒有句型的列不需要 Note；已啟用句型的列缺 Note 由守門拒絕。
 - 成功後移除暫存輸入並核對 `git diff`。來源時間是這次取得時間，後續寫 Project State／Status 不代表譯文再取得一次。非本批的譯文差異另列對照預覽，不順帶納入。
 
-相關測試：`npx vitest run scripts/l10n/refresh-sheet.test.mjs scripts/l10n/check.test.mjs --maxWorkers=1 --testTimeout=30000`。每批仍依 RULES 跑 `npm run check` 並如實記錄未通過項目；不改預設逾時或依賴來讓本批過關。
+相關測試：`npx vitest run scripts/l10n/refresh-sheet.test.mjs scripts/l10n/check.test.mjs`。每批依 RULES 跑 `node scripts/l10n/verify.mjs` 並如實記錄未通過項目；不改預設逾時或依賴來讓本批過關。
