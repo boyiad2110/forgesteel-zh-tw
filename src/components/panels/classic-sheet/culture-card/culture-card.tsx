@@ -1,6 +1,7 @@
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { useLanguageNames } from '@/l10n/language-text';
+import { PlayerName } from '@/l10n/player-name';
 
 import './culture-card.scss';
 
@@ -29,7 +30,7 @@ export const CultureCard = (props: Props) => {
 			<section className='name bordered'>
 				<h3>Culture Name</h3>
 				<div className='content'>
-					{character.culture?.name}
+					{character.culture ? <PlayerName element={character.culture} /> : null}
 				</div>
 			</section>
 			<section className='culture-language bordered'>
@@ -51,7 +52,7 @@ export const CultureCard = (props: Props) => {
 			</div>
 			<section className='bordered'>
 				<h3>Environment</h3>
-				<h4>{character.culture?.environment?.name}</h4>
+				<h4>{character.culture?.environment ? <PlayerName element={character.culture.environment} /> : null}</h4>
 				{character.culture?.environment ?
 					<FeatureComponent
 						feature={character.culture?.environment}
@@ -61,7 +62,7 @@ export const CultureCard = (props: Props) => {
 			</section>
 			<section className='bordered'>
 				<h3>Organization</h3>
-				<h4>{character.culture?.organization?.name}</h4>
+				<h4>{character.culture?.organization ? <PlayerName element={character.culture.organization} /> : null}</h4>
 				{character.culture?.organization ?
 					<FeatureComponent
 						feature={character.culture?.organization}
@@ -71,7 +72,7 @@ export const CultureCard = (props: Props) => {
 			</section>
 			<section className='bordered'>
 				<h3>Upbringing</h3>
-				<h4>{character.culture?.upbringing?.name}</h4>
+				<h4>{character.culture?.upbringing ? <PlayerName element={character.culture.upbringing} /> : null}</h4>
 				{character.culture?.upbringing ?
 					<FeatureComponent
 						feature={character.culture?.upbringing}

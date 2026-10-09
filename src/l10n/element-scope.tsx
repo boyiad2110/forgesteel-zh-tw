@@ -1,6 +1,8 @@
 import { L10nScope, useDisplayKey, useL10nText } from '@/l10n/hooks';
 import { L10nField } from '@/l10n/text';
 import { ReactNode } from 'react';
+import { isPlayerNameKey, playerNameKey } from '@/l10n/player-name';
+import { useOptionalSourcebooks } from '@/contexts/data-context';
 
 export { L10nUnscoped } from '@/l10n/hooks';
 
@@ -28,9 +30,9 @@ export interface ElementOverlay {
  * whose projection adapter validates the displayed value. Unknown rewrites
  * stay in English.
  */
-export const elementScopeFields = (element: ElementText, overlay?: ElementOverlay | null): L10nField[] => {
+export const elementScopeFields = (element: ElementText, overlay?: ElementOverlay | null, canonicalPlayerName = true): L10nField[] => {
 	const fields: L10nField[] = [];
-	if (!overlay?.name && element.name) {
+	if (!overlay?.name && element.name && canonicalPlayerName) {
 		fields.push({ field: 'name', text: element.name });
 	}
 	if (!overlay?.description && element.description) {
@@ -45,8 +47,10 @@ export const elementScopeFields = (element: ElementText, overlay?: ElementOverla
  * fields use the same key with projection validation.
  */
 export const ElementScope = (props: { element: ElementText, overlay?: ElementOverlay | null, children: ReactNode }) => {
+	const sourcebooks = useOptionalSourcebooks();
+	const canonicalPlayerName = !isPlayerNameKey(props.element) || !sourcebooks || playerNameKey(props.element, sourcebooks) !== undefined;
 	return (
-		<L10nScope id={props.element.id} fields={elementScopeFields(props.element, props.overlay)}>
+		<L10nScope id={props.element.id} fields={elementScopeFields(props.element, props.overlay, canonicalPlayerName)}>
 			{props.children}
 		</L10nScope>
 	);

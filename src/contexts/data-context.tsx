@@ -315,3 +315,7 @@ export function useSourcebooks() {
 	}
 	return context;
 }
+
+export function useOptionalSourcebooks() {
+	return useContext(SourcebooksContext);
+}

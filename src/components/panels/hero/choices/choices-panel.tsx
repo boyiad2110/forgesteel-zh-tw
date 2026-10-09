@@ -15,6 +15,7 @@ import { ProjectLogic } from '@/logic/project-logic';
 import { Sourcebook } from '@/models/sourcebook';
 import { Title } from '@/models/title';
 import { useOptions } from '@/contexts/data-context';
+import { PlayerName } from '@/l10n/player-name';
 
 import './choices-panel.scss';
 
@@ -47,13 +48,13 @@ export const ChoicesPanel = (props: Props) => {
 				props.hero.ancestry ?
 					useRows ?
 						<div className='selectable-row clickable' onClick={() => props.onSelectAncestry(props.hero.ancestry!)}>
-							<div>Ancestry: <b>{props.hero.ancestry.name}</b></div>
+							<div>Ancestry: <b><PlayerName element={props.hero.ancestry} /></b></div>
 						</div>
 						:
 						<div className='overview-tile clickable' onClick={() => props.onSelectAncestry(props.hero.ancestry!)}>
 							<HeaderText>Ancestry</HeaderText>
-							<Field label='Ancestry' value={props.hero.ancestry.name} />
-							{HeroLogic.getFormerAncestries(props.hero).map(a => <Field key={a.id} label='Former Life' value={a.name} />)}
+							<Field label='Ancestry' value={<PlayerName element={props.hero.ancestry} />} />
+							{HeroLogic.getFormerAncestries(props.hero).map(a => <Field key={a.id} label='Former Life' value={<PlayerName element={a} />} />)}
 						</div>
 					:
 					<div className='overview-tile'>
@@ -65,15 +66,15 @@ export const ChoicesPanel = (props: Props) => {
 				props.hero.culture ?
 					useRows ?
 						<div className='selectable-row clickable' onClick={() => props.onSelectCulture(props.hero.culture!)}>
-							<div>Culture: <b>{props.hero.culture.name}</b></div>
+							<div>Culture: <b><PlayerName element={props.hero.culture} /></b></div>
 						</div>
 						:
 						<div className='overview-tile clickable' onClick={() => props.onSelectCulture(props.hero.culture!)}>
 							<HeaderText>Culture</HeaderText>
-							{props.hero.culture ? <Field label='Culture' value={props.hero.culture.name} /> : null}
-							{props.hero.culture.environment ? <Field label='Environment' value={props.hero.culture.environment.name} /> : null}
-							{props.hero.culture.organization ? <Field label='Organization' value={props.hero.culture.organization.name} /> : null}
-							{props.hero.culture.upbringing ? <Field label='Upbringing' value={props.hero.culture.upbringing.name} /> : null}
+							{props.hero.culture ? <Field label='Culture' value={<PlayerName element={props.hero.culture} />} /> : null}
+							{props.hero.culture.environment ? <Field label='Environment' value={<PlayerName element={props.hero.culture.environment} />} /> : null}
+							{props.hero.culture.organization ? <Field label='Organization' value={<PlayerName element={props.hero.culture.organization} />} /> : null}
+							{props.hero.culture.upbringing ? <Field label='Upbringing' value={<PlayerName element={props.hero.culture.upbringing} />} /> : null}
 						</div>
 					:
 					<div className='overview-tile'>
