@@ -16,11 +16,11 @@
 
 ## 驗證
 
-2026-10-10 本次程式工作樹，以 Node 24.18.0／npm 11.10.1、依上游 lockfile 加最小 brace-expansion 5.0.12 修補安裝；使用原 workers／逾時／建置設定，在沙盒外完整驗證。守門、Lint（0 error、既有匯入排序 warning）、TypeScript、Vitest **972/972（43 檔）**、正式建置、npm audit **0 漏洞**，六項皆 exit 0。依序約 2.8／27.5／19.4／12.1／9.1／2.1 秒；日期／版本以本批 PR 程式提交為準。早期整合中的失敗不作完成證據：Lint 的 JSX 大括號與 staged snapshot fixture 已修，完整重跑通過。新來源守門含 staged catalog 測試；更改後續來源能確實失敗，沒有降低守門。
+2026-10-10 本次程式工作樹，以 Node 24.18.0／npm 11.10.1、依上游 lockfile 加最小 brace-expansion 5.0.12 修補安裝；使用原 workers／逾時／建置設定，在沙盒外完整驗證。守門、Lint（0 error、既有匯入排序 warning）、TypeScript、Vitest **972/972（43 檔）**、正式建置、npm audit **0 漏洞**，六項皆 exit 0。最後完整重跑依序約 2.8／25.7／16.5／12.1／9.1／1.9 秒；日期／版本以本批 PR 程式提交為準。早期整合中的失敗不作完成證據：Lint 的 JSX 大括號與 staged snapshot fixture 已修，完整重跑通過。新來源守門含 staged catalog 測試；更改後續來源能確實失敗，沒有降低守門。
 
-隔離 Edge 無頭瀏覽器：族裔候選→已選→儲存後英雄總覽、英／正體中文切換、經典表格核准名稱及列印 media 下頁首水平溢出、擒抱力量 2→3（期望值獨立取核准文字位置，不呼叫被測投射器）、關閉計算回到原核准文字，全部通過；page errors 為 0。沒有截圖或錄影。列印檢查只證明本次 fixture 頁首與 DOM，不宣稱所有英雄的整份表格視覺驗收。CI 另用 Chromium 跑相同脚本。
+隔離 Edge 無頭瀏覽器：族裔候選→已選→儲存後英雄總覽、英／正體中文切換、經典表格核准名稱及列印 media 下頁首水平溢出、擒抱力量 2→3（期望值獨立取核准文字位置，不呼叫被測投射器）、關閉計算回到原核准文字，全部通過；page errors 為 0。沒有截圖或錄影。列印檢查只證明本次 fixture 頁首與 DOM，不宣稱所有英雄的整份表格視覺驗收。CI 另用 Chromium 跑相同腳本。
 
-本批 PR／CI／合併結果會集中補在原 PR；不另开結案文件 PR。後續只有文件補記時引用同程式版本驗證，git diff --check 仍需通過。
+本批 [PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，程式提交 `cc74a2b5`；CI／合併結果集中補在原 PR，不另開結案文件 PR。後續只有文件補記時引用同程式版本驗證，git diff --check 仍需通過。
 
 ## 下一步與來源限制
 

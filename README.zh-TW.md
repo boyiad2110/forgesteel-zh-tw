@@ -37,7 +37,7 @@ node scripts/l10n/verify.mjs
 
 `node scripts/l10n/verify.mjs --doctor` 只列環境與依賴版本；`--only guard|lint|types|tests|build|audit` 選一項補跑，不能當成完整驗證。環境或 Sass 異常先跑 doctor，確認依鎖定檔安裝依賴，再用原設定重跑；不要看到 Sass 錯誤就直接新增 sass-embedded。
 
-GitHub Localization check 使用相同入口，六項各自顯示為一步；依賴安裝成功後，前項失敗不會跳過後項。上游 `npm run check` 保持原樣（Lint、TypeScript、Vitest、audit，遇錯即停），本批相容性驗證仍需執行；它不含在地化守門或正式建置。單獨守門仍可用 `node scripts/l10n/check.mjs`，不必接著重跑匯出一致性。
+GitHub Localization check 使用相同入口，六項各自顯示為一步，另跑玩家旅程瀏覽器回歸；依賴安裝成功後，前項失敗不會跳過後項。上游 `npm run check` 保持原樣（Lint、TypeScript、Vitest、audit，遇錯即停），完整 verify 已涵蓋其檢查，不再重複執行；它不含在地化守門或正式建置。單獨守門仍可用 `node scripts/l10n/check.mjs`，不必接著重跑匯出一致性。
 
 ## 同步上游
 

@@ -23,13 +23,15 @@ jobs:
           git remote add upstream https://github.com/andyaiken/forgesteel.git
           git fetch upstream main
           mirror=$(git rev-list --count origin/main..upstream/main)
+          mirror_extra=$(git rev-list --count upstream/main..origin/main)
           integration=$(git rev-list --count origin/develop..upstream/main)
           {
             echo '### Upstream synchronization'
             echo "Mirror missing commits: $mirror"
+            echo "Mirror extra commits: $mirror_extra"
             echo "Develop missing commits: $integration"
             echo 'Use docs/zh-TW/UPSTREAM.md to integrate through a PR.'
             git log --oneline origin/develop..upstream/main
             git diff --stat origin/main upstream/main
           } >> "$GITHUB_STEP_SUMMARY"
-          test "$mirror" -eq 0 && test "$integration" -eq 0
+          test "$mirror" -eq 0 && test "$mirror_extra" -eq 0 && test "$integration" -eq 0
