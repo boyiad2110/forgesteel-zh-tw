@@ -20,7 +20,7 @@
 
 隔離 Edge 無頭瀏覽器：族裔候選→已選→儲存後英雄總覽、英／正體中文切換、經典表格核准名稱及列印 media 下頁首水平溢出、擒抱力量 2→3（期望值獨立取核准文字位置，不呼叫被測投射器）、關閉計算回到原核准文字，全部通過；page errors 為 0。沒有截圖或錄影。列印檢查只證明本次 fixture 頁首與 DOM，不宣稱所有英雄的整份表格視覺驗收。CI 另用 Chromium 跑相同腳本。
 
-本批 [PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，程式提交 `cc74a2b5`；CI／合併結果集中補在原 PR，不另開結案文件 PR。後續只有文件補記時引用同程式版本驗證，git diff --check 仍需通過。
+**維護順序 1–5 已完成並通過自主驗證**；交付集中 [PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，程式提交 `cc74a2b5`。最終程式與治理版本 `70fa69e2` 的 [CI #37993319244](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/37993319244) 全數成功：六項完整檢查與 Chromium 玩家旅程回歸均通過。依使用者授權以 merge commit 合併，合併 SHA 與時點以 PR #54 的 GitHub 紀錄為準，不另開結案文件 PR。此後只補驗證紀錄，程式內容未變。後續只有文件補記時引用同程式版本驗證，git diff --check 仍需通過。
 
 ## 下一步與來源限制
 
