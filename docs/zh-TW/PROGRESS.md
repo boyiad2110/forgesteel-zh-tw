@@ -2,7 +2,7 @@
 
 ## 目前狀態 / 下一步
 
-2026-10-09：P2-SOURCES「內建官方來源與來源入口」已依 Marc 核准的四檔方案完成程式與技術驗證；本批尚待 Marc 本機驗收，不合併。集中總數維持 428／105／11。P3 等 Forge Steel UI 分頁；Enhancement、既有來源掃描逾時與 audit 4 個漏洞另案。
+2026-10-09：P2-SOURCES「內建官方來源與來源入口」已依 Marc 核准的四檔方案完成程式與技術驗證，PR #43 已建立；本批尚待 Marc 本機驗收，不合併。集中總數維持 428／105／11。P3 等 Forge Steel UI 分頁；Enhancement、既有來源掃描逾時與 audit 4 個漏洞另案。
 
 2026-10-08 接續摘要：P2-9-1 與治理文件已接受（PR #31、#32）。總數測試維護 PR #34 已通過 Marc 驗收並 squash 合併至 develop（12115ea1）。P2-9-2 符文銘刻已通過 Marc 本機驗收、同步新基底並完成重新驗證，本批已接受（PR #33）；集中預期總數為 421／99／10。P2-9-3 虹彩鱗片六個選項已通過 Marc 本機驗收，PR #35 squash 合併至 develop（d5f353a2）；集中預期總數為 427／105／10。本機 develop 已同步，本批結案。
 
@@ -14,7 +14,7 @@ Marc 於 2026-10-09 核准最小範圍與驗收條件。分支 `codex/official-s
 
 驗證（2026-10-09）：守門、匯出一致性、Lint、TypeScript、`git diff --check`、本批六項回歸及 inventory 3/3 通過。本批回歸在修改前有四項預期失敗，修改後通過。完整 Vitest 826/826（35 檔，`--maxWorkers=1 --testTimeout=30000`）及原始設定的 production build 通過。原始 `npm run check` 在沙盒外執行，Lint／TypeScript 通過，Vitest 825 通過、1 個既有來源掃描測試超過預設 5 秒，exit 1，未接續 audit；另補本批 `npm audit --json`，仍為既有 4 個漏洞（1 moderate、3 high），exit 1。不宣稱完整 check 通過，不改依賴或設定。初次沙盒檢查曾遇暫存模組 ENOENT，build 曾誤報缺少 sass-embedded；確認已安裝 sass 後，同一設定在沙盒外建置通過。
 
-本機驗收位置：Library → Sourcebooks（只含 Official／Homebrew）；Homebrew 建立、匯入、重載保存及內容瀏覽；新英雄 Start 的來源分組；英雄頁 Settings 的來源分組；英／正體中文切換。無截圖或錄影。尚待 Marc 人工驗收，驗收通過前不合併；PR 連結於建立後補入。
+本機驗收位置：Library → Sourcebooks（只含 Official／Homebrew）；Homebrew 建立、匯入、重載保存及內容瀏覽；新英雄 Start 的來源分組；英雄頁 Settings 的來源分組；英／正體中文切換。無截圖或錄影。[PR #43](https://github.com/boyiad2110/forgesteel-zh-tw/pull/43) 尚待 Marc 人工驗收，驗收通過前不合併。上述程式與正式建置驗證對應 `87680ac9`；後續僅補 PR 連結，不重跑遊戲測試。
 
 獨立無頭 Edge 已在本批正式建置驗證上述操作：保留既有社群旗標時仍只有四份官方來源及兩個來源分頁；建立與匯入 Homebrew 後重載資料保留；匯入族裔出現在 Library，英／正體中文切換正常；新英雄能勾選 Homebrew 並選用其族裔，保存後 Settings 仍只提供 Official／Homebrew。未發現瀏覽器 page error。正式建置未產生社群／第三方來源的獨立 chunk；這不代表移除凍結分享字典裡的原始文字。測試瀏覽器與暫時 QA 腳本已關閉／移除；不替代 Marc 人工驗收。
 
