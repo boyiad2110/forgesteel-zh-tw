@@ -61,6 +61,10 @@ Google 雲端的中文 Master Sheet 是唯一依據。檔案編號：`1RAtKBsoL3
 
 上游常更新。改到的上游檔案越少，以後合併越不容易打架。到目前為止動過的上游檔案：
 
+- `src/data/sourcebook-data.ts`（內建只載入官方來源）
+- `src/utils/feature-flags.ts`（移除社群預覽的可啟用入口）
+- `src/components/modals/sourcebooks/sourcebooks-modal.tsx`（來源視窗只保留 Official／Homebrew）
+- `src/components/panels/hero-sourcebooks/hero-sourcebooks-panel.tsx`（英雄來源選擇只保留 Official／Homebrew）
 - `src/components/modals/settings/settings-modal.tsx`
 - `src/components/controls/markdown/markdown.tsx`
 - `src/components/controls/header-text/header-text.tsx`

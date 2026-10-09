@@ -30,9 +30,7 @@ export class FeatureFlags {
 
 	private static all = [
 		FeatureFlags.warehouse,
-		FeatureFlags.playtest,
-		FeatureFlags.communityPreRelease,
-		FeatureFlags.ageOfSecrets
+		FeatureFlags.playtest
 	];
 
 	// #endregion

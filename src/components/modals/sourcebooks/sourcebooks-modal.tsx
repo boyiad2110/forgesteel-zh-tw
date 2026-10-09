@@ -5,8 +5,6 @@ import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { HeaderText } from '@/components/controls/header-text/header-text';
-import { Info } from '@/components/controls/info/info';
-import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
 import { PanelMode } from '@/enums/panel-mode';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
@@ -109,82 +107,6 @@ export const SourcebooksModal = (props: Props) => {
 					</>
 				);
 			}
-			case SourcebookType.ThirdParty: {
-				const thirdPartySourcebooks = props.officialSourcebooks.filter(s => s.type === SourcebookType.ThirdParty);
-				return (
-					<>
-						<HeaderText
-							level={1}
-							extra={
-								<Info>
-									<Markdown text={'If you\'d like your company\'s content to be featured here, [get in touch](mailto:andy.aiken@live.co.uk).'} />
-								</Info>
-							}
-						>
-							Third-Party Sourcebooks
-						</HeaderText>
-						<Space orientation='vertical' style={{ width: '100%' }}>
-							{
-								Collections.sort(thirdPartySourcebooks, sb => sb.name).map(s => (
-									<SelectablePanel key={s.id} onSelect={() => setSelectedSourcebook(s)}>
-										<SourcebookPanel
-											sourcebook={s}
-											sourcebooks={[ ...props.officialSourcebooks, ...homebrewSourcebooks ]}
-											visibility={{
-												visible: !hiddenSourcebookIDs.includes(s.id),
-												onSetVisibility: (value: boolean) => setVisibility(s, value)
-											}}
-										/>
-									</SelectablePanel>
-								))
-							}
-							{
-								thirdPartySourcebooks.length === 0 ?
-									<Empty />
-									: null
-							}
-						</Space>
-					</>
-				);
-			}
-			case SourcebookType.Community: {
-				const communitySourcebooks = props.officialSourcebooks.filter(s => s.type === SourcebookType.Community);
-				return (
-					<>
-						<HeaderText
-							level={1}
-							extra={
-								<Info>
-									<Markdown text={'If you\'d like your creations to be featured here, just fill in [this form](https://forms.cloud.microsoft/r/mmxqfnFzx4).'} />
-								</Info>
-							}
-						>
-							Community Sourcebooks
-						</HeaderText>
-						<Space orientation='vertical' style={{ width: '100%' }}>
-							{
-								Collections.sort(communitySourcebooks, sb => sb.name).map(s => (
-									<SelectablePanel key={s.id} onSelect={() => setSelectedSourcebook(s)}>
-										<SourcebookPanel
-											sourcebook={s}
-											sourcebooks={[ ...props.officialSourcebooks, ...homebrewSourcebooks ]}
-											visibility={{
-												visible: !hiddenSourcebookIDs.includes(s.id),
-												onSetVisibility: (value: boolean) => setVisibility(s, value)
-											}}
-										/>
-									</SelectablePanel>
-								))
-							}
-							{
-								communitySourcebooks.length === 0 ?
-									<Empty />
-									: null
-							}
-						</Space>
-					</>
-				);
-			}
 			case SourcebookType.Homebrew: {
 				const createSourcebook = () => {
 					const copy = Utils.copy(homebrewSourcebooks);
@@ -270,8 +192,6 @@ export const SourcebooksModal = (props: Props) => {
 					block={true}
 					options={[
 						{ value: SourcebookType.Official, label: 'Official' },
-						{ value: SourcebookType.ThirdParty, label: 'Third Party' },
-						{ value: SourcebookType.Community, label: 'Community' },
 						{ value: SourcebookType.Homebrew, label: 'Homebrew' }
 					]}
 					value={page}
