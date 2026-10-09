@@ -276,13 +276,20 @@ export const AbilityPanel = (props: Props) => {
 		}
 	};
 
+	// Where the ability is browsed rather than used, show that it can't be chosen at level 1;
+	// on a hero's sheet it has already been chosen
+	const tags = [ ...(props.tags || []) ];
+	if (!props.hero && (props.ability.minLevel > 1)) {
+		tags.push(`Level ${props.ability.minLevel}+`);
+	}
+
 	if (props.mode !== PanelMode.Full) {
 		return (
 			<ErrorBoundary>
 				<div className='ability-panel compact' style={props.style}>
 					<HeaderText
 						ribbon={getRibbon()}
-						tags={props.tags}
+						tags={tags}
 						l10nKey={nameKey}
 					>
 						{props.ability.name || 'Unnamed Ability'}
@@ -312,7 +319,7 @@ export const AbilityPanel = (props: Props) => {
 				</Space>
 				<HeaderText
 					ribbon={getRibbon()}
-					tags={props.tags}
+					tags={tags}
 					l10nKey={nameKey}
 					extra={
 						<ButtonGroup

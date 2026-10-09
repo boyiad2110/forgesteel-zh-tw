@@ -1,0 +1,1505 @@
+{
+  "version": 1,
+  "rows": {
+    "heroes.actions.catch-breath.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.catch-breath.rules",
+          "enHash": "1c0b2977e520a816e40c49a83a55654f74a8b985e74de3a0832ec29713a1eef3",
+          "zhHash": "3fb14e4ecef0dbcdd51d01b3fbcc2ba3c19aee74306c19aa8407a5e4d365d7eb"
+        }
+      ],
+      "sourcesHash": "242894dc5c9e05d58dc069570c85f073a4de521419c19ee9ad67dd02eb08bcb4",
+      "fs": {
+        "enHash": "fcfc6609d639510791422132fc1d9a4519bc019bbfb57c5fcb4751e5f2f75469",
+        "zhHash": "fe77f324a8b45b8b2384ee58365d8123d012813375259ccae01877db38d0d16f"
+      }
+    },
+    "heroes.actions.charge.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.charge.rules",
+          "enHash": "5fe7547e30afe029be6c7cbb706b1bf5ee4e31b27b96e02bf5d77f650627f2b7",
+          "zhHash": "36e5b5e7ae3d74b7c95d813ea96c58a43636d0e8d2989002253fa3770d5d914f"
+        }
+      ],
+      "sourcesHash": "107192befe3aa2ec91e004629c155d9e061c2d122f39fa505c44c2442061a497",
+      "fs": {
+        "enHash": "f49fb08cb83d9aa68c830ee4cc776da816026d87b4d892f980cd75394c520d73",
+        "zhHash": "1c836370ea6151937a957670c2fb1c52e00eead27b2e6f1bc2d454b3e7414350"
+      }
+    },
+    "heroes.actions.defend.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.defend.rules",
+          "enHash": "01e2693b81853d45ab870f48b2f2e89ac6fc992ae0a03eaa9139b6501c76f2bd",
+          "zhHash": "972638f75ab55b7f99d4f72b1e1fa036c9c3cdf1dc9fab59c48afeefd03fec10"
+        }
+      ],
+      "sourcesHash": "a66dd3ca106965035c249d405d69eab4dd6e5c9ab21db69c69f83f181adb3768",
+      "fs": {
+        "enHash": "02759e0e7e193dfd5ff881dca7abaccca68e0f9847d28a0e624606b88cdafa74",
+        "zhHash": "897a8a900845c7a36d366b7b302dbf079ca27e832d958a84fa18e78eb30f06cd"
+      }
+    },
+    "heroes.actions.escape-grab.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.escape-grab.rules",
+          "enHash": "5075bcefd461a4ab4220b010670002aab584433a66a28ae6df83e1b1290c3ee7",
+          "zhHash": "482f1c7035dcc7829c1cd66d9e9e057a9e2c134e0eba771c3e897efb69efd076"
+        }
+      ],
+      "sourcesHash": "543bd7344a6ab24d5cfd2f855bb8153138828ba4fac316d91cc944a799bc6498",
+      "fs": {
+        "enHash": "b918a3bddf98a638cb74e45cc5d6d1a0d285dbde797561ea967f40afcfd65590",
+        "zhHash": "abc7189f33e925ed0c744160d7b2b1753f7980a70e6699a3573d561036e07000"
+      }
+    },
+    "heroes.actions.free-strike.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.free-strike.rules",
+          "enHash": "757a3491c18d8bfb8b5eff8cac6f451e6a540d78e39a1faad2c792d4636dd871",
+          "zhHash": "64087c51d1bea36490cca8829ff59ae7611b784b732c2a1ba0232b4b9fdd5fb0"
+        }
+      ],
+      "sourcesHash": "b9f495601d9c61c2aaba011b2283596fb99c23f8e844924d166c534c24da05e2",
+      "fs": {
+        "enHash": "cb156132e328993d956f05ebf8725eebcfb0028874769a38577fa569229d3399",
+        "zhHash": "df3b90728aecef3f787be937c510a60cadaed9c4295d45c711b8db969d2ff11f"
+      }
+    },
+    "heroes.actions.grab.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.grab.rules",
+          "enHash": "8ce6a6dbf1d5e88c481b5e7de8b84f08e4140ba3befcb5bac1af442a53906983",
+          "zhHash": "5f4377eae7766310706ba0d8a5b915638006d2360540d2f9d6e0d9c696d7dab5"
+        }
+      ],
+      "sourcesHash": "1ca1ce243cc1393791af4ad4d4a2e527f0aef36cd3041149f85153978cc39ed8",
+      "fs": {
+        "enHash": "75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f",
+        "zhHash": "e766faabb1a464276a17c379546cfe5b4af6759f751034199a092a59dfa0d21a"
+      }
+    },
+    "heroes.actions.hide.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.hide.rules",
+          "enHash": "52873b854b96e3b1b1f20f47e3a7a191e091535a6f8df6ab86817cd7d0f83ad2",
+          "zhHash": "8babd7b7fd7ca95670c2a3fa98c416f3c7ddbec0ee578ab9407348c96010962d"
+        }
+      ],
+      "sourcesHash": "2e6149957d58f87d188f782c647bf8f1d02005898a0b44187406602e54caba29",
+      "fs": {
+        "enHash": "352726ce4330032038bae35fcc52de47114a864658fb3243af6e3d87a8f245a7",
+        "zhHash": "2204f3fc4fa5017386403d8eea5a7c2473b1488523bf52c36839e5ed916de982"
+      }
+    },
+    "heroes.actions.knockback.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.knockback.rules",
+          "enHash": "51f4ad5d399aadfbbd033ae8171fd34e4fb7d81c8be37a8a043f0fc43d3ae10b",
+          "zhHash": "cd8cd4548276259d72fac6e0bfb0d56d8bd66c295261872dcea3487bafafc719"
+        }
+      ],
+      "sourcesHash": "5fc36b6422908b272c618d142a7eb2e2aad284c164dee48d00343af14e77c70f",
+      "fs": {
+        "enHash": "75722ad3d7d332d15d3d664d50c4c8782d61b2e563e090f32ffebb2ac43a3e0f",
+        "zhHash": "fd187bfb805d89e35e74849a92a20ed217f95ca5055dff71f3e12f75cd112208"
+      }
+    },
+    "heroes.actions.make-or-assist-test.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.make-or-assist-test.rules",
+          "enHash": "2fd36983677f59a3d160ef6c05cd7e966eb58d878adf8b9db2941754090a26dd",
+          "zhHash": "6c93a9bfc18ff0752d25dbf45a97c008f7514ade0db9e57e14544d7f9c88612e"
+        }
+      ],
+      "sourcesHash": "3ca74732fe288327409e70e01b3d59537e2eec273df7b70b4c8d8aea93f1567c",
+      "fs": {
+        "enHash": "776900f8024dd44d582f3da23af70607c66c428b5b9dbe86404f7e5b8d84bba7",
+        "zhHash": "bef33f6a04cbbbaee53fdf5b52e8a74efa9c2a1149711eab76fc1e500286f96c"
+      }
+    },
+    "heroes.actions.ride.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.ride.rules",
+          "enHash": "91e2ab457cd8a836bffc8b0d5836d669b822ba941a40d453b3925fd43b25ec2e",
+          "zhHash": "459688f6098e9175a35c8cb6923013f496047fd965585dbc7b86b0ebc7c34360"
+        }
+      ],
+      "sourcesHash": "503d40d31f3340aa7ec45527fa3a77ed58bfbaae9f27935426f0d6a3de1f956c",
+      "fs": {
+        "enHash": "7430b780b71e02fc019a7107da8ccfed317fe85fa4d91ff60fa75160665b2634",
+        "zhHash": "fdb80817ad2dcd15eef890be408e8a28021b27876049934fd7fec09261bb7e13"
+      }
+    },
+    "heroes.actions.search-for-hidden-creatures.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.search-for-hidden-creatures.rules",
+          "enHash": "81e94fa28ce1f02837f89ced1a3e40979671f3d0504181a14274e3c7f5a92b1d",
+          "zhHash": "b9d4c0d4556c3fd35cdea41e45a6ed823f04c8eee7c80dfbdcd289e940bd9f7f"
+        }
+      ],
+      "sourcesHash": "abb36ba1bdda0359a926f99364ea0db2428ec4d2510a6a5c0028184e22f59871",
+      "fs": {
+        "enHash": "be058205592f7b0ebe14108d22ef4a9885654d81344057ceb9c0e03b9852555e",
+        "zhHash": "00d56e4fabe5c093fdf9822bddb751eb12c8efd30494e0367ab0e8b1e52a9821"
+      }
+    },
+    "heroes.actions.use-consumable.rules": {
+      "sources": [
+        {
+          "sheetId": "heroes.actions.use-consumable.rules",
+          "enHash": "687e2ae521db43ad9bb720f62ab6721b458190ca3c621a99b5ea376fdd3b7705",
+          "zhHash": "670988e71bbf79efda88e19b6cd9ded851f6e88065f4f03d4b34ca68ec3c45f1"
+        }
+      ],
+      "sourcesHash": "fa90140eac44c18aebc5e7c70724f3268c7297453c9d06744d7527abcf28d9ce",
+      "fs": {
+        "enHash": "c4dd70e2b56ed5f9b033f273146c6309565e773dd052f0d1fb8ebdc08a46aa4e",
+        "zhHash": "88ac16fa7839a2b62637dcb79d67a29daa305dd3b0e14eb3e0382e799cd64475"
+      }
+    },
+    "heroes.ancestries.devil.trait.beast-legs.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.devil.trait.beast-legs.effect",
+          "enHash": "692aafb4f01b976db9ca6c272b1ecf0d61062dc4f5d639d9779c78ad92b93264",
+          "zhHash": "27209c660201722dd99daf55dd39009c5bfd1d65da0bb9d14cb65a377535e351"
+        }
+      ],
+      "sourcesHash": "966fc49634ac1f46dd4fc563d83b337fbc985dde30ee6ae9725f9886dd26622c",
+      "fs": {
+        "enHash": "8ed815b4981e46386ef3e3ed6d9d2fd0518b4fac1a9fb9d798d3b6ffc23e0594",
+        "zhHash": "27209c660201722dd99daf55dd39009c5bfd1d65da0bb9d14cb65a377535e351"
+      }
+    },
+    "heroes.ancestries.devil.trait.glowing-eyes.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.devil.trait.glowing-eyes.effect",
+          "enHash": "25b29fab4ae0847f655295ee042ac4dc18f7d39d0ca6defffebe620677d0d4b5",
+          "zhHash": "a43b87697d70cf84f72255ca1e91805dbbbbaae6c3486b604ec7cd0cd7351f1f"
+        }
+      ],
+      "sourcesHash": "58373e6de879f4fe16f9cb1c973d07783f6e2d58c85d20079e0f4c39b85ebfd0",
+      "fs": {
+        "enHash": "ddac078bbe860f9535ebacfb2aeb22a4713fa7d6f2a2143eeaf27fbc3e43ce3c",
+        "zhHash": "82a846ed00dbda139c71793b086f8ca3d267bdc8ea5997b25e75c79c5f044dc0"
+      }
+    },
+    "heroes.ancestries.devil.trait.impressive-horns.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.devil.trait.impressive-horns.effect",
+          "enHash": "9110a53ed9d27beffebd5f8f656dc9e5f521362e15ad1911a0f6eee09bd7dbca",
+          "zhHash": "88f47c32a9f71c325c63cbe18b66501ebc09424bab33e3394ed76e52a8449e9d"
+        }
+      ],
+      "sourcesHash": "0bf60435ccdd865a088520a6957fe0d4992486cd6d9d9c8976cb80eb22dbce04",
+      "fs": {
+        "enHash": "453ef565fa3b8dee47cf119cf44c2310da8c67ea517e47cb58ec509ecb88e73d",
+        "zhHash": "88f47c32a9f71c325c63cbe18b66501ebc09424bab33e3394ed76e52a8449e9d"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.draconian-pride.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.draconian-pride.name",
+          "enHash": "f654b9db4896b36488c209fd9ab413c8b32cc91687b70bf01f604ef834f447ae",
+          "zhHash": "4c4d821cacbe03f7058b076dde6619a907956e6670895b77c3060291084117d2"
+        }
+      ],
+      "sourcesHash": "ab1a2c85733d1aafa770dd3902f3de03c7b0710ff2cc54f249872a3889522a01",
+      "fs": {
+        "enHash": "e22029dfed0e55aeb42019a5fc693630e785b2e86b2140b2ce03a681ae40d72a",
+        "zhHash": "4c4d821cacbe03f7058b076dde6619a907956e6670895b77c3060291084117d2"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name",
+          "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+          "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+        }
+      ],
+      "sourcesHash": "0bce1ac5e35732b532422cf385f39872358c622626179bed5b2daa65d00ac157",
+      "fs": {
+        "enHash": "88d50a2dd9b91d2a7a4c2485a7739dedfebd40d63ca873f5b344c31b3c9b2ac8",
+        "zhHash": "5abb7cf48b7a7acca763234fd53307b7ffcbbf42444270e90f6d89b0cefc28d7"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name",
+          "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+          "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+        }
+      ],
+      "sourcesHash": "8b83b058163da1b8878b003eecc805f2f67a6a3ddf125efa4fd831cd36964308",
+      "fs": {
+        "enHash": "79e0a469352896120ed8a4e1d0a6cc2d4edd8bac49e4f1515b587d65086e853c",
+        "zhHash": "8b81d912843c50b4706f2fd64e7f57ab63309b4176c4866e2d120b42b3564501"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name",
+          "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+          "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+        }
+      ],
+      "sourcesHash": "a1a1ec7ba8d6054a0ef97bcf865ce7d1ede49df56dc1153e5e61f1a0823e20cc",
+      "fs": {
+        "enHash": "5df00d8bbf95e3ae64e3b538ed37b188d881508a41f6b11ae8a4c9bdf59010ad",
+        "zhHash": "8123b7b136552ffdd206ba155fc7d454080baa3ec3b859b6a63ccdc235cff21c"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name",
+          "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+          "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+        }
+      ],
+      "sourcesHash": "275cf370d60d76e5ebe7d56c53d433e91a7126da5304220c579e919c5a785cc7",
+      "fs": {
+        "enHash": "69a7a94f293b4f1491075eb59b86cc9d7105139fe744f0c3b8b0bff071976556",
+        "zhHash": "2b12d2c841e1cdf528c94a8530bfe2e5e4eb87813aaa09899235b31506c7a404"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name",
+          "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+          "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+        }
+      ],
+      "sourcesHash": "f0a3795d68d4331d4f406dc871427d6f4b9e9c17acd46995aab450ef6e55bf78",
+      "fs": {
+        "enHash": "e72a4e2fb64bcf91cc22fc886791ac3497f88690a8f49cf08fd05bf1df3dca21",
+        "zhHash": "14b3e0c51af40d370bfc3c410ab4c9a324d01a78a36022ff55d316440a086661"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name",
+          "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+          "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+        }
+      ],
+      "sourcesHash": "800822894aa54335a04217fcce5281b2266044f439345a8a2d7cbe662e0fa922",
+      "fs": {
+        "enHash": "31b764045030d76114c1cbc0aba0ab5c898566209f0216e8a377ab06d1be690c",
+        "zhHash": "2ade3beccfc53f1b26cdf4df6e5bcd9c90a341d6943e968df486c8cb1fc5619b"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.remember-your-oath.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.name",
+          "enHash": "43354ab8a0f8e29e704fd879b2fd2819a4765d6ad7755f822bf57feee70ac0f8",
+          "zhHash": "fe225223d1bcbcdf9cb261d6852694e2c1cc9f3ab1658f7fb0a730c626ad1b0e"
+        }
+      ],
+      "sourcesHash": "4aa2f83dccdee7ef818ee98365ff9f672981852eb7c10df3403d7bbe975d0ebc",
+      "fs": {
+        "enHash": "0196045fb91ce5d2f9002ddf70ad9fc69f4f6871de7462c3a7d29f67afc315c5",
+        "zhHash": "fe225223d1bcbcdf9cb261d6852694e2c1cc9f3ab1658f7fb0a730c626ad1b0e"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.wings.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.wings.effect",
+          "enHash": "b1900157cc417e97d24fb4cfdafe31fa9fa831061f0c405da490fc099d15a0ba",
+          "zhHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc"
+        }
+      ],
+      "sourcesHash": "a02af16c984828a1be2fb005e519f16f22a49ca21abc79b832795834d71dac8f",
+      "fs": {
+        "enHash": "d75eb3951c51361e95faea88d959200a84bdef48a318272caad7e9694a47c2e9",
+        "zhHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc"
+      }
+    },
+    "heroes.ancestries.dwarf.signature.runic-carving.intro": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dwarf.signature.runic-carving.intro",
+          "enHash": "9bd4c0f4b1c61d696f7e1ce6c813e16051ce472ee53838bf6a31e9eb7bd91760",
+          "zhHash": "67342c0deeb5d75683750d30f0affa30e6527ca2f9534f12b1034037c315bcfe"
+        },
+        {
+          "sheetId": "heroes.ancestries.dwarf.signature.runic-carving.limit",
+          "enHash": "b13e65a349a087dcfeb140f826cfa034c6b82a54dc50fe13a6000b91b397d431",
+          "zhHash": "343d5c1d7709593f325c3066516297983a9c8cb5c7040842fed2ffbde87dac5b"
+        }
+      ],
+      "sourcesHash": "b3c6b496df69d3b9c1d210bdaa6ff3ab72b58ff21b6fb63f5cc5c0683326bd78",
+      "fs": {
+        "enHash": "094cb670c678be51c1e7e79f47f9bb1909553642c66d7448cc62152590739b66",
+        "zhHash": "ea1416e4daa415b618dc363ab422aa87ee7af7519a86ca67d691964a43fe5aca"
+      }
+    },
+    "heroes.ancestries.dwarf.signature.runic-carving.light.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dwarf.signature.runic-carving.light.effect",
+          "enHash": "506de3afb51e94f5403a73d75fcc24339b3c072a388f5f1808285c70a5132e39",
+          "zhHash": "e1db4c8393bafa9c06b6422a262af71b6b72a6b939322df28f094b53a767de31"
+        }
+      ],
+      "sourcesHash": "71a7a2927a398f8936bc714ad971bc8a6ab2f3023c4433ecfa73baca5758b282",
+      "fs": {
+        "enHash": "0fb646ad0d2239ef8a98bf87b2908a7d817bdd77f713c09864b6353954176025",
+        "zhHash": "e1db4c8393bafa9c06b6422a262af71b6b72a6b939322df28f094b53a767de31"
+      }
+    },
+    "heroes.ancestries.dwarf.trait.great-fortitude.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dwarf.trait.great-fortitude.effect",
+          "enHash": "16166558a756d85076fa24580b2a392da4a95aa50321eea4c9e348163f18345e",
+          "zhHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97"
+        }
+      ],
+      "sourcesHash": "680936f5490af986fa54e3a6465dccbcb7b84640250c5824e3f38c5778f387e3",
+      "fs": {
+        "enHash": "3496fc19b72729c94d6dd55f492069160c46f77ba5303fcd8842f0dbd65835a3",
+        "zhHash": "4edb2b88fc4f77ed18641abdc02f9ca8e0f2cc4fac6fc2ed0f98750106a80c1c"
+      }
+    },
+    "heroes.ancestries.dwarf.trait.grounded.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dwarf.trait.grounded.effect",
+          "enHash": "309fc95de90315df1ec3d9c6513848c49282b0ca59a6f61a616f05ae10adfcbe",
+          "zhHash": "50e08e2287d53a055c6885fed0799e5122d8a292dbf0aaebbd28bfb11d462da7"
+        }
+      ],
+      "sourcesHash": "f4278fe551921925888e8747751f341aa7385e686f1bd6b3755d6192a94a78d6",
+      "fs": {
+        "enHash": "2655b3c6f852cfe26f9b1c378d2f844c077da754f210d6c00fde1107ff1afa06",
+        "zhHash": "9589bec645537720505256651e8f4758ac7e0747f9c9064f28eaaeecbd1c927f"
+      }
+    },
+    "heroes.ancestries.dwarf.trait.spark-off-your-skin.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dwarf.trait.spark-off-your-skin.effect",
+          "enHash": "ca32bf1fac6b6f8590e114350d96cae3b05a9f48c5cfdf907fa5bfe722ffe7d0",
+          "zhHash": "1fd76faefbed8c237ec976049885a12abc2116ddc90e914850602a566a371cd1"
+        }
+      ],
+      "sourcesHash": "c814ec7c169f79cdafe8d3cfb3549484e0a2446eab15ac0551c160e457e5c0ed",
+      "fs": {
+        "enHash": "9f5767ce5d2009bd205c5452b6c60fb3bac8cea7f9a0cc1246ed70fbde7628f9",
+        "zhHash": "0045f4ae3acdad6a8304699839abba60ffe1f275ef2df9eb1100b12ecf49e89b"
+      }
+    },
+    "heroes.ancestries.dwarf.trait.stand-tough.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dwarf.trait.stand-tough.effect",
+          "enHash": "d60a36a8c247b94d043eed75ba34a02e3b772bdf82f1cfc197e7ed4c42409533",
+          "zhHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d"
+        }
+      ],
+      "sourcesHash": "529551b7db45267a0dff49ca24f1b150c8e8086de9727e84c52b3212aab32ef2",
+      "fs": {
+        "enHash": "c811f734f89b91387f07ccd3a354c4bcd919a2278b3ef904d57b73d19e973482",
+        "zhHash": "5609e78179dd72ebce0c8606c1113d1ab24e5fba02a305ce450584a58d1751fb"
+      }
+    },
+    "heroes.ancestries.dwarf.trait.stone-singer.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dwarf.trait.stone-singer.effect",
+          "enHash": "ac621e36ea631f94b0de8bc7507772356e05acf9ce83a0f14e69c034d687710d",
+          "zhHash": "c35d469ffc570f9c1ef0a7512da8c8436a2c86465a9a1de2fd36816981fd5851"
+        }
+      ],
+      "sourcesHash": "2dbc382659d8b159de098e863c1128628a81ffc4b42955a75f6af6c5fc2975a5",
+      "fs": {
+        "enHash": "f7ebf12778874f869a2d17fe83467f3a4e2dff8e9d340a66ce66ac48fdd8f97d",
+        "zhHash": "c35d469ffc570f9c1ef0a7512da8c8436a2c86465a9a1de2fd36816981fd5851"
+      }
+    },
+    "heroes.ancestries.hakaan.description.1": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.hakaan.description.1",
+          "enHash": "32f67ddcc24a822272fb6433e4d22429945105815b3f8e1389eda08ed53a2c1d",
+          "zhHash": "c180600ef4d6f8e7ae1ef69c5d6f9973a3370058af94a1b96457b0caac6802e5"
+        },
+        {
+          "sheetId": "heroes.ancestries.hakaan.description.2",
+          "enHash": "c01a93fe766fe00c8c2ea465917dbeca64921b6569f88d5be73f75e84222c587",
+          "zhHash": "70f222fc3a15b6cace4cd16875c8a1c07e924400c0081fd1eeb36481c3ece73c"
+        }
+      ],
+      "sourcesHash": "0a50ffc1873ef6da42bb300d43a363a7672df6d80d8c39012a8ac4dfe51b94e2",
+      "fs": {
+        "enHash": "4f8e81d8bdce26a219ae55428bacf258ce187fa72623c1674f4cfd3e9b08bd2a",
+        "zhHash": "a96f63543a13e40ea76f6f02e4223d2f55609397ec992563a3b2a0459a737ecf"
+      }
+    },
+    "heroes.ancestries.hakaan.trait.doomsight.effect.1": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.hakaan.trait.doomsight.effect.1",
+          "enHash": "967f3d54f99ab1023b46e451cceacdc7d860505a565984fbdb30f46d0feb640a",
+          "zhHash": "64bf8c7bd5a06ae11706fbc33f10db745b1bb8b133a5e647580c7cb506e159e2"
+        },
+        {
+          "sheetId": "heroes.ancestries.hakaan.trait.doomsight.effect.2",
+          "enHash": "74a2fe34a78da9c8a6439cb1b5c143c43b3d0b436ddccb66186c227e6625e5c0",
+          "zhHash": "b6ea2ec2f2ffceda42d567516b1aadcd17b90c86021f6edb1723020152ca2090"
+        },
+        {
+          "sheetId": "heroes.ancestries.hakaan.trait.doomsight.effect.3",
+          "enHash": "fbf89516924f8d774f2e80ba5a8badfc7f406a0b6d3f20750afcb76735e1aaa9",
+          "zhHash": "78fc3aef9b44d6fbd12107dbdc920b7378bfa22551786b7f1482efda5b31ba1a"
+        }
+      ],
+      "sourcesHash": "2e7f888a492b2bf5db00009dca7a0349236535b2169443ae81477bf10708a773",
+      "fs": {
+        "enHash": "3a1a0e23c2887baf8495e79405f0579450d063de2d13df64637c13a763ca8a1b",
+        "zhHash": "b028f6a5f55d7dcc32cde72dbbaa47ebf5988fe3d09ac73d57ab65178f189c17"
+      }
+    },
+    "heroes.ancestries.hakaan.trait.great-fortitude.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.hakaan.trait.great-fortitude.effect",
+          "enHash": "16166558a756d85076fa24580b2a392da4a95aa50321eea4c9e348163f18345e",
+          "zhHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97"
+        }
+      ],
+      "sourcesHash": "53bdf05c4399b20a9901e0cfc20d93da9c1ba356ed1199309cfa47a0087cf440",
+      "fs": {
+        "enHash": "3496fc19b72729c94d6dd55f492069160c46f77ba5303fcd8842f0dbd65835a3",
+        "zhHash": "4edb2b88fc4f77ed18641abdc02f9ca8e0f2cc4fac6fc2ed0f98750106a80c1c"
+      }
+    },
+    "heroes.ancestries.hakaan.trait.stand-tough.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.hakaan.trait.stand-tough.effect",
+          "enHash": "d60a36a8c247b94d043eed75ba34a02e3b772bdf82f1cfc197e7ed4c42409533",
+          "zhHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d"
+        }
+      ],
+      "sourcesHash": "d0de68a8eddeb34f6a4de23e9b799e4bda078547bb0fbf75b04c0781de3e78d9",
+      "fs": {
+        "enHash": "c811f734f89b91387f07ccd3a354c4bcd919a2278b3ef904d57b73d19e973482",
+        "zhHash": "5609e78179dd72ebce0c8606c1113d1ab24e5fba02a305ce450584a58d1751fb"
+      }
+    },
+    "heroes.ancestries.high-elf.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.high-elf.name",
+          "enHash": "2a8e80c97798a59afc89a7bd5e570117a17b6e815db9ad63561ce92ec952639d",
+          "zhHash": "5a3cd78c43a5ebb83c796ffe0447c145f9027bf8e0dfa3f5e76a862d36580aef"
+        }
+      ],
+      "sourcesHash": "dbc7bec655536f0549c3ed434f1c8bcd24e340d75a68a73d3a1d8f92dcf65bf4",
+      "fs": {
+        "enHash": "3027f3f32cb76ed004ff25da338668d558ca05e94286c276b1772f9bd56d89eb",
+        "zhHash": "5a3cd78c43a5ebb83c796ffe0447c145f9027bf8e0dfa3f5e76a862d36580aef"
+      }
+    },
+    "heroes.ancestries.high-elf.signature.high-elf-glamor.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.high-elf.signature.high-elf-glamor.effect",
+          "enHash": "cc63ab4de9b025e57a23b95ea528b18a68d83d7f454246c553f4d3ada34d25d3",
+          "zhHash": "fa8328874241cb31e2493cf551753d3a6cfa32af167577971828c2494b7fd83d"
+        }
+      ],
+      "sourcesHash": "54d61e791c45c42abed4cef074af4ac92a2bc196a83204d30d5377f0f8f90fbd",
+      "fs": {
+        "enHash": "a8b03f7cf17acb2112db3ed52e5ea3079675d1460b40dad55b0d4407b6a239a2",
+        "zhHash": "fdbffd044530eb82a3492b66c436cadd64a19552d0f179bcd075309460edae88"
+      }
+    },
+    "heroes.ancestries.high-elf.trait.glamor-of-terror.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.high-elf.trait.glamor-of-terror.effect",
+          "enHash": "fc60eddb0ae8f7f1683227ca4970a7e5ec69fd3234d6b54b3ba592876d82a565",
+          "zhHash": "6c82d0638cbfbd2e934ec9d7902e8b3f185dd696ef5b87fed4431114723aa190"
+        }
+      ],
+      "sourcesHash": "947a12ed2f0c938053b6a03b26b395ee86695f549b437ab857d29f91002880a8",
+      "fs": {
+        "enHash": "0fa4eca2024c4228f68d3fe74e8776d657244adee0448319d17674a6fb7b5c9a",
+        "zhHash": "4a21325ab6399e8da80d6b85d3ac5575868186a9e2f3d77621752c9310eb0257"
+      }
+    },
+    "heroes.ancestries.high-elf.trait.unstoppable-mind.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.high-elf.trait.unstoppable-mind.effect",
+          "enHash": "5f6f0c103f9c60cd8573a0f036704c41780486b5be8d586b63386cd0db638413",
+          "zhHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644"
+        }
+      ],
+      "sourcesHash": "0742f165d7db4550a4e227437ef1c98ffb8a1b2ac8c620f59ab6b5d3f644515c",
+      "fs": {
+        "enHash": "a3e4c4bcc260d1b0226a73c4096f29c94b96d1edeb00073c9a3a413c0e106781",
+        "zhHash": "63b0a7df7a6348e5c6769cabdefeba1e9dd623b20a9e7af78386c81ed7406885"
+      }
+    },
+    "heroes.ancestries.human.signature.detect-supernatural.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.human.signature.detect-supernatural.effect",
+          "enHash": "9e19d917878d3e0eff066e1ee19a902d4ec2cbed6455a925ae93e383fd45b16f",
+          "zhHash": "142053d97fe838e4abcee39895faff3dc5134a01f3bef10141dc8b60a87c696d"
+        }
+      ],
+      "sourcesHash": "080590642b2a7c7c59be3a0f2a50bd108a3f4b52b8be42a96f60b44adff9ed5c",
+      "fs": {
+        "enHash": "e5373b170fa5e34166f2b7c6db33dc0674bdb41c94df5066f210596279064e80",
+        "zhHash": "5aae1a828b6fa2026eb208db0a014d69eeb30b5b3ca21c3a229e833e103373fc"
+      }
+    },
+    "heroes.ancestries.human.trait.determination.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.human.trait.determination.effect",
+          "enHash": "02cefcd1e8f00dcf437d72f3d515623965f152a014ea14597b9a424e4fb43920",
+          "zhHash": "ea710b813a080399d4ec707fbfa83fa3f787442e3d835f43dfe913cee01a868a"
+        }
+      ],
+      "sourcesHash": "6947e28112a1268fc321982558438d5371210fc9a80ea0104d097d488faebd40",
+      "fs": {
+        "enHash": "b6aa804e2404de5326477cd43e2f1068455741b34ae44fd6c923aa7dfa37233a",
+        "zhHash": "c5618ed34cd5c53565428fc84c8f07a5d3965eb58bf82bca514dd96c6bccdabc"
+      }
+    },
+    "heroes.ancestries.human.trait.perseverance.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.human.trait.perseverance.effect",
+          "enHash": "0e3fceaa9dbd26804e58f247682d546e0ce9503631bf1eaf597f076e0bf6d473",
+          "zhHash": "d922e63763d99cd8849ccf9d14ad1e2e11fb8ade299a0c6c62ff226998f9948d"
+        }
+      ],
+      "sourcesHash": "a4dca9c758dacf1fa9ef8515a259f0900b72e396e9908475723a92331ff75f35",
+      "fs": {
+        "enHash": "f8df41ad69e84c4134a0b1e47890ca4b3962e53b5c6757fe50967eb9c25ae0c7",
+        "zhHash": "ce017dc47b4066745b8f5a9f3ba0ff5c81ebb66988219f71b3cfd2bdfeb8eb88"
+      }
+    },
+    "heroes.ancestries.human.trait.perseverance.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.human.trait.perseverance.name",
+          "enHash": "4d6f86da7b333b1e014ba61831c2c695f7071b8243e8964a54affe0ae88eb9f7",
+          "zhHash": "bfff0a46d708dc7f0b296e9ee9aaa5934115942b035e093ef6f9f32f639b919b"
+        }
+      ],
+      "sourcesHash": "96321a0b04b358d7043f8d8499d44b0bf0eaeef035c32ddd158a9eaad8769408",
+      "fs": {
+        "enHash": "e7e3c63f8b08662f8d589cb97d426332a34524ed06d9ba72c249eec90de27a4f",
+        "zhHash": "bfff0a46d708dc7f0b296e9ee9aaa5934115942b035e093ef6f9f32f639b919b"
+      }
+    },
+    "heroes.ancestries.human.trait.resist-the-unnatural.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.human.trait.resist-the-unnatural.effect",
+          "enHash": "18ca624c1fd36e0106c480cfbc8e5a8540bda6eeb6034855a9c82fe7aa336ce9",
+          "zhHash": "e7533774183898b3a5ca7c0a7eb1bb04a9a9ee70cadcf71b4118ab9018fd8530"
+        }
+      ],
+      "sourcesHash": "3d1c9f83730393b87fd5e93f75f9e4f13e65919f60c01a36e9baabb28409b840",
+      "fs": {
+        "enHash": "0e6d09d209a52f7990f512c669aefb812f9ccd599aaacd9019f9b839232937c8",
+        "zhHash": "cc8db87fe57210a16ec4b7259e8ebc90f0b266829c31d505da47dc9a2368fc7c"
+      }
+    },
+    "heroes.ancestries.human.trait.staying-power.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.human.trait.staying-power.effect",
+          "enHash": "77537cc9394c5da3cf45717affeb604ccde25f75070c75db36a8998eaba3cb0a",
+          "zhHash": "f45900223a36c9ab77d4984eef221a3c6e1c2d16841c3c8b5cf345e0461ab62a"
+        }
+      ],
+      "sourcesHash": "0d162090171257aeaf706654c689c0e043437eb59d1db7bc4ffe21ebd1927e27",
+      "fs": {
+        "enHash": "8b62444cf151b67cccc2483b0651aa6005c3b6be13e317e334bccc119be8e1c0",
+        "zhHash": "2e295e837a0da975e741cd42456643b7eeafa64e093d2fc587067c0525a619b3"
+      }
+    },
+    "heroes.ancestries.memonek.trait.keeper-of-order.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.memonek.trait.keeper-of-order.effect",
+          "enHash": "9e9dd0a5ec7b146ef89df7b3553976f0cec18596f616f95e87cbcb1a416439ed",
+          "zhHash": "fb8b1389aab8b9fe447be20a68ebd871a551a76238cbf81ffe977129d1ecff5b"
+        }
+      ],
+      "sourcesHash": "e33a3c9baa8684451a624751d1f63cda2ac140c633c10bb31892593c6aff5415",
+      "fs": {
+        "enHash": "20d6f3f9aa57ed0d3bfdef21a4a63114cd49e5e9ecf003fd5af424cb2f007a0d",
+        "zhHash": "55d561fea105b66fe2d0784a57502a0ef13071e5679ce881c0fb5c1dc7efcf87"
+      }
+    },
+    "heroes.ancestries.memonek.trait.lightning-nimbleness.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.memonek.trait.lightning-nimbleness.effect",
+          "enHash": "17564830bbe138efc3d39e8ac94be720fb48803a2e71fc93ec7be6795d90a762",
+          "zhHash": "27555090d69497a0dd3313ce3b670119fd3c69ea705e7e22e38cb5e9c40da668"
+        }
+      ],
+      "sourcesHash": "655ba6e8d7ecaa474feaf40fb1a4eb34dbacb9bd2e5a784f0daec16d9583586e",
+      "fs": {
+        "enHash": "df420ca67f7f86cba5d6edd83e84b8b54f5bcb50103cc7f566210145b4d030d5",
+        "zhHash": "27555090d69497a0dd3313ce3b670119fd3c69ea705e7e22e38cb5e9c40da668"
+      }
+    },
+    "heroes.ancestries.memonek.trait.nonstop.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.memonek.trait.nonstop.effect",
+          "enHash": "cc21d47c820aa4e9f4a3eddf6c72474898a9f16aea422a2c89845d54ede9f2cd",
+          "zhHash": "f6418f14a3587f240d31f57ea8afc165e75b8d5e54de117f147607d0cb04b2c2"
+        }
+      ],
+      "sourcesHash": "53b2b52b4fabdbb04550261b88279b0db7c7aa0e2c7c7ee5d0e8b2a39f13c74d",
+      "fs": {
+        "enHash": "e921985d28944bde19d2ad20389b8e8e8c82cd084edaf528319033735eb46a43",
+        "zhHash": "c7fd9bad6659fc746b205b301f3e226efbe6204cebd44f52c680332889df4d89"
+      }
+    },
+    "heroes.ancestries.memonek.trait.systematic-mind.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.memonek.trait.systematic-mind.effect",
+          "enHash": "c4feae818ecbe4daaf749713485a997b24f669f60d94361df07e67bf0f3aa331",
+          "zhHash": "6b0ccc5e8d384b3506468164f81029274a7e06a3c6938ea517ab509044308118"
+        }
+      ],
+      "sourcesHash": "1eccdb9fbd680ef4fc9aaff49d5f76e999ba8b846e6aeae29a36473a7a4bb320",
+      "fs": {
+        "enHash": "555360416f9258aecb1a4d6938eb07fb888d4b6c2bd60d43e62cb72b08df9e6a",
+        "zhHash": "a3644cb24c57dfccc8e579e407e9eefbe9be18836faed176d4219dc6d373659f"
+      }
+    },
+    "heroes.ancestries.memonek.trait.useful-emotion.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.memonek.trait.useful-emotion.effect",
+          "enHash": "dfc625dfa07321a1c282750bd50fbf90b7787d3a0d1a8de4f7e058129934fdbb",
+          "zhHash": "fa714ee8cab4f5219eab1f467c7553fca9aafce534ca3d99358efd60e2ba0e7e"
+        }
+      ],
+      "sourcesHash": "f78aa9a1064210ed34f5398eeb421c55fe031a2f7ccd7df0d51e699e4629870c",
+      "fs": {
+        "enHash": "9067c01c9dbf57beb0fcf5e3cccea43102ce05f2e8141456eccd55067b485138",
+        "zhHash": "1f659669767a0ffc40fdf87375fa2fa421e1b30c150235933ca6615cf4419e92"
+      }
+    },
+    "heroes.ancestries.orc.trait.grounded.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.orc.trait.grounded.effect",
+          "enHash": "5a7280a8dba4035eb53906f3e79a012f2f6af875531ed288c99e8508f6e4af03",
+          "zhHash": "8aa2fb0b7cb16c4e745804e5a04669551b21de107121d3c4305276d12e9209fb"
+        }
+      ],
+      "sourcesHash": "d5b4e280193edd402d879fdaa47baf64a183d244327f765fd6b80f36e20b8d5f",
+      "fs": {
+        "enHash": "12c6071e953d7bc6cf67a853f37d9df766be35d98d747ce6899cc6ddd7e3dcff",
+        "zhHash": "b4517f8ecb7763df99ef28bcdeacb1b51c4dde4fea63962f499cee01a91c666f"
+      }
+    },
+    "heroes.ancestries.orc.trait.nonstop.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.orc.trait.nonstop.effect",
+          "enHash": "338987916312c47ea5acd2aeb1cbf7f8264a12b652af3896559b1176bfb612c4",
+          "zhHash": "54f0b7fc7a7b3a38ef74727bee6e2a0c68541958d9a3ff8f05bc310fbc50c9db"
+        }
+      ],
+      "sourcesHash": "fb79067e41ae8ab7c1617c251738957bbd0277d8232a5e2e9217e18438618ece",
+      "fs": {
+        "enHash": "92505db8b47a0a6ca869319442f39774d80feb53a4c36db9910ab2b4023a83f7",
+        "zhHash": "cfb6a01c2bbac3627d7df38be624c7482a4782e6ea45d65a12cda937f4a6f081"
+      }
+    },
+    "heroes.ancestries.polder.signature.shadowmeld.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.polder.signature.shadowmeld.effect",
+          "enHash": "1d4a6f4aeb318424900e35e551a71eeef3048d538c30e66b9f1fc99ea361be94",
+          "zhHash": "735d2307f49d8ed1e366943488ab699162ab7ce31fa5b327efe212991ca4eb97"
+        }
+      ],
+      "sourcesHash": "c70d9e964a4698f3a8fb0ba9d2926b5c73b896daf9998ad1ff643fc440f3400e",
+      "fs": {
+        "enHash": "899965e780fe0f57ab69e46dd9236b1155a1a77229b7c57e8d36e5798290c5ac",
+        "zhHash": "735d2307f49d8ed1e366943488ab699162ab7ce31fa5b327efe212991ca4eb97"
+      }
+    },
+    "heroes.ancestries.polder.signature.small.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.polder.signature.small.effect",
+          "enHash": "71fcad10479b0557175cb15b6e661376640fb50455360df2d0eee3b58d2f8f6a",
+          "zhHash": "2f1aa6123177173801359eb2af735f48941c244693f69eb954431df22be8728c"
+        }
+      ],
+      "sourcesHash": "b2ce50d851ff6a56be52f76be58c0f5b4269ae22375534af3c4e3345fe52a49f",
+      "fs": {
+        "enHash": "76b30301c5896b43a73748702d373e59f6d4072084992b24129a00901a3faa28",
+        "zhHash": "a0a476615c6d40dd26117869f381320ddf7c8a3992e7d28c4e079390a7fba555"
+      }
+    },
+    "heroes.ancestries.polder.trait.fearless.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.polder.trait.fearless.effect",
+          "enHash": "fb655ec8550118f963b788935a26c70cdc9f64bbea4766960d1e30bb28e723bd",
+          "zhHash": "054138f52cef5cfb2c733d447eec33e2e734b7ac4f8ee8810ea4e93a6f4d5707"
+        }
+      ],
+      "sourcesHash": "783e5cd5a9cdd935cf2fdc46b821e974678152fa40413b28aa495eca4c102765",
+      "fs": {
+        "enHash": "5c9d54bfd739574d776c2e1261cfb0d4fd0504b5e41b171e2f617e6413add252",
+        "zhHash": "f788ea8bf82e2dc52bc6d8b96d4d2f2960ce3ae8f9b9475eeeb66a46fae7f860"
+      }
+    },
+    "heroes.ancestries.polder.trait.graceful-retreat.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.polder.trait.graceful-retreat.effect",
+          "enHash": "bdf5dad84e7a22e289bccb0ec9c97fd53392c6133db9ddb49bc211620bdf0ae8",
+          "zhHash": "01399d3e0fd13f83e206f2710b8e2f3fb15e8e7b2d29eccf2ca7e3906a8e2ca1"
+        }
+      ],
+      "sourcesHash": "0c535b63d30fea0e8e5e09f772cb00fa178a0cd5108fb3ed221c27a18cfb46e2",
+      "fs": {
+        "enHash": "d55def8e438d682f04b0d099f640fdd0e8a62aaf29b47b49e4d0f17db78e45ba",
+        "zhHash": "da4791ed83ae830dea066f87ce1979f354a4e34cf69ea3392b810b46e410f6c4"
+      }
+    },
+    "heroes.ancestries.polder.trait.reactive-tumble.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.polder.trait.reactive-tumble.effect",
+          "enHash": "f4fff5a8edb36818468eef2bb3c1e6865a2b2bbe6b79280de1449f69507ff4f8",
+          "zhHash": "f406282ec426dacf12bec6305ebb7a5b8f7b3737c2f67184226522db44608acb"
+        }
+      ],
+      "sourcesHash": "eae821dabf9f685076cdfb5243688328bc9ad87134f56b6a9425c041f3797092",
+      "fs": {
+        "enHash": "b0a4bbfe98e6e0960ac134389987a76d03e01c21931be2ffefdc7a7386917887",
+        "zhHash": "d3d475a6e9e3bc901c978e85740f33a5d3ff27b1507ccc8d687e1ebc35ad7ce7"
+      }
+    },
+    "heroes.ancestries.revenant.description.1": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.revenant.description.1",
+          "enHash": "8b1903b54132890ca7342a19a98983f7696caffbcc390fad34642dc84dd20d71",
+          "zhHash": "126f8ea80ad17140cc42cd8433a41d88529cf0a0cfd2e80a93c967b0e1caacdb"
+        },
+        {
+          "sheetId": "heroes.ancestries.revenant.description.2",
+          "enHash": "f9433fae95a65cc2dd09cb1b4d9a0c69d51890ed964bfcc24a722bf9b53eb7e3",
+          "zhHash": "c29a3e9b82a679d01c1bfe272093d07a018b3f82889fc31925a90cadc40d91db"
+        }
+      ],
+      "sourcesHash": "824cdae2dceb032a0a26176c138b6462d553f57467d79dbdf37ae842de4a6671",
+      "fs": {
+        "enHash": "e9efb871f9d819caccfc027aaf3b6e8d63b76517206efbb4f0cd61f30b7fe54c",
+        "zhHash": "4283a0049310eeacd7808e179d21ba8f53c0f05b6af9597eafc71462a3684fbe"
+      }
+    },
+    "heroes.ancestries.revenant.signature.tough-but-withered.effect.2": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.revenant.signature.tough-but-withered.effect.2",
+          "enHash": "788c59d18793173d816aa6c315a051a4ed1cd53f52dc7d4dd141b161b1d7c447",
+          "zhHash": "aec2b4179c251ddcde8297a0a6cf70a0e5095aebed30d3aba44a704af9d0c4f2"
+        }
+      ],
+      "sourcesHash": "8525534c379ae58dd5fd34bbdc405f34f078e64bd0861b0537dbf8a747479fa1",
+      "fs": {
+        "enHash": "152575b22307d0ad07f059d3d9d5d1d0c0ec3596d8d979826ecff08d5049c820",
+        "zhHash": "aab073c9dc5c30d2b117d5e7950c9ac6d57531102af473a7fd6e4628806c71ac"
+      }
+    },
+    "heroes.ancestries.revenant.trait.bloodless.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.revenant.trait.bloodless.effect",
+          "enHash": "c752c71a017b09cfb102f287391060abb645113e64aa3483e2f072ea1e1f6359",
+          "zhHash": "d3d4ed304869889a923e4db45c3adb9c205fac5fee9a77d9a224dc4017bcce6f"
+        }
+      ],
+      "sourcesHash": "a5353366f37fc4d4859327941958b02c4474482ab091387caefb8d0586bd916e",
+      "fs": {
+        "enHash": "fa5c326eb3c412a2545e9a8e0be3f43fa747ade668703095f2a67ef793ee0996",
+        "zhHash": "eb4df9c2c302286f9e5c502a58fa186a6fce155cb66b0e1f5b3b7b5b5d1b1911"
+      }
+    },
+    "heroes.ancestries.revenant.trait.vengeance-mark.effect.1": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.revenant.trait.vengeance-mark.effect.1",
+          "enHash": "b57613b66a7145525732091fa5c33f276ba67baf07872884647f2ba4070af9a8",
+          "zhHash": "259787d2048258c47f4bd831308137b2fdda9de2908a5716730727726979241c"
+        },
+        {
+          "sheetId": "heroes.ancestries.revenant.trait.vengeance-mark.effect.2",
+          "enHash": "0dd2c42fc6527a02830b8aefbc5ba0857154a2f6a17d8948f9f6e222b086e485",
+          "zhHash": "05c322336e77f08c6f02a1ab483a0305526d88235b44c43bc4e20e2c610dc2f3"
+        }
+      ],
+      "sourcesHash": "2b1e9417421be9139331d4e0be60e2ed9c794af9fe68f8020915821179cf5a0e",
+      "fs": {
+        "enHash": "aed12b7ab3484dfac43ab1c9011a83df7b30f063ce766e545e182da3afb22022",
+        "zhHash": "28eb82008bfeb67056d943bc323893c27e5f9e4ddf73520d837cf959ffbcae52"
+      }
+    },
+    "heroes.ancestries.time-raider.trait.foresight.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.time-raider.trait.foresight.effect",
+          "enHash": "d8815db31ce90fdf0cccda35f94048b593e245e98f89088af97e960c7cb558aa",
+          "zhHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21"
+        }
+      ],
+      "sourcesHash": "2fd058430e7b7463f01d3fa86f37c70e23527e9a94e5a717ff47017ee1006c33",
+      "fs": {
+        "enHash": "8d5b865c377205601bfcc2593a12ae77e6305c62423de7ab7e0c93eeb3d2e0ca",
+        "zhHash": "0d246c5f4294e57a460faebe5bdead232dcc67db4433689fbefa1fcf5c24a715"
+      }
+    },
+    "heroes.ancestries.time-raider.trait.unstoppable-mind.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.time-raider.trait.unstoppable-mind.effect",
+          "enHash": "5f6f0c103f9c60cd8573a0f036704c41780486b5be8d586b63386cd0db638413",
+          "zhHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644"
+        }
+      ],
+      "sourcesHash": "dfd8e6cc6b5ea48576525c491d0e8a4edb0fb154e417ef85f6260fc3908b5984",
+      "fs": {
+        "enHash": "a3e4c4bcc260d1b0226a73c4096f29c94b96d1edeb00073c9a3a413c0e106781",
+        "zhHash": "63b0a7df7a6348e5c6769cabdefeba1e9dd623b20a9e7af78386c81ed7406885"
+      }
+    },
+    "heroes.ancestries.wode-elf.name": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.wode-elf.name",
+          "enHash": "dbe720c1f761e3c517f40c2d8fe73df207e8f7c0ec41d4cc3e448b763d890326",
+          "zhHash": "fc76bea1e48b4a1d25e5d38ef91f8d2f889b3ed2402f99ed651bc6f6ea9acc09"
+        }
+      ],
+      "sourcesHash": "785d3849e9957fc372f8c04b5577b6b869d1127b2494c4381f67f4ed7070b932",
+      "fs": {
+        "enHash": "ecf6c6ca523793b4729cdd7a742b353390389f8a0e3f0c1f287d845bbf8b3860",
+        "zhHash": "fc76bea1e48b4a1d25e5d38ef91f8d2f889b3ed2402f99ed651bc6f6ea9acc09"
+      }
+    },
+    "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect",
+          "enHash": "366852c55557d4ce3c18589a6e7345916cecbd1a40242a7a6c3f0bcc48fc1114",
+          "zhHash": "7dba891410cabaa1d4d1b7c38a29e0b00ceac304ba03fdb5bdfa1de89ada489d"
+        }
+      ],
+      "sourcesHash": "1e8a11eb94fde2a5d8fbd6745590fc4292a598f2aeb760fa91e68045bf73a6e3",
+      "fs": {
+        "enHash": "4bef6083ec6160e6438e6747019a1811503b10ee71c9c3d2f1dd2525f59ba982",
+        "zhHash": "edfba4b60b768afbc727f3d981e8cc9f931d93bf8c56e68deade6d3fe5148c42"
+      }
+    },
+    "heroes.background.culture.archetypical.artisan-guild": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.artisan-guild",
+          "enHash": "f23c973510296b309b3ef6c98b188662e92ea50438b3ae58f4c8bffa4f9a0cd6",
+          "zhHash": "3e56db6cea84a2e99b4f8389b4bd3534ba092b79adad588205c3606f05463d56"
+        }
+      ],
+      "sourcesHash": "c3865bedf35f97bcaf4c6a55a6db67f4abbafc07fdf1905280f93b826d58dfb0",
+      "fs": {
+        "enHash": "78374475012278c9140c505ccc1ef4b58acadd60d09bf387090a34beaac4e903",
+        "zhHash": "0fe0bd32dfb34c0fdbe72e49ef26756174540e49a1c316b2b8c09dec2e1f7861"
+      }
+    },
+    "heroes.background.culture.archetypical.borderland-homestead": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.borderland-homestead",
+          "enHash": "b0162d5f47521b329797c0a3a9d43574a35cec1ecb608474d9f4552e6ff8cda8",
+          "zhHash": "40702a5b76cb980099884f1fd84a2e7494b786ce6d90d2d299ba40ccc9b2c1a6"
+        }
+      ],
+      "sourcesHash": "61a1d2b4a1a21a03c61729114fd0f9ee95d21a50f1c51008bf37a845db036879",
+      "fs": {
+        "enHash": "6b217447cac7803d59786406d5ff1e778cb11ac0dcf54efdf28196b2edda2f97",
+        "zhHash": "3a3585dcf28dc1d1984d4b1ced4be39441078336de421332dfca1b6ea649bd9b"
+      }
+    },
+    "heroes.background.culture.archetypical.college-conclave": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.college-conclave",
+          "enHash": "2e3262e323d4b4de0732224ce781c46eab1541df8b0a45e7d0b2011359dd43b8",
+          "zhHash": "b9d4bdefc7094ff5e6f7c0a8743a2fdab50ea55c8371b0acf691735b974dbfac"
+        }
+      ],
+      "sourcesHash": "c199cc05e1d8c2a0525ad965cff2cc5aceb6901079296431ce5ba74173438e4b",
+      "fs": {
+        "enHash": "5123827f4a2597698e738a5d3adedb632a48c5dad2b5b2c6de3356ed8b733590",
+        "zhHash": "8ca62527b0dbe0348e744bf93d4dda1f52a823ca149f7fd98b992a7d993e024b"
+      }
+    },
+    "heroes.background.culture.archetypical.criminal-gang": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.criminal-gang",
+          "enHash": "9f0f8ff9fdcc47a7632e2841f76dabbc0d8c99d808fbed48472d0f206f1bd2e1",
+          "zhHash": "fc560fd48514953e36d085dcc06beee98b546de011f4abca4b1ec5a5864f3992"
+        }
+      ],
+      "sourcesHash": "c6f1b4af1dae91fad8e05198f2c65d612f0a9f66ac42b4623efd972eff62ebee",
+      "fs": {
+        "enHash": "85c32ecc283eca1f1d7a445511ec1fc422bc572c28030e0e2c56c5b47d32753a",
+        "zhHash": "97ed0da04ab19bfb5f967f80efa526ceb1020ba0b3abcf0ad3fb4358ee7aba53"
+      }
+    },
+    "heroes.background.culture.archetypical.farming-village": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.farming-village",
+          "enHash": "f7a69f35493d0ca1102134629878c1da04192eeed4a97caf05b823375ee29079",
+          "zhHash": "4b4810204b59f3393519e6938719aab965730928b95d722905b1edd421969d2c"
+        }
+      ],
+      "sourcesHash": "d56d1c33248776b14f9af0e5de98a42a459512c719d81d9bba61c3c3305fe61f",
+      "fs": {
+        "enHash": "a117eddbd0da5a27744461bd923496202e7fe6c02f86a26811ecd1f820da411e",
+        "zhHash": "97171623fdac51c76cca9f426c7c363e21a17fdd926866a6de778994efa02125"
+      }
+    },
+    "heroes.background.culture.archetypical.herding-community": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.herding-community",
+          "enHash": "3de83c15b27d8881760aeb56907a109bbd6aba5ed275564a73d8c892e2736637",
+          "zhHash": "f03f7e856e2d0f81c365a8e6412df4309224eb6fc5383a59521d9133ae84be6f"
+        }
+      ],
+      "sourcesHash": "dc29f0b14defd31deef1d1627dbd2d58151f0aedd055ea27d39c441a6c7e3b75",
+      "fs": {
+        "enHash": "caff33f992b4c407844a65f8cdd2f6cbe5027c74df02e60e0e3cbf71088aefb2",
+        "zhHash": "8bf8f822f772af770185bcec227887333e4371b7a173a9d64e8bb0bb7b98c77b"
+      }
+    },
+    "heroes.background.culture.archetypical.knightly-order": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.knightly-order",
+          "enHash": "895ceefd77eaa1942f8f74a8a9326650fcc2071bbdbbe9ecaee8cddcfa7374a0",
+          "zhHash": "9997466607a689ae6bd9fafe058dd0a4592a96294b53137e7590607c4658e259"
+        }
+      ],
+      "sourcesHash": "48619c02a04b345f36417bbfdbd3048d21b94258b45edf35852a480b3718e5a6",
+      "fs": {
+        "enHash": "ee3fe14fb2b395af55a1552f470d26ff1a31c9a81f844f79306b1684d279ddde",
+        "zhHash": "c676c0f38ad86c3d2a911867a002575af56ffe57b6ff52deec576179cfec5a3d"
+      }
+    },
+    "heroes.background.culture.archetypical.laborer-neighborhood": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.laborer-neighborhood",
+          "enHash": "e93f60af29e944ebf2341bb3e0a83f2017f284e74559fd0eb74f9c6d891c8497",
+          "zhHash": "a8cc895422b545f9cd6a06dedb2a0e24ec20ce9230200b49afc7ca99a35bca08"
+        }
+      ],
+      "sourcesHash": "239986448ffb368d0017577d3404691acdb4e9ca8a0773b8f29f32ede1fad06f",
+      "fs": {
+        "enHash": "2034b07136c81b7101aa708407d39fa7a3584aa8603ee2b528d30d7b8f283f1c",
+        "zhHash": "b6b97a6521e9446c7426313664c24395c4ec4ec8781e91efb2324aa01abaf3de"
+      }
+    },
+    "heroes.background.culture.archetypical.mercenary-band": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.mercenary-band",
+          "enHash": "3611a342e8afa002e40c18c76ef59fa030e537bddac4bb966a3dbcff6d33a82c",
+          "zhHash": "9943c041ea9aecd9c76abb05ed27321d90bb5b91eabb03fb3cce582aaef098a7"
+        }
+      ],
+      "sourcesHash": "5c7ba5e558bae4c7952e1f04a1a16c2235bbd530bdfed8509f0d56384f06483b",
+      "fs": {
+        "enHash": "6d255968ef0990362952a1d7e0fcd2488ec04b460a044d16640c0f405b11c7dc",
+        "zhHash": "010a4f1f7dd4e1adabe60fe9ea8bb6d59508410974cf69c04110de2474260f6f"
+      }
+    },
+    "heroes.background.culture.archetypical.merchant-caravan": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.merchant-caravan",
+          "enHash": "b5106e29523a9dfd2ae262c59ec44327d7bd2206e924fabbf56b6f9bcda92b08",
+          "zhHash": "78430fce4f67873ec62cf7943b4cfe45f7dc2e1127d825e9faecfdaf096ac7d0"
+        }
+      ],
+      "sourcesHash": "d441700d507de4034527e65a035f4166ceb1d9f41bcaf31a9f04bae3a5d907b6",
+      "fs": {
+        "enHash": "75bc96e6d3b96a8b7492925004b00c2046eaf3273f669e341379af36757eb937",
+        "zhHash": "6deb5594bf6ca173f9154702f4f5b755f0d7a449a00bcc04e29948eb8114a180"
+      }
+    },
+    "heroes.background.culture.archetypical.monastic-order": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.monastic-order",
+          "enHash": "5b3df7aa211ae3b967beadecdd32c77bb3f3f0898537aa36b8f53854f7d243c5",
+          "zhHash": "6fed9b892d5b106b83bd0ebfbe97b785e03ce6d1b34a42536095808dd9ae3fc9"
+        }
+      ],
+      "sourcesHash": "9e455463e6c8ab7f89a5c324476f6b947c6fec36a8e6e2dd1d1047f1e9603ab7",
+      "fs": {
+        "enHash": "7d2a75f99f477b71d02e85ae106ed3960dde3be63ea4581e9fd49f238c25165c",
+        "zhHash": "2a3e5646d8fd3df37f54aa307bf12f68658f5668ee614422dfc9c819a1344aa8"
+      }
+    },
+    "heroes.background.culture.archetypical.noble-house": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.noble-house",
+          "enHash": "7f59b85a74acdee721ad7f6faf19022e3dd42ab307c88ad0e6000a70cfb3b0d7",
+          "zhHash": "242e19ece7d9ecc97befa216b2a2a504d476e7e61e4937514a18a9c0d269e235"
+        }
+      ],
+      "sourcesHash": "7a1096a2ed98cab4308edbcb206c4f6bc0700d205dbc6d23dce16217a2523814",
+      "fs": {
+        "enHash": "261fdd61202a381ee4a0603e6111cd37201f39d012f17fec489ffb9762d14f47",
+        "zhHash": "de87e12bfa278a4364c3d168f48e492b4314371c6c82cc7c07b8ae46c8edf7ce"
+      }
+    },
+    "heroes.background.culture.archetypical.outlaw-band": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.outlaw-band",
+          "enHash": "cedc6a1562e814cadffb12a896ccfb9257076793efd2131db8707cae0975da0f",
+          "zhHash": "da5341e6c83823500381656cada9c8d027c342874cc99c0a6d494e5289ce8faa"
+        }
+      ],
+      "sourcesHash": "d0c654510e7e3a175c49f201286f7796fdf91c116e19e3efe818a339bef6473e",
+      "fs": {
+        "enHash": "57ffff93a6e70978828068257d7e339937e168202e997872ff70779ee0827324",
+        "zhHash": "541e15446e96e9a8780a3840ca1735a5716d00b8ac1337bcd349d9a5fee201ee"
+      }
+    },
+    "heroes.background.culture.archetypical.pirate-crew": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.pirate-crew",
+          "enHash": "aee91ad4657e663c10dd44891106d9ef14b8c0738c2a0dc513c79c0a95d89842",
+          "zhHash": "49ca3f416d4243a4a623658761fdef68adba0880a12882325f1c221dbaff79ea"
+        }
+      ],
+      "sourcesHash": "6153e80539e01a9be8370cd73f091dba55b51955e8f9b732c11ba82d14a17748",
+      "fs": {
+        "enHash": "65b98d29fa5de666a14f7705435e43cfa79bca92881fdb65d7e1774a09b0328c",
+        "zhHash": "46d9b68e443126d8d6126f1b0b5c0eb48ab0c64f15e19e2370a3b4fe5bb7ad0d"
+      }
+    },
+    "heroes.background.culture.archetypical.telepathic-hive": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.telepathic-hive",
+          "enHash": "a7cd273c8865884658d71b5326a087bcc89019c04c3db5a6344a02db1d84f583",
+          "zhHash": "35265132c94b65fab06b6eee5bc344fc8a81c2d922cfef5682933a1547a96ac1"
+        }
+      ],
+      "sourcesHash": "81bd1ed1ffca89dcbae97d786e8a11f964209f96df7f66390e1b372ab34bb3f5",
+      "fs": {
+        "enHash": "c17bbc0b4f8f5d1188341d7476c4de1376d0827ef6b2ebd0ff8a809b7ed650dd",
+        "zhHash": "a7699aa2fbd8de5d2a0c31c04ac785fd8ea20eefb2451d64cfb783d988e3e023"
+      }
+    },
+    "heroes.background.culture.archetypical.traveling-entertainers": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.archetypical.traveling-entertainers",
+          "enHash": "440c066c39e9fb7ade595f7c389fc1e393ea567d34e7ae6d3a4c37aca4aaf1bf",
+          "zhHash": "ba94bc4cb899e34a6669842a8f18e1514e59bcabf016ed6ca6bf33b272756416"
+        }
+      ],
+      "sourcesHash": "eb6f7144e2466eb16264965ee529632b5a8473d85f91af7e4c60ab8128986a67",
+      "fs": {
+        "enHash": "af6c95eb67f113a4c8e0daf7ff0fafe65cb31cc5135af4d0c35db91e2b9b2182",
+        "zhHash": "baa30521a654d1036b2baa5364cb3d1e950e8b43591563f8bbd49e20b2e43fb3"
+      }
+    },
+    "heroes.background.culture.environment.nomadic.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.environment.nomadic.description",
+          "enHash": "184fb9a17e319c2c0175d2c5e14f4c7e89faecd44517330fff1601c32844f1e0",
+          "zhHash": "27cfacf332ebacf55320422661a401695c6c0e23909ab35b28c49929c5c128e9"
+        }
+      ],
+      "sourcesHash": "861c7bf1361d6c7685bd6aa10e6cd14a2b4bae2024cb97aa2b55ea250ae4a40e",
+      "fs": {
+        "enHash": "d680fb6a8c2e8a035949aa0ba98e45ccceffee7bc4f8361b4da44eec638b3f14",
+        "zhHash": "847e85c8ad21dccac5553f35e9240ffdfa5ec9e9ccfe373024b2999d34da6cb3"
+      }
+    },
+    "heroes.background.culture.environment.rural.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.environment.rural.description",
+          "enHash": "a2e4d538c0e3a3c161e4f340a40e8bbc69690c5d994051264ea1a3ac1b84a060",
+          "zhHash": "eaafec4e8ef69cdd31ff9a19b016739c15f65c81999e92d6f49bc9ed0c800178"
+        }
+      ],
+      "sourcesHash": "e92c407aef459f3515a8605312948b60cc11f3f830e5ebd222ef7d6c013d9a86",
+      "fs": {
+        "enHash": "29773fcdaa487fdcab87460c3b435dea6b082026050cd35587050bdfb77a613a",
+        "zhHash": "bf060a2032905e798a6171019812a94e2e1d5df4d309070fe32d9ae8a0e4a96d"
+      }
+    },
+    "heroes.background.culture.environment.secluded.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.environment.secluded.description",
+          "enHash": "3d11ef2ba5e08bc34481a9e217c4c74c4d31fef1d9a7b2e3a13873fc9634b607",
+          "zhHash": "65e561919e2d98f0511d275a4519d3afaf9d369160b7995f89512e71da875a62"
+        }
+      ],
+      "sourcesHash": "6f557a13c8f91ff9777e5e22413080f05ef9c241b2d9a952cba39552df473c8b",
+      "fs": {
+        "enHash": "74d9337428ffe8dc50865c23eb08abbe72eb86590dcc2b6e5ae673631f4969c9",
+        "zhHash": "adeea4fe27e3d9c64f1776fa98e16f3a0862aae699dd26c441bda216e8e9d43c"
+      }
+    },
+    "heroes.background.culture.environment.urban.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.environment.urban.description",
+          "enHash": "419dba63d37773473d4060ee9f8fc0b1d18fcef0208971a9f97120b94c459f2b",
+          "zhHash": "34b119864761f926c5ebb1080fe8fa29d4058b363082ed421e86b7452c0e8cb9"
+        }
+      ],
+      "sourcesHash": "13c16a2b732a6ec0ced4617ebd384d6ec94c8374ffa35dac5a0a9b71dfb9d1df",
+      "fs": {
+        "enHash": "b8e9ecabef34c0bac0cccc197914b12e4a082cbc813306155bb7ba45b34213eb",
+        "zhHash": "dc951eeb82cc54da6b433ee8640062df9232781356e5ddfd4dedf604fed3588f"
+      }
+    },
+    "heroes.background.culture.environment.wilderness.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.environment.wilderness.description",
+          "enHash": "849e0a9a69906c06cc617ec85080876416145031c1e6b55fb0b568c66d547923",
+          "zhHash": "21516d293d9e8d4230f017d26893974277eee67566d4d4a8b72065531e534cb5"
+        }
+      ],
+      "sourcesHash": "fc4e02e1cfb76e4e8e5c723b4f4e75d22b352de3ad07701e1bde278936c06f0b",
+      "fs": {
+        "enHash": "ee5a694aceaeca84db9e7b77743197ed2bfa7f680ed861cac5391beceb95e4b1",
+        "zhHash": "246158a9accbe71b10ce631fb66b89967fcbf78d94badc1af34d4024d0e69e35"
+      }
+    },
+    "heroes.background.culture.organization.bureaucratic.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.organization.bureaucratic.description",
+          "enHash": "7036a5e0a53f7308f018ff7457d2e6a548ceaa5cdd42917519ee88428adad6d4",
+          "zhHash": "f4b9395367b9da82dc8bc738cc1939c7432f777a3c9387272acc4fee61d92f5f"
+        }
+      ],
+      "sourcesHash": "740f618689f1952e564f3701a6784dbfdfec56ccdee2f1363282722ccc84ec3a",
+      "fs": {
+        "enHash": "13e4cd8c8affc66ab83d90d9374acc81cda8ef2dc3b247d5309937ab33a62158",
+        "zhHash": "ff1c6ed5555d90fc7ee26b72df8c536efb5703d32cbf7d152389fc65e187383d"
+      }
+    },
+    "heroes.background.culture.organization.communal.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.organization.communal.description",
+          "enHash": "70f92d7b203ab5e821ed45ca499c24c8d5c9821771b751ca15fbfab891835de1",
+          "zhHash": "636aad1ab76f81ed91c1e983dd5a859637b847755d2743951e51e246d430cb05"
+        }
+      ],
+      "sourcesHash": "28322cf435ae2f56224b98610e75ca914a1da6a24481e535fdb0738cd05ed011",
+      "fs": {
+        "enHash": "d5e3a5930729c0c6fc3b62ac2cd2eecf80d2b4cd22ce90c1165499672a17b177",
+        "zhHash": "bc8ffc36fb975fd2516950e4774fd895133866a313437dac3c93628d022a0880"
+      }
+    },
+    "heroes.background.culture.typical.devil": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.devil",
+          "enHash": "04e0110fca6e99fb241c3743100066117b3a3c24f1662f54782071e931c6700e",
+          "zhHash": "a03b186ebcdb8263c164b678e94605bcc2c8da58969bc880ad53582bf6164a76"
+        }
+      ],
+      "sourcesHash": "1d15f616f5770b4af6d924e90619791e4caedcff46064c7cc2fbd0c4b5d46739",
+      "fs": {
+        "enHash": "c0f6167a002bd71c5d28c568799370996272b5ce04442b5708d5d5d05ddd2bc0",
+        "zhHash": "33b3ad26fd0267886c92387a193cd40237d9868b21b1d7827d33fd7c9c77c927"
+      }
+    },
+    "heroes.background.culture.typical.dragon-knight": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.dragon-knight",
+          "enHash": "54aec20098bab5b473fbedd483652425cf6b754b6387def1c2726d12f9c14ce2",
+          "zhHash": "aa32eb32d7e91a70b06ebb7a6d4c4b5dac989e2e2a12c62ad15b6fa09a2c5368"
+        }
+      ],
+      "sourcesHash": "a7ddbd8fa5a206a096fea9361259171727df6a65e47ed482edfc1e6efdd77b80",
+      "fs": {
+        "enHash": "35ed09f692203dd985281205a7ef02d040bf299eeddd69f2db5febbc879683ba",
+        "zhHash": "59e863b6379e6ea8fee91e08eaf99101e66a0a56c1f38b742da73cca4a5b836d"
+      }
+    },
+    "heroes.background.culture.typical.dwarf": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.dwarf",
+          "enHash": "51c9e56fcacfc74e6f422b352d55bf4fd3366c24f7e33c7c789736b06db6b611",
+          "zhHash": "d8775bc44015f683aa0cc9ab8c3540aaa7592c240b9acff7ad7b351b1905df63"
+        }
+      ],
+      "sourcesHash": "957cdfc1c40c5f301b2727185a3cee6d20ebf057af94570ceaa1f19606925bd4",
+      "fs": {
+        "enHash": "b528f9d1a283287ee3e1e93968211f7e59410dd7310bd08996bc77b19523441a",
+        "zhHash": "5c478562daa644945502794ecb3aebb85f3a5e332a135f29ae5e5478d25ac05a"
+      }
+    },
+    "heroes.background.culture.typical.hakaan": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.hakaan",
+          "enHash": "2ddc8d3377c0dac688970facd7bc94f9ca08a9111be6a35b7b61ff72170d3a7e",
+          "zhHash": "e3e3380a0751ae07a02f356a5cebaa0e4b068975e07ed888d37d97982bee2969"
+        }
+      ],
+      "sourcesHash": "decebed3bec7feeb584830da980888098b2cbab34e380446611012cf9d7eafc9",
+      "fs": {
+        "enHash": "acd87b2316c931b3acccf3a78b9c3f011ed99ad5f9fa17dabd4cc9533dfb3768",
+        "zhHash": "1913594b66107d6bf814bb0cb5173306f0ef46eefaf1e5c79872196f6cc76d23"
+      }
+    },
+    "heroes.background.culture.typical.high-elf": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.high-elf",
+          "enHash": "4e3b0de0d255095110ecbd85451a16e765ebfa1d50ecfe75628a87bed59f83cb",
+          "zhHash": "1bf061e2778d8a8f379a20a2b5f5eefc3c9a84978b783a22d70f8352eb3e8bbc"
+        }
+      ],
+      "sourcesHash": "b21f124b852a818ec48e498bb9829fc01c5cc4e5c415b2e5ab149c3610448bad",
+      "fs": {
+        "enHash": "2a8e80c97798a59afc89a7bd5e570117a17b6e815db9ad63561ce92ec952639d",
+        "zhHash": "5a3cd78c43a5ebb83c796ffe0447c145f9027bf8e0dfa3f5e76a862d36580aef"
+      }
+    },
+    "heroes.background.culture.typical.human": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.human",
+          "enHash": "693c04303c3d4574db3fd77f66ff6f9b36d2ab8ed1c4e966498b6e061147c0ca",
+          "zhHash": "b5a626e8ad4a8e8acdbe4a9117c2fee3bed63f9b4a119e953d73c074000b8681"
+        }
+      ],
+      "sourcesHash": "2562ad9cdfb6ac5b477c93645bff5f55d8fbb7c2214c43963cb4b4795ec6353b",
+      "fs": {
+        "enHash": "9ffa865f2bc6e850157bb454ef3e00fa789e3f8cc631552941a99ba3fcddde51",
+        "zhHash": "2a8420d0480dc4846d80f1a155f9433fd7b3f280d4f8320cc35a850d42f657aa"
+      }
+    },
+    "heroes.background.culture.typical.memonek": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.memonek",
+          "enHash": "d203f2544cf74bf0b05ea8601293a8bde01837f6ae7f1c82bded6409aaa42b3a",
+          "zhHash": "9da4a4a5b5702a2010791289d4671f500ec243f6c95f1ca81c327674240afdbc"
+        }
+      ],
+      "sourcesHash": "f3125cc65740f67d99ad369eced2180fef05eb82dcf74811ed35f56bb8a64dc3",
+      "fs": {
+        "enHash": "0e1fd6e2ceaf92a0e06bc2784094565f7198b7041e0ddddeffdf68501cdd7cac",
+        "zhHash": "a07aedb5a6ad1447c9ccc37e51b6058c7fddcf884c9668e5199c9ad7e32b5b91"
+      }
+    },
+    "heroes.background.culture.typical.orc": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.orc",
+          "enHash": "2a02b36dcb60344ca4bad9b86ece9171adde2bb39ea09efbd41b72a7439fecc6",
+          "zhHash": "e127ed0136ca44cfd456ef41ff5970211c63d08aff4b290257a5b884c23cc08e"
+        }
+      ],
+      "sourcesHash": "912e1fc8426beb07448f953f221abc9faf6d9d9c11aaec65aec88fdc7188de73",
+      "fs": {
+        "enHash": "3907af2e3409c8737e09736dee955306c798dc0c1ce5a728d2d806278f4d8e0b",
+        "zhHash": "53e4c000e54a7e6f91c8c5049583778adbce7dfa4d2f5076e7e5768d4814d555"
+      }
+    },
+    "heroes.background.culture.typical.polder": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.polder",
+          "enHash": "18a142db9c5921a21eb8c773e3b5f916e082585ddfeb6f2b65418f5becd8d739",
+          "zhHash": "c192517d4c1950ec6ed7616341c4439e3753f4de6f4b529e82e18a23206bf7fc"
+        }
+      ],
+      "sourcesHash": "74c7de017f3c747549ffe6cb1c7036de7f8ee07422a649029b69f2216cfd9b74",
+      "fs": {
+        "enHash": "d39f1c8346b07d054954131835abf22ca0b5c1d5451f2670686ed862405c0ab1",
+        "zhHash": "ace27dbc4155ee6903e66609dcdfba6addd60e98624e19fca97b23be5cec4a5a"
+      }
+    },
+    "heroes.background.culture.typical.time-raider": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.time-raider",
+          "enHash": "7bb4c939b283f0250404951f7ec6e30a7dd3ebfee87fcf4d93b6f2fd72284fd2",
+          "zhHash": "549464e12ee8d7849fe08290c9ca18fa50fa24ec290c74945579685c4513432e"
+        }
+      ],
+      "sourcesHash": "5f8218cd601d4b38b795488458d3885b0b51812b87356099ad1d27f4b7cdbdc9",
+      "fs": {
+        "enHash": "fe9b12309571605520d0b65bda36dde11b48b11db90390197d4c3a9407937aaa",
+        "zhHash": "bb6f3303de9bc9aeb7a3e9c7c34fd48eebc7b20a1b2af71a817a2217f9c58cf7"
+      }
+    },
+    "heroes.background.culture.typical.wode-elf": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.typical.wode-elf",
+          "enHash": "f75f1b3638a882efa62f5dd94dc98d67ef7ba81fbb05f8e03d00e9287a6f6327",
+          "zhHash": "10da4df3b5853c04e2560b7e67c68cbf3d7a87b2017d3eee2de149b4c136e9e5"
+        }
+      ],
+      "sourcesHash": "f2e37669aa7f1771878a1dace57557a67ab13b84604907ec4b2b4747969635de",
+      "fs": {
+        "enHash": "dbe720c1f761e3c517f40c2d8fe73df207e8f7c0ec41d4cc3e448b763d890326",
+        "zhHash": "fc76bea1e48b4a1d25e5d38ef91f8d2f889b3ed2402f99ed651bc6f6ea9acc09"
+      }
+    },
+    "heroes.background.culture.upbringing.academic.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.upbringing.academic.description",
+          "enHash": "4f18f85405347e90202ed03cb308301a607f2f03274741815245282b609f0007",
+          "zhHash": "8122ab4ca5cf7c0aad506c2839a7b2fb71c92e5b623ad223b2df80824f69fa49"
+        }
+      ],
+      "sourcesHash": "91dad6cebd57812868aa166337d1d58269817b90159c16524e71b78c5889af2a",
+      "fs": {
+        "enHash": "93c6e82e6a0649e8b2a20555b841414d7bcbc9a6bc1f1e6da7ab20d3893db588",
+        "zhHash": "df800e980d8ccc4929f4eb5f3ccea99f4e6dd452e8fb81ad17c0b26edd7d024e"
+      }
+    },
+    "heroes.background.culture.upbringing.creative.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.upbringing.creative.description",
+          "enHash": "e3d24ce6a7c25790bdd42aa7ac39aff84e08a02ddda6749ec9aca06b65a8cae3",
+          "zhHash": "1860d297e8122be02ae80048cac894d1505e7e2afee436421c1f8b18a860dd21"
+        }
+      ],
+      "sourcesHash": "0201bfd23f10f3e387f38b7a6077eb4c72f76355af2ea90b76df95a8294b2eb1",
+      "fs": {
+        "enHash": "1d065132f3a47d4328d85697a0b117307d201b5e9c83336263450ab7a4b8628b",
+        "zhHash": "ece73817212893b1f562c271b2a8e2766df192cdd75815417a45d33d9f6fe387"
+      }
+    },
+    "heroes.background.culture.upbringing.labor.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.upbringing.labor.description",
+          "enHash": "3c19cfa414c2384f72f03aa31048b1f777a19c51d11178eeff72420a3455339c",
+          "zhHash": "ae0bacc0febe7bb03f473e99244f8ade32dd536320dca19593bec48bfa2e84d7"
+        }
+      ],
+      "sourcesHash": "7e30454cb5959b688153da19436f96d75a62e8180305d701e8d1644c7baebb4b",
+      "fs": {
+        "enHash": "118d4a91d89a2c0dc30e141ff5fcf67673a42e1875d395ce585415acab3130c9",
+        "zhHash": "46d92970a7567cf9a609fa3346283a29d3641c7bfc8eda633eaa459bf5628c4f"
+      }
+    },
+    "heroes.background.culture.upbringing.lawless.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.upbringing.lawless.description",
+          "enHash": "fe25a2536b4fe0a784117d7bd19b377a811f4f86413e939d7967a11b32b67129",
+          "zhHash": "179fef881d479bc63ec5f4c0da2bd306f6409bab7a05572dfa132c398140232a"
+        }
+      ],
+      "sourcesHash": "08804ea2751e7ca6490c230cfec029b3a3a6878e70bc9710b3e9001b49133f47",
+      "fs": {
+        "enHash": "91e0fea33aa46ff85010e238af086b8b9d9308a544ca8eb7abbb1914bbd5d3c5",
+        "zhHash": "b983e06c0fc48fbfb25d76be2fa179dfb4ff40572a6e4a681779cb21254fb343"
+      }
+    },
+    "heroes.background.culture.upbringing.martial.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.upbringing.martial.description",
+          "enHash": "08d141c38890398797faf3e2601b2f0c06182c742647038a212ae0c3c3d0e2dc",
+          "zhHash": "93d06b0f18f903622db00d9663df7e55de64dbbc7c678ff46a9315d9bdad670d"
+        }
+      ],
+      "sourcesHash": "8d8f1e625c22170af32f947f1dc786bf4523b058a3f09c3ea2f1f28fb2fa5588",
+      "fs": {
+        "enHash": "d1d790febad473ac5b524f628d572293d8b2e931c35ddce1a6cb756f77c7c4df",
+        "zhHash": "fc2760fa58bb0da8f101bbe0d824f9737f857de2b0966b6b63cffa0549103117"
+      }
+    },
+    "heroes.background.culture.upbringing.noble.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.culture.upbringing.noble.description",
+          "enHash": "3341f97807be501c5c231cf758b11566238b843560febc827db8d4fa095f81f1",
+          "zhHash": "ddc35670bb2de71783fb331163374fd4a83da89974da6401c18f2429f6e70810"
+        }
+      ],
+      "sourcesHash": "582060807c0a9f82be128f7818d54c0023d44408fe47a6a90ffd37e7d8421d34",
+      "fs": {
+        "enHash": "e2d6186a0079e47a7c34f850acc95608c0313bd6b54474dfbe2c59eec73a6f9e",
+        "zhHash": "cd84261479429e0e653ef4c8b1ba84a396239ac2e2e1c012a600e448d8fb7bf3"
+      }
+    }
+  }
+}

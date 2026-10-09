@@ -6,6 +6,7 @@ import { buildSnapshot, refreshSheet, replaceFiles } from './refresh-sheet.mjs';
 import { buildCatalog, parseCsv } from './export-sheet.mjs';
 import { captureSheet, projectCapture, SHEET_ID, TAB_HEADERS } from './sheet-capture.mjs';
 import { hashEnglish } from './check.mjs';
+import { hashDependencyIds } from './source-dependencies.mjs';
 
 const roots = [];
 const scratch = () => {
@@ -38,6 +39,10 @@ const fixture = () => {
 	write(root, 'src/data/demo.ts', `export const item = { id: 'demo', description: '${en}' };`);
 	write(root, 'src/l10n/mapping.ts', `export const mapping = { 'element:demo:description': { sheetId: 'demo', enHash: '${hashEnglish(en)}' } };`);
 	write(root, 'src/l10n/calculation-bindings.json', JSON.stringify({ 'element:demo:description': binding }));
+	const sources = [ { sheetId: 'demo', enHash: hashEnglish(en), zhHash: hashEnglish(zh) } ];
+	write(root, 'src/l10n/source-dependencies.json', JSON.stringify({ version: 1, rows: {
+		demo: { sources, sourcesHash: hashDependencyIds(sources), fs: { enHash: hashEnglish(en), zhHash: hashEnglish(zh) } }
+	} }));
 	const input = projectCapture(metadata, tables, metadata);
 	const snapshot = buildSnapshot(input);
 	for (const [ name, text ] of snapshot) write(root, `l10n/sheet-snapshot/${name}`, text);

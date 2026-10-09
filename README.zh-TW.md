@@ -16,7 +16,7 @@
 
 - `main` 永遠與上游相同，只做鏡像，不在此開發。
 - `develop` 是開發預覽分支。
-- 功能改動使用功能分支，經人工接受後以 pull request 合併進 `develop`。
+- 功能改動使用功能分支，以 pull request 合併進 `develop`；一般內容經 Marc 接受，明確授權的維護依自動驗證結案。
 
 ## 本地開發
 
@@ -43,15 +43,7 @@ GitHub Localization check 使用相同入口，六項各自顯示為一步；依
 
 `upstream` 遠端應指向 `https://github.com/andyaiken/forgesteel.git`。
 
-```bash
-git fetch upstream
-git checkout main
-git merge --ff-only upstream/main
-git push origin main
-git checkout develop
-git merge main
-git push origin develop
-```
+完整流程與分支保護見 [UPSTREAM.md](docs/zh-TW/UPSTREAM.md)：main 只做 fast-forward 鏡像；整合進 develop 必須開同步 PR，不能直接推送。每週一台灣 09:00 由 Upstream watch 比較積欠；GitHub 預設分支設 develop，讓分叉專用排程與範本可執行。同步 PR 用 merge commit 保留上游祖先，一般內容批次仍可 squash。
 
 ## 授權
 

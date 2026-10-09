@@ -1,0 +1,35 @@
+name: Upstream watch
+
+on:
+  schedule:
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    if: github.repository == 'boyiad2110/forgesteel-zh-tw'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+      - name: Compare upstream and localization integration
+        shell: bash
+        run: |
+          git remote add upstream https://github.com/andyaiken/forgesteel.git
+          git fetch upstream main
+          mirror=$(git rev-list --count origin/main..upstream/main)
+          integration=$(git rev-list --count origin/develop..upstream/main)
+          {
+            echo '### Upstream synchronization'
+            echo "Mirror missing commits: $mirror"
+            echo "Develop missing commits: $integration"
+            echo 'Use docs/zh-TW/UPSTREAM.md to integrate through a PR.'
+            git log --oneline origin/develop..upstream/main
+            git diff --stat origin/main upstream/main
+          } >> "$GITHUB_STEP_SUMMARY"
+          test "$mirror" -eq 0 && test "$integration" -eq 0
