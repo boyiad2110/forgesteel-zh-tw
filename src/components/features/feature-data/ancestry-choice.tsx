@@ -9,6 +9,7 @@ import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
 import { PanelMode } from '@/enums/panel-mode';
+import { PlayerName } from '@/l10n/player-name';
 import { SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
@@ -63,7 +64,14 @@ export const ConfigAncestryChoice = (props: ConfigProps) => {
 				allowClear={true}
 				placeholder='Select an ancestry'
 				options={sortedAncestries.map(a => ({ label: a.name, value: a.id, desc: a.description }))}
-				optionRender={option => <Field label={option.data.label} value={option.data.desc} />}
+				optionRender={option => {
+					const ancestry = sortedAncestries.find(a => a.id === option.data.value);
+					return <Field label={ancestry ? <PlayerName element={ancestry} /> : option.data.label} value={option.data.desc} />;
+				}}
+				labelRender={option => {
+					const ancestry = sortedAncestries.find(a => a.id === option.value);
+					return ancestry ? <PlayerName element={ancestry} /> : option.label;
+				}}
 				value={props.data.selected ? props.data.selected.id : null}
 				onChange={value => {
 					const dataCopy = Utils.copy(props.data);
