@@ -18,6 +18,7 @@ import { LanguageName } from '@/l10n/language-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { ModifierLogic } from '@/logic/modifier-logic';
 import { PerkList } from '@/enums/perk-list';
+import { PlayerName } from '@/l10n/player-name';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
@@ -77,7 +78,7 @@ const AncestryChoiceFeatureComponent = (feature: FeatureAncestryChoice) => {
 	return (
 		<>
 			<div className='feature-line'>
-				<strong>{`• ${feature.name}: `}</strong>{feature.data.selected?.name}
+				<strong>{`• ${feature.name}: `}</strong>{feature.data.selected ? <PlayerName element={feature.data.selected} /> : null}
 			</div>
 		</>
 	);

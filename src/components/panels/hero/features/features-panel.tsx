@@ -10,6 +10,7 @@ import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
 import { LabelControl } from '@/components/controls/label-control/label-control';
 import { PanelMode } from '@/enums/panel-mode';
+import { PlayerName } from '@/l10n/player-name';
 import { SearchBox } from '@/components/controls/text-input/text-input';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Sourcebook } from '@/models/sourcebook';
@@ -99,7 +100,7 @@ export const FeaturesPanel = (props: Props) => {
 	const getRow = (data: { feature: Feature, source: string, level: number | undefined }) => {
 		return (
 			<div key={data.feature.id} className='selectable-row clickable' onClick={() => props.onSelectFeature(data.feature)}>
-				<div><b>{data.feature.name}</b></div>
+				<div><b><PlayerName element={data.feature} /></b></div>
 				{options.showSources ? <Tag variant='outlined'>{data.source}</Tag> : null}
 			</div>
 		);

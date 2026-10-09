@@ -2,6 +2,7 @@ import { HeaderImage } from '@/components/panels/classic-sheet/header-image/head
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { LabeledTextField } from '@/components/panels/classic-sheet/components/labeled-field';
 import { useOptions } from '@/contexts/data-context';
+import { usePlayerName } from '@/l10n/player-name';
 
 import './hero-header-card.scss';
 
@@ -11,6 +12,7 @@ interface Props {
 
 export const HeroHeaderCard = (props: Props) => {
 	const character = props.character;
+	const ancestryName = usePlayerName(character.hero.ancestry ?? undefined, character.ancestryName);
 	const options = useOptions();
 	const showState = options.includePlayState;
 
@@ -26,7 +28,7 @@ export const HeroHeaderCard = (props: Props) => {
 				/>
 				<LabeledTextField
 					label='Ancestry'
-					content={character.ancestryName}
+					content={ancestryName}
 					additionalClasses={[ 'no-box', 'text-left' ]}
 				/>
 				<LabeledTextField
