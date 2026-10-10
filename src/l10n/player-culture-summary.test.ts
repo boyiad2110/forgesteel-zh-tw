@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest';
 import { AncestryData } from '@/data/ancestry-data';
+import { formatPlayerCultureSummary, getPlayerCultureSummaryParts } from '@/l10n/player-culture-summary';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { beastheartSourcebook } from '@/data/sourcebooks/official/beastheart';
 import { core } from '@/data/sourcebooks/official/core';
-import { getPlayerCultureSummaryParts } from '@/l10n/player-culture-summary';
 import { orden } from '@/data/sourcebooks/official/orden';
 import { summonerSourcebook } from '@/data/sourcebooks/official/summoner';
 
@@ -31,5 +31,15 @@ describe('player culture summaries', () => {
 		expect(getPlayerCultureSummaryParts({ ...culture, id: 'homebrew-culture' }, officialSourcebooks)).toBeUndefined();
 		const homebrew = { ...core, id: 'homebrew', type: SourcebookType.Homebrew } as Sourcebook;
 		expect(getPlayerCultureSummaryParts(culture, [ homebrew ])).toBeUndefined();
+	});
+
+	test('uses Traditional Chinese punctuation only for recognized official summaries', () => {
+		const culture = officialCultures.find(item => item.name === 'Pauper Neighborhood')!;
+		const parts = getPlayerCultureSummaryParts(culture, officialSourcebooks)!;
+		const names = { environment: '\u57ce\u5e02', organization: '\u5e73\u6b0a', upbringing: '\u52de\u52d5' };
+
+		expect(formatPlayerCultureSummary(culture.description, parts, names, 'zh-TW')).toBe('\u57ce\u5e02\u3001\u5e73\u6b0a\u3001\u52de\u52d5\u3002');
+		expect(formatPlayerCultureSummary(culture.description, parts, names, 'en')).toBe('Urban, communal, labor.');
+		expect(formatPlayerCultureSummary('A user written summary.', undefined, names, 'zh-TW')).toBe('A user written summary.');
 	});
 });

@@ -6,7 +6,7 @@
 |---|---|---|---|
 | UI-01 | 阻塞：Marc 核准來源 | 建立 Master Sheet Forge Steel UI 分頁並定稿第一批；2026-10-10 已讀 metadata，尚無此頁 | 有穩定 ID、原文、APPROVED 中文與欄位規格 |
 | UI-02 | 等待 UI-01／工具維護 | 把 UI 核准欄位納入同次快照、匯出及守門 | 缺欄／未核准／變字／匯出不一致皆失敗 |
-| DISPLAY-01 | 下一內容批次／顯示層 | 依 COVERAGE 提出自訂文化已選面向 Field 名稱補線預覽；值與 UI 標籤分開 | 候選→已選→摘要→總覽→詳情→經典表格一致；自訂與改名保留 |
+| DISPLAY-01 | PR #55／等待 Marc 驗收 | 核准自訂文化 Field 名稱補線與官方摘要標點後合併；合併後同步 Master Sheet 必要狀態 | 候選→已選→摘要→總覽→詳情→經典表格一致；自訂、改名與未知格式保留 |
 | DISPLAY-02 | 刻意延後／P3 | 盤點 FeatureConfigPanel 各標題、描述與提示的來源；分開內容鍵與 UI 鍵 | 每個待接位置有來源與狀態，沒有整欄「已完成」的誤判 |
 | BOOK-01 | 等待翻譯／Marc | Career 411 筆 NEW（2026-10-10 Project State 確認）完成翻譯與 QA，之後職業→套組→招式 | 只匯入 APPROVED，不自行補譯 |
 | BOOK-02 | 待定／Marc | Glossary Enhancement 定稿 | Master Sheet 決策更新；不阻塞現有名稱顯示 |
