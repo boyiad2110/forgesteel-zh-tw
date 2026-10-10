@@ -656,5 +656,21 @@ export const mapping: Record<string, MappingEntry> = {
 	'ui:ui.hero-builder.culture-language-description.ad467037': { sheetId: 'ui.hero-builder.culture-language-description.ad467037', enHash: 'ad46703741e0fd16716d24088e9665126d87a8f4325776809a5ee5af077411a2' },
 	'ui:ui.hero-builder.choose-option.aef4076f': { sheetId: 'ui.hero-builder.choose-option.aef4076f', enHash: 'aef4076f194a6de6f2051d79f6829396e53024529352ad3845b6c4b6a3f2a48c' },
 	'ui:ui.hero-builder.choose-option-extended.cc391170': { sheetId: 'ui.hero-builder.choose-option-extended.cc391170', enHash: 'cc391170677080b1e90ab96fc2cf72c95eba4fde7507658b55889e1263fcabbd' },
-	'ui:ui.hero-builder.no-options.6662aa9c': { sheetId: 'ui.hero-builder.no-options.6662aa9c', enHash: '6662aa9ca2f5bc65f93367b5bb9ded83c89d49b3fdfd1f795074bd800987da51' }
+	'ui:ui.hero-builder.no-options.6662aa9c': { sheetId: 'ui.hero-builder.no-options.6662aa9c', enHash: '6662aa9ca2f5bc65f93367b5bb9ded83c89d49b3fdfd1f795074bd800987da51' },
+	'ui:ui.hero-builder.default-language.28bee244': { sheetId: 'ui.hero-builder.default-language.28bee244', enHash: '28bee2441243a8fc69d2007d9683ec904fb2119e9837aae9641a5cc0d99b0134' },
+	'ui:ui.hero-builder.languages.318655ce': { sheetId: 'ui.hero-builder.languages.318655ce', enHash: '318655cea4bd2096fbfad433d7c019bac40750d1a456fc34d366df41fcc77197' },
+	'ui:ui.hero-builder.common-language-description.cc9ef9be': { sheetId: 'ui.hero-builder.common-language-description.cc9ef9be', enHash: 'cc9ef9be49ebd6ba61fbba2b6f214d990cc33dcce674b2d6816553063b659d83' },
+	'ui:ui.hero-builder.two-languages-description.0139e42b': { sheetId: 'ui.hero-builder.two-languages-description.0139e42b', enHash: '0139e42b974421eca0081e59f696a85cc6e91a55c96b114f1b390b1900fe42e7' },
+	'ui:ui.hero-builder.skill-choice-description.9172d5a4': { sheetId: 'ui.hero-builder.skill-choice-description.9172d5a4', enHash: '9172d5a4b4a134f997f556511afbb53c6989c860ebce1b86b88f63f3960d50a1' },
+	'ui:ui.hero-builder.skills-choice-description.1a7008a2': { sheetId: 'ui.hero-builder.skills-choice-description.1a7008a2', enHash: '1a7008a2ff710e04d0933b0a7b4a1e848a0e244a2801938e8b9f103b8ea8a1bb' },
+	'ui:ui.hero-builder.skill-list-description.f94c20ab': { sheetId: 'ui.hero-builder.skill-list-description.f94c20ab', enHash: 'f94c20ab2c5e9f9cd4300f57108b6e33395495ecba1a58d0a57488d9b3e5b92a' },
+	'ui:ui.hero-builder.any-skill-list.7f7a6841': { sheetId: 'ui.hero-builder.any-skill-list.7f7a6841', enHash: '7f7a6841a8474d340864fb0f255201a77ab472032b57be39b63dcfe48827782d' },
+	'ui:ui.hero-builder.language-type-common.309955e0': { sheetId: 'ui.hero-builder.language-type-common.309955e0', enHash: '309955e00850b8afeb148450c7208585a85f8b652d5c625c777726f44837f69c' },
+	'ui:ui.hero-builder.language-type-cultural.faf2dbb3': { sheetId: 'ui.hero-builder.language-type-cultural.faf2dbb3', enHash: 'faf2dbb39ba34e5a5667b32841aa04abc1822032563a9017ba3e31368804ef37' },
+	'ui:ui.hero-builder.language-type-regional.299a03b1': { sheetId: 'ui.hero-builder.language-type-regional.299a03b1', enHash: '299a03b1d559b695ba3adba8b5a7b6d6e5b583f26bd0ea57f9d99caafe2596e8' },
+	'ui:ui.hero-builder.language-type-dead.ec9b10a4': { sheetId: 'ui.hero-builder.language-type-dead.ec9b10a4', enHash: 'ec9b10a4a79c4e8a4a23be6edb064854d91b9aebf348d9a910fe6b38cad08022' },
+	'ui:ui.hero-builder.skill-list-custom.494ca78f': { sheetId: 'ui.hero-builder.skill-list-custom.494ca78f', enHash: '494ca78f7374e46fb2de9ad9f2dbd4aaae89b50b2ca044177a1566a59e06627e' },
+	'ui:ui.hero-builder.unnamed-extension.04301825': { sheetId: 'ui.hero-builder.unnamed-extension.04301825', enHash: '04301825d4e68d2f88df87b5c5d2a3291d3ebe9e4c104aa97cb01d4fbd082ee5' },
+	'ui:ui.hero-builder.unknown-extension-target.b764cdc0': { sheetId: 'ui.hero-builder.unknown-extension-target.b764cdc0', enHash: 'b764cdc0eab7137467211272fa539f1260d1bf2e71bcf6ff3bdc960f5c16aa14' },
+	'ui:ui.hero-builder.unnamed-sourcebook.ff62ab3a': { sheetId: 'ui.hero-builder.unnamed-sourcebook.ff62ab3a', enHash: 'ff62ab3a46ff7e8ab6ddc32d14a4af750d957c319846ee50cf02efeea4dd7875' }
 };

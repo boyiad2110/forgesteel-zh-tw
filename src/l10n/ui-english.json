@@ -172,5 +172,21 @@
   "ui.hero-builder.culture-language-description.ad467037": "Choose a  language.",
   "ui.hero-builder.choose-option.aef4076f": "Choose an option",
   "ui.hero-builder.choose-option-extended.cc391170": "Choose an option (extended)",
-  "ui.hero-builder.no-options.6662aa9c": "There are no options to choose for this feature."
+  "ui.hero-builder.no-options.6662aa9c": "There are no options to choose for this feature.",
+  "ui.hero-builder.default-language.28bee244": "Default Language",
+  "ui.hero-builder.languages.318655ce": "Languages",
+  "ui.hero-builder.common-language-description.cc9ef9be": "Choose a Common language.",
+  "ui.hero-builder.two-languages-description.0139e42b": "Choose 2  languages.",
+  "ui.hero-builder.skill-choice-description.9172d5a4": "`Choose a skill from ${source}.`",
+  "ui.hero-builder.skills-choice-description.1a7008a2": "`Choose ${count} from ${source}.`",
+  "ui.hero-builder.skill-list-description.f94c20ab": "`${list} skills`",
+  "ui.hero-builder.any-skill-list.7f7a6841": "any list",
+  "ui.hero-builder.language-type-common.309955e0": "Common",
+  "ui.hero-builder.language-type-cultural.faf2dbb3": "Cultural",
+  "ui.hero-builder.language-type-regional.299a03b1": "Regional",
+  "ui.hero-builder.language-type-dead.ec9b10a4": "Dead",
+  "ui.hero-builder.skill-list-custom.494ca78f": "Custom",
+  "ui.hero-builder.unnamed-extension.04301825": "Unnamed Extension",
+  "ui.hero-builder.unknown-extension-target.b764cdc0": "Unknown",
+  "ui.hero-builder.unnamed-sourcebook.ff62ab3a": "Unnamed Sourcebook"
 }
