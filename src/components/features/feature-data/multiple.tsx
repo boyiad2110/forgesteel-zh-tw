@@ -7,6 +7,7 @@ import { PanelMode } from '@/enums/panel-mode';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureMultipleData;
@@ -16,13 +17,14 @@ interface InfoProps {
 }
 
 export const InfoMultiple = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.features.length === 0) {
 		return null;
 	}
 
 	if (props.feature.description) {
 		return (
-			<Expander title='Features'>
+			<Expander title={ui.text('ui.hero-builder.features.31d1245f', 'Features')}>
 				{props.data.features.map(f => <FeaturePanel key={f.id} feature={f} hero={props.hero} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />)}
 			</Expander>
 		);
@@ -48,6 +50,7 @@ interface EditProps {
 }
 
 export const EditMultiple = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureMultipleData>(Utils.copy(props.data));
 
 	const onChange = (features: Feature[]) => {
@@ -59,7 +62,7 @@ export const EditMultiple = (props: EditProps) => {
 
 	return (
 		<FeatureListEditPanel
-			title='Features'
+			title={ui.text('ui.hero-builder.features.31d1245f', 'Features')}
 			features={data.features}
 			sourcebooks={props.sourcebooks}
 			onChange={onChange}

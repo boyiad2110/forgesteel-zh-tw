@@ -10,6 +10,7 @@ import { PanelMode } from '@/enums/panel-mode';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureDomainFeatureData;
@@ -74,6 +75,7 @@ interface ConfigProps {
 }
 
 export const ConfigDomainFeature = (props: ConfigProps) => {
+	const ui = useUI();
 	const options: Feature[] = [];
 	HeroLogic.getDomains(props.hero).forEach(d => {
 		d.featuresByLevel
@@ -86,7 +88,7 @@ export const ConfigDomainFeature = (props: ConfigProps) => {
 			<Alert
 				type='info'
 				showIcon={true}
-				title='Choose a domain to enable this feature.'
+				title={ui.text('ui.hero-builder.choose-a-domain-to-enable-th.d5d9a229', 'Choose a domain to enable this feature.')}
 			/>
 		);
 	}

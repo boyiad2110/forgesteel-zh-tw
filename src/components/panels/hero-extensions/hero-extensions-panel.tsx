@@ -13,6 +13,7 @@ import { SelectablePanel } from '@/components/controls/selectable-panel/selectab
 import { Sourcebook } from '@/models/sourcebook';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface Props {
 	hero: Hero;
@@ -22,6 +23,7 @@ interface Props {
 
 // Lists the homebrew extensions that are aimed at the hero's build, so the player can choose which ones the hero uses
 export const HeroExtensionsPanel = (props: Props) => {
+	const ui = useUI();
 	const [ selected, setSelected ] = useState<Extension | null>(null);
 
 	// The elements in the hero's build that extensions could be aimed at
@@ -48,9 +50,9 @@ export const HeroExtensionsPanel = (props: Props) => {
 	return (
 		<SelectablePanel>
 			<HeaderText
-				extra={<Info>Homebrew extensions add to or change official content. Your hero only uses the ones you switch on here.</Info>}
+				extra={<Info>{ui.text('ui.hero-builder.homebrew-extensions-add-to-o.0ae4e64e', 'Homebrew extensions add to or change official content. Your hero only uses the ones you switch on here.')}</Info>}
 			>
-				Extensions
+				{ui.text('ui.hero-builder.extensions.6eb986a4', 'Extensions')}
 			</HeaderText>
 			<Space orientation='vertical' style={{ width: '100%' }}>
 				{

@@ -20,6 +20,7 @@
  *   node scripts/l10n/export-sheet.mjs --snapshot <dir> --out <dir>
  */
 
+import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -31,6 +32,9 @@ const ALLOWED_STATUS = [ 'NEW', 'AI_DRAFT', 'REVIEW', 'APPROVED', 'DEPRECATED' ]
 const ALLOWED_STATUS_SET = new Set(ALLOWED_STATUS);
 // Every ID in the approved snapshot matches this, so the rule was not relaxed.
 const ID_PATTERN = /^[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/;
+// Two approved UI slugs end with a hyphen before their stable hash. Keep the
+// Sheet ID verbatim instead of silently renaming an approved record.
+const UI_ID_PATTERN = /^ui\.hero-builder\.[a-z0-9]+(?:-[a-z0-9]+)*-?\.[0-9a-f]{8}$/;
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TM_CHECK_HEADER = 'TM Check';
 const STATUS_HEADER = 'Status';
@@ -67,6 +71,15 @@ const TABS = [
 		idHeader: 'String ID',
 		zhHeader: 'Target Text',
 		enHeader: 'Source Text'
+	},
+	{
+		file: 'ui.csv',
+		out: 'ui.json',
+		countKey: 'ui',
+		idHeader: 'UI ID',
+		zhHeader: 'Target Text',
+		enHeader: 'Source Text',
+		hashHeader: 'Source Hash'
 	}
 ];
 
@@ -249,7 +262,7 @@ const loadTab = (snapshotDir, spec, seen, errors) => {
 	}
 
 	const headers = rows[0];
-	const required = [ spec.idHeader, STATUS_HEADER, spec.zhHeader, spec.enHeader, UPDATED_HEADER ];
+	const required = [ spec.idHeader, STATUS_HEADER, spec.zhHeader, spec.enHeader, UPDATED_HEADER, ...(spec.hashHeader ? [ spec.hashHeader ] : []) ];
 	const columns = {};
 	let headersOk = true;
 
@@ -320,7 +333,7 @@ const loadTab = (snapshotDir, spec, seen, errors) => {
 			}
 		}
 
-		if (!ID_PATTERN.test(id)) {
+		if (!(spec.file === 'ui.csv' ? UI_ID_PATTERN : ID_PATTERN).test(id)) {
 			errors.push(`${where(file, sheetRow, id)}: malformed ID`);
 		}
 
@@ -337,6 +350,12 @@ const loadTab = (snapshotDir, spec, seen, errors) => {
 		}
 		if (status === 'APPROVED' && en === '') {
 			errors.push(`${where(file, sheetRow, id)}: APPROVED row has empty ${JSON.stringify(spec.enHeader)}`);
+		}
+		if (status === 'APPROVED' && spec.hashHeader) {
+			const expected = createHash('sha256').update(en).digest('hex');
+			if (row[columns[spec.hashHeader]] !== expected) {
+				errors.push(`${where(file, sheetRow, id)}: Source Hash does not match Source Text`);
+			}
 		}
 
 		if (tmIndex !== -1 && status === 'APPROVED' && row[tmIndex] !== 'PASS') {
@@ -510,7 +529,8 @@ export const buildCatalog = snapshotDir => {
 	const source = readSource(snapshotDir);
 	const seen = new Map();
 	const errors = [];
-	const tabs = TABS.map(spec => loadTab(snapshotDir, spec, seen, errors));
+	const tabs = TABS.filter(spec => spec.file !== 'ui.csv' || existsSync(path.join(snapshotDir, spec.file)))
+		.map(spec => loadTab(snapshotDir, spec, seen, errors));
 	loadCalculationDisplays(snapshotDir, tabs, errors);
 
 	if (errors.length > 0) {

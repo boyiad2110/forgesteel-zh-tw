@@ -14,6 +14,7 @@ import { TitlePanel } from '@/components/panels/elements/title-panel/title-panel
 import { TitleSelectModal } from '@/components/modals/select/title-select/title-select-modal';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureTitleChoiceData;
@@ -71,13 +72,14 @@ interface ConfigProps {
 }
 
 export const ConfigTitleChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ titleSelectorOpen, setTitleSelectorOpen ] = useState<boolean>(false);
 	const [ selectedTitle, setSelectedTitle ] = useState<Title | null>(null);
 
 	const getAddButton = () => {
 		return (
 			<Button className='status-warning' block={true} onClick={() => setTitleSelectorOpen(true)}>
-				Choose a title
+				{ui.text('ui.hero-builder.choose-a-title.105ac3c6', 'Choose a title')}
 			</Button>
 		);
 	};

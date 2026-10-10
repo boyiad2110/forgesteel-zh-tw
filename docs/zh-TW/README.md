@@ -4,10 +4,10 @@
 
 ## 現況與下一步
 
-- 維護順序 1–5、DISPLAY-01、DISPLAY-02 與 MAINT-WORKFLOW-01 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
-- 核准清冊：428 個 mapping／105 列 Forge Steel Strings 版／11 個英文例外。這是防錯清冊，不是產品中文化完成率。
-- DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；剩餘位置見 [COVERAGE](COVERAGE.md)。UI 標籤另批；2026-10-10 實讀 Master Sheet metadata，尚無 Forge Steel UI 分頁。
-- DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述；龍鱗動態描述及自訂文化 Field 描述仍列待辦，詳見 [TODO](TODO.md)。
+- 維護順序 1–5、DISPLAY-01、DISPLAY-02、MAINT-WORKFLOW-01 與 UI-01／UI-02 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
+- 核准清冊：579 個 mapping／105 列 Forge Steel Strings 版／11 個英文例外，其中 UI-01 新增 151 筆核准 UI 對照。這是防錯清冊，不是產品中文化完成率。
+- DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；剩餘位置見 [COVERAGE](COVERAGE.md)。自訂文化 Field 描述仍列 DISPLAY-03。
+- DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述及自訂文化 Field 描述仍列待辦，詳見 [TODO](TODO.md)。
 - Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線
@@ -17,7 +17,7 @@
 3. 動態數值投射上游計算結果；未知改寫保留完整計算後英文。英文備援不算該段中文化完成。
 4. `main` 是上游鏡像；工作分支經 PR 合進 `develop`。上游 push URL 維持禁用；分叉不自動部署。
 5. 本機完整驗證優先用 `node scripts/l10n/verify-isolated.mjs`，在目前檔案的暫存副本乾淨安裝、跑六項及瀏覽器回歸；底層入口仍是 `verify.mjs`。任一檢查失敗整體即失敗；不截圖、不錄影。
-6. 一般內容批次仍先對照預覽與 Marc 核准。本次 2026-10-10 維護 1–5 明確授權免人工驗收，不擴及未核准譯文。
+6. 一般內容批次仍先對照預覽與 Marc 核准。UI-01 的 151 筆已由 Marc 定稿並標為 APPROVED，可接入公開程式碼；後續新增譯文仍須先核准。
 
 ## 任務路由
 

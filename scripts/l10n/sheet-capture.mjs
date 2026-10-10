@@ -5,7 +5,8 @@ export const TAB_HEADERS = {
 	Names: [ 'Name ID', 'Status', 'Target Name', 'Source Name', 'Last Updated' ],
 	Strings: [ 'String ID', 'Status', 'Target Text', 'Source Text', 'Last Updated',
 		'Forge Steel Source Text', 'Forge Steel Target Text', 'Forge Steel Status',
-		'Forge Steel Basis Hash', 'Forge Steel Note' ]
+		'Forge Steel Basis Hash', 'Forge Steel Note' ],
+	'Forge Steel UI': [ 'UI ID', 'Status', 'Target Text', 'Source Text', 'Last Updated', 'Source Hash' ]
 };
 
 /** Shared by capture and export: reject draft templates before any disk write. */

@@ -12,6 +12,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 import './skill-select-modal.scss';
 
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export const SkillSelectModal = (props: Props) => {
+	const ui = useUI();
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ customSkill, setCustomSkill ] = useState<string>('');
 	const listLabels = useSkillListNames(skillLists);
@@ -82,7 +84,7 @@ export const SkillSelectModal = (props: Props) => {
 						otherSkills.length > 0 ?
 							<>
 								<Divider />
-								<Expander title='Other skills'>
+								<Expander title={ui.text('ui.hero-builder.other-skills.66fa9a26', 'Other skills')}>
 									<Space orientation='vertical' style={{ width: '100%' }}>
 										{
 											otherSkills.map((s, n) => (
@@ -103,11 +105,11 @@ export const SkillSelectModal = (props: Props) => {
 							:
 							<>
 								<Divider />
-								<Expander title='Add a custom skill'>
+								<Expander title={ui.text('ui.hero-builder.add-a-custom-skill.14fa1a61', 'Add a custom skill')}>
 									<Space orientation='vertical' style={{ width: '100%' }}>
-										<HeaderText>Custom Skill</HeaderText>
+										<HeaderText>{ui.text('ui.hero-builder.custom-skill.b3339162', 'Custom Skill')}</HeaderText>
 										<TextInput
-											placeholder='Custom Skill Name'
+											placeholder={ui.text('ui.hero-builder.custom-skill-name.7937e4be', 'Custom Skill Name')}
 											allowClear={true}
 											value={customSkill}
 											onChange={setCustomSkill}

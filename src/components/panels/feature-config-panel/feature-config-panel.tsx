@@ -12,6 +12,7 @@ import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Perk } from '@/models/perk';
 import { Sourcebook } from '@/models/sourcebook';
+import { useUI } from '@/l10n/ui-text';
 
 import './feature-config-panel.scss';
 
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export const FeatureConfigPanel = (props: Props) => {
+	const ui = useUI();
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 
 	const autoCalcAvailable = () => {
@@ -60,7 +62,7 @@ export const FeatureConfigPanel = (props: Props) => {
 								<Button
 									key='autocalc'
 									type='text'
-									title='Auto-calculate damage, potency, etc'
+									title={ui.text('ui.hero-builder.auto-calculate-damage-potenc.dfd07bc3', 'Auto-calculate damage, potency, etc')}
 									icon={autoCalc ? <ThunderboltFilled style={{ color: 'var(--fs-accent)' }} /> : <ThunderboltOutlined />}
 									onClick={e => { e.stopPropagation(); setAutoCalc(!autoCalc); }}
 								/>
@@ -78,7 +80,7 @@ export const FeatureConfigPanel = (props: Props) => {
 					</>
 				}
 			>
-				{props.feature.name || 'Unnamed Feature'}
+				{props.feature.name || ui.text('ui.hero-builder.unnamed-feature.fe5fa185', 'Unnamed Feature')}
 			</HeaderText>
 			<Markdown text={getDescription()} />
 			<ConfigFeature
@@ -100,6 +102,7 @@ interface SelectionBoxProps {
 }
 
 export const SelectionBox = (props: SelectionBoxProps) => {
+	const ui = useUI();
 	return (
 		<div className={props.transparent ? 'selection-box' : 'selection-box with-border'}>
 			<Flex align='center' justify='space-between' gap={10}>
@@ -109,7 +112,7 @@ export const SelectionBox = (props: SelectionBoxProps) => {
 						props.onSelect ?
 							<Button
 								type='text'
-								title='Show details'
+								title={ui.text('ui.hero-builder.show-details.257cf510', 'Show details')}
 								icon={<InfoCircleOutlined />}
 								onClick={e => {
 									e.stopPropagation();
@@ -122,7 +125,7 @@ export const SelectionBox = (props: SelectionBoxProps) => {
 						props.onRemove ?
 							<Button
 								type='text'
-								title='Remove'
+								title={ui.text('ui.hero-builder.remove.5fd82c75', 'Remove')}
 								icon={<CloseOutlined />}
 								onClick={e => {
 									e.stopPropagation();

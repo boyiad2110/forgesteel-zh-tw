@@ -16,6 +16,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureAncestryFeatureChoiceData;
@@ -25,9 +26,12 @@ interface InfoProps {
 }
 
 export const InfoAncestryFeatureChoice = (props: InfoProps) => {
+	const ui = useUI();
 	if (!props.data.selected) {
+		const fragment = ui.text('ui.hero-builder.pt-ancestry-feature.c76f6671', 'pt ancestry feature.');
+		const localized = fragment !== 'pt ancestry feature.';
 		return (
-			<div className='ds-text'>A {props.data.value}pt ancestry feature.</div>
+			<div className='ds-text'>{localized ? '' : 'A '}{props.data.value}{localized ? ' ' : ''}{fragment}</div>
 		);
 	}
 
@@ -84,6 +88,7 @@ interface ConfigProps {
 }
 
 export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const currentFeatureIDs = HeroLogic.getFeatures(props.hero)
 		.map(f => f.feature)
 		.filter(f => f.id !== props.feature.id)
@@ -125,7 +130,7 @@ export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
 				style={{ width: '100%' }}
 				status={!props.data.selected ? 'warning' : ''}
 				allowClear={true}
-				placeholder='Select a feature from an ancestry'
+				placeholder={ui.text('ui.hero-builder.select-a-feature-from-an-anc.baf83c80', 'Select a feature from an ancestry')}
 				options={sortedFeatures.map(f => ({ label: f.name, value: f.id, desc: f.description || f.type, disabled: currentFeatureIDs.includes(f.id) }))}
 				optionRender={option => {
 					const feature = sortedFeatures.find(f => f.id === option.data.value);

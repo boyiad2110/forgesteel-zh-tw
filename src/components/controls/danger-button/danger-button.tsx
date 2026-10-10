@@ -1,6 +1,7 @@
 import { Button, Popover } from 'antd';
 import { MouseEvent, ReactNode, useState } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useUI } from '@/l10n/ui-text';
 
 interface Props {
 	mode?: 'default' | 'block' | 'inline' | 'clear' | 'icon';
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export const DangerButton = (props: Props) => {
+	const ui = useUI();
+	const deleteLabel = props.label || ui.text('ui.hero-builder.delete.01152930', 'Delete');
 	const [ open, setOpen ] = useState<boolean>(false);
 
 	const disabled = props.disabled || false;
@@ -26,27 +29,27 @@ export const DangerButton = (props: Props) => {
 			case 'block':
 				return (
 					<Button style={buttonStyle} icon={icon} block={true} disabled={disabled} danger={true}>
-						{props.label || 'Delete'}
+						{deleteLabel}
 					</Button>
 				);
 			case 'inline':
 				return (
 					<Button style={buttonStyle} type='text' icon={icon} block={true} disabled={disabled} danger={true}>
-						{props.label || 'Delete'}
+						{deleteLabel}
 					</Button>
 				);
 			case 'clear':
 				return (
-					<Button style={buttonStyle} type='text' title={props.label || 'Delete'} icon={icon} disabled={disabled} danger={true} />
+					<Button style={buttonStyle} type='text' title={deleteLabel} icon={icon} disabled={disabled} danger={true} />
 				);
 			case 'icon':
 				return (
-					<Button style={buttonStyle} title={props.label || 'Delete'} icon={icon} disabled={disabled} danger={true} />
+					<Button style={buttonStyle} title={deleteLabel} icon={icon} disabled={disabled} danger={true} />
 				);
 			default:
 				return (
 					<Button style={buttonStyle} icon={icon} disabled={disabled} danger={true}>
-						{props.label || 'Delete'}
+						{deleteLabel}
 					</Button>
 				);
 		}
@@ -63,12 +66,12 @@ export const DangerButton = (props: Props) => {
 					{
 						showDisabledMessage ?
 							props.disabledMessage
-							: props.message || <div className='ds-text'>This can't be undone; are you sure?</div>
+							: props.message || <div className='ds-text'>{ui.text('ui.hero-builder.this-can-t-be-undone-are-you.c4b878e6', 'This can\'t be undone; are you sure?')}</div>
 					}
 					{
 						!showDisabledMessage ?
 							<Button danger={true} onClick={e => { e.stopPropagation(); setOpen(false); props.onConfirm(e); }}>
-								{props.label || 'Delete'}
+								{deleteLabel}
 							</Button>
 							: null
 					}

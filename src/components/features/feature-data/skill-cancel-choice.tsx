@@ -13,6 +13,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureSkillCancelChoiceData;
@@ -22,11 +23,12 @@ interface InfoProps {
 }
 
 export const InfoSkillCancelChoice = (props: InfoProps) => {
+	const ui = useUI();
 	const names = useSkillNames(props.data.selected);
 
 	if (props.data.selected.length > 0) {
 		return (
-			<Field label='Lost Skill' value={<s>{names.join(', ')}</s>} />
+			<Field label={ui.text('ui.hero-builder.lost-skill.f6d9bfe4', 'Lost Skill')} value={<s>{names.join(', ')}</s>} />
 		);
 	}
 
@@ -84,6 +86,7 @@ interface ConfigProps {
 }
 
 export const ConfigSkillCancelChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ skillSelectorOpen, setSkillSelectorOpen ] = useState<boolean>(false);
 
 	// Skills which have already been cancelled - by this feature or any other - can't be chosen again
@@ -124,7 +127,7 @@ export const ConfigSkillCancelChoice = (props: ConfigProps) => {
 						disabled={props.data.knownSkillsOnly && (sortedSkills.length === 0)}
 						onClick={() => setSkillSelectorOpen(true)}
 					>
-						Choose a Skill to Lose
+						{ui.text('ui.hero-builder.choose-a-skill-to-lose.eb7cf43a', 'Choose a Skill to Lose')}
 					</Button>
 					: null
 			}

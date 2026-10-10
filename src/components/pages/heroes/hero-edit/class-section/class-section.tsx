@@ -32,6 +32,7 @@ import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
 import { useOptions } from '@/contexts/data-context';
+import { useUI } from '@/l10n/ui-text';
 
 import './class-section.scss';
 
@@ -58,6 +59,7 @@ interface Props {
 }
 
 export const ClassSection = (props: Props) => {
+	const ui = useUI();
 	const isSmall = useIsSmall();
 	const appOptions = useOptions();
 	const [ selectedSubClass, setSelectedSubClass ] = useState<SubClass | null>(null);
@@ -75,21 +77,21 @@ export const ClassSection = (props: Props) => {
 
 		options.choices.push(
 			<SelectablePanel key='class-level'>
-				<HeaderText>Level</HeaderText>
+				<HeaderText>{ui.text('ui.hero-builder.level.b383f415', 'Level')}</HeaderText>
 				<NumberSpin
 					value={heroClass.level}
 					min={1}
 					max={heroClass.featuresByLevel.length}
 					onChange={value => props.setLevel(value)}
 				/>
-				<Field label='XP' value={props.hero.state.xp} />
+				<Field label={ui.text('ui.hero-builder.xp.39a5f606', 'XP')} value={props.hero.state.xp} />
 				{
 					HeroLogic.canLevelUp(props.hero, appOptions) ?
 						<Button
 							className='status-warning'
 							onClick={() => props.setLevel(heroClass.level + 1)}
 						>
-							Advance to level {heroClass.level + 1}
+							{ui.text('ui.hero-builder.advance-to-level.0fda668c', 'Advance to level')} {heroClass.level + 1}
 						</Button>
 						: null
 				}
@@ -235,7 +237,7 @@ export const ClassSection = (props: Props) => {
 							choicesByLevel.map(lvl => (
 								<Expander
 									key={lvl.level}
-									title={lvl.level === 0 ? 'Class Choices' : `Level ${lvl.level} Choices`}
+									title={lvl.level === 0 ? 'Class Choices' : ui.format('ui.hero-builder.level-lvl-level-choices.f652952e', '`Level ${lvl.level} Choices`', `Level ${lvl.level} Choices`, { level: lvl.level })}
 									expandedByDefault={!lvl.completed}
 									extra={[
 										lvl.completed ?
@@ -274,6 +276,7 @@ interface CharacteristicsProps {
 }
 
 const Characteristics = (props: CharacteristicsProps) => {
+	const ui = useUI();
 	const getArray = () => {
 		let currentArray: number[] = [];
 
@@ -310,7 +313,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 						: null
 				}
 			>
-				Characteristics
+				{ui.text('ui.hero-builder.characteristics.e0e8d3ab', 'Characteristics')}
 			</HeaderText>
 		);
 	};
@@ -320,12 +323,12 @@ const Characteristics = (props: CharacteristicsProps) => {
 			<>
 				{getHeader()}
 				<div className='ds-text'>
-					Your class allows you to choose your primary characteristics.
+					{ui.text('ui.hero-builder.your-class-allows-you-to-cho.773e2ddf', 'Your class allows you to choose your primary characteristics.')}
 				</div>
 				<Select
 					style={{ width: '100%' }}
 					status='warning'
-					placeholder='Select your primary characteristics'
+					placeholder={ui.text('ui.hero-builder.select-your-primary-characte.1c6c9fec', 'Select your primary characteristics')}
 					options={props.heroClass.primaryCharacteristicsOptions.map(a => ({ value: a.join(', '), array: a }))}
 					optionRender={option => <div className='ds-text'>{option.data.value}</div>}
 					value={props.heroClass.primaryCharacteristics && (props.heroClass.primaryCharacteristics.length > 0) ? props.heroClass.primaryCharacteristics.join(', ') : null}
@@ -344,7 +347,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 				{getHeader()}
 				<Space orientation='vertical' style={{ width: '100%' }}>
 					<div className='ds-text'>
-						You start with a 2 in <b>{props.heroClass.primaryCharacteristics.join(' and ')}</b>. Choose the set of values you'd like for your other characteristics.
+						{ui.text('ui.hero-builder.you-start-with-a-2-in.53cbbeb8', 'You start with a 2 in')} <b>{props.heroClass.primaryCharacteristics.join(' and ')}</b>{ui.text('ui.hero-builder.choose-the-set-of-values-you.0ea66e1f', '. Choose the set of values you\'d like for your other characteristics.')}
 					</div>
 					{
 						HeroLogic.getCharacteristicArrays(props.heroClass.primaryCharacteristics.length)
@@ -364,7 +367,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 			<>
 				{getHeader()}
 				<div className='ds-text'>
-					Choose your characteristics.
+					{ui.text('ui.hero-builder.choose-your-characteristics.19f543b9', 'Choose your characteristics.')}
 				</div>
 				{
 					HeroLogic.calculateCharacteristicArrays(array, props.heroClass.primaryCharacteristics)

@@ -26,6 +26,7 @@ import { TextInput } from '@/components/controls/text-input/text-input';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useUI } from '@/l10n/ui-text';
 
 import './culture-section.scss';
 
@@ -50,6 +51,7 @@ interface CultureSectionProps {
 }
 
 export const CultureSection = (props: CultureSectionProps) => {
+	const ui = useUI();
 	const isSmall = useIsSmall();
 	const [ showEnvironment, setShowEnvironment ] = useState<boolean>(false);
 	const [ showOrganization, setShowOrganization ] = useState<boolean>(false);
@@ -103,8 +105,8 @@ export const CultureSection = (props: CultureSectionProps) => {
 		if (props.hero.culture.id === CultureData.bespoke.id) {
 			choices.unshift(
 				<SelectablePanel key='bespoke'>
-					<HeaderText>Bespoke Culture</HeaderText>
-					<div className='ds-text'>Choose a name for your culture.</div>
+					<HeaderText>{ui.text('ui.hero-builder.bespoke-culture.d5aee9b5', 'Bespoke Culture')}</HeaderText>
+					<div className='ds-text'>{ui.text('ui.hero-builder.choose-a-name-for-your-cultu.1d3708b6', 'Choose a name for your culture.')}</div>
 					<Space.Compact style={{ width: '100%' }}>
 						<TextInput
 							status={props.hero.culture.name === '' ? 'warning' : ''}
@@ -116,7 +118,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 						<NameSuggestions onSelect={setName} />
 					</Space.Compact>
 					<Divider />
-					<div className='ds-text'>Choose your Environment, Organization, and Upbringing.</div>
+					<div className='ds-text'>{ui.text('ui.hero-builder.choose-your-environment-orga.16eef6b1', 'Choose your Environment, Organization, and Upbringing.')}</div>
 					<Space orientation='vertical' style={{ width: '100%' }}>
 						{
 							props.hero.culture.environment ?
@@ -132,7 +134,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 								/>
 								:
 								<Button block={true} className='status-warning' onClick={() => setShowEnvironment(true)}>
-									Choose environment
+									{ui.text('ui.hero-builder.choose-environment.e7ee4885', 'Choose environment')}
 								</Button>
 						}
 						{
@@ -149,7 +151,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 								/>
 								:
 								<Button block={true} className='status-warning' onClick={() => setShowOrganization(true)}>
-									Choose organization
+									{ui.text('ui.hero-builder.choose-organization.e94b4b4d', 'Choose organization')}
 								</Button>
 						}
 						{
@@ -166,7 +168,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 								/>
 								:
 								<Button block={true} className='status-warning' onClick={() => setShowUpbringing(true)}>
-									Choose upbringing
+									{ui.text('ui.hero-builder.choose-upbringing.d441f2f0', 'Choose upbringing')}
 								</Button>
 						}
 					</Space>
@@ -198,7 +200,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 							{
 								optionsYourAncestry.length > 0 ?
 									<>
-										<HeaderText level={1}>Your Ancestry</HeaderText>
+										<HeaderText level={1}>{ui.text('ui.hero-builder.your-ancestry.83555c04', 'Your Ancestry')}</HeaderText>
 										<div className='grid'>
 											{optionsYourAncestry}
 										</div>
@@ -208,7 +210,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 							{
 								optionsAncestral.length > 0 ?
 									<>
-										<HeaderText level={1}>Ancestral Cultures</HeaderText>
+										<HeaderText level={1}>{ui.text('ui.hero-builder.ancestral-cultures.002658ee', 'Ancestral Cultures')}</HeaderText>
 										<div className='grid'>
 											{optionsAncestral}
 										</div>
@@ -218,14 +220,14 @@ export const CultureSection = (props: CultureSectionProps) => {
 							{
 								optionsProfessional.length > 0 ?
 									<>
-										<HeaderText level={1}>Professional Cultures</HeaderText>
+										<HeaderText level={1}>{ui.text('ui.hero-builder.professional-cultures.9011d8e9', 'Professional Cultures')}</HeaderText>
 										<div className='grid'>
 											{optionsProfessional}
 										</div>
 									</>
 									: null
 							}
-							<HeaderText level={1}>Bespoke Cultures</HeaderText>
+							<HeaderText level={1}>{ui.text('ui.hero-builder.bespoke-cultures.853baca5', 'Bespoke Cultures')}</HeaderText>
 							<div className='grid'>
 								{optionsBespoke}
 							</div>

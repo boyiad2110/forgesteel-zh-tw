@@ -27,6 +27,7 @@ import { SummonLogic } from '@/logic/summon-logic';
 import { SummonSelectModal } from '@/components/modals/select/summon-select/summon-select-modal';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureSummonChoiceData;
@@ -172,6 +173,7 @@ interface ConfigProps {
 }
 
 export const ConfigSummonChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ monsterSelectorOpen, setMonsterSelectorOpen ] = useState<boolean>(false);
 	const [ selectedSummon, setSelectedSummon ] = useState<Summon | null>(null);
 
@@ -233,7 +235,7 @@ export const ConfigSummonChoice = (props: ConfigProps) => {
 			{
 				props.data.selected.length < props.data.count ?
 					<Button className='status-warning' block={true} onClick={() => setMonsterSelectorOpen(true)}>
-						Choose a monster
+						{ui.text('ui.hero-builder.choose-a-monster.987be8d4', 'Choose a monster')}
 					</Button>
 					: null
 			}

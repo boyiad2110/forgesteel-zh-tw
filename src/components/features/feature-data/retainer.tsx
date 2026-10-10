@@ -13,6 +13,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureRetainerData;
@@ -22,10 +23,11 @@ interface InfoProps {
 }
 
 export const InfoRetainer = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.selected === null) {
 		return (
 			<div className='ds-text'>
-				Choose a retainer.
+				{ui.text('ui.hero-builder.choose-a-retainer.0352d76d', 'Choose a retainer.')}
 			</div>
 		);
 	}

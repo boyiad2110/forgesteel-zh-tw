@@ -12,6 +12,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 const getResource = (data: FeatureHeroicResourceThresholdData, hero: Hero) => {
 	const resources = HeroLogic.getHeroicResources(hero);
@@ -28,6 +29,7 @@ interface InfoProps {
 }
 
 export const InfoHeroicResourceThreshold = (props: InfoProps) => {
+	const ui = useUI();
 	const resource = props.hero ? getResource(props.data, props.hero) : undefined;
 	const resourceName = props.data.resource || resource?.name || 'Resource';
 
@@ -41,7 +43,7 @@ export const InfoHeroicResourceThreshold = (props: InfoProps) => {
 			<Flex align='center' justify='space-between' gap={10}>
 				<div className='ds-text compact-text'>
 					{resourceName} {props.data.value}+
-					{props.data.level > 1 ? ` (level ${props.data.level}+)` : null}
+					{props.data.level > 1 ? ui.format('ui.hero-builder.level-props-data-level.acd6b237', '` (level ${props.data.level}+)`', ` (level ${props.data.level}+)`, { level: props.data.level }) : null}
 				</div>
 				{
 					unlocked !== undefined ?

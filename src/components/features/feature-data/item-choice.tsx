@@ -15,6 +15,7 @@ import { SelectionBox } from '@/components/panels/feature-config-panel/feature-c
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureItemChoiceData;
@@ -24,6 +25,7 @@ interface InfoProps {
 }
 
 export const InfoItemChoice = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
@@ -35,17 +37,19 @@ export const InfoItemChoice = (props: InfoProps) => {
 	}
 
 	let types = props.data.types.join(', ') || 'item';
+	const choose = ui.text('ui.hero-builder.choose.5fbc8355', 'Choose');
+	const localized = choose !== 'Choose';
 	if (props.data.count > 1) {
 		types = `${props.data.count} ${types}s`;
 	} else {
 		if (Format.startsWithVowel(types)) {
-			types = `an ${types}`;
+			types = ui.format('ui.hero-builder.an-types.c9af510f', '`an ${types}`', `an ${types}`, { types });
 		} else {
-			types = `a ${types}`;
+			types = localized ? types : `a ${types}`;
 		}
 	}
 	return (
-		<div className='ds-text'>Choose {types}.</div>
+		<div className='ds-text'>{choose} {types}{localized ? '。' : '.'}</div>
 	);
 };
 
@@ -101,6 +105,7 @@ interface ConfigProps {
 }
 
 export const ConfigItemChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ itemSelectorOpen, setItemSelectorOpen ] = useState<boolean>(false);
 	const [ selectedItem, setSelectedItem ] = useState<Item | null>(null);
 
@@ -130,7 +135,7 @@ export const ConfigItemChoice = (props: ConfigProps) => {
 			{
 				props.data.selected.length < props.data.count ?
 					<Button className='status-warning' block={true} onClick={() => setItemSelectorOpen(true)}>
-						Choose an item
+						{ui.text('ui.hero-builder.choose-an-item.4c5a1155', 'Choose an item')}
 					</Button>
 					: null
 			}

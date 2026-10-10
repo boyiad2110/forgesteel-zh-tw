@@ -143,6 +143,7 @@ export const KEY_PATTERNS = [
 	/^element:[a-z0-9]+(?:[-_][a-z0-9]+)*:[A-Za-z][A-Za-z0-9]*$/,
 	/^enum:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
 	/^ui:[a-z0-9]+(?:[.\-_][a-z0-9]+)*$/,
+	/^ui:ui\.hero-builder\.[a-z0-9]+(?:-[a-z0-9]+)*-\.[0-9a-f]{8}$/,
 	/^data:[A-Za-z][A-Za-z0-9]*:[A-Za-z][A-Za-z0-9]*$/,
 	/^section:[a-z0-9]+(?:[-_][a-z0-9]+)*:(?:0|[1-9][0-9]*)$/,
 	/^language:[A-Za-z0-9]+(?:[ '\u2019-][A-Za-z0-9]+)*$/,
@@ -152,7 +153,7 @@ const BINARY_EXT = new Set([
 	'.png', '.jpg', '.jpeg', '.gif', '.webp', '.ico',
 	'.ttf', '.otf', '.woff', '.woff2', '.mp3', '.wav'
 ]);
-const SHEET_FILES = [ 'glossary.json', 'names.json', 'strings.json' ];
+const SHEET_FILES = [ 'glossary.json', 'names.json', 'strings.json', 'ui.json' ];
 
 const posix = value => value.split(path.sep).join('/');
 
@@ -1563,6 +1564,9 @@ const loadSheetIds = (dir, file) => {
 	for (const name of SHEET_FILES) {
 		const text = read(path.join(dir, name));
 		if (text === null) {
+			if (name === 'ui.json') {
+				continue;
+			}
 			errors.push(issue('mapping-sheet', file, null, null, `generated file ${name} is missing`));
 			continue;
 		}

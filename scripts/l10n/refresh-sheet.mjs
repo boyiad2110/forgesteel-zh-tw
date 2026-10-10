@@ -31,7 +31,8 @@ export function buildSnapshot(input) {
 	for (const [ name, tab ] of Object.entries(capture.tabs)) {
 		const width = name === 'Strings' ? tab.headers.length - 1 : tab.headers.length;
 		const rows = tab.rows.slice().sort((a, b) => a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
-		files.set(`${name.toLowerCase()}.csv`, csv([ tab.headers.slice(0, width), ...rows.map(row => row.slice(0, width)) ]));
+		const fileName = name === 'Forge Steel UI' ? 'ui.csv' : `${name.toLowerCase()}.csv`;
+		files.set(fileName, csv([ tab.headers.slice(0, width), ...rows.map(row => row.slice(0, width)) ]));
 		if (name === 'Strings') {
 			for (const row of rows) {
 				if (row[9]) {

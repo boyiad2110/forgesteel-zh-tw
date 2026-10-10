@@ -94,7 +94,8 @@ export const loadCatalog = (): Promise<void> => {
 	loading ??= Promise.all([
 		import('@/l10n/generated/zh-TW/glossary.json'),
 		import('@/l10n/generated/zh-TW/names.json'),
-		import('@/l10n/generated/zh-TW/strings.json')
+		import('@/l10n/generated/zh-TW/strings.json'),
+		import('@/l10n/generated/zh-TW/ui.json')
 	]).then(modules => {
 		const loaded: Catalog = {};
 		modules.forEach(mod => readEntries(mod.default, loaded));

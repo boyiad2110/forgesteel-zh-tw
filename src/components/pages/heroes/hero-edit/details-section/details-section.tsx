@@ -23,6 +23,7 @@ import { TextInput } from '@/components/controls/text-input/text-input';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useHeroes } from '@/contexts/data-context';
+import { useUI } from '@/l10n/ui-text';
 
 import './details-section.scss';
 
@@ -38,6 +39,7 @@ interface DetailsSectionProps {
 }
 
 export const DetailsSection = (props: DetailsSectionProps) => {
+	const ui = useUI();
 	const allHeroes = useHeroes();
 	const folders = allHeroes
 		.map(h => h.folder)
@@ -92,11 +94,11 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 					</Space.Compact>
 				</SelectablePanel>
 				<SelectablePanel>
-					<HeaderText>Portrait</HeaderText>
+					<HeaderText>{ui.text('ui.hero-builder.portrait.84680994', 'Portrait')}</HeaderText>
 					{
 						props.hero.picture ?
 							<Flex align='center' justify='center' gap={10}>
-								<img className='portrait-edit' src={props.hero.picture} title='Portrait' />
+								<img className='portrait-edit' src={props.hero.picture} title={ui.text('ui.hero-builder.portrait.84680994', 'Portrait')} />
 								<DangerButton mode='clear' onConfirm={() => props.setPicture(null)} />
 							</Flex>
 							:
@@ -119,21 +121,21 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 							>
 								<Button>
 									<DownloadOutlined />
-									Choose a picture
+									{ui.text('ui.hero-builder.choose-a-picture.53bbd748', 'Choose a picture')}
 								</Button>
 							</Upload>
 					}
 				</SelectablePanel>
 				<SelectablePanel>
 					<HeaderText
-						extra={<Info>You can add your hero to a folder to group it with other heroes.</Info>}
+						extra={<Info>{ui.text('ui.hero-builder.you-can-add-your-hero-to-a-f.611d350d', 'You can add your hero to a folder to group it with other heroes.')}</Info>}
 					>
-						Folder
+						{ui.text('ui.hero-builder.folder.5d207c4a', 'Folder')}
 					</HeaderText>
 					<AutoComplete
 						options={Collections.distinct(folders, f => f).map(option => ({ value: option, label: option }))}
 						optionRender={o => <div className='ds-text'>{o.data.label}</div>}
-						placeholder='Folder'
+						placeholder={ui.text('ui.hero-builder.folder.5d207c4a', 'Folder')}
 						allowClear={true}
 						showSearch={{ filterOption: true }}
 						value={props.hero.folder}
@@ -152,7 +154,7 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 			</div>
 			<div className='hero-edit-content-column selected'>
 				<Expander
-					title='Language Choices'
+					title={ui.text('ui.hero-builder.language-choices.960bf4b1', 'Language Choices')}
 					expandedByDefault={!languagesDone}
 					extra={[
 						languagesDone ?
@@ -178,7 +180,7 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 					}
 				</Expander>
 				<Expander
-					title='Skill Choices'
+					title={ui.text('ui.hero-builder.skill-choices.f8854ea1', 'Skill Choices')}
 					expandedByDefault={!skillsDone}
 					extra={[
 						skillsDone ?

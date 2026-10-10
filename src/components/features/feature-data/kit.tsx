@@ -22,6 +22,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureKitData;
@@ -31,6 +32,7 @@ interface InfoProps {
 }
 
 export const InfoKit = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
@@ -42,7 +44,7 @@ export const InfoKit = (props: InfoProps) => {
 	}
 
 	return (
-		<div className='ds-text'>Choose {props.data.count > 1 ? props.data.count : 'a'} {props.data.types.join(', ')} {props.data.count > 1 ? 'kits' : 'kit'}.</div>
+		<div className='ds-text'>{ui.text('ui.hero-builder.choose.5fbc8355', 'Choose')} {props.data.count > 1 ? props.data.count : 'a'} {props.data.types.join(', ')} {props.data.count > 1 ? 'kits' : 'kit'}.</div>
 	);
 };
 
@@ -98,6 +100,7 @@ interface ConfigProps {
 }
 
 export const ConfigKit = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ kitSelectorOpen, setKitSelectorOpen ] = useState<boolean>(false);
 	const [ selectedKit, setSelectedKit ] = useState<Kit | null>(null);
 
@@ -118,14 +121,14 @@ export const ConfigKit = (props: ConfigProps) => {
 
 		return (
 			<Button className='status-warning' block={true} onClick={() => setKitSelectorOpen(true)}>
-				Choose a kit
+				{ui.text('ui.hero-builder.choose-a-kit.8cc3cd8c', 'Choose a kit')}
 			</Button>
 		);
 	};
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			{props.data.count > 1 ? <div className='ds-text'>Choose {props.data.count}:</div> : null}
+			{props.data.count > 1 ? <div className='ds-text'>{ui.text('ui.hero-builder.choose.5fbc8355', 'Choose')} {props.data.count}:</div> : null}
 			{
 				props.data.selected.map(kit => {
 					const features = FeatureLogic.getFeaturesFromKit(kit, props.hero.class?.level || 1, TutorialMode.Complete);
@@ -143,7 +146,7 @@ export const ConfigKit = (props: ConfigProps) => {
 							customizeContent={
 								choiceFeatures.length > 0 ?
 									(
-										<Expander title='Configure'>
+										<Expander title={ui.text('ui.hero-builder.configure.357c15c9', 'Configure')}>
 											{
 												choiceFeatures.map(f => (
 													<FeatureConfigPanel

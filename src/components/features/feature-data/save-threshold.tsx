@@ -7,6 +7,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { Space } from 'antd';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureSaveThresholdData;
@@ -16,8 +17,9 @@ interface InfoProps {
 }
 
 export const InfoSaveThreshold = (props: InfoProps) => {
+	const ui = useUI();
 	return (
-		<Field label='Save' value={`${props.data.value}+`} />
+		<Field label={ui.text('ui.hero-builder.save.6dfceca4', 'Save')} value={`${props.data.value}+`} />
 	);
 };
 

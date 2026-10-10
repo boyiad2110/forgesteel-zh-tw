@@ -8,6 +8,7 @@ import { Hero } from '@/models/hero';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureAbilityKeywordData;
@@ -17,10 +18,11 @@ interface InfoProps {
 }
 
 export const InfoAbilityKeyword = (props: InfoProps) => {
+	const ui = useUI();
 	return (
 		<>
-			<Field label='Keywords' value={props.data.keywords.join(', ')} />
-			<Field label='To Add' value={props.data.keywords.join(', ')} />
+			<Field label={ui.text('ui.hero-builder.keywords.28f6721a', 'Keywords')} value={props.data.keywords.join(', ')} />
+			<Field label={ui.text('ui.hero-builder.to-add.23ff0fd6', 'To Add')} value={props.data.toAdd.join(', ')} />
 		</>
 	);
 };
@@ -32,6 +34,7 @@ interface EditProps {
 }
 
 export const EditAbilityKeyword = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureAbilityKeywordData>(Utils.copy(props.data));
 
 	const setKeywords = (value: AbilityKeyword[]) => {
@@ -57,7 +60,7 @@ export const EditAbilityKeyword = (props: EditProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<HeaderText>Keywords</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.keywords.28f6721a', 'Keywords')}</HeaderText>
 			<Select
 				style={{ width: '100%' }}
 				placeholder='Select keywords'
@@ -68,7 +71,7 @@ export const EditAbilityKeyword = (props: EditProps) => {
 				value={data.keywords}
 				onChange={setKeywords}
 			/>
-			<HeaderText>To Add</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.to-add.23ff0fd6', 'To Add')}</HeaderText>
 			<Select
 				style={{ width: '100%' }}
 				placeholder='Select keywords to add'

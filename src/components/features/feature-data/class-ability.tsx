@@ -20,6 +20,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureClassAbilityData;
@@ -29,10 +30,14 @@ interface InfoProps {
 }
 
 export const InfoClassAbility = (props: InfoProps) => {
+	const ui = useUI();
+	const costText = (props.data.cost === 'signature') || (props.data.cost === 0)
+		? 'signature'
+		: ui.format('ui.hero-builder.props-data-cost-pt.eadc18a0', '`${props.data.cost}pt`', `${props.data.cost}pt`, { cost: props.data.cost });
 	if (!props.hero) {
 		return (
 			<div className='ds-text'>
-				Choose {props.data.count > 1 ? props.data.count : 'a'} {(props.data.cost === 'signature') || (props.data.cost === 0) ? 'signature' : `${props.data.cost}pt`} {props.data.count > 1 ? 'abilities' : 'ability'}.
+				Choose {props.data.count > 1 ? props.data.count : 'a'} {costText} {props.data.count > 1 ? 'abilities' : 'ability'}.
 			</div>
 		);
 	}
@@ -68,7 +73,7 @@ export const InfoClassAbility = (props: InfoProps) => {
 
 	return (
 		<div className='ds-text'>
-			Choose {props.data.count > 1 ? props.data.count : 'a'} {(props.data.cost === 'signature') || (props.data.cost === 0) ? 'signature' : `${props.data.cost}pt`} {props.data.count > 1 ? 'abilities' : 'ability'}{props.data.classID ? ` from the ${heroClass.name}` : ''}.
+			Choose {props.data.count > 1 ? props.data.count : 'a'} {costText} {props.data.count > 1 ? 'abilities' : 'ability'}{props.data.classID ? ui.format('ui.hero-builder.from-the-heroclass-name.1847bb79', '` from the ${heroClass.name}`', ` from the ${heroClass.name}`, { class: heroClass.name }) : ''}.
 		</div>
 	);
 };
@@ -213,6 +218,10 @@ interface ConfigProps {
 }
 
 export const ConfigClassAbility = (props: ConfigProps) => {
+	const ui = useUI();
+	const costText = props.data.cost === 'signature'
+		? 'signature'
+		: ui.format('ui.hero-builder.props-data-cost-pt.eadc18a0', '`${props.data.cost}pt`', `${props.data.cost}pt`, { cost: props.data.cost });
 	const [ abilitySelectorOpen, setAbilitySelectorOpen ] = useState<boolean>(false);
 	const [ selectedAbility, setSelectedAbility ] = useState<Ability | null>(null);
 
@@ -242,7 +251,7 @@ export const ConfigClassAbility = (props: ConfigProps) => {
 
 		return (
 			<Button className='status-warning' block={true} onClick={() => setAbilitySelectorOpen(true)}>
-				Choose an ability
+				{ui.text('ui.hero-builder.choose-an-ability.1571b464', 'Choose an ability')}
 			</Button>
 		);
 	};
@@ -250,7 +259,7 @@ export const ConfigClassAbility = (props: ConfigProps) => {
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
 			<div className='ds-text'>
-				Choose {props.data.count > 1 ? props.data.count : 'a'} {props.data.cost === 'signature' ? 'signature' : `${props.data.cost}pt`} {props.data.count > 1 ? 'abilities' : 'ability'}.
+				Choose {props.data.count > 1 ? props.data.count : 'a'} {costText} {props.data.count > 1 ? 'abilities' : 'ability'}.
 			</div>
 			{
 				props.data.selectedIDs.map(id => {

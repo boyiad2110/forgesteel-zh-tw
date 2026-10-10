@@ -24,6 +24,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureChoiceData;
@@ -33,6 +34,7 @@ interface InfoProps {
 }
 
 export const InfoChoice = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%', padding: '0 20px', borderLeft: '5px solid rgb(200 200 200)' }}>
@@ -51,9 +53,9 @@ export const InfoChoice = (props: InfoProps) => {
 			<div className='ds-text'>
 				{
 					showCosts ?
-						`You have ${props.data.count} points to spend on the following options:`
+						ui.format('ui.hero-builder.you-have-props-data-count-po.2e3d4725', '`You have ${props.data.count} points to spend on the following options:`', `You have ${props.data.count} points to spend on the following options:`, { count: props.data.count })
 						:
-						`Choose ${props.data.count} of the following options:`
+						ui.format('ui.hero-builder.choose-props-data-count-of-t.801a6ebe', '`Choose ${props.data.count} of the following options:`', `Choose ${props.data.count} of the following options:`, { count: props.data.count })
 				}
 			</div>
 			<Space orientation='vertical' style={{ width: '100%' }}>
@@ -199,6 +201,7 @@ interface ConfigProps {
 }
 
 export const ConfigChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ comprehensive, setComprehensive ] = useState<boolean>(false);
 	const [ choiceSelectorOpen, setChoiceSelectorOpen ] = useState<boolean>(false);
 	const [ selectedFeature, setSelectedFeature ] = useState<Feature | null>(null);
@@ -250,9 +253,9 @@ export const ConfigChoice = (props: ConfigProps) => {
 			<div className='ds-text'>
 				{
 					showCosts ?
-						(pointsLeft > 0) ? `You have ${pointsLeft} point(s) to spend.` : null
+						(pointsLeft > 0) ? ui.format('ui.hero-builder.you-have-pointsleft-point-s-.24969ff1', '`You have ${pointsLeft} point(s) to spend.`', `You have ${pointsLeft} point(s) to spend.`, { pointsLeft }) : null
 						:
-						`Choose ${props.data.count} option(s).`
+						ui.format('ui.hero-builder.choose-props-data-count-opti.b3fa43f8', '`Choose ${props.data.count} option(s).`', `Choose ${props.data.count} option(s).`, { count: props.data.count })
 				}
 			</div>
 			{
@@ -291,7 +294,7 @@ export const ConfigChoice = (props: ConfigProps) => {
 				(pointsLeft > 0) && (props.data.count === 'ancestry') ?
 					<>
 						<Divider />
-						<Toggle label='Choose a feature from any ancestry' value={comprehensive} onChange={setComprehensive} />
+						<Toggle label={ui.text('ui.hero-builder.choose-a-feature-from-any-an.97d8dad2', 'Choose a feature from any ancestry')} value={comprehensive} onChange={setComprehensive} />
 					</>
 					: null
 			}
@@ -300,7 +303,7 @@ export const ConfigChoice = (props: ConfigProps) => {
 					<Alert
 						type='warning'
 						showIcon={true}
-						title='This is typically against the rules.'
+						title={ui.text('ui.hero-builder.this-is-typically-against-th.a0988409', 'This is typically against the rules.')}
 					/>
 					: null
 			}

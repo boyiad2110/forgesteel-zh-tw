@@ -15,6 +15,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useUI } from '@/l10n/ui-text';
 
 import './complication-section.scss';
 
@@ -36,6 +37,7 @@ interface Props {
 }
 
 export const ComplicationSection = (props: Props) => {
+	const ui = useUI();
 	const isSmall = useIsSmall();
 
 	const listElementRef = useRef<HTMLDivElement>(null);
@@ -112,7 +114,7 @@ export const ComplicationSection = (props: Props) => {
 			{
 				choices.length > 0 ?
 					<div className='hero-edit-content-column selected' id='complication-choices'>
-						<HeaderText>Choices</HeaderText>
+						<HeaderText>{ui.text('ui.hero-builder.choices.6c95228b', 'Choices')}</HeaderText>
 						{choices}
 					</div>
 					: null

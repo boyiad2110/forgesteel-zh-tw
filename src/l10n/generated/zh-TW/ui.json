@@ -1,0 +1,757 @@
+{
+  "ui.hero-builder.add-a-custom-language.155bdaee": {
+    "en": "Add a custom language",
+    "updated": "2026-10-10",
+    "zh": "新增自訂語言"
+  },
+  "ui.hero-builder.add-a-custom-skill.14fa1a61": {
+    "en": "Add a custom skill",
+    "updated": "2026-10-10",
+    "zh": "新增自訂技能"
+  },
+  "ui.hero-builder.advance-to-level.0fda668c": {
+    "en": "Advance to level",
+    "updated": "2026-10-10",
+    "zh": "提升至等級"
+  },
+  "ui.hero-builder.an-types.c9af510f": {
+    "en": "`an ${types}`",
+    "updated": "2026-10-10",
+    "zh": "{types}"
+  },
+  "ui.hero-builder.ancestral-cultures.002658ee": {
+    "en": "Ancestral Cultures",
+    "updated": "2026-10-10",
+    "zh": "族裔文化"
+  },
+  "ui.hero-builder.ancestry.638cf5ee": {
+    "en": "Ancestry",
+    "updated": "2026-10-10",
+    "zh": "族裔"
+  },
+  "ui.hero-builder.ancestry.f8f07987": {
+    "en": "Ancestry",
+    "updated": "2026-10-10",
+    "zh": "族裔"
+  },
+  "ui.hero-builder.and.a8dce43d": {
+    "en": ", and",
+    "updated": "2026-10-10",
+    "zh": "，以及"
+  },
+  "ui.hero-builder.armor.d165ace3": {
+    "en": "Armor",
+    "updated": "2026-10-10",
+    "zh": "護甲"
+  },
+  "ui.hero-builder.auto-calculate-damage-potenc.dfd07bc3": {
+    "en": "Auto-calculate damage, potency, etc",
+    "updated": "2026-10-10",
+    "zh": "自動計算傷害、效力等數值"
+  },
+  "ui.hero-builder.bespoke-culture.d5aee9b5": {
+    "en": "Bespoke Culture",
+    "updated": "2026-10-10",
+    "zh": "自訂文化"
+  },
+  "ui.hero-builder.bespoke-cultures.853baca5": {
+    "en": "Bespoke Cultures",
+    "updated": "2026-10-10",
+    "zh": "自訂文化"
+  },
+  "ui.hero-builder.but-you-can-skip-this-if-you.21d25869": {
+    "en": "- but you can skip this if you'd prefer.",
+    "updated": "2026-10-10",
+    "zh": "，但這不是必要項目，可略過。"
+  },
+  "ui.hero-builder.cancel.5314e347": {
+    "en": "Cancel",
+    "updated": "2026-10-10",
+    "zh": "取消"
+  },
+  "ui.hero-builder.cannot-be.36cd9df2": {
+    "en": "Cannot Be",
+    "updated": "2026-10-10",
+    "zh": "不會陷入"
+  },
+  "ui.hero-builder.career.bb829dbb": {
+    "en": "Career",
+    "updated": "2026-10-10",
+    "zh": "生涯"
+  },
+  "ui.hero-builder.career.d360a160": {
+    "en": "Career",
+    "updated": "2026-10-10",
+    "zh": "生涯"
+  },
+  "ui.hero-builder.characteristics.e0e8d3ab": {
+    "en": "Characteristics",
+    "updated": "2026-10-10",
+    "zh": "屬性"
+  },
+  "ui.hero-builder.choices.6c95228b": {
+    "en": "Choices",
+    "updated": "2026-10-10",
+    "zh": "選項"
+  },
+  "ui.hero-builder.choose-a-complication.82309699": {
+    "en": "Choose a complication.",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 項糾葛。"
+  },
+  "ui.hero-builder.choose-a-complication.93fdd59d": {
+    "en": "Choose a complication",
+    "updated": "2026-10-10",
+    "zh": "選擇糾葛"
+  },
+  "ui.hero-builder.choose-a-domain-to-enable-th.d5d9a229": {
+    "en": "Choose a domain to enable this feature.",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 個領域以啟用此特性。"
+  },
+  "ui.hero-builder.choose-a-feature-from-any-an.97d8dad2": {
+    "en": "Choose a feature from any ancestry",
+    "updated": "2026-10-10",
+    "zh": "選擇任意族裔的 1 項特性"
+  },
+  "ui.hero-builder.choose-a-kit.8cc3cd8c": {
+    "en": "Choose a kit",
+    "updated": "2026-10-10",
+    "zh": "選擇套裝"
+  },
+  "ui.hero-builder.choose-a-language.271c231e": {
+    "en": "Choose a language",
+    "updated": "2026-10-10",
+    "zh": "選擇語言"
+  },
+  "ui.hero-builder.choose-a-monster.85c6f3c3": {
+    "en": "Choose a monster.",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 隻怪物。"
+  },
+  "ui.hero-builder.choose-a-monster.987be8d4": {
+    "en": "Choose a monster",
+    "updated": "2026-10-10",
+    "zh": "選擇怪物"
+  },
+  "ui.hero-builder.choose-a-name-for-your-cultu.1d3708b6": {
+    "en": "Choose a name for your culture.",
+    "updated": "2026-10-10",
+    "zh": "為你的文化命名。"
+  },
+  "ui.hero-builder.choose-a-perk.34a3b751": {
+    "en": "Choose a perk",
+    "updated": "2026-10-10",
+    "zh": "選擇專長"
+  },
+  "ui.hero-builder.choose-a-picture.53bbd748": {
+    "en": "Choose a picture",
+    "updated": "2026-10-10",
+    "zh": "選擇圖片"
+  },
+  "ui.hero-builder.choose-a-retainer.0352d76d": {
+    "en": "Choose a retainer.",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 名隨從。"
+  },
+  "ui.hero-builder.choose-a-skill-to-lose.eb7cf43a": {
+    "en": "Choose a Skill to Lose",
+    "updated": "2026-10-10",
+    "zh": "選擇要失去的技能"
+  },
+  "ui.hero-builder.choose-a-skill.4d74c650": {
+    "en": "Choose a Skill",
+    "updated": "2026-10-10",
+    "zh": "選擇技能"
+  },
+  "ui.hero-builder.choose-a-title.105ac3c6": {
+    "en": "Choose a title",
+    "updated": "2026-10-10",
+    "zh": "選擇稱號"
+  },
+  "ui.hero-builder.choose-an-ability.1571b464": {
+    "en": "Choose an ability",
+    "updated": "2026-10-10",
+    "zh": "選擇招式"
+  },
+  "ui.hero-builder.choose-an-inciting-incident.5f2c012b": {
+    "en": "Choose an inciting incident",
+    "updated": "2026-10-10",
+    "zh": "選擇關鍵事件"
+  },
+  "ui.hero-builder.choose-an-item.4c5a1155": {
+    "en": "Choose an item",
+    "updated": "2026-10-10",
+    "zh": "選擇物品"
+  },
+  "ui.hero-builder.choose-environment.e7ee4885": {
+    "en": "Choose environment",
+    "updated": "2026-10-10",
+    "zh": "選擇生活環境"
+  },
+  "ui.hero-builder.choose-organization.e94b4b4d": {
+    "en": "Choose organization",
+    "updated": "2026-10-10",
+    "zh": "選擇組織型態"
+  },
+  "ui.hero-builder.choose-props-data-count-of-t.801a6ebe": {
+    "en": "`Choose ${props.data.count} of the following options:`",
+    "updated": "2026-10-10",
+    "zh": "從以下選項中選擇 {count} 項："
+  },
+  "ui.hero-builder.choose-props-data-count-opti.b3fa43f8": {
+    "en": "`Choose ${props.data.count} option(s).`",
+    "updated": "2026-10-10",
+    "zh": "請選擇 {count} 個選項。"
+  },
+  "ui.hero-builder.choose-the-set-of-values-you.0ea66e1f": {
+    "en": ". Choose the set of values you'd like for your other characteristics.",
+    "updated": "2026-10-10",
+    "zh": "。此外，請為其他屬性選擇以下 1 組數值。"
+  },
+  "ui.hero-builder.choose-upbringing.d441f2f0": {
+    "en": "Choose upbringing",
+    "updated": "2026-10-10",
+    "zh": "選擇成長經歷"
+  },
+  "ui.hero-builder.choose-your-characteristics.19f543b9": {
+    "en": "Choose your characteristics.",
+    "updated": "2026-10-10",
+    "zh": "選擇你的屬性。"
+  },
+  "ui.hero-builder.choose-your-environment-orga.16eef6b1": {
+    "en": "Choose your Environment, Organization, and Upbringing.",
+    "updated": "2026-10-10",
+    "zh": "選擇你的生活環境、組織型態與成長經歷。"
+  },
+  "ui.hero-builder.choose.5fbc8355": {
+    "en": "Choose",
+    "updated": "2026-10-10",
+    "zh": "選擇"
+  },
+  "ui.hero-builder.class.93255bb9": {
+    "en": "Class",
+    "updated": "2026-10-10",
+    "zh": "職業"
+  },
+  "ui.hero-builder.class.9be228a0": {
+    "en": "Class",
+    "updated": "2026-10-10",
+    "zh": "職業"
+  },
+  "ui.hero-builder.click-here.319b8c1e": {
+    "en": "Click Here",
+    "updated": "2026-10-10",
+    "zh": "點擊這裡"
+  },
+  "ui.hero-builder.completed.1c31b48e": {
+    "en": "Completed",
+    "updated": "2026-10-10",
+    "zh": "已完成"
+  },
+  "ui.hero-builder.complication.312ac90f": {
+    "en": "Complication",
+    "updated": "2026-10-10",
+    "zh": "糾葛"
+  },
+  "ui.hero-builder.complication.d37d8e77": {
+    "en": "Complication",
+    "updated": "2026-10-10",
+    "zh": "糾葛"
+  },
+  "ui.hero-builder.configure.357c15c9": {
+    "en": "Configure",
+    "updated": "2026-10-10",
+    "zh": "設定"
+  },
+  "ui.hero-builder.creating-a-hero-in.9a412045": {
+    "en": "Creating a hero in",
+    "updated": "2026-10-10",
+    "zh": "在"
+  },
+  "ui.hero-builder.creating-a-hero.09586add": {
+    "en": "Creating a Hero",
+    "updated": "2026-10-10",
+    "zh": "建立英雄"
+  },
+  "ui.hero-builder.culture.06f1b137": {
+    "en": "Culture",
+    "updated": "2026-10-10",
+    "zh": "文化"
+  },
+  "ui.hero-builder.culture.a3132ad2": {
+    "en": "Culture",
+    "updated": "2026-10-10",
+    "zh": "文化"
+  },
+  "ui.hero-builder.custom-language-name.5b0c1f59": {
+    "en": "Custom Language Name",
+    "updated": "2026-10-10",
+    "zh": "自訂語言名稱"
+  },
+  "ui.hero-builder.custom-language.1bf43b8b": {
+    "en": "Custom Language",
+    "updated": "2026-10-10",
+    "zh": "自訂語言"
+  },
+  "ui.hero-builder.custom-skill-name.7937e4be": {
+    "en": "Custom Skill Name",
+    "updated": "2026-10-10",
+    "zh": "自訂技能名稱"
+  },
+  "ui.hero-builder.custom-skill.b3339162": {
+    "en": "Custom Skill",
+    "updated": "2026-10-10",
+    "zh": "自訂技能"
+  },
+  "ui.hero-builder.customize.6ddfe8c5": {
+    "en": "Customize",
+    "updated": "2026-10-10",
+    "zh": "自訂"
+  },
+  "ui.hero-builder.default-option.18977ea3": {
+    "en": "Default Option",
+    "updated": "2026-10-10",
+    "zh": "預設選項"
+  },
+  "ui.hero-builder.delete.01152930": {
+    "en": "Delete",
+    "updated": "2026-10-10",
+    "zh": "刪除"
+  },
+  "ui.hero-builder.details.a3eba45b": {
+    "en": "Details",
+    "updated": "2026-10-10",
+    "zh": "詳情"
+  },
+  "ui.hero-builder.details.e7e41783": {
+    "en": "Details",
+    "updated": "2026-10-10",
+    "zh": "詳情"
+  },
+  "ui.hero-builder.duplicated.a20aac67": {
+    "en": "Duplicated",
+    "updated": "2026-10-10",
+    "zh": "重複選擇"
+  },
+  "ui.hero-builder.extensions.6eb986a4": {
+    "en": "Extensions",
+    "updated": "2026-10-10",
+    "zh": "擴充項目"
+  },
+  "ui.hero-builder.features.31d1245f": {
+    "en": "Features",
+    "updated": "2026-10-10",
+    "zh": "特性"
+  },
+  "ui.hero-builder.finally-go-to-the.3f9b524b": {
+    "en": "Finally, go to the",
+    "updated": "2026-10-10",
+    "zh": "最後，前往"
+  },
+  "ui.hero-builder.folder.5d207c4a": {
+    "en": "Folder",
+    "updated": "2026-10-10",
+    "zh": "資料夾"
+  },
+  "ui.hero-builder.formatlogic-getmodifier-prop.d3388eac": {
+    "en": "`${FormatLogic.getModifier(props.data)} distance`",
+    "updated": "2026-10-10",
+    "zh": "{modifier} 射程"
+  },
+  "ui.hero-builder.from-the-heroclass-name.1847bb79": {
+    "en": "` from the ${heroClass.name}`",
+    "updated": "2026-10-10",
+    "zh": "（來自 {class}）"
+  },
+  "ui.hero-builder.hero-builder.bd7e4ec0": {
+    "en": "Hero Builder",
+    "updated": "2026-10-10",
+    "zh": "英雄建構器"
+  },
+  "ui.hero-builder.heroic-resource-cost-props-d.2f45ea1c": {
+    "en": "`Heroic resource cost ${props.data.modifier >= 0 ? '+' : ''}${props.data.modifier}`",
+    "updated": "2026-10-10",
+    "zh": "英雄資源費用 {modifier}"
+  },
+  "ui.hero-builder.homebrew-extensions-add-to-o.0ae4e64e": {
+    "en": "Homebrew extensions add to or change official content. Your hero only uses the ones you switch on here.",
+    "updated": "2026-10-10",
+    "zh": "自製擴充項目會新增或修改官方內容。此英雄只會使用你在這裡開啟的擴充項目。"
+  },
+  "ui.hero-builder.if-there-are-any-choices-to-.f393a771": {
+    "en": ". If there are any choices to be made, you'll be prompted to make your selections.",
+    "updated": "2026-10-10",
+    "zh": "。若有待選項目，系統會提示你完成選擇。"
+  },
+  "ui.hero-builder.if-you-have-a-homebrew-sourc.d8d789c8": {
+    "en": "If you have a homebrew sourcebook you want to use, and it isn't listed here, you can import it now.",
+    "updated": "2026-10-10",
+    "zh": "若要使用此處未列出的自製來源書，請在這裡匯入。"
+  },
+  "ui.hero-builder.import-a-sourcebook.37cebd77": {
+    "en": "Import a sourcebook",
+    "updated": "2026-10-10",
+    "zh": "匯入來源書"
+  },
+  "ui.hero-builder.in-progress.c78428c0": {
+    "en": "In Progress",
+    "updated": "2026-10-10",
+    "zh": "進行中"
+  },
+  "ui.hero-builder.in-the-toolbar-at-the-top-an.73c2771b": {
+    "en": "in the toolbar at the top, and you'll see your hero sheet.",
+    "updated": "2026-10-10",
+    "zh": "按鈕，即可查看你的英雄角色卡。"
+  },
+  "ui.hero-builder.inciting-incident.181ce686": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-10",
+    "zh": "關鍵事件"
+  },
+  "ui.hero-builder.is-simple.dde61b97": {
+    "en": "is simple.",
+    "updated": "2026-10-10",
+    "zh": "建立英雄很簡單。"
+  },
+  "ui.hero-builder.keywords.28f6721a": {
+    "en": "Keywords",
+    "updated": "2026-10-10",
+    "zh": "關鍵詞"
+  },
+  "ui.hero-builder.language-choices.960bf4b1": {
+    "en": "Language Choices",
+    "updated": "2026-10-10",
+    "zh": "語言選項"
+  },
+  "ui.hero-builder.language.996aaf3b": {
+    "en": "Language",
+    "updated": "2026-10-10",
+    "zh": "語言"
+  },
+  "ui.hero-builder.level-lvl-level-choices.f652952e": {
+    "en": "`Level ${lvl.level} Choices`",
+    "updated": "2026-10-10",
+    "zh": "{level} 級選項"
+  },
+  "ui.hero-builder.level-props-data-level.acd6b237": {
+    "en": "` (level ${props.data.level}+)`",
+    "updated": "2026-10-10",
+    "zh": "（等級 {level}+）"
+  },
+  "ui.hero-builder.level-t-level.e10d2e65": {
+    "en": "` (level ${t.level}+)`",
+    "updated": "2026-10-10",
+    "zh": "（等級 {level}+）"
+  },
+  "ui.hero-builder.level.b383f415": {
+    "en": "Level",
+    "updated": "2026-10-10",
+    "zh": "等級"
+  },
+  "ui.hero-builder.looking-for-something-specif.65c7e1a8": {
+    "en": "Looking for something specific? If it's third-party or homebrew, make sure you've included the sourcebook it's in.",
+    "updated": "2026-10-10",
+    "zh": "找不到想要的內容嗎？若是第三方或自製內容，請確認已加入所屬來源書。"
+  },
+  "ui.hero-builder.lost-skill.f6d9bfe4": {
+    "en": "Lost Skill",
+    "updated": "2026-10-10",
+    "zh": "失去的技能"
+  },
+  "ui.hero-builder.movement-mode.56db4b3c": {
+    "en": "movement mode.",
+    "updated": "2026-10-10",
+    "zh": "移動模式。"
+  },
+  "ui.hero-builder.name.f7c27f51": {
+    "en": "Name",
+    "updated": "2026-10-10",
+    "zh": "名稱"
+  },
+  "ui.hero-builder.no-abilities-with-a-heroic-r.6ba2f307": {
+    "en": "No abilities with a heroic resource cost",
+    "updated": "2026-10-10",
+    "zh": "不包含消耗英雄資源的招式"
+  },
+  "ui.hero-builder.no-abilities-with-a-heroic-r.8216a4ec": {
+    "en": "No abilities with a heroic resource cost of more than 3",
+    "updated": "2026-10-10",
+    "zh": "不包含消耗超過 3 點英雄資源的招式"
+  },
+  "ui.hero-builder.no-disengage-bonus.3ee0d1c6": {
+    "en": "No disengage bonus",
+    "updated": "2026-10-10",
+    "zh": "不包含撤離加值"
+  },
+  "ui.hero-builder.no-perks.b95a0ec8": {
+    "en": "No perks",
+    "updated": "2026-10-10",
+    "zh": "不包含專長"
+  },
+  "ui.hero-builder.no-triggered-action-abilitie.a6aa88d8": {
+    "en": "No triggered action abilities",
+    "updated": "2026-10-10",
+    "zh": "不包含反應動作招式"
+  },
+  "ui.hero-builder.not-started.dad5ea5d": {
+    "en": "Not Started",
+    "updated": "2026-10-10",
+    "zh": "未開始"
+  },
+  "ui.hero-builder.optional.1aea6d2c": {
+    "en": "Optional",
+    "updated": "2026-10-10",
+    "zh": "非必要"
+  },
+  "ui.hero-builder.optionally-you-can-choose-a.1b063f03": {
+    "en": "Optionally, you can choose a",
+    "updated": "2026-10-10",
+    "zh": "此外，你也可以選擇 1 項"
+  },
+  "ui.hero-builder.other-skills.66fa9a26": {
+    "en": "Other skills",
+    "updated": "2026-10-10",
+    "zh": "其他技能"
+  },
+  "ui.hero-builder.otherwise.eea1c613": {
+    "en": "Otherwise:",
+    "updated": "2026-10-10",
+    "zh": "否則："
+  },
+  "ui.hero-builder.portrait.84680994": {
+    "en": "Portrait",
+    "updated": "2026-10-10",
+    "zh": "肖像"
+  },
+  "ui.hero-builder.professional-cultures.9011d8e9": {
+    "en": "Professional Cultures",
+    "updated": "2026-10-10",
+    "zh": "職業文化"
+  },
+  "ui.hero-builder.props-data-cost-pt.eadc18a0": {
+    "en": "`${props.data.cost}pt`",
+    "updated": "2026-10-10",
+    "zh": "{cost}pt"
+  },
+  "ui.hero-builder.pt-ancestry-feature.c76f6671": {
+    "en": "pt ancestry feature.",
+    "updated": "2026-10-10",
+    "zh": "點族裔特性。"
+  },
+  "ui.hero-builder.random.948804e8": {
+    "en": "Random",
+    "updated": "2026-10-10",
+    "zh": "隨機選擇"
+  },
+  "ui.hero-builder.remove.5fd82c75": {
+    "en": "Remove",
+    "updated": "2026-10-10",
+    "zh": "移除"
+  },
+  "ui.hero-builder.resisting-potencies.08dcb6db": {
+    "en": "Resisting potencies",
+    "updated": "2026-10-10",
+    "zh": "抵抗效力"
+  },
+  "ui.hero-builder.save-changes.7215be78": {
+    "en": "Save Changes",
+    "updated": "2026-10-10",
+    "zh": "儲存變更"
+  },
+  "ui.hero-builder.save.6dfceca4": {
+    "en": "Save",
+    "updated": "2026-10-10",
+    "zh": "豁免"
+  },
+  "ui.hero-builder.search.f1270409": {
+    "en": "Search",
+    "updated": "2026-10-10",
+    "zh": "搜尋"
+  },
+  "ui.hero-builder.select-a-feature-from-an-anc.baf83c80": {
+    "en": "Select a feature from an ancestry",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 項族裔特性"
+  },
+  "ui.hero-builder.select-an-ancestry.942750ad": {
+    "en": "Select an ancestry",
+    "updated": "2026-10-10",
+    "zh": "選擇族裔"
+  },
+  "ui.hero-builder.select-your-primary-characte.1c6c9fec": {
+    "en": "Select your primary characteristics",
+    "updated": "2026-10-10",
+    "zh": "選擇主要屬性"
+  },
+  "ui.hero-builder.select.ed8e93ef": {
+    "en": "Select",
+    "updated": "2026-10-10",
+    "zh": "選取"
+  },
+  "ui.hero-builder.show-details.257cf510": {
+    "en": "Show details",
+    "updated": "2026-10-10",
+    "zh": "顯示詳情"
+  },
+  "ui.hero-builder.size.0805dc7c": {
+    "en": "Size",
+    "updated": "2026-10-10",
+    "zh": "體型"
+  },
+  "ui.hero-builder.skill-choices.f8854ea1": {
+    "en": "Skill Choices",
+    "updated": "2026-10-10",
+    "zh": "技能選項"
+  },
+  "ui.hero-builder.skill.a5ed2dcb": {
+    "en": "Skill",
+    "updated": "2026-10-10",
+    "zh": "技能"
+  },
+  "ui.hero-builder.sourcebooks.52e8200a": {
+    "en": "Sourcebooks",
+    "updated": "2026-10-10",
+    "zh": "來源書"
+  },
+  "ui.hero-builder.speed.a2b81141": {
+    "en": "Speed",
+    "updated": "2026-10-10",
+    "zh": "速度"
+  },
+  "ui.hero-builder.stage-1.7031dbb9": {
+    "en": "Stage 1",
+    "updated": "2026-10-10",
+    "zh": "第 1 階段"
+  },
+  "ui.hero-builder.stage-2.d05b49f4": {
+    "en": "Stage 2",
+    "updated": "2026-10-10",
+    "zh": "第 2 階段"
+  },
+  "ui.hero-builder.stage-3.9c7fa387": {
+    "en": "Stage 3",
+    "updated": "2026-10-10",
+    "zh": "第 3 階段"
+  },
+  "ui.hero-builder.start.08232aae": {
+    "en": "Start",
+    "updated": "2026-10-10",
+    "zh": "開始"
+  },
+  "ui.hero-builder.switch-this-on-if-you-want-t.402c5efc": {
+    "en": "Switch this on if you want to gain your abilities incrementally.",
+    "updated": "2026-10-10",
+    "zh": "若你想逐步取得招式，請開啟此選項。"
+  },
+  "ui.hero-builder.switch.e1b71c88": {
+    "en": "Switch",
+    "updated": "2026-10-10",
+    "zh": "切換"
+  },
+  "ui.hero-builder.tab-and-give-your-hero-a-nam.eead94f6": {
+    "en": "tab and give your hero a name.",
+    "updated": "2026-10-10",
+    "zh": "分頁，為英雄命名。"
+  },
+  "ui.hero-builder.this-can-t-be-undone-are-you.c4b878e6": {
+    "en": "This can't be undone; are you sure?",
+    "updated": "2026-10-10",
+    "zh": "此操作無法復原，確定要繼續嗎？"
+  },
+  "ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba": {
+    "en": "This hero can use content from the following sourcebooks:",
+    "updated": "2026-10-10",
+    "zh": "此英雄可使用以下來源書的內容："
+  },
+  "ui.hero-builder.this-is-typically-against-th.a0988409": {
+    "en": "This is typically against the rules.",
+    "updated": "2026-10-10",
+    "zh": "這通常不符合規則。"
+  },
+  "ui.hero-builder.to-add.23ff0fd6": {
+    "en": "To Add",
+    "updated": "2026-10-10",
+    "zh": "要新增"
+  },
+  "ui.hero-builder.tutorial-mode.6b8e85d4": {
+    "en": "Tutorial Mode",
+    "updated": "2026-10-10",
+    "zh": "教學模式"
+  },
+  "ui.hero-builder.unnamed-feature.fe5fa185": {
+    "en": "Unnamed Feature",
+    "updated": "2026-10-10",
+    "zh": "未命名特性"
+  },
+  "ui.hero-builder.unselect.81e63541": {
+    "en": "Unselect",
+    "updated": "2026-10-10",
+    "zh": "取消選擇"
+  },
+  "ui.hero-builder.use-the-tabs-above-to-select.03b413ab": {
+    "en": "Use the tabs above to select your hero's",
+    "updated": "2026-10-10",
+    "zh": "使用上方分頁設定英雄的"
+  },
+  "ui.hero-builder.weapons.3189d297": {
+    "en": "Weapons",
+    "updated": "2026-10-10",
+    "zh": "武器"
+  },
+  "ui.hero-builder.when-you-re-done-click.a682c8f7": {
+    "en": "When you're done, click",
+    "updated": "2026-10-10",
+    "zh": "完成後，點選上方工具列的"
+  },
+  "ui.hero-builder.when.ec4ba8f6": {
+    "en": "When",
+    "updated": "2026-10-10",
+    "zh": "時機"
+  },
+  "ui.hero-builder.xp.39a5f606": {
+    "en": "XP",
+    "updated": "2026-10-10",
+    "zh": "XP"
+  },
+  "ui.hero-builder.you-already-have-this-skill.ff5ad6f6": {
+    "en": "You already have this skill.",
+    "updated": "2026-10-10",
+    "zh": "你已經擁有這項技能。"
+  },
+  "ui.hero-builder.you-can-add-your-hero-to-a-f.611d350d": {
+    "en": "You can add your hero to a folder to group it with other heroes.",
+    "updated": "2026-10-10",
+    "zh": "你可以將英雄加入資料夾，與其他英雄放在一起。"
+  },
+  "ui.hero-builder.you-gain-the.4aa6e0b7": {
+    "en": "You gain the",
+    "updated": "2026-10-10",
+    "zh": "你獲得"
+  },
+  "ui.hero-builder.you-have-pointsleft-point-s-.24969ff1": {
+    "en": "`You have ${pointsLeft} point(s) to spend.`",
+    "updated": "2026-10-10",
+    "zh": "你還有 {pointsLeft} 點可以分配。"
+  },
+  "ui.hero-builder.you-have-props-data-count-po.2e3d4725": {
+    "en": "`You have ${props.data.count} points to spend on the following options:`",
+    "updated": "2026-10-10",
+    "zh": "你有 {count} 點可用於以下選項："
+  },
+  "ui.hero-builder.you-start-with-a-2-in.53cbbeb8": {
+    "en": "You start with a 2 in",
+    "updated": "2026-10-10",
+    "zh": "你主要屬性的起始值為 2："
+  },
+  "ui.hero-builder.your-ancestry.83555c04": {
+    "en": "Your Ancestry",
+    "updated": "2026-10-10",
+    "zh": "你的族裔"
+  },
+  "ui.hero-builder.your-class-allows-you-to-cho.773e2ddf": {
+    "en": "Your class allows you to choose your primary characteristics.",
+    "updated": "2026-10-10",
+    "zh": "你的職業可以讓你選擇主要屬性。"
+  }
+}
