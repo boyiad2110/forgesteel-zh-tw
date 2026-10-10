@@ -10,6 +10,6 @@
 
 DISPLAY-02 當時的核准清冊為 428／105／11；UI-01／UI-02 接入後為 579／105／11。兩個 DISPLAY 批次的來源、範圍與限制集中各自原 PR；本輪 UI 定稿與實作不代表其他 P3/P4 譯文已核准，也不代表網站正式發布。
 
-目前待辦與下一動作只看 [TODO](TODO.md)。UI-01 的 151 筆已由 Marc 定稿為 APPROVED，依 332 筆 Glossary、10 筆 TM 核對；UI-02 快照／匯出／守門已在本分支實作，待完整驗證。Career 411 NEW、Enhancement 待定。
+目前待辦與下一動作只看 [TODO](TODO.md)。UI-01 的 151 筆已由 Marc 定稿為 APPROVED，依 332 筆 Glossary、10 筆 TM 核對；UI-02 快照／匯出／守門已在本分支實作並通過完整驗證，待 Marc 程式驗收。Career 411 NEW、Enhancement 待定。
 
 詳細治理與驗證入口見 [RULES](RULES.md)、[UPSTREAM](UPSTREAM.md)、[BATCH-TEMPLATE](BATCH-TEMPLATE.md)。完整舊進度保留 [歷史](history/PROGRESS-2026-10-10.md)，已結案項目不從歷史重新列待辦。
