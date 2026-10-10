@@ -1,6 +1,6 @@
 import { Button, Drawer, Flex, Segmented, Select, Space } from 'antd';
 import { Feature, FeatureSkillChoiceData } from '@/models/feature';
-import { SkillName, useSkillNames } from '@/l10n/skill-text';
+import { SkillName, useSkillDescription, useSkillNames } from '@/l10n/skill-text';
 import { Collections } from '@/utils/collections';
 import { FeatureType } from '@/enums/feature-type';
 import { Field } from '@/components/controls/field/field';
@@ -146,6 +146,10 @@ interface ConfigProps {
 	setData: (data: FeatureSkillChoiceData) => void;
 }
 
+const SkillDescriptionText = (props: { skill: NonNullable<ReturnType<typeof SourcebookLogic.getSkill>> }) => {
+	return useSkillDescription(props.skill);
+};
+
 export const ConfigSkillChoice = (props: ConfigProps) => {
 	const ui = useUI();
 	const [ skillSelectorOpen, setSkillSelectorOpen ] = useState<boolean>(false);
@@ -180,7 +184,7 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 								<Flex vertical={true}>
 									{
 										sk ?
-											<Field label={<SkillName name={sk.name} />} value={sk.description} style={{ flex: '1 1 0' }} />
+											<Field label={<SkillName name={sk.name} />} value={<SkillDescriptionText skill={sk} />} style={{ flex: '1 1 0' }} />
 											:
 											<div className='ds-text' style={{ flex: '1 1 0' }}>{skill}</div>
 									}

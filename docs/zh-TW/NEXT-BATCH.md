@@ -1,6 +1,6 @@
 # UI-05 / DISPLAY-05：建角詳情與語言 / 技能選擇盤點
 
-2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。Marc 已核准 16 筆新 UI；Master Sheet、同次快照、匯出及 mapping 已更新，顯示層接線與完整隔離驗證通過。[PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 已開啟，等待 CI 與人工驗收。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
+2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。Marc 已核准 16 筆新 UI；Master Sheet、同次快照、匯出及 mapping 已更新。人工驗收截圖發現官方技能生成提示的嚴格描述比對造成英文備援，且技能選擇抽屜尚未呈現已核准的用途描述；目前在同一 PR #61 補正，尚未驗收或合併。技能用途重用既有核准規則表，不新增譯文。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
 
 ## 本批建議範圍與來源
 
@@ -30,7 +30,7 @@
 - HeroExtensionsPanel 的 3 個空值是固定 UI；有值的自製擴充名稱、來源書名稱及內容保留原值。
 - 技能模板只使用核准來源片段，保留上游 count、來源順序與可選範圍；實測候選 count 為 1 / 2 / 3 / 5。未知片段、未觀察到的語言限制、count=-1 或非法模板保留完整英文，不輸出半中半英。
 - 身份保護須核對官方來源、原 ID、原名稱、原描述與影響生成句型的參數；同名自訂、Homebrew、未知 ID、改名及改寫不因重建成 Skill 而誤用官方描述。
-- 本批不含語言 / 技能各自的資料描述、內容型特性標題（例如 Gift of Charm / Polyglot）、生涯 / 職業 / 糾葛書本內容、擴充內容或管理編輯器。這些缺口仍未完成，Career 411 NEW、Enhancement 待定。
+- 本批接入技能選擇抽屜與已選技能的官方用途描述，直接重用相應技能類別規則表中核准的用途文字；變更或自訂技能仍顯示原文。本批不含語言資料描述、內容型特性標題（例如 Gift of Charm / Polyglot）、生涯 / 職業 / 糾葛書本內容、擴充內容或管理編輯器。這些缺口仍未完成，Career 411 NEW、Enhancement 待定。
 
 ## 35 種生成描述候選
 
@@ -92,8 +92,8 @@
 
 1. **完成**：Marc 核准 16 筆 UI、兩個技能句型及來源組合格式；單一寫入者更新 Master Sheet、批次狀態與 CHG-0087。
 2. **完成**：同次四頁核准快照 → 匯出 / mapping / UI 守門 → 顯示層接線；不改原資料、計算、可選範圍、搜尋 / 排序或分享碼。
-3. **完整驗證完成**：隔離副本乾淨安裝及 audit 0 漏洞；lint 0 errors、TypeScript 通過、987/987 測試、production build 成功，7 組隔離瀏覽器旅程通過，涵蓋既有族裔 / 文化 / Bespoke / Ability 回歸與 UI-05 語言 / 技能模板 1 / 2 / 3 / 5、分類、Custom 標籤及英文備援。
-4. **進行中**：[PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 已交付本批實作與 PR #60 狀態校正，等待 CI 與 Marc 人工驗收；不自行合併。
+3. **原始版本完整驗證完成；修正版驗證中**：原始版本隔離副本乾淨安裝及 audit 0 漏洞；lint 0 errors、TypeScript 通過、987/987 測試、production build 成功，7 組隔離瀏覽器旅程通過。修正版本機語系守門、型別及相關 10 項測試通過；全套 Vitest 有 866 項通過、2 個 suite 因 sass-embedded 權限失敗，build 與 Edge 瀏覽器回歸亦受本機權限限制。最新修正版需以 PR CI 驗證。
+4. **進行中**：[PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 原始 head 的 CI 全綠；Marc 人工驗收發現技能提示漏接，已在本地修正並新增生成描述與核准用途文字回歸，需更新 PR、確認最新 CI，再由 Marc 完成人工驗收；不自行合併。
 
 # UI-04 / DISPLAY-04：已合併批次的原始盤點
 

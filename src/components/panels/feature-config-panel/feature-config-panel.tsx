@@ -2,6 +2,7 @@ import { Button, Flex } from 'antd';
 import { CloseOutlined, InfoCircleOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Feature, FeatureData, FeatureSkillChoice } from '@/models/feature';
 import { ReactNode, useState } from 'react';
+import { isDefaultLanguageFeature, isOfficialFeatureSource } from '@/l10n/official-feature-source';
 import { skillListKey, skillNameKey, useSkillListNames, useSkillNames } from '@/l10n/skill-text';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { ConfigFeature } from '@/components/features/feature';
@@ -13,7 +14,6 @@ import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Perk } from '@/models/perk';
 import { Sourcebook } from '@/models/sourcebook';
-import { isDefaultLanguageFeature } from '@/l10n/official-feature-source';
 import { mapping } from '@/l10n/mapping';
 import { peekCatalog } from '@/l10n/catalog';
 import { useUI } from '@/l10n/ui-text';
@@ -82,9 +82,13 @@ interface Props {
 export const FeatureConfigPanel = (props: Props) => {
 	const ui = useUI();
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
-	const sourceSkillChoice = props.detailsSourceFeature?.type === FeatureType.SkillChoice
+	const detailsSkillChoice = props.detailsSourceFeature?.type === FeatureType.SkillChoice
 		? props.detailsSourceFeature as FeatureSkillChoice
 		: undefined;
+	const sourceSkillChoice = detailsSkillChoice || (isOfficialFeatureSource(props.feature as Feature, props.sourcebooks)
+		&& props.feature.type === FeatureType.SkillChoice
+		? props.feature as FeatureSkillChoice
+		: undefined);
 	const skillOptions = sourceSkillChoice?.data.options || [];
 	const skillLists = sourceSkillChoice?.data.listOptions || [];
 	const translatedSkillOptions = useSkillNames(skillOptions);
@@ -118,7 +122,10 @@ export const FeatureConfigPanel = (props: Props) => {
 		const expected = count > 1
 			? `Choose ${count} from ${sourceParts.join(', ')}.`
 			: `Choose a skill from ${sourceParts.join(', ')}.`;
-		if (sourceSkillChoice.description !== expected || props.feature.description !== expected) {
+		// The source feature can use its description for narrative flavor text.
+		// DetailsSection rebuilds the feature with the generated choice prompt,
+		// which is the string we need to guard here.
+		if (props.feature.description !== expected) {
 			return undefined;
 		}
 
@@ -227,6 +234,17 @@ export const FeatureConfigPanel = (props: Props) => {
 	};
 
 	const getName = () => {
+		if (!detailsSkillChoice && sourceSkillChoice && props.feature.type === FeatureType.SkillChoice) {
+			const prefix = (sourceSkillChoice.data.listOptions.length < 5)
+				&& (sourceSkillChoice.data.options.length === 0)
+				? `${sourceSkillChoice.data.listOptions.join(' / ')} `
+				: '';
+			const generatedName = `${prefix}${sourceSkillChoice.data.count === 1 ? 'Skill' : 'Skills'}`;
+			if (props.feature.name === generatedName && prefix) {
+				const list = translatedSkillLists.join(' / ');
+				return ui.format('ui.hero-builder.skill-list-description.f94c20ab', '`${list} skills`', generatedName, { list });
+			}
+		}
 		if (props.detailsSourceFeature && props.feature.type === FeatureType.LanguageChoice
 			&& props.detailsSourceFeature.type === FeatureType.LanguageChoice) {
 			if (isDefaultLanguageFeature(props.detailsSourceFeature) && props.feature.id === 'default-language') {

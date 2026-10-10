@@ -1,6 +1,6 @@
 import { Button, Divider, Space } from 'antd';
 import { SearchBox, TextInput } from '@/components/controls/text-input/text-input';
-import { SkillName, useSkillListNames } from '@/l10n/skill-text';
+import { SkillName, useSkillDescription, useSkillListNames } from '@/l10n/skill-text';
 import { Expander } from '@/components/controls/expander/expander';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -17,6 +17,10 @@ import { useUI } from '@/l10n/ui-text';
 import './skill-select-modal.scss';
 
 const skillLists = [ SkillList.Crafting, SkillList.Exploration, SkillList.Interpersonal, SkillList.Intrigue, SkillList.Lore, SkillList.Custom ];
+
+const SkillDescription = (props: { skill: Skill }) => {
+	return <Markdown text={useSkillDescription(props.skill)} />;
+};
 
 interface Props {
 	skills: Skill[];
@@ -74,7 +78,7 @@ export const SkillSelectModal = (props: Props) => {
 										subset.map((s, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
 												<HeaderText tags={[ listLabel(s.list) ]}><SkillName name={s.name} /></HeaderText>
-												<Markdown text={s.description} />
+												<SkillDescription skill={s} />
 											</SelectablePanel>
 										))
 									}
@@ -92,7 +96,7 @@ export const SkillSelectModal = (props: Props) => {
 											otherSkills.map((s, n) => (
 												<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>
 													<HeaderText tags={[ listLabel(s.list) ]}><SkillName name={s.name} /></HeaderText>
-													<Markdown text={s.description} />
+													<SkillDescription skill={s} />
 												</SelectablePanel>
 											))
 										}

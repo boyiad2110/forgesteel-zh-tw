@@ -321,7 +321,7 @@ try {
 			Object.values(value).forEach(visit);
 		};
 		visit(core);
-		const skillIDs = [ 'devil-feature-1b', 'career-artisan-feature-1', 'elementalist-1-2', 'shadow-1-3' ];
+		const skillIDs = [ 'devil-feature-1b', 'career-artisan-feature-1', 'elementalist-1-2', 'shadow-1-3', 'env-urban', 'up-martial' ];
 		const sourceFeatures = skillIDs.map(id => official.get(id));
 		if (sourceFeatures.some(feature => !feature)) throw new Error('Approved skill-choice browser fixtures are missing');
 		const hero = FactoryLogic.createHero();
@@ -335,10 +335,11 @@ try {
 					options: [ ...sourceFeature.data.options ],
 					listOptions: [ ...sourceFeature.data.listOptions ],
 					count: sourceFeature.data.count,
-					selected: [ ...sourceFeature.data.selected ]
+					selected: sourceFeature.id === 'devil-feature-1b' ? [ 'Lead' ] : [ ...sourceFeature.data.selected ]
 				})
 			})),
-			{ feature: FactoryLogic.feature.createSkillChoice({ id: 'homebrew-custom-skill-choice', name: 'Skill', options: [ 'Smoke Test Skill' ], count: 1 }) }
+			{ feature: FactoryLogic.feature.createSkillChoice({ id: 'homebrew-custom-skill-choice', name: 'Skill', options: [ 'Smoke Test Skill' ], count: 1 }) },
+			{ feature: sourceFeatures[1] }
 		];
 		const get = key => {
 			const entry = mapping[key];
@@ -390,13 +391,17 @@ try {
 	for (const [ index, text ] of ui05Expected.expected.entries()) {
 		await ui05Panels.nth(index + 1).getByText(text, { exact: true }).waitFor();
 	}
+	await ui05Panels.nth(1).getByText('鼓舞他人採取行動', { exact: true }).waitFor();
 	await ui05Panels.nth(0).getByRole('button', { name: '選擇語言', exact: true }).click();
 	await abilityPage.locator('.language-select-modal').getByText('通用語', { exact: true }).waitFor();
 	await abilityPage.keyboard.press('Escape');
-	await ui05Panels.nth(5).getByRole('button', { name: '選擇技能', exact: true }).click();
+	await ui05Panels.nth(7).getByRole('button', { name: '選擇技能', exact: true }).click();
 	assert.equal(await abilityPage.locator('.skill-select-modal').getByText('自訂', { exact: true }).count(), 2, 'Custom category heading and skill tag');
 	await abilityPage.locator('.skill-select-modal').getByText('Smoke Test Skill', { exact: true }).waitFor();
+	await abilityPage.locator('.skill-select-modal').getByText('了解魔法地點、法術、儀式、道具與現象', { exact: true }).waitFor();
 	await abilityPage.keyboard.press('Escape');
+	await ui05Panels.nth(8).getByText(ui05Expected.expected[1], { exact: true }).waitFor();
+	await ui05Panels.nth(8).getByText('工藝類技能', { exact: true }).waitFor();
 	await abilityPage.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
 	await ui05Panels.nth(0).getByText('Default Language', { exact: true }).waitFor();
 	await ui05Panels.nth(1).getByText('Choose a skill from Interpersonal skills.', { exact: true }).waitFor();
