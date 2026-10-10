@@ -4,7 +4,7 @@
 
 ## 現況與下一步
 
-- 維護順序 1–5 與 DISPLAY-01 已完成；狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
+- 維護順序 1–5、DISPLAY-01 與 MAINT-WORKFLOW-01 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
 - 核准清冊：428 個 mapping／105 列 Forge Steel Strings 版／11 個英文例外。這是防錯清冊，不是產品中文化完成率。
 - DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；剩餘位置見 [COVERAGE](COVERAGE.md)。UI 標籤另批；2026-10-10 實讀 Master Sheet metadata，尚無 Forge Steel UI 分頁。
 - Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
