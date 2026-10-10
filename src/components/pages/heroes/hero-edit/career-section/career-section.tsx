@@ -123,7 +123,7 @@ export const CareerSection = (props: Props) => {
 				{
 					choices.length > 0 ?
 						<div className='hero-edit-content-column selected' id='career-choices'>
-							<HeaderText>Choices</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.choices.6c95228b', 'Choices')}</HeaderText>
 							{choices}
 						</div>
 						: null

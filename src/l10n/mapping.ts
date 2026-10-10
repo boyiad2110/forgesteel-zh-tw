@@ -633,5 +633,20 @@ export const mapping: Record<string, MappingEntry> = {
 	'ui:ui.hero-builder.career.d360a160': { sheetId: 'ui.hero-builder.career.d360a160', enHash: '732863fa5c6125a201487a2f52e400a2f29a8c9548512fc84c35da1aef3d710d' },
 	'ui:ui.hero-builder.class.93255bb9': { sheetId: 'ui.hero-builder.class.93255bb9', enHash: '4f3a9bd003974a5ed8c9ad65d4aeda3b8a0db6fd903e36e83a3a950624b09bbd' },
 	'ui:ui.hero-builder.complication.312ac90f': { sheetId: 'ui.hero-builder.complication.312ac90f', enHash: 'de3b942e7a0047b84e463ff9c0a973560d67c996c867a5f27770d23d58febf3c' },
-	'ui:ui.hero-builder.details.e7e41783': { sheetId: 'ui.hero-builder.details.e7e41783', enHash: '45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df' }
+	'ui:ui.hero-builder.details.e7e41783': { sheetId: 'ui.hero-builder.details.e7e41783', enHash: '45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df' },
+	'ui:ui.hero-builder.domain.67b22e3e': { sheetId: 'ui.hero-builder.domain.67b22e3e', enHash: '79fa33618d8eaa1fc55f6f8a2d34c65ececc4c5961ac2b1433802c2629d55ca1' },
+	'ui:ui.hero-builder.domains.26a6e690': { sheetId: 'ui.hero-builder.domains.26a6e690', enHash: 'ced67718ea0f31eb4fcb32715449aa8a3527583f27af07f3c518d6686d5dd2b1' },
+	'ui:ui.hero-builder.environment.b9b1aade': { sheetId: 'ui.hero-builder.environment.b9b1aade', enHash: '9e471951a1b4106e54be128a21112b02914fe98cc79b2c92b49ee80c5464487c' },
+	'ui:ui.hero-builder.former-life.2d120c9d': { sheetId: 'ui.hero-builder.former-life.2d120c9d', enHash: '425730bf002330c3a8ae87348a9232524ec66fb89177c9d5492b6110ce3990a3' },
+	'ui:ui.hero-builder.kit.63d5adfa': { sheetId: 'ui.hero-builder.kit.63d5adfa', enHash: '875d60ed20f4b98f7868c57bf37463dbae31d46cb1369b0de0f2812b74811d0f' },
+	'ui:ui.hero-builder.level.b63ee29c': { sheetId: 'ui.hero-builder.level.b63ee29c', enHash: '39904dafb022ba9d6988c88cc033ffc8f8d514204343a2facfac93a0cf08e779' },
+	'ui:ui.hero-builder.no-ancestry-chosen.c7dff4d7': { sheetId: 'ui.hero-builder.no-ancestry-chosen.c7dff4d7', enHash: '7b9fb7c180bcd853f4f1c46218f03f6d9ede81f04ebd2b9f4a2167cd977ddcf1' },
+	'ui:ui.hero-builder.no-career-chosen.9451b589': { sheetId: 'ui.hero-builder.no-career-chosen.9451b589', enHash: 'f1dbbd4d0b7276bf6b146bc2b3d807493036a77e6a714f8d0c485715882388fa' },
+	'ui:ui.hero-builder.no-class-chosen.f0123fb0': { sheetId: 'ui.hero-builder.no-class-chosen.f0123fb0', enHash: 'ed7b0d577a7a650a885cad521542cacb46b7aee878dda239828a189eb3048cb5' },
+	'ui:ui.hero-builder.no-culture-chosen.6b98c260': { sheetId: 'ui.hero-builder.no-culture-chosen.6b98c260', enHash: '99c90ee63122fa485d2d3bb9eb18f492d99927048007b8525ea4bfb2acf70196' },
+	'ui:ui.hero-builder.organization.a6425036': { sheetId: 'ui.hero-builder.organization.a6425036', enHash: 'd764d42592fc968709b4c6c25c6e6b77919295dfce2c57ead02bedac5ddb3218' },
+	'ui:ui.hero-builder.project.7dc34b5f': { sheetId: 'ui.hero-builder.project.7dc34b5f', enHash: '985959785319747668373cc6dee294b11db782b03cdd90a2851fbdc0637c6b7b' },
+	'ui:ui.hero-builder.state.31408083': { sheetId: 'ui.hero-builder.state.31408083', enHash: 'a3b50c476732c7409d297c3d7d0e23569fee5e08318553ae76041ab5fe60582e' },
+	'ui:ui.hero-builder.title.f0bf18b2': { sheetId: 'ui.hero-builder.title.f0bf18b2', enHash: '7e8cd2056da73a7fefb6cd91f4e5d199d08d9058c517b9a2476b1b520324d674' },
+	'ui:ui.hero-builder.upbringing.402fbf01': { sheetId: 'ui.hero-builder.upbringing.402fbf01', enHash: 'b6b346201c762d8fc1906c4ecf56212cfa42cf01d80346d189a448bf1e029fe4' }
 };

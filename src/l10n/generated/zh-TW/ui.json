@@ -329,10 +329,25 @@
     "updated": "2026-10-10",
     "zh": "詳情"
   },
+  "ui.hero-builder.domain.67b22e3e": {
+    "en": "Domain",
+    "updated": "2026-10-10",
+    "zh": "領域"
+  },
+  "ui.hero-builder.domains.26a6e690": {
+    "en": "Domains",
+    "updated": "2026-10-10",
+    "zh": "領域"
+  },
   "ui.hero-builder.duplicated.a20aac67": {
     "en": "Duplicated",
     "updated": "2026-10-10",
     "zh": "重複選擇"
+  },
+  "ui.hero-builder.environment.b9b1aade": {
+    "en": "Environment",
+    "updated": "2026-10-10",
+    "zh": "生活環境"
   },
   "ui.hero-builder.extensions.6eb986a4": {
     "en": "Extensions",
@@ -358,6 +373,11 @@
     "en": "`${FormatLogic.getModifier(props.data)} distance`",
     "updated": "2026-10-10",
     "zh": "{modifier} 射程"
+  },
+  "ui.hero-builder.former-life.2d120c9d": {
+    "en": "Former Life",
+    "updated": "2026-10-10",
+    "zh": "昔日人生"
   },
   "ui.hero-builder.from-the-heroclass-name.1847bb79": {
     "en": "` from the ${heroClass.name}`",
@@ -419,6 +439,11 @@
     "updated": "2026-10-10",
     "zh": "關鍵詞"
   },
+  "ui.hero-builder.kit.63d5adfa": {
+    "en": "Kit",
+    "updated": "2026-10-10",
+    "zh": "套裝"
+  },
   "ui.hero-builder.language-choices.960bf4b1": {
     "en": "Language Choices",
     "updated": "2026-10-10",
@@ -448,6 +473,11 @@
     "en": "Level",
     "updated": "2026-10-10",
     "zh": "等級"
+  },
+  "ui.hero-builder.level.b63ee29c": {
+    "en": "`level ${props.hero.class.level}`",
+    "updated": "2026-10-10",
+    "zh": "{level} 級"
   },
   "ui.hero-builder.looking-for-something-specif.65c7e1a8": {
     "en": "Looking for something specific? If it's third-party or homebrew, make sure you've included the sourcebook it's in.",
@@ -479,6 +509,26 @@
     "updated": "2026-10-10",
     "zh": "不包含消耗超過 3 點英雄資源的招式"
   },
+  "ui.hero-builder.no-ancestry-chosen.c7dff4d7": {
+    "en": "No ancestry chosen",
+    "updated": "2026-10-10",
+    "zh": "尚未選擇族裔"
+  },
+  "ui.hero-builder.no-career-chosen.9451b589": {
+    "en": "No career chosen",
+    "updated": "2026-10-10",
+    "zh": "尚未選擇生涯"
+  },
+  "ui.hero-builder.no-class-chosen.f0123fb0": {
+    "en": "No class chosen",
+    "updated": "2026-10-10",
+    "zh": "尚未選擇職業"
+  },
+  "ui.hero-builder.no-culture-chosen.6b98c260": {
+    "en": "No culture chosen",
+    "updated": "2026-10-10",
+    "zh": "尚未選擇文化"
+  },
   "ui.hero-builder.no-disengage-bonus.3ee0d1c6": {
     "en": "No disengage bonus",
     "updated": "2026-10-10",
@@ -509,6 +559,11 @@
     "updated": "2026-10-10",
     "zh": "此外，你也可以選擇 1 項"
   },
+  "ui.hero-builder.organization.a6425036": {
+    "en": "Organization",
+    "updated": "2026-10-10",
+    "zh": "組織型態"
+  },
   "ui.hero-builder.other-skills.66fa9a26": {
     "en": "Other skills",
     "updated": "2026-10-10",
@@ -528,6 +583,11 @@
     "en": "Professional Cultures",
     "updated": "2026-10-10",
     "zh": "職業文化"
+  },
+  "ui.hero-builder.project.7dc34b5f": {
+    "en": "Project",
+    "updated": "2026-10-10",
+    "zh": "專案"
   },
   "ui.hero-builder.props-data-cost-pt.eadc18a0": {
     "en": "`${props.data.cost}pt`",
@@ -639,6 +699,11 @@
     "updated": "2026-10-10",
     "zh": "開始"
   },
+  "ui.hero-builder.state.31408083": {
+    "en": "State",
+    "updated": "2026-10-10",
+    "zh": "狀況"
+  },
   "ui.hero-builder.switch-this-on-if-you-want-t.402c5efc": {
     "en": "Switch this on if you want to gain your abilities incrementally.",
     "updated": "2026-10-10",
@@ -669,6 +734,11 @@
     "updated": "2026-10-10",
     "zh": "這通常不符合規則。"
   },
+  "ui.hero-builder.title.f0bf18b2": {
+    "en": "Title",
+    "updated": "2026-10-10",
+    "zh": "稱號"
+  },
   "ui.hero-builder.to-add.23ff0fd6": {
     "en": "To Add",
     "updated": "2026-10-10",
@@ -688,6 +758,11 @@
     "en": "Unselect",
     "updated": "2026-10-10",
     "zh": "取消選擇"
+  },
+  "ui.hero-builder.upbringing.402fbf01": {
+    "en": "Upbringing",
+    "updated": "2026-10-10",
+    "zh": "成長經歷"
   },
   "ui.hero-builder.use-the-tabs-above-to-select.03b413ab": {
     "en": "Use the tabs above to select your hero's",

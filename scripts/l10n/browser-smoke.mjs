@@ -138,7 +138,7 @@ try {
 	await page.reload(); // mount a fresh editor for the second fixture hero
 	await page.locator('#culture-list .selectable-panel').filter({ has: page.getByText(cultureExpected.bespokeName, { exact: true }) }).click();
 	const customName = 'Smoke culture name';
-	await page.locator('#culture-choices').getByPlaceholder('Name', { exact: true }).fill(customName);
+	await page.locator('#culture-choices').getByPlaceholder(uiText('ui.hero-builder.name.f7c27f51'), { exact: true }).fill(customName);
 	await page.locator('#culture-selected .header-text').getByText(customName, { exact: true }).waitFor();
 	for (const [ index, button ] of [
 		uiText('ui.hero-builder.choose-environment.e7ee4885'),

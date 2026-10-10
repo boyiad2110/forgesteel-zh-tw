@@ -32,6 +32,8 @@ import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
 import { useOptions } from '@/contexts/data-context';
+import { characteristicNameKey } from '@/l10n/characteristic-text';
+import { translate } from '@/l10n/text';
 import { useUI } from '@/l10n/ui-text';
 
 import './class-section.scss';
@@ -64,7 +66,6 @@ export const ClassSection = (props: Props) => {
 	const appOptions = useOptions();
 	const [ selectedSubClass, setSelectedSubClass ] = useState<SubClass | null>(null);
 	const [ subclassSelectorOpen, setSubclassSelectorOpen ] = useState<boolean>(false);
-
 	const getClassOptions = (heroClass: HeroClass) => {
 		const options = {
 			level: 0,
@@ -232,7 +233,7 @@ export const ClassSection = (props: Props) => {
 			{
 				choicesByLevel.length > 0 ?
 					<div className='hero-edit-content-column selected' id='class-choices'>
-						<HeaderText>Choices</HeaderText>
+						<HeaderText>{ui.text('ui.hero-builder.choices.6c95228b', 'Choices')}</HeaderText>
 						{
 							choicesByLevel.map(lvl => (
 								<Expander
@@ -277,6 +278,9 @@ interface CharacteristicsProps {
 
 const Characteristics = (props: CharacteristicsProps) => {
 	const ui = useUI();
+	const formatCharacteristics = (characteristics: Characteristic[]) => characteristics
+		.map(characteristic => translate(characteristicNameKey(characteristic), characteristic))
+		.join(ui.language === 'zh-TW' ? '、' : ', ');
 	const getArray = () => {
 		let currentArray: number[] = [];
 
@@ -329,9 +333,9 @@ const Characteristics = (props: CharacteristicsProps) => {
 					style={{ width: '100%' }}
 					status='warning'
 					placeholder={ui.text('ui.hero-builder.select-your-primary-characte.1c6c9fec', 'Select your primary characteristics')}
-					options={props.heroClass.primaryCharacteristicsOptions.map(a => ({ value: a.join(', '), array: a }))}
+					options={props.heroClass.primaryCharacteristicsOptions.map(a => ({ value: formatCharacteristics(a), array: a }))}
 					optionRender={option => <div className='ds-text'>{option.data.value}</div>}
-					value={props.heroClass.primaryCharacteristics && (props.heroClass.primaryCharacteristics.length > 0) ? props.heroClass.primaryCharacteristics.join(', ') : null}
+					value={props.heroClass.primaryCharacteristics && (props.heroClass.primaryCharacteristics.length > 0) ? formatCharacteristics(props.heroClass.primaryCharacteristics) : null}
 					onChange={(_text, option) => {
 						const data = option as { value: string, array: Characteristic[] };
 						props.selectPrimaryCharacteristics(data.array);
@@ -347,7 +351,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 				{getHeader()}
 				<Space orientation='vertical' style={{ width: '100%' }}>
 					<div className='ds-text'>
-						{ui.text('ui.hero-builder.you-start-with-a-2-in.53cbbeb8', 'You start with a 2 in')} <b>{props.heroClass.primaryCharacteristics.join(' and ')}</b>{ui.text('ui.hero-builder.choose-the-set-of-values-you.0ea66e1f', '. Choose the set of values you\'d like for your other characteristics.')}
+						{ui.text('ui.hero-builder.you-start-with-a-2-in.53cbbeb8', 'You start with a 2 in')} <b>{formatCharacteristics(props.heroClass.primaryCharacteristics)}</b>{ui.text('ui.hero-builder.choose-the-set-of-values-you.0ea66e1f', '. Choose the set of values you\'d like for your other characteristics.')}
 					</div>
 					{
 						HeroLogic.getCharacteristicArrays(props.heroClass.primaryCharacteristics.length)
@@ -384,7 +388,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 										<Field
 											key={ch.characteristic}
 											orientation='vertical'
-											label={ch.characteristic}
+											label={translate(characteristicNameKey(ch.characteristic), ch.characteristic)}
 											value={ch.value}
 										/>
 									))
@@ -405,7 +409,7 @@ const Characteristics = (props: CharacteristicsProps) => {
 						<Field
 							key={ch.characteristic}
 							orientation='vertical'
-							label={ch.characteristic}
+							label={translate(characteristicNameKey(ch.characteristic), ch.characteristic)}
 							value={ch.value}
 						/>
 					))

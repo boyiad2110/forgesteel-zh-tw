@@ -110,7 +110,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 					<Space.Compact style={{ width: '100%' }}>
 						<TextInput
 							status={props.hero.culture.name === '' ? 'warning' : ''}
-							placeholder='Name'
+							placeholder={ui.text('ui.hero-builder.name.f7c27f51', 'Name')}
 							allowClear={true}
 							value={props.hero.culture.name}
 							onChange={setName}
@@ -124,11 +124,13 @@ export const CultureSection = (props: CultureSectionProps) => {
 							props.hero.culture.environment ?
 								<SelectionBox
 									content={
-										<Field
-											style={{ flex: '1 1 0' }}
-											label={<PlayerName element={props.hero.culture.environment} />}
-											value={<Markdown text={props.hero.culture.environment.description} useSpan={true} />}
-										/>
+										<ElementScope element={props.hero.culture.environment}>
+											<Field
+												style={{ flex: '1 1 0' }}
+												label={<PlayerName element={props.hero.culture.environment} />}
+												value={<Markdown text={props.hero.culture.environment.description} useSpan={true} />}
+											/>
+										</ElementScope>
 									}
 									onRemove={() => props.selectEnvironment(null)}
 								/>
@@ -141,11 +143,13 @@ export const CultureSection = (props: CultureSectionProps) => {
 							props.hero.culture.organization ?
 								<SelectionBox
 									content={
-										<Field
-											style={{ flex: '1 1 0' }}
-											label={<PlayerName element={props.hero.culture.organization} />}
-											value={<Markdown text={props.hero.culture.organization.description} useSpan={true} />}
-										/>
+										<ElementScope element={props.hero.culture.organization}>
+											<Field
+												style={{ flex: '1 1 0' }}
+												label={<PlayerName element={props.hero.culture.organization} />}
+												value={<Markdown text={props.hero.culture.organization.description} useSpan={true} />}
+											/>
+										</ElementScope>
 									}
 									onRemove={() => props.selectOrganization(null)}
 								/>
@@ -158,11 +162,13 @@ export const CultureSection = (props: CultureSectionProps) => {
 							props.hero.culture.upbringing ?
 								<SelectionBox
 									content={
-										<Field
-											style={{ flex: '1 1 0' }}
-											label={<PlayerName element={props.hero.culture.upbringing} />}
-											value={<Markdown text={props.hero.culture.upbringing.description} useSpan={true} />}
-										/>
+										<ElementScope element={props.hero.culture.upbringing}>
+											<Field
+												style={{ flex: '1 1 0' }}
+												label={<PlayerName element={props.hero.culture.upbringing} />}
+												value={<Markdown text={props.hero.culture.upbringing.description} useSpan={true} />}
+											/>
+										</ElementScope>
 									}
 									onRemove={() => props.selectUpbringing(null)}
 								/>
@@ -244,7 +250,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 				{
 					choices.length > 0 ?
 						<div className='hero-edit-content-column selected' id='culture-choices'>
-							<HeaderText>Choices</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.choices.6c95228b', 'Choices')}</HeaderText>
 							{choices}
 						</div>
 						: null
