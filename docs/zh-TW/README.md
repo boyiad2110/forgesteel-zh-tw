@@ -8,7 +8,7 @@
 - 核准清冊：602 個 mapping / 106 列 Forge Steel Strings 版 / 11 個英文例外，其中 UI-01 新增 151 筆、UI-03 新增 15 筆、UI-04 新增 8 筆核准 UI 對照。這是防錯清冊，不是產品中文化完成率。
 - DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；PR #59 已接上自訂文化 Field 描述，13 個面向已逐一核對來源與元件 DOM，詳見 [下一批盤點](NEXT-BATCH.md)。
 - DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。
-- UI-03 / DISPLAY-03 的建角與角色摘要範圍已由 Marc 人工驗收；15 筆 APPROVED UI 對照已接入，[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已合併至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 已將 8 筆核准 UI 與龍鱗動態模板接入 Master Sheet 快照和程式，[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 待 Marc 驗收；57 個設定 ID、55 種預設描述及 13 個 Bespoke Culture Field 的核對紀錄見 [NEXT-BATCH](NEXT-BATCH.md)。
+- UI-03 / DISPLAY-03 的建角與角色摘要範圍已由 Marc 人工驗收；15 筆 APPROVED UI 對照已接入，[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已合併至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 已將 8 筆核准 UI 與龍鱗動態模板接入 Master Sheet 快照和程式，[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 已由 Marc 人工驗收，待最新 CI／合併；57 個設定 ID、55 種預設描述及 13 個 Bespoke Culture Field 的核對紀錄見 [NEXT-BATCH](NEXT-BATCH.md)。
 - Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線

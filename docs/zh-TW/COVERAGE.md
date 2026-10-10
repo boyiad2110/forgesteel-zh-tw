@@ -2,7 +2,7 @@
 
 2026-10-10 維護順序 4。依本機顯示接線、既有核准決策與測試盤點；上游 `5968ff54` 同步版本的回歸結果另見 [PROGRESS.md](PROGRESS.md)。這份表不是逐條譯文審校或瀏覽器驗收結果，也不以 mapping／Forge Steel 版／英文例外總數當作產品完成率。
 
-Master Sheet 的 **Forge Steel UI** 分頁已有 174 筆由 Marc 定稿的 APPROVED 譯文（UI-01 151 筆、UI-03 15 筆、UI-04 8 筆），涵蓋共用介面、建角與角色摘要；快照與顯示層已接入。UI-03 / DISPLAY-03 經 Marc 人工驗收並合併 PR #59 至 develop `71be5478`，CI 全綠。Project State 仍有 Career 411 筆 NEW。UI-04 / DISPLAY-04 的族裔／文化右側設定、Choice 操作與龍鱗動態描述已通過完整隔離驗證及 6 段瀏覽器回歸，待 PR 人工驗收；13 個 Bespoke Culture Field 核對結果見 [NEXT-BATCH](NEXT-BATCH.md)。
+Master Sheet 的 **Forge Steel UI** 分頁已有 174 筆由 Marc 定稿的 APPROVED 譯文（UI-01 151 筆、UI-03 15 筆、UI-04 8 筆），涵蓋共用介面、建角與角色摘要；快照與顯示層已接入。UI-03 / DISPLAY-03 經 Marc 人工驗收並合併 PR #59 至 develop `71be5478`，CI 全綠。Project State 仍有 Career 411 筆 NEW。UI-04 / DISPLAY-04 的族裔／文化右側設定、Choice 操作與龍鱗動態描述已通過完整隔離驗證及 6 段瀏覽器回歸，也已由 Marc 人工驗收；PR #60 待最新 CI／合併。13 個 Bespoke Culture Field 核對結果見 [NEXT-BATCH](NEXT-BATCH.md)。
 
 ## 狀態定義
 

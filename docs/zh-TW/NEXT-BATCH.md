@@ -1,6 +1,6 @@
 # UI-04 / DISPLAY-04：建角族裔與文化設定盤點
 
-2026-10-10；基底 develop `71be5478bee0fd53200d094605a568d29d64dcb1`；8 筆 UI 與 Wyrmplate 動態模板已由 Marc 核准並寫入 Master Sheet，程式已接入；完整隔離驗證與 6 段瀏覽器回歸通過，PR 待人工驗收。Master Sheet 線上 Project State / Status / CHG-0085 已確認 PR #59 結案，CI 38056294762 全綠。
+2026-10-10；基底 develop `71be5478bee0fd53200d094605a568d29d64dcb1`；8 筆 UI 與 Wyrmplate 動態模板已由 Marc 核准並寫入 Master Sheet，程式已接入；完整隔離驗證與 6 段瀏覽器回歸通過。Marc 已人工驗收，PR #60 待最新 CI／squash 合併。Master Sheet 線上 Project State / Status / CHG-0085 已確認 PR #59 結案。
 
 ## 本批範圍
 
@@ -136,7 +136,7 @@ FeatureConfigPanel 本身不建立內容 scope。HeaderText 顯示 feature.name�
 1. 8 筆新增 UI 與 1 個龍鱗動態模板已於 2026-10-10 核准並寫入 Master Sheet；Language 沿用既有核准值。
 2. 新增 UI 依既有 Forge Steel UI 管線；只有核對過官方 ID／原文／生成語境的預設文字可替換，不做全域原字串替換。改名、自訂、Homebrew、未知值保持原值。
 3. 龍鱗以既有 Calculation Display 機制投射上游值；同列 P–V 保存的 Forge Steel 英文／靜態中文與書本核准版一致，動態 Note 已隨四頁同次擷取；未知輸入完整英文備援。
-4. 族裔候選／已選／摘要、文化語言選項、Choice 一般／擴充／空清單、龍鱗跨等級／英中切換／未知備援及自訂保護回歸，以及 verify-isolated 均已通過。建立 PR 供 Marc 驗收；不把 13 個已接 Field 重算成新譯文。
+4. 族裔候選／已選／摘要、文化語言選項、Choice 一般／擴充／空清單、龍鱗跨等級／英中切換／未知備援及自訂保護回歸，以及 verify-isolated 均已通過。Marc 已於 2026-10-10 人工驗收通過，PR #60 待最新 CI／squash 合併；不把 13 個已接 Field 重算成新譯文。
 
 ## 預設描述附錄
 
