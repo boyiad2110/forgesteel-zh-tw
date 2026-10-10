@@ -164,5 +164,13 @@
   "ui.hero-builder.you-have-props-data-count-po.2e3d4725": "`You have ${props.data.count} points to spend on the following options:`",
   "ui.hero-builder.you-start-with-a-2-in.53cbbeb8": "You start with a 2 in",
   "ui.hero-builder.your-ancestry.83555c04": "Your Ancestry",
-  "ui.hero-builder.your-class-allows-you-to-cho.773e2ddf": "Your class allows you to choose your primary characteristics."
+  "ui.hero-builder.your-class-allows-you-to-cho.773e2ddf": "Your class allows you to choose your primary characteristics.",
+  "ui.hero-builder.purchased-traits.394205e5": "Purchased Traits",
+  "ui.hero-builder.choice-feature-description.3a5f7705": "This feature allows you to choose from a collection of features.",
+  "ui.hero-builder.interpersonal-skill.3095ff6f": "Interpersonal Skill",
+  "ui.hero-builder.interpersonal-skill-description.3ff1394b": "Choose a skill from Interpersonal skills.",
+  "ui.hero-builder.culture-language-description.ad467037": "Choose a  language.",
+  "ui.hero-builder.choose-option.aef4076f": "Choose an option",
+  "ui.hero-builder.choose-option-extended.cc391170": "Choose an option (extended)",
+  "ui.hero-builder.no-options.6662aa9c": "There are no options to choose for this feature."
 }

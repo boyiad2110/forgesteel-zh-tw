@@ -16,6 +16,56 @@ import { useUI } from '@/l10n/ui-text';
 
 import './feature-config-panel.scss';
 
+const purchasedTraitFeatureIDs = new Set([
+	'devil-feature-2',
+	'dragon-knight-feature-2',
+	'dwarf-feature-2',
+	'wode-elf-feature-2',
+	'high-elf-feature-2',
+	'hakaan-feature-2',
+	'human-feature-2',
+	'memonek-feature-3',
+	'orc-feature-2',
+	'polder-feature-3',
+	'revenant-feature-4',
+	'time-raider-feature-2'
+]);
+
+const cultureLanguageFeatureIDs = new Set([
+	'culture-bespoke-culture-language',
+	'culture-artisan-guild-language',
+	'culture-borderland-homestead-language',
+	'culture-college-conclave-language',
+	'culture-criminal-gang-language',
+	'culture-farming-village-language',
+	'culture-herding-community-language',
+	'culture-knightly-order-language',
+	'culture-mercenary-band-language',
+	'culture-merchant-caravan-language',
+	'culture-monastic-order-language',
+	'culture-noble-house-language',
+	'culture-outlaw-band-language',
+	'culture-pauper-neighborhood-language',
+	'culture-pirate-crew-language',
+	'culture-telepathic-hive-language',
+	'culture-traveling-entertainers-language',
+	'culture-devil-language',
+	'culture-dragon-knight-language',
+	'culture-dwarf-language',
+	'culture-wode-elf-language',
+	'culture-high-elf-language',
+	'culture-hakaan-language',
+	'culture-human-language',
+	'culture-memonek-language',
+	'culture-orc-language',
+	'culture-polder-language',
+	'culture-time-raider-language'
+]);
+
+const choiceDescription = 'This feature allows you to choose from a collection of features.';
+const interpersonalSkillDescription = 'Choose a skill from Interpersonal skills.';
+const cultureLanguageDescription = 'Choose a  language.';
+
 interface Props {
 	feature: Feature | Perk;
 	hero: Hero;
@@ -45,11 +95,49 @@ export const FeatureConfigPanel = (props: Props) => {
 			desc = FeatureLogic.getFeatureTypeDescription(props.feature.type);
 		}
 
+		if (purchasedTraitFeatureIDs.has(props.feature.id)
+			&& props.feature.name === 'Purchased Traits'
+			&& props.feature.type === FeatureType.Choice
+			&& desc === choiceDescription) {
+			desc = ui.text('ui.hero-builder.choice-feature-description.3a5f7705', 'This feature allows you to choose from a collection of features.');
+		}
+		if (props.feature.id === 'devil-feature-1b'
+			&& props.feature.name === 'Interpersonal Skill'
+			&& props.feature.type === FeatureType.SkillChoice
+			&& desc === interpersonalSkillDescription) {
+			desc = ui.text('ui.hero-builder.interpersonal-skill-description.3ff1394b', 'Choose a skill from Interpersonal skills.');
+		}
+		if (cultureLanguageFeatureIDs.has(props.feature.id)
+			&& props.feature.name === 'Language'
+			&& props.feature.type === FeatureType.LanguageChoice
+			&& desc === cultureLanguageDescription) {
+			desc = ui.text('ui.hero-builder.culture-language-description.ad467037', 'Choose a  language.');
+		}
+
 		if (autoCalc) {
 			desc = AbilityLogic.getTextEffect(desc, props.hero);
 		}
 
 		return desc;
+	};
+
+	const getName = () => {
+		if (purchasedTraitFeatureIDs.has(props.feature.id) && props.feature.name === 'Purchased Traits') {
+			return ui.text('ui.hero-builder.purchased-traits.394205e5', 'Purchased Traits');
+		}
+		if (props.feature.id === 'devil-feature-1b'
+			&& props.feature.name === 'Interpersonal Skill'
+			&& props.feature.type === FeatureType.SkillChoice
+			&& props.feature.description === interpersonalSkillDescription) {
+			return ui.text('ui.hero-builder.interpersonal-skill.3095ff6f', 'Interpersonal Skill');
+		}
+		if (cultureLanguageFeatureIDs.has(props.feature.id)
+			&& props.feature.name === 'Language'
+			&& props.feature.type === FeatureType.LanguageChoice
+			&& props.feature.description === cultureLanguageDescription) {
+			return ui.text('ui.hero-builder.language.996aaf3b', 'Language');
+		}
+		return props.feature.name || ui.text('ui.hero-builder.unnamed-feature.fe5fa185', 'Unnamed Feature');
 	};
 
 	return (
@@ -80,7 +168,7 @@ export const FeatureConfigPanel = (props: Props) => {
 					</>
 				}
 			>
-				{props.feature.name || ui.text('ui.hero-builder.unnamed-feature.fe5fa185', 'Unnamed Feature')}
+				{getName()}
 			</HeaderText>
 			<Markdown text={getDescription()} />
 			<ConfigFeature

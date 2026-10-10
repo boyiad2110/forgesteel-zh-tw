@@ -283,10 +283,12 @@ export const ConfigChoice = (props: ConfigProps) => {
 			{
 				pointsLeft > 0 ?
 					sortedOptions.length === 0 ?
-						<Empty text='There are no options to choose for this feature.' />
+						<Empty text={ui.text('ui.hero-builder.no-options.6662aa9c', 'There are no options to choose for this feature.')} />
 						:
 						<Button className='status-warning' block={true} onClick={() => setChoiceSelectorOpen(true)}>
-							{comprehensive ? 'Choose an option (extended)' : 'Choose an option'}
+							{comprehensive
+								? ui.text('ui.hero-builder.choose-option-extended.cc391170', 'Choose an option (extended)')
+								: ui.text('ui.hero-builder.choose-option.aef4076f', 'Choose an option')}
 						</Button>
 					: null
 			}

@@ -1,3 +1,4 @@
 {
+  "heroes.ancestries.dragon-knight.signature.wyrmplate.effect": "Migrated from legacy Draw Steel Translation Master (TR-003). Finalized by Marc on 2026-09-17. Canonical source: Heroes 1.01b; verified against current Official Rules on 2026-10-01. Legacy source hash preserved. BATCH-006 terminology normalization approved by Marc on 2026-10-01: Respite normalized from legacy「長休」to current APPROVED「休整」; Glossary Check PASS.\nCalculation Display: {\"status\":\"APPROVED\",\"target\":\"等於你的等級\",\"template\":\"為 {value}\"}",
   "heroes.ancestries.hakaan.trait.doomsight.effect.1": "Rows 221–222 are merged into this Forge Steel version. Preserve three paragraphs. The book translation omits “Hacaarl”; it is not added under DEC-0009.\nMarc 核准動態中文句型（2026-10-07，CHG-0069）：計算後顯示「在 12 小時後，你會恢復 {value} 點體力。」；數值只取自上游。靜態譯文維持原樣，DEC-0009 仍限制靜態譯文；核准動態句型允許調整語序與量詞。未知改寫保留完整計算後英文。\nCalculation Display: {\"status\":\"APPROVED\",\"target\":\"等於你復元值的體力\",\"template\":\" {value} 點體力\"}"
 }

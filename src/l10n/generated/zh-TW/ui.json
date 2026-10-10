@@ -89,6 +89,11 @@
     "updated": "2026-10-10",
     "zh": "屬性"
   },
+  "ui.hero-builder.choice-feature-description.3a5f7705": {
+    "en": "This feature allows you to choose from a collection of features.",
+    "updated": "2026-10-10",
+    "zh": "此特性能讓你從一組特性中做出選擇。"
+  },
   "ui.hero-builder.choices.6c95228b": {
     "en": "Choices",
     "updated": "2026-10-10",
@@ -189,6 +194,16 @@
     "updated": "2026-10-10",
     "zh": "選擇生活環境"
   },
+  "ui.hero-builder.choose-option-extended.cc391170": {
+    "en": "Choose an option (extended)",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 個項目（擴充）"
+  },
+  "ui.hero-builder.choose-option.aef4076f": {
+    "en": "Choose an option",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 個項目"
+  },
   "ui.hero-builder.choose-organization.e94b4b4d": {
     "en": "Choose organization",
     "updated": "2026-10-10",
@@ -273,6 +288,11 @@
     "en": "Creating a Hero",
     "updated": "2026-10-10",
     "zh": "建立英雄"
+  },
+  "ui.hero-builder.culture-language-description.ad467037": {
+    "en": "Choose a  language.",
+    "updated": "2026-10-10",
+    "zh": "選擇 1 種語言。"
   },
   "ui.hero-builder.culture.06f1b137": {
     "en": "Culture",
@@ -429,6 +449,16 @@
     "updated": "2026-10-10",
     "zh": "關鍵事件"
   },
+  "ui.hero-builder.interpersonal-skill-description.3ff1394b": {
+    "en": "Choose a skill from Interpersonal skills.",
+    "updated": "2026-10-10",
+    "zh": "從交涉類技能中選擇 1 項技能。"
+  },
+  "ui.hero-builder.interpersonal-skill.3095ff6f": {
+    "en": "Interpersonal Skill",
+    "updated": "2026-10-10",
+    "zh": "交涉類技能"
+  },
   "ui.hero-builder.is-simple.dde61b97": {
     "en": "is simple.",
     "updated": "2026-10-10",
@@ -534,6 +564,11 @@
     "updated": "2026-10-10",
     "zh": "不包含撤離加值"
   },
+  "ui.hero-builder.no-options.6662aa9c": {
+    "en": "There are no options to choose for this feature.",
+    "updated": "2026-10-10",
+    "zh": "此特性沒有可選的選項。"
+  },
   "ui.hero-builder.no-perks.b95a0ec8": {
     "en": "No perks",
     "updated": "2026-10-10",
@@ -598,6 +633,11 @@
     "en": "pt ancestry feature.",
     "updated": "2026-10-10",
     "zh": "點族裔特性。"
+  },
+  "ui.hero-builder.purchased-traits.394205e5": {
+    "en": "Purchased Traits",
+    "updated": "2026-10-10",
+    "zh": "自購特性"
   },
   "ui.hero-builder.random.948804e8": {
     "en": "Random",

@@ -55,31 +55,40 @@ try {
 			dragonKnight: text(dragonKnight, 'name'),
 			wyrmplate: {
 				name: text(dragonKnight.features[0], 'name'),
-				description: text(dragonKnight.features[0], 'description')
+				description: text(dragonKnight.features[0], 'description'),
+				display: strings[mapping['element:dragon-knight-feature-1:description'].sheetId].fs.calculationDisplay
 			}
 		};
 	});
 	await page.locator('#ancestry-list .selectable-panel').filter({ has: page.getByText(ancestryExpected.dragonKnight.zh, { exact: true }) }).click();
 	await page.locator('#ancestry-selected').getByText(ancestryExpected.dragonKnight.zh, { exact: true }).waitFor();
 	const wyrmplatePanel = page.locator('#ancestry-choices .feature-config-panel').filter({ has: page.getByText(ancestryExpected.wyrmplate.name.zh, { exact: true }) });
-	// The level projection has no approved calculated-text binding, so its
-	// changed display remains English in both language modes.
-	const projectedWyrmplateDescription = ancestryExpected.wyrmplate.description.en.replace('damage immunity equal to your level', 'damage immunity equal to 1');
-	await wyrmplatePanel.getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
+	const projectedWyrmplateEnglish = ancestryExpected.wyrmplate.description.en.replace('your level', '1');
+	const projectedWyrmplateChinese = ancestryExpected.wyrmplate.description.zh.replace(
+		ancestryExpected.wyrmplate.display.target,
+		ancestryExpected.wyrmplate.display.template.replace('{value}', '1')
+	);
+	await wyrmplatePanel.getByText(projectedWyrmplateChinese, { exact: true }).waitFor();
+	const purchasedTraitsPanel = page.locator('#ancestry-choices .feature-config-panel').filter({ has: page.getByText('自購特性', { exact: true }) });
+	await purchasedTraitsPanel.getByText('此特性能讓你從一組特性中做出選擇。', { exact: true }).waitFor();
+	await purchasedTraitsPanel.getByRole('button', { name: '選擇 1 個項目', exact: true }).waitFor();
+	await purchasedTraitsPanel.locator('.toggle').click();
+	await purchasedTraitsPanel.getByRole('button', { name: '選擇 1 個項目（擴充）', exact: true }).waitFor();
+	await purchasedTraitsPanel.locator('.toggle').click();
 	await page.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
 	await page.getByText('Hero Builder', { exact: true }).first().waitFor();
 	await page.locator('#ancestry-choices .header-text').getByText(ancestryExpected.wyrmplate.name.en, { exact: true }).waitFor();
-	await page.locator('#ancestry-choices').getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
+	await page.locator('#ancestry-choices').getByText(projectedWyrmplateEnglish, { exact: true }).waitFor();
 	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
 	await page.getByText(uiText('ui.hero-builder.hero-builder.bd7e4ec0'), { exact: true }).first().waitFor();
 	await page.locator('#ancestry-choices .header-text').getByText(ancestryExpected.wyrmplate.name.zh, { exact: true }).waitFor();
-	await page.locator('#ancestry-choices').getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
+	await page.locator('#ancestry-choices').getByText(projectedWyrmplateChinese, { exact: true }).waitFor();
 	await page.locator('button').filter({ hasText: saveChangesText }).first().click();
 	await page.waitForURL('**/hero/view/**');
 	await page.getByText(ancestryExpected.dragonKnight.zh, { exact: true }).first().waitFor();
 	const dragonKnightStored = await readStoredHeroes(page);
 	assert.equal(dragonKnightStored.find(hero => hero.id === state.heroes.fury.id).ancestry.id, 'ancestry-dragon-knight');
-	console.log('PASS browser: ancestry candidate, approved choice panel, dynamic English fallback, saved value');
+	console.log('PASS browser: ancestry candidate, approved choice panel, dynamic value projection, saved value');
 
 	await page.goto(`${origin}#/hero/sheet/${state.heroes.fury.id}`);
 	await page.locator('.hero-header.card').getByText(ancestryExpected.dragonKnight.zh, { exact: true }).waitFor();
@@ -123,8 +132,12 @@ try {
 	await officialCard.getByText(cultureExpected.zhSummary, { exact: true }).waitFor();
 	await officialCard.click();
 	await page.locator('#culture-selected').getByText(cultureExpected.zhSummary, { exact: true }).waitFor();
+	const cultureLanguagePanel = page.locator('#culture-choices .feature-config-panel').filter({ has: page.getByText('語言', { exact: true }) });
+	await cultureLanguagePanel.getByText('選擇 1 種語言。', { exact: true }).waitFor();
 	await page.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
 	await page.locator('#culture-selected').getByText(cultureExpected.enSummary, { exact: true }).waitFor();
+	await page.locator('#culture-choices .feature-config-panel').filter({ has: page.getByText('Language', { exact: true }) })
+		.getByText('Choose a  language.', { exact: true }).waitFor();
 	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
 	await page.locator('#culture-selected').getByText(cultureExpected.zhSummary, { exact: true }).waitFor();
 	await page.locator('button').filter({ hasText: saveChangesText }).first().click();
@@ -236,6 +249,49 @@ try {
 	await abilityPage.waitForFunction(text => document.querySelector('#l10n-regression')?.innerText !== text, calculatedText);
 	await abilityPage.waitForFunction(() => document.querySelector('#l10n-regression')?.textContent.includes(window.regressionStaticText));
 	console.log('PASS browser: shared ability panel calculated Might 2 → 3 and calculation toggle');
+	await abilityPage.evaluate(async () => {
+		const ReactModule = await import('/node_modules/.vite/deps/react.js');
+		const React = ReactModule.default ?? ReactModule;
+		const reactDom = await import('/node_modules/.vite/deps/react-dom_client.js');
+		const createRoot = reactDom.createRoot ?? reactDom.default.createRoot;
+		const { FeatureConfigPanel } = await import('/src/components/panels/feature-config-panel/feature-config-panel.tsx');
+		const { FactoryLogic } = await import('/src/logic/factory-logic.ts');
+		const { OptionsContext } = await import('/src/contexts/data-context.tsx');
+		const { core } = await import('/src/data/sourcebooks/official/core.ts');
+		const { loadCatalog } = await import('/src/l10n/catalog.ts');
+		const { setLanguage } = await import('/src/l10n/language.ts');
+		await loadCatalog();
+		setLanguage('zh-TW');
+		const host = document.createElement('section');
+		host.id = 'feature-config-regression';
+		document.body.append(host);
+		const root = createRoot(host);
+		const hero = FactoryLogic.createHero();
+		const choice = (id, name) => FactoryLogic.feature.createChoice({ id, name, options: [], count: 1 });
+		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
+			React.createElement(React.Fragment, null,
+				React.createElement(FeatureConfigPanel, { feature: choice('human-feature-2', 'Purchased Traits'), hero, sourcebooks: [ core ], setData: () => undefined }),
+				React.createElement(FeatureConfigPanel, { feature: choice('homebrew-purchased-traits', 'Purchased Traits'), hero, sourcebooks: [ core ], setData: () => undefined }),
+				React.createElement(FeatureConfigPanel, {
+					feature: FactoryLogic.feature.createLanguageChoice({ id: 'homebrew-culture-language' }),
+					hero,
+					sourcebooks: [ core ],
+					setData: () => undefined
+				})
+			)));
+	});
+	const configPanels = abilityPage.locator('#feature-config-regression .feature-config-panel');
+	const officialTraits = configPanels.nth(0);
+	await officialTraits.getByText('自購特性', { exact: true }).waitFor();
+	await officialTraits.getByText('此特性能讓你從一組特性中做出選擇。', { exact: true }).waitFor();
+	await officialTraits.getByText('此特性沒有可選的選項。', { exact: true }).waitFor();
+	const customTraits = configPanels.nth(1);
+	await customTraits.getByText('Purchased Traits', { exact: true }).waitFor();
+	await customTraits.getByText('This feature allows you to choose from a collection of features.', { exact: true }).waitFor();
+	const customLanguage = configPanels.nth(2);
+	await customLanguage.getByText('Language', { exact: true }).waitFor();
+	await customLanguage.getByText('Choose a  language.', { exact: true }).waitFor();
+	console.log('PASS browser: FeatureConfigPanel approved ancestry and culture text, Choice empty state, custom text protection');
 	assert.deepEqual(errors, [], 'Browser page errors');
 	await context.close();
 } finally {

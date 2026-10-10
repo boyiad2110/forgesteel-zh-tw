@@ -721,12 +721,6 @@ describe('ancestry fifth batch', () => {
 				'heroes.ancestries.revenant.signature.former-life.effect',
 				'Choose the ancestry you were before you died. Your size is that ancestry’s size and your speed is 5. Unless you select one of the Previous Life traits (see below), you don’t receive any other ancestral traits from your original ancestry.',
 				'選擇你死前的族裔。你的體型與原族裔相同，速度為 5。除非你選擇【前世特性】，否則你不會獲得原族裔的任何族裔特性。'
-			],
-			[
-				'element:dragon-knight-feature-1:description',
-				'heroes.ancestries.dragon-knight.signature.wyrmplate.effect',
-				'Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.',
-				'你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。'
 			]
 		];
 		for (const [ key, sheetId, english, zh ] of rows) {
@@ -735,6 +729,24 @@ describe('ancestry fifth batch', () => {
 			expect(resolveText('zh-TW', key, english, { [key]: sheetId }, catalog)).toBe(zh);
 			expect(resolveText('en', key, english, { [key]: sheetId }, catalog)).toBe(english);
 		}
+	});
+
+	test('Wyrmplate projects only its approved numeric value with the approved wording', () => {
+		const sheetId = 'heroes.ancestries.dragon-knight.signature.wyrmplate.effect';
+		const key = 'element:dragon-knight-feature-1:description';
+		const row = catalog[sheetId];
+		const fs = row.fs!;
+		const table = { [key]: sheetId };
+		expect(fs.calculationDisplay).toEqual({ target: '等於你的等級', template: '為 {value}' });
+		expect(resolveText('zh-TW', key, fs.en, table, catalog)).toBe(fs.zh);
+		for (const value of [ 1, 3, 10 ]) {
+			const calculated = fs.en.replace('your level', String(value));
+			expect(resolveText('zh-TW', key, calculated, table, catalog))
+				.toBe(fs.zh.replace('等於你的等級', `為 ${value}`));
+		}
+		const unknown = fs.en.replace('your level', 'several') + ' Additional effect.';
+		expect(resolveText('zh-TW', key, unknown, table, catalog)).toBe(unknown);
+		expect(resolveText('en', key, fs.en.replace('your level', '3'), table, catalog)).toBe(fs.en.replace('your level', '3'));
 	});
 
 	test('Forge Steel versions are the text on screen', () => {

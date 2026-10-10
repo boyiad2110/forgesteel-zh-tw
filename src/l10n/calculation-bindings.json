@@ -47,6 +47,24 @@
     "targetLength": 49,
     "valueSuffix": " "
   },
+  "element:dragon-knight-feature-1:description": {
+    "sheetId": "heroes.ancestries.dragon-knight.signature.wyrmplate.effect",
+    "enHash": "46e17c572bd924387c721ce77f06451eb3ed4cce3a8cb8fca923bc0af183cb27",
+    "zhHash": "9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7",
+    "sourceSpan": [
+      56,
+      66
+    ],
+    "targetSpan": [
+      28,
+      34
+    ],
+    "sourceLength": 224,
+    "targetLength": 75,
+    "valueSuffix": "",
+    "useDisplayTemplate": true,
+    "sourceHash": "46e17c572bd924387c721ce77f06451eb3ed4cce3a8cb8fca923bc0af183cb27"
+  },
   "element:hakaan-feature-2-5:description": {
     "sheetId": "heroes.ancestries.hakaan.trait.doomsight.effect.1",
     "enHash": "38b177ec15a461533aa5ad16a539618b7d39874fb6a8d509b2838d590555ce05",
