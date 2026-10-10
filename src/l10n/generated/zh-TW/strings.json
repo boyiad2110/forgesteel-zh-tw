@@ -381,6 +381,15 @@
   },
   "heroes.ancestries.dragon-knight.signature.wyrmplate.effect": {
     "en": "Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.",
+    "fs": {
+      "basisHash": "9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7",
+      "calculationDisplay": {
+        "target": "等於你的等級",
+        "template": "為 {value}"
+      },
+      "en": "Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.",
+      "zh": "你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。"
+    },
     "updated": "2026-10-01",
     "zh": "你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。"
   },

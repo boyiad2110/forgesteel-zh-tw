@@ -648,5 +648,13 @@ export const mapping: Record<string, MappingEntry> = {
 	'ui:ui.hero-builder.project.7dc34b5f': { sheetId: 'ui.hero-builder.project.7dc34b5f', enHash: '985959785319747668373cc6dee294b11db782b03cdd90a2851fbdc0637c6b7b' },
 	'ui:ui.hero-builder.state.31408083': { sheetId: 'ui.hero-builder.state.31408083', enHash: 'a3b50c476732c7409d297c3d7d0e23569fee5e08318553ae76041ab5fe60582e' },
 	'ui:ui.hero-builder.title.f0bf18b2': { sheetId: 'ui.hero-builder.title.f0bf18b2', enHash: '7e8cd2056da73a7fefb6cd91f4e5d199d08d9058c517b9a2476b1b520324d674' },
-	'ui:ui.hero-builder.upbringing.402fbf01': { sheetId: 'ui.hero-builder.upbringing.402fbf01', enHash: 'b6b346201c762d8fc1906c4ecf56212cfa42cf01d80346d189a448bf1e029fe4' }
+	'ui:ui.hero-builder.upbringing.402fbf01': { sheetId: 'ui.hero-builder.upbringing.402fbf01', enHash: 'b6b346201c762d8fc1906c4ecf56212cfa42cf01d80346d189a448bf1e029fe4' },
+	'ui:ui.hero-builder.purchased-traits.394205e5': { sheetId: 'ui.hero-builder.purchased-traits.394205e5', enHash: '394205e58484c069da3e0a350bd2df2493f363d389620332785acc62cfd632fb' },
+	'ui:ui.hero-builder.choice-feature-description.3a5f7705': { sheetId: 'ui.hero-builder.choice-feature-description.3a5f7705', enHash: '3a5f7705ce87643bee300014ec5f7df6ae40d8192c6b214bebb7de6717f06f9b' },
+	'ui:ui.hero-builder.interpersonal-skill.3095ff6f': { sheetId: 'ui.hero-builder.interpersonal-skill.3095ff6f', enHash: '3095ff6f58daef2991a51db962460a58d2c113aaa24fa7ed4bd268360e469c30' },
+	'ui:ui.hero-builder.interpersonal-skill-description.3ff1394b': { sheetId: 'ui.hero-builder.interpersonal-skill-description.3ff1394b', enHash: '3ff1394bbac97a3520fa35bbbd5f6843dab088dfdebf6701eff142614cfab2e3' },
+	'ui:ui.hero-builder.culture-language-description.ad467037': { sheetId: 'ui.hero-builder.culture-language-description.ad467037', enHash: 'ad46703741e0fd16716d24088e9665126d87a8f4325776809a5ee5af077411a2' },
+	'ui:ui.hero-builder.choose-option.aef4076f': { sheetId: 'ui.hero-builder.choose-option.aef4076f', enHash: 'aef4076f194a6de6f2051d79f6829396e53024529352ad3845b6c4b6a3f2a48c' },
+	'ui:ui.hero-builder.choose-option-extended.cc391170': { sheetId: 'ui.hero-builder.choose-option-extended.cc391170', enHash: 'cc391170677080b1e90ab96fc2cf72c95eba4fde7507658b55889e1263fcabbd' },
+	'ui:ui.hero-builder.no-options.6662aa9c': { sheetId: 'ui.hero-builder.no-options.6662aa9c', enHash: '6662aa9ca2f5bc65f93367b5bb9ded83c89d49b3fdfd1f795074bd800987da51' }
 };

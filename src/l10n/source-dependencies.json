@@ -211,6 +211,20 @@
         "zhHash": "88f47c32a9f71c325c63cbe18b66501ebc09424bab33e3394ed76e52a8449e9d"
       }
     },
+    "heroes.ancestries.dragon-knight.signature.wyrmplate.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.signature.wyrmplate.effect",
+          "enHash": "46e17c572bd924387c721ce77f06451eb3ed4cce3a8cb8fca923bc0af183cb27",
+          "zhHash": "9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7"
+        }
+      ],
+      "sourcesHash": "781d118a4e7f8b52e56d574c06683d34a7270f03eab71151a4eb5d80cc7f8653",
+      "fs": {
+        "enHash": "46e17c572bd924387c721ce77f06451eb3ed4cce3a8cb8fca923bc0af183cb27",
+        "zhHash": "9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7"
+      }
+    },
     "heroes.ancestries.dragon-knight.trait.draconian-pride.name": {
       "sources": [
         {
