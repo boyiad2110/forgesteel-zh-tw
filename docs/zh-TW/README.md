@@ -4,10 +4,10 @@
 
 ## 現況與下一步
 
-- 維護順序 1–5、DISPLAY-01、DISPLAY-02 與 MAINT-WORKFLOW-01 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
+- 維護順序 1–5、DISPLAY-01、DISPLAY-02、MAINT-WORKFLOW-01 與 UI-01／UI-02 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
 - 核准清冊：579 個 mapping／105 列 Forge Steel Strings 版／11 個英文例外，其中 UI-01 新增 151 筆核准 UI 對照。這是防錯清冊，不是產品中文化完成率。
 - DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；剩餘位置見 [COVERAGE](COVERAGE.md)。自訂文化 Field 描述仍列 DISPLAY-03。
-- DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層。龍鱗動態描述及自訂文化 Field 描述仍列待辦，詳見 [TODO](TODO.md)。
+- DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述及自訂文化 Field 描述仍列待辦，詳見 [TODO](TODO.md)。
 - Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線

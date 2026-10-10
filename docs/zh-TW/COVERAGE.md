@@ -2,7 +2,7 @@
 
 2026-10-10 維護順序 4。依本機顯示接線、既有核准決策與測試盤點；上游 `5968ff54` 同步版本的回歸結果另見 [PROGRESS.md](PROGRESS.md)。這份表不是逐條譯文審校或瀏覽器驗收結果，也不以 mapping／Forge Steel 版／英文例外總數當作產品完成率。
 
-Master Sheet 的 **Forge Steel UI** 分頁已有 151 筆由 Marc 定稿的 APPROVED 譯文，涵蓋七個分頁、流程說明、選擇器、選項提示、來源書／擴充及角色細節；本分支已接入快照與顯示層，完整驗證及瀏覽器回歸通過，待程式驗收。Project State 仍有 Career 411 筆 NEW。自訂文化已選 Field 與龍鱗動態描述分開列在 DISPLAY-03。
+Master Sheet 的 **Forge Steel UI** 分頁已有 151 筆由 Marc 定稿的 APPROVED 譯文，涵蓋七個分頁、流程說明、選擇器、選項提示、來源書／擴充及角色細節；快照與顯示層已接入，完整驗證、瀏覽器回歸及人工驗收通過。Project State 仍有 Career 411 筆 NEW。自訂文化已選 Field 與龍鱗動態描述分開列在 DISPLAY-03。
 
 ## 狀態定義
 
@@ -28,7 +28,7 @@ Master Sheet 的 **Forge Steel UI** 分頁已有 151 筆由 Marc 定稿的 APPRO
 | 五個屬性名稱 | 刻意延後：建角陣列／程式組句另屬 P3 清冊 | 刻意延後：建角陣列／程式組句 | 刻意延後：Characteristic 等標籤 | 已完成：`hero/stats` | 已完成：`roll-modal` 已接屬性名稱 | 已完成：`stats-resources-card`／`characteristics-component` |
 | 基本動作／族裔招式名稱與核准段落 | 已完成：已接候選共用招式卡；非核准段落見下表 | 已完成：已接 `AbilityPanel` | 刻意延後：共用選擇提示／類型標籤 | 已完成：`hero/abilities` 名稱、sidebar Triggers 名稱 | 已完成：`elements/ability-panel` 核准 description／section | 已完成：`ability-card` 核准名稱／description／section；tier 等未完成 |
 | 生涯、職業、套組、領域、專長及其他內容 | 刻意延後 P4／缺核准譯文 | 刻意延後 P4／缺核准譯文 | 刻意延後 P4／缺核准譯文 | 刻意延後 P4／缺核准譯文 | 刻意延後 P4／缺核准譯文 | 刻意延後 P4／缺核准譯文 |
-| UI 標籤、分頁、提示、按鈕、組合句 | UI-01 的 151 筆已核准並接線；瀏覽器回歸通過，待 Marc 驗收 | 僅涵蓋清冊所列建角共用 UI；其他位置待盤點 | 僅涵蓋清冊所列建角共用 UI；其他位置待盤點 | 其他位置待盤點 | 其他位置待盤點 | 其他位置待盤點 |
+| UI 標籤、分頁、提示、按鈕、組合句 | UI-01 的 151 筆已核准並接線；瀏覽器回歸與 Marc 人工驗收通過 | 僅涵蓋清冊所列建角共用 UI；其他位置待盤點 | 僅涵蓋清冊所列建角共用 UI；其他位置待盤點 | 其他位置待盤點 | 其他位置待盤點 | 其他位置待盤點 |
 
 ### 具體接點與範圍限制
 
