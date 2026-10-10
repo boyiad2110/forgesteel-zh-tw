@@ -4,8 +4,8 @@
 
 | ID | 狀態／負責範圍 | 下一個動作 | 完成條件 |
 |---|---|---|---|
-| DISPLAY-04 | 實作與驗證完成／PR 待 Marc 驗收（接續 DISPLAY-03） | Wyrmplate 核准動態 Note 與綁定已接入；只投射上游值，未知改寫保留完整計算後英文；13 個 Bespoke Culture Field 的來源／DOM 核對沿用既有證據，詳見 [NEXT-BATCH](NEXT-BATCH.md) | 六項隔離驗證與本批瀏覽器回歸通過；開立 PR 交 Marc 驗收 |
-| UI-04 | 譯文已核准、實作與驗證完成／PR 待 Marc 驗收（接續 UI-03） | 57 個族裔／文化設定 ID、7 個呼叫位置、55 種預設描述已盤點；8 筆新 UI 加既有 Language 標籤已接入，涵蓋 Purchased Traits、語言、交涉技能、Choice 操作／空清單 | 精確官方 ID／原文／生成語境保護；其他頁面與剩餘 54 種預設描述仍待後續，不把整個 FeatureConfigPanel 宣稱完成；開立 PR 交 Marc 驗收 |
+| DISPLAY-04 | 實作與驗證完成／[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 待 Marc 驗收（接續 DISPLAY-03） | Wyrmplate 核准動態 Note 與綁定已接入；只投射上游值，未知改寫保留完整計算後英文；13 個 Bespoke Culture Field 的來源／DOM 核對沿用既有證據，詳見 [NEXT-BATCH](NEXT-BATCH.md) | 六項隔離驗證與本批瀏覽器回歸通過；Marc 驗收後結案 |
+| UI-04 | 譯文已核准、實作與驗證完成／[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 待 Marc 驗收（接續 UI-03） | 57 個族裔／文化設定 ID、7 個呼叫位置、55 種預設描述已盤點；8 筆新 UI 加既有 Language 標籤已接入，涵蓋 Purchased Traits、語言、交涉技能、Choice 操作／空清單 | 精確官方 ID／原文／生成語境保護；其他頁面與剩餘 54 種預設描述仍待後續，不把整個 FeatureConfigPanel 宣稱完成；Marc 驗收後結案 |
 | BOOK-01 | 等待翻譯／Marc | Career 411 筆 NEW（2026-10-10 Project State 確認）完成翻譯與 QA，之後職業→套組→招式 | 只匯入 APPROVED，不自行補譯 |
 | BOOK-02 | 待定／Marc | Glossary Enhancement 定稿 | Master Sheet 決策更新；不阻塞現有名稱顯示 |
 | P4-01 | 方案已定案／需要時啟動 | 依 P4-STRUCTURE 在 Master Sheet 建立獨立多用途對照分頁；首個需要同列多用途的批次再遷移 | 新表與欄位先核准，同次快照、每用途完整依賴、離線匯出 |
