@@ -1,6 +1,7 @@
 import { Ancestry } from '@/models/ancestry';
 import { AncestryPanel } from '@/components/panels/elements/ancestry-panel/ancestry-panel';
 import { Element } from '@/models/element';
+import { ElementScope } from '@/l10n/element-scope';
 import { EmptyMessage } from '@/components/pages/heroes/hero-edit/empty-message/empty-message';
 import { FeatureConfigPanel } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { FeatureData } from '@/models/feature';
@@ -52,7 +53,9 @@ export const AncestrySection = (props: Props) => {
 			.filter(f => FeatureLogic.isChoice(f))
 			.map(f => (
 				<SelectablePanel key={f.id}>
-					<FeatureConfigPanel feature={f} hero={props.hero} sourcebooks={props.sourcebooks} setData={props.setFeatureData} />
+					<ElementScope element={f}>
+						<FeatureConfigPanel feature={f} hero={props.hero} sourcebooks={props.sourcebooks} setData={props.setFeatureData} />
+					</ElementScope>
 				</SelectablePanel>
 			));
 	}

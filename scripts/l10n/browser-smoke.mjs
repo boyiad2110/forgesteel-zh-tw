@@ -36,23 +36,45 @@ try {
 	await page.reload();
 	await page.locator('.app-footer').waitFor();
 	await page.goto(`${origin}#/hero/edit/${state.heroes.fury.id}/ancestry`);
-	const translatedOrc = await page.evaluate(async () => {
+	const ancestryExpected = await page.evaluate(async () => {
+		const { dragonKnight } = await import('/src/data/ancestries/dragon-knight.ts');
 		const { default: strings } = await import('/src/l10n/generated/zh-TW/strings.json');
-		return strings['heroes.ancestries.orc.name'].fs?.zh ?? strings['heroes.ancestries.orc.name'].zh;
+		const { mapping } = await import('/src/l10n/mapping.ts');
+		const text = (element, field) => {
+			const sheetId = mapping[`element:${element.id}:${field}`].sheetId;
+			const row = strings[sheetId];
+			return { en: row.fs?.en ?? row.en, zh: row.fs?.zh ?? row.zh };
+		};
+		return {
+			dragonKnight: text(dragonKnight, 'name'),
+			wyrmplate: {
+				name: text(dragonKnight.features[0], 'name'),
+				description: text(dragonKnight.features[0], 'description')
+			}
+		};
 	});
-	await page.locator('#ancestry-list .selectable-panel').filter({ has: page.getByText(translatedOrc, { exact: true }) }).click();
-	await page.locator('#ancestry-selected').getByText(translatedOrc, { exact: true }).waitFor();
+	await page.locator('#ancestry-list .selectable-panel').filter({ has: page.getByText(ancestryExpected.dragonKnight.zh, { exact: true }) }).click();
+	await page.locator('#ancestry-selected').getByText(ancestryExpected.dragonKnight.zh, { exact: true }).waitFor();
+	const wyrmplatePanel = page.locator('#ancestry-choices .feature-config-panel').filter({ has: page.getByText(ancestryExpected.wyrmplate.name.zh, { exact: true }) });
+	// The level projection has no approved calculated-text binding, so its
+	// changed display remains English in both language modes.
+	const projectedWyrmplateDescription = ancestryExpected.wyrmplate.description.en.replace('damage immunity equal to your level', 'damage immunity equal to 1');
+	await wyrmplatePanel.getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
+	await page.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
+	await page.locator('#ancestry-choices .header-text').getByText(ancestryExpected.wyrmplate.name.en, { exact: true }).waitFor();
+	await page.locator('#ancestry-choices').getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
+	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
+	await page.locator('#ancestry-choices .header-text').getByText(ancestryExpected.wyrmplate.name.zh, { exact: true }).waitFor();
+	await page.locator('#ancestry-choices').getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
 	await page.getByRole('button', { name: /Save Changes/ }).click();
 	await page.waitForURL('**/hero/view/**');
-	await page.getByText(translatedOrc, { exact: true }).first().waitFor();
-	await page.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
-	await page.getByText('Orc', { exact: true }).first().waitFor();
-	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
-	await page.getByText(translatedOrc, { exact: true }).first().waitFor();
-	console.log('PASS browser: ancestry candidate, selected value, saved overview, language switch');
+	await page.getByText(ancestryExpected.dragonKnight.zh, { exact: true }).first().waitFor();
+	const dragonKnightStored = await readStoredHeroes(page);
+	assert.equal(dragonKnightStored.find(hero => hero.id === state.heroes.fury.id).ancestry.id, 'ancestry-dragon-knight');
+	console.log('PASS browser: ancestry candidate, approved choice panel, dynamic English fallback, saved value');
 
 	await page.goto(`${origin}#/hero/sheet/${state.heroes.fury.id}`);
-	await page.locator('.hero-header.card').getByText(translatedOrc, { exact: true }).waitFor();
+	await page.locator('.hero-header.card').getByText(ancestryExpected.dragonKnight.zh, { exact: true }).waitFor();
 	await page.emulateMedia({ media: 'print' });
 	await page.evaluate(() => document.fonts.ready);
 	const overflow = await page.locator('.hero-header.card').evaluate(card => card.scrollWidth > card.clientWidth + 2);
@@ -78,7 +100,15 @@ try {
 			enSummary: official.description,
 			zhSummary: [ official.environment, official.organization, official.upbringing ].map(name).join('、') + '。',
 			bespokeName: CultureData.bespoke.name,
-			aspects: [ EnvironmentData.wilderness, OrganizationData.communal, UpbringingData.labor ].map(aspect => ({ en: aspect.name, zh: name(aspect) }))
+			aspects: [ EnvironmentData.wilderness, OrganizationData.communal, UpbringingData.labor ].map(aspect => {
+				const descriptionRow = strings[mapping[`element:${aspect.id}:description`].sheetId];
+				return {
+					en: aspect.name,
+					zh: name(aspect),
+					descriptionEn: descriptionRow.fs?.en ?? descriptionRow.en,
+					descriptionZh: descriptionRow.fs?.zh ?? descriptionRow.zh
+				};
+			})
 		};
 	});
 	const officialCard = page.locator('#culture-list .selectable-panel').filter({ has: page.getByText(cultureExpected.officialName, { exact: true }) });
@@ -107,9 +137,15 @@ try {
 		await page.getByRole('button', { name: button, exact: true }).click();
 		await page.locator('.feature-select-modal:visible .selectable-panel').filter({ has: page.getByText(aspect.zh, { exact: true }) }).click();
 		await page.locator('#culture-choices .field-label').getByText(aspect.zh, { exact: true }).waitFor();
+		const aspectPanel = page.locator('#culture-choices .feature-config-panel').filter({ has: page.getByText(aspect.zh, { exact: true }) });
+		await aspectPanel.getByText(aspect.descriptionZh, { exact: true }).waitFor();
 	}
 	await page.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
-	for (const aspect of cultureExpected.aspects) await page.locator('#culture-choices .field-label').getByText(aspect.en, { exact: true }).waitFor();
+	for (const aspect of cultureExpected.aspects) {
+		await page.locator('#culture-choices .field-label').getByText(aspect.en, { exact: true }).waitFor();
+		const aspectPanel = page.locator('#culture-choices .feature-config-panel').filter({ has: page.getByText(aspect.en, { exact: true }) });
+		await aspectPanel.getByText(aspect.descriptionEn, { exact: true }).waitFor();
+	}
 	assert.equal(await page.locator('#culture-choices').getByPlaceholder('Name', { exact: true }).inputValue(), customName);
 	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
 	for (const aspect of cultureExpected.aspects) await page.locator('#culture-choices .field-label').getByText(aspect.zh, { exact: true }).waitFor();

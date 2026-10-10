@@ -20,8 +20,8 @@
 | 內容 | 建角候選 | 已選值 | 右側摘要 | 英雄總覽 | 詳情 | 經典表格 |
 |---|---|---|---|---|---|---|
 | 官方族裔名稱／核准描述 | 已完成：`hero-edit/ancestry-section` → `AncestryPanel` | 已完成：已選族裔卡；昔日族裔下拉 | 刻意延後：Choices 共用 UI；昔日族裔下拉值已完成 | 已完成：`hero/choices` 一般／精簡名稱值 | 已完成：`elements/ancestry-panel` | 已完成：`classic-sheet/hero-header-card`、昔日族裔特性值 |
-| 族裔特性名稱／核准描述 | 已完成：`feature-data/choice`／`ancestry-feature-choice` 選項 | 已完成：候選收合名稱、已選 `FeaturePanel` | 刻意延後：共用標題／提示；`FeatureConfigPanel` 自身未提供 scope，需逐鍵辨識內容與 UI | 已完成：`hero/features` 一般／精簡 | 已完成：`elements/feature-panel` | 已完成：`classic-sheet/components/feature-component` 核准族裔內容 |
-| 官方文化名稱／三面向摘要 | 已完成：27 個官方文化卡 | 已完成：已選 `CulturePanel` | 名稱值已完成：本批接上自訂文化三面向 Field；描述仍刻意延後 | 已完成：`hero/choices` 文化與三面向名稱值 | 已完成：`elements/culture-panel`、面向 `FeaturePanel`；本批限定的官方三面向摘要改用中文標點 | 已完成：`classic-sheet/culture-card` |
+| 族裔特性名稱／核准描述 | 已完成：`feature-data/choice`／`ancestry-feature-choice` 選項 | 已完成：候選收合名稱、已選 `FeaturePanel` | DISPLAY-02：建角 ancestry `FeatureConfigPanel` 的核准標題／描述已接；動態句型無核准綁定者仍英文。其他共用標題／提示待 UI 核准來源 | 已完成：`hero/features` 一般／精簡 | 已完成：`elements/feature-panel` | 已完成：`classic-sheet/components/feature-component` 核准族裔內容 |
+| 官方文化名稱／三面向摘要 | 已完成：27 個官方文化卡 | 已完成：已選 `CulturePanel` | 名稱值已完成：DISPLAY-01 接上自訂文化三面向 Field；官方摘要依 DISPLAY-01 使用中文標點。Bespoke Culture 已選 Field 描述仍待預覽／接線 | 已完成：`hero/choices` 文化與三面向名稱值 | 已完成：`elements/culture-panel`、面向 `FeaturePanel`；DISPLAY-01 的官方三面向摘要改用中文標點 | 已完成：`classic-sheet/culture-card` |
 | 語言名稱 | 已完成：語言選擇抽屜 | 已完成：`feature-data/language-choice` | 已完成：Language Field 的名稱值；標籤刻意延後 | 已完成：`hero/sidebar` | 已完成：文化／語言特性名稱值；描述刻意延後 | 已完成：`culture-card`／`feature-component`／隨從卡 |
 | 技能名稱／類別 | 已完成：技能抽屜名稱／類別 | 已完成：`feature-data/skill-choice` | 已完成：Skill Field 名稱值；標籤刻意延後 | 已完成：`hero/sidebar`；組合分組標題刻意延後 | 已完成：技能名稱／類別；描述刻意延後 | 已完成：`skills-card`／`feature-component`／隨從與同伴卡 |
 | 條件名稱／規則、條件免疫值 | 不適用：不是獨立建角候選步驟 | 已完成：已選特性詳情中的條件免疫值 | 刻意延後：共用 UI；不可由詳情完成推論所有摘要完成 | 已完成：`hero/sidebar` 條件及免疫一般／精簡 | 已完成：`condition-panel`、`feature-data/condition-immunity` | 已完成：`conditions-card` 名稱與 `feature-component` 免疫值；標籤刻意延後 |
@@ -34,7 +34,7 @@
 
 | 接點／內容 | 狀態與證據 | 限制／下一個動作 |
 |---|---|---|
-| 建角自訂文化三面向 Field | DISPLAY-01：`pages/heroes/hero-edit/culture-section/culture-section.tsx` 的三個名稱改用 `PlayerName`；沿用既有 APPROVED 對照，不改 `.description` | 本批驗收候選→已選一致性；只顯示已核准名稱。UI 標籤及描述仍刻意延後 |
+| 建角自訂文化三面向 Field | DISPLAY-01：`pages/heroes/hero-edit/culture-section/culture-section.tsx` 的三個名稱改用 `PlayerName`；DISPLAY-02 為 ancestry／culture Choice 接上核准名稱與描述。Bespoke Culture 中已選面向的 Field 內嵌描述不是該 `FeatureConfigPanel` 接點，仍待 DISPLAY-03 預覽／接線 | Marc 已驗收 DISPLAY-02 的核准選項卡位置；Field 描述尚未驗收／實作。改名、自訂、Homebrew、未知內容須保留原值 |
 | 建角共用 Choices 標題／描述 | `panels/feature-config-panel/feature-config-panel.tsx` 的 HeaderText／Markdown 未提供 scope；建角 ancestry／culture section 外層也未提供 scope | Purchased Traits、Language、Choose… 等為 P3；若存在核准資料鍵，另標尚未接線，不能把整欄都稱已完成或都稱缺譯文 |
 | 英雄總覽資料值與 UI 標籤 | `panels/hero/choices/choices-panel.tsx` 已用 `PlayerName` 顯示族裔、昔日族裔、文化、三面向 | Ancestry／Culture／Environment 等 UI 標籤仍英文；與建角右側 Field 是不同位置 |
 | 玩家名稱保護 | `src/l10n/player-name.tsx`、`element-scope.tsx` | 官方原 ID 與原名吻合才換字；改名、自訂、Homebrew、未知內容保留。高等／幻林精靈族裔與文化各用自己的鍵 |
