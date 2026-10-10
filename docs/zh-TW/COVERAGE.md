@@ -2,7 +2,7 @@
 
 2026-10-10 維護順序 4。依本機顯示接線、既有核准決策與測試盤點；上游 `5968ff54` 同步版本的回歸結果另見 [PROGRESS.md](PROGRESS.md)。這份表不是逐條譯文審校或瀏覽器驗收結果，也不以 mapping／Forge Steel 版／英文例外總數當作產品完成率。
 
-Master Sheet 的 **Forge Steel UI** 分頁已有 151 筆由 Marc 定稿的 APPROVED 譯文，涵蓋七個分頁、流程說明、選擇器、選項提示、來源書／擴充及角色細節；快照與顯示層已接入，完整驗證、瀏覽器回歸及人工驗收通過。Project State 仍有 Career 411 筆 NEW。自訂文化已選 Field 與龍鱗動態描述分開列在 DISPLAY-03。
+Master Sheet 的 **Forge Steel UI** 分頁已有 166 筆由 Marc 定稿的 APPROVED 譯文（UI-01 151 筆、UI-03 15 筆），涵蓋共用介面、建角與角色摘要；快照與顯示層已接入。UI-01／UI-02 完整驗證與瀏覽器回歸通過；UI-03／DISPLAY-03 的文化頁、建角頁及角色摘要經 Marc 人工驗收，PR #59 的 CI 尚有測試基準與瀏覽器回歸待修。Project State 仍有 Career 411 筆 NEW。剩餘文化 Field 覆蓋與龍鱗動態描述分開列在 DISPLAY-03。
 
 ## 狀態定義
 
