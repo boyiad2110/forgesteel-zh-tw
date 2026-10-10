@@ -1,7 +1,8 @@
 import { Button, Flex } from 'antd';
 import { CloseOutlined, InfoCircleOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
-import { Feature, FeatureData } from '@/models/feature';
+import { Feature, FeatureData, FeatureSkillChoice } from '@/models/feature';
 import { ReactNode, useState } from 'react';
+import { skillListKey, skillNameKey, useSkillListNames, useSkillNames } from '@/l10n/skill-text';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { ConfigFeature } from '@/components/features/feature';
 import { DangerButton } from '@/components/controls/danger-button/danger-button';
@@ -12,6 +13,9 @@ import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Perk } from '@/models/perk';
 import { Sourcebook } from '@/models/sourcebook';
+import { isDefaultLanguageFeature } from '@/l10n/official-feature-source';
+import { mapping } from '@/l10n/mapping';
+import { peekCatalog } from '@/l10n/catalog';
 import { useUI } from '@/l10n/ui-text';
 
 import './feature-config-panel.scss';
@@ -68,6 +72,7 @@ const cultureLanguageDescription = 'Choose a  language.';
 
 interface Props {
 	feature: Feature | Perk;
+	detailsSourceFeature?: Feature;
 	hero: Hero;
 	sourcebooks: Sourcebook[];
 	setData: (featureID: string, data: FeatureData) => void;
@@ -77,6 +82,90 @@ interface Props {
 export const FeatureConfigPanel = (props: Props) => {
 	const ui = useUI();
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
+	const sourceSkillChoice = props.detailsSourceFeature?.type === FeatureType.SkillChoice
+		? props.detailsSourceFeature as FeatureSkillChoice
+		: undefined;
+	const skillOptions = sourceSkillChoice?.data.options || [];
+	const skillLists = sourceSkillChoice?.data.listOptions || [];
+	const translatedSkillOptions = useSkillNames(skillOptions);
+	const translatedSkillLists = useSkillListNames(skillLists);
+
+	const hasLoadedTarget = (key: string) => {
+		const sheetID = mapping[key]?.sheetId;
+		return !!sheetID && !!peekCatalog()?.[sheetID]?.zh?.trim();
+	};
+
+	const getDetailsSkillDescription = () => {
+		if (!sourceSkillChoice || props.feature.type !== FeatureType.SkillChoice || ui.language !== 'zh-TW') {
+			return undefined;
+		}
+
+		const count = sourceSkillChoice.data.count;
+		if (![ 1, 2, 3, 5 ].includes(count)) {
+			return undefined;
+		}
+
+		const sourceParts = [
+			...sourceSkillChoice.data.options,
+			...(sourceSkillChoice.data.listOptions.length === 5
+				? [ 'any list' ]
+				: sourceSkillChoice.data.listOptions.map(list => `${list} skills`))
+		];
+		if (sourceParts.length === 0) {
+			return undefined;
+		}
+
+		const expected = count > 1
+			? `Choose ${count} from ${sourceParts.join(', ')}.`
+			: `Choose a skill from ${sourceParts.join(', ')}.`;
+		if (sourceSkillChoice.description !== expected || props.feature.description !== expected) {
+			return undefined;
+		}
+
+		const translatedParts: string[] = [];
+		let optionIndex = 0;
+		let listIndex = 0;
+		for (const part of sourceParts) {
+			if (part === 'any list') {
+				if (!hasLoadedTarget('ui:ui.hero-builder.any-skill-list.7f7a6841')) {
+					return undefined;
+				}
+				translatedParts.push(ui.text('ui.hero-builder.any-skill-list.7f7a6841', 'any list'));
+				continue;
+			}
+
+			if (part.endsWith(' skills')) {
+				const list = sourceSkillChoice.data.listOptions[listIndex];
+				const groupKey = skillListKey(list);
+				if (`${list} skills` !== part || !hasLoadedTarget(groupKey)) {
+					return undefined;
+				}
+				const translated = ui.format('ui.hero-builder.skill-list-description.f94c20ab', '`${list} skills`', part, { list: translatedSkillLists[listIndex] });
+				if (translated === part) {
+					return undefined;
+				}
+				translatedParts.push(translated);
+				listIndex += 1;
+				continue;
+			}
+
+			const key = skillNameKey(part);
+			if (sourceSkillChoice.data.options[optionIndex] !== part || !hasLoadedTarget(key)) {
+				return undefined;
+			}
+			translatedParts.push(translatedSkillOptions[optionIndex]);
+			optionIndex += 1;
+		}
+
+		if (optionIndex !== skillOptions.length || listIndex !== skillLists.length) {
+			return undefined;
+		}
+
+		const source = translatedParts.join(' / ');
+		return count > 1
+			? ui.format('ui.hero-builder.skills-choice-description.1a7008a2', '`Choose ${count} from ${source}.`', expected, { count, source })
+			: ui.format('ui.hero-builder.skill-choice-description.9172d5a4', '`Choose a skill from ${source}.`', expected, { source });
+	};
 
 	const autoCalcAvailable = () => {
 		return (props.feature.type === FeatureType.Text) && (AbilityLogic.getTextEffect(props.feature.description, props.hero) !== props.feature.description);
@@ -113,6 +202,22 @@ export const FeatureConfigPanel = (props: Props) => {
 			&& desc === cultureLanguageDescription) {
 			desc = ui.text('ui.hero-builder.culture-language-description.ad467037', 'Choose a  language.');
 		}
+		if (props.detailsSourceFeature && isDefaultLanguageFeature(props.detailsSourceFeature)
+			&& props.feature.id === 'default-language' && props.feature.type === FeatureType.LanguageChoice) {
+			desc = ui.text('ui.hero-builder.common-language-description.cc9ef9be', 'Choose a Common language.');
+		} else if (props.detailsSourceFeature?.type === FeatureType.LanguageChoice
+			&& props.detailsSourceFeature.description === 'Choose 2  languages.'
+			&& props.detailsSourceFeature.data.count === 2
+			&& props.detailsSourceFeature.data.allowedTypes.length === 4
+			&& props.feature.type === FeatureType.LanguageChoice
+			&& props.feature.description === props.detailsSourceFeature.description) {
+			desc = ui.text('ui.hero-builder.two-languages-description.0139e42b', 'Choose 2  languages.');
+		}
+
+		const skillChoiceDescription = getDetailsSkillDescription();
+		if (skillChoiceDescription) {
+			desc = skillChoiceDescription;
+		}
 
 		if (autoCalc) {
 			desc = AbilityLogic.getTextEffect(desc, props.hero);
@@ -122,6 +227,22 @@ export const FeatureConfigPanel = (props: Props) => {
 	};
 
 	const getName = () => {
+		if (props.detailsSourceFeature && props.feature.type === FeatureType.LanguageChoice
+			&& props.detailsSourceFeature.type === FeatureType.LanguageChoice) {
+			if (isDefaultLanguageFeature(props.detailsSourceFeature) && props.feature.id === 'default-language') {
+				return ui.text('ui.hero-builder.default-language.28bee244', 'Default Language');
+			}
+			if (props.feature.name === 'Languages' && props.detailsSourceFeature.name === 'Languages') {
+				return ui.text('ui.hero-builder.languages.318655ce', 'Languages');
+			}
+			if (props.feature.name === 'Language' && props.detailsSourceFeature.name === 'Language') {
+				return ui.text('ui.hero-builder.language.996aaf3b', 'Language');
+			}
+		}
+		if (props.detailsSourceFeature?.type === FeatureType.SkillChoice
+			&& props.feature.type === FeatureType.SkillChoice && props.feature.name === 'Skill') {
+			return ui.text('ui.hero-builder.skill.a5ed2dcb', 'Skill');
+		}
 		if (purchasedTraitFeatureIDs.has(props.feature.id) && props.feature.name === 'Purchased Traits') {
 			return ui.text('ui.hero-builder.purchased-traits.394205e5', 'Purchased Traits');
 		}

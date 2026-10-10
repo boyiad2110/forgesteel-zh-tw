@@ -292,6 +292,117 @@ try {
 	await customLanguage.getByText('Language', { exact: true }).waitFor();
 	await customLanguage.getByText('Choose a  language.', { exact: true }).waitFor();
 	console.log('PASS browser: FeatureConfigPanel approved ancestry and culture text, Choice empty state, custom text protection');
+	const ui05Expected = await abilityPage.evaluate(async () => {
+		const ReactModule = await import('/node_modules/.vite/deps/react.js');
+		const React = ReactModule.default ?? ReactModule;
+		const reactDom = await import('/node_modules/.vite/deps/react-dom_client.js');
+		const createRoot = reactDom.createRoot ?? reactDom.default.createRoot;
+		const { FeatureConfigPanel } = await import('/src/components/panels/feature-config-panel/feature-config-panel.tsx');
+		const { FactoryLogic } = await import('/src/logic/factory-logic.ts');
+		const { OptionsContext } = await import('/src/contexts/data-context.tsx');
+		const { core } = await import('/src/data/sourcebooks/official/core.ts');
+		const { SkillList } = await import('/src/enums/skill-list.ts');
+		const { FeatureType } = await import('/src/enums/feature-type.ts');
+		const { LanguageType } = await import('/src/enums/language-type.ts');
+		const { mapping } = await import('/src/l10n/mapping.ts');
+		const { default: glossary } = await import('/src/l10n/generated/zh-TW/glossary.json');
+		const { default: strings } = await import('/src/l10n/generated/zh-TW/strings.json');
+		const { default: ui } = await import('/src/l10n/generated/zh-TW/ui.json');
+		const { loadCatalog } = await import('/src/l10n/catalog.ts');
+		const { setLanguage } = await import('/src/l10n/language.ts');
+		await loadCatalog();
+		setLanguage('zh-TW');
+		const official = new Map();
+		const seen = new WeakSet();
+		const visit = value => {
+			if (!value || typeof value !== 'object' || seen.has(value)) return;
+			seen.add(value);
+			if (value.type === FeatureType.SkillChoice) official.set(value.id, value);
+			Object.values(value).forEach(visit);
+		};
+		visit(core);
+		const skillIDs = [ 'devil-feature-1b', 'career-artisan-feature-1', 'elementalist-1-2', 'shadow-1-3' ];
+		const sourceFeatures = skillIDs.map(id => official.get(id));
+		if (sourceFeatures.some(feature => !feature)) throw new Error('Approved skill-choice browser fixtures are missing');
+		const hero = FactoryLogic.createHero();
+		const panels = [
+			{ feature: hero.features[0], sourceFeature: hero.features[0] },
+			...sourceFeatures.map(sourceFeature => ({
+				sourceFeature,
+				feature: FactoryLogic.feature.createSkillChoice({
+					id: sourceFeature.id,
+					name: 'Skill',
+					options: [ ...sourceFeature.data.options ],
+					listOptions: [ ...sourceFeature.data.listOptions ],
+					count: sourceFeature.data.count,
+					selected: [ ...sourceFeature.data.selected ]
+				})
+			})),
+			{ feature: FactoryLogic.feature.createSkillChoice({ id: 'homebrew-custom-skill-choice', name: 'Skill', options: [ 'Smoke Test Skill' ], count: 1 }) }
+		];
+		const get = key => {
+			const entry = mapping[key];
+			if (!entry) throw new Error(`Missing UI-05 smoke mapping: ${key}`);
+			const row = entry.sheetId;
+			const source = key.startsWith('ui:') ? ui : (key.startsWith('skill:') || key.startsWith('enum:')) ? glossary : strings;
+			const record = source[row];
+			const value = record?.fs?.zh ?? record?.zh;
+			if (!value) throw new Error(`Missing UI-05 smoke translation: ${key} → ${row}`);
+			return value;
+		};
+		const expected = sourceFeatures.map(sourceFeature => {
+			const { options, listOptions, count } = sourceFeature.data;
+			const parts = [
+				...options.map(name => get(`skill:${name}`)),
+				...(listOptions.length === 5
+					? [ get('ui:ui.hero-builder.any-skill-list.7f7a6841') ]
+					: listOptions.map(list => get('ui:ui.hero-builder.skill-list-description.f94c20ab').replace('{list}', get(`enum:SkillList:${list}`))))
+			];
+			const template = count > 1
+				? get('ui:ui.hero-builder.skills-choice-description.1a7008a2')
+				: get('ui:ui.hero-builder.skill-choice-description.9172d5a4');
+			return template.replace('{count}', String(count)).replace('{source}', parts.join(' / '));
+		});
+		const custom = FactoryLogic.createSourcebook();
+		custom.type = 'Homebrew';
+		custom.skills = [ { name: 'Smoke Test Skill', description: '', list: SkillList.Custom } ];
+		const languageBook = FactoryLogic.createSourcebook();
+		languageBook.type = 'Official';
+		languageBook.languages = [ { name: 'Smoke Test Common', description: '', type: LanguageType.Common, related: [] } ];
+		const host = document.createElement('section');
+		host.id = 'ui05-regression';
+		document.body.append(host);
+		const root = createRoot(host);
+		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
+			React.createElement(React.Fragment, null, ...panels.map(panel => React.createElement(FeatureConfigPanel, {
+				key: panel.feature.id,
+				feature: panel.feature,
+				detailsSourceFeature: panel.sourceFeature,
+				hero,
+				sourcebooks: [ core, custom, languageBook ],
+				setData: () => undefined
+			})))));
+		return { expected, defaultFeature: hero.features[0].description };
+	});
+	const ui05Panels = abilityPage.locator('#ui05-regression .feature-config-panel');
+	await ui05Panels.nth(0).getByText('預設語言', { exact: true }).waitFor();
+	await ui05Panels.nth(0).getByText('選擇 1 種通用語。', { exact: true }).waitFor();
+	for (const [ index, text ] of ui05Expected.expected.entries()) {
+		await ui05Panels.nth(index + 1).getByText(text, { exact: true }).waitFor();
+	}
+	await ui05Panels.nth(0).getByRole('button', { name: '選擇語言', exact: true }).click();
+	await abilityPage.locator('.language-select-modal').getByText('通用語', { exact: true }).waitFor();
+	await abilityPage.keyboard.press('Escape');
+	await ui05Panels.nth(5).getByRole('button', { name: '選擇技能', exact: true }).click();
+	assert.equal(await abilityPage.locator('.skill-select-modal').getByText('自訂', { exact: true }).count(), 2, 'Custom category heading and skill tag');
+	await abilityPage.locator('.skill-select-modal').getByText('Smoke Test Skill', { exact: true }).waitFor();
+	await abilityPage.keyboard.press('Escape');
+	await abilityPage.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
+	await ui05Panels.nth(0).getByText('Default Language', { exact: true }).waitFor();
+	await ui05Panels.nth(1).getByText('Choose a skill from Interpersonal skills.', { exact: true }).waitFor();
+	await abilityPage.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
+	await ui05Panels.nth(0).getByText('預設語言', { exact: true }).waitFor();
+	console.log('PASS browser: UI-05 official skill templates at 1 / 2 / 3 / 5, default language, selector labels, English fallback');
 	assert.deepEqual(errors, [], 'Browser page errors');
 	await context.close();
 } finally {

@@ -1,6 +1,6 @@
 import { Button, Divider, Space } from 'antd';
 import { SearchBox, TextInput } from '@/components/controls/text-input/text-input';
-import { SkillListName, SkillName, useSkillListNames } from '@/l10n/skill-text';
+import { SkillName, useSkillListNames } from '@/l10n/skill-text';
 import { Expander } from '@/components/controls/expander/expander';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -32,7 +32,9 @@ export const SkillSelectModal = (props: Props) => {
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ customSkill, setCustomSkill ] = useState<string>('');
 	const listLabels = useSkillListNames(skillLists);
-	const listLabel = (list: SkillList) => listLabels[skillLists.indexOf(list)] ?? list;
+	const listLabel = (list: SkillList) => list === SkillList.Custom
+		? ui.text('ui.hero-builder.skill-list-custom.494ca78f', 'Custom')
+		: listLabels[skillLists.indexOf(list)] ?? list;
 
 	const excluded = props.excludeSkills || [];
 
@@ -67,7 +69,7 @@ export const SkillSelectModal = (props: Props) => {
 
 							return (
 								<Space key={list} orientation='vertical' style={{ width: '100%' }}>
-									<HeaderText level={1}><SkillListName list={list} /></HeaderText>
+									<HeaderText level={1}>{listLabel(list)}</HeaderText>
 									{
 										subset.map((s, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(s)}>

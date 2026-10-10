@@ -2,7 +2,7 @@
 
 2026-10-10 維護順序 4。依本機顯示接線、既有核准決策與測試盤點；上游 `5968ff54` 同步版本的回歸結果另見 [PROGRESS.md](PROGRESS.md)。這份表不是逐條譯文審校或瀏覽器驗收結果，也不以 mapping／Forge Steel 版／英文例外總數當作產品完成率。
 
-Master Sheet 的 **Forge Steel UI** 分頁已有 174 筆由 Marc 定稿的 APPROVED 譯文（UI-01 151 筆、UI-03 15 筆、UI-04 8 筆），涵蓋共用介面、建角與角色摘要；快照與顯示層已接入。UI-03 / DISPLAY-03 經 Marc 人工驗收並合併 PR #59 至 develop `71be5478`，CI 全綠。Project State 仍有 Career 411 筆 NEW。UI-04 / DISPLAY-04 的族裔／文化右側設定、Choice 操作與龍鱗動態描述已通過完整隔離驗證及 6 段瀏覽器回歸，也已由 Marc 人工驗收；PR #60 待最新 CI／合併。13 個 Bespoke Culture Field 核對結果見 [NEXT-BATCH](NEXT-BATCH.md)。
+Master Sheet 的 **Forge Steel UI** 分頁已有 190 筆 APPROVED 譯文（UI-01 151 筆、UI-03 15 筆、UI-04 8 筆、UI-05 16 筆），涵蓋共用介面、建角與角色摘要；同次快照與顯示層已接入。UI-03 / DISPLAY-03 經 Marc 人工驗收並合併 PR #59 至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 的族裔 / 文化右側設定、Choice 操作與龍鱗動態描述已通過完整隔離驗證及 6 段瀏覽器回歸，也已由 Marc 人工驗收；PR #60 已 squash 合併 develop `4da55d95`，最新 CI `38064075869` 全綠，Sheet Status / Project State / CHG-0086 已回讀確認。UI-05 的 16 筆新增 UI 已核准寫入，建角詳情接線及 7 組隔離瀏覽器回歸通過；完整隔離驗證通過，批次待 PR 與人工驗收。13 個 Bespoke Culture Field 核對及完整候選盤點見 [NEXT-BATCH](NEXT-BATCH.md)。
 
 ## 狀態定義
 
@@ -34,8 +34,9 @@ Master Sheet 的 **Forge Steel UI** 分頁已有 174 筆由 Marc 定稿的 APPRO
 
 | 接點／內容 | 狀態與證據 | 限制／下一個動作 |
 |---|---|---|
-| 建角自訂文化三面向 Field | DISPLAY-01 名稱使用 `PlayerName`；PR #59 為 environment / organization / upbringing 的 `Markdown` 加上 `ElementScope`，不是 FeatureConfigPanel 接點。13 個官方面向的 APPROVED 名稱／短描述、Basis Hash、enHash 與線上來源逐一吻合 | UI-04 / DISPLAY-04 核對 13 個已選 Field 的元件 DOM 英中切換通過；改寫描述、未知 ID 與改名名稱保留原值，未改寫的核准描述依欄位翻譯。沒有重跑全部抽屜／儲存／列印或新增人工驗收 |
+| 建角自訂文化三面向 Field | DISPLAY-01 名稱使用 `PlayerName`；PR #59 為 environment / organization / upbringing 的 `Markdown` 加上 `ElementScope`，不是 FeatureConfigPanel 接點。13 個官方面向的 APPROVED 名稱 / 短描述、Basis Hash、enHash 與線上來源逐一吻合 | UI-04 / DISPLAY-04 核對 13 個已選 Field 的元件 DOM 英中切換通過，整批經 Marc 人工驗收；改寫描述、未知 ID 與改名名稱保留原值，未改寫的核准描述依欄位翻譯。沒有重跑全部抽屜 / 儲存 / 列印 |
 | 建角共用 Choices 標題／描述 | `FeatureConfigPanel` 本身未建立 scope；ancestry / culture section 外層已提供 `ElementScope`，內容鍵已接。UI-04 接入官方 Purchased Traits、交涉技能、文化語言設定與 Choice 操作／空清單 8 筆核准 UI，Language 標題重用既有 UI | 只在精確官方 ID、名稱、類型與來源描述吻合時替換；自訂／改名／未知內容保留原值。career、class、complication 及其他頁面另批，詳見 NEXT-BATCH |
+| 建角詳情的語言 / 技能設定與相關抽屜 | UI-05 / DISPLAY-05 已盤點：DetailsSection 會以 FactoryLogic 重建描述，技能標題固定為 Skill；228 個官方候選 ID 產生 35 種生成描述。語言分類標題、兩個自訂 Select 按鈕、Name 及擴充項目空值 UI 仍有漏接 | 16 筆新增 UI 已由 Marc 核准並接入；Name / Skill / Language / Select 重用既有對照。這是候選庫掃描，非逐一 DOM 驗收；選項中的語言 / 技能個別內容描述、擴充內容與管理編輯器仍未完成 |
 | 英雄總覽資料值與 UI 標籤 | `panels/hero/choices/choices-panel.tsx` 已用 `PlayerName` 顯示族裔、昔日族裔、文化、三面向；PR #59 已接 Ancestry / Culture / Environment 等核准 UI 標籤 | 與建角右側 Field 是不同位置；只涵蓋該元件已列的 UI，不推論其他總覽或列印位置完成 |
 | 玩家名稱保護 | `src/l10n/player-name.tsx`、`element-scope.tsx` | 官方原 ID 與原名吻合才換字；改名、自訂、Homebrew、未知內容保留。高等／幻林精靈族裔與文化各用自己的鍵 |
 | 官方文化摘要 | `src/l10n/player-culture-summary.ts`；DISPLAY-01 只在既有官方 ID、原名稱／描述、三面向及摘要格式保護條件吻合時輸出核准三面向中文名稱與「、」「。」 | 英文仍用來源原文；自訂自由描述、改名、Homebrew、未知或不吻合格式保留原值；不影響自訂文化名稱、資料、搜尋、存檔或分享碼 |
@@ -51,8 +52,8 @@ Master Sheet 的 **Forge Steel UI** 分頁已有 174 筆由 Marc 定稿的 APPRO
 
 1. **核准來源**：UI-01 的 151 筆都有穩定 UI ID、來源位置與來源雜湊，且已由 Marc 定稿為 APPROVED；本分支只納入核准列。
 2. **快照與匯出**：UI-02 已把 Forge Steel UI 納入同次擷取、`ui.csv`、`ui.json`、`mapping.ts` 與來源／過期守門；完整隔離驗證通過。
-3. **下一批範圍已盤點並實作**：UI-04 / DISPLAY-04 合併族裔與文化右側設定、Choice 操作與龍鱗動態模板；13 個 Bespoke Culture Field 在 PR #59 已接線，本批沿用來源／DOM 核對證據。完整驗證及 PR 驗收狀態見 [NEXT-BATCH](NEXT-BATCH.md)。
-4. **P3 第一批進行中**：UI-01 已將玩家建角導覽、七個主分頁、Choices／SelectionBox、語言／技能共用提示、來源書／擴充與細節頁接入同批清冊。動態數量依核准模板投射，模板不符時保留完整英文；部分原句只核准片段，其他片段仍保持英文。
+3. **UI-04 已合併，下一批已盤點**：UI-05 / DISPLAY-05 已核准並接入建角詳情的語言 / 技能生成提示、相關選擇抽屜與擴充項目空值 UI；完整驗收仍進行中。54 種特性預設描述仍待後續頁面批次，詳見 [NEXT-BATCH](NEXT-BATCH.md)。
+4. **P3 首批已完成，覆蓋持續補齊**：UI-01 已將玩家建角導覽、七個主分頁、Choices / SelectionBox、語言 / 技能共用提示、來源書 / 擴充與細節頁接入同批清冊。動態數量依核准模板投射，模板不符時保留完整英文；部分原句只核准片段，其他片段仍保持英文。
 5. **後續內容**：生涯 411 NEW 待翻譯／QA，職業與招式先依 P4 結構方案處理多來源依賴及多用途限制。GM 工具、怪物詳情／列印維持另批。
 
 待辦與下一個動作集中於 [TODO.md](TODO.md)；本文件只維護覆蓋證據與限制。

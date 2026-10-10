@@ -61,9 +61,9 @@ export const HeroExtensionsPanel = (props: Props) => {
 							key={a.extension.id}
 							label={
 								<div>
-									<div className='ds-text'>{a.extension.name || 'Unnamed Extension'}</div>
+									<div className='ds-text'>{a.extension.name || ui.text('ui.hero-builder.unnamed-extension.04301825', 'Unnamed Extension')}</div>
 									<div className='ds-text dimmed-text small-text'>
-										{ExtensionLogic.getTarget(a.extension, props.sourcebooks)?.element.name || 'Unknown'} · {a.sourcebook.name || 'Unnamed Sourcebook'}
+										{ExtensionLogic.getTarget(a.extension, props.sourcebooks)?.element.name || ui.text('ui.hero-builder.unknown-extension-target.b764cdc0', 'Unknown')} · {a.sourcebook.name || ui.text('ui.hero-builder.unnamed-sourcebook.ff62ab3a', 'Unnamed Sourcebook')}
 										<Button
 											type='link'
 											size='small'

@@ -47,7 +47,16 @@ export const LanguageSelectModal = (props: Props) => {
 
 							return (
 								<Space key={type} orientation='vertical' style={{ width: '100%' }}>
-									<HeaderText level={1}>{type}</HeaderText>
+									<HeaderText level={1}>{
+										type === LanguageType.Common
+											? ui.text('ui.hero-builder.language-type-common.309955e0', 'Common')
+											: type === LanguageType.Cultural
+												? ui.text('ui.hero-builder.language-type-cultural.faf2dbb3', 'Cultural')
+												: type === LanguageType.Regional
+													? ui.text('ui.hero-builder.language-type-regional.299a03b1', 'Regional')
+													: ui.text('ui.hero-builder.language-type-dead.ec9b10a4', 'Dead')
+									}
+									</HeaderText>
 									{
 										subset.map((l, n) => (
 											<SelectablePanel key={n} onSelect={() => props.onSelect(l)}>
