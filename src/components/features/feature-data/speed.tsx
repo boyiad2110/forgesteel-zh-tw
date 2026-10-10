@@ -7,6 +7,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { Space } from 'antd';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureSpeedData;
@@ -16,8 +17,9 @@ interface InfoProps {
 }
 
 export const InfoSpeed = (props: InfoProps) => {
+	const ui = useUI();
 	return (
-		<Field label='Speed' value={props.data.speed} />
+		<Field label={ui.text('ui.hero-builder.speed.a2b81141', 'Speed')} value={props.data.speed} />
 	);
 };
 
@@ -28,6 +30,7 @@ interface EditProps {
 }
 
 export const EditSpeed = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureSpeedData>(Utils.copy(props.data));
 
 	const setSpeed = (value: number) => {
@@ -39,7 +42,7 @@ export const EditSpeed = (props: EditProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<HeaderText>Speed</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.speed.a2b81141', 'Speed')}</HeaderText>
 			<NumberSpin min={1} value={data.speed} onChange={setSpeed} />
 		</Space>
 	);

@@ -2,6 +2,7 @@ import { CSSProperties, ReactNode, useEffect, useState } from 'react';
 import { Input } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { useDebounce } from '@/hooks/use-debounce';
+import { useUI } from '@/l10n/ui-text';
 
 interface Props {
 	value: string;
@@ -53,9 +54,10 @@ interface SearchBoxProps {
 }
 
 export const SearchBox = (props: SearchBoxProps) => {
+	const ui = useUI();
 	return (
 		<TextInput
-			placeholder='Search'
+			placeholder={ui.text('ui.hero-builder.search.f1270409', 'Search')}
 			allowClear={true}
 			value={props.searchTerm}
 			disabled={props.disabled}

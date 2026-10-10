@@ -17,6 +17,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureCompanionData;
@@ -26,10 +27,11 @@ interface InfoProps {
 }
 
 export const InfoCompanion = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.selected === null) {
 		return (
 			<div className='ds-text'>
-				Choose a monster.
+				{ui.text('ui.hero-builder.choose-a-monster.85c6f3c3', 'Choose a monster.')}
 			</div>
 		);
 	}
@@ -46,6 +48,7 @@ interface ConfigProps {
 }
 
 export const ConfigCompanion = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ monsterSelectorOpen, setMonsterSelectorOpen ] = useState<boolean>(false);
 	const [ selectedMonster, setSelectedMonster ] = useState<Monster | null>(null);
 
@@ -101,16 +104,16 @@ export const ConfigCompanion = (props: ConfigProps) => {
 						}}
 					/>
 					:
-					<Button block={true} className='status-warning' onClick={() => setMonsterSelectorOpen(true)}>Select</Button>
+					<Button block={true} className='status-warning' onClick={() => setMonsterSelectorOpen(true)}>{ui.text('ui.hero-builder.select.ed8e93ef', 'Select')}</Button>
 			}
 			{
 				props.data.selected ?
-					<Expander title='Customize'>
-						<HeaderText>Name</HeaderText>
+					<Expander title={ui.text('ui.hero-builder.customize.6ddfe8c5', 'Customize')}>
+						<HeaderText>{ui.text('ui.hero-builder.name.f7c27f51', 'Name')}</HeaderText>
 						<Space.Compact style={{ width: '100%' }}>
 							<TextInput
 								status={props.data.selected.name === '' ? 'warning' : ''}
-								placeholder='Name'
+								placeholder={ui.text('ui.hero-builder.name.f7c27f51', 'Name')}
 								allowClear={true}
 								value={props.data.selected.name}
 								onChange={setName}

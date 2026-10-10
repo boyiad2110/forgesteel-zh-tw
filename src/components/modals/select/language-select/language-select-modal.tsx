@@ -10,6 +10,7 @@ import { Modal } from '@/components/modals/modal/modal';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 import './language-select-modal.scss';
 
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export const LanguageSelectModal = (props: Props) => {
+	const ui = useUI();
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ customLanguage, setCustomLanguage ] = useState<string>('');
 
@@ -59,11 +61,11 @@ export const LanguageSelectModal = (props: Props) => {
 						})
 					}
 					<Divider />
-					<Expander title='Add a custom language'>
+					<Expander title={ui.text('ui.hero-builder.add-a-custom-language.155bdaee', 'Add a custom language')}>
 						<Space orientation='vertical' style={{ width: '100%' }}>
-							<HeaderText>Custom Language</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.custom-language.1bf43b8b', 'Custom Language')}</HeaderText>
 							<TextInput
-								placeholder='Custom Language Name'
+								placeholder={ui.text('ui.hero-builder.custom-language-name.5b0c1f59', 'Custom Language Name')}
 								allowClear={true}
 								value={customLanguage}
 								onChange={setCustomLanguage}

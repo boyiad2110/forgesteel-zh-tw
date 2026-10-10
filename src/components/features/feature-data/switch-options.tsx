@@ -22,6 +22,7 @@ import { TextInput } from '@/components/controls/text-input/text-input';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureSwitchOptionsData;
@@ -31,6 +32,7 @@ interface InfoProps {
 }
 
 export const InfoSwitchOptions = (props: InfoProps) => {
+	const ui = useUI();
 	const getDescription = (feature: Feature) => {
 		switch (feature.type) {
 			case FeatureType.Ability:
@@ -55,7 +57,7 @@ export const InfoSwitchOptions = (props: InfoProps) => {
 
 	return (
 		<>
-			<Field label='Switch' value={props.data.switch} />
+			<Field label={ui.text('ui.hero-builder.switch.e1b71c88', 'Switch')} value={props.data.switch} />
 			<Space orientation='vertical' style={{ width: '100%' }}>
 				{
 					props.data.options.map(f => (
@@ -68,7 +70,7 @@ export const InfoSwitchOptions = (props: InfoProps) => {
 				{
 					props.data.defaultOption ?
 						<>
-							<HeaderText>Default Option</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.default-option.18977ea3', 'Default Option')}</HeaderText>
 							{getDescription(props.data.defaultOption)}
 						</>
 						: null
@@ -85,6 +87,7 @@ interface EditProps {
 }
 
 export const EditSwitchOptions = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureSwitchOptionsData>(Utils.copy(props.data));
 	const [ typeSelectorVisible, setTypeSelectorVisible ] = useState<boolean>(false);
 
@@ -155,10 +158,10 @@ export const EditSwitchOptions = (props: EditProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<HeaderText>Switch</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.switch.e1b71c88', 'Switch')}</HeaderText>
 			<TextInput
 				status={data.switch === '' ? 'warning' : ''}
-				placeholder='Switch'
+				placeholder={ui.text('ui.hero-builder.switch.e1b71c88', 'Switch')}
 				allowClear={true}
 				value={data.switch}
 				onChange={setSwitch}
@@ -186,7 +189,7 @@ export const EditSwitchOptions = (props: EditProps) => {
 							<HeaderText>Switch Value</HeaderText>
 							<TextInput
 								status={f.value === '' ? 'warning' : ''}
-								placeholder='Switch'
+								placeholder={ui.text('ui.hero-builder.switch.e1b71c88', 'Switch')}
 								allowClear={true}
 								value={f.value}
 								onChange={value => setSwitchValue(n, value)}
@@ -206,7 +209,7 @@ export const EditSwitchOptions = (props: EditProps) => {
 						: null
 				}
 			</Space>
-			<HeaderText>Default Option</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.default-option.18977ea3', 'Default Option')}</HeaderText>
 			<Toggle
 				label='Has Default Option'
 				value={data.defaultOption !== null}

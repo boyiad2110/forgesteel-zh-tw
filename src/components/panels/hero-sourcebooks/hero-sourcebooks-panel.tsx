@@ -10,6 +10,7 @@ import { Toggle } from '@/components/controls/toggle/toggle';
 import { UpdateLogic } from '@/logic/update/update-logic';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 import './hero-sourcebooks-panel.scss';
 
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export const HeroSourcebooksPanel = (props: Props) => {
+	const ui = useUI();
 	const [ ids, setIDs ] = useState<string[]>(Utils.copy(props.sourcebookIDs));
 
 	const toggleSourcebook = (include: boolean, id: string) => {
@@ -31,9 +33,9 @@ export const HeroSourcebooksPanel = (props: Props) => {
 
 	return (
 		<div className='hero-sourcebooks-panel'>
-			<HeaderText>Sourcebooks</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.sourcebooks.52e8200a', 'Sourcebooks')}</HeaderText>
 			<div className='ds-text'>
-				This hero can use content from the following sourcebooks:
+				{ui.text('ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba', 'This hero can use content from the following sourcebooks:')}
 			</div>
 			<Space orientation='vertical' style={{ width: '100%' }}>
 				{
@@ -42,7 +44,7 @@ export const HeroSourcebooksPanel = (props: Props) => {
 						.filter(item => item.sourcebooks.length > 0)
 						.map(item => (
 							<div key={item.type} className='sourcebook-type-section'>
-								<HeaderText level={3}>{item.type} Sourcebooks</HeaderText>
+								<HeaderText level={3}>{item.type} {ui.text('ui.hero-builder.sourcebooks.52e8200a', 'Sourcebooks')}</HeaderText>
 								{
 									item.sourcebooks.map(sb => (
 										<Toggle
@@ -60,7 +62,7 @@ export const HeroSourcebooksPanel = (props: Props) => {
 			<Divider />
 			<Flex align='center' gap={10}>
 				<div className='ds-text'>
-					If you have a homebrew sourcebook you want to use, and it isn't listed here, you can import it now.
+					{ui.text('ui.hero-builder.if-you-have-a-homebrew-sourc.d8d789c8', 'If you have a homebrew sourcebook you want to use, and it isn\'t listed here, you can import it now.')}
 				</div>
 				<Upload
 					style={{ width: '100%' }}
@@ -78,7 +80,7 @@ export const HeroSourcebooksPanel = (props: Props) => {
 						return false;
 					}}
 				>
-					<Button title='Import a sourcebook' icon={<DownloadOutlined />} />
+					<Button title={ui.text('ui.hero-builder.import-a-sourcebook.37cebd77', 'Import a sourcebook')} icon={<DownloadOutlined />} />
 				</Upload>
 			</Flex>
 		</div>

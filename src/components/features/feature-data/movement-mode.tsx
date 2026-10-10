@@ -6,6 +6,7 @@ import { Space } from 'antd';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureMovementModeData;
@@ -15,9 +16,10 @@ interface InfoProps {
 }
 
 export const InfoMovementMode = (props: InfoProps) => {
+	const ui = useUI();
 	return (
 		<div className='ds-text'>
-			You gain the <b>{props.data.mode}</b> movement mode.
+			{ui.text('ui.hero-builder.you-gain-the.4aa6e0b7', 'You gain the')} <b>{props.data.mode}</b> {ui.text('ui.hero-builder.movement-mode.56db4b3c', 'movement mode.')}
 		</div>
 	);
 };

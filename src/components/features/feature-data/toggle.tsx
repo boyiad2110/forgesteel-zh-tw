@@ -14,6 +14,7 @@ import { TextInput } from '@/components/controls/text-input/text-input';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureToggleData;
@@ -23,6 +24,7 @@ interface InfoProps {
 }
 
 export const InfoToggle = (props: InfoProps) => {
+	const ui = useUI();
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
 			<div className='ds-text'>{props.data.condition}</div>
@@ -37,7 +39,7 @@ export const InfoToggle = (props: InfoProps) => {
 			{
 				props.data.featureUnchecked ?
 					<>
-						<div className='ds-text'>Otherwise:</div>
+						<div className='ds-text'>{ui.text('ui.hero-builder.otherwise.eea1c613', 'Otherwise:')}</div>
 						<Expander title={props.data.featureUnchecked.name || 'Feature'}>
 							<InfoFeature feature={props.data.featureUnchecked} hero={props.hero} sourcebooks={props.sourcebooks} />
 						</Expander>

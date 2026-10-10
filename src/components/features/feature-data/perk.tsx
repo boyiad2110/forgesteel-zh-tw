@@ -20,6 +20,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeaturePerkData;
@@ -116,6 +117,7 @@ interface ConfigProps {
 }
 
 export const ConfigPerk = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ perkSelectorOpen, setPerkSelectorOpen ] = useState<boolean>(false);
 	const [ selectedPerk, setSelectedPerk ] = useState<Perk | null>(null);
 
@@ -137,7 +139,7 @@ export const ConfigPerk = (props: ConfigProps) => {
 
 		return (
 			<Button className='status-warning' block={true} onClick={() => setPerkSelectorOpen(true)}>
-				Choose a perk
+				{ui.text('ui.hero-builder.choose-a-perk.34a3b751', 'Choose a perk')}
 			</Button>
 		);
 	};

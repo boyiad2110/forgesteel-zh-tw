@@ -15,6 +15,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureAncestryChoiceData;
@@ -45,6 +46,7 @@ interface ConfigProps {
 }
 
 export const ConfigAncestryChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ selectedAncestry, setSelectedAncestry ] = useState<Ancestry | null>(null);
 
 	const ancestries = SourcebookLogic.getAncestries(props.sourcebooks);
@@ -62,7 +64,7 @@ export const ConfigAncestryChoice = (props: ConfigProps) => {
 				style={{ width: '100%' }}
 				status={!props.data.selected ? 'warning' : ''}
 				allowClear={true}
-				placeholder='Select an ancestry'
+				placeholder={ui.text('ui.hero-builder.select-an-ancestry.942750ad', 'Select an ancestry')}
 				options={sortedAncestries.map(a => ({ label: a.name, value: a.id, desc: a.description }))}
 				optionRender={option => {
 					const ancestry = sortedAncestries.find(a => a.id === option.data.value);

@@ -12,6 +12,7 @@ import { SelectionBox } from '@/components/panels/feature-config-panel/feature-c
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureComplicationData;
@@ -21,9 +22,10 @@ interface InfoProps {
 }
 
 export const InfoComplication = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.selected === null) {
 		return (
-			<div className='ds-text'>Choose a complication.</div>
+			<div className='ds-text'>{ui.text('ui.hero-builder.choose-a-complication.82309699', 'Choose a complication.')}</div>
 		);
 	}
 
@@ -39,6 +41,7 @@ interface ConfigProps {
 }
 
 export const ConfigComplication = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ complicationSelectorOpen, setComplicationSelectorOpen ] = useState<boolean>(false);
 	const [ selectedComplication, setSelectedComplication ] = useState<Complication | null>(null);
 
@@ -63,7 +66,7 @@ export const ConfigComplication = (props: ConfigProps) => {
 					/>
 					:
 					<Button block={true} className='status-warning' onClick={() => setComplicationSelectorOpen(true)}>
-						Choose a complication
+						{ui.text('ui.hero-builder.choose-a-complication.93fdd59d', 'Choose a complication')}
 					</Button>
 			}
 			<Drawer open={complicationSelectorOpen} onClose={() => setComplicationSelectorOpen(false)} closeIcon={null} size={500}>

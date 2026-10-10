@@ -8,6 +8,7 @@ import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureSizeData;
@@ -17,8 +18,9 @@ interface InfoProps {
 }
 
 export const InfoSize = (props: InfoProps) => {
+	const ui = useUI();
 	return (
-		<Field label='Size' value={FormatLogic.getSize(props.data.size)} />
+		<Field label={ui.text('ui.hero-builder.size.0805dc7c', 'Size')} value={FormatLogic.getSize(props.data.size)} />
 	);
 };
 
@@ -29,6 +31,7 @@ interface EditProps {
 }
 
 export const EditSize = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureSizeData>(Utils.copy(props.data));
 
 	const setSizeValue = (value: number) => {
@@ -47,7 +50,7 @@ export const EditSize = (props: EditProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<HeaderText>Size</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.size.0805dc7c', 'Size')}</HeaderText>
 			<NumberSpin min={1} value={data.size.value} onChange={setSizeValue} />
 			{
 				data.size.value === 1 ?

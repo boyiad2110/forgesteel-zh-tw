@@ -11,6 +11,7 @@ import { ModifierEditor } from '@/components/panels/edit/modifier-edit/modifier-
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureAbilityDistanceData;
@@ -20,8 +21,11 @@ interface InfoProps {
 }
 
 export const InfoAbilityDistance = (props: InfoProps) => {
+	const ui = useUI();
+	const modifier = FormatLogic.getModifier(props.data);
+	const english = `${modifier} distance`;
 	return (
-		<Field label={props.data.keywords.join(', ')} value={`${FormatLogic.getModifier(props.data)} distance`} />
+		<Field label={props.data.keywords.join(', ')} value={ui.format('ui.hero-builder.formatlogic-getmodifier-prop.d3388eac', '`${FormatLogic.getModifier(props.data)} distance`', english, { modifier })} />
 	);
 };
 

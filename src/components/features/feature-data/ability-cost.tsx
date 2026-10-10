@@ -9,6 +9,7 @@ import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureAbilityCostData;
@@ -18,8 +19,11 @@ interface InfoProps {
 }
 
 export const InfoAbilityCost = (props: InfoProps) => {
+	const ui = useUI();
+	const modifier = `${props.data.modifier >= 0 ? '+' : ''}${props.data.modifier}`;
+	const english = `Heroic resource cost ${modifier}`;
 	return (
-		<Field label={props.data.keywords.join(', ')} value={`Heroic resource cost ${props.data.modifier >= 0 ? '+' : ''}${props.data.modifier}`} />
+		<Field label={props.data.keywords.join(', ')} value={ui.format('ui.hero-builder.heroic-resource-cost-props-d.2f45ea1c', '`Heroic resource cost ${props.data.modifier >= 0 ? \'+\' : \'\'}${props.data.modifier}`', english, { modifier })} />
 	);
 };
 

@@ -13,6 +13,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureRollModifierData;
@@ -22,12 +23,13 @@ interface InfoProps {
 }
 
 export const InfoRollModifier = (props: InfoProps) => {
+	const ui = useUI();
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
 			<Field label={props.data.modifier} value={FeatureLogic.getRollModifierScope(props.data)} />
 			{
 				props.data.condition ?
-					<Field label='When' value={props.data.condition} />
+					<Field label={ui.text('ui.hero-builder.when.ec4ba8f6', 'When')} value={props.data.condition} />
 					: null
 			}
 		</Space>

@@ -8,6 +8,7 @@ import { KitWeapon } from '@/enums/kit-weapon';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureProficiencyData;
@@ -17,10 +18,11 @@ interface InfoProps {
 }
 
 export const InfoProficiency = (props: InfoProps) => {
+	const ui = useUI();
 	return (
 		<>
-			{props.data.weapons.length > 0 ? <Field label='Weapons' value={props.data.weapons.join(', ')} /> : null}
-			{props.data.armor.length > 0 ? <Field label='Armor' value={props.data.armor.join(', ')} /> : null}
+			{props.data.weapons.length > 0 ? <Field label={ui.text('ui.hero-builder.weapons.3189d297', 'Weapons')} value={props.data.weapons.join(', ')} /> : null}
+			{props.data.armor.length > 0 ? <Field label={ui.text('ui.hero-builder.armor.d165ace3', 'Armor')} value={props.data.armor.join(', ')} /> : null}
 		</>
 	);
 };
@@ -32,6 +34,7 @@ interface EditProps {
 }
 
 export const EditProficiency = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureProficiencyData>(Utils.copy(props.data));
 
 	const setProficiencyWeapons = (value: KitWeapon[]) => {
@@ -50,10 +53,10 @@ export const EditProficiency = (props: EditProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<HeaderText>Weapons</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.weapons.3189d297', 'Weapons')}</HeaderText>
 			<Select
 				style={{ width: '100%' }}
-				placeholder='Weapons'
+				placeholder={ui.text('ui.hero-builder.weapons.3189d297', 'Weapons')}
 				mode='tags'
 				allowClear={true}
 				options={[ KitWeapon.Bow, KitWeapon.Ensnaring, KitWeapon.Heavy, KitWeapon.Light, KitWeapon.Medium, KitWeapon.Polearm, KitWeapon.Unarmed, KitWeapon.Whip ].map(option => ({ value: option }))}
@@ -61,10 +64,10 @@ export const EditProficiency = (props: EditProps) => {
 				value={data.weapons}
 				onChange={setProficiencyWeapons}
 			/>
-			<HeaderText>Armor</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.armor.d165ace3', 'Armor')}</HeaderText>
 			<Select
 				style={{ width: '100%' }}
-				placeholder='Armor'
+				placeholder={ui.text('ui.hero-builder.armor.d165ace3', 'Armor')}
 				mode='tags'
 				allowClear={true}
 				options={[ KitArmor.Heavy, KitArmor.Light, KitArmor.Medium, KitArmor.Shield ].map(option => ({ value: option }))}

@@ -8,6 +8,7 @@ import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeaturePotencyResistanceData;
@@ -17,10 +18,11 @@ interface InfoProps {
 }
 
 export const InfoPotencyResistance = (props: InfoProps) => {
+	const ui = useUI();
 	const characteristics = props.data.characteristics.length > 0 ? props.data.characteristics.join(', ') : 'All characteristics';
 
 	return (
-		<Field label='Resisting potencies' value={`${characteristics} +${props.data.value}`} />
+		<Field label={ui.text('ui.hero-builder.resisting-potencies.08dcb6db', 'Resisting potencies')} value={`${characteristics} +${props.data.value}`} />
 	);
 };
 

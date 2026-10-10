@@ -15,6 +15,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureLanguageChoiceData;
@@ -24,11 +25,12 @@ interface InfoProps {
 }
 
 export const InfoLanguageChoice = (props: InfoProps) => {
+	const ui = useUI();
 	const names = useLanguageNames(props.data.selected);
 
 	if (props.data.selected.length > 0) {
 		return (
-			<Field label='Language' value={names.join(', ')} />
+			<Field label={ui.text('ui.hero-builder.language.996aaf3b', 'Language')} value={names.join(', ')} />
 		);
 	}
 
@@ -142,6 +144,7 @@ interface ConfigProps {
 }
 
 export const ConfigLanguageChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ languageSelectorOpen, setLanguageSelectorOpen ] = useState<boolean>(false);
 
 	const currentLanguages = HeroLogic.getLanguages(props.hero, props.sourcebooks).map(l => l.name);
@@ -177,7 +180,7 @@ export const ConfigLanguageChoice = (props: ConfigProps) => {
 			{
 				(props.data.selected.length < props.data.count) || (props.data.count === -1) ?
 					<Button className='status-warning' block={true} onClick={() => setLanguageSelectorOpen(true)}>
-						Choose a language
+						{ui.text('ui.hero-builder.choose-a-language.271c231e', 'Choose a language')}
 					</Button>
 					: null
 			}

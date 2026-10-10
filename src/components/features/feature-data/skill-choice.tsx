@@ -15,6 +15,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureSkillChoiceData;
@@ -24,11 +25,12 @@ interface InfoProps {
 }
 
 export const InfoSkillChoice = (props: InfoProps) => {
+	const ui = useUI();
 	const names = useSkillNames(props.data.selected);
 
 	if (props.data.selected.length > 0) {
 		return (
-			<Field label='Skill' value={names.join(', ')} />
+			<Field label={ui.text('ui.hero-builder.skill.a5ed2dcb', 'Skill')} value={names.join(', ')} />
 		);
 	}
 
@@ -145,6 +147,7 @@ interface ConfigProps {
 }
 
 export const ConfigSkillChoice = (props: ConfigProps) => {
+	const ui = useUI();
 	const [ skillSelectorOpen, setSkillSelectorOpen ] = useState<boolean>(false);
 
 	const currentSkills = [
@@ -183,7 +186,7 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 									}
 									{
 										duplicated ?
-											<Field danger={true} label='Duplicated' value='You already have this skill.' />
+											<Field danger={true} label={ui.text('ui.hero-builder.duplicated.a20aac67', 'Duplicated')} value={ui.text('ui.hero-builder.you-already-have-this-skill.ff5ad6f6', 'You already have this skill.')} />
 											: null
 									}
 								</Flex>
@@ -200,7 +203,7 @@ export const ConfigSkillChoice = (props: ConfigProps) => {
 			{
 				(props.data.selected.length < props.data.count) || (props.data.count === -1) ?
 					<Button className='status-warning' block={true} onClick={() => setSkillSelectorOpen(true)}>
-						Choose a Skill
+						{ui.text('ui.hero-builder.choose-a-skill.4d74c650', 'Choose a Skill')}
 					</Button>
 					: null
 			}

@@ -3,6 +3,10 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { createServer } from 'vite';
 import { buildSeedState, writeSeedState } from '../screenshots/seed.mjs';
+import approvedUI from '../../src/l10n/generated/zh-TW/ui.json' with { type: 'json' };
+
+const uiText = id => approvedUI[id].fs?.zh ?? approvedUI[id].zh;
+const saveChangesText = uiText('ui.hero-builder.save-changes.7215be78').replace(/^「(.*)」$/u, '$1');
 
 const readStoredHeroes = page => page.evaluate(() => new Promise((resolve, reject) => {
 	const open = indexedDB.open('localforage');
@@ -36,6 +40,8 @@ try {
 	await page.reload();
 	await page.locator('.app-footer').waitFor();
 	await page.goto(`${origin}#/hero/edit/${state.heroes.fury.id}/ancestry`);
+	await page.getByText(uiText('ui.hero-builder.hero-builder.bd7e4ec0'), { exact: true }).first().waitFor();
+	await page.getByText(uiText('ui.hero-builder.not-started.dad5ea5d'), { exact: true }).first().waitFor();
 	const ancestryExpected = await page.evaluate(async () => {
 		const { dragonKnight } = await import('/src/data/ancestries/dragon-knight.ts');
 		const { default: strings } = await import('/src/l10n/generated/zh-TW/strings.json');
@@ -61,12 +67,14 @@ try {
 	const projectedWyrmplateDescription = ancestryExpected.wyrmplate.description.en.replace('damage immunity equal to your level', 'damage immunity equal to 1');
 	await wyrmplatePanel.getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
 	await page.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
+	await page.getByText('Hero Builder', { exact: true }).first().waitFor();
 	await page.locator('#ancestry-choices .header-text').getByText(ancestryExpected.wyrmplate.name.en, { exact: true }).waitFor();
 	await page.locator('#ancestry-choices').getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
 	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
+	await page.getByText(uiText('ui.hero-builder.hero-builder.bd7e4ec0'), { exact: true }).first().waitFor();
 	await page.locator('#ancestry-choices .header-text').getByText(ancestryExpected.wyrmplate.name.zh, { exact: true }).waitFor();
 	await page.locator('#ancestry-choices').getByText(projectedWyrmplateDescription, { exact: true }).waitFor();
-	await page.getByRole('button', { name: /Save Changes/ }).click();
+	await page.locator('button').filter({ hasText: saveChangesText }).first().click();
 	await page.waitForURL('**/hero/view/**');
 	await page.getByText(ancestryExpected.dragonKnight.zh, { exact: true }).first().waitFor();
 	const dragonKnightStored = await readStoredHeroes(page);
@@ -119,7 +127,7 @@ try {
 	await page.locator('#culture-selected').getByText(cultureExpected.enSummary, { exact: true }).waitFor();
 	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
 	await page.locator('#culture-selected').getByText(cultureExpected.zhSummary, { exact: true }).waitFor();
-	await page.getByRole('button', { name: /Save Changes/ }).click();
+	await page.locator('button').filter({ hasText: saveChangesText }).first().click();
 	await page.waitForURL('**/hero/view/**');
 	await page.locator('.choices-section').getByText(cultureExpected.officialName, { exact: true }).waitFor();
 	const officialSaved = (await readStoredHeroes(page)).find(hero => hero.id === state.heroes.fury.id);
@@ -132,7 +140,11 @@ try {
 	const customName = 'Smoke culture name';
 	await page.locator('#culture-choices').getByPlaceholder('Name', { exact: true }).fill(customName);
 	await page.locator('#culture-selected .header-text').getByText(customName, { exact: true }).waitFor();
-	for (const [ index, button ] of [ 'Choose environment', 'Choose organization', 'Choose upbringing' ].entries()) {
+	for (const [ index, button ] of [
+		uiText('ui.hero-builder.choose-environment.e7ee4885'),
+		uiText('ui.hero-builder.choose-organization.e94b4b4d'),
+		uiText('ui.hero-builder.choose-upbringing.d441f2f0')
+	].entries()) {
 		const aspect = cultureExpected.aspects[index];
 		await page.getByRole('button', { name: button, exact: true }).click();
 		await page.locator('.feature-select-modal:visible .selectable-panel').filter({ has: page.getByText(aspect.zh, { exact: true }) }).click();
@@ -149,7 +161,7 @@ try {
 	assert.equal(await page.locator('#culture-choices').getByPlaceholder('Name', { exact: true }).inputValue(), customName);
 	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
 	for (const aspect of cultureExpected.aspects) await page.locator('#culture-choices .field-label').getByText(aspect.zh, { exact: true }).waitFor();
-	await page.getByRole('button', { name: /Save Changes/ }).click();
+	await page.locator('button').filter({ hasText: saveChangesText }).first().click();
 	await page.waitForURL('**/hero/view/**');
 	for (const aspect of cultureExpected.aspects) await page.locator('.choices-section').getByText(aspect.zh, { exact: true }).waitFor();
 	const storedBeforeLanguageSwitch = await readStoredHeroes(page);

@@ -31,7 +31,8 @@ const fixture = () => {
 	const tables = {
 		Glossary: { values: [ TAB_HEADERS.Glossary, [ 'term.demo', 'APPROVED', '示範', 'Demo', '2026-10-08' ] ] },
 		Names: { values: [ TAB_HEADERS.Names ] },
-		Strings: { values: [ TAB_HEADERS.Strings, [ 'demo', 'APPROVED', zh, en, '2026-10-08', en, zh, 'APPROVED', hashEnglish(zh), note ] ] }
+		Strings: { values: [ TAB_HEADERS.Strings, [ 'demo', 'APPROVED', zh, en, '2026-10-08', en, zh, 'APPROVED', hashEnglish(zh), note ] ] },
+		'Forge Steel UI': { values: [ TAB_HEADERS['Forge Steel UI'] ] }
 	};
 	const binding = { sheetId: 'demo', enHash: hashEnglish(en), zhHash: hashEnglish(zh),
 		sourceSpan: [ en.indexOf('your Might'), en.length - 1 ], targetSpan: [ 2, 5 ],
@@ -51,7 +52,7 @@ const fixture = () => {
 };
 const filesAt = root => {
 	const files = [ ...buildSnapshot(fixtureInput()).keys() ].map(name => `l10n/sheet-snapshot/${name}`);
-	files.push(...[ 'glossary', 'names', 'strings', 'meta' ].map(name => `src/l10n/generated/zh-TW/${name}.json`));
+	files.push(...[ 'glossary', 'names', 'strings', 'ui', 'meta' ].map(name => `src/l10n/generated/zh-TW/${name}.json`));
 	return files.map(file => readFileSync(path.join(root, file), 'utf8'));
 };
 const fixtureInput = () => ({ sheetFileId: SHEET_ID, modifiedTimeBefore: metadata.modified_time, modifiedTimeAfter: metadata.modified_time,
@@ -79,6 +80,26 @@ describe('one connector capture', () => {
 		const { tables } = fixture();
 		tables.Strings.values[1][7] = 'REVIEW';
 		expect(projectCapture(metadata, tables, metadata).tabs.Strings.rows[0].slice(5)).toEqual([ '', '', '', '', '' ]);
+	});
+	test('UI capture excludes drafts and validates approved source hashes', () => {
+		const { tables } = fixture();
+		const id = 'ui.hero-builder.demo.1234abcd';
+		const english = 'Choose';
+		tables['Forge Steel UI'].values.push(
+			[ id, 'APPROVED', '選擇', english, '2026-10-08', hashEnglish(english) ],
+			[ 'ui.hero-builder.draft.1234abcd', 'AI_DRAFT', '草稿', 'Draft', '2026-10-08', hashEnglish('Draft') ]
+		);
+		const capture = projectCapture(metadata, tables, metadata);
+		expect(capture.tabs['Forge Steel UI'].rows).toHaveLength(1);
+		const snapshot = buildSnapshot(capture);
+		expect(parseCsv(snapshot.get('ui.csv'), 'ui.csv')[1][0]).toBe(id);
+		const root = scratch();
+		for (const [ name, text ] of snapshot) write(root, `l10n/sheet-snapshot/${name}`, text);
+		expect(JSON.parse(buildCatalog(path.join(root, 'l10n/sheet-snapshot')).get('ui.json'))[id].zh).toBe('選擇');
+		capture.tabs['Forge Steel UI'].rows[0][5] = hashEnglish('Changed');
+		const bad = buildSnapshot(capture);
+		for (const [ name, text ] of bad) write(root, `l10n/sheet-snapshot/${name}`, text);
+		expect(() => buildCatalog(path.join(root, 'l10n/sheet-snapshot'))).toThrow('Source Hash does not match Source Text');
 	});
 	test('an unapproved dynamic template is rejected in memory before writing the bundle', () => {
 		const { tables } = fixture();

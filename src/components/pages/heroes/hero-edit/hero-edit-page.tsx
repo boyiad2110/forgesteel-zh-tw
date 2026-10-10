@@ -25,7 +25,6 @@ import { ErrorBoundary } from '@/components/controls/error-boundary/error-bounda
 import { ExtensionLogic } from '@/logic/extension-logic';
 import { FeatureLogic } from '@/logic/feature-logic';
 import { FeatureType } from '@/enums/feature-type';
-import { Format } from '@/utils/format';
 import { HeroClass } from '@/models/class';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroUpdateLogic } from '@/logic/update/hero-update-logic';
@@ -40,6 +39,7 @@ import { useIsSmall } from '@/hooks/use-is-small';
 import { useNavigation } from '@/hooks/use-navigation';
 import { useParams } from 'react-router';
 import { useTitle } from '@/hooks/use-title';
+import { useUI } from '@/l10n/ui-text';
 
 import './hero-edit-page.scss';
 
@@ -59,6 +59,7 @@ interface Props {
 }
 
 export const HeroEditPage = (props: Props) => {
+	const ui = useUI();
 	const isSmall = useIsSmall();
 	const options = useOptions();
 	const heroes = useHeroes();
@@ -68,7 +69,8 @@ export const HeroEditPage = (props: Props) => {
 	const [ hero, setHero ] = useState<Hero>(Utils.copy(originalHero));
 	const [ dirty, setDirty ] = useState<boolean>(false);
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
-	useTitle('Hero Builder');
+	const saveChangesLabel = ui.text('ui.hero-builder.save-changes.7215be78', 'Save Changes').replace(/^「(.*)」$/u, '$1');
+	useTitle(ui.text('ui.hero-builder.hero-builder.bd7e4ec0', 'Hero Builder'));
 
 	// The hero's own sourcebooks, with the extensions the hero has approved applied - so every picker offers the extended options.
 	// Keyed on the IDs themselves rather than the arrays, which are new every time the hero is copied
@@ -449,6 +451,26 @@ export const HeroEditPage = (props: Props) => {
 	};
 
 	const getControls = () => {
+		const tabLabel = (tab: HeroEditTab) => {
+			switch (tab) {
+				case 'start': return ui.text('ui.hero-builder.start.08232aae', 'Start');
+				case 'ancestry': return ui.text('ui.hero-builder.ancestry.f8f07987', 'Ancestry');
+				case 'culture': return ui.text('ui.hero-builder.culture.06f1b137', 'Culture');
+				case 'career': return ui.text('ui.hero-builder.career.d360a160', 'Career');
+				case 'class': return ui.text('ui.hero-builder.class.93255bb9', 'Class');
+				case 'complication': return ui.text('ui.hero-builder.complication.312ac90f', 'Complication');
+				case 'details': return ui.text('ui.hero-builder.details.e7e41783', 'Details');
+			}
+		};
+		const stateLabel = (state: PageState) => {
+			switch (state) {
+				case PageState.Optional: return ui.text('ui.hero-builder.optional.1aea6d2c', 'Optional');
+				case PageState.NotStarted: return ui.text('ui.hero-builder.not-started.dad5ea5d', 'Not Started');
+				case PageState.InProgress: return ui.text('ui.hero-builder.in-progress.c78428c0', 'In Progress');
+				case PageState.Completed: return ui.text('ui.hero-builder.completed.1c31b48e', 'Completed');
+				default: return '';
+			}
+		};
 		let allowRandom = false;
 		let unselect = undefined;
 		switch (page) {
@@ -490,7 +512,7 @@ export const HeroEditPage = (props: Props) => {
 								'details'
 							] as const).map(tab => ({
 								value: tab,
-								label: <div className='ds-text'>{Format.capitalize(tab, '-')}</div>
+								label: <div className='ds-text'>{tabLabel(tab)}</div>
 							}))}
 							value={page}
 							onChange={value => navigation.goToHeroEdit(heroID!, value)}
@@ -511,8 +533,8 @@ export const HeroEditPage = (props: Props) => {
 								value: tab,
 								label: (
 									<div className={`page-button ${getPageState(tab).toLowerCase().replace(' ', '-')}`}>
-										<div className='page-button-title'>{Format.capitalize(tab, '-')}</div>
-										<div className='page-button-subtitle'>{getPageState(tab)}</div>
+										<div className='page-button-title'>{tabLabel(tab)}</div>
+										<div className='page-button-subtitle'>{stateLabel(getPageState(tab))}</div>
 									</div>
 								)
 							}))}
@@ -522,8 +544,8 @@ export const HeroEditPage = (props: Props) => {
 						/>
 				}
 				<Space orientation='vertical' size={4}>
-					{!isSmall ? <Button disabled={!allowRandom || !!searchTerm} icon={<ThunderboltOutlined />} onClick={selectRandom}>Random</Button> : null}
-					<Button disabled={!unselect} icon={<CloseOutlined />} onClick={unselect}>Unselect</Button>
+					{!isSmall ? <Button disabled={!allowRandom || !!searchTerm} icon={<ThunderboltOutlined />} onClick={selectRandom}>{ui.text('ui.hero-builder.random.948804e8', 'Random')}</Button> : null}
+					<Button disabled={!unselect} icon={<CloseOutlined />} onClick={unselect}>{ui.text('ui.hero-builder.unselect.81e63541', 'Unselect')}</Button>
 				</Space>
 			</div>
 		);
@@ -635,12 +657,12 @@ export const HeroEditPage = (props: Props) => {
 	return (
 		<ErrorBoundary>
 			<div className='hero-edit-page'>
-				<AppHeader subheader='Hero Builder'>
+				<AppHeader subheader={ui.text('ui.hero-builder.hero-builder.bd7e4ec0', 'Hero Builder')}>
 					<ButtonGroup
 						buttons={[
 							{ type: 'control', control: <SearchBox disabled={!allowSearch()} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> },
-							{ type: 'button', label: isSmall ? undefined : 'Save Changes', icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
-							{ type: 'button', label: isSmall ? undefined : 'Cancel', icon: <CloseOutlined />, onClick: () => navigation.goToHeroView(heroID!) }
+							{ type: 'button', label: isSmall ? undefined : saveChangesLabel, icon: <SaveOutlined />, primary: true, disabled: !dirty, onClick: saveChanges },
+							{ type: 'button', label: isSmall ? undefined : ui.text('ui.hero-builder.cancel.5314e347', 'Cancel'), icon: <CloseOutlined />, onClick: () => navigation.goToHeroView(heroID!) }
 						]}
 					/>
 				</AppHeader>

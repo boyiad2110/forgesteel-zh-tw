@@ -8,6 +8,7 @@ import { Hero } from '@/models/hero';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureConditionImmunityData;
@@ -17,9 +18,10 @@ interface InfoProps {
 }
 
 export const InfoConditionImmunity = (props: InfoProps) => {
+	const ui = useUI();
 	return (
 		<Field
-			label='Cannot Be'
+			label={ui.text('ui.hero-builder.cannot-be.36cd9df2', 'Cannot Be')}
 			value={props.data.conditions.map((condition, index) => <span key={`${condition}-${index}`}>{index > 0 ? ', ' : ''}<ConditionName type={condition} /></span>)}
 		/>
 	);

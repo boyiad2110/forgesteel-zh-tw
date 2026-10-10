@@ -20,6 +20,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useUI } from '@/l10n/ui-text';
 
 import './career-section.scss';
 
@@ -42,6 +43,7 @@ interface Props {
 }
 
 export const CareerSection = (props: Props) => {
+	const ui = useUI();
 	const isSmall = useIsSmall();
 	const [ showIncitingIncidents, setShowIncitingIncidents ] = useState<boolean>(false);
 
@@ -65,7 +67,7 @@ export const CareerSection = (props: Props) => {
 
 		choices.push(
 			<SelectablePanel key='inciting-incident'>
-				<HeaderText>Inciting Incident</HeaderText>
+				<HeaderText>{ui.text('ui.hero-builder.inciting-incident.181ce686', 'Inciting Incident')}</HeaderText>
 				{
 					props.hero.career.incitingIncidents.selected ?
 						<SelectionBox
@@ -80,7 +82,7 @@ export const CareerSection = (props: Props) => {
 						/>
 						:
 						<Button block={true} className='status-warning' onClick={() => setShowIncitingIncidents(true)}>
-							Choose an inciting incident
+							{ui.text('ui.hero-builder.choose-an-inciting-incident.5f2c012b', 'Choose an inciting incident')}
 						</Button>
 				}
 			</SelectablePanel>

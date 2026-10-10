@@ -18,6 +18,7 @@ import { TextInput } from '@/components/controls/text-input/text-input';
 import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureHeroicResourceData;
@@ -27,6 +28,7 @@ interface InfoProps {
 }
 
 export const InfoHeroicResource = (props: InfoProps) => {
+	const ui = useUI();
 	let data = props.data;
 
 	if (props.hero) {
@@ -59,7 +61,8 @@ export const InfoHeroicResource = (props: InfoProps) => {
 
 					let value = `${t.value}+`;
 					if (t.level > 1) {
-						value += ` (level ${t.level}+)`;
+						const english = ` (level ${t.level}+)`;
+						value += ui.format('ui.hero-builder.level-t-level.e10d2e65', '` (level ${t.level}+)`', english, { level: t.level });
 					}
 
 					return (
