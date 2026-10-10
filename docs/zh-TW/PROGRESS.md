@@ -1,37 +1,13 @@
 # 目前進度
 
-2026-10-10：本次附件維護 1–5，使用者明確授權自主驗證與結案，免人工驗收。原 develop 基底 `90f87618`，上游同步目標 `5968ff54`（14.207.0）。本批未改 Master Sheet、核准譯文、mapping 或快照；428／105／11 清冊維持。
-
-## 本批結果
-
-| 順序 | 狀態與成果 | 證據／入口 |
+| 批次 | 狀態／PR／版本 | 驗證與下一步 |
 |---|---|---|
-| 1 | 已檢查 PR #53 完成；統一入口在本次同步版也通過 | verify 六項全部 exit 0；原來源掃描預設設定通過 |
-| 2 | main 已 fast-forward 至上游 5968ff54；5 個整合衝突已解；遠端分支保護已 API 回讀 | [UPSTREAM](UPSTREAM.md)，本批同步 PR 保留 merge commit 祖先 |
-| 3 | 文件瘦身、明確待辦、批次記錄集中原 PR、歷史封存 | [README](README.md)、[TODO](TODO.md)、[BATCH-TEMPLATE](BATCH-TEMPLATE.md) |
-| 4 | 玩家六旅程位置與 P3 阻塞完成盤點；加入可重複瀏覽器回歸 | [COVERAGE](COVERAGE.md)，browser-smoke.mjs |
-| 5 | 105 列完整依賴守門，含 5 組多來源；多用途資料契約定案 | [P4-STRUCTURE](P4-STRUCTURE.md)，DEC-0010／0011 |
+| 維護 1–5 | 已完成；[PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，develop 合併 `b79c1d0d` | 2026-10-10，程式與治理版本 `70fa69e2`；972/972 測試、六項完整驗證、audit 0 漏洞及隔離瀏覽器回歸。詳見原 PR 與 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/37993319244) |
+| DISPLAY-01 | Marc 人工驗收通過並已合併；[PR #55](https://github.com/boyiad2110/forgesteel-zh-tw/pull/55)，develop 合併 `1154e6ca` | 2026-10-10，head `872ae31d`；973/973、六項完整驗證、audit 0 漏洞及文化瀏覽器操作。最新 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38017844450) 成功；Sheet Status／Project State／CHG-0078 已回讀確認。原批使用 merge，後續一般內容依 RULES 用 squash；不改寫歷史 |
+| MAINT-WORKFLOW-01 | Marc 已驗收；合併狀態見 [PR #56](https://github.com/boyiad2110/forgesteel-zh-tw/pull/56) | 2026-10-10，程式版本 `91612f32`；隔離副本乾淨安裝、978/978 測試、六項完整驗證、audit 0 漏洞及五組瀏覽器回歸通過；修正過期狀態、結案順序、Sheet 寫入、環境診斷與隔離驗證。文件更新引用同程式版本結果；最新 CI、實際合併 SHA 與 Sheet 結案回讀集中原 PR |
 
-遠端設定：預設分支 develop；develop 必須 PR、strict `l10n`（GitHub Actions app 15368）、零位必要人工審查者，管理者適用；main 不要求 PR 以維持鏡像。兩分支皆禁止 force push／刪除。部署及 registry 清理 workflow 在此分叉為 disabled_manually，Localization check 保持 active；停用前確認兩者各 0 次執行、repo secrets／variables 各 0，不影響上游。每週一台灣 09:00 Upstream watch 唯讀比較 main／develop 積欠，不自動整合或部署。
+核准清冊維持 428／105／11；未新增翻譯或改動 mapping／快照。DISPLAY-01 的來源、範圍、環境修補與限制集中原 PR；本輪流程改善不代表 UI 或 P3/P4 譯文已核准，也不代表網站正式發布。
 
-## 驗證
+目前待辦與下一動作只看 [TODO](TODO.md)。UI 缺核准來源、Career 411 NEW、Enhancement 待定；2026-10-10 Master Sheet metadata 仍無 Forge Steel UI 分頁。
 
-2026-10-10 本次程式工作樹，以 Node 24.18.0／npm 11.10.1、依上游 lockfile 加最小 brace-expansion 5.0.12 修補安裝；使用原 workers／逾時／建置設定，在沙盒外完整驗證。守門、Lint（0 error、既有匯入排序 warning）、TypeScript、Vitest **972/972（43 檔）**、正式建置、npm audit **0 漏洞**，六項皆 exit 0。最後完整重跑依序約 2.8／25.7／16.5／12.1／9.1／1.9 秒；日期／版本以本批 PR 程式提交為準。早期整合中的失敗不作完成證據：Lint 的 JSX 大括號與 staged snapshot fixture 已修，完整重跑通過。新來源守門含 staged catalog 測試；更改後續來源能確實失敗，沒有降低守門。
-
-隔離 Edge 無頭瀏覽器：族裔候選→已選→儲存後英雄總覽、英／正體中文切換、經典表格核准名稱及列印 media 下頁首水平溢出、擒抱力量 2→3（期望值獨立取核准文字位置，不呼叫被測投射器）、關閉計算回到原核准文字，全部通過；page errors 為 0。沒有截圖或錄影。列印檢查只證明本次 fixture 頁首與 DOM，不宣稱所有英雄的整份表格視覺驗收。CI 另用 Chromium 跑相同腳本。
-
-**維護順序 1–5 已完成並通過自主驗證**；交付集中 [PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，程式提交 `cc74a2b5`。最終程式與治理版本 `70fa69e2` 的 [CI #37993319244](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/37993319244) 全數成功：六項完整檢查與 Chromium 玩家旅程回歸均通過。依使用者授權以 merge commit 合併，合併 SHA 與時點以 PR #54 的 GitHub 紀錄為準，不另開結案文件 PR。此後只補驗證紀錄，程式內容未變。後續只有文件補記時引用同程式版本驗證，git diff --check 仍需通過。
-
-## 下一步與來源限制
-
-### DISPLAY-01（2026-10-10；驗收中）
-
-已按使用者核准預覽實作自訂文化三面向右側 Field 名稱接線，沿用 `PlayerName`／Master Sheet APPROVED；官方文化摘要只在既有官方匹配條件成立時，正體中文改用「、」「。」；英文與自訂、改名、Homebrew、未知格式保留原值。新決策見 DEC-0015；歷史 P2-1-5 不改寫。純函式及名稱來源回歸已加入。瀏覽器已確認官方摘要切換英／中，以及自訂文化已選三面向右側 Field 的英／中文名稱；英雄資料與分享碼未修改。為進入建角建立的空白暫存英雄已依使用者確認刪除，清單回復原有兩筆。未截圖或錄影。
-
-完整驗證於獨立副本執行，避免覆寫使用中開發伺服器的相依檔；Vitest 暫存目錄固定在副本內。Node 24.18.0／npm 11.10.1，依本批鎖檔乾淨 `npm ci`（含新增建置所需 `sass-embedded`）。守門、Lint（0 error、9 warnings）、TypeScript、Vitest **973/973（43 檔）**、正式建置、npm audit **0 漏洞**，六項皆 exit 0。若未加入 `sass-embedded`，鎖檔乾淨安裝後 Vite production build 會因缺少其可選 peer 而失敗；本批將其宣告為直接開發依賴，以確保本機與 CI 可重現建置。原工作目錄 `npm ci` 遇使用中原生檔 EPERM，未關閉開發伺服器；之後以乾淨安裝副本補回本機缺少的依賴檔（不覆寫已存在檔案），`verify.mjs --doctor` 再確認必要工具皆可讀取。
-
-單一 PR：[PR #55：DISPLAY-01](https://github.com/boyiad2110/forgesteel-zh-tw/pull/55)，分支 `codex/display-01-culture-display`。GitHub Actions run **38017708040** 的 l10n（含完整六項與 Playwright 瀏覽器回歸）全部成功。等待 Marc 對本批最終內容驗收後再合併；Master Sheet 必要狀態於合併後同步，不另開結案 PR。
-
-2026-10-10 實讀 Master Sheet metadata 共 11 分頁，尚無 Forge Steel UI；Project State 確認 Career 411 NEW。所有阻塞與下一動作見 TODO；DISPLAY-01 不代表 P3/P4 譯文已核准或網站正式發布。
-
-完整歷史保留 [2026-10-10 前進度](history/PROGRESS-2026-10-10.md)，僅需要原批次驗收與版本時再讀。來源掃描逾時（#53）、快照 Note 整合（#37）、總數集中化（#34）均已完成，不能從封存舊段落重新列成待辦。
+詳細治理與驗證入口見 [RULES](RULES.md)、[UPSTREAM](UPSTREAM.md)、[BATCH-TEMPLATE](BATCH-TEMPLATE.md)。完整舊進度保留 [歷史](history/PROGRESS-2026-10-10.md)，已結案項目不從歷史重新列待辦。
