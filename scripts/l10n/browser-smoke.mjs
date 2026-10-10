@@ -339,7 +339,8 @@ try {
 				})
 			})),
 			{ feature: FactoryLogic.feature.createSkillChoice({ id: 'homebrew-custom-skill-choice', name: 'Skill', options: [ 'Smoke Test Skill' ], count: 1 }) },
-			{ feature: sourceFeatures[1] }
+			{ feature: sourceFeatures[1] },
+			{ feature: FactoryLogic.feature.createSkillChoice({ id: 'generated-any-list-skill-choice', name: 'Skill' }) }
 		];
 		const get = key => {
 			const entry = mapping[key];
@@ -375,8 +376,8 @@ try {
 		document.body.append(host);
 		const root = createRoot(host);
 		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
-			React.createElement(React.Fragment, null, ...panels.map(panel => React.createElement(FeatureConfigPanel, {
-				key: panel.feature.id,
+			React.createElement(React.Fragment, null, ...panels.map((panel, index) => React.createElement(FeatureConfigPanel, {
+				key: `${panel.feature.id}-${index}`,
 				feature: panel.feature,
 				detailsSourceFeature: panel.sourceFeature,
 				hero,
@@ -391,17 +392,20 @@ try {
 	for (const [ index, text ] of ui05Expected.expected.entries()) {
 		await ui05Panels.nth(index + 1).getByText(text, { exact: true }).waitFor();
 	}
-	await ui05Panels.nth(1).getByText('鼓舞他人採取行動', { exact: true }).waitFor();
+	await ui05Panels.nth(1).getByText('鼓舞他人採取行動。', { exact: true }).waitFor();
 	await ui05Panels.nth(0).getByRole('button', { name: '選擇語言', exact: true }).click();
 	await abilityPage.locator('.language-select-modal').getByText('通用語', { exact: true }).waitFor();
 	await abilityPage.keyboard.press('Escape');
 	await ui05Panels.nth(7).getByRole('button', { name: '選擇技能', exact: true }).click();
 	assert.equal(await abilityPage.locator('.skill-select-modal').getByText('自訂', { exact: true }).count(), 2, 'Custom category heading and skill tag');
 	await abilityPage.locator('.skill-select-modal').getByText('Smoke Test Skill', { exact: true }).waitFor();
-	await abilityPage.locator('.skill-select-modal').getByText('了解魔法地點、法術、儀式、道具與現象', { exact: true }).waitFor();
+	await abilityPage.locator('.skill-select-modal').getByText('其他技能', { exact: true }).click();
+	await abilityPage.locator('.skill-select-modal').getByText('了解魔法地點、法術、儀式、道具與現象。', { exact: true }).waitFor();
 	await abilityPage.keyboard.press('Escape');
 	await ui05Panels.nth(8).getByText(ui05Expected.expected[1], { exact: true }).waitFor();
 	await ui05Panels.nth(8).getByText('工藝類技能', { exact: true }).waitFor();
+	await ui05Panels.nth(9).getByText('技能', { exact: true }).waitFor();
+	await ui05Panels.nth(9).getByText('從任意技能類別中選擇 1 項技能。', { exact: true }).waitFor();
 	await abilityPage.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
 	await ui05Panels.nth(0).getByText('Default Language', { exact: true }).waitFor();
 	await ui05Panels.nth(1).getByText('Choose a skill from Interpersonal skills.', { exact: true }).waitFor();

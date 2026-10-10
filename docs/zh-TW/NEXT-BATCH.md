@@ -1,6 +1,6 @@
 # UI-05 / DISPLAY-05：建角詳情與語言 / 技能選擇盤點
 
-2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。Marc 已核准 16 筆新 UI；Master Sheet、同次快照、匯出及 mapping 已更新。人工驗收截圖發現官方技能生成提示的嚴格描述比對造成英文備援，且技能選擇抽屜尚未呈現已核准的用途描述；目前在同一 PR #61 補正，尚未驗收或合併。技能用途重用既有核准規則表，不新增譯文。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
+2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。Marc 已核准 16 筆新 UI；Master Sheet、同次快照、匯出及 mapping 已更新。人工驗收先發現官方技能生成提示的嚴格描述比對造成英文備援，以及技能選擇抽屜尚未呈現已核准的用途描述；同一 PR #61 已修正並重用既有核准規則表，不新增譯文。後續驗收再發現無來源參照的標準通用技能選項未套用核准句型，已補精確守門與瀏覽器回歸案例，並確認顯示「從任意技能類別中選擇 1 項技能。」。本機完整瀏覽器回歸通過，等待最新 CI 與 Marc 驗收；尚未合併。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
 
 ## 本批建議範圍與來源
 
@@ -117,7 +117,7 @@
 | career-section | 無 | Career 411 NEW；內容等待 BOOK-01；共用 UI 不代表生涯內容核准 |
 | class-section | 無 | 職業內容與動態描述另批；共用 UI 仍依精確來源 |
 | complication-section | 無 | 糾葛內容另批；不能以名稱相同自行翻譯 |
-| details-section（語言 / 技能） | 無 | UI-05 / DISPLAY-05 已接入 Default Language、Languages、Skill 與核准生成提示；完整隔離驗證通過，PR #61 待 CI / 人工驗收 |
+| details-section（語言 / 技能） | 無 | UI-05 / DISPLAY-05 已接入 Default Language、Languages、Skill 與核准生成提示；一般「any list」卡片應顯示「從任意技能類別中選擇 1 項技能。」；PR #61 待最新 CI / 人工驗收 |
 | hero-customize-modal（自訂特性） | 使用 ConfigFeature，不是 FeatureConfigPanel | 校正原盤點：自訂特性設定在英雄自訂視窗；詳情頁僅收集其中的語言 / 技能選項。自訂內容保護維持，管理編輯器另批 |
 
 ## 已核准並接入的 8 筆 UI

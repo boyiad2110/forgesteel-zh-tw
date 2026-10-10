@@ -9,7 +9,7 @@
 - DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；PR #59 已接上自訂文化 Field 描述，13 個面向已逐一核對來源與元件 DOM，詳見 [下一批盤點](NEXT-BATCH.md)。
 - DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。
 - UI-03 / DISPLAY-03 的建角與角色摘要範圍已由 Marc 人工驗收；15 筆 APPROVED UI 對照已接入，[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已合併至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 的 8 筆核准 UI 與龍鱗動態模板已接入並經 Marc 人工驗收，[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 已 squash 合併至 develop `4da55d95`，最新 CI 全綠；Master Sheet Status、Project State 與 CHG-0086 已回讀確認。原批核對紀錄保留在 [NEXT-BATCH](NEXT-BATCH.md)。
-- UI-05 / DISPLAY-05 的 16 筆新 UI 已獲核准並寫入 Master Sheet、快照及 mapping；建角詳情的語言 / 技能生成提示、選擇抽屜與擴充項目空值已接線。Marc 的人工驗收截圖發現部分官方技能提示仍退回英文，並指出選擇技能時的官方描述尚未接入；同一 PR #61 正在修正，尚未驗收或合併。修正重用已核准的技能類別表，不新增譯文。初版隔離驗證曾通過 987/987 測試、lint、build、audit 與 7 組瀏覽器回歸；本次修正的驗證狀態見 [PROGRESS](PROGRESS.md)。228 個候選 ID 的 35 種描述是工廠生成 UI，不計入剩餘 54 種特性預設描述；其餘頁面與待辦見 [NEXT-BATCH](NEXT-BATCH.md)。
+- UI-05 / DISPLAY-05 的 16 筆新 UI 已獲核准並寫入 Master Sheet、快照及 mapping；建角詳情的語言 / 技能生成提示、選擇抽屜與擴充項目空值已接線。Marc 人工驗收發現官方技能提示退回英文、技能用途未中文化，以及通用「任意技能類別」提示漏接；同一 PR #61 已修正並通過本機瀏覽器回歸，等待最新 CI 與 Marc 驗收，尚未合併。重用既有核准技能類別表，不新增譯文。初版隔離驗證曾通過 987/987 測試、lint、build、audit 與 7 組瀏覽器回歸；本次修正的驗證狀態見 [PROGRESS](PROGRESS.md)。228 個候選 ID 的 35 種描述是工廠生成 UI，不計入剩餘 54 種特性預設描述；其餘頁面與待辦見 [NEXT-BATCH](NEXT-BATCH.md)。
 - Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線

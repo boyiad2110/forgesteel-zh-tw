@@ -13,6 +13,7 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Perk } from '@/models/perk';
+import { SkillList } from '@/enums/skill-list';
 import { Sourcebook } from '@/models/sourcebook';
 import { mapping } from '@/l10n/mapping';
 import { peekCatalog } from '@/l10n/catalog';
@@ -69,6 +70,26 @@ const cultureLanguageFeatureIDs = new Set([
 const choiceDescription = 'This feature allows you to choose from a collection of features.';
 const interpersonalSkillDescription = 'Choose a skill from Interpersonal skills.';
 const cultureLanguageDescription = 'Choose a  language.';
+const allStandardSkillLists = [ SkillList.Crafting, SkillList.Exploration, SkillList.Interpersonal, SkillList.Intrigue, SkillList.Lore ];
+
+const isGeneratedAnyListSkillChoice = (feature: Feature | Perk): feature is FeatureSkillChoice => {
+	if (feature.type !== FeatureType.SkillChoice) {
+		return false;
+	}
+
+	const { options, listOptions, count } = feature.data;
+	if (options.length !== 0 || count < 1 || ![ 1, 2, 3, 5 ].includes(count)
+		|| listOptions.length !== allStandardSkillLists.length
+		|| !allStandardSkillLists.every((list, index) => listOptions[index] === list)
+		|| feature.name !== (count === 1 ? 'Skill' : 'Skills')) {
+		return false;
+	}
+
+	const expectedDescription = count === 1
+		? 'Choose a skill from any list.'
+		: `Choose ${count} from any list.`;
+	return feature.description === expectedDescription;
+};
 
 interface Props {
 	feature: Feature | Perk;
@@ -88,7 +109,7 @@ export const FeatureConfigPanel = (props: Props) => {
 	const sourceSkillChoice = detailsSkillChoice || (isOfficialFeatureSource(props.feature as Feature, props.sourcebooks)
 		&& props.feature.type === FeatureType.SkillChoice
 		? props.feature as FeatureSkillChoice
-		: undefined);
+		: isGeneratedAnyListSkillChoice(props.feature) ? props.feature : undefined);
 	const skillOptions = sourceSkillChoice?.data.options || [];
 	const skillLists = sourceSkillChoice?.data.listOptions || [];
 	const translatedSkillOptions = useSkillNames(skillOptions);
@@ -138,6 +159,7 @@ export const FeatureConfigPanel = (props: Props) => {
 					return undefined;
 				}
 				translatedParts.push(ui.text('ui.hero-builder.any-skill-list.7f7a6841', 'any list'));
+				listIndex = sourceSkillChoice.data.listOptions.length;
 				continue;
 			}
 
@@ -259,6 +281,9 @@ export const FeatureConfigPanel = (props: Props) => {
 		}
 		if (props.detailsSourceFeature?.type === FeatureType.SkillChoice
 			&& props.feature.type === FeatureType.SkillChoice && props.feature.name === 'Skill') {
+			return ui.text('ui.hero-builder.skill.a5ed2dcb', 'Skill');
+		}
+		if (sourceSkillChoice && isGeneratedAnyListSkillChoice(props.feature)) {
 			return ui.text('ui.hero-builder.skill.a5ed2dcb', 'Skill');
 		}
 		if (purchasedTraitFeatureIDs.has(props.feature.id) && props.feature.name === 'Purchased Traits') {
