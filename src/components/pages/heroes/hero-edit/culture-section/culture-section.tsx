@@ -6,6 +6,7 @@ import { Culture } from '@/models/culture';
 import { CulturePanel } from '@/components/panels/elements/culture-panel/culture-panel';
 import { CultureType } from '@/enums/culture-type';
 import { Element } from '@/models/element';
+import { ElementScope } from '@/l10n/element-scope';
 import { EmptyMessage } from '@/components/pages/heroes/hero-edit/empty-message/empty-message';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { FeatureData } from '@/models/feature';
@@ -93,7 +94,9 @@ export const CultureSection = (props: CultureSectionProps) => {
 			.filter(f => FeatureLogic.isChoice(f))
 			.map(f => (
 				<SelectablePanel key={f.id}>
-					<FeatureConfigPanel feature={f} hero={props.hero} sourcebooks={props.sourcebooks} setData={props.setFeatureData} />
+					<ElementScope element={f}>
+						<FeatureConfigPanel feature={f} hero={props.hero} sourcebooks={props.sourcebooks} setData={props.setFeatureData} />
+					</ElementScope>
 				</SelectablePanel>
 			));
 
