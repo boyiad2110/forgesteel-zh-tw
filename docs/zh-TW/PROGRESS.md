@@ -9,10 +9,10 @@
 | UI-01／UI-02 | Marc 已定稿 151 筆 APPROVED 並完成人工驗收；[PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)（合併狀態見 PR） | 2026-10-10：依 Marc 指示修訂 5 筆 UI 譯文；隔離副本乾淨安裝，981/981 測試、六項完整驗證、audit 0 漏洞與五組瀏覽器回歸通過；驗證來源工作樹 SHA-256 `691649d599d1abb053335fb7aed7389a3b58c823f82b507d5c58711b67f9da38`。核准清冊維持 579 個 mapping。 |
 | UI-03 / DISPLAY-03（建角與角色摘要） | Marc 人工驗收通過；[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已 squash 合併 develop `71be5478` | 2026-10-10：接入 15 筆 APPROVED 共用 UI 對照；文化頁、建角頁、角色摘要均由 Marc 驗收通過。最新 head `a9853d53` 的 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38056294762) 全綠：981/981、六項檢查、audit 0、五組瀏覽器回歸。Sheet Status 第 31 列／Project State／CHG-0085 已結案，本次讀回確認。 |
 | UI-04 / DISPLAY-04（族裔與文化右側設定） | Marc 人工驗收通過；[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 已 squash 合併 develop `4da55d95` | 2026-10-10，程式版本 `e8920d7b`、基底 `71be5478`：982/982 測試、六項隔離檢查、audit 0 漏洞及 6 段瀏覽器回歸通過，隔離來源指紋前後一致。最新 head `9ebb6e2e` 的 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38064075869) 全綠；本次回讀 Sheet Status 第 32 列 / Project State / CHG-0086 確認結案。8 筆核准 UI 與 Wyrmplate 模板維持原驗收範圍；清冊 602 / 106 / 11。 |
-| UI-05 / DISPLAY-05（建角詳情與語言 / 技能選擇） | 實作與完整隔離驗證通過；PR 待建立，Marc 人工驗收待進行 | 2026-10-11，分支 `codex/ui-05-details-inventory`：四個官方來源書等候選掃描為 228 個 LanguageChoice / SkillChoice ID、35 種描述；新增官方來源身份守門，限定資料原文及核准技能名稱才套用模板。已完成同次四頁快照、匯出、UI mapping 與 618 個 mapping 守門；完整隔離驗證通過：987/987 測試、lint 0 errors、production build、audit 0 漏洞及 7 組瀏覽器回歸。核准譯文、範圍及其餘待辦見 [NEXT-BATCH](NEXT-BATCH.md)。 |
+| UI-05 / DISPLAY-05（建角詳情與語言 / 技能選擇） | [PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 已開啟，待 CI 與 Marc 人工驗收 | 2026-10-11，分支 `codex/ui-05-details-inventory`：四個官方來源書等候選掃描為 228 個 LanguageChoice / SkillChoice ID、35 種描述；新增官方來源身份守門，限定資料原文及核准技能名稱才套用模板。已完成同次四頁快照、匯出、UI mapping 與 618 個 mapping 守門；完整隔離驗證通過：987/987 測試、lint 0 errors、production build、audit 0 漏洞及 7 組瀏覽器回歸。核准譯文、範圍及其餘待辦見 [NEXT-BATCH](NEXT-BATCH.md)。 |
 
 DISPLAY-02 當時的核准清冊為 428／105／11；UI-01／UI-02 接入後為 579／105／11。兩個 DISPLAY 批次的來源、範圍與限制集中各自原 PR；本輪 UI 定稿與實作不代表其他 P3/P4 譯文已核准，也不代表網站正式發布。
 
-目前待辦與下一動作只看 [TODO](TODO.md)。截至 UI-05 核准寫入後，清冊為 618 / 106 / 11。UI-01 至 UI-04 的驗收與合併見上表；UI-05 的人工驗收待實作及回歸完成。Career 411 NEW、Enhancement 待定。
+目前待辦與下一動作只看 [TODO](TODO.md)。截至 UI-05 核准寫入後，清冊為 618 / 106 / 11。UI-01 至 UI-04 的驗收與合併見上表；UI-05 等待 PR #61 CI 與 Marc 人工驗收。Career 411 NEW、Enhancement 待定。
 
 詳細治理與驗證入口見 [RULES](RULES.md)、[UPSTREAM](UPSTREAM.md)、[BATCH-TEMPLATE](BATCH-TEMPLATE.md)。完整舊進度保留 [歷史](history/PROGRESS-2026-10-10.md)，已結案項目不從歷史重新列待辦。
