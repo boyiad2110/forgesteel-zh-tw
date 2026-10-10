@@ -24,6 +24,12 @@
 
 ## 下一步與來源限制
 
-下一內容批次是 DISPLAY-01：自訂文化已核准面向名稱值補線預覽；UI 標籤另批。2026-10-10 實讀 Master Sheet metadata 共 11 分頁，尚無 Forge Steel UI；Project State 確認 Career 411 NEW。所有阻塞與下一動作見 TODO；此次維護完成不代表 P3/P4 譯文已核准或網站正式發布。
+### DISPLAY-01（2026-10-10；驗收中）
+
+已按使用者核准預覽實作自訂文化三面向右側 Field 名稱接線，沿用 `PlayerName`／Master Sheet APPROVED；官方文化摘要只在既有官方匹配條件成立時，正體中文改用「、」「。」；英文與自訂、改名、Homebrew、未知格式保留原值。新決策見 DEC-0015；歷史 P2-1-5 不改寫。純函式及名稱來源回歸已加入。瀏覽器已確認官方摘要切換英／中，以及自訂文化已選三面向右側 Field 的英／中文名稱；英雄資料與分享碼未修改。為進入建角建立的空白暫存英雄已依使用者確認刪除，清單回復原有兩筆。未截圖或錄影。
+
+完整驗證於獨立副本執行，避免覆寫使用中開發伺服器的相依檔；Vitest 暫存目錄固定在副本內。Node 24.18.0／npm 11.10.1，依本批鎖檔乾淨 `npm ci`（含新增建置所需 `sass-embedded`）。守門、Lint（0 error、9 warnings）、TypeScript、Vitest **973/973（43 檔）**、正式建置、npm audit **0 漏洞**，六項皆 exit 0。若未加入 `sass-embedded`，鎖檔乾淨安裝後 Vite production build 會因缺少其可選 peer 而失敗；本批將其宣告為直接開發依賴，以確保本機與 CI 可重現建置。原工作目錄 `npm ci` 遇使用中原生檔 EPERM，未關閉開發伺服器；之後以乾淨安裝副本補回本機缺少的依賴檔（不覆寫已存在檔案），`verify.mjs --doctor` 再確認必要工具皆可讀取。
+
+2026-10-10 實讀 Master Sheet metadata 共 11 分頁，尚無 Forge Steel UI；Project State 確認 Career 411 NEW。所有阻塞與下一動作見 TODO；DISPLAY-01 不代表 P3/P4 譯文已核准或網站正式發布。
 
 完整歷史保留 [2026-10-10 前進度](history/PROGRESS-2026-10-10.md)，僅需要原批次驗收與版本時再讀。來源掃描逾時（#53）、快照 Note 整合（#37）、總數集中化（#34）均已完成，不能從封存舊段落重新列成待辦。

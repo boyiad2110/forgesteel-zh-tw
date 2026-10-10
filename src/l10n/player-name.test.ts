@@ -1,4 +1,6 @@
+import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { AncestryData } from '@/data/ancestry-data';
+import { describe, expect, test } from 'vitest';
 import { FeatureType } from '@/enums/feature-type';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookType } from '@/enums/sourcebook-type';
@@ -7,7 +9,6 @@ import { Feature } from '@/models/feature';
 import { elementScopeFields } from '@/l10n/element-scope';
 import { mapping } from '@/l10n/mapping';
 import { playerNameKey } from '@/l10n/player-name';
-import { describe, expect, test } from 'vitest';
 
 const officialSourcebooks = [ core ];
 
@@ -52,6 +53,9 @@ describe('player name lookup', () => {
 		const culture = core.cultures.find(c => c.name === 'Artisan Guild')!;
 		expect(playerNameKey(culture, officialSourcebooks)).toBe('element:culture-artisan-guild:name');
 		expect(playerNameKey(culture.environment!, officialSourcebooks)).toBe('element:env-urban:name');
+		const aspects = [ ...EnvironmentData.getEnvironments(), ...OrganizationData.getOrganizations(), ...UpbringingData.getUpbringings() ];
+		expect(aspects).toHaveLength(13);
+		expect(aspects.every(aspect => playerNameKey(aspect, officialSourcebooks) === `element:${aspect.id}:name`)).toBe(true);
 		const homebrew = { ...core, id: 'homebrew', type: SourcebookType.Homebrew, cultures: [ culture ] } as Sourcebook;
 		expect(playerNameKey(culture, [ homebrew ])).toBeUndefined();
 	});

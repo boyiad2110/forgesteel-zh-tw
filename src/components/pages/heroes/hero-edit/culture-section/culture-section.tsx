@@ -17,6 +17,7 @@ import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { NameSuggestions } from '@/components/panels/name-suggestions/name-suggestions';
 import { PanelMode } from '@/enums/panel-mode';
+import { PlayerName } from '@/l10n/player-name';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
@@ -120,7 +121,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 									content={
 										<Field
 											style={{ flex: '1 1 0' }}
-											label={props.hero.culture.environment.name}
+											label={<PlayerName element={props.hero.culture.environment} />}
 											value={<Markdown text={props.hero.culture.environment.description} useSpan={true} />}
 										/>
 									}
@@ -137,7 +138,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 									content={
 										<Field
 											style={{ flex: '1 1 0' }}
-											label={props.hero.culture.organization.name}
+											label={<PlayerName element={props.hero.culture.organization} />}
 											value={<Markdown text={props.hero.culture.organization.description} useSpan={true} />}
 										/>
 									}
@@ -154,7 +155,7 @@ export const CultureSection = (props: CultureSectionProps) => {
 									content={
 										<Field
 											style={{ flex: '1 1 0' }}
-											label={props.hero.culture.upbringing.name}
+											label={<PlayerName element={props.hero.culture.upbringing} />}
 											value={<Markdown text={props.hero.culture.upbringing.description} useSpan={true} />}
 										/>
 									}

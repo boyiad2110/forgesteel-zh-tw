@@ -12,6 +12,18 @@ export interface PlayerCultureSummaryParts {
 	upbringing: Feature;
 }
 
+export const formatPlayerCultureSummary = (
+	description: string,
+	parts: PlayerCultureSummaryParts | undefined,
+	names: { environment: string, organization: string, upbringing: string },
+	language: string
+) => {
+	if (!parts || language === 'en') {
+		return description;
+	}
+	return `${names.environment}、${names.organization}、${names.upbringing}。`;
+};
+
 /** Returns parts only when this remains the exact, canonical summary of an official culture. */
 export const getPlayerCultureSummaryParts = (culture: Culture, sourcebooks: Sourcebook[]): PlayerCultureSummaryParts | undefined => {
 	const officialSourcebooks = sourcebooks.filter(sourcebook => sourcebook.type === SourcebookType.Official);
@@ -59,8 +71,5 @@ export const usePlayerCultureSummary = (culture: Culture, sourcebooks: Sourceboo
 	const upbringing = useL10nText(parts ? playerNameKey(parts.upbringing, officialSourcebooks) : undefined, parts?.upbringing.name || '');
 	const { language } = useLanguage();
 
-	if (!parts || language === 'en') {
-		return culture.description;
-	}
-	return `${environment}, ${organization}, ${upbringing}.`;
+	return formatPlayerCultureSummary(culture.description, parts, { environment, organization, upbringing }, language);
 };
