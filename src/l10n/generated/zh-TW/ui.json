@@ -12,7 +12,7 @@
   "ui.hero-builder.advance-to-level.0fda668c": {
     "en": "Advance to level",
     "updated": "2026-10-10",
-    "zh": "升至此等級"
+    "zh": "提升至等級"
   },
   "ui.hero-builder.an-types.c9af510f": {
     "en": "`an ${types}`",
@@ -207,7 +207,7 @@
   "ui.hero-builder.choose-the-set-of-values-you.0ea66e1f": {
     "en": ". Choose the set of values you'd like for your other characteristics.",
     "updated": "2026-10-10",
-    "zh": "。請選擇一組數列，為其他屬性分配以下數值。"
+    "zh": "。此外，請為其他屬性選擇以下 1 組數值。"
   },
   "ui.hero-builder.choose-upbringing.d441f2f0": {
     "en": "Choose upbringing",
@@ -322,7 +322,7 @@
   "ui.hero-builder.details.a3eba45b": {
     "en": "Details",
     "updated": "2026-10-10",
-    "zh": "「詳情」"
+    "zh": "詳情"
   },
   "ui.hero-builder.details.e7e41783": {
     "en": "Details",
@@ -557,7 +557,7 @@
   "ui.hero-builder.save-changes.7215be78": {
     "en": "Save Changes",
     "updated": "2026-10-10",
-    "zh": "「儲存變更」"
+    "zh": "儲存變更"
   },
   "ui.hero-builder.save.6dfceca4": {
     "en": "Save",
@@ -732,7 +732,7 @@
   "ui.hero-builder.you-have-pointsleft-point-s-.24969ff1": {
     "en": "`You have ${pointsLeft} point(s) to spend.`",
     "updated": "2026-10-10",
-    "zh": "你剩 {pointsLeft} 點可以分配。"
+    "zh": "你還有 {pointsLeft} 點可以分配。"
   },
   "ui.hero-builder.you-have-props-data-count-po.2e3d4725": {
     "en": "`You have ${props.data.count} points to spend on the following options:`",

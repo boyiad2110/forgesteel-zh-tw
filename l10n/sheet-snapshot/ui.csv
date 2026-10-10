@@ -1,7 +1,7 @@
 UI ID,Status,Target Text,Source Text,Last Updated,Source Hash
 ui.hero-builder.add-a-custom-language.155bdaee,APPROVED,新增自訂語言,Add a custom language,2026-10-10,f1c81317b4f688e4522f720fd77c8dd4af7f918c0283fb89be0df73714c5b816
 ui.hero-builder.add-a-custom-skill.14fa1a61,APPROVED,新增自訂技能,Add a custom skill,2026-10-10,9913e7d497523461fa96dfd2b78057dd4f1f5579b77e583b0c51baf5eb68378c
-ui.hero-builder.advance-to-level.0fda668c,APPROVED,升至此等級,Advance to level,2026-10-10,953805711ab60f6fabd43bffde119bcb2a9dbb1b573cd0ae61180b3d1af8686f
+ui.hero-builder.advance-to-level.0fda668c,APPROVED,提升至等級,Advance to level,2026-10-10,953805711ab60f6fabd43bffde119bcb2a9dbb1b573cd0ae61180b3d1af8686f
 ui.hero-builder.an-types.c9af510f,APPROVED,{types},`an ${types}`,2026-10-10,c78c17c9093d38f9785bc6c32b3f8532302fab56754a53bda97d8ef30cccf7bd
 ui.hero-builder.ancestral-cultures.002658ee,APPROVED,族裔文化,Ancestral Cultures,2026-10-10,0b374d2caf0eab30d6f794449c6f97b664b624d73a494a00fee8fabd6ac924b3
 ui.hero-builder.ancestry.638cf5ee,APPROVED,族裔,Ancestry,2026-10-10,65a0468287c169ce0b450cc01121877fb73c10bf0ef677eb4c8cfaf758f2498c
@@ -40,7 +40,7 @@ ui.hero-builder.choose-environment.e7ee4885,APPROVED,選擇生活環境,Choose e
 ui.hero-builder.choose-organization.e94b4b4d,APPROVED,選擇組織型態,Choose organization,2026-10-10,d6a8acfcb3aaafba2a8f90371a5f21e66731f106721fcad66641401cf086d613
 ui.hero-builder.choose-props-data-count-of-t.801a6ebe,APPROVED,從以下選項中選擇 {count} 項：,`Choose ${props.data.count} of the following options:`,2026-10-10,989ddff04bca5fcc95cd29eea357190633b8ada51cd553e4e3d0a7b7a6383f02
 ui.hero-builder.choose-props-data-count-opti.b3fa43f8,APPROVED,請選擇 {count} 個選項。,`Choose ${props.data.count} option(s).`,2026-10-10,c79dd957e3d33d3bd1b22c345e023d7b0527ecaee5040de8a5635e06135b23b4
-ui.hero-builder.choose-the-set-of-values-you.0ea66e1f,APPROVED,。請選擇一組數列，為其他屬性分配以下數值。,. Choose the set of values you'd like for your other characteristics.,2026-10-10,e3ea429eaf57edaa5c032d9f1463eff4c66768720d7197b26d105fe7b8864750
+ui.hero-builder.choose-the-set-of-values-you.0ea66e1f,APPROVED,。此外，請為其他屬性選擇以下 1 組數值。,. Choose the set of values you'd like for your other characteristics.,2026-10-10,e3ea429eaf57edaa5c032d9f1463eff4c66768720d7197b26d105fe7b8864750
 ui.hero-builder.choose-upbringing.d441f2f0,APPROVED,選擇成長經歷,Choose upbringing,2026-10-10,c768732aefc16a17db68e4b5dc00bf94c66c16b3c2003cabf388387cbe4167a0
 ui.hero-builder.choose-your-characteristics.19f543b9,APPROVED,選擇你的屬性。,Choose your characteristics.,2026-10-10,9e18908fb63a7cad011193c3a25deb6c2379cab48e578b74359d8bf498f633a4
 ui.hero-builder.choose-your-environment-orga.16eef6b1,APPROVED,選擇你的生活環境、組織型態與成長經歷。,"Choose your Environment, Organization, and Upbringing.",2026-10-10,bf7e5c181edf8fe9018bc678c7e3b7c98d787779e663d79124361dd6ac4b1932
@@ -63,7 +63,7 @@ ui.hero-builder.custom-skill.b3339162,APPROVED,自訂技能,Custom Skill,2026-10
 ui.hero-builder.customize.6ddfe8c5,APPROVED,自訂,Customize,2026-10-10,c5276e27afba47df67704ededdb5cf2cfaaf0a9d7d1be1eabb0d4087dd2b724b
 ui.hero-builder.default-option.18977ea3,APPROVED,預設選項,Default Option,2026-10-10,a4cfb7ac5bf33f8ef84014f36f40517ff4a330c94076c98d67815974f0ec1b30
 ui.hero-builder.delete.01152930,APPROVED,刪除,Delete,2026-10-10,e2d0a54968ead24efc0dffa6ac78fc606dceec34a0f586177a74a54cc2272cf8
-ui.hero-builder.details.a3eba45b,APPROVED,「詳情」,Details,2026-10-10,45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df
+ui.hero-builder.details.a3eba45b,APPROVED,詳情,Details,2026-10-10,45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df
 ui.hero-builder.details.e7e41783,APPROVED,詳情,Details,2026-10-10,45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df
 ui.hero-builder.duplicated.a20aac67,APPROVED,重複選擇,Duplicated,2026-10-10,b26af6d5c21aecb4294b35b739c30ed396b42038e6fa79784986ac9c655624cc
 ui.hero-builder.extensions.6eb986a4,APPROVED,擴充項目,Extensions,2026-10-10,fe3436af86b47d22f22d93da68119fcb749dbed0335b4dc99f254e02db236156
@@ -110,7 +110,7 @@ ui.hero-builder.pt-ancestry-feature.c76f6671,APPROVED,點族裔特性。,pt ance
 ui.hero-builder.random.948804e8,APPROVED,隨機選擇,Random,2026-10-10,67bc484430fe87babe3c35d2ba4827d029f1c7e415a92de44885a9c88536661f
 ui.hero-builder.remove.5fd82c75,APPROVED,移除,Remove,2026-10-10,c3812fc4acb861d5182fc2b8155f327f736fbe5e5eb86a7bd7afcb6dc5497282
 ui.hero-builder.resisting-potencies.08dcb6db,APPROVED,抵抗效力,Resisting potencies,2026-10-10,a7ac612e530ff4f9a38bfd8a23c8d6946489c64e521651c5a9c8da3075795382
-ui.hero-builder.save-changes.7215be78,APPROVED,「儲存變更」,Save Changes,2026-10-10,35322b5bb5a218a15401cfa54d23b16459e9e1c616977526a4b37b6c87d30c50
+ui.hero-builder.save-changes.7215be78,APPROVED,儲存變更,Save Changes,2026-10-10,35322b5bb5a218a15401cfa54d23b16459e9e1c616977526a4b37b6c87d30c50
 ui.hero-builder.save.6dfceca4,APPROVED,豁免,Save,2026-10-10,1509f561f2416598629b886ad7d3c05a7e221e4e0675c84bbff4ee6d9e03913d
 ui.hero-builder.search.f1270409,APPROVED,搜尋,Search,2026-10-10,49c266baaaa70981ea188fa714d5c40cf13830d786a861c9943ae0d26a7f3fe9
 ui.hero-builder.select-a-feature-from-an-anc.baf83c80,APPROVED,選擇 1 項族裔特性,Select a feature from an ancestry,2026-10-10,042fb0cbff5a946d16d2dfb60a72c849b16e6c82feab48d2bef91fabcf2bc989
@@ -145,7 +145,7 @@ ui.hero-builder.xp.39a5f606,APPROVED,XP,XP,2026-10-10,168aad3e9812dfb60a52848bed
 ui.hero-builder.you-already-have-this-skill.ff5ad6f6,APPROVED,你已經擁有這項技能。,You already have this skill.,2026-10-10,92cff31819a9d02c22106387c9bd4444a4d6af9e504ba6866c410a7a232a33dc
 ui.hero-builder.you-can-add-your-hero-to-a-f.611d350d,APPROVED,你可以將英雄加入資料夾，與其他英雄放在一起。,You can add your hero to a folder to group it with other heroes.,2026-10-10,cc57d7386bb6d1b6f25b25c165f4ec5dd2b3cc30d9d0dd1ee7b7efd985cb6dc4
 ui.hero-builder.you-gain-the.4aa6e0b7,APPROVED,你獲得,You gain the,2026-10-10,ee5695680dd23e83a3974a6c1269534d14dfc8a8f8de2b3a39d7c43898ec1e0d
-ui.hero-builder.you-have-pointsleft-point-s-.24969ff1,APPROVED,你剩 {pointsLeft} 點可以分配。,`You have ${pointsLeft} point(s) to spend.`,2026-10-10,ccccfc6c002898ff633adc455aa1a31b45ce3af3616da72885408b384499c894
+ui.hero-builder.you-have-pointsleft-point-s-.24969ff1,APPROVED,你還有 {pointsLeft} 點可以分配。,`You have ${pointsLeft} point(s) to spend.`,2026-10-10,ccccfc6c002898ff633adc455aa1a31b45ce3af3616da72885408b384499c894
 ui.hero-builder.you-have-props-data-count-po.2e3d4725,APPROVED,你有 {count} 點可用於以下選項：,`You have ${props.data.count} points to spend on the following options:`,2026-10-10,f4b38de0506380a2a19d3deddd2f13380eabac4fe262c9caf6d38ccb6b52d92e
 ui.hero-builder.you-start-with-a-2-in.53cbbeb8,APPROVED,你主要屬性的起始值為 2：,You start with a 2 in,2026-10-10,44db7b24d31caf84d371f1bf49909195104b64a01bd294e150f3d2dc06f89212
 ui.hero-builder.your-ancestry.83555c04,APPROVED,你的族裔,Your Ancestry,2026-10-10,8b5a02cd7cd0ff35ffcd12cdb3ea197908327ba4212926165552c86855cff3f7

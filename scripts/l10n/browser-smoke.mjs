@@ -6,7 +6,7 @@ import { buildSeedState, writeSeedState } from '../screenshots/seed.mjs';
 import approvedUI from '../../src/l10n/generated/zh-TW/ui.json' with { type: 'json' };
 
 const uiText = id => approvedUI[id].fs?.zh ?? approvedUI[id].zh;
-const saveChangesText = uiText('ui.hero-builder.save-changes.7215be78').replace(/^「(.*)」$/u, '$1');
+const saveChangesText = uiText('ui.hero-builder.save-changes.7215be78');
 
 const readStoredHeroes = page => page.evaluate(() => new Promise((resolve, reject) => {
 	const open = indexedDB.open('localforage');

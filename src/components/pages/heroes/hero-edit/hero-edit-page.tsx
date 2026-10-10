@@ -69,7 +69,7 @@ export const HeroEditPage = (props: Props) => {
 	const [ hero, setHero ] = useState<Hero>(Utils.copy(originalHero));
 	const [ dirty, setDirty ] = useState<boolean>(false);
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
-	const saveChangesLabel = ui.text('ui.hero-builder.save-changes.7215be78', 'Save Changes').replace(/^「(.*)」$/u, '$1');
+	const saveChangesLabel = ui.text('ui.hero-builder.save-changes.7215be78', 'Save Changes');
 	useTitle(ui.text('ui.hero-builder.hero-builder.bd7e4ec0', 'Hero Builder'));
 
 	// The hero's own sourcebooks, with the extensions the hero has approved applied - so every picker offers the extended options.
