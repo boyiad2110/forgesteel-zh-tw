@@ -16,6 +16,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TutorialMode } from '@/enums/tutorial-mode';
 import { Utils } from '@/utils/utils';
 import { useIsSmall } from '@/hooks/use-is-small';
+import { useUI } from '@/l10n/ui-text';
 
 import './ancestry-section.scss';
 
@@ -38,6 +39,7 @@ interface Props {
 
 export const AncestrySection = (props: Props) => {
 	const isSmall = useIsSmall();
+	const ui = useUI();
 
 	const ancestries = SourcebookLogic.getAncestries(props.sourcebooks).map(Utils.copy).filter(a => matchElement(a, props.searchTerm));
 	const options = ancestries.map(a => (
@@ -93,7 +95,7 @@ export const AncestrySection = (props: Props) => {
 			{
 				choices.length > 0 ?
 					<div className='hero-edit-content-column selected' id='ancestry-choices'>
-						<HeaderText>Choices</HeaderText>
+						<HeaderText>{ui.text('ui.hero-builder.choices.6c95228b', 'Choices')}</HeaderText>
 						{choices}
 					</div>
 					: null
