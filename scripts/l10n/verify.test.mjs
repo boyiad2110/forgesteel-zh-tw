@@ -1,5 +1,34 @@
 import { describe, expect, test } from 'vitest';
-import { checks, runChecks, selectChecks } from './verify.mjs';
+import { checks, inspectEnvironment, runChecks, selectChecks } from './verify.mjs';
+
+describe('environment diagnostics', () => {
+	const probes = {
+		readPackage: () => ({ version: '1.0.0' }),
+		probeSass: () => 'compiled',
+		probeTemp: () => 'writable'
+	};
+
+	test('reports a missing embedded compiler even when sass is installed', () => {
+		const results = inspectEnvironment({ ...probes, readPackage: name => {
+			if (name === 'sass-embedded') throw new Error('missing package');
+			return { version: '1.0.0' };
+		} });
+		expect(results.find(result => result.name === 'sass')).toMatchObject({ ok: true });
+		expect(results.find(result => result.name === 'sass-embedded')).toMatchObject({ ok: false, detail: 'missing package' });
+	});
+
+	test('detects a compiler binary that cannot start and still checks temporary writes', () => {
+		const results = inspectEnvironment({ ...probes, probeSass: () => { throw new Error('EPERM compiler'); } });
+		expect(results.find(result => result.name === 'Sass compiler')).toMatchObject({ ok: false, detail: 'EPERM compiler' });
+		expect(results.find(result => result.name === 'Temporary directory')).toMatchObject({ ok: true });
+	});
+
+	test('reports an unwritable temporary directory independently of installed tools', () => {
+		const results = inspectEnvironment({ ...probes, probeTemp: () => { throw new Error('EACCES temporary directory'); } });
+		expect(results.find(result => result.name === 'Temporary directory')).toMatchObject({ ok: false });
+		expect(results.filter(result => !result.ok)).toHaveLength(1);
+	});
+});
 
 describe('verification runner', () => {
 	test('runs audit and build after an earlier test failure and returns failure', () => {

@@ -4,9 +4,9 @@
 
 ## 現況與下一步
 
-- 維護順序 1 已合併 PR #53；順序 2–5 的狀態、驗證版本與遠端結果見 [PROGRESS](PROGRESS.md)。
+- 維護順序 1–5 與 DISPLAY-01 已完成；狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
 - 核准清冊：428 個 mapping／105 列 Forge Steel Strings 版／11 個英文例外。這是防錯清冊，不是產品中文化完成率。
-- 下一內容批次：自訂文化已選面向 Field 的核准名稱補線，先看 [COVERAGE](COVERAGE.md)。UI 標籤另批；2026-10-10 實讀 Master Sheet metadata，尚無 Forge Steel UI 分頁。
+- DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；剩餘位置見 [COVERAGE](COVERAGE.md)。UI 標籤另批；2026-10-10 實讀 Master Sheet metadata，尚無 Forge Steel UI 分頁。
 - Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線
@@ -15,7 +15,7 @@
 2. 只在顯示時套用中文；不改遊戲資料、計算、存檔或分享碼。自訂／改名／未知內容保留原值。
 3. 動態數值投射上游計算結果；未知改寫保留完整計算後英文。英文備援不算該段中文化完成。
 4. `main` 是上游鏡像；工作分支經 PR 合進 `develop`。上游 push URL 維持禁用；分叉不自動部署。
-5. 完整驗證：`node scripts/l10n/verify.mjs`，任一檢查失敗整體即失敗。不要把分項結果說成全通過；不截圖、不錄影。
+5. 本機完整驗證優先用 `node scripts/l10n/verify-isolated.mjs`，在目前檔案的暫存副本乾淨安裝、跑六項及瀏覽器回歸；底層入口仍是 `verify.mjs`。任一檢查失敗整體即失敗；不截圖、不錄影。
 6. 一般內容批次仍先對照預覽與 Marc 核准。本次 2026-10-10 維護 1–5 明確授權免人工驗收，不擴及未核准譯文。
 
 ## 任務路由

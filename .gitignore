@@ -6,4 +6,5 @@ node_modules
 .vscode/*
 .env
 .env.local
+/.l10n-verify/
 /.vs

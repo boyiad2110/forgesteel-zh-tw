@@ -1,10 +1,46 @@
 /** Fork verification entry point. Keep upstream package scripts and defaults intact. */
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const require = createRequire(import.meta.url);
+
+const probeTempDirectory = () => {
+	const directory = mkdtempSync(path.join(tmpdir(), 'forgesteel-doctor-'));
+	const file = path.join(directory, 'write-check');
+	try {
+		writeFileSync(file, 'ok');
+		return tmpdir();
+	} finally {
+		if (existsSync(file)) unlinkSync(file);
+		rmdirSync(directory);
+	}
+};
+
+/** Probe actual compiler startup and temporary writes, not just package presence. */
+export const inspectEnvironment = ({
+	readPackage = name => JSON.parse(readFileSync(path.join(root, 'node_modules', name, 'package.json'), 'utf8')),
+	probeSass = () => require('sass-embedded').compileString('.doctor { color: red; }').css,
+	probeTemp = probeTempDirectory
+} = {}) => {
+	const probes = [
+		...[ 'eslint', 'typescript', 'vitest', 'vite', 'sass', 'sass-embedded' ].map(name => ({ name, run: () => readPackage(name).version })),
+		{ name: 'Sass compiler', run: probeSass },
+		{ name: 'Temporary directory', run: probeTemp }
+	];
+	return probes.map(({ name, run }) => {
+		try {
+			const detail = run();
+			return { name, ok: true, detail: name === 'Sass compiler' ? 'compile succeeded' : detail };
+		} catch (error) {
+			return { name, ok: false, detail: error.message };
+		}
+	});
+};
 
 export const checks = [
 	{ id: 'guard', command: 'node', args: [ 'scripts/l10n/check.mjs' ] },
@@ -69,14 +105,9 @@ const doctor = () => {
 	const npm = spawn({ command: 'npm', args: [ '--version' ] }, 'pipe');
 	console.log(`npm: ${npm.status === 0 ? npm.stdout.trim() : npm.error?.message ?? npm.stderr}`);
 	if (npm.status !== 0) ok = false;
-	for (const name of [ 'eslint', 'typescript', 'vitest', 'vite', 'sass' ]) {
-		try {
-			const pkg = JSON.parse(readFileSync(path.join(root, 'node_modules', name, 'package.json'), 'utf8'));
-			console.log(`${name}: ${pkg.version}`);
-		} catch {
-			console.error(`${name}: missing or unreadable; install the lockfile dependencies with npm ci.`);
-			ok = false;
-		}
+	for (const result of inspectEnvironment()) {
+		console[result.ok ? 'log' : 'error'](`${result.ok ? 'PASS' : 'FAIL'} ${result.name}: ${result.detail}`);
+		if (!result.ok) ok = false;
 	}
 	return ok;
 };

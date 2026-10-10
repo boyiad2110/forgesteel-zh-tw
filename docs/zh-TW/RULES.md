@@ -21,17 +21,18 @@
 
 ## 批次、分支與狀態
 
-- 每批範圍單一：預覽（鍵、Sheet ID、兩種英文、中文、差異、建議、動態限制）→ Marc 核准 → 必要 Sheet 寫入 → 工作分支 PR → 驗證 → Marc 驗收 → 合併 develop（一般內容 squash；同步 PR 用 merge commit 保留上游祖先）。
+- 內容批次範圍單一：預覽（鍵、Sheet ID、兩種英文、中文、差異、建議、動態限制）→ Marc 核准 → 必要 Sheet 寫入 → 工作分支 PR → 驗證 → Marc 驗收 → 同一 PR 補驗收及簡短狀態 → 最新 CI 通過 → 合併 develop。工具／流程改善先確定範圍，完成驗證後交付 PR 驗收；自主合併須有適用於該批的明確授權。一般內容與工具改善用 squash；同步 PR 用 merge commit 保留上游祖先。
 - **本次維護例外（2026-10-10）**：Marc 明確要求完成附件 1–5 且免人工驗收，故可依完整自動驗證與瀏覽器文字／DOM 操作自行合併。不擴及新譯文核准或正式發布，不冒稱人工驗收。
 - `main` 永遠等於上游；develop 工作必須走 PR。必要檢查與保護見 UPSTREAM。上游不能直接推送，分叉不自動部署。
 - Sheet、mapping、進度狀態維持單一寫入者；一般內容單一執行者，獨立盤點／審查才並行。
-- 每批範圍、來源、版本、驗收位置、限制放原 PR 一次，依 BATCH-TEMPLATE；合併後只更新簡短狀態與連結，多批可集中結案。改狀態更新 PROGRESS；新決定更新 DECISIONS；待辦一律記 TODO 的下一動作。
-- 涉及 Sheet 批次更新 Project State／Status，只有翻譯或結構變动才加 Changelog。快照須依 SNAPSHOT 同次取得三頁核准欄位與 Note；修改時間不一致就停止，不能沿用舊 Note。
+- 每批範圍、來源、版本、驗收位置、限制放原 PR 一次，依 BATCH-TEMPLATE。合併前同步 PROGRESS／TODO／README／有效決策中的目前狀態；PROGRESS 只留狀態、PR、驗證版本與下一步。repo 文件寫「已驗收；合併狀態見 PR」，避免合併後仍留「等待驗收／等待合併」；合併後把實際 SHA 補到原 PR 與 Sheet，不為未知的 merge SHA 預留另一個文件 PR。
+- Sheet 批次依其 README／Handoff Protocol 更新 Project State、Status 與一筆必要結案 Changelog；翻譯或結構異動另記對應事件，避免為同一狀態重複新增紀錄。按 SNAPSHOT 的寫入規則先讀鍵值、範圍及序號，再精準寫入與回讀。快照仍須同次取得三頁核准欄位與 Note；修改時間不一致就停止，不能沿用舊 Note。
 
 ## 驗證
 
 - 完整入口 `node scripts/l10n/verify.mjs`：守門（含匯出一致性）→ Lint → TypeScript → Vitest → 正式建置 → audit。前項失敗仍跑後項，任何失敗整體 exit 1。CI 使用同入口、六項分開顯示；必要狀態 l10n 覆蓋六項。
 - 上游 `npm run check` 保持原樣；完整入口已涵蓋其要求，不重複相同檢查。`--only` 只供定位／補跑，不能當成整體通過；audit 使用本批實際結果，不沿用舊數量或忽略漏洞。
-- Sass／暫存／權限異常先 `--doctor`，確認 lockfile 安裝後以原設定在適合環境重跑。臨時設定不作完成證據，不因沙盒錯誤猜缺套件；結束前清理暫存檔。
+- 本機有使用中的開發伺服器或需乾淨安裝時，優先 `node scripts/l10n/verify-isolated.mjs`：複製目前追蹤檔與未忽略的新檔，保留尚未提交的修改及刪除；在系統暫存區的副本 `npm ci`、完整 verify、瀏覽器回歸，最後清理副本。副本位於原工作目錄之外，TEMP／TMP／TMPDIR 只對子程序設在副本內，測試伺服器不監看暫存 profile；不改 workers／逾時。前後來源指紋不同就失敗，不能把舊副本結果當成目前工作樹通過。忽略檔與使用者瀏覽器 profile 不複製；CI 沿用既有乾淨 checkout。
+- Sass／暫存／權限異常先 `node scripts/l10n/verify.mjs --doctor`；診斷包含 sass-embedded 套件、實際編譯器啟動及暫存目錄寫入。不要在使用中工作目錄執行 `npm ci`，也不以補拷部分 node_modules 作為乾淨安裝證據。副本在一般成功／失敗時清理；強制終止留下的目錄須依命令輸出的完整路徑，確認其位於系統暫存區且名稱為 `forgesteel-l10n-verify-*` 再清理。
 - 依影響先跑回歸再完整驗證。共用機制涵蓋數值、計算開關、語言切換、未知備援、資料不變；少量可重複瀏覽器檢查旅程與列印 DOM，不截圖、不錄影。
 - 總數只在 inventory.test.ts 集中，批次測試驗自己的鍵與行為。同程式版本只補文件時，檢查 diff／連結／狀態一致性並引用日期、版本、限制，不重跑全部遊戲測試。守門含匯出一致性，不重複跑 export-sheet --check。

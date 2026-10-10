@@ -2,6 +2,15 @@
 
 網站與 CI 仍只讀倉庫快照。Codex 使用 Google Drive 連接器取得資料，再由離線腳本整合；不是獨立登入 Google 的終端機下載器。只在已核准批次使用，不自動核准文字、建立 mapping 或計算綁定。
 
+## 狀態與結案寫入
+
+- 先讀 metadata 與標題，確認分頁 ID、實際欄位和有界資料範圍。以 Batch ID／Key 查找 Project State、Status 的現有列，不從回傳陣列長度推算列號。
+- 寫入前讀回精確目標範圍及左右鍵值，列出欄位的原值與新值；Google A1 列號從 1 開始，updateCells 索引從 0 開始。移除內容也須有該格原值與本批異動的證據。
+- 新批次先查是否已存在；不存在才用 appendCells，既有批次只更新剛確認的列。Changelog 新序號須讀取完整、有界的 ID 欄，檢查重複並取最大已用序號＋1，不從前 50 列或最後一筆猜下一號。
+- 更新前再次確認鍵值／原值未變；若他人同時修改就重新讀取。連接器寫入不具條件式版本鎖，維持單一寫入者，縮短讀寫間隔；原子 batchUpdate 只包含已確認的範圍。
+- 寫入後逐一回讀變更範圍，確認 ID 唯一、欄位正確、日期與數字對應本批最新證據，且鄰接歷史列未變。失敗或遭自動審查拒絕時先查明原因；不改用其他介面繞過拒絕。
+- 狀態寫入不代表重新擷取核准譯文；未改翻譯資產時不刷新快照，不修改既有 APPROVED、計數或書本 BATCH-006 的進度。
+
 ## 同次取得
 
 1. 依 README 先讀 Project State、Status、Changelog，再讀 Sheet metadata，確認 ID、實際分頁與資料範圍。Master Sheet ID 為 `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`。
