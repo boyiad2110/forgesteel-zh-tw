@@ -1,5 +1,4 @@
 import { AutoComplete, Button, Flex, Space, Upload } from 'antd';
-import { isDefaultLanguageFeature, isOfficialFeatureSource } from '@/l10n/official-feature-source';
 import { CheckIcon } from '@/components/controls/check-icon/check-icon';
 import { Collections } from '@/utils/collections';
 import { DangerButton } from '@/components/controls/danger-button/danger-button';
@@ -62,7 +61,7 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 
 	const languageFeatureRecords = sourceLanguageFeatures.map((sourceFeature, index) => ({
 		feature: languageFeatures[index],
-		sourceFeature: isDefaultLanguageFeature(sourceFeature) || isOfficialFeatureSource(sourceFeature, props.sourcebooks) ? sourceFeature : undefined
+		sourceFeature
 	}));
 
 	const skillSourceFeatures = sourceFeatures.filter(f => f.type === FeatureType.SkillChoice);
@@ -75,7 +74,7 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 			count: sourceFeature.data.count,
 			selected: [ ...sourceFeature.data.selected ]
 		}),
-		sourceFeature: isOfficialFeatureSource(sourceFeature, props.sourcebooks) ? sourceFeature : undefined
+		sourceFeature
 	}));
 	const skillFeatures = skillFeatureRecords.map(record => record.feature);
 
@@ -86,11 +85,11 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 		<div className='hero-edit-content details-section'>
 			<div className='hero-edit-content-column selected' id='details-main'>
 				<SelectablePanel>
-					<HeaderText>Name</HeaderText>
+					<HeaderText>{ui.text('ui.hero-builder.name.f7c27f51', 'Name')}</HeaderText>
 					<Space.Compact style={{ width: '100%' }}>
 						<TextInput
 							status={props.hero.name === '' ? 'warning' : ''}
-							placeholder='Name'
+							placeholder={ui.text('ui.hero-builder.name.f7c27f51', 'Name')}
 							allowClear={true}
 							value={props.hero.name}
 							onChange={props.setName}

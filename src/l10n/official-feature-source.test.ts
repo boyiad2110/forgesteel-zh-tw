@@ -1,10 +1,53 @@
 import { describe, expect, test } from 'vitest';
-import { isDefaultLanguageFeature, isOfficialFeatureSource } from '@/l10n/official-feature-source';
+import { getChoiceDisplaySource, isDefaultLanguageFeature, isOfficialFeatureSource } from '@/l10n/official-feature-source';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureType } from '@/enums/feature-type';
 import { SourcebookType } from '@/enums/sourcebook-type';
 
 describe('official hero-builder UI feature guards', () => {
+	test('accepts a rebuilt official narrative choice but rejects altered display fields and forged provenance', () => {
+		const sourcebook = FactoryLogic.createSourcebook();
+		sourcebook.type = SourcebookType.Official;
+		const source = FactoryLogic.feature.createSkillChoice({ id: 'official-narrative', name: 'Training', description: 'Narrative.', options: [ 'Climb' ] });
+		sourcebook.careers = [ { ...FactoryLogic.createCareer(), features: [ source ] } ];
+		const books = [ sourcebook ];
+		const display = FactoryLogic.feature.createSkillChoice({ id: source.id, name: 'Skill', options: [ 'Climb' ], selected: [ 'Climb' ] });
+		expect(getChoiceDisplaySource(display, books, source)).toBe(source);
+		const changes = [
+			{ id: 'unknown' },
+			{ name: 'Renamed' },
+			{ description: 'Custom prompt.' },
+			{ data: { ...display.data, count: 2 } },
+			{ data: { ...display.data, options: [ 'Lead' ] } },
+			{ data: { ...display.data, listOptions: [ 'Lore' ] } },
+			{ data: { ...display.data, selectAt: 'other' } }
+		];
+		for (const change of changes) {
+			expect(getChoiceDisplaySource({ ...display, ...change } as typeof display, books, source)).toBeUndefined();
+		}
+		expect(getChoiceDisplaySource(display, books, { ...source, description: 'Forged source.' })).toBeUndefined();
+		expect(getChoiceDisplaySource(FactoryLogic.feature.createSkillChoice({ id: 'unknown-any-list' }), books)).toBeUndefined();
+		const changedSource = { ...source, description: 'Changed narrative.' };
+		expect(getChoiceDisplaySource(display, books, changedSource)).toBeUndefined();
+	});
+
+	test('checks direct and rebuilt languages against their complete source and projection', () => {
+		const book = FactoryLogic.createSourcebook();
+		book.type = SourcebookType.Official;
+		const source = FactoryLogic.feature.createLanguageChoice({ id: 'official-language', count: 2 });
+		book.careers = [ { ...FactoryLogic.createCareer(), features: [ source ] } ];
+		const books = [ book ];
+		const display = structuredClone(source);
+		display.data.selected = [ 'Caelian' ];
+		expect(getChoiceDisplaySource(display, books)).toBe(display);
+		expect(getChoiceDisplaySource(display, books, source)).toBe(source);
+		display.data.allowedTypes.reverse();
+		expect(getChoiceDisplaySource(display, books, source)).toBeUndefined();
+		expect(getChoiceDisplaySource(display, books)).toBeUndefined();
+		const defaultLanguage = FactoryLogic.createHero().features[0];
+		expect(getChoiceDisplaySource(defaultLanguage, books)).toBe(defaultLanguage);
+	});
+
 	test('matches the unmodified official source while allowing its saved selections', () => {
 		const sourcebook = FactoryLogic.createSourcebook();
 		sourcebook.type = SourcebookType.Official;

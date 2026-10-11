@@ -1,6 +1,6 @@
 # UI-05 / DISPLAY-05：建角詳情與語言 / 技能選擇盤點
 
-2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。Marc 已核准 16 筆新 UI；Master Sheet、同次快照、匯出及 mapping 已更新。人工驗收先發現官方技能生成提示的嚴格描述比對造成英文備援，以及技能選擇抽屜尚未呈現已核准的用途描述；同一 PR #61 已修正並重用既有核准規則表，不新增譯文。後續驗收再發現無來源參照的標準通用技能選項未套用核准句型，已補精確守門與瀏覽器回歸案例，並確認顯示「從任意技能類別中選擇 1 項技能。」。本機完整瀏覽器回歸與最新 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38073402572) 通過，等待 Marc 驗收；尚未合併。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
+2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。16 筆新 UI 已由 Marc 核准並寫入 Master Sheet、快照與 mapping。Marc 驗收指出技能提示、用途及生涯語言漏接；同一 PR #61 補齊已核准接點，包含直接與詳情重建路徑，以及 Name 標題 / placeholder。移除未知 ID 的通用技能來源例外，詳情頁始終傳遞原始來源，避免改寫資料經重建後誤認官方。本機完整隔離驗證與最新 CI 狀態見 [PROGRESS](PROGRESS.md)；等待 Marc 驗收，尚未合併。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
 
 ## 本批建議範圍與來源
 
@@ -8,8 +8,8 @@
 
 - 開始時已讀 Master Sheet Project State、README、Style Guide、Glossary、TM、Names、Decisions、Status 與近期 Changelog；Status 第 32 列 / Project State / CHG-0086 均確認 PR #60 已合併 `4da55d95`，最新 CI `38064075869` 全綠。核准後新增 UI ID 已確認無重複，寫入 UI 第 176–191 列、Status 第 33 列、CHG-0087，並回讀確認寫入內容。
 - 以獨立無頭 Edge 執行四個內建官方來源書（core / orden / beastheart / summoner）、CultureData.bespoke 與 FactoryLogic.createHero 的資料。遞迴遍歷候選特性，再依 DetailsSection 的原參數呼叫 createLanguageChoice / createSkillChoice；不讀使用者 profile，不截圖、不錄影。
-- 去重取得 228 個語言 / 技能候選 ID：54 個 LanguageChoice、174 個 SkillChoice，共 35 種重建後描述。包含巢狀選項、未選子職業、領域、專長、稱號及英雄預設；不是單一英雄全部可用的設定，更不是 228 段 DOM 驗收。16 筆 UI 已核准；技能句型透過既有名稱對照填入核准技能 / 類別名稱及上游 count，來源以半形 ` / ` 串接。
-- `details-section.tsx` 重建語言與技能設定時保留原特性身份；新的 `official-feature-source.ts` 比對已載入官方來源書中的原始特性資料，略過可變的 selected 值。只有官方來源原文 / 參數一致且所有技能名稱與類別都有核准目標時才呈現中文。預設語言另以固定 ID 與 Common-only 參數辨識；同名 Homebrew、自訂、改寫、未知來源仍使用英文。
+- 去重取得 228 個語言 / 技能候選 ID：54 個 LanguageChoice、174 個 SkillChoice，共 35 種重建後描述。包含巢狀選項、未選子職業、領域、專長、稱號及英雄預設；不是單一英雄全部可用的設定，本次新增逐一驗證 228 個 ID 的直接與詳情重建兩路（456 張選項卡），檢查標題與提示、正體中文 → 英文 → 正體中文，並驗證 20 個保護案例與改寫來源的實際 DetailsSection；這仍不代表完整 228 次玩家選取操作。16 筆 UI 已核准；技能句型透過既有名稱對照填入核准技能 / 類別名稱及上游 count，來源以半形 ` / ` 串接。
+- `details-section.tsx` 重建語言與技能設定時保留原特性身份；新的 `official-feature-source.ts` 比對已載入官方來源書中的原始特性資料，略過可變的 selected 值。直接顯示與詳情重建共用來源守門；重建必須同時核對原始來源及完整投射資料，不能先丟棄未通過的來源再把重建結果當成直接官方來源。只有官方來源原文 / 參數一致且所有技能名稱與類別都有核准目標時才呈現中文。預設語言另以固定 ID 與 Common-only 參數辨識；同名 Homebrew、自訂、改寫、未知來源仍使用英文。
 - `FeatureConfigPanel`、LanguageSelectModal、SkillSelectModal 與 HeroExtensionsPanel 已接入核准 UI；未改 FactoryLogic、HeroLogic、選取邏輯或存檔。已匯出 UI 共 190 筆，mapping 清冊更新至 618 / 106 / 11。
 - 沿用台灣正體中文、Former Life 的既有核准名稱、Project / State 的既有核准 UI；新等級模板使用 `{level} 級`，新組合來源的斜線使用半形 ` / `。不改寫既有 APPROVED 資產。
 
@@ -25,7 +25,7 @@
 
 合計 16 筆新 UI，已由 Marc 核准並寫入 Master Sheet。另重用 6 筆 APPROVED：Name、Skill、Language、Select、`Choose a  language.`、`Choose a skill from Interpersonal skills.`；五類技能及具體技能名稱重用既有核准 Glossary 對照。TM 沒有完整句子的 Exact Match；書本語言段落只供用詞核對，不能自動核准新 UI。
 
-- Name 的標題 / placeholder 重用既有核准對照；兩個自訂 Select 按鈕已接入核准 UI。
+- Name 的標題 / placeholder 原先文件先列完成但元件仍為字面英文，本次已補明確接線及實際頁面回歸；兩個自訂 Select 按鈕已接入核准 UI。
 - 語言選擇抽屜的 Common / Cultural / Regional / Dead 分類與技能抽屜的 Custom 類別 / tag 已接入核准 UI。
 - HeroExtensionsPanel 的 3 個空值是固定 UI；有值的自製擴充名稱、來源書名稱及內容保留原值。
 - 技能模板只使用核准來源片段，保留上游 count、來源順序與可選範圍；實測候選 count 為 1 / 2 / 3 / 5。未知片段、未觀察到的語言限制、count=-1 或非法模板保留完整英文，不輸出半中半英。
@@ -81,7 +81,7 @@
 | 候選來源 | 可設定 ID | 空描述 ID | 空描述類型 / 下一批 |
 | --- | --- | --- | --- |
 | 族裔（含附屬文化） | 41 | 15 | Choice 13 / AncestryFeatureChoice 2；後者先確認已核准內容鍵與實際接點 |
-| 文化（含 Bespoke） | 30 | 0 | 語言與面向透過原內容或工廠生成提示；UI-05 只補詳情投射 |
+| 文化（含 Bespoke） | 30 | 0 | 語言與面向透過原內容或工廠生成提示；UI-05 接上核准通用語言 / 技能提示的直接與詳情投射 |
 | 生涯 | 69 | 18 | Perk；共用 UI 可另核准，411 NEW 內容仍等待 BOOK-01 |
 | 職業（含子職業） | 354 | 234 | Domain / Kit / ClassAbility / Perk / Choice / SummonChoice；同職業選擇頁合批 |
 | 糾葛 | 32 | 5 | ItemChoice 2 / Choice 1 / Retainer 1 / Toggle 1；與糾葛設定 UI 合批 |
@@ -92,8 +92,8 @@
 
 1. **完成**：Marc 核准 16 筆 UI、兩個技能句型及來源組合格式；單一寫入者更新 Master Sheet、批次狀態與 CHG-0087。
 2. **完成**：同次四頁核准快照 → 匯出 / mapping / UI 守門 → 顯示層接線；不改原資料、計算、可選範圍、搜尋 / 排序或分享碼。
-3. **原始版本完整驗證完成；修正版驗證中**：原始版本隔離副本乾淨安裝及 audit 0 漏洞；lint 0 errors、TypeScript 通過、987/987 測試、production build 成功，7 組隔離瀏覽器旅程通過。修正版本機語系守門、型別及相關 10 項測試通過；全套 Vitest 有 866 項通過、2 個 suite 因 sass-embedded 權限失敗，build 與 Edge 瀏覽器回歸亦受本機權限限制。最新修正版需以 PR CI 驗證。
-4. **進行中**：[PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 原始 head 的 CI 全綠；Marc 人工驗收發現技能提示漏接，已在本地修正並新增生成描述與核准用途文字回歸，需更新 PR、確認最新 CI，再由 Marc 完成人工驗收；不自行合併。
+3. **修正版完整驗證通過**：隔離副本乾淨安裝、六項檢查、992/992 測試、audit 0 漏洞與 9 組瀏覽器回歸（含逐一 DOM 矩陣與 Artisan 生涯 / 詳情實際路由）；來源指紋前後一致，詳見 PROGRESS。舊 CI 只涵蓋抽樣案例，不能作為本次完整接點的證據。
+4. **等待人工驗收**：[PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 同批修正；請 Marc 檢查語言 / 技能提示、抽屜與已選用途。Crafting Perk 及其預設描述、一般複數 Skills 標題尚無精確核准 UI 來源，仍待預覽與核准；Career 411 NEW 不計入本批完成，不自行合併。
 
 # UI-04 / DISPLAY-04：已合併批次的原始盤點
 
@@ -117,7 +117,7 @@
 | career-section | 無 | Career 411 NEW；內容等待 BOOK-01；共用 UI 不代表生涯內容核准 |
 | class-section | 無 | 職業內容與動態描述另批；共用 UI 仍依精確來源 |
 | complication-section | 無 | 糾葛內容另批；不能以名稱相同自行翻譯 |
-| details-section（語言 / 技能） | 無 | UI-05 / DISPLAY-05 已接入 Default Language、Languages、Skill 與核准生成提示；「any list」卡片顯示「從任意技能類別中選擇 1 項技能。」；PR #61 最新 CI 全綠，待 Marc 人工驗收 |
+| details-section（語言 / 技能） | 無 | UI-05 / DISPLAY-05 已接入 Default Language、Languages、Skill 與核准生成提示；「any list」卡片顯示「從任意技能類別中選擇 1 項技能。」；PR #61 本次補齊直接與重建接點，最新驗證見 PROGRESS，待 Marc 人工驗收 |
 | hero-customize-modal（自訂特性） | 使用 ConfigFeature，不是 FeatureConfigPanel | 校正原盤點：自訂特性設定在英雄自訂視窗；詳情頁僅收集其中的語言 / 技能選項。自訂內容保護維持，管理編輯器另批 |
 
 ## 已核准並接入的 8 筆 UI

@@ -1,4 +1,6 @@
 import { Feature, FeatureLanguageChoice, FeatureSkillChoice, isFeature } from '@/models/feature';
+import { CultureData } from '@/data/culture-data';
+import { FactoryFeatureLogic } from '@/logic/factory-feature-logic';
 import { FeatureType } from '@/enums/feature-type';
 import { LanguageType } from '@/enums/language-type';
 import { Sourcebook } from '@/models/sourcebook';
@@ -36,6 +38,8 @@ const officialFeatures = (sourcebooks: Sourcebook[]) => {
 	sourcebooks
 		.filter(sourcebook => sourcebook.type === SourcebookType.Official)
 		.forEach(visit);
+	// The built-in Bespoke Culture is created by the builder, outside sourcebooks.
+	visit(CultureData.bespoke);
 	indexCache.set(sourcebooks, index);
 	return index;
 };
@@ -62,4 +66,27 @@ export const isDefaultLanguageFeature = (feature: Feature): feature is FeatureLa
 		&& data.selectAt === 'build';
 };
 
-export const isOfficialSkillChoice = (feature: Feature): feature is FeatureSkillChoice => feature.type === FeatureType.SkillChoice;
+/** Validate both the original source and the exact DetailsSection projection. */
+export const getChoiceDisplaySource = (feature: Feature, sourcebooks: Sourcebook[], detailsSource?: Feature): FeatureLanguageChoice | FeatureSkillChoice | undefined => {
+	const source = detailsSource || feature;
+	if (!isDefaultLanguageFeature(source) && !isOfficialFeatureSource(source, sourcebooks)) {
+		return undefined;
+	}
+	if (source.type !== FeatureType.LanguageChoice && source.type !== FeatureType.SkillChoice) {
+		return undefined;
+	}
+	if (!detailsSource) {
+		return source;
+	}
+	const factory = new FactoryFeatureLogic();
+	const projected = source.type === FeatureType.LanguageChoice
+		? factory.createLanguageChoice({
+			id: source.id, name: source.name || 'Language', options: [ ...source.data.options ],
+			allowedTypes: [ ...source.data.allowedTypes ], count: source.data.count
+		})
+		: factory.createSkillChoice({
+			id: source.id, name: 'Skill', options: [ ...source.data.options ],
+			listOptions: [ ...source.data.listOptions ], count: source.data.count
+		});
+	return signature(feature) === signature(projected) ? source : undefined;
+};

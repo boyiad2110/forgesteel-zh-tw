@@ -1,8 +1,8 @@
 import { Button, Flex } from 'antd';
 import { CloseOutlined, InfoCircleOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
-import { Feature, FeatureData, FeatureSkillChoice } from '@/models/feature';
+import { Feature, FeatureData } from '@/models/feature';
 import { ReactNode, useState } from 'react';
-import { isDefaultLanguageFeature, isOfficialFeatureSource } from '@/l10n/official-feature-source';
+import { getChoiceDisplaySource, isDefaultLanguageFeature } from '@/l10n/official-feature-source';
 import { skillListKey, skillNameKey, useSkillListNames, useSkillNames } from '@/l10n/skill-text';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { ConfigFeature } from '@/components/features/feature';
@@ -11,9 +11,9 @@ import { FeatureLogic } from '@/logic/feature-logic';
 import { FeatureType } from '@/enums/feature-type';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
+import { LanguageType } from '@/enums/language-type';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Perk } from '@/models/perk';
-import { SkillList } from '@/enums/skill-list';
 import { Sourcebook } from '@/models/sourcebook';
 import { mapping } from '@/l10n/mapping';
 import { peekCatalog } from '@/l10n/catalog';
@@ -36,60 +36,9 @@ const purchasedTraitFeatureIDs = new Set([
 	'time-raider-feature-2'
 ]);
 
-const cultureLanguageFeatureIDs = new Set([
-	'culture-bespoke-culture-language',
-	'culture-artisan-guild-language',
-	'culture-borderland-homestead-language',
-	'culture-college-conclave-language',
-	'culture-criminal-gang-language',
-	'culture-farming-village-language',
-	'culture-herding-community-language',
-	'culture-knightly-order-language',
-	'culture-mercenary-band-language',
-	'culture-merchant-caravan-language',
-	'culture-monastic-order-language',
-	'culture-noble-house-language',
-	'culture-outlaw-band-language',
-	'culture-pauper-neighborhood-language',
-	'culture-pirate-crew-language',
-	'culture-telepathic-hive-language',
-	'culture-traveling-entertainers-language',
-	'culture-devil-language',
-	'culture-dragon-knight-language',
-	'culture-dwarf-language',
-	'culture-wode-elf-language',
-	'culture-high-elf-language',
-	'culture-hakaan-language',
-	'culture-human-language',
-	'culture-memonek-language',
-	'culture-orc-language',
-	'culture-polder-language',
-	'culture-time-raider-language'
-]);
-
 const choiceDescription = 'This feature allows you to choose from a collection of features.';
 const interpersonalSkillDescription = 'Choose a skill from Interpersonal skills.';
 const cultureLanguageDescription = 'Choose a  language.';
-const allStandardSkillLists = [ SkillList.Crafting, SkillList.Exploration, SkillList.Interpersonal, SkillList.Intrigue, SkillList.Lore ];
-
-const isGeneratedAnyListSkillChoice = (feature: Feature | Perk): feature is FeatureSkillChoice => {
-	if (feature.type !== FeatureType.SkillChoice) {
-		return false;
-	}
-
-	const { options, listOptions, count } = feature.data;
-	if (options.length !== 0 || count < 1 || ![ 1, 2, 3, 5 ].includes(count)
-		|| listOptions.length !== allStandardSkillLists.length
-		|| !allStandardSkillLists.every((list, index) => listOptions[index] === list)
-		|| feature.name !== (count === 1 ? 'Skill' : 'Skills')) {
-		return false;
-	}
-
-	const expectedDescription = count === 1
-		? 'Choose a skill from any list.'
-		: `Choose ${count} from any list.`;
-	return feature.description === expectedDescription;
-};
 
 interface Props {
 	feature: Feature | Perk;
@@ -103,13 +52,9 @@ interface Props {
 export const FeatureConfigPanel = (props: Props) => {
 	const ui = useUI();
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
-	const detailsSkillChoice = props.detailsSourceFeature?.type === FeatureType.SkillChoice
-		? props.detailsSourceFeature as FeatureSkillChoice
-		: undefined;
-	const sourceSkillChoice = detailsSkillChoice || (isOfficialFeatureSource(props.feature as Feature, props.sourcebooks)
-		&& props.feature.type === FeatureType.SkillChoice
-		? props.feature as FeatureSkillChoice
-		: isGeneratedAnyListSkillChoice(props.feature) ? props.feature : undefined);
+	const choiceSource = getChoiceDisplaySource(props.feature as Feature, props.sourcebooks, props.detailsSourceFeature);
+	const sourceSkillChoice = choiceSource?.type === FeatureType.SkillChoice ? choiceSource : undefined;
+	const sourceLanguageChoice = choiceSource?.type === FeatureType.LanguageChoice ? choiceSource : undefined;
 	const skillOptions = sourceSkillChoice?.data.options || [];
 	const skillLists = sourceSkillChoice?.data.listOptions || [];
 	const translatedSkillOptions = useSkillNames(skillOptions);
@@ -219,28 +164,24 @@ export const FeatureConfigPanel = (props: Props) => {
 			&& desc === choiceDescription) {
 			desc = ui.text('ui.hero-builder.choice-feature-description.3a5f7705', 'This feature allows you to choose from a collection of features.');
 		}
-		if (props.feature.id === 'devil-feature-1b'
+		if (sourceSkillChoice && props.feature.id === 'devil-feature-1b'
 			&& props.feature.name === 'Interpersonal Skill'
 			&& props.feature.type === FeatureType.SkillChoice
 			&& desc === interpersonalSkillDescription) {
 			desc = ui.text('ui.hero-builder.interpersonal-skill-description.3ff1394b', 'Choose a skill from Interpersonal skills.');
 		}
-		if (cultureLanguageFeatureIDs.has(props.feature.id)
-			&& props.feature.name === 'Language'
-			&& props.feature.type === FeatureType.LanguageChoice
-			&& desc === cultureLanguageDescription) {
-			desc = ui.text('ui.hero-builder.culture-language-description.ad467037', 'Choose a  language.');
-		}
-		if (props.detailsSourceFeature && isDefaultLanguageFeature(props.detailsSourceFeature)
-			&& props.feature.id === 'default-language' && props.feature.type === FeatureType.LanguageChoice) {
-			desc = ui.text('ui.hero-builder.common-language-description.cc9ef9be', 'Choose a Common language.');
-		} else if (props.detailsSourceFeature?.type === FeatureType.LanguageChoice
-			&& props.detailsSourceFeature.description === 'Choose 2  languages.'
-			&& props.detailsSourceFeature.data.count === 2
-			&& props.detailsSourceFeature.data.allowedTypes.length === 4
-			&& props.feature.type === FeatureType.LanguageChoice
-			&& props.feature.description === props.detailsSourceFeature.description) {
-			desc = ui.text('ui.hero-builder.two-languages-description.0139e42b', 'Choose 2  languages.');
+		if (sourceLanguageChoice) {
+			const { count, allowedTypes } = sourceLanguageChoice.data;
+			const standardTypes = [ LanguageType.Common, LanguageType.Regional, LanguageType.Cultural, LanguageType.Dead ];
+			const unrestricted = allowedTypes.length === standardTypes.length
+				&& standardTypes.every((type, index) => allowedTypes[index] === type);
+			if (isDefaultLanguageFeature(sourceLanguageChoice) && desc === 'Choose a Common language.') {
+				desc = ui.text('ui.hero-builder.common-language-description.cc9ef9be', 'Choose a Common language.');
+			} else if (unrestricted && count === 1 && desc === cultureLanguageDescription) {
+				desc = ui.text('ui.hero-builder.culture-language-description.ad467037', 'Choose a  language.');
+			} else if (unrestricted && count === 2 && desc === 'Choose 2  languages.') {
+				desc = ui.text('ui.hero-builder.two-languages-description.0139e42b', 'Choose 2  languages.');
+			}
 		}
 
 		const skillChoiceDescription = getDetailsSkillDescription();
@@ -256,7 +197,7 @@ export const FeatureConfigPanel = (props: Props) => {
 	};
 
 	const getName = () => {
-		if (!detailsSkillChoice && sourceSkillChoice && props.feature.type === FeatureType.SkillChoice) {
+		if (!props.detailsSourceFeature && sourceSkillChoice && props.feature.type === FeatureType.SkillChoice) {
 			const prefix = (sourceSkillChoice.data.listOptions.length < 5)
 				&& (sourceSkillChoice.data.options.length === 0)
 				? `${sourceSkillChoice.data.listOptions.join(' / ')} `
@@ -267,39 +208,28 @@ export const FeatureConfigPanel = (props: Props) => {
 				return ui.format('ui.hero-builder.skill-list-description.f94c20ab', '`${list} skills`', generatedName, { list });
 			}
 		}
-		if (props.detailsSourceFeature && props.feature.type === FeatureType.LanguageChoice
-			&& props.detailsSourceFeature.type === FeatureType.LanguageChoice) {
-			if (isDefaultLanguageFeature(props.detailsSourceFeature) && props.feature.id === 'default-language') {
+		if (sourceLanguageChoice && props.feature.name === sourceLanguageChoice.name) {
+			if (isDefaultLanguageFeature(sourceLanguageChoice)) {
 				return ui.text('ui.hero-builder.default-language.28bee244', 'Default Language');
 			}
-			if (props.feature.name === 'Languages' && props.detailsSourceFeature.name === 'Languages') {
+			if (props.feature.name === 'Languages') {
 				return ui.text('ui.hero-builder.languages.318655ce', 'Languages');
 			}
-			if (props.feature.name === 'Language' && props.detailsSourceFeature.name === 'Language') {
+			if (props.feature.name === 'Language') {
 				return ui.text('ui.hero-builder.language.996aaf3b', 'Language');
 			}
 		}
-		if (props.detailsSourceFeature?.type === FeatureType.SkillChoice
-			&& props.feature.type === FeatureType.SkillChoice && props.feature.name === 'Skill') {
-			return ui.text('ui.hero-builder.skill.a5ed2dcb', 'Skill');
-		}
-		if (sourceSkillChoice && isGeneratedAnyListSkillChoice(props.feature)) {
+		if (sourceSkillChoice && props.feature.name === 'Skill') {
 			return ui.text('ui.hero-builder.skill.a5ed2dcb', 'Skill');
 		}
 		if (purchasedTraitFeatureIDs.has(props.feature.id) && props.feature.name === 'Purchased Traits') {
 			return ui.text('ui.hero-builder.purchased-traits.394205e5', 'Purchased Traits');
 		}
-		if (props.feature.id === 'devil-feature-1b'
+		if (sourceSkillChoice && props.feature.id === 'devil-feature-1b'
 			&& props.feature.name === 'Interpersonal Skill'
 			&& props.feature.type === FeatureType.SkillChoice
 			&& props.feature.description === interpersonalSkillDescription) {
 			return ui.text('ui.hero-builder.interpersonal-skill.3095ff6f', 'Interpersonal Skill');
-		}
-		if (cultureLanguageFeatureIDs.has(props.feature.id)
-			&& props.feature.name === 'Language'
-			&& props.feature.type === FeatureType.LanguageChoice
-			&& props.feature.description === cultureLanguageDescription) {
-			return ui.text('ui.hero-builder.language.996aaf3b', 'Language');
 		}
 		return props.feature.name || ui.text('ui.hero-builder.unnamed-feature.fe5fa185', 'Unnamed Feature');
 	};
