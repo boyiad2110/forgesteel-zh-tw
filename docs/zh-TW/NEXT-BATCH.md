@@ -1,6 +1,6 @@
 # UI-05 / DISPLAY-05：建角詳情與語言 / 技能選擇盤點
 
-2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。16 筆新 UI 已由 Marc 核准並寫入 Master Sheet、快照與 mapping。Marc 驗收指出技能提示、用途及生涯語言漏接；同一 PR #61 補齊已核准接點，包含直接與詳情重建路徑，以及 Name 標題 / placeholder。移除未知 ID 的通用技能來源例外，詳情頁始終傳遞原始來源，避免改寫資料經重建後誤認官方。本機完整隔離驗證與最新 CI 狀態見 [PROGRESS](PROGRESS.md)；等待 Marc 驗收，尚未合併。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
+2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。16 筆新 UI 已由 Marc 核准並寫入 Master Sheet、快照與 mapping。Marc 驗收指出技能提示、用途及生涯語言漏接；同一 PR #61 補齊已核准接點，包含直接與詳情重建路徑，以及 Name 標題 / placeholder。移除未知 ID 的通用技能來源例外，詳情頁始終傳遞原始來源，避免改寫資料經重建後誤認官方。本機完整隔離驗證與最新 CI 狀態見 [PROGRESS](PROGRESS.md)；Marc 已於 2026-10-11 人工驗收通過，合併狀態見 PR。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
 
 ## 本批建議範圍與來源
 
@@ -93,7 +93,7 @@
 1. **完成**：Marc 核准 16 筆 UI、兩個技能句型及來源組合格式；單一寫入者更新 Master Sheet、批次狀態與 CHG-0087。
 2. **完成**：同次四頁核准快照 → 匯出 / mapping / UI 守門 → 顯示層接線；不改原資料、計算、可選範圍、搜尋 / 排序或分享碼。
 3. **修正版完整驗證通過**：隔離副本乾淨安裝、六項檢查、992/992 測試、audit 0 漏洞與 9 組瀏覽器回歸（含逐一 DOM 矩陣與 Artisan 生涯 / 詳情實際路由）；來源指紋前後一致，詳見 PROGRESS。舊 CI 只涵蓋抽樣案例，不能作為本次完整接點的證據。
-4. **等待人工驗收**：[PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 同批修正；請 Marc 檢查語言 / 技能提示、抽屜與已選用途。Crafting Perk 及其預設描述、一般複數 Skills 標題尚無精確核准 UI 來源，仍待預覽與核准；Career 411 NEW 不計入本批完成，不自行合併。
+4. **人工驗收通過**：Marc 於 2026-10-11 驗收本批語言 / 技能提示、抽屜與已選用途；[PR #61](https://github.com/boyiad2110/forgesteel-zh-tw/pull/61) 合併狀態見原 PR。Skills / Crafting Perk 標題及 Perk 預設描述依 Marc 指示留到 Career 批次再預覽與核准，維持英文；Career 411 NEW 不計入本批完成。
 
 # UI-04 / DISPLAY-04：已合併批次的原始盤點
 
