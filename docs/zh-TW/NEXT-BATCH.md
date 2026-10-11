@@ -117,7 +117,7 @@
 | career-section | 無 | Career 411 NEW；內容等待 BOOK-01；共用 UI 不代表生涯內容核准 |
 | class-section | 無 | 職業內容與動態描述另批；共用 UI 仍依精確來源 |
 | complication-section | 無 | 糾葛內容另批；不能以名稱相同自行翻譯 |
-| details-section（語言 / 技能） | 無 | UI-05 / DISPLAY-05 已接入 Default Language、Languages、Skill 與核准生成提示；「any list」卡片顯示「從任意技能類別中選擇 1 項技能。」；PR #61 本次補齊直接與重建接點，最新驗證見 PROGRESS，待 Marc 人工驗收 |
+| details-section（語言 / 技能） | 無 | UI-05 / DISPLAY-05 已接入 Default Language、Languages、Skill 與核准生成提示；「any list」卡片顯示「從任意技能類別中選擇 1 項技能。」；PR #61 已由 Marc 人工驗收通過，最新驗證見 PROGRESS，合併狀態見原 PR |
 | hero-customize-modal（自訂特性） | 使用 ConfigFeature，不是 FeatureConfigPanel | 校正原盤點：自訂特性設定在英雄自訂視窗；詳情頁僅收集其中的語言 / 技能選項。自訂內容保護維持，管理編輯器另批 |
 
 ## 已核准並接入的 8 筆 UI
