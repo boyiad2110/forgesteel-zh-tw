@@ -4,6 +4,8 @@
 
 ## 現況與下一步
 
+- MASTER-SPLIT-B 已由 Reviewer 於 2026-10-11 驗收；Forge Steel 專用資料已在獨立的 [Localization Master Sheet](https://docs.google.com/spreadsheets/d/1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw/edit)。MASTER-SPLIT-C 只建立雙來源擷取及驗證工具，正式快照與網站來源仍維持現況；Stage D 須另獲授權才切換。
+
 - 維護順序 1–5、DISPLAY-01、DISPLAY-02、MAINT-WORKFLOW-01 與 UI-01／UI-02 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
 - 核准清冊：602 個 mapping / 106 列 Forge Steel Strings 版 / 11 個英文例外，其中 UI-01 新增 151 筆、UI-03 新增 15 筆、UI-04 新增 8 筆核准 UI 對照。這是防錯清冊，不是產品中文化完成率。
 - DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；PR #59 已接上自訂文化 Field 描述，13 個面向已逐一核對來源與元件 DOM，詳見 [下一批盤點](NEXT-BATCH.md)。
@@ -13,7 +15,7 @@
 
 ## 不可違反的界線
 
-1. 中文只取 Master Sheet 的 APPROVED；不得自行補譯、改寫或把草稿放公開 repo。Sheet：`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`。
+1. 書本正典只取 Draw Steel Master Sheet（`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`）的 APPROVED；網站 UI／Adaptations 只取 Forge Steel Sheet（`1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw`）的 APPROVED。不得自行補譯、改寫或把草稿放公開 repo。Stage D 前正式快照仍沿用舊路徑。
 2. 只在顯示時套用中文；不改遊戲資料、計算、存檔或分享碼。自訂／改名／未知內容保留原值。
 3. 動態數值投射上游計算結果；未知改寫保留完整計算後英文。英文備援不算該段中文化完成。
 4. `main` 是上游鏡像；工作分支經 PR 合進 `develop`。上游 push URL 維持禁用；分叉不自動部署。

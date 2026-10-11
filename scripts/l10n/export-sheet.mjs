@@ -540,9 +540,11 @@ export const buildCatalog = snapshotDir => {
 	return buildOutput(source, tabs);
 };
 
-const main = () => {
+const main = async () => {
 	const options = parseArgs(process.argv.slice(2));
-	const files = buildCatalog(options.snapshotDir);
+	const files = existsSync(path.join(options.snapshotDir, 'adaptations.csv'))
+		? (await import('./dual-sheet.mjs')).buildDualCatalogFromSnapshot(options.snapshotDir)
+		: buildCatalog(options.snapshotDir);
 	if (options.check) {
 		checkOutput(options.outDir, files);
 	} else {
@@ -551,10 +553,8 @@ const main = () => {
 };
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-	try {
-		main();
-	} catch (error) {
+	main().catch(error => {
 		console.error(error.message);
 		process.exitCode = 1;
-	}
+	});
 }
