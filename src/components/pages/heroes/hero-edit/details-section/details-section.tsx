@@ -46,33 +46,37 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 		.filter(f => !!f)
 		.sort();
 
-	const languageFeatures = HeroLogic.getFeatures(props.hero)
-		.map(f => f.feature)
-		.filter(f => f.type === FeatureType.LanguageChoice)
-		.map(f => {
-			return FactoryLogic.feature.createLanguageChoice({
-				id: f.id,
-				name: f.name || 'Language',
-				options: [ ...f.data.options ],
-				allowedTypes: [ ...f.data.allowedTypes ],
-				count: f.data.count,
-				selected: [ ...f.data.selected ]
-			});
+	const sourceFeatures = HeroLogic.getFeatures(props.hero).map(f => f.feature);
+	const sourceLanguageFeatures = sourceFeatures.filter(f => f.type === FeatureType.LanguageChoice);
+	const languageFeatures = sourceLanguageFeatures.map(f => {
+		return FactoryLogic.feature.createLanguageChoice({
+			id: f.id,
+			name: f.name || 'Language',
+			options: [ ...f.data.options ],
+			allowedTypes: [ ...f.data.allowedTypes ],
+			count: f.data.count,
+			selected: [ ...f.data.selected ]
 		});
+	});
 
-	const skillFeatures = HeroLogic.getFeatures(props.hero)
-		.map(f => f.feature)
-		.filter(f => f.type === FeatureType.SkillChoice)
-		.map(f => {
-			return FactoryLogic.feature.createSkillChoice({
-				id: f.id,
-				name: 'Skill',
-				options: [ ...f.data.options ],
-				listOptions: [ ...f.data.listOptions ],
-				count: f.data.count,
-				selected: [ ...f.data.selected ]
-			});
-		});
+	const languageFeatureRecords = sourceLanguageFeatures.map((sourceFeature, index) => ({
+		feature: languageFeatures[index],
+		sourceFeature
+	}));
+
+	const skillSourceFeatures = sourceFeatures.filter(f => f.type === FeatureType.SkillChoice);
+	const skillFeatureRecords = skillSourceFeatures.map(sourceFeature => ({
+		feature: FactoryLogic.feature.createSkillChoice({
+			id: sourceFeature.id,
+			name: 'Skill',
+			options: [ ...sourceFeature.data.options ],
+			listOptions: [ ...sourceFeature.data.listOptions ],
+			count: sourceFeature.data.count,
+			selected: [ ...sourceFeature.data.selected ]
+		}),
+		sourceFeature
+	}));
+	const skillFeatures = skillFeatureRecords.map(record => record.feature);
 
 	const languagesDone = languageFeatures.every(f => FeatureLogic.isChosen(f, props.hero, props.sourcebooks));
 	const skillsDone = skillFeatures.every(f => FeatureLogic.isChosen(f, props.hero, props.sourcebooks));
@@ -81,11 +85,11 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 		<div className='hero-edit-content details-section'>
 			<div className='hero-edit-content-column selected' id='details-main'>
 				<SelectablePanel>
-					<HeaderText>Name</HeaderText>
+					<HeaderText>{ui.text('ui.hero-builder.name.f7c27f51', 'Name')}</HeaderText>
 					<Space.Compact style={{ width: '100%' }}>
 						<TextInput
 							status={props.hero.name === '' ? 'warning' : ''}
-							placeholder='Name'
+							placeholder={ui.text('ui.hero-builder.name.f7c27f51', 'Name')}
 							allowClear={true}
 							value={props.hero.name}
 							onChange={props.setName}
@@ -163,10 +167,11 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 					]}
 				>
 					{
-						languageFeatures.map(f => (
+						languageFeatureRecords.map(({ feature, sourceFeature }) => (
 							<FeatureConfigPanel
-								key={f.id}
-								feature={f}
+								key={feature.id}
+								feature={feature}
+								detailsSourceFeature={sourceFeature}
 								hero={props.hero}
 								sourcebooks={props.sourcebooks}
 								setData={props.setFeatureData}
@@ -189,10 +194,11 @@ export const DetailsSection = (props: DetailsSectionProps) => {
 					]}
 				>
 					{
-						skillFeatures.map(f => (
+						skillFeatureRecords.map(({ feature, sourceFeature }) => (
 							<FeatureConfigPanel
-								key={f.id}
-								feature={f}
+								key={feature.id}
+								feature={feature}
+								detailsSourceFeature={sourceFeature}
 								hero={props.hero}
 								sourcebooks={props.sourcebooks}
 								setData={props.setFeatureData}

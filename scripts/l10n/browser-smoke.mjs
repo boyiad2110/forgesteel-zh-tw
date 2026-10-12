@@ -292,6 +292,296 @@ try {
 	await customLanguage.getByText('Language', { exact: true }).waitFor();
 	await customLanguage.getByText('Choose a  language.', { exact: true }).waitFor();
 	console.log('PASS browser: FeatureConfigPanel approved ancestry and culture text, Choice empty state, custom text protection');
+	const ui05Expected = await abilityPage.evaluate(async () => {
+		const ReactModule = await import('/node_modules/.vite/deps/react.js');
+		const React = ReactModule.default ?? ReactModule;
+		const reactDom = await import('/node_modules/.vite/deps/react-dom_client.js');
+		const createRoot = reactDom.createRoot ?? reactDom.default.createRoot;
+		const { FeatureConfigPanel } = await import('/src/components/panels/feature-config-panel/feature-config-panel.tsx');
+		const { FactoryLogic } = await import('/src/logic/factory-logic.ts');
+		const { OptionsContext } = await import('/src/contexts/data-context.tsx');
+		const { core } = await import('/src/data/sourcebooks/official/core.ts');
+		const { SkillList } = await import('/src/enums/skill-list.ts');
+		const { FeatureType } = await import('/src/enums/feature-type.ts');
+		const { LanguageType } = await import('/src/enums/language-type.ts');
+		const { mapping } = await import('/src/l10n/mapping.ts');
+		const { default: glossary } = await import('/src/l10n/generated/zh-TW/glossary.json');
+		const { default: strings } = await import('/src/l10n/generated/zh-TW/strings.json');
+		const { default: ui } = await import('/src/l10n/generated/zh-TW/ui.json');
+		const { loadCatalog } = await import('/src/l10n/catalog.ts');
+		const { setLanguage } = await import('/src/l10n/language.ts');
+		await loadCatalog();
+		setLanguage('zh-TW');
+		const official = new Map();
+		const seen = new WeakSet();
+		const visit = value => {
+			if (!value || typeof value !== 'object' || seen.has(value)) return;
+			seen.add(value);
+			if (value.type === FeatureType.SkillChoice) official.set(value.id, value);
+			Object.values(value).forEach(visit);
+		};
+		visit(core);
+		const skillIDs = [ 'devil-feature-1b', 'career-artisan-feature-1', 'elementalist-1-2', 'shadow-1-3', 'env-urban', 'up-martial' ];
+		const sourceFeatures = skillIDs.map(id => official.get(id));
+		if (sourceFeatures.some(feature => !feature)) throw new Error('Approved skill-choice browser fixtures are missing');
+		const hero = FactoryLogic.createHero();
+		const panels = [
+			{ feature: hero.features[0], sourceFeature: hero.features[0] },
+			...sourceFeatures.map(sourceFeature => ({
+				sourceFeature,
+				feature: FactoryLogic.feature.createSkillChoice({
+					id: sourceFeature.id,
+					name: 'Skill',
+					options: [ ...sourceFeature.data.options ],
+					listOptions: [ ...sourceFeature.data.listOptions ],
+					count: sourceFeature.data.count,
+					selected: sourceFeature.id === 'devil-feature-1b' ? [ 'Lead' ] : [ ...sourceFeature.data.selected ]
+				})
+			})),
+			{ feature: FactoryLogic.feature.createSkillChoice({ id: 'homebrew-custom-skill-choice', name: 'Skill', options: [ 'Smoke Test Skill' ], count: 1 }) },
+			{ feature: sourceFeatures[1] },
+			{ feature: [ ...official.values() ].find(f => f.name === 'Skill' && f.description === 'Choose a skill from any list.') },
+			{ feature: FactoryLogic.feature.createSkillChoice({ id: 'unknown-any-list-skill-choice', name: 'Skill' }) }
+		];
+		const get = key => {
+			const entry = mapping[key];
+			if (!entry) throw new Error(`Missing UI-05 smoke mapping: ${key}`);
+			const row = entry.sheetId;
+			const source = key.startsWith('ui:') ? ui : (key.startsWith('skill:') || key.startsWith('enum:')) ? glossary : strings;
+			const record = source[row];
+			const value = record?.fs?.zh ?? record?.zh;
+			if (!value) throw new Error(`Missing UI-05 smoke translation: ${key} → ${row}`);
+			return value;
+		};
+		const expected = sourceFeatures.map(sourceFeature => {
+			const { options, listOptions, count } = sourceFeature.data;
+			const parts = [
+				...options.map(name => get(`skill:${name}`)),
+				...(listOptions.length === 5
+					? [ get('ui:ui.hero-builder.any-skill-list.7f7a6841') ]
+					: listOptions.map(list => get('ui:ui.hero-builder.skill-list-description.f94c20ab').replace('{list}', get(`enum:SkillList:${list}`))))
+			];
+			const template = count > 1
+				? get('ui:ui.hero-builder.skills-choice-description.1a7008a2')
+				: get('ui:ui.hero-builder.skill-choice-description.9172d5a4');
+			return template.replace('{count}', String(count)).replace('{source}', parts.join(' / '));
+		});
+		const custom = FactoryLogic.createSourcebook();
+		custom.type = 'Homebrew';
+		custom.skills = [ { name: 'Smoke Test Skill', description: '', list: SkillList.Custom } ];
+		const languageBook = FactoryLogic.createSourcebook();
+		languageBook.type = 'Official';
+		languageBook.languages = [ { name: 'Smoke Test Common', description: '', type: LanguageType.Common, related: [] } ];
+		const host = document.createElement('section');
+		host.id = 'ui05-regression';
+		document.body.append(host);
+		const root = createRoot(host);
+		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
+			React.createElement(React.Fragment, null, ...panels.map((panel, index) => React.createElement(FeatureConfigPanel, {
+				key: `${panel.feature.id}-${index}`,
+				feature: panel.feature,
+				detailsSourceFeature: panel.sourceFeature,
+				hero,
+				sourcebooks: [ core, custom, languageBook ],
+				setData: () => undefined
+			})))));
+		return { expected, defaultFeature: hero.features[0].description };
+	});
+	const ui05Panels = abilityPage.locator('#ui05-regression .feature-config-panel');
+	await ui05Panels.nth(0).getByText('預設語言', { exact: true }).waitFor();
+	await ui05Panels.nth(0).getByText('選擇 1 種通用語。', { exact: true }).waitFor();
+	for (const [ index, text ] of ui05Expected.expected.entries()) {
+		await ui05Panels.nth(index + 1).getByText(text, { exact: true }).waitFor();
+	}
+	await ui05Panels.nth(1).getByText('鼓舞他人採取行動。', { exact: true }).waitFor();
+	await ui05Panels.nth(0).getByRole('button', { name: '選擇語言', exact: true }).click();
+	await abilityPage.locator('.language-select-modal').getByText('通用語', { exact: true }).waitFor();
+	await abilityPage.keyboard.press('Escape');
+	await ui05Panels.nth(7).getByRole('button', { name: '選擇技能', exact: true }).click();
+	assert.equal(await abilityPage.locator('.skill-select-modal').getByText('自訂', { exact: true }).count(), 2, 'Custom category heading and skill tag');
+	await abilityPage.locator('.skill-select-modal').getByText('Smoke Test Skill', { exact: true }).waitFor();
+	await abilityPage.locator('.skill-select-modal').getByText('其他技能', { exact: true }).click();
+	await abilityPage.locator('.skill-select-modal').getByText('了解魔法地點、法術、儀式、道具與現象。', { exact: true }).waitFor();
+	await abilityPage.keyboard.press('Escape');
+	await ui05Panels.nth(8).getByText(ui05Expected.expected[1], { exact: true }).waitFor();
+	await ui05Panels.nth(8).getByText('工藝類技能', { exact: true }).waitFor();
+	await ui05Panels.nth(9).getByText('技能', { exact: true }).waitFor();
+	await ui05Panels.nth(9).getByText('從任意技能類別中選擇 1 項技能。', { exact: true }).waitFor();
+	await ui05Panels.nth(10).getByText('Skill', { exact: true }).waitFor();
+	await ui05Panels.nth(10).getByText('Choose a skill from any list.', { exact: true }).waitFor();
+	await abilityPage.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
+	await ui05Panels.nth(0).getByText('Default Language', { exact: true }).waitFor();
+	await ui05Panels.nth(1).getByText('Choose a skill from Interpersonal skills.', { exact: true }).waitFor();
+	await abilityPage.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
+	await ui05Panels.nth(0).getByText('預設語言', { exact: true }).waitFor();
+	console.log('PASS browser: UI-05 official skill templates at 1 / 2 / 3 / 5, default language, selector labels, English fallback');
+	// Check every inventoried choice through both real display paths, not just representative prompts.
+	const matrix = await abilityPage.evaluate(async () => {
+		const ReactModule = await import('/node_modules/.vite/deps/react.js');
+		const React = ReactModule.default ?? ReactModule;
+		const reactDom = await import('/node_modules/.vite/deps/react-dom_client.js');
+		const { FeatureConfigPanel } = await import('/src/components/panels/feature-config-panel/feature-config-panel.tsx');
+		const { FactoryLogic } = await import('/src/logic/factory-logic.ts');
+		const { AbilityLogic } = await import('/src/logic/ability-logic.ts');
+		const { DetailsSection } = await import('/src/components/pages/heroes/hero-edit/details-section/details-section.tsx');
+		const { Utils } = await import('/src/utils/utils.ts');
+		const { OptionsContext, HeroesContext } = await import('/src/contexts/data-context.tsx');
+		const { FeatureType } = await import('/src/enums/feature-type.ts');
+		const { core } = await import('/src/data/sourcebooks/official/core.ts');
+		const { orden } = await import('/src/data/sourcebooks/official/orden.ts');
+		const { beastheartSourcebook } = await import('/src/data/sourcebooks/official/beastheart.ts');
+		const { summonerSourcebook } = await import('/src/data/sourcebooks/official/summoner.ts');
+		const { CultureData } = await import('/src/data/culture-data.ts');
+		const { mapping } = await import('/src/l10n/mapping.ts');
+		const { default: glossary } = await import('/src/l10n/generated/zh-TW/glossary.json');
+		const { default: ui } = await import('/src/l10n/generated/zh-TW/ui.json');
+		const books = [ core, orden, beastheartSourcebook, summonerSourcebook ];
+		const hero = FactoryLogic.createHero();
+		const candidates = new Map();
+		const seen = new WeakSet();
+		const visit = value => {
+			if (!value || typeof value !== 'object' || seen.has(value)) return;
+			seen.add(value);
+			if ([ FeatureType.LanguageChoice, FeatureType.SkillChoice ].includes(value.type)) candidates.set(value.id, value);
+			Object.values(value).forEach(visit);
+		};
+		[ ...books, CultureData.bespoke, hero.features[0] ].forEach(visit);
+		const get = key => {
+			const id = mapping[key]?.sheetId;
+			const entry = (key.startsWith('ui:') ? ui : glossary)[id];
+			const target = entry?.fs?.zh ?? entry?.zh;
+			if (!target) throw new Error(`Unapproved matrix translation: ${key}`);
+			return target;
+		};
+		const uiGet = id => get(`ui:ui.hero-builder.${id}`);
+		const group = list => uiGet('skill-list-description.f94c20ab').replace('{list}', get(`enum:SkillList:${list}`));
+		const skillPrompt = f => {
+			const parts = [ ...f.data.options.map(name => get(`skill:${name}`)),
+				...(f.data.listOptions.length === 5 ? [ uiGet('any-skill-list.7f7a6841') ] : f.data.listOptions.map(group)) ];
+			return uiGet(f.data.count === 1 ? 'skill-choice-description.9172d5a4' : 'skills-choice-description.1a7008a2')
+				.replace('{count}', String(f.data.count)).replace('{source}', parts.join(' / '));
+		};
+		const languageDescriptions = new Map([
+			[ 'Choose a  language.', uiGet('culture-language-description.ad467037') ],
+			[ 'Choose 2  languages.', uiGet('two-languages-description.0139e42b') ],
+			[ 'Choose a Common language.', uiGet('common-language-description.cc9ef9be') ]
+		]);
+		const records = [];
+		for (const source of candidates.values()) {
+			const rebuilt = source.type === FeatureType.SkillChoice
+				? FactoryLogic.feature.createSkillChoice({ id: source.id, name: 'Skill', options: [ ...source.data.options ], listOptions: [ ...source.data.listOptions ], count: source.data.count })
+				: FactoryLogic.feature.createLanguageChoice({ id: source.id, name: source.name || 'Language', options: [ ...source.data.options ], allowedTypes: [ ...source.data.allowedTypes ], count: source.data.count });
+			for (const [ path, feature ] of [ [ 'direct', source ], [ 'details', rebuilt ] ]) {
+				let title = feature.name;
+				let description = feature.description;
+				if (feature.type === FeatureType.LanguageChoice) {
+					const titles = { Language: 'language.996aaf3b', Languages: 'languages.318655ce', 'Default Language': 'default-language.28bee244' };
+					if (titles[title]) title = uiGet(titles[title]);
+					description = languageDescriptions.get(description) ?? description;
+				} else {
+					if (path === 'details' || description === rebuilt.description) description = skillPrompt(source);
+					if (title === 'Skill') title = uiGet('skill.a5ed2dcb');
+					else if (source.id === 'devil-feature-1b') title = uiGet('interpersonal-skill.3095ff6f');
+					else if (!source.data.options.length && source.data.listOptions.length < 5
+						&& title === `${source.data.listOptions.join(' / ')} ${source.data.count === 1 ? 'Skill' : 'Skills'}`) {
+						title = uiGet('skill-list-description.f94c20ab').replace('{list}', source.data.listOptions.map(list => get(`enum:SkillList:${list}`)).join(' / '));
+					}
+				}
+				records.push({ feature, sourceFeature: path === 'details' ? source : undefined, title, description, label: `${source.id}:${path}` });
+			}
+		}
+		const artisan = candidates.get('career-artisan-feature-2');
+		const sampleSkill = candidates.get('career-agent-feature-1');
+		for (const source of [ artisan, sampleSkill ]) {
+			const changedSource = { ...structuredClone(source), description: 'Changed original description.' };
+			records.push({ feature: source, sourceFeature: changedSource, title: source.name, description: source.description, label: `${source.id}:protected-original-source` });
+			const cases = [
+				{ ...structuredClone(source), id: `unknown-${source.id}` },
+				{ ...structuredClone(source), name: 'Custom title' },
+				{ ...structuredClone(source), description: 'Custom description.' },
+				{ ...structuredClone(source), data: { ...source.data, count: 99 } }
+			];
+			for (const feature of cases) {
+				records.push({ feature, title: feature.name, description: feature.description, label: `${source.id}:protected-direct` });
+				records.push({ feature, sourceFeature: source, title: feature.name, description: feature.description, label: `${source.id}:protected-projection` });
+			}
+		}
+		const homebrew = FactoryLogic.createSourcebook();
+		homebrew.type = 'Homebrew';
+		homebrew.careers = [ { ...FactoryLogic.createCareer(), features: [ FactoryLogic.feature.createLanguageChoice({ id: 'homebrew-language' }), FactoryLogic.feature.createSkillChoice({ id: 'homebrew-skill' }) ] } ];
+		books.push(homebrew);
+		for (const feature of homebrew.careers[0].features) records.push({ feature, sourceFeature: feature, title: feature.name, description: feature.description, label: 'protected-homebrew' });
+		const snapshot = JSON.stringify({ records, books, hero });
+		const changedHero = FactoryLogic.createHero();
+		changedHero.features = [ { ...structuredClone(artisan), description: 'Changed original language.' }, { ...structuredClone(sampleSkill), description: 'Changed original skill.' } ];
+		changedHero.features.forEach(feature => { feature.data.selected = []; });
+		const host = document.createElement('section');
+		host.id = 'choice-matrix';
+		document.body.append(host);
+		const root = (reactDom.createRoot ?? reactDom.default.createRoot)(host);
+		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
+			React.createElement(React.Fragment, null, ...records.map((record, index) => React.createElement(FeatureConfigPanel, {
+				key: index, feature: record.feature, detailsSourceFeature: record.sourceFeature, hero, sourcebooks: books,
+				setData: () => { throw new Error('Display mutated choice data'); }
+			})), React.createElement('section', { id: 'changed-details-source' }, React.createElement(HeroesContext, { value: [] }, React.createElement(DetailsSection, {
+				hero: changedHero, sourcebooks: books, setName: () => undefined, setPicture: () => undefined, setFolder: () => undefined,
+				setTutorialMode: () => undefined, setFeatureData: () => undefined, setExtensionIDs: () => undefined
+			}))))));
+		const plain = text => {
+			const div = document.createElement('div');
+			div.innerHTML = Utils.markdownToHtml(AbilityLogic.getTextEffect(text, hero));
+			return div.textContent.trim().replace(/\s+/g, ' ');
+		};
+		window.choiceMatrix = { root, checkUnchanged: () => snapshot === JSON.stringify({ records, books, hero }) };
+		return { count: candidates.size, languageCount: [ ...candidates.values() ].filter(f => f.type === FeatureType.LanguageChoice).length,
+			zh: records.map(r => ({ label: r.label, title: r.title, description: plain(r.description) })),
+			en: records.map(r => ({ label: r.label, title: r.feature.name, description: plain(r.feature.description) })) };
+	});
+	const assertMatrix = async (expected, language) => {
+		await abilityPage.waitForFunction(count => document.querySelectorAll('#choice-matrix > .feature-config-panel').length === count, expected.length);
+		await abilityPage.locator('#choice-matrix .header-text').first().getByText(expected[0].title, { exact: true }).waitFor();
+		const actual = await abilityPage.locator('#choice-matrix > .feature-config-panel').evaluateAll(panels => panels.map(panel => ({
+			title: panel.querySelector('.header-text').textContent.trim(),
+			description: panel.querySelector('.header-text-panel').nextElementSibling.textContent.trim().replace(/\s+/g, ' ')
+		})));
+		for (const [ index, record ] of expected.entries()) {
+			assert.deepEqual(actual[index], { title: record.title, description: record.description }, `${record.label}:${language}`);
+		}
+		assert.equal(await abilityPage.evaluate(() => window.choiceMatrix.checkUnchanged()), true, 'Choice source / selection / hero data unchanged');
+		await abilityPage.locator('#changed-details-source').getByText('Choose a  language.', { exact: true }).waitFor();
+		const skillExpander = abilityPage.locator('#changed-details-source .ant-collapse').nth(1);
+		if (await skillExpander.locator('.ant-collapse-header').getAttribute('aria-expanded') === 'false') await skillExpander.locator('.ant-collapse-header').click();
+		await abilityPage.locator('#changed-details-source').getByText('Choose a skill from any list.', { exact: true }).waitFor();
+		await abilityPage.locator('#changed-details-source').getByText('Language', { exact: true }).waitFor();
+		await abilityPage.locator('#changed-details-source').getByText('Skill', { exact: true }).waitFor();
+	};
+	await assertMatrix(matrix.zh, 'zh-TW');
+	await abilityPage.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
+	await assertMatrix(matrix.en, 'en');
+	await abilityPage.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
+	await assertMatrix(matrix.zh, 'zh-TW');
+	await abilityPage.evaluate(() => { window.choiceMatrix.root.unmount(); document.querySelector('#choice-matrix').remove(); });
+	console.log(`PASS browser: ${matrix.count} choices (${matrix.languageCount} language), direct + rebuilt DOM, 20 protected cases + changed-source DetailsSection, zh / en / zh, data unchanged`);
+	const careerHeroes = await readStoredHeroes(page);
+	const artisan = await page.evaluate(async () => (await import('/src/data/careers/artisan.ts')).artisan);
+	careerHeroes.find(hero => hero.id === state.heroes.fury.id).career = artisan;
+	await writeSeedState(page, { 'forgesteel-heroes': careerHeroes });
+	await page.reload();
+	await page.goto(`${origin}#/hero/edit/${state.heroes.fury.id}/career`);
+	const careerChoices = page.locator('.career-section .feature-config-panel');
+	await careerChoices.getByText('語言', { exact: true }).waitFor();
+	await careerChoices.getByText('選擇 1 種語言。', { exact: true }).waitFor();
+	await careerChoices.getByText('工藝類技能', { exact: true }).waitFor();
+	await careerChoices.getByText('Crafting Perk', { exact: true }).waitFor();
+	await careerChoices.getByText('This feature allows you to choose a perk.', { exact: true }).waitFor();
+	await page.goto(`${origin}#/hero/edit/${state.heroes.fury.id}/details`);
+	await page.locator('#details-main').getByText(uiText('ui.hero-builder.name.f7c27f51'), { exact: true }).waitFor();
+	await page.locator('#details-main').getByPlaceholder(uiText('ui.hero-builder.name.f7c27f51'), { exact: true }).waitFor();
+	await page.locator('.details-section .feature-config-panel').getByText('選擇 1 種語言。', { exact: true }).first().waitFor();
+	await page.locator('button').filter({ hasText: saveChangesText }).first().click();
+	await page.waitForURL('**/hero/view/**');
+	assert.deepEqual((await readStoredHeroes(page)).find(hero => hero.id === state.heroes.fury.id).career, artisan, 'Saved career retains original source text');
+	console.log('PASS browser: Artisan career route, Details Name and language, unapproved perk fallback, saved source unchanged');
 	assert.deepEqual(errors, [], 'Browser page errors');
 	await context.close();
 } finally {
