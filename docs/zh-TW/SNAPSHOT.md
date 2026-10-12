@@ -1,13 +1,22 @@
 # 快照更新
 
-網站與 CI 仍只讀倉庫快照。Codex 使用 Google Drive 連接器取得資料，再由離線腳本整合；不是獨立登入 Google 的終端機下載器。只在已核准批次使用，不自動核准文字、建立 mapping 或計算綁定。下列單來源流程是 Stage D 前的正式路徑；Stage C 雙來源工具只供隔離驗證，不得以 `--apply` 切換正式產物。
+網站與 CI 只讀倉庫快照。一般更新以 Google Drive 連接器同次擷取兩份 Master Sheet，由離線腳本整合；不使用終端機登入 Google。只匯入 APPROVED，不自動核准文字、建立 mapping 或計算綁定。正式更新路徑為雙來源流程；下方舊單來源程序只供依核准回復程序還原 D1，不得用於日常更新。
 
-## Stage C 雙來源契約
+## 正式雙來源契約
 
 - 書本 Sheet `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4` 只擷取 Glossary、Names 與 Strings A–O 書本欄位；網站 Sheet `1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw` 擷取 Forge Steel UI、Adaptations、Adaptation Sources。TM 留在書本 QA 工作流。
 - 各 Sheet 分別讀取前後 Drive 修改時間、驗證 Spreadsheet ID；任一讀取失敗、來源版本變更或欄位缺漏就丟棄兩份擷取。依標題投影；只將 APPROVED 與必要來源關聯送入離線整合，原始草稿不落盤。
-- `scripts/l10n/dual-sheet.mjs` 以 Adaptation ID 關聯有序來源，核對 Book APPROVED、Basis／Source List／英中 SHA-256、Usage Key 唯一性與動態 Note；兩個歷史空白 Usage Key 保留。雙來源快照額外含 `adaptations.csv`、`adaptation-sources.csv`；生成的 `adaptations.json` 以穩定 ID 保存多用途關聯，既有四份有效目錄結構不變。runtime／`mapping.ts` 尚未使用第二種 Adaptation 進行網站顯示。`source.json` 與生成 metadata 記錄兩份 Spreadsheet ID、修改時間及內容指紋。重讀快照須逐項重建且核對指紋。
-- `scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json>` 預設僅試跑；通過 staged 匯出與守門後才可套用。Stage D 授權及相關內容 PR 合併前，禁止 `--apply`。異常時保留原正式產物；可捕捉的寫入失敗依既有 `replaceFiles` 還原。
+- `scripts/l10n/dual-sheet.mjs` 以 Adaptation ID 關聯有序來源，核對 Book APPROVED、Basis／Source List／英中 SHA-256、Usage Key 唯一性與動態 Note；兩個歷史空白 Usage Key 保留。雙來源快照額外含 `adaptations.csv`、`adaptation-sources.csv`；生成的 `adaptations.json` 以穩定 ID 保存多用途關聯，既有四份有效目錄結構不變。現有 runtime／`mapping.ts` 對應維持不變；本切換只納入已核准且受既有 mapping 使用的網站用途。`source.json` 與生成 metadata 記錄兩份 Spreadsheet ID、修改時間及內容指紋。重讀快照須逐項重建且核對指紋。
+- `scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json>` 預設僅試跑。確認雙來源版本、指紋、核准清冊與預期檔案差異後，才可在隔離工作分支以 `--apply` 更新待審查檔案。工具會先在暫存目錄重建並執行守門；異常時不更新正式檔案，可捕捉的寫入失敗依 `replaceFiles` 還原。
+
+## 一次擷取與正式匯出
+
+1. 讀取並核對兩份 Sheet metadata：書本 Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4` 的 Glossary、Names、Strings 書本正典欄位；Forge Steel Master `1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw` 的 Forge Steel UI、Adaptations、Adaptation Sources。欄位依標題辨識，不依實體列號。
+2. 各來源分別記錄讀取前／後 `modifiedTime`；任何讀取錯誤、截斷、Spreadsheet ID 不符、欄位缺漏或前後時間不同，丟棄整次擷取並停止。重新擷取不可沿用另一輪的分頁資料。
+3. 對完整範圍核對唯一 ID、Status、核准與來源關聯，計算本輪內容指紋。只將必要欄位、APPROVED 資料及其來源關聯寫入暫存輸入；草稿、私有筆記及不需匯出的欄位不落盤。保留來源文字、空白、換行和 Calculation Display Note 原值。
+4. 在隔離工作分支執行 `node scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json>` dry-run。檢查四份 CSV、生成目錄、Adaptations、Source 關聯、metadata 和所有檔案雜湊；未預期的有效目錄差異、核准 Hash 不符或檢查失敗即停止。
+5. 僅在 dry-run 和 staged 守門通過後執行相同命令加 `--apply`。接著執行 `node scripts/l10n/export-sheet.mjs --check`、`node scripts/l10n/check.mjs` 及 RULES 指定的完整隔離驗證；PR 需保留雙來源 metadata 與指紋供審查。
+6. 檢視完整 Git diff，確認沒有草稿、私有筆記、譯文／Hash／mapping／runtime 的非授權變更，並移除暫存擷取檔。來源時間或內容在套用前再次改變時，停止並從步驟 1 重新開始。
 
 ## 狀態與結案寫入
 
@@ -18,7 +27,10 @@
 - 寫入後逐一回讀變更範圍，確認 ID 唯一、欄位正確、日期與數字對應本批最新證據，且鄰接歷史列未變。失敗或遭自動審查拒絕時先查明原因；不改用其他介面繞過拒絕。
 - 狀態寫入不代表重新擷取核准譯文；未改翻譯資產時不刷新快照，不修改既有 APPROVED、計數或書本 BATCH-006 的進度。
 
-## 同次取得
+## 舊單來源流程（僅回復 D1 快照）
+
+> 此流程讀取舊 Master Sheet 的 Forge Steel 欄位，僅用於依 Reviewer 核准的 Git 回復程序重建 D1 快照。不得作一般快照更新，也不得把舊 Forge Steel UI 或 Strings P–V 當成目前網站來源。
+
 
 1. 依 README 先讀 Project State、Status、Changelog，再讀 Sheet metadata，確認 ID、實際分頁與資料範圍。Master Sheet ID 為 `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`。
 2. 載入 `scripts/l10n/sheet-capture.mjs` 的 `captureSheet(readMetadata, readTab)`。此模組無 Node 相依，可在連接器執行環境使用；不要手動重寫投影或句型。
@@ -65,7 +77,7 @@ await tools.apply_patch('*** Begin Patch\n*** Add File: .l10n-approved-capture.j
   + body.split('\n').join('\n+') + '\n*** End Patch');
 ```
 
-## 離線整合與檢查
+## 舊單來源離線整合（僅回復 D1 快照）
 
 ```powershell
 node scripts/l10n/refresh-sheet.mjs --input .l10n-approved-capture.json

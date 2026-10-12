@@ -159,7 +159,7 @@ describe('approved calculation display export', () => {
 		[ 'unknown target', { target: 'not present in the approved Chinese' } ],
 		[ 'duplicated value', { template: '{value} {value}' } ],
 		[ 'unknown placeholder', { template: '{unknown}' } ]
-	])('refuses %s metadata before generating a catalog', (_name, changes) => {
+	])('rejects tampering with %s metadata in the dual snapshot', (_name, changes) => {
 		const root = scratch();
 		const snapshot = path.join(root, 'snapshot');
 		cpSync(path.join(repoRoot, 'l10n/sheet-snapshot'), snapshot, { recursive: true });
@@ -173,7 +173,7 @@ describe('approved calculation display export', () => {
 		writeFileSync(file, JSON.stringify(notes));
 		const result = spawnSync(process.execPath, [ path.join(repoRoot, 'scripts/l10n/export-sheet.mjs'), '--snapshot', snapshot, '--out', path.join(root, 'out') ], { encoding: 'utf8' });
 		expect(result.status).toBe(1);
-		expect(result.stderr).toContain('expected an APPROVED');
+		expect(result.stderr).toContain('calculation-displays.json: dual snapshot differs');
 	});
 });
 

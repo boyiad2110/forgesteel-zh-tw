@@ -1,0 +1,1766 @@
+{
+  "fs-adapt:heroes.actions.catch-breath.rules": {
+    "bookStringId": "heroes.actions.catch-breath.rules",
+    "usageKey": "section:catch-breath:0",
+    "en": "A creature who uses the Catch Breath maneuver spends a Recovery and regains Stamina equal to their recovery value.\n\nA creature who is dying can’t use the Catch Breath maneuver, but other creatures can help them spend Recoveries in other ways.",
+    "zh": "若你使用喘息機動動作，你會花費 1 點復元力，並恢復等於復元值的體力。\n\n瀕死的生物無法使用喘息機動動作，但其他生物可以用其他方式協助他們花費復元力。",
+    "basisHash": "3fb14e4ecef0dbcdd51d01b3fbcc2ba3c19aee74306c19aa8407a5e4d365d7eb",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.catch-breath.rules",
+        "enHash": "1c0b2977e520a816e40c49a83a55654f74a8b985e74de3a0832ec29713a1eef3",
+        "zhHash": "3fb14e4ecef0dbcdd51d01b3fbcc2ba3c19aee74306c19aa8407a5e4d365d7eb"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.charge.rules": {
+    "bookStringId": "heroes.actions.charge.rules",
+    "usageKey": "section:charge:0",
+    "en": "When a creature takes the Charge main action, they move up to their speed in a straight line, then make a melee free strike against a target when they end their move. If the creature has an ability with the Charge keyword, they can use that ability against the target instead of a free strike.\n\nA creature can’t move through difficult terrain or shift when they charge. They can fly or burrow as part of the Charge main action if they have that movement available to them, but they can’t climb or swim while charging unless they can automatically use that movement at full speed.",
+    "zh": "當你執行衝鋒主要動作時，你會以直線方式移動最多等於自身速度的距離，然後在移動結束時對 1 個目標發動 1 次近戰基礎打擊。若你擁有帶有「衝鋒」關鍵詞的招式，你也可以發動該招式來取代基礎打擊。\n\n你在衝鋒期間無法穿越困難地形或進行遁移。若你擁有相應的移動能力，你可以在衝鋒期間飛行或掘地，但在衝鋒期間無法攀爬或游泳，除非你能夠自動以全速進行這類移動。",
+    "basisHash": "36e5b5e7ae3d74b7c95d813ea96c58a43636d0e8d2989002253fa3770d5d914f",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.charge.rules",
+        "enHash": "5fe7547e30afe029be6c7cbb706b1bf5ee4e31b27b96e02bf5d77f650627f2b7",
+        "zhHash": "36e5b5e7ae3d74b7c95d813ea96c58a43636d0e8d2989002253fa3770d5d914f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.defend.rules": {
+    "bookStringId": "heroes.actions.defend.rules",
+    "usageKey": "section:defend:0",
+    "en": "When a creature takes the Defend main action, ability rolls made against them have a double bane until the start of their next turn. Additionally, you have a double edge on tests when called for to resist environmental effects or a creature’s traits or abilities. A creature gains no benefit from this action while another creature is taunted by them.",
+    "zh": "若你執行防禦主要動作，針對你進行的所有招式檢定都會承受雙劣勢，直到你下個回合開始。此外，若你被要求進行考驗來抵抗環境效果、生物的特性或招式，你的考驗會獲得雙優勢。若有其他生物正被你嘲諷，你無法從此動作中獲得任何好處。",
+    "basisHash": "972638f75ab55b7f99d4f72b1e1fa036c9c3cdf1dc9fab59c48afeefd03fec10",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.defend.rules",
+        "enHash": "01e2693b81853d45ab870f48b2f2e89ac6fc992ae0a03eaa9139b6501c76f2bd",
+        "zhHash": "972638f75ab55b7f99d4f72b1e1fa036c9c3cdf1dc9fab59c48afeefd03fec10"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.escape-grab.rules": {
+    "bookStringId": "heroes.actions.escape-grab.rules",
+    "usageKey": "section:escape-grab:2",
+    "en": "You take a bane on this maneuver if your size is smaller than the size of the creature, object, or effect that has you grabbed.",
+    "zh": "若擒抱你的生物、物體或效果的體型 > 你的體型，你進行此招式會承受 1 個劣勢。",
+    "basisHash": "482f1c7035dcc7829c1cd66d9e9e057a9e2c134e0eba771c3e897efb69efd076",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.escape-grab.rules",
+        "enHash": "5075bcefd461a4ab4220b010670002aab584433a66a28ae6df83e1b1290c3ee7",
+        "zhHash": "482f1c7035dcc7829c1cd66d9e9e057a9e2c134e0eba771c3e897efb69efd076"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.free-strike.rules": {
+    "bookStringId": "heroes.actions.free-strike.rules",
+    "usageKey": "section:free-strike:0",
+    "en": "A creature can use this main action to make a free strike.",
+    "zh": "你可以使用此主要動作來發動 1 次基礎打擊。",
+    "basisHash": "64087c51d1bea36490cca8829ff59ae7611b784b732c2a1ba0232b4b9fdd5fb0",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.free-strike.rules",
+        "enHash": "757a3491c18d8bfb8b5eff8cac6f451e6a540d78e39a1faad2c792d4636dd871",
+        "zhHash": "64087c51d1bea36490cca8829ff59ae7611b784b732c2a1ba0232b4b9fdd5fb0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.grab.rules": {
+    "bookStringId": "heroes.actions.grab.rules",
+    "usageKey": "section:grab:2",
+    "en": "You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
+    "zh": "你通常只能擒抱體型 ≦ 你的生物。若你的力量為 2 以上，則可以擒抱體型 ≦ 你力量的生物。",
+    "basisHash": "5f4377eae7766310706ba0d8a5b915638006d2360540d2f9d6e0d9c696d7dab5",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.grab.rules",
+        "enHash": "8ce6a6dbf1d5e88c481b5e7de8b84f08e4140ba3befcb5bac1af442a53906983",
+        "zhHash": "5f4377eae7766310706ba0d8a5b915638006d2360540d2f9d6e0d9c696d7dab5"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.hide.rules": {
+    "bookStringId": "heroes.actions.hide.rules",
+    "usageKey": "section:hide:0",
+    "en": "Using the Hide maneuver, a creature attempts to hide from other creatures who aren’t observing them while they have cover or concealment.",
+    "zh": "若你具有掩護或遮蔽，你可以使用躲藏機動動作，嘗試躲避沒有觀察到你的其他生物。",
+    "basisHash": "8babd7b7fd7ca95670c2a3fa98c416f3c7ddbec0ee578ab9407348c96010962d",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.hide.rules",
+        "enHash": "52873b854b96e3b1b1f20f47e3a7a191e091535a6f8df6ab86817cd7d0f83ad2",
+        "zhHash": "8babd7b7fd7ca95670c2a3fa98c416f3c7ddbec0ee578ab9407348c96010962d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.knockback.rules": {
+    "bookStringId": "heroes.actions.knockback.rules",
+    "usageKey": "section:knockback:2",
+    "en": "You can usually target only creatures of your size or smaller. If your Might score is 2 or higher, you can target any creature with a size equal to or less than your Might score.",
+    "zh": "你通常只能擊退體型 ≦ 你的生物。若你的力量為 2 以上，則可以擊退體型 ≦ 你力量的生物。",
+    "basisHash": "cd8cd4548276259d72fac6e0bfb0d56d8bd66c295261872dcea3487bafafc719",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.knockback.rules",
+        "enHash": "51f4ad5d399aadfbbd033ae8171fd34e4fb7d81c8be37a8a043f0fc43d3ae10b",
+        "zhHash": "cd8cd4548276259d72fac6e0bfb0d56d8bd66c295261872dcea3487bafafc719"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.make-or-assist-test.rules": {
+    "bookStringId": "heroes.actions.make-or-assist-test.rules",
+    "usageKey": "section:make-assist-test:0",
+    "en": "Many tests are maneuvers if made in combat. Searching a chest with a Reason test, picking a door’s lock with an Agility test, or lifting a portcullis with a Might test would all be maneuvers. Assisting a test is also a maneuver in combat.\n\nComplex or time-consuming tests might require a main action if made in combat—or could take so long that they can’t be made during combat at all. Other tests that take no time at all, such as a Reason test to recall lore about mummies, are usually free maneuvers in combat. The Director has the final say regarding which tests can be made as maneuvers.",
+    "zh": "在戰鬥中，許多考驗都屬於機動動作。例如用理智考驗來搜索寶箱、用敏捷考驗來打開門鎖，或用力量考驗來抬起閘門等，都算是機動動作。在戰鬥中協助他人進行考驗同樣也是機動動作。\n\n在戰鬥中，較複雜或耗時的考驗可能需要使用主要動作來執行，甚至可能耗時太久而根本無法在戰鬥中完成。另一方面，幾乎不花時間的考驗通常屬於免費機動動作（例如用理智考驗來回想木乃伊的相關知識）。哪些考驗可以作為機動動作進行，最終由導演決定。",
+    "basisHash": "6c93a9bfc18ff0752d25dbf45a97c008f7514ade0db9e57e14544d7f9c88612e",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.make-or-assist-test.rules",
+        "enHash": "2fd36983677f59a3d160ef6c05cd7e966eb58d878adf8b9db2941754090a26dd",
+        "zhHash": "6c93a9bfc18ff0752d25dbf45a97c008f7514ade0db9e57e14544d7f9c88612e"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.ride.rules": {
+    "bookStringId": "heroes.actions.ride.rules",
+    "usageKey": "section:ride:0",
+    "en": "A creature can take the Ride move action only while mounted on another creature. When a creature takes the Ride move action, they cause their mount to move up to the mount’s speed, taking the rider with them. Alternatively, a creature can use the Ride move action to have their mount use the Disengage move action as a free triggered action. A creature can use the Ride move action only once per round. A mounted creature can only have this move action applied to them once per round. This movement can be broken with the rider’s maneuver and main action however they wish.",
+    "zh": "你必須騎乘在其他生物身上才能使用騎乘移動動作。當你使用騎乘移動動作時，坐騎可以載你移動最多等於坐騎速度的格數。或者，你也可以使用騎乘移動動作，讓坐騎以免費反應動作執行撤離移動動作。你每輪只能使用 1 次騎乘移動動作，而坐騎每輪也只能被施加此移動動作 1 次。你可以隨意將這段騎乘拆分到其他機動動作和主要動作之間。",
+    "basisHash": "459688f6098e9175a35c8cb6923013f496047fd965585dbc7b86b0ebc7c34360",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.ride.rules",
+        "enHash": "91e2ab457cd8a836bffc8b0d5836d669b822ba941a40d453b3925fd43b25ec2e",
+        "zhHash": "459688f6098e9175a35c8cb6923013f496047fd965585dbc7b86b0ebc7c34360"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.search-for-hidden-creatures.rules": {
+    "bookStringId": "heroes.actions.search-for-hidden-creatures.rules",
+    "usageKey": "section:search:0",
+    "en": "The Search for Hidden Creatures maneuver allows a creature to attempt to locate creatures hidden from them.",
+    "zh": "你可以使用搜索隱藏生物機動動作來嘗試尋找對你隱藏的生物。",
+    "basisHash": "b9d4c0d4556c3fd35cdea41e45a6ed823f04c8eee7c80dfbdcd289e940bd9f7f",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.search-for-hidden-creatures.rules",
+        "enHash": "81e94fa28ce1f02837f89ced1a3e40979671f3d0504181a14274e3c7f5a92b1d",
+        "zhHash": "b9d4c0d4556c3fd35cdea41e45a6ed823f04c8eee7c80dfbdcd289e940bd9f7f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.actions.use-consumable.rules": {
+    "bookStringId": "heroes.actions.use-consumable.rules",
+    "usageKey": "section:use-consumable:0",
+    "en": "Unless otherwise noted in its description, a creature can activate a consumable treasure such as a potion with the Use Consumable maneuver. A creature can use this maneuver to administer a consumable treasure that benefits the user either to themself or to a willing adjacent creature.",
+    "zh": "除非另有說明，否則你可以透過使用消耗品機動動作來啟動消耗品（例如藥水）。若某件消耗品能讓使用者受益，你可以使用此機動動作將該消耗品使用在自己身上，或是使用在相鄰且自願的生物身上。",
+    "basisHash": "670988e71bbf79efda88e19b6cd9ded851f6e88065f4f03d4b34ca68ec3c45f1",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.actions.use-consumable.rules",
+        "enHash": "687e2ae521db43ad9bb720f62ab6721b458190ca3c621a99b5ea376fdd3b7705",
+        "zhHash": "670988e71bbf79efda88e19b6cd9ded851f6e88065f4f03d4b34ca68ec3c45f1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.devil.trait.beast-legs.effect": {
+    "bookStringId": "heroes.ancestries.devil.trait.beast-legs.effect",
+    "usageKey": "element:devil-feature-2-2:description",
+    "en": "Your powerful legs improve your speed. Your Speed is 6.",
+    "zh": "你強壯的雙腿能讓你跑得更快。你的速度為 6。",
+    "basisHash": "27209c660201722dd99daf55dd39009c5bfd1d65da0bb9d14cb65a377535e351",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.devil.trait.beast-legs.effect",
+        "enHash": "692aafb4f01b976db9ca6c272b1ecf0d61062dc4f5d639d9779c78ad92b93264",
+        "zhHash": "27209c660201722dd99daf55dd39009c5bfd1d65da0bb9d14cb65a377535e351"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.devil.trait.glowing-eyes.effect": {
+    "bookStringId": "heroes.ancestries.devil.trait.glowing-eyes.effect",
+    "usageKey": "section:devil-feature-2-3:0",
+    "en": "Whenever you take damage from a creature, you can use a triggered action to deal that creature psychic damage equal to 1d10 + your level.",
+    "zh": "每當你受到生物造成的傷害時，你可以使用反應動作，對該生物造成等於 1d10 + 你等級的心靈傷害。",
+    "basisHash": "a43b87697d70cf84f72255ca1e91805dbbbbaae6c3486b604ec7cd0cd7351f1f",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.devil.trait.glowing-eyes.effect",
+        "enHash": "25b29fab4ae0847f655295ee042ac4dc18f7d39d0ca6defffebe620677d0d4b5",
+        "zhHash": "a43b87697d70cf84f72255ca1e91805dbbbbaae6c3486b604ec7cd0cd7351f1f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.devil.trait.impressive-horns.effect": {
+    "bookStringId": "heroes.ancestries.devil.trait.impressive-horns.effect",
+    "usageKey": "element:devil-feature-2-5:description",
+    "en": "Your cherished horns are larger than your average devil’s, and a hardened representation of your force of will. Whenever you make a saving throw, you succeed on a roll of 5 or higher.",
+    "zh": "你珍愛的雙角比一般魔鬼的更大，是你堅定意志力的象徵。每當你進行豁免時，擲出 5 以上就算成功。",
+    "basisHash": "88f47c32a9f71c325c63cbe18b66501ebc09424bab33e3394ed76e52a8449e9d",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.devil.trait.impressive-horns.effect",
+        "enHash": "9110a53ed9d27beffebd5f8f656dc9e5f521362e15ad1911a0f6eee09bd7dbca",
+        "zhHash": "88f47c32a9f71c325c63cbe18b66501ebc09424bab33e3394ed76e52a8449e9d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.signature.wyrmplate.effect": {
+    "bookStringId": "heroes.ancestries.dragon-knight.signature.wyrmplate.effect",
+    "usageKey": "element:dragon-knight-feature-1:description",
+    "en": "Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.",
+    "zh": "你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。",
+    "basisHash": "9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7",
+    "updated": "2026-10-10",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.signature.wyrmplate.effect",
+        "enHash": "46e17c572bd924387c721ce77f06451eb3ed4cce3a8cb8fca923bc0af183cb27",
+        "zhHash": "9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.draconian-pride.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.draconian-pride.name",
+    "usageKey": "element:dragon-knight-feature-2-9:name",
+    "en": "Draconic Pride",
+    "zh": "龍人霸氣",
+    "basisHash": "4c4d821cacbe03f7058b076dde6619a907956e6670895b77c3060291084117d2",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.draconian-pride.name",
+        "enHash": "f654b9db4896b36488c209fd9ab413c8b32cc91687b70bf01f604ef834f447ae",
+        "zhHash": "4c4d821cacbe03f7058b076dde6619a907956e6670895b77c3060291084117d2"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name",
+    "usageKey": "element:dragon-knight-feature-2-2:name",
+    "en": "Prismatic Scales (acid)",
+    "zh": "虹彩鱗片（酸蝕）",
+    "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+    "updated": "2026-10-08",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.acid.name",
+        "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+        "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name",
+    "usageKey": "element:dragon-knight-feature-2-3:name",
+    "en": "Prismatic Scales (cold)",
+    "zh": "虹彩鱗片（寒冷）",
+    "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+    "updated": "2026-10-08",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.cold.name",
+        "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+        "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name",
+    "usageKey": "element:dragon-knight-feature-2-4:name",
+    "en": "Prismatic Scales (corruption)",
+    "zh": "虹彩鱗片（腐朽）",
+    "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+    "updated": "2026-10-08",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name",
+        "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+        "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name",
+    "usageKey": "element:dragon-knight-feature-2-5:name",
+    "en": "Prismatic Scales (fire)",
+    "zh": "虹彩鱗片（火焰）",
+    "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+    "updated": "2026-10-08",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name",
+        "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+        "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name",
+    "usageKey": "element:dragon-knight-feature-2-6:name",
+    "en": "Prismatic Scales (lightning)",
+    "zh": "虹彩鱗片（閃電）",
+    "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+    "updated": "2026-10-08",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name",
+        "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+        "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name",
+    "usageKey": "element:dragon-knight-feature-2-7:name",
+    "en": "Prismatic Scales (poison)",
+    "zh": "虹彩鱗片（毒素）",
+    "basisHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0",
+    "updated": "2026-10-08",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name",
+        "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
+        "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.remember-your-oath.name": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.name",
+    "usageKey": "element:dragon-knight-feature-2-8:name",
+    "en": "Remember your Oath",
+    "zh": "銘記誓言",
+    "basisHash": "fe225223d1bcbcdf9cb261d6852694e2c1cc9f3ab1658f7fb0a730c626ad1b0e",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.name",
+        "enHash": "43354ab8a0f8e29e704fd879b2fd2819a4765d6ad7755f822bf57feee70ac0f8",
+        "zhHash": "fe225223d1bcbcdf9cb261d6852694e2c1cc9f3ab1658f7fb0a730c626ad1b0e"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.wings.effect": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.wings.effect",
+    "usageKey": "element:dragon-knight-feature-2-11a:description",
+    "en": "You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might (minimum of 1 round) before you fall prone. While using your wings to fly at 1st, 2nd, and 3rd level, you have damage weakness 5.",
+    "zh": "你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。",
+    "basisHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.wings.effect",
+        "enHash": "b1900157cc417e97d24fb4cfdafe31fa9fa831061f0c405da490fc099d15a0ba",
+        "zhHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dwarf.signature.runic-carving.intro": {
+    "bookStringId": "heroes.ancestries.dwarf.signature.runic-carving.intro",
+    "usageKey": "element:dwarf-feature-1:description",
+    "en": "You can carve a rune onto your skin with 10 uninterrupted minutes of work, which is activated by the magic within your body. The rune you carve determines the benefit you receive.\n\nYou can have one rune active at a time, and can change or remove a rune with 10 uninterrupted minutes of work.",
+    "zh": "你可以花費不間斷的 10 分鐘在皮膚上銘刻符文，這些符文會透過你體內的魔力啟動。你銘刻的符文類型會決定你獲得的效果。\n\n你同時只能啟動 1 種符文。更改或移除符文都需要不間斷的 10 分鐘。",
+    "basisHash": "67342c0deeb5d75683750d30f0affa30e6527ca2f9534f12b1034037c315bcfe",
+    "updated": "2026-10-08",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dwarf.signature.runic-carving.intro",
+        "enHash": "9bd4c0f4b1c61d696f7e1ce6c813e16051ce472ee53838bf6a31e9eb7bd91760",
+        "zhHash": "67342c0deeb5d75683750d30f0affa30e6527ca2f9534f12b1034037c315bcfe"
+      },
+      {
+        "order": 2,
+        "sourceId": "heroes.ancestries.dwarf.signature.runic-carving.limit",
+        "enHash": "b13e65a349a087dcfeb140f826cfa034c6b82a54dc50fe13a6000b91b397d431",
+        "zhHash": "343d5c1d7709593f325c3066516297983a9c8cb5c7040842fed2ffbde87dac5b"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dwarf.signature.runic-carving.light.effect": {
+    "bookStringId": "heroes.ancestries.dwarf.signature.runic-carving.light.effect",
+    "usageKey": "element:dwarf-feature-1b:description",
+    "en": "Your skin sheds light for 10 squares. You can turn this on and off as a maneuver.",
+    "zh": "你的皮膚會發出照亮 10 格範圍的光芒。你可以使用機動動作開啟或關閉這道光芒。",
+    "basisHash": "e1db4c8393bafa9c06b6422a262af71b6b72a6b939322df28f094b53a767de31",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dwarf.signature.runic-carving.light.effect",
+        "enHash": "506de3afb51e94f5403a73d75fcc24339b3c072a388f5f1808285c70a5132e39",
+        "zhHash": "e1db4c8393bafa9c06b6422a262af71b6b72a6b939322df28f094b53a767de31"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dwarf.trait.great-fortitude.effect": {
+    "bookStringId": "heroes.ancestries.dwarf.trait.great-fortitude.effect",
+    "usageKey": "element:dwarf-feature-2-4:description",
+    "en": "Your hearty constitution prevents you from losing strength.",
+    "zh": "你強健的體魄讓你不會失去力量。",
+    "basisHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dwarf.trait.great-fortitude.effect",
+        "enHash": "16166558a756d85076fa24580b2a392da4a95aa50321eea4c9e348163f18345e",
+        "zhHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dwarf.trait.grounded.effect": {
+    "bookStringId": "heroes.ancestries.dwarf.trait.grounded.effect",
+    "usageKey": "element:dwarf-feature-2-1:description",
+    "en": "Your heavy stone body and connection to the earth make it difficult for others to move you.",
+    "zh": "你岩石般的厚重身軀與大地緊密相連，讓他人難以移動你。",
+    "basisHash": "50e08e2287d53a055c6885fed0799e5122d8a292dbf0aaebbd28bfb11d462da7",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dwarf.trait.grounded.effect",
+        "enHash": "309fc95de90315df1ec3d9c6513848c49282b0ca59a6f61a616f05ae10adfcbe",
+        "zhHash": "50e08e2287d53a055c6885fed0799e5122d8a292dbf0aaebbd28bfb11d462da7"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dwarf.trait.spark-off-your-skin.effect": {
+    "bookStringId": "heroes.ancestries.dwarf.trait.spark-off-your-skin.effect",
+    "usageKey": "element:dwarf-feature-2-5:description",
+    "en": "Your stone skin affords you potent protection.",
+    "zh": "你的石質皮膚能為你提供強大的防護。",
+    "basisHash": "1fd76faefbed8c237ec976049885a12abc2116ddc90e914850602a566a371cd1",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dwarf.trait.spark-off-your-skin.effect",
+        "enHash": "ca32bf1fac6b6f8590e114350d96cae3b05a9f48c5cfdf907fa5bfe722ffe7d0",
+        "zhHash": "1fd76faefbed8c237ec976049885a12abc2116ddc90e914850602a566a371cd1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dwarf.trait.stand-tough.effect": {
+    "bookStringId": "heroes.ancestries.dwarf.trait.stand-tough.effect",
+    "usageKey": "element:dwarf-feature-2-2:description",
+    "en": "Your body is made to withstand the blows of your enemies.",
+    "zh": "你的身軀天生能承受敵人的猛烈攻擊。",
+    "basisHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dwarf.trait.stand-tough.effect",
+        "enHash": "d60a36a8c247b94d043eed75ba34a02e3b772bdf82f1cfc197e7ed4c42409533",
+        "zhHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dwarf.trait.stone-singer.effect": {
+    "bookStringId": "heroes.ancestries.dwarf.trait.stone-singer.effect",
+    "usageKey": "element:dwarf-feature-2-3:description",
+    "en": "You have a magic connection to the earth. When you spend 1 uninterrupted hour singing, you can reshape any unworked mundane stone within 3 squares. You can’t destroy this stone, but you can move each square of it anywhere within 3 squares of you, piling it off to one side to dig a hole or building it up to create a wall.",
+    "zh": "你與大地有著魔法的連結。若你花費 1 小時不間斷地歌唱，你可以重塑 3 格內任何未加工的尋常石材。你無法摧毀這些石材，但可以將每 1 格的石材移動到 3 格內的任意位置。例如將岩石搬到旁邊來挖出坑洞，或堆疊起來建造牆壁。",
+    "basisHash": "c35d469ffc570f9c1ef0a7512da8c8436a2c86465a9a1de2fd36816981fd5851",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dwarf.trait.stone-singer.effect",
+        "enHash": "ac621e36ea631f94b0de8bc7507772356e05acf9ce83a0f14e69c034d687710d",
+        "zhHash": "c35d469ffc570f9c1ef0a7512da8c8436a2c86465a9a1de2fd36816981fd5851"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.hakaan.description.1": {
+    "bookStringId": "heroes.ancestries.hakaan.description.1",
+    "usageKey": "",
+    "en": "In spite of their friendly, outgoing nature, the rare presence of a hakaan in human society is considered a harbinger - an omen of dark times. Descended from a tribe of giants in upper Vanigar, the original Haka’an tribe made a bargain with Holkatja the Vanigar trickster god. They traded some of their gigantic size and strength for the ability to see the future.",
+    "zh": "儘管哈肯人天性友善外向，但只要他們罕見地出現在人類社會中，都會被視為黑暗的預兆。哈肯人源自北方華尼伽的巨人部落，最早的哈肯人部落與華尼伽的詭計之神霍卡提雅達成交易，用部分體型和力量換取了預見未來的能力。",
+    "basisHash": "c180600ef4d6f8e7ae1ef69c5d6f9973a3370058af94a1b96457b0caac6802e5",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.hakaan.description.1",
+        "enHash": "32f67ddcc24a822272fb6433e4d22429945105815b3f8e1389eda08ed53a2c1d",
+        "zhHash": "c180600ef4d6f8e7ae1ef69c5d6f9973a3370058af94a1b96457b0caac6802e5"
+      },
+      {
+        "order": 2,
+        "sourceId": "heroes.ancestries.hakaan.description.2",
+        "enHash": "c01a93fe766fe00c8c2ea465917dbeca64921b6569f88d5be73f75e84222c587",
+        "zhHash": "70f222fc3a15b6cace4cd16875c8a1c07e924400c0081fd1eeb36481c3ece73c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.hakaan.trait.doomsight.effect.1": {
+    "bookStringId": "heroes.ancestries.hakaan.trait.doomsight.effect.1",
+    "usageKey": "",
+    "en": "Working with your Director, you can predetermine an encounter in which you will die. When that encounter begins, you become doomed. While doomed, you automatically obtain a tier 3 outcome on tests and ability rolls, and you don’t die no matter how low your Stamina falls. You then die immediately at the end of the encounter, and can’t be returned to life by any means.\n\nIf you don’t predetermine your death encounter, you can choose to become doomed while you are dying with the Director’s approval (no action required). Doing so should be reserved for encounters in which you are dying as a result of suitable heroism, such as making a last stand against a boss or saving civilians, or when the consequences of your actions have finally caught up to you — not because you’re playing a one-shot and have nothing to lose, Hacaarl.\n\nAdditionally, when your Stamina reaches the negative of your winded value and you are not doomed, you turn to rubble instead of experiencing death. You are unaware of your surroundings in this state, and you can’t regain Stamina or have this effect undone in any way. After 12 hours, you regain Stamina equal to your Recovery value.",
+    "zh": "與你的導演合作，你可以預先決定哪場遭遇你將會死亡。當該遭遇開始時，你會進入「命定」狀態。處於命定狀態時，你進行的任何考驗和招式檢定都會自動獲得 T3 結果，而且無論你的體力降到多低都不會死亡。然而，你會在遭遇結束時立刻死亡，而且無法透過任何方式復活。\n\n若你沒有預先決定死亡遭遇，你也可以在陷入瀕死時進入命定狀態（無需動作，但需經導演同意）。這種選擇應該保留給因為英勇行為而瀕死的情況，例如與首領殊死一戰、拯救平民，或因為先前的行為而遭遇相應的後果，而不是單純因為你只玩一場冒險而沒有顧忌。\n\n此外，若你的體力降至疲態值的負數，但未處於命定狀態，你會變成碎石，而非死亡。在這種情況下，你無法感知周圍環境，也無法以任何方式恢復體力或復原。在 12 小時後，你會恢復等於你復元值的體力。",
+    "basisHash": "64bf8c7bd5a06ae11706fbc33f10db745b1bb8b133a5e647580c7cb506e159e2",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.hakaan.trait.doomsight.effect.1",
+        "enHash": "967f3d54f99ab1023b46e451cceacdc7d860505a565984fbdb30f46d0feb640a",
+        "zhHash": "64bf8c7bd5a06ae11706fbc33f10db745b1bb8b133a5e647580c7cb506e159e2"
+      },
+      {
+        "order": 2,
+        "sourceId": "heroes.ancestries.hakaan.trait.doomsight.effect.2",
+        "enHash": "74a2fe34a78da9c8a6439cb1b5c143c43b3d0b436ddccb66186c227e6625e5c0",
+        "zhHash": "b6ea2ec2f2ffceda42d567516b1aadcd17b90c86021f6edb1723020152ca2090"
+      },
+      {
+        "order": 3,
+        "sourceId": "heroes.ancestries.hakaan.trait.doomsight.effect.3",
+        "enHash": "fbf89516924f8d774f2e80ba5a8badfc7f406a0b6d3f20750afcb76735e1aaa9",
+        "zhHash": "78fc3aef9b44d6fbd12107dbdc920b7378bfa22551786b7f1482efda5b31ba1a"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.hakaan.trait.great-fortitude.effect": {
+    "bookStringId": "heroes.ancestries.hakaan.trait.great-fortitude.effect",
+    "usageKey": "element:hakaan-feature-2-4:description",
+    "en": "Your hearty constitution prevents you from losing strength.",
+    "zh": "你強健的體魄讓你不會失去力量。",
+    "basisHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.hakaan.trait.great-fortitude.effect",
+        "enHash": "16166558a756d85076fa24580b2a392da4a95aa50321eea4c9e348163f18345e",
+        "zhHash": "486ff4fa1eb9ecba72b68b188583c954531f3bdb718b91ae5c447c4384fabc97"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.hakaan.trait.stand-tough.effect": {
+    "bookStringId": "heroes.ancestries.hakaan.trait.stand-tough.effect",
+    "usageKey": "element:hakaan-feature-2-3:description",
+    "en": "Your body is made to withstand the blows of your enemies.",
+    "zh": "你的身軀天生能承受敵人的猛烈攻擊。",
+    "basisHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.hakaan.trait.stand-tough.effect",
+        "enHash": "d60a36a8c247b94d043eed75ba34a02e3b772bdf82f1cfc197e7ed4c42409533",
+        "zhHash": "30773e20070c9b63960b62aaf0bffbafe9b8c981301b495fedee2594abb1cc8d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.high-elf.name": {
+    "bookStringId": "heroes.ancestries.high-elf.name",
+    "usageKey": "element:ancestry-high-elf:name",
+    "en": "Elf (high)",
+    "zh": "高等精靈",
+    "basisHash": "5a3cd78c43a5ebb83c796ffe0447c145f9027bf8e0dfa3f5e76a862d36580aef",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.high-elf.name",
+        "enHash": "2a8e80c97798a59afc89a7bd5e570117a17b6e815db9ad63561ce92ec952639d",
+        "zhHash": "5a3cd78c43a5ebb83c796ffe0447c145f9027bf8e0dfa3f5e76a862d36580aef"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.high-elf.signature.high-elf-glamor.effect": {
+    "bookStringId": "heroes.ancestries.high-elf.signature.high-elf-glamor.effect",
+    "usageKey": "element:high-elf-feature-1a:description",
+    "en": "A magic glamor makes others perceive you as interesting and engaging. This glamor makes you appear and sound slightly different to each creature you meet, since what is engaging differs from creature to creature.",
+    "zh": "你的魔法魅力會讓人不自覺地被你吸引。由於每個人喜歡的特徵不盡相同，這種魔法魅力會讓你在每個生物眼中呈現出略為不同的外表與聲音。",
+    "basisHash": "fa8328874241cb31e2493cf551753d3a6cfa32af167577971828c2494b7fd83d",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.high-elf.signature.high-elf-glamor.effect",
+        "enHash": "cc63ab4de9b025e57a23b95ea528b18a68d83d7f454246c553f4d3ada34d25d3",
+        "zhHash": "fa8328874241cb31e2493cf551753d3a6cfa32af167577971828c2494b7fd83d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.high-elf.trait.glamor-of-terror.effect": {
+    "bookStringId": "heroes.ancestries.high-elf.trait.glamor-of-terror.effect",
+    "usageKey": "section:high-elf-feature-2-0:0",
+    "en": "Whenever you take damage from a creature, you can use a triggered action to make that creature frightened of you until the end of their next turn.",
+    "zh": "每當你受到生物造成的傷害時，你可以使用反應動作讓該生物對你陷入畏縮狀態，直到他下個回合結束。",
+    "basisHash": "6c82d0638cbfbd2e934ec9d7902e8b3f185dd696ef5b87fed4431114723aa190",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.high-elf.trait.glamor-of-terror.effect",
+        "enHash": "fc60eddb0ae8f7f1683227ca4970a7e5ec69fd3234d6b54b3ba592876d82a565",
+        "zhHash": "6c82d0638cbfbd2e934ec9d7902e8b3f185dd696ef5b87fed4431114723aa190"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.high-elf.trait.unstoppable-mind.effect": {
+    "bookStringId": "heroes.ancestries.high-elf.trait.unstoppable-mind.effect",
+    "usageKey": "element:high-elf-feature-2-5:description",
+    "en": "Your mind allows you to maintain your focus in any situation.",
+    "zh": "你的心智能讓你在任何情況下保持專注。",
+    "basisHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.high-elf.trait.unstoppable-mind.effect",
+        "enHash": "5f6f0c103f9c60cd8573a0f036704c41780486b5be8d586b63386cd0db638413",
+        "zhHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.human.signature.detect-supernatural.effect": {
+    "bookStringId": "heroes.ancestries.human.signature.detect-supernatural.effect",
+    "usageKey": "section:human-feature-1:0",
+    "en": "Until the end of your next turn, you know the location of any supernatural object, undead, construct, or creature from another world within 5 squares, even if you don’t have line of effect to that object or creature. You know if you’re detecting an item or a creature, and you know the nature of any creature you detect.",
+    "zh": "直到你下個回合結束前，你知道 5 格內任何超常物體、亡靈、構裝體或異界生物的位置，即使你對他們沒有效果線也能如此。你能分辨偵測到的是物體還是生物，並且能知道那些生物的本質。",
+    "basisHash": "142053d97fe838e4abcee39895faff3dc5134a01f3bef10141dc8b60a87c696d",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.signature.detect-supernatural.effect",
+        "enHash": "9e19d917878d3e0eff066e1ee19a902d4ec2cbed6455a925ae93e383fd45b16f",
+        "zhHash": "142053d97fe838e4abcee39895faff3dc5134a01f3bef10141dc8b60a87c696d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.human.trait.determination.effect": {
+    "bookStringId": "heroes.ancestries.human.trait.determination.effect",
+    "usageKey": "element:human-feature-2-4:description",
+    "en": "A tolerance for pain and distress allows you to push through difficult situations.",
+    "zh": "你可以忍受痛苦和壓力，在困境中堅持前行。",
+    "basisHash": "ea710b813a080399d4ec707fbfa83fa3f787442e3d835f43dfe913cee01a868a",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.trait.determination.effect",
+        "enHash": "02cefcd1e8f00dcf437d72f3d515623965f152a014ea14597b9a424e4fb43920",
+        "zhHash": "ea710b813a080399d4ec707fbfa83fa3f787442e3d835f43dfe913cee01a868a"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.human.trait.perseverance.effect": {
+    "bookStringId": "heroes.ancestries.human.trait.perseverance.effect",
+    "usageKey": "element:human-feature-2-2a:description",
+    "en": "When you are slowed, your speed is reduced to 3 instead of 2.",
+    "zh": "若你處於緩速狀態，你的速度會降至 3，而非 2。",
+    "basisHash": "d922e63763d99cd8849ccf9d14ad1e2e11fb8ade299a0c6c62ff226998f9948d",
+    "updated": "2026-10-05",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.trait.perseverance.effect",
+        "enHash": "0e3fceaa9dbd26804e58f247682d546e0ce9503631bf1eaf597f076e0bf6d473",
+        "zhHash": "d922e63763d99cd8849ccf9d14ad1e2e11fb8ade299a0c6c62ff226998f9948d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.human.trait.perseverance.name": {
+    "bookStringId": "heroes.ancestries.human.trait.perseverance.name",
+    "usageKey": "element:human-feature-2-2:name, element:human-feature-2-2a:name, element:human-feature-2-2b:name",
+    "en": "Perseverence",
+    "zh": "堅持不懈",
+    "basisHash": "bfff0a46d708dc7f0b296e9ee9aaa5934115942b035e093ef6f9f32f639b919b",
+    "updated": "2026-10-05",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.trait.perseverance.name",
+        "enHash": "4d6f86da7b333b1e014ba61831c2c695f7071b8243e8964a54affe0ae88eb9f7",
+        "zhHash": "bfff0a46d708dc7f0b296e9ee9aaa5934115942b035e093ef6f9f32f639b919b"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.human.trait.resist-the-unnatural.effect": {
+    "bookStringId": "heroes.ancestries.human.trait.resist-the-unnatural.effect",
+    "usageKey": "element:human-feature-2-3:description",
+    "en": "Your instinctive resilience protects you from injuries beyond the routine.",
+    "zh": "你與生俱來的韌性會保護你免受異常傷害。",
+    "basisHash": "e7533774183898b3a5ca7c0a7eb1bb04a9a9ee70cadcf71b4118ab9018fd8530",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.trait.resist-the-unnatural.effect",
+        "enHash": "18ca624c1fd36e0106c480cfbc8e5a8540bda6eeb6034855a9c82fe7aa336ce9",
+        "zhHash": "e7533774183898b3a5ca7c0a7eb1bb04a9a9ee70cadcf71b4118ab9018fd8530"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.human.trait.staying-power.effect": {
+    "bookStringId": "heroes.ancestries.human.trait.staying-power.effect",
+    "usageKey": "element:human-feature-2-5:description",
+    "en": "Your human physiology allows you to fight, run, and stay awake longer than others.",
+    "zh": "人類的生理構造能讓你比其他族群更持久地戰鬥、奔跑和保持清醒。",
+    "basisHash": "f45900223a36c9ab77d4984eef221a3c6e1c2d16841c3c8b5cf345e0461ab62a",
+    "updated": "2026-10-05",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.trait.staying-power.effect",
+        "enHash": "77537cc9394c5da3cf45717affeb604ccde25f75070c75db36a8998eaba3cb0a",
+        "zhHash": "f45900223a36c9ab77d4984eef221a3c6e1c2d16841c3c8b5cf345e0461ab62a"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.memonek.trait.keeper-of-order.effect": {
+    "bookStringId": "heroes.ancestries.memonek.trait.keeper-of-order.effect",
+    "usageKey": "element:memonek-feature-3-5:description",
+    "en": "Your connection to Axiom, the plane of Uttermost Law, allows you to manage chaos around you.",
+    "zh": "你與「至律位面」公理界的連結能讓你控制周圍的混亂。",
+    "basisHash": "fb8b1389aab8b9fe447be20a68ebd871a551a76238cbf81ffe977129d1ecff5b",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.memonek.trait.keeper-of-order.effect",
+        "enHash": "9e9dd0a5ec7b146ef89df7b3553976f0cec18596f616f95e87cbcb1a416439ed",
+        "zhHash": "fb8b1389aab8b9fe447be20a68ebd871a551a76238cbf81ffe977129d1ecff5b"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.memonek.trait.lightning-nimbleness.effect": {
+    "bookStringId": "heroes.ancestries.memonek.trait.lightning-nimbleness.effect",
+    "usageKey": "element:memonek-feature-3-6:description",
+    "en": "You can push your body to move at incredible speeds. Your Speed is 7.",
+    "zh": "你的身體可以達到驚人的移動速度。你的速度為 7。",
+    "basisHash": "27555090d69497a0dd3313ce3b670119fd3c69ea705e7e22e38cb5e9c40da668",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.memonek.trait.lightning-nimbleness.effect",
+        "enHash": "17564830bbe138efc3d39e8ac94be720fb48803a2e71fc93ec7be6795d90a762",
+        "zhHash": "27555090d69497a0dd3313ce3b670119fd3c69ea705e7e22e38cb5e9c40da668"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.memonek.trait.nonstop.effect": {
+    "bookStringId": "heroes.ancestries.memonek.trait.nonstop.effect",
+    "usageKey": "element:memonek-feature-3-7:description",
+    "en": "Your connection to Axiom allows you to regulate your movement.",
+    "zh": "你與公理界的連結能讓你調節自身的移動力。",
+    "basisHash": "f6418f14a3587f240d31f57ea8afc165e75b8d5e54de117f147607d0cb04b2c2",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.memonek.trait.nonstop.effect",
+        "enHash": "cc21d47c820aa4e9f4a3eddf6c72474898a9f16aea422a2c89845d54ede9f2cd",
+        "zhHash": "f6418f14a3587f240d31f57ea8afc165e75b8d5e54de117f147607d0cb04b2c2"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.memonek.trait.systematic-mind.effect": {
+    "bookStringId": "heroes.ancestries.memonek.trait.systematic-mind.effect",
+    "usageKey": "element:memonek-feature-3-2a:description",
+    "en": "You treat any language you don’t know as if you know a related language.",
+    "zh": "對於任何你不懂的語言，你都視為懂得某種與之相關的語言。",
+    "basisHash": "6b0ccc5e8d384b3506468164f81029274a7e06a3c6938ea517ab509044308118",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.memonek.trait.systematic-mind.effect",
+        "enHash": "c4feae818ecbe4daaf749713485a997b24f669f60d94361df07e67bf0f3aa331",
+        "zhHash": "6b0ccc5e8d384b3506468164f81029274a7e06a3c6938ea517ab509044308118"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.memonek.trait.useful-emotion.effect": {
+    "bookStringId": "heroes.ancestries.memonek.trait.useful-emotion.effect",
+    "usageKey": "element:memonek-feature-3-4:description",
+    "en": "Velloparatha - the worldsickness - might hinder, but you know how to turn your pain into something your enemies feel.",
+    "zh": "維洛帕拉症（俗稱躍界病）或許會妨礙你，但你也知道如何將自己的痛苦轉化為敵人能夠感受到的力量。",
+    "basisHash": "fa714ee8cab4f5219eab1f467c7553fca9aafce534ca3d99358efd60e2ba0e7e",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.memonek.trait.useful-emotion.effect",
+        "enHash": "dfc625dfa07321a1c282750bd50fbf90b7787d3a0d1a8de4f7e058129934fdbb",
+        "zhHash": "fa714ee8cab4f5219eab1f467c7553fca9aafce534ca3d99358efd60e2ba0e7e"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.orc.trait.grounded.effect": {
+    "bookStringId": "heroes.ancestries.orc.trait.grounded.effect",
+    "usageKey": "element:orc-feature-2-2:description",
+    "en": "The magic in your blood makes it difficult for others to move you.",
+    "zh": "你血液中的魔力讓他人難以移動你。",
+    "basisHash": "8aa2fb0b7cb16c4e745804e5a04669551b21de107121d3c4305276d12e9209fb",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.orc.trait.grounded.effect",
+        "enHash": "5a7280a8dba4035eb53906f3e79a012f2f6af875531ed288c99e8508f6e4af03",
+        "zhHash": "8aa2fb0b7cb16c4e745804e5a04669551b21de107121d3c4305276d12e9209fb"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.orc.trait.nonstop.effect": {
+    "bookStringId": "heroes.ancestries.orc.trait.nonstop.effect",
+    "usageKey": "element:orc-feature-2-5:description",
+    "en": "Your bloodfire supplies you with a constant rush of adrenaline.",
+    "zh": "你的血焰讓你的腎上腺素持續翻湧。",
+    "basisHash": "54f0b7fc7a7b3a38ef74727bee6e2a0c68541958d9a3ff8f05bc310fbc50c9db",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.orc.trait.nonstop.effect",
+        "enHash": "338987916312c47ea5acd2aeb1cbf7f8264a12b652af3896559b1176bfb612c4",
+        "zhHash": "54f0b7fc7a7b3a38ef74727bee6e2a0c68541958d9a3ff8f05bc310fbc50c9db"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.polder.signature.shadowmeld.effect": {
+    "bookStringId": "heroes.ancestries.polder.signature.shadowmeld.effect",
+    "usageKey": "section:polder-feature-1:0",
+    "en": "You flatten yourself into a shadow against a wall or floor you are touching, and become hidden from any creature you have cover or concealment from or who isn’t observing you. While in shadow form, you have full awareness of your surroundings, and strikes against you and tests made to search for you take a bane. You can’t move or be force moved, and you can’t take main actions or maneuvers except to exit this form or to direct creates under your control, such as one you summon using an ability. Any ability or effect that targets more than 1 square affects you in this form only if it explicitly affects the surface you are flattened against. You can exit this form as a maneuver.\n\nIf the surface you are flattened against is destroyed, this ability ends and you take 1d6 damage that can’t be reduced in any way.",
+    "zh": "你將自己化為平貼於牆面或地面的影子。此時，若你對 1 個生物具有掩護或遮蔽，或該生物觀察不到你，你就會對他處於隱藏。在影子形態中，你能完全感知周遭的環境，而且對你發動的任何打擊和搜索考驗都會承受 1 個劣勢。你無法移動或被強制移動，也無法執行主要動作和機動動作（除了脫離此形態或指揮受你控制的生物，例如你發動招式召喚的生物）。影響多格的招式或效果，只有在明確影響你所貼附的表面時，你才會受到影響。你可以使用機動動作脫離此形態。\n\n若你所貼附的表面被摧毀，此招式會立刻終止，而且你會受到 1d6 點傷害（無法以任何方式減免）。",
+    "basisHash": "735d2307f49d8ed1e366943488ab699162ab7ce31fa5b327efe212991ca4eb97",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.polder.signature.shadowmeld.effect",
+        "enHash": "1d4a6f4aeb318424900e35e551a71eeef3048d538c30e66b9f1fc99ea361be94",
+        "zhHash": "735d2307f49d8ed1e366943488ab699162ab7ce31fa5b327efe212991ca4eb97"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.polder.signature.small.effect": {
+    "bookStringId": "heroes.ancestries.polder.signature.small.effect",
+    "usageKey": "element:polder-feature-2:description",
+    "en": "Your diminutive stature lets you easily get out of — or into — trouble.",
+    "zh": "你嬌小的身材能讓你更輕易地擺脫（或陷入）麻煩。",
+    "basisHash": "2f1aa6123177173801359eb2af735f48941c244693f69eb954431df22be8728c",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.polder.signature.small.effect",
+        "enHash": "71fcad10479b0557175cb15b6e661376640fb50455360df2d0eee3b58d2f8f6a",
+        "zhHash": "2f1aa6123177173801359eb2af735f48941c244693f69eb954431df22be8728c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.polder.trait.fearless.effect": {
+    "bookStringId": "heroes.ancestries.polder.trait.fearless.effect",
+    "usageKey": "element:polder-feature-3-5:description",
+    "en": "Courage is all you know.",
+    "zh": "你天生勇敢無懼。",
+    "basisHash": "054138f52cef5cfb2c733d447eec33e2e734b7ac4f8ee8810ea4e93a6f4d5707",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.polder.trait.fearless.effect",
+        "enHash": "fb655ec8550118f963b788935a26c70cdc9f64bbea4766960d1e30bb28e723bd",
+        "zhHash": "054138f52cef5cfb2c733d447eec33e2e734b7ac4f8ee8810ea4e93a6f4d5707"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.polder.trait.graceful-retreat.effect": {
+    "bookStringId": "heroes.ancestries.polder.trait.graceful-retreat.effect",
+    "usageKey": "element:polder-feature-3-2:description",
+    "en": "Your small size makes it easier for you to slip away from the fray.",
+    "zh": "你矮小的體型能讓你更容易從混戰中溜走。",
+    "basisHash": "01399d3e0fd13f83e206f2710b8e2f3fb15e8e7b2d29eccf2ca7e3906a8e2ca1",
+    "updated": "2026-10-03",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.polder.trait.graceful-retreat.effect",
+        "enHash": "bdf5dad84e7a22e289bccb0ec9c97fd53392c6133db9ddb49bc211620bdf0ae8",
+        "zhHash": "01399d3e0fd13f83e206f2710b8e2f3fb15e8e7b2d29eccf2ca7e3906a8e2ca1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.polder.trait.reactive-tumble.effect": {
+    "bookStringId": "heroes.ancestries.polder.trait.reactive-tumble.effect",
+    "usageKey": "element:polder-feature-3-4:description",
+    "en": "Staying light on your feet lets you quickly get back into position.",
+    "zh": "保持輕盈的步伐能讓你快速回到有利位置。",
+    "basisHash": "f406282ec426dacf12bec6305ebb7a5b8f7b3737c2f67184226522db44608acb",
+    "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.polder.trait.reactive-tumble.effect",
+        "enHash": "f4fff5a8edb36818468eef2bb3c1e6865a2b2bbe6b79280de1449f69507ff4f8",
+        "zhHash": "f406282ec426dacf12bec6305ebb7a5b8f7b3737c2f67184226522db44608acb"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.revenant.description.1": {
+    "bookStringId": "heroes.ancestries.revenant.description.1",
+    "usageKey": "element:ancestry-revenant:description",
+    "en": "The dead walk among us. Some of them are happier about it than others. Unlike the necromantic rituals that produce wights and wraiths and zombies, revenants rise from the grave through a combination of an unjust death and a burning desire for vengeance. Creatures sustained on pure will, they have no need of food or water or air - and, unlike their zombified cousins, they retain all their memories and personality from life.",
+    "zh": "死者行走在我們之間，但不是所有死者都樂於接受這種情況。不同於製造屍妖、怨靈和殭屍的死靈儀式，還魂屍是因為枉死與強烈的復仇心而從墳墓中爬出來。他們之所以能夠存在於世上，不是依靠食物、水或空氣，而是純粹的意志力。與殭屍不同的是，還魂屍保留了生前的所有記憶和個性。",
+    "basisHash": "126f8ea80ad17140cc42cd8433a41d88529cf0a0cfd2e80a93c967b0e1caacdb",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.revenant.description.1",
+        "enHash": "8b1903b54132890ca7342a19a98983f7696caffbcc390fad34642dc84dd20d71",
+        "zhHash": "126f8ea80ad17140cc42cd8433a41d88529cf0a0cfd2e80a93c967b0e1caacdb"
+      },
+      {
+        "order": 2,
+        "sourceId": "heroes.ancestries.revenant.description.2",
+        "enHash": "f9433fae95a65cc2dd09cb1b4d9a0c69d51890ed964bfcc24a722bf9b53eb7e3",
+        "zhHash": "c29a3e9b82a679d01c1bfe272093d07a018b3f82889fc31925a90cadc40d91db"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.revenant.signature.tough-but-withered.effect.2": {
+    "bookStringId": "heroes.ancestries.revenant.signature.tough-but-withered.effect.2",
+    "usageKey": "element:revenant-feature-3:description",
+    "en": "When your Stamina reaches the negative of your winded value, you become inert instead of dying. You fall prone and can’t stand. You continue to observe your surroundings, but you can’t speak, take main actions, maneuvers, move actions, or triggered actions. While inert this way, if you take any fire damage, your body is destroyed and you die. Otherwise, after 12 hours, you regain Stamina equal to your recovery value.",
+    "zh": "當你的體力降至疲態值的負數時，你會陷入呆滯，而非死亡。你會伏地且無法起身。你能繼續觀察周圍環境，但無法說話，也無法執行主要動作、機動動作、移動動作和反應動作。在這種呆滯狀態下，若你受到任何火焰傷害，你的軀體就會被摧毀，你也會真正死亡。否則，在 12 小時後，你會恢復等於你復元值的體力。",
+    "basisHash": "aec2b4179c251ddcde8297a0a6cf70a0e5095aebed30d3aba44a704af9d0c4f2",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.revenant.signature.tough-but-withered.effect.2",
+        "enHash": "788c59d18793173d816aa6c315a051a4ed1cd53f52dc7d4dd141b161b1d7c447",
+        "zhHash": "aec2b4179c251ddcde8297a0a6cf70a0e5095aebed30d3aba44a704af9d0c4f2"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.revenant.trait.bloodless.effect": {
+    "bookStringId": "heroes.ancestries.revenant.trait.bloodless.effect",
+    "usageKey": "element:revenant-feature-4-3:description",
+    "en": "For you, an open wound is indistinguishable from a scratch.",
+    "zh": "對你而言，開放性傷口與輕微擦傷沒有區別。",
+    "basisHash": "d3d4ed304869889a923e4db45c3adb9c205fac5fee9a77d9a224dc4017bcce6f",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.revenant.trait.bloodless.effect",
+        "enHash": "c752c71a017b09cfb102f287391060abb645113e64aa3483e2f072ea1e1f6359",
+        "zhHash": "d3d4ed304869889a923e4db45c3adb9c205fac5fee9a77d9a224dc4017bcce6f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.revenant.trait.vengeance-mark.effect.1": {
+    "bookStringId": "heroes.ancestries.revenant.trait.vengeance-mark.effect.1",
+    "usageKey": "element:revenant-feature-4-5-1:description",
+    "en": "As a maneuver, you place a magic sigil on a creature within 10 squares of you. When you place a sigil, you can decide where it appears on the creature’s body, and whether the sigil is visible to only you or to all creatures.\n\nYou always know the direction to the exact location of a creature who bears one of your sigils and is on the same world. You can have an active number of sigils equal to your level, and can remove a sigil from a creature at will (no action required). If you already have the maximum number of sigils activated and you place a new one, your oldest sigil disappears with no other effect.",
+    "zh": "使用機動動作，你可以在 10 格內的 1 個生物身上放置 1 個魔法符印。放置符印時，你可以決定符印出現在生物身體的哪個位置，以及符印是只有你看得見，還是所有生物都看得見。\n\n你始終知道相同世界中帶有你符印之生物的位置方向。你最多可以擁有數量等於你等級的符印，並且可以隨意解除生物身上的符印（無需動作）。若你在符印數量已滿的情況下放置新的符印，最舊的符印就會消失，不會產生任何效果。",
+    "basisHash": "259787d2048258c47f4bd831308137b2fdda9de2908a5716730727726979241c",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.revenant.trait.vengeance-mark.effect.1",
+        "enHash": "b57613b66a7145525732091fa5c33f276ba67baf07872884647f2ba4070af9a8",
+        "zhHash": "259787d2048258c47f4bd831308137b2fdda9de2908a5716730727726979241c"
+      },
+      {
+        "order": 2,
+        "sourceId": "heroes.ancestries.revenant.trait.vengeance-mark.effect.2",
+        "enHash": "0dd2c42fc6527a02830b8aefbc5ba0857154a2f6a17d8948f9f6e222b086e485",
+        "zhHash": "05c322336e77f08c6f02a1ab483a0305526d88235b44c43bc4e20e2c610dc2f3"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.time-raider.trait.foresight.effect": {
+    "bookStringId": "heroes.ancestries.time-raider.trait.foresight.effect",
+    "usageKey": "element:time-raider-feature-2-2a:description",
+    "en": "You automatically know the location of any creature with concealment who isn’t hidden from you within 20, and you negate the usual bane on strikes against such creatures.",
+    "zh": "你會自動知道 20 格內任何對你具有遮蔽但並未處於隱藏的生物位置，而且當你對這些生物發動打擊時，你會無視通常需要承受的 1 個劣勢。",
+    "basisHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21",
+    "updated": "2026-10-05",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.time-raider.trait.foresight.effect",
+        "enHash": "d8815db31ce90fdf0cccda35f94048b593e245e98f89088af97e960c7cb558aa",
+        "zhHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.time-raider.trait.unstoppable-mind.effect": {
+    "bookStringId": "heroes.ancestries.time-raider.trait.unstoppable-mind.effect",
+    "usageKey": "element:time-raider-feature-2-6:description",
+    "en": "Your mind allows you to maintain your focus in any situation.",
+    "zh": "你的心智能讓你在任何情況下保持專注。",
+    "basisHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644",
+    "updated": "2026-10-05",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.time-raider.trait.unstoppable-mind.effect",
+        "enHash": "5f6f0c103f9c60cd8573a0f036704c41780486b5be8d586b63386cd0db638413",
+        "zhHash": "9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.wode-elf.name": {
+    "bookStringId": "heroes.ancestries.wode-elf.name",
+    "usageKey": "element:ancestry-wode-elf:name",
+    "en": "Elf (wode)",
+    "zh": "幻林精靈",
+    "basisHash": "fc76bea1e48b4a1d25e5d38ef91f8d2f889b3ed2402f99ed651bc6f6ea9acc09",
+    "updated": "2026-10-05",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.wode-elf.name",
+        "enHash": "dbe720c1f761e3c517f40c2d8fe73df207e8f7c0ec41d4cc3e448b763d890326",
+        "zhHash": "fc76bea1e48b4a1d25e5d38ef91f8d2f889b3ed2402f99ed651bc6f6ea9acc09"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect": {
+    "bookStringId": "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect",
+    "usageKey": "element:wode-elf-feature-1a:description",
+    "en": "Tests made to search for you while you are hidden take a bane.",
+    "zh": "當你處於隱藏時，其他生物試圖搜索你的考驗都會承受 1 個劣勢。",
+    "basisHash": "7dba891410cabaa1d4d1b7c38a29e0b00ceac304ba03fdb5bdfa1de89ada489d",
+    "updated": "2026-10-05",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect",
+        "enHash": "366852c55557d4ce3c18589a6e7345916cecbd1a40242a7a6c3f0bcc48fc1114",
+        "zhHash": "7dba891410cabaa1d4d1b7c38a29e0b00ceac304ba03fdb5bdfa1de89ada489d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.career.performer.description": {
+    "bookStringId": "heroes.background.career.performer.description",
+    "usageKey": "element:career-performer:description",
+    "en": "You can sing, act, or dance well enough that people actually pay to see you do it. Imagine that!",
+    "zh": "你擁有出色的歌唱、演戲或舞蹈技巧，讓人們願意為了觀賞你的表演而付錢。真不錯！",
+    "basisHash": "76ec20a9e3037d95ee5c06e0140dd4a10aed4593db6d334e5db7805ec9b18aee",
+    "updated": "2026-10-11",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.career.performer.description",
+        "enHash": "8f04f15cd9f7b703b68af220d8944832b0625fa33bf521cce2bfd5db888afc44",
+        "zhHash": "76ec20a9e3037d95ee5c06e0140dd4a10aed4593db6d334e5db7805ec9b18aee"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.career.sailor.description": {
+    "bookStringId": "heroes.background.career.sailor.description",
+    "usageKey": "element:career-sailor:description",
+    "en": "You worked on a ship that might have been a merchant cog, a mercenary or military craft, or a pirate vessel. You might have been a deckhand, a mate, or even the captain.",
+    "zh": "你曾在船上工作，無論是商船、傭兵船、軍艦，還是海盜船。你可能是甲板水手、大副，甚至是船長。",
+    "basisHash": "2ff58947a2ba1ebea5e21ee49343d7e3c996043340561903c089e256de48adc4",
+    "updated": "2026-10-11",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.career.sailor.description",
+        "enHash": "96319d1054151ec514d2861b9cb31b4399df48a18cc4d1a55c9c5e91fd65daa7",
+        "zhHash": "2ff58947a2ba1ebea5e21ee49343d7e3c996043340561903c089e256de48adc4"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.artisan-guild": {
+    "bookStringId": "heroes.background.culture.archetypical.artisan-guild",
+    "usageKey": "element:culture-artisan-guild:name",
+    "en": "Artisan Guild",
+    "zh": "工匠公會",
+    "basisHash": "3e56db6cea84a2e99b4f8389b4bd3534ba092b79adad588205c3606f05463d56",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.artisan-guild",
+        "enHash": "f23c973510296b309b3ef6c98b188662e92ea50438b3ae58f4c8bffa4f9a0cd6",
+        "zhHash": "3e56db6cea84a2e99b4f8389b4bd3534ba092b79adad588205c3606f05463d56"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.borderland-homestead": {
+    "bookStringId": "heroes.background.culture.archetypical.borderland-homestead",
+    "usageKey": "element:culture-borderland-homestead:name",
+    "en": "Borderland Homestead",
+    "zh": "邊境家園",
+    "basisHash": "40702a5b76cb980099884f1fd84a2e7494b786ce6d90d2d299ba40ccc9b2c1a6",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.borderland-homestead",
+        "enHash": "b0162d5f47521b329797c0a3a9d43574a35cec1ecb608474d9f4552e6ff8cda8",
+        "zhHash": "40702a5b76cb980099884f1fd84a2e7494b786ce6d90d2d299ba40ccc9b2c1a6"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.college-conclave": {
+    "bookStringId": "heroes.background.culture.archetypical.college-conclave",
+    "usageKey": "element:culture-college-conclave:name",
+    "en": "College Conclave",
+    "zh": "學院集會",
+    "basisHash": "b9d4bdefc7094ff5e6f7c0a8743a2fdab50ea55c8371b0acf691735b974dbfac",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.college-conclave",
+        "enHash": "2e3262e323d4b4de0732224ce781c46eab1541df8b0a45e7d0b2011359dd43b8",
+        "zhHash": "b9d4bdefc7094ff5e6f7c0a8743a2fdab50ea55c8371b0acf691735b974dbfac"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.criminal-gang": {
+    "bookStringId": "heroes.background.culture.archetypical.criminal-gang",
+    "usageKey": "element:culture-criminal-gang:name",
+    "en": "Criminal Gang",
+    "zh": "犯罪幫派",
+    "basisHash": "fc560fd48514953e36d085dcc06beee98b546de011f4abca4b1ec5a5864f3992",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.criminal-gang",
+        "enHash": "9f0f8ff9fdcc47a7632e2841f76dabbc0d8c99d808fbed48472d0f206f1bd2e1",
+        "zhHash": "fc560fd48514953e36d085dcc06beee98b546de011f4abca4b1ec5a5864f3992"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.farming-village": {
+    "bookStringId": "heroes.background.culture.archetypical.farming-village",
+    "usageKey": "element:culture-farming-village:name",
+    "en": "Farming Village",
+    "zh": "農耕村落",
+    "basisHash": "4b4810204b59f3393519e6938719aab965730928b95d722905b1edd421969d2c",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.farming-village",
+        "enHash": "f7a69f35493d0ca1102134629878c1da04192eeed4a97caf05b823375ee29079",
+        "zhHash": "4b4810204b59f3393519e6938719aab965730928b95d722905b1edd421969d2c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.herding-community": {
+    "bookStringId": "heroes.background.culture.archetypical.herding-community",
+    "usageKey": "element:culture-herding-community:name",
+    "en": "Herding Community",
+    "zh": "牧民社群",
+    "basisHash": "f03f7e856e2d0f81c365a8e6412df4309224eb6fc5383a59521d9133ae84be6f",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.herding-community",
+        "enHash": "3de83c15b27d8881760aeb56907a109bbd6aba5ed275564a73d8c892e2736637",
+        "zhHash": "f03f7e856e2d0f81c365a8e6412df4309224eb6fc5383a59521d9133ae84be6f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.knightly-order": {
+    "bookStringId": "heroes.background.culture.archetypical.knightly-order",
+    "usageKey": "element:culture-knightly-order:name",
+    "en": "Knightly Order",
+    "zh": "騎士團",
+    "basisHash": "9997466607a689ae6bd9fafe058dd0a4592a96294b53137e7590607c4658e259",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.knightly-order",
+        "enHash": "895ceefd77eaa1942f8f74a8a9326650fcc2071bbdbbe9ecaee8cddcfa7374a0",
+        "zhHash": "9997466607a689ae6bd9fafe058dd0a4592a96294b53137e7590607c4658e259"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.laborer-neighborhood": {
+    "bookStringId": "heroes.background.culture.archetypical.laborer-neighborhood",
+    "usageKey": "element:culture-pauper-neighborhood:name",
+    "en": "Pauper Neighborhood",
+    "zh": "勞工社區",
+    "basisHash": "a8cc895422b545f9cd6a06dedb2a0e24ec20ce9230200b49afc7ca99a35bca08",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.laborer-neighborhood",
+        "enHash": "e93f60af29e944ebf2341bb3e0a83f2017f284e74559fd0eb74f9c6d891c8497",
+        "zhHash": "a8cc895422b545f9cd6a06dedb2a0e24ec20ce9230200b49afc7ca99a35bca08"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.mercenary-band": {
+    "bookStringId": "heroes.background.culture.archetypical.mercenary-band",
+    "usageKey": "element:culture-mercenary-band:name",
+    "en": "Mercenary Band",
+    "zh": "傭兵團",
+    "basisHash": "9943c041ea9aecd9c76abb05ed27321d90bb5b91eabb03fb3cce582aaef098a7",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.mercenary-band",
+        "enHash": "3611a342e8afa002e40c18c76ef59fa030e537bddac4bb966a3dbcff6d33a82c",
+        "zhHash": "9943c041ea9aecd9c76abb05ed27321d90bb5b91eabb03fb3cce582aaef098a7"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.merchant-caravan": {
+    "bookStringId": "heroes.background.culture.archetypical.merchant-caravan",
+    "usageKey": "element:culture-merchant-caravan:name",
+    "en": "Merchant Caravan",
+    "zh": "商隊",
+    "basisHash": "78430fce4f67873ec62cf7943b4cfe45f7dc2e1127d825e9faecfdaf096ac7d0",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.merchant-caravan",
+        "enHash": "b5106e29523a9dfd2ae262c59ec44327d7bd2206e924fabbf56b6f9bcda92b08",
+        "zhHash": "78430fce4f67873ec62cf7943b4cfe45f7dc2e1127d825e9faecfdaf096ac7d0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.monastic-order": {
+    "bookStringId": "heroes.background.culture.archetypical.monastic-order",
+    "usageKey": "element:culture-monastic-order:name",
+    "en": "Monastic Order",
+    "zh": "修道會",
+    "basisHash": "6fed9b892d5b106b83bd0ebfbe97b785e03ce6d1b34a42536095808dd9ae3fc9",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.monastic-order",
+        "enHash": "5b3df7aa211ae3b967beadecdd32c77bb3f3f0898537aa36b8f53854f7d243c5",
+        "zhHash": "6fed9b892d5b106b83bd0ebfbe97b785e03ce6d1b34a42536095808dd9ae3fc9"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.noble-house": {
+    "bookStringId": "heroes.background.culture.archetypical.noble-house",
+    "usageKey": "element:culture-noble-house:name",
+    "en": "Noble House",
+    "zh": "貴族世家",
+    "basisHash": "242e19ece7d9ecc97befa216b2a2a504d476e7e61e4937514a18a9c0d269e235",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.noble-house",
+        "enHash": "7f59b85a74acdee721ad7f6faf19022e3dd42ab307c88ad0e6000a70cfb3b0d7",
+        "zhHash": "242e19ece7d9ecc97befa216b2a2a504d476e7e61e4937514a18a9c0d269e235"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.outlaw-band": {
+    "bookStringId": "heroes.background.culture.archetypical.outlaw-band",
+    "usageKey": "element:culture-outlaw-band:name",
+    "en": "Outlaw Band",
+    "zh": "亡命團體",
+    "basisHash": "da5341e6c83823500381656cada9c8d027c342874cc99c0a6d494e5289ce8faa",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.outlaw-band",
+        "enHash": "cedc6a1562e814cadffb12a896ccfb9257076793efd2131db8707cae0975da0f",
+        "zhHash": "da5341e6c83823500381656cada9c8d027c342874cc99c0a6d494e5289ce8faa"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.pirate-crew": {
+    "bookStringId": "heroes.background.culture.archetypical.pirate-crew",
+    "usageKey": "element:culture-pirate-crew:name",
+    "en": "Pirate Crew",
+    "zh": "海盜團",
+    "basisHash": "49ca3f416d4243a4a623658761fdef68adba0880a12882325f1c221dbaff79ea",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.pirate-crew",
+        "enHash": "aee91ad4657e663c10dd44891106d9ef14b8c0738c2a0dc513c79c0a95d89842",
+        "zhHash": "49ca3f416d4243a4a623658761fdef68adba0880a12882325f1c221dbaff79ea"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.telepathic-hive": {
+    "bookStringId": "heroes.background.culture.archetypical.telepathic-hive",
+    "usageKey": "element:culture-telepathic-hive:name",
+    "en": "Telepathic Hive",
+    "zh": "心靈巢穴",
+    "basisHash": "35265132c94b65fab06b6eee5bc344fc8a81c2d922cfef5682933a1547a96ac1",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.telepathic-hive",
+        "enHash": "a7cd273c8865884658d71b5326a087bcc89019c04c3db5a6344a02db1d84f583",
+        "zhHash": "35265132c94b65fab06b6eee5bc344fc8a81c2d922cfef5682933a1547a96ac1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.archetypical.traveling-entertainers": {
+    "bookStringId": "heroes.background.culture.archetypical.traveling-entertainers",
+    "usageKey": "element:culture-traveling-entertainers:name",
+    "en": "Traveling Entertainers",
+    "zh": "巡迴藝人",
+    "basisHash": "ba94bc4cb899e34a6669842a8f18e1514e59bcabf016ed6ca6bf33b272756416",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.archetypical.traveling-entertainers",
+        "enHash": "440c066c39e9fb7ade595f7c389fc1e393ea567d34e7ae6d3a4c37aca4aaf1bf",
+        "zhHash": "ba94bc4cb899e34a6669842a8f18e1514e59bcabf016ed6ca6bf33b272756416"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.environment.nomadic.description": {
+    "bookStringId": "heroes.background.culture.environment.nomadic.description",
+    "usageKey": "element:env-nomadic:description",
+    "en": "A nomadic culture travels from place to place to survive.",
+    "zh": "遊牧文化為了生存而不斷從一個地方遷移到另一個地方。",
+    "basisHash": "27cfacf332ebacf55320422661a401695c6c0e23909ab35b28c49929c5c128e9",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.environment.nomadic.description",
+        "enHash": "184fb9a17e319c2c0175d2c5e14f4c7e89faecd44517330fff1601c32844f1e0",
+        "zhHash": "27cfacf332ebacf55320422661a401695c6c0e23909ab35b28c49929c5c128e9"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.environment.rural.description": {
+    "bookStringId": "heroes.background.culture.environment.rural.description",
+    "usageKey": "element:env-rural:description",
+    "en": "A rural culture is one located in a town, village, or smaller settled enclave.",
+    "zh": "鄉村文化存在於小鎮、村莊或更小的聚落。",
+    "basisHash": "eaafec4e8ef69cdd31ff9a19b016739c15f65c81999e92d6f49bc9ed0c800178",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.environment.rural.description",
+        "enHash": "a2e4d538c0e3a3c161e4f340a40e8bbc69690c5d994051264ea1a3ac1b84a060",
+        "zhHash": "eaafec4e8ef69cdd31ff9a19b016739c15f65c81999e92d6f49bc9ed0c800178"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.environment.secluded.description": {
+    "bookStringId": "heroes.background.culture.environment.secluded.description",
+    "usageKey": "element:env-secluded:description",
+    "en": "A secluded culture is based in one relatively close-quarters structure — a building, a cavern, and so forth — and interacts with other cultures only rarely.",
+    "zh": "隱居文化存在於單一且相對狹小的結構中（例如建築物或洞穴），幾乎不會與外界文化有所互動。",
+    "basisHash": "65e561919e2d98f0511d275a4519d3afaf9d369160b7995f89512e71da875a62",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.environment.secluded.description",
+        "enHash": "3d11ef2ba5e08bc34481a9e217c4c74c4d31fef1d9a7b2e3a13873fc9634b607",
+        "zhHash": "65e561919e2d98f0511d275a4519d3afaf9d369160b7995f89512e71da875a62"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.environment.urban.description": {
+    "bookStringId": "heroes.background.culture.environment.urban.description",
+    "usageKey": "element:env-urban:description",
+    "en": "An urban culture is always centered in a city.",
+    "zh": "城市文化始終以城市為中心。",
+    "basisHash": "34b119864761f926c5ebb1080fe8fa29d4058b363082ed421e86b7452c0e8cb9",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.environment.urban.description",
+        "enHash": "419dba63d37773473d4060ee9f8fc0b1d18fcef0208971a9f97120b94c459f2b",
+        "zhHash": "34b119864761f926c5ebb1080fe8fa29d4058b363082ed421e86b7452c0e8cb9"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.environment.wilderness.description": {
+    "bookStringId": "heroes.background.culture.environment.wilderness.description",
+    "usageKey": "element:env-wilderness:description",
+    "en": "A wilderness culture doesn’t try to tame the terrain in which its people live, whether desert, forest, swamp, tundra, ocean, or more exotic climes.",
+    "zh": "荒野文化的人民不會試圖征服他們居住的地方，無論是沙漠、森林、沼澤、凍原、海洋，還是更特殊的環境。",
+    "basisHash": "21516d293d9e8d4230f017d26893974277eee67566d4d4a8b72065531e534cb5",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.environment.wilderness.description",
+        "enHash": "849e0a9a69906c06cc617ec85080876416145031c1e6b55fb0b568c66d547923",
+        "zhHash": "21516d293d9e8d4230f017d26893974277eee67566d4d4a8b72065531e534cb5"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.organization.bureaucratic.description": {
+    "bookStringId": "heroes.background.culture.organization.bureaucratic.description",
+    "usageKey": "element:org-bureaucratic:description",
+    "en": "Bureaucratic cultures are steeped in official leadership and formally recorded laws.",
+    "zh": "官僚文化深深根植於正式的領導制度與成文法律。",
+    "basisHash": "f4b9395367b9da82dc8bc738cc1939c7432f777a3c9387272acc4fee61d92f5f",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.organization.bureaucratic.description",
+        "enHash": "7036a5e0a53f7308f018ff7457d2e6a548ceaa5cdd42917519ee88428adad6d4",
+        "zhHash": "f4b9395367b9da82dc8bc738cc1939c7432f777a3c9387272acc4fee61d92f5f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.organization.communal.description": {
+    "bookStringId": "heroes.background.culture.organization.communal.description",
+    "usageKey": "element:org-communal:description",
+    "en": "A communal culture is a place where all members of the culture are considered equal.",
+    "zh": "平權文化是一個所有成員皆平等的地方。",
+    "basisHash": "636aad1ab76f81ed91c1e983dd5a859637b847755d2743951e51e246d430cb05",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.organization.communal.description",
+        "enHash": "70f92d7b203ab5e821ed45ca499c24c8d5c9821771b751ca15fbfab891835de1",
+        "zhHash": "636aad1ab76f81ed91c1e983dd5a859637b847755d2743951e51e246d430cb05"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.devil": {
+    "bookStringId": "heroes.background.culture.typical.devil",
+    "usageKey": "element:culture-devil:name",
+    "en": "Devil",
+    "zh": "魔鬼",
+    "basisHash": "a03b186ebcdb8263c164b678e94605bcc2c8da58969bc880ad53582bf6164a76",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.devil",
+        "enHash": "04e0110fca6e99fb241c3743100066117b3a3c24f1662f54782071e931c6700e",
+        "zhHash": "a03b186ebcdb8263c164b678e94605bcc2c8da58969bc880ad53582bf6164a76"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.dragon-knight": {
+    "bookStringId": "heroes.background.culture.typical.dragon-knight",
+    "usageKey": "element:culture-dragon-knight:name",
+    "en": "Dragon Knight",
+    "zh": "龍騎士",
+    "basisHash": "aa32eb32d7e91a70b06ebb7a6d4c4b5dac989e2e2a12c62ad15b6fa09a2c5368",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.dragon-knight",
+        "enHash": "54aec20098bab5b473fbedd483652425cf6b754b6387def1c2726d12f9c14ce2",
+        "zhHash": "aa32eb32d7e91a70b06ebb7a6d4c4b5dac989e2e2a12c62ad15b6fa09a2c5368"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.dwarf": {
+    "bookStringId": "heroes.background.culture.typical.dwarf",
+    "usageKey": "element:culture-dwarf:name",
+    "en": "Dwarf",
+    "zh": "矮人",
+    "basisHash": "d8775bc44015f683aa0cc9ab8c3540aaa7592c240b9acff7ad7b351b1905df63",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.dwarf",
+        "enHash": "51c9e56fcacfc74e6f422b352d55bf4fd3366c24f7e33c7c789736b06db6b611",
+        "zhHash": "d8775bc44015f683aa0cc9ab8c3540aaa7592c240b9acff7ad7b351b1905df63"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.hakaan": {
+    "bookStringId": "heroes.background.culture.typical.hakaan",
+    "usageKey": "element:culture-hakaan:name",
+    "en": "Hakaan",
+    "zh": "哈肯人",
+    "basisHash": "e3e3380a0751ae07a02f356a5cebaa0e4b068975e07ed888d37d97982bee2969",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.hakaan",
+        "enHash": "2ddc8d3377c0dac688970facd7bc94f9ca08a9111be6a35b7b61ff72170d3a7e",
+        "zhHash": "e3e3380a0751ae07a02f356a5cebaa0e4b068975e07ed888d37d97982bee2969"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.high-elf": {
+    "bookStringId": "heroes.background.culture.typical.high-elf",
+    "usageKey": "element:culture-high-elf:name",
+    "en": "High Elf",
+    "zh": "高等精靈",
+    "basisHash": "1bf061e2778d8a8f379a20a2b5f5eefc3c9a84978b783a22d70f8352eb3e8bbc",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.high-elf",
+        "enHash": "4e3b0de0d255095110ecbd85451a16e765ebfa1d50ecfe75628a87bed59f83cb",
+        "zhHash": "1bf061e2778d8a8f379a20a2b5f5eefc3c9a84978b783a22d70f8352eb3e8bbc"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.human": {
+    "bookStringId": "heroes.background.culture.typical.human",
+    "usageKey": "element:culture-human:name",
+    "en": "Human",
+    "zh": "人類",
+    "basisHash": "b5a626e8ad4a8e8acdbe4a9117c2fee3bed63f9b4a119e953d73c074000b8681",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.human",
+        "enHash": "693c04303c3d4574db3fd77f66ff6f9b36d2ab8ed1c4e966498b6e061147c0ca",
+        "zhHash": "b5a626e8ad4a8e8acdbe4a9117c2fee3bed63f9b4a119e953d73c074000b8681"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.memonek": {
+    "bookStringId": "heroes.background.culture.typical.memonek",
+    "usageKey": "element:culture-memonek:name",
+    "en": "Memonek",
+    "zh": "梅莫人",
+    "basisHash": "9da4a4a5b5702a2010791289d4671f500ec243f6c95f1ca81c327674240afdbc",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.memonek",
+        "enHash": "d203f2544cf74bf0b05ea8601293a8bde01837f6ae7f1c82bded6409aaa42b3a",
+        "zhHash": "9da4a4a5b5702a2010791289d4671f500ec243f6c95f1ca81c327674240afdbc"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.orc": {
+    "bookStringId": "heroes.background.culture.typical.orc",
+    "usageKey": "element:culture-orc:name",
+    "en": "Orc",
+    "zh": "歐克",
+    "basisHash": "e127ed0136ca44cfd456ef41ff5970211c63d08aff4b290257a5b884c23cc08e",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.orc",
+        "enHash": "2a02b36dcb60344ca4bad9b86ece9171adde2bb39ea09efbd41b72a7439fecc6",
+        "zhHash": "e127ed0136ca44cfd456ef41ff5970211c63d08aff4b290257a5b884c23cc08e"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.polder": {
+    "bookStringId": "heroes.background.culture.typical.polder",
+    "usageKey": "element:culture-polder:name",
+    "en": "Polder",
+    "zh": "波德人",
+    "basisHash": "c192517d4c1950ec6ed7616341c4439e3753f4de6f4b529e82e18a23206bf7fc",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.polder",
+        "enHash": "18a142db9c5921a21eb8c773e3b5f916e082585ddfeb6f2b65418f5becd8d739",
+        "zhHash": "c192517d4c1950ec6ed7616341c4439e3753f4de6f4b529e82e18a23206bf7fc"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.time-raider": {
+    "bookStringId": "heroes.background.culture.typical.time-raider",
+    "usageKey": "element:culture-time-raider:name",
+    "en": "Time Raider",
+    "zh": "時空獵手",
+    "basisHash": "549464e12ee8d7849fe08290c9ca18fa50fa24ec290c74945579685c4513432e",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.time-raider",
+        "enHash": "7bb4c939b283f0250404951f7ec6e30a7dd3ebfee87fcf4d93b6f2fd72284fd2",
+        "zhHash": "549464e12ee8d7849fe08290c9ca18fa50fa24ec290c74945579685c4513432e"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.typical.wode-elf": {
+    "bookStringId": "heroes.background.culture.typical.wode-elf",
+    "usageKey": "element:culture-wode-elf:name",
+    "en": "Wode Elf",
+    "zh": "幻林精靈",
+    "basisHash": "10da4df3b5853c04e2560b7e67c68cbf3d7a87b2017d3eee2de149b4c136e9e5",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.typical.wode-elf",
+        "enHash": "f75f1b3638a882efa62f5dd94dc98d67ef7ba81fbb05f8e03d00e9287a6f6327",
+        "zhHash": "10da4df3b5853c04e2560b7e67c68cbf3d7a87b2017d3eee2de149b4c136e9e5"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.upbringing.academic.description": {
+    "bookStringId": "heroes.background.culture.upbringing.academic.description",
+    "usageKey": "element:up-academic:description",
+    "en": "Your hero was raised by people who collect, study, and share books and other records.",
+    "zh": "你的英雄由那些收藏、研讀並分享書籍與其他紀錄的人們撫養長大。",
+    "basisHash": "8122ab4ca5cf7c0aad506c2839a7b2fb71c92e5b623ad223b2df80824f69fa49",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.upbringing.academic.description",
+        "enHash": "4f18f85405347e90202ed03cb308301a607f2f03274741815245282b609f0007",
+        "zhHash": "8122ab4ca5cf7c0aad506c2839a7b2fb71c92e5b623ad223b2df80824f69fa49"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.upbringing.creative.description": {
+    "bookStringId": "heroes.background.culture.upbringing.creative.description",
+    "usageKey": "element:up-creative:description",
+    "en": "A hero with a creative upbringing was raised among folk who create art or other works valuable enough to trade.",
+    "zh": "擁有創作成長經歷的英雄是在善於創作藝術或其他具有交易價值作品的群體中長大的。",
+    "basisHash": "1860d297e8122be02ae80048cac894d1505e7e2afee436421c1f8b18a860dd21",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.upbringing.creative.description",
+        "enHash": "e3d24ce6a7c25790bdd42aa7ac39aff84e08a02ddda6749ec9aca06b65a8cae3",
+        "zhHash": "1860d297e8122be02ae80048cac894d1505e7e2afee436421c1f8b18a860dd21"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.upbringing.labor.description": {
+    "bookStringId": "heroes.background.culture.upbringing.labor.description",
+    "usageKey": "element:up-labor:description",
+    "en": "Your hero came of age in a culture where people labored for a living.",
+    "zh": "你的英雄成長於一個靠勞動為生的文化中。",
+    "basisHash": "ae0bacc0febe7bb03f473e99244f8ade32dd536320dca19593bec48bfa2e84d7",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.upbringing.labor.description",
+        "enHash": "3c19cfa414c2384f72f03aa31048b1f777a19c51d11178eeff72420a3455339c",
+        "zhHash": "ae0bacc0febe7bb03f473e99244f8ade32dd536320dca19593bec48bfa2e84d7"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.upbringing.lawless.description": {
+    "bookStringId": "heroes.background.culture.upbringing.lawless.description",
+    "usageKey": "element:up-lawless:description",
+    "en": "Your hero grew up among folk who performed activities that other people — whether within or outside their culture — considered unlawful.",
+    "zh": "你的英雄在一群從事被他人（無論在其文化內外）視為非法活動的人們中長大。",
+    "basisHash": "179fef881d479bc63ec5f4c0da2bd306f6409bab7a05572dfa132c398140232a",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.upbringing.lawless.description",
+        "enHash": "fe25a2536b4fe0a784117d7bd19b377a811f4f86413e939d7967a11b32b67129",
+        "zhHash": "179fef881d479bc63ec5f4c0da2bd306f6409bab7a05572dfa132c398140232a"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.upbringing.martial.description": {
+    "bookStringId": "heroes.background.culture.upbringing.martial.description",
+    "usageKey": "element:up-martial:description",
+    "en": "A hero with a martial upbringing was raised by warriors.",
+    "zh": "擁有尚武成長經歷的英雄從小在戰士的薰陶下成長。",
+    "basisHash": "93d06b0f18f903622db00d9663df7e55de64dbbc7c678ff46a9315d9bdad670d",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.upbringing.martial.description",
+        "enHash": "08d141c38890398797faf3e2601b2f0c06182c742647038a212ae0c3c3d0e2dc",
+        "zhHash": "93d06b0f18f903622db00d9663df7e55de64dbbc7c678ff46a9315d9bdad670d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.background.culture.upbringing.noble.description": {
+    "bookStringId": "heroes.background.culture.upbringing.noble.description",
+    "usageKey": "element:up-noble:description",
+    "en": "Your hero grew up among leaders who rule over others and play the games of politics to maintain power.",
+    "zh": "你的英雄成長於那些統治他人並運用政治手段維持權力的領導者之中。",
+    "basisHash": "ddc35670bb2de71783fb331163374fd4a83da89974da6401c18f2429f6e70810",
+    "updated": "2026-10-06",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.background.culture.upbringing.noble.description",
+        "enHash": "3341f97807be501c5c231cf758b11566238b843560febc827db8d4fa095f81f1",
+        "zhHash": "ddc35670bb2de71783fb331163374fd4a83da89974da6401c18f2429f6e70810"
+      }
+    ]
+  }
+}

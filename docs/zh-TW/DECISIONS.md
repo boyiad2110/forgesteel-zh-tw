@@ -2,7 +2,7 @@
 
 ## MASTER-SPLIT 覆蓋規則（2026-10-11）
 
-Stage B Reviewer 已核准獨立 Forge Steel Localization Sheet；以下 DEC-0011 的「Master Sheet 內獨立分頁」是當時方案，現行位置改為網站專用 Sheet 的 `Adaptations` 與 `Adaptation Sources`。書本 Master Sheet 仍是唯一書本正典。舊決策 ID 與歷史原文不改寫；跨專案引用以 `book:DEC-xxxx`、`fs:DEC-xxxx` 區分。Stage C 不代表正式來源切換，Stage D 仍待授權。
+Stage B Reviewer 已核准獨立 Forge Steel Localization Sheet；以下 DEC-0011 的「Master Sheet 內獨立分頁」是當時方案，現行位置改為網站專用 Sheet 的 `Adaptations` 與 `Adaptation Sources`。書本 Master Sheet 仍是唯一書本正典。舊決策 ID 與歷史原文不改寫；跨專案引用以 `book:DEC-xxxx`、`fs:DEC-xxxx` 區分。D2 正式切換 PR 待 Reviewer 驗收與合併；合併後 Repo 正式快照流程使用兩份 Sheet。
 
 ## 維護決策（2026-10-10）
 

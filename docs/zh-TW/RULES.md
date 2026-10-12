@@ -4,7 +4,7 @@
 
 ## 來源與顯示
 
-- Draw Steel Master Sheet 是書本 Glossary／Names／Strings 的唯一語言正典；Forge Steel Localization Sheet 管理網站 UI、Adaptations、來源關聯及網站進度。Repo 只整合兩份來源的 APPROVED，匯出原樣保存，不自行改寫／意譯。Forge Steel Agent 不核准或修改書本正典；公開 repo 不存未核准譯文或私有筆記。Stage D 授權前不切換正式擷取來源。
+- Draw Steel Master Sheet 是書本 Glossary／Names／Strings 的唯一語言正典；Forge Steel Localization Sheet 管理網站 UI、Adaptations、來源關聯及網站進度。Repo 只整合兩份來源的 APPROVED，匯出原樣保存，不自行改寫／意譯。Forge Steel Agent 不核准或修改書本正典；公開 repo 不存未核准譯文或私有筆記。正式快照更新必須同次整合兩份 Sheet 的 APPROVED 資料；舊單來源流程僅供回復 D1 快照，不作一般更新方法。
 - 保留上游遊戲資料、列舉、邏輯、存檔格式、分享碼。同步上游帶入的原生更新不算中文化改寫。對照集中 `src/l10n`，少改上游元件，不另建每畫面翻譯系統。
 - 名稱須核對官方 ID 與原英文；改名、自訂、Homebrew、未知或未對照值保留原值。內建來源僅官方；Homebrew 功能保留，社群／第三方入口隱藏。搜尋／排序仍依英文資料。
 - 在文件、PR、介面稱「正體中文」；預設 zh-TW，語言只存 localStorage `forgesteel-language`，不進英雄檔或分享碼。
