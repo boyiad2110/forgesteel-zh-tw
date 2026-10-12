@@ -39,6 +39,11 @@
     "updated": "2026-10-10",
     "zh": "，以及"
   },
+  "ui.hero-builder.any-skill-list.7f7a6841": {
+    "en": "any list",
+    "updated": "2026-10-11",
+    "zh": "任意技能類別"
+  },
   "ui.hero-builder.armor.d165ace3": {
     "en": "Armor",
     "updated": "2026-10-10",
@@ -259,6 +264,11 @@
     "updated": "2026-10-10",
     "zh": "點擊這裡"
   },
+  "ui.hero-builder.common-language-description.cc9ef9be": {
+    "en": "Choose a Common language.",
+    "updated": "2026-10-11",
+    "zh": "選擇 1 種通用語。"
+  },
   "ui.hero-builder.completed.1c31b48e": {
     "en": "Completed",
     "updated": "2026-10-10",
@@ -328,6 +338,11 @@
     "en": "Customize",
     "updated": "2026-10-10",
     "zh": "自訂"
+  },
+  "ui.hero-builder.default-language.28bee244": {
+    "en": "Default Language",
+    "updated": "2026-10-11",
+    "zh": "預設語言"
   },
   "ui.hero-builder.default-option.18977ea3": {
     "en": "Default Option",
@@ -479,9 +494,34 @@
     "updated": "2026-10-10",
     "zh": "語言選項"
   },
+  "ui.hero-builder.language-type-common.309955e0": {
+    "en": "Common",
+    "updated": "2026-10-11",
+    "zh": "通用語"
+  },
+  "ui.hero-builder.language-type-cultural.faf2dbb3": {
+    "en": "Cultural",
+    "updated": "2026-10-11",
+    "zh": "文化語言"
+  },
+  "ui.hero-builder.language-type-dead.ec9b10a4": {
+    "en": "Dead",
+    "updated": "2026-10-11",
+    "zh": "絕跡語言"
+  },
+  "ui.hero-builder.language-type-regional.299a03b1": {
+    "en": "Regional",
+    "updated": "2026-10-11",
+    "zh": "地區語言"
+  },
   "ui.hero-builder.language.996aaf3b": {
     "en": "Language",
     "updated": "2026-10-10",
+    "zh": "語言"
+  },
+  "ui.hero-builder.languages.318655ce": {
+    "en": "Languages",
+    "updated": "2026-10-11",
     "zh": "語言"
   },
   "ui.hero-builder.level-lvl-level-choices.f652952e": {
@@ -699,15 +739,35 @@
     "updated": "2026-10-10",
     "zh": "體型"
   },
+  "ui.hero-builder.skill-choice-description.9172d5a4": {
+    "en": "`Choose a skill from ${source}.`",
+    "updated": "2026-10-11",
+    "zh": "從{source}中選擇 1 項技能。"
+  },
   "ui.hero-builder.skill-choices.f8854ea1": {
     "en": "Skill Choices",
     "updated": "2026-10-10",
     "zh": "技能選項"
   },
+  "ui.hero-builder.skill-list-custom.494ca78f": {
+    "en": "Custom",
+    "updated": "2026-10-11",
+    "zh": "自訂"
+  },
+  "ui.hero-builder.skill-list-description.f94c20ab": {
+    "en": "`${list} skills`",
+    "updated": "2026-10-11",
+    "zh": "{list}技能"
+  },
   "ui.hero-builder.skill.a5ed2dcb": {
     "en": "Skill",
     "updated": "2026-10-10",
     "zh": "技能"
+  },
+  "ui.hero-builder.skills-choice-description.1a7008a2": {
+    "en": "`Choose ${count} from ${source}.`",
+    "updated": "2026-10-11",
+    "zh": "從{source}中選擇 {count} 項技能。"
   },
   "ui.hero-builder.sourcebooks.52e8200a": {
     "en": "Sourcebooks",
@@ -789,10 +849,30 @@
     "updated": "2026-10-10",
     "zh": "教學模式"
   },
+  "ui.hero-builder.two-languages-description.0139e42b": {
+    "en": "Choose 2  languages.",
+    "updated": "2026-10-11",
+    "zh": "選擇 2 種語言。"
+  },
+  "ui.hero-builder.unknown-extension-target.b764cdc0": {
+    "en": "Unknown",
+    "updated": "2026-10-11",
+    "zh": "不明"
+  },
+  "ui.hero-builder.unnamed-extension.04301825": {
+    "en": "Unnamed Extension",
+    "updated": "2026-10-11",
+    "zh": "未命名擴充項目"
+  },
   "ui.hero-builder.unnamed-feature.fe5fa185": {
     "en": "Unnamed Feature",
     "updated": "2026-10-10",
     "zh": "未命名特性"
+  },
+  "ui.hero-builder.unnamed-sourcebook.ff62ab3a": {
+    "en": "Unnamed Sourcebook",
+    "updated": "2026-10-11",
+    "zh": "未命名來源書"
   },
   "ui.hero-builder.unselect.81e63541": {
     "en": "Unselect",

@@ -1,8 +1,56 @@
-import { getCatalogTick, subscribeToCatalog } from '@/l10n/catalog';
+import { Catalog, getCatalogTick, loadCatalog, peekCatalog, subscribeToCatalog } from '@/l10n/catalog';
 import { getLanguage, subscribeToLanguage } from '@/l10n/language';
+import { Skill } from '@/models/skill';
+import { SkillList } from '@/enums/skill-list';
 import { translate } from '@/l10n/text';
 import { useL10nText } from '@/l10n/hooks';
 import { useSyncExternalStore } from 'react';
+
+const skillRules: Partial<Record<SkillList, string>> = {
+	[ SkillList.Crafting ]: 'heroes.skills.crafting.rules',
+	[ SkillList.Exploration ]: 'heroes.skills.exploration.rules',
+	[ SkillList.Interpersonal ]: 'heroes.skills.interpersonal.rules',
+	[ SkillList.Intrigue ]: 'heroes.skills.intrigue.rules',
+	[ SkillList.Lore ]: 'heroes.skills.lore.rules'
+};
+
+/** Reuse the approved skill table row only when both source and target contain this exact skill. */
+export const resolveSkillDescription = (skill: Pick<Skill, 'name' | 'description' | 'list'>, catalog: Catalog | null): string => {
+	const rowID = skillRules[skill.list];
+	const row = rowID ? catalog?.[rowID] : undefined;
+	if (!row?.en || !row.zh || !skill.description) {
+		return skill.description;
+	}
+
+	const englishLines = row.en.split('\n');
+	const englishHeader = englishLines.indexOf('Skill | Use');
+	const endsInPeriod = skill.description.endsWith('.');
+	const sourceDescription = endsInPeriod ? skill.description.slice(0, -1) : skill.description;
+	if (englishHeader < 0 || englishLines.slice(englishHeader + 1).filter(line => line === `${skill.name} | ${sourceDescription}`).length !== 1) {
+		return skill.description;
+	}
+
+	const escapedName = skill.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	const matches = row.zh.split('\n').filter(line => new RegExp(`^.+（${escapedName}）｜(.+)$`).test(line));
+	if (matches.length !== 1) {
+		return skill.description;
+	}
+	const translated = new RegExp(`^.+（${escapedName}）｜(.+)$`).exec(matches[0])?.[1];
+	return translated ? `${translated}${endsInPeriod ? '。' : ''}` : skill.description;
+};
+
+/** The player-facing skill use text, extracted from its approved skill-group translation. */
+export const useSkillDescription = (skill: Skill): string => {
+	const language = useSyncExternalStore(subscribeToLanguage, getLanguage, getLanguage);
+	useSyncExternalStore(subscribeToCatalog, getCatalogTick, getCatalogTick);
+	if (language === 'en') {
+		return skill.description;
+	}
+	if (!peekCatalog()) {
+		void loadCatalog();
+	}
+	return resolveSkillDescription(skill, peekCatalog());
+};
 
 /**
  * The key for a skill's name. The saved value stays the Forge Steel English.
