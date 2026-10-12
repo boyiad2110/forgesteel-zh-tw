@@ -7,12 +7,12 @@
 - MASTER-SPLIT-B 已由 Reviewer 於 2026-10-11 驗收；Forge Steel 專用資料已在獨立的 [Localization Master Sheet](https://docs.google.com/spreadsheets/d/1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw/edit)。MASTER-SPLIT-C 建立雙來源擷取與驗證工具；D2 切換 PR 合併後，正式快照更新將以兩份 Sheet 為來源。切換 PR 尚待 Reviewer 驗收與合併。
 
 - 維護順序 1–5、DISPLAY-01、DISPLAY-02、MAINT-WORKFLOW-01 與 UI-01／UI-02 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
-- 核准清冊：618 個 mapping / 106 列 Forge Steel Strings 版 / 11 個英文例外，其中 UI-01 新增 151 筆、UI-03 新增 15 筆、UI-04 新增 8 筆、UI-05 新增 16 筆核准 UI 對照。這是防錯清冊，不是產品中文化完成率。
+- 核准目錄筆數與雙來源版本以 Repo 的 `src/l10n/generated/zh-TW/meta.json`、`src/l10n/source-dependencies.json` 為準；書本翻譯進度以 Draw Steel Master Sheet 的 Project State／Status 為準，不在摘要固定複製易過期的總數。這些數字是資料清冊，不代表產品中文化完成率。
 - DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；PR #59 已接上自訂文化 Field 描述，13 個面向已逐一核對來源與元件 DOM，詳見 [下一批盤點](NEXT-BATCH.md)。
 - DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。
 - UI-03 / DISPLAY-03 的建角與角色摘要範圍已由 Marc 人工驗收；15 筆 APPROVED UI 對照已接入，[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已合併至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 的 8 筆核准 UI 與龍鱗動態模板已接入並經 Marc 人工驗收，[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 已 squash 合併至 develop `4da55d95`，最新 CI 全綠；Master Sheet Status、Project State 與 CHG-0086 已回讀確認。原批核對紀錄保留在 [NEXT-BATCH](NEXT-BATCH.md)。
 - UI-05 / DISPLAY-05 的 16 筆新 UI 已獲核准並寫入 Master Sheet、快照及 mapping；PR #61 補齊官方語言 / 技能的直接與詳情重建提示、技能用途及 Name 欄位，並移除未知來源通用技能例外。新增 228 個候選 ID 兩路 DOM 核對、20 個保護案例、改寫來源實際詳情頁與 Artisan 生涯 / 儲存回歸；本機完整隔離驗證與最新 CI 見 [PROGRESS](PROGRESS.md)。Marc 已於 2026-10-11 人工驗收通過；合併狀態見 PR。本次只重用核准譯文；Crafting Perk、其預設說明及一般複數 Skills 標題依 Marc 指示留到 Career 批次再預覽與核准；35 種工廠生成描述不計入剩餘 54 種特性預設描述。完整範圍見 [NEXT-BATCH](NEXT-BATCH.md)。
-- Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
+- Career 翻譯與 QA、Enhancement 決策由書本翻譯工作流依 Master Sheet 的 Project State／Status 管理；Forge Steel 端剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線
 

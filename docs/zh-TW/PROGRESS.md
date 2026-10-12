@@ -3,6 +3,7 @@
 | 批次 | 狀態／PR／版本 | 驗證與下一步 |
 |---|---|---|
 | MASTER-SPLIT-C | 已完成；PR #62 已合併至 develop `139bc7d4` | 雙來源擷取與驗證工具已合併；後續來源切換由 MASTER-SPLIT-D2 處理。 |
+| MASTER-SPLIT-D1 | 已完成；PR #63 已 squash merge 至 develop `1a8c11f59f882e05ca44ad34a3c4d02acc445a8e` | CI #191 success。同步核准快照 Glossary／Names／Strings／UI 332／60／656／209，並整合 108 筆已核准 Adaptation checkpoints。 |
 | MASTER-SPLIT-D2 | 正式雙來源切換 PR #64 已開立；待 Reviewer 驗收 | 基底 `1a8c11f59f882e05ca44ad34a3c4d02acc445a8e`；本批僅新增雙來源快照 metadata／Adaptations 產物及更新操作文件。擷取時間、指紋及驗證結果記於 D2 PR。未授權合併、部署或清除舊 Sheet 資料。 |
 | 維護 1–5 | 已完成；[PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，develop 合併 `b79c1d0d` | 2026-10-10，程式與治理版本 `70fa69e2`；972/972 測試、六項完整驗證、audit 0 漏洞及隔離瀏覽器回歸。詳見原 PR 與 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/37993319244) |
 | DISPLAY-01 | Marc 人工驗收通過並已合併；[PR #55](https://github.com/boyiad2110/forgesteel-zh-tw/pull/55)，develop 合併 `1154e6ca` | 2026-10-10，head `872ae31d`；973/973、六項完整驗證、audit 0 漏洞及文化瀏覽器操作。最新 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38017844450) 成功；Sheet Status／Project State／CHG-0078 已回讀確認。原批使用 merge，後續一般內容依 RULES 用 squash；不改寫歷史 |
