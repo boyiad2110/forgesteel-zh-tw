@@ -2,6 +2,7 @@
 
 | 批次 | 狀態／PR／版本 | 驗證與下一步 |
 |---|---|---|
+| MASTER-SPLIT-C | Stage B 已由 Reviewer 驗收；Stage C 雙來源工具待 PR 審查，基底 develop `4da55d95` | 線上同版舊／新目錄逐筆比較 332 Glossary／60 Names／656 Strings／209 UI，差異 0；108 Adaptations、114 來源關聯及 2 筆動態 Note。既有 develop 檢查點 106 筆相符，另外 2 筆 Career 核准資料待相關內容 PR 併入；正式來源切換留 Stage D。 |
 | 維護 1–5 | 已完成；[PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，develop 合併 `b79c1d0d` | 2026-10-10，程式與治理版本 `70fa69e2`；972/972 測試、六項完整驗證、audit 0 漏洞及隔離瀏覽器回歸。詳見原 PR 與 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/37993319244) |
 | DISPLAY-01 | Marc 人工驗收通過並已合併；[PR #55](https://github.com/boyiad2110/forgesteel-zh-tw/pull/55)，develop 合併 `1154e6ca` | 2026-10-10，head `872ae31d`；973/973、六項完整驗證、audit 0 漏洞及文化瀏覽器操作。最新 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38017844450) 成功；Sheet Status／Project State／CHG-0078 已回讀確認。原批使用 merge，後續一般內容依 RULES 用 squash；不改寫歷史 |
 | DISPLAY-02 | Marc 人工驗收通過；[PR #57](https://github.com/boyiad2110/forgesteel-zh-tw/pull/57)，合併狀態見原 PR | 程式版本 `ea300a29`；隔離完整 verify：978/978、六項檢查、audit 0 漏洞、五組瀏覽器回歸通過；Marc 於 2026-10-10 驗收通過。接線限建角 ancestry／culture Choice 標題與描述；當時延後的 Bespoke Culture Field 描述已由 PR #59 接入，本次補齊 13 個面向核對；龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。 |

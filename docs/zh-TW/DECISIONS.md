@@ -1,5 +1,9 @@
 # 現行決策與歷史索引
 
+## MASTER-SPLIT 覆蓋規則（2026-10-11）
+
+Stage B Reviewer 已核准獨立 Forge Steel Localization Sheet；以下 DEC-0011 的「Master Sheet 內獨立分頁」是當時方案，現行位置改為網站專用 Sheet 的 `Adaptations` 與 `Adaptation Sources`。書本 Master Sheet 仍是唯一書本正典。舊決策 ID 與歷史原文不改寫；跨專案引用以 `book:DEC-xxxx`、`fs:DEC-xxxx` 區分。Stage C 不代表正式來源切換，Stage D 仍待授權。
+
 ## 維護決策（2026-10-10）
 
 - **DEC-0010 多來源過期偵測**：取代 DEC-0009 的「合併只看第一列」取捨；每個 Forge Steel 版記錄全部依賴 Sheet ID、英文／中文 hash 與核准 fs hash，守門檢查任何來源變動。中文刪字與接合限制不變。實作及多用途方案見 [P4-STRUCTURE](P4-STRUCTURE.md)。

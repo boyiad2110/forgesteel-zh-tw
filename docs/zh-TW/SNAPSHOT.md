@@ -1,6 +1,13 @@
 # 快照更新
 
-網站與 CI 仍只讀倉庫快照。Codex 使用 Google Drive 連接器取得資料，再由離線腳本整合；不是獨立登入 Google 的終端機下載器。只在已核准批次使用，不自動核准文字、建立 mapping 或計算綁定。
+網站與 CI 仍只讀倉庫快照。Codex 使用 Google Drive 連接器取得資料，再由離線腳本整合；不是獨立登入 Google 的終端機下載器。只在已核准批次使用，不自動核准文字、建立 mapping 或計算綁定。下列單來源流程是 Stage D 前的正式路徑；Stage C 雙來源工具只供隔離驗證，不得以 `--apply` 切換正式產物。
+
+## Stage C 雙來源契約
+
+- 書本 Sheet `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4` 只擷取 Glossary、Names 與 Strings A–O 書本欄位；網站 Sheet `1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw` 擷取 Forge Steel UI、Adaptations、Adaptation Sources。TM 留在書本 QA 工作流。
+- 各 Sheet 分別讀取前後 Drive 修改時間、驗證 Spreadsheet ID；任一讀取失敗、來源版本變更或欄位缺漏就丟棄兩份擷取。依標題投影；只將 APPROVED 與必要來源關聯送入離線整合，原始草稿不落盤。
+- `scripts/l10n/dual-sheet.mjs` 以 Adaptation ID 關聯有序來源，核對 Book APPROVED、Basis／Source List／英中 SHA-256、Usage Key 唯一性與動態 Note；兩個歷史空白 Usage Key 保留。雙來源快照額外含 `adaptations.csv`、`adaptation-sources.csv`；生成的 `adaptations.json` 以穩定 ID 保存多用途關聯，既有四份有效目錄結構不變。runtime／`mapping.ts` 尚未使用第二種 Adaptation 進行網站顯示。`source.json` 與生成 metadata 記錄兩份 Spreadsheet ID、修改時間及內容指紋。重讀快照須逐項重建且核對指紋。
+- `scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json>` 預設僅試跑；通過 staged 匯出與守門後才可套用。Stage D 授權及相關內容 PR 合併前，禁止 `--apply`。異常時保留原正式產物；可捕捉的寫入失敗依既有 `replaceFiles` 還原。
 
 ## 狀態與結案寫入
 
