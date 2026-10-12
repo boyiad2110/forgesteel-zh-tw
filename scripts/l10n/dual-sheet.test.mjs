@@ -70,13 +70,32 @@ describe('dual-source capture', () => {
     expect(JSON.parse(catalog.get('adaptations.json'))[second[0]].usageKey).toBe('section:second-use:0');
     expect(JSON.parse(catalog.get('strings.json'))[bookId].fs.zh).toBe(fsZh);
   });
+  test.each([ 'NEW', 'REVIEW' ])('ignores %s Adaptation and its existing source links', status => {
+    const raw = base();
+    const draft = [ ...raw.forge.Adaptations.values[1] ];
+    draft[0] = 'fs-adapt:future-use';
+    draft[2] = 'section:future-use:0';
+    draft[4] = '未核准文字';
+    draft[5] = status;
+    draft[7] = 'Do not publish';
+    raw.forge.Adaptations.values.push(draft);
+    raw.forge['Adaptation Sources'].values.push(...raw.forge['Adaptation Sources'].values.slice(1)
+      .map(row => [ draft[0], ...row.slice(1) ]));
+    const projected = projectDualCapture(raw);
+    expect(projected.forge.Adaptations).toHaveLength(1);
+    expect(projected.forge['Adaptation Sources']).toHaveLength(2);
+    const current = buildDualCatalog(projected);
+    const approvedOnly = buildDualCatalog(projectDualCapture(base()));
+    expect(Array.from(current.snapshot)).toEqual(Array.from(approvedOnly.snapshot));
+    expect(Array.from(current.catalog)).toEqual(Array.from(approvedOnly.catalog));
+    expect(JSON.stringify(Array.from(current.snapshot))).not.toContain('未核准文字');
+  });
   test.each([
     [ 'Book version change', raw => { raw.bookAfter.modified_time = '2026-10-11T01:00:01.000Z'; } ],
     [ 'Forge version change', raw => { raw.forgeAfter.modified_time = '2026-10-11T02:00:01.000Z'; } ],
     [ 'wrong Forge ID', raw => { raw.forgeAfter.id = BOOK_SHEET_ID; } ],
-    [ 'missing adaptation', raw => { raw.forge.Adaptations.values.pop(); } ],
+    [ 'missing adaptation ID with source links', raw => { raw.forge.Adaptations.values.pop(); } ],
     [ 'duplicate adaptation', raw => { raw.forge.Adaptations.values.push(raw.forge.Adaptations.values[1]); } ],
-    [ 'unapproved adaptation', raw => { raw.forge.Adaptations.values[1][5] = 'REVIEW'; } ],
     [ 'stale Book source', raw => { raw.book.Strings.values[2][2] = '改寫。'; } ],
     [ 'reordered sources', raw => { raw.forge['Adaptation Sources'].values[1][1] = '2'; raw.forge['Adaptation Sources'].values[2][1] = '1'; } ],
     [ 'missing multi-source link', raw => { raw.forge['Adaptation Sources'].values.pop(); } ],

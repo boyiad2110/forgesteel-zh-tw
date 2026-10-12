@@ -83,17 +83,23 @@ export function projectDualCapture(raw) {
   const forgeTime = metadata(raw.forgeBefore, raw.forgeAfter, FORGE_SHEET_ID, 'Forge Sheet');
   const book = Object.fromEntries(Object.entries(DUAL_HEADERS.book).map(([ name, headers ]) =>
     [ name, rowsOf(raw.book[name], headers, name, 'Status') ]));
+  const allAdaptations = rowsOf(raw.forge.Adaptations, DUAL_HEADERS.forge.Adaptations, 'Adaptations');
+  unique(allAdaptations, 0, 'Adaptations');
+  const adaptationById = new Map(allAdaptations.map(row => [ row[0], row ]));
   const forge = Object.fromEntries(Object.entries(DUAL_HEADERS.forge).map(([ name, headers ]) =>
-    [ name, rowsOf(raw.forge[name], headers, name, name === 'Adaptation Sources' ? undefined : 'Status') ]));
+    [ name, name === 'Adaptations' ? allAdaptations.filter(row => row[5] === 'APPROVED')
+      : rowsOf(raw.forge[name], headers, name, name === 'Adaptation Sources' ? undefined : 'Status') ]));
   for (const [ name, rows ] of Object.entries(book)) unique(rows, 0, name);
   unique(forge['Forge Steel UI'], 0, 'Forge Steel UI');
-  unique(forge.Adaptations, 0, 'Adaptations');
   const strings = new Map(book.Strings.map(row => [ row[0], row ]));
   const usage = new Map();
   const sourceGroups = new Map();
   const sourceLinks = new Set();
   for (const row of forge['Adaptation Sources']) {
     const [ id, order, type, sourceId, enHash, zhHash, sheetId ] = row;
+    const adaptation = adaptationById.get(id);
+    if (!adaptation) throw new Error(`Adaptation Sources: orphan ${id}`);
+    if (adaptation[5] !== 'APPROVED') continue;
     if (!/^\d+$/.test(order) || Number(order) < 1 || sourceLinks.has(`${id}\0${order}`)) {
       throw new Error(`Adaptation Sources: duplicate or invalid Source Order for ${id}`);
     }
@@ -107,6 +113,7 @@ export function projectDualCapture(raw) {
     if (!sourceGroups.has(id)) sourceGroups.set(id, []);
     sourceGroups.get(id).push(row);
   }
+  forge['Adaptation Sources'] = Array.from(sourceGroups.values()).flat();
   for (const row of forge['Forge Steel UI']) {
     if (sha(row[3]) !== row[5]) throw new Error(`Forge Steel UI: Source Hash mismatch for ${row[0]}`);
   }
@@ -131,9 +138,6 @@ export function projectDualCapture(raw) {
       throw new Error(`Adaptations: stale Basis, Source List, or Forge Steel hash for ${id}`);
     }
     if (/(^|\r?\n)\s*Calculation Display:/.test(note)) parseCalculationDisplay(note, zh);
-  }
-  for (const id of sourceGroups.keys()) {
-    if (!forge.Adaptations.some(row => row[0] === id)) throw new Error(`Adaptation Sources: orphan ${id}`);
   }
   return { sources: {
     book: { spreadsheetId: BOOK_SHEET_ID, modifiedTime: bookTime },
