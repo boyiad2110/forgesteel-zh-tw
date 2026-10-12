@@ -1,4 +1,9 @@
 {
+  "ui.hero-builder.add-a-custom-element.4555eada": {
+    "en": "Add a custom element",
+    "updated": "2026-10-11",
+    "zh": "新增自訂項目"
+  },
   "ui.hero-builder.add-a-custom-language.155bdaee": {
     "en": "Add a custom language",
     "updated": "2026-10-10",
@@ -53,6 +58,11 @@
     "en": "Auto-calculate damage, potency, etc",
     "updated": "2026-10-10",
     "zh": "自動計算傷害、效力等數值"
+  },
+  "ui.hero-builder.benefit.0c0829d3": {
+    "en": "Benefit",
+    "updated": "2026-10-11",
+    "zh": "益處"
   },
   "ui.hero-builder.bespoke-culture.d5aee9b5": {
     "en": "Bespoke Culture",
@@ -153,6 +163,11 @@
     "en": "Choose a perk",
     "updated": "2026-10-10",
     "zh": "選擇專長"
+  },
+  "ui.hero-builder.choose-a-perk.38f11151": {
+    "en": "Choose a perk.",
+    "updated": "2026-10-11",
+    "zh": "選擇 1 項專長。"
   },
   "ui.hero-builder.choose-a-picture.53bbd748": {
     "en": "Choose a picture",
@@ -289,6 +304,11 @@
     "updated": "2026-10-10",
     "zh": "設定"
   },
+  "ui.hero-builder.crafting-perk.cc40cc14": {
+    "en": "Crafting Perk",
+    "updated": "2026-10-11",
+    "zh": "工藝類專長"
+  },
   "ui.hero-builder.creating-a-hero-in.9a412045": {
     "en": "Creating a hero in",
     "updated": "2026-10-10",
@@ -354,6 +374,11 @@
     "updated": "2026-10-10",
     "zh": "刪除"
   },
+  "ui.hero-builder.description.526e0087": {
+    "en": "Description",
+    "updated": "2026-10-11",
+    "zh": "描述"
+  },
   "ui.hero-builder.details.a3eba45b": {
     "en": "Details",
     "updated": "2026-10-10",
@@ -383,6 +408,11 @@
     "en": "Environment",
     "updated": "2026-10-10",
     "zh": "生活環境"
+  },
+  "ui.hero-builder.exploration-perk.5091cd7a": {
+    "en": "Exploration Perk",
+    "updated": "2026-10-11",
+    "zh": "探索類專長"
   },
   "ui.hero-builder.extensions.6eb986a4": {
     "en": "Extensions",
@@ -464,6 +494,16 @@
     "updated": "2026-10-10",
     "zh": "關鍵事件"
   },
+  "ui.hero-builder.inciting-incidents.e87c535d": {
+    "en": "Inciting Incidents",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "ui.hero-builder.interpersonal-perk.a44c4965": {
+    "en": "Interpersonal Perk",
+    "updated": "2026-10-11",
+    "zh": "交涉類專長"
+  },
   "ui.hero-builder.interpersonal-skill-description.3ff1394b": {
     "en": "Choose a skill from Interpersonal skills.",
     "updated": "2026-10-10",
@@ -473,6 +513,11 @@
     "en": "Interpersonal Skill",
     "updated": "2026-10-10",
     "zh": "交涉類技能"
+  },
+  "ui.hero-builder.intrigue-perk.9db0cc87": {
+    "en": "Intrigue Perk",
+    "updated": "2026-10-11",
+    "zh": "諜報類專長"
   },
   "ui.hero-builder.is-simple.dde61b97": {
     "en": "is simple.",
@@ -553,6 +598,11 @@
     "en": "Looking for something specific? If it's third-party or homebrew, make sure you've included the sourcebook it's in.",
     "updated": "2026-10-10",
     "zh": "找不到想要的內容嗎？若是第三方或自製內容，請確認已加入所屬來源書。"
+  },
+  "ui.hero-builder.lore-perk.9eddcd07": {
+    "en": "Lore Perk",
+    "updated": "2026-10-11",
+    "zh": "學識類專長"
   },
   "ui.hero-builder.lost-skill.f6d9bfe4": {
     "en": "Lost Skill",
@@ -639,6 +689,11 @@
     "updated": "2026-10-10",
     "zh": "組織型態"
   },
+  "ui.hero-builder.other-perks.2706cc67": {
+    "en": "Other Perks",
+    "updated": "2026-10-11",
+    "zh": "其他專長"
+  },
   "ui.hero-builder.other-skills.66fa9a26": {
     "en": "Other skills",
     "updated": "2026-10-10",
@@ -648,6 +703,11 @@
     "en": "Otherwise:",
     "updated": "2026-10-10",
     "zh": "否則："
+  },
+  "ui.hero-builder.overview.d4b1ea57": {
+    "en": "Overview",
+    "updated": "2026-10-11",
+    "zh": "總覽"
   },
   "ui.hero-builder.portrait.84680994": {
     "en": "Portrait",
@@ -729,6 +789,11 @@
     "updated": "2026-10-10",
     "zh": "選取"
   },
+  "ui.hero-builder.selecting-a-perk-from-outside-th.1be9b4cd": {
+    "en": "Selecting a perk from outside the listed groups is typically against the rules.",
+    "updated": "2026-10-11",
+    "zh": "選擇不屬於所列類別的專長，通常不符合規則。"
+  },
   "ui.hero-builder.show-details.257cf510": {
     "en": "Show details",
     "updated": "2026-10-10",
@@ -769,10 +834,20 @@
     "updated": "2026-10-11",
     "zh": "從{source}中選擇 {count} 項技能。"
   },
+  "ui.hero-builder.skills.66d0f523": {
+    "en": "Skills",
+    "updated": "2026-10-11",
+    "zh": "技能"
+  },
   "ui.hero-builder.sourcebooks.52e8200a": {
     "en": "Sourcebooks",
     "updated": "2026-10-10",
     "zh": "來源書"
+  },
+  "ui.hero-builder.special.997c544f": {
+    "en": "Special",
+    "updated": "2026-10-11",
+    "zh": "特殊類"
   },
   "ui.hero-builder.speed.a2b81141": {
     "en": "Speed",
@@ -804,6 +879,16 @@
     "updated": "2026-10-10",
     "zh": "狀況"
   },
+  "ui.hero-builder.supernatural-perk.a9143d55": {
+    "en": "Supernatural Perk",
+    "updated": "2026-10-11",
+    "zh": "超常類專長"
+  },
+  "ui.hero-builder.supernatural.fe29726a": {
+    "en": "Supernatural",
+    "updated": "2026-10-11",
+    "zh": "超常類"
+  },
   "ui.hero-builder.switch-this-on-if-you-want-t.402c5efc": {
     "en": "Switch this on if you want to gain your abilities incrementally.",
     "updated": "2026-10-10",
@@ -823,6 +908,11 @@
     "en": "This can't be undone; are you sure?",
     "updated": "2026-10-10",
     "zh": "此操作無法復原，確定要繼續嗎？"
+  },
+  "ui.hero-builder.this-feature-allows-you-to-choos.f843efd3": {
+    "en": "This feature allows you to choose a perk.",
+    "updated": "2026-10-11",
+    "zh": "此特性能讓你選擇 1 項專長。"
   },
   "ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba": {
     "en": "This hero can use content from the following sourcebooks:",
@@ -858,6 +948,11 @@
     "en": "Unknown",
     "updated": "2026-10-11",
     "zh": "不明"
+  },
+  "ui.hero-builder.unnamed-career.137894c6": {
+    "en": "Unnamed Career",
+    "updated": "2026-10-11",
+    "zh": "未命名生涯"
   },
   "ui.hero-builder.unnamed-extension.04301825": {
     "en": "Unnamed Extension",

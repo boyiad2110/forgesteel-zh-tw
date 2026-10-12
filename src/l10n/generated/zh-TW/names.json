@@ -208,5 +208,95 @@
     "en": "Zaliac",
     "updated": "2026-10-02",
     "zh": "札力語"
+  },
+  "name.perk.arcane-trick": {
+    "en": "Arcane Trick",
+    "updated": "2026-10-11",
+    "zh": "奧術戲法"
+  },
+  "name.perk.area-of-expertise": {
+    "en": "Area of Expertise",
+    "updated": "2026-10-11",
+    "zh": "專業領域"
+  },
+  "name.perk.brawny": {
+    "en": "Brawny",
+    "updated": "2026-10-11",
+    "zh": "肌肉發達"
+  },
+  "name.perk.camouflage-hunter": {
+    "en": "Camouflage Hunter",
+    "updated": "2026-10-11",
+    "zh": "迷彩獵人"
+  },
+  "name.perk.criminal-contacts": {
+    "en": "Criminal Contacts",
+    "updated": "2026-10-11",
+    "zh": "江湖人脈"
+  },
+  "name.perk.engrossing-monologue": {
+    "en": "Engrossing Monologue",
+    "updated": "2026-10-11",
+    "zh": "聚焦獨白"
+  },
+  "name.perk.expert-sage": {
+    "en": "Expert Sage",
+    "updated": "2026-10-11",
+    "zh": "學術專家"
+  },
+  "name.perk.forgettable-face": {
+    "en": "Forgettable Face",
+    "updated": "2026-10-11",
+    "zh": "平凡容貌"
+  },
+  "name.perk.friend-catapult": {
+    "en": "Friend Catapult",
+    "updated": "2026-10-11",
+    "zh": "投擲盟友"
+  },
+  "name.perk.harmonizer": {
+    "en": "Harmonizer",
+    "updated": "2026-10-11",
+    "zh": "和諧之音"
+  },
+  "name.perk.ive-read-about-this-place": {
+    "en": "I’ve Read About This Place",
+    "updated": "2026-10-11",
+    "zh": "我知道這地方"
+  },
+  "name.perk.monster-whisperer": {
+    "en": "Monster Whisperer",
+    "updated": "2026-10-11",
+    "zh": "怪物溝通師"
+  },
+  "name.perk.put-your-back-into-it": {
+    "en": "Put Your Back Into It!",
+    "updated": "2026-10-11",
+    "zh": "全力以赴！"
+  },
+  "name.perk.ritualist": {
+    "en": "Ritualist",
+    "updated": "2026-10-11",
+    "zh": "儀式師"
+  },
+  "name.perk.spot-the-tell": {
+    "en": "Spot the Tell",
+    "updated": "2026-10-11",
+    "zh": "發現破綻"
+  },
+  "name.perk.team-leader": {
+    "en": "Team Leader",
+    "updated": "2026-10-11",
+    "zh": "團隊領袖"
+  },
+  "name.perk.teamwork": {
+    "en": "Teamwork",
+    "updated": "2026-10-11",
+    "zh": "團隊合作"
+  },
+  "name.perk.wood-wise": {
+    "en": "Wood Wise",
+    "updated": "2026-10-11",
+    "zh": "林野智慧"
   }
 }

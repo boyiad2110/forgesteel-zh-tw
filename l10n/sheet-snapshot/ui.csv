@@ -1,4 +1,5 @@
 UI ID,Status,Target Text,Source Text,Last Updated,Source Hash
+ui.hero-builder.add-a-custom-element.4555eada,APPROVED,新增自訂項目,Add a custom element,2026-10-11,4555eadaf5866693c34cf8c8a64d22dc52fd1bfd2ce89caa70721a97046b36df
 ui.hero-builder.add-a-custom-language.155bdaee,APPROVED,新增自訂語言,Add a custom language,2026-10-10,f1c81317b4f688e4522f720fd77c8dd4af7f918c0283fb89be0df73714c5b816
 ui.hero-builder.add-a-custom-skill.14fa1a61,APPROVED,新增自訂技能,Add a custom skill,2026-10-10,9913e7d497523461fa96dfd2b78057dd4f1f5579b77e583b0c51baf5eb68378c
 ui.hero-builder.advance-to-level.0fda668c,APPROVED,提升至等級,Advance to level,2026-10-10,953805711ab60f6fabd43bffde119bcb2a9dbb1b573cd0ae61180b3d1af8686f
@@ -10,6 +11,7 @@ ui.hero-builder.and.a8dce43d,APPROVED,，以及,", and",2026-10-10,4aa9bfd2f175a
 ui.hero-builder.any-skill-list.7f7a6841,APPROVED,任意技能類別,any list,2026-10-11,7f7a6841a8474d340864fb0f255201a77ab472032b57be39b63dcfe48827782d
 ui.hero-builder.armor.d165ace3,APPROVED,護甲,Armor,2026-10-10,a592855d0508d16121c443b3500e94395f2087cc9deb7f84e1a82061f1a8ec69
 ui.hero-builder.auto-calculate-damage-potenc.dfd07bc3,APPROVED,自動計算傷害、效力等數值,"Auto-calculate damage, potency, etc",2026-10-10,c9a35a6b334c79e32a5b61ca9c39fa4373e97ab6d9da588b4e105f123b241db0
+ui.hero-builder.benefit.0c0829d3,APPROVED,益處,Benefit,2026-10-11,0c0829d3e30125b0e9350631b17c2102c298265645d8252eefdc45831517521a
 ui.hero-builder.bespoke-culture.d5aee9b5,APPROVED,自訂文化,Bespoke Culture,2026-10-10,0c613dc154d9eb90922b49d781a41e56574ef0f1897fc3f245d4d862e6cbae37
 ui.hero-builder.bespoke-cultures.853baca5,APPROVED,自訂文化,Bespoke Cultures,2026-10-10,da8a14a7d875ee0e09c6be4b9dbd335e3e401791117e3ccdd80116564407fe2a
 ui.hero-builder.but-you-can-skip-this-if-you.21d25869,APPROVED,，但這不是必要項目，可略過。,- but you can skip this if you'd prefer.,2026-10-10,2c52797ce3c1a27992334c99cdff850a7b5c2a62e3399d8f75afa7a96ff6be71
@@ -30,6 +32,7 @@ ui.hero-builder.choose-a-monster.85c6f3c3,APPROVED,選擇 1 隻怪物。,Choose 
 ui.hero-builder.choose-a-monster.987be8d4,APPROVED,選擇怪物,Choose a monster,2026-10-10,2b3817947a908cfdc15310d53440bab6de1e3fcc2cb8bdf6fc65a19c6329f6cc
 ui.hero-builder.choose-a-name-for-your-cultu.1d3708b6,APPROVED,為你的文化命名。,Choose a name for your culture.,2026-10-10,c4df89f998b846415e1d99d8b870233f655b1896a0ef161add8eb00f81bb7fea
 ui.hero-builder.choose-a-perk.34a3b751,APPROVED,選擇專長,Choose a perk,2026-10-10,52d2a4c9a489e6f3686b7b9986435085f9882f5e78af03184fca48b233dd0afd
+ui.hero-builder.choose-a-perk.38f11151,APPROVED,選擇 1 項專長。,Choose a perk.,2026-10-11,38f11151bd17964d68ccb9d592d87ae41a3ee95b0eb8af8b80193f09bd16d402
 ui.hero-builder.choose-a-picture.53bbd748,APPROVED,選擇圖片,Choose a picture,2026-10-10,2132f6046063126750a16080e3245d86fbcd0e66120ce3834635887492a106ad
 ui.hero-builder.choose-a-retainer.0352d76d,APPROVED,選擇 1 名隨從。,Choose a retainer.,2026-10-10,1933647429b006950e904b384f7296d4873fd74bc7b296600265693eee8f771c
 ui.hero-builder.choose-a-skill-to-lose.eb7cf43a,APPROVED,選擇要失去的技能,Choose a Skill to Lose,2026-10-10,46b7e7a11af454efcbf43c343605397e6ed5ea1afe4069f43b74d3046ccf49a0
@@ -57,6 +60,7 @@ ui.hero-builder.completed.1c31b48e,APPROVED,已完成,Completed,2026-10-10,22a97
 ui.hero-builder.complication.312ac90f,APPROVED,糾葛,Complication,2026-10-10,de3b942e7a0047b84e463ff9c0a973560d67c996c867a5f27770d23d58febf3c
 ui.hero-builder.complication.d37d8e77,APPROVED,糾葛,Complication,2026-10-10,de3b942e7a0047b84e463ff9c0a973560d67c996c867a5f27770d23d58febf3c
 ui.hero-builder.configure.357c15c9,APPROVED,設定,Configure,2026-10-10,6defafa2caa65304173956e3fbc26b6947c50bc769c08c3da32c1032fa6519d4
+ui.hero-builder.crafting-perk.cc40cc14,APPROVED,工藝類專長,Crafting Perk,2026-10-11,cc40cc144af2ba6b118d9ce943201bc265c6af06d419fa7f2505122529a4427b
 ui.hero-builder.creating-a-hero-in.9a412045,APPROVED,在,Creating a hero in,2026-10-10,6de105db4918273ebaec8f2cea13fb44d9c75a1979873c8930fb8ca6c7b171da
 ui.hero-builder.creating-a-hero.09586add,APPROVED,建立英雄,Creating a Hero,2026-10-10,2b9f21553c40cd1f5e83f307de6a9cf3c1234768331d8dcccdc08310f22f0432
 ui.hero-builder.culture-language-description.ad467037,APPROVED,選擇 1 種語言。,Choose a  language.,2026-10-10,ad46703741e0fd16716d24088e9665126d87a8f4325776809a5ee5af077411a2
@@ -70,12 +74,14 @@ ui.hero-builder.customize.6ddfe8c5,APPROVED,自訂,Customize,2026-10-10,c5276e27
 ui.hero-builder.default-language.28bee244,APPROVED,預設語言,Default Language,2026-10-11,28bee2441243a8fc69d2007d9683ec904fb2119e9837aae9641a5cc0d99b0134
 ui.hero-builder.default-option.18977ea3,APPROVED,預設選項,Default Option,2026-10-10,a4cfb7ac5bf33f8ef84014f36f40517ff4a330c94076c98d67815974f0ec1b30
 ui.hero-builder.delete.01152930,APPROVED,刪除,Delete,2026-10-10,e2d0a54968ead24efc0dffa6ac78fc606dceec34a0f586177a74a54cc2272cf8
+ui.hero-builder.description.526e0087,APPROVED,描述,Description,2026-10-11,526e0087cc3f254d9f86f6c7d8e23d954c4dfda2b312efc29194ae8a860106ba
 ui.hero-builder.details.a3eba45b,APPROVED,詳情,Details,2026-10-10,45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df
 ui.hero-builder.details.e7e41783,APPROVED,詳情,Details,2026-10-10,45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df
 ui.hero-builder.domain.67b22e3e,APPROVED,領域,Domain,2026-10-10,79fa33618d8eaa1fc55f6f8a2d34c65ececc4c5961ac2b1433802c2629d55ca1
 ui.hero-builder.domains.26a6e690,APPROVED,領域,Domains,2026-10-10,ced67718ea0f31eb4fcb32715449aa8a3527583f27af07f3c518d6686d5dd2b1
 ui.hero-builder.duplicated.a20aac67,APPROVED,重複選擇,Duplicated,2026-10-10,b26af6d5c21aecb4294b35b739c30ed396b42038e6fa79784986ac9c655624cc
 ui.hero-builder.environment.b9b1aade,APPROVED,生活環境,Environment,2026-10-10,9e471951a1b4106e54be128a21112b02914fe98cc79b2c92b49ee80c5464487c
+ui.hero-builder.exploration-perk.5091cd7a,APPROVED,探索類專長,Exploration Perk,2026-10-11,5091cd7a96074a6425a038e507939b4cdc76a9163a3b3befe2b266a9b84b07b8
 ui.hero-builder.extensions.6eb986a4,APPROVED,擴充項目,Extensions,2026-10-10,fe3436af86b47d22f22d93da68119fcb749dbed0335b4dc99f254e02db236156
 ui.hero-builder.features.31d1245f,APPROVED,特性,Features,2026-10-10,5697d03daef4de9cf8db7cb11755f71358a32b4acca94909a9d449f71040d2dd
 ui.hero-builder.finally-go-to-the.3f9b524b,APPROVED,最後，前往,"Finally, go to the",2026-10-10,88e535bef92c5a621890e510667091d50094f6a9dbaa7cb6a3468f422893f77f
@@ -92,8 +98,11 @@ ui.hero-builder.import-a-sourcebook.37cebd77,APPROVED,匯入來源書,Import a s
 ui.hero-builder.in-progress.c78428c0,APPROVED,進行中,In Progress,2026-10-10,b4cc4b07c300103a4bc38e01e084cc945144a7eb0ae61d74d62ca49b8abe0908
 ui.hero-builder.in-the-toolbar-at-the-top-an.73c2771b,APPROVED,按鈕，即可查看你的英雄角色卡。,"in the toolbar at the top, and you'll see your hero sheet.",2026-10-10,9e74093b5e6712b1b2d10b3a55c3ccae2a4ba89bb9479a61f76fff1c70c311cc
 ui.hero-builder.inciting-incident.181ce686,APPROVED,關鍵事件,Inciting Incident,2026-10-10,5ad954bce3c11fb60d829441cd6036eb0233d249891650e041e7b4ad501bc169
+ui.hero-builder.inciting-incidents.e87c535d,APPROVED,關鍵事件,Inciting Incidents,2026-10-11,e87c535d51036057a9a737127abfa6be422f80cfd3782921a208f8d2513a0be5
+ui.hero-builder.interpersonal-perk.a44c4965,APPROVED,交涉類專長,Interpersonal Perk,2026-10-11,a44c49653471c9cdc5c7d01e17cf7ca9dead726cf423547bc47f8ffefbd48bb9
 ui.hero-builder.interpersonal-skill-description.3ff1394b,APPROVED,從交涉類技能中選擇 1 項技能。,Choose a skill from Interpersonal skills.,2026-10-10,3ff1394bbac97a3520fa35bbbd5f6843dab088dfdebf6701eff142614cfab2e3
 ui.hero-builder.interpersonal-skill.3095ff6f,APPROVED,交涉類技能,Interpersonal Skill,2026-10-10,3095ff6f58daef2991a51db962460a58d2c113aaa24fa7ed4bd268360e469c30
+ui.hero-builder.intrigue-perk.9db0cc87,APPROVED,諜報類專長,Intrigue Perk,2026-10-11,9db0cc87b74fced771c6417d4886873b7ad922227ba8d92f211baa7df2b68260
 ui.hero-builder.is-simple.dde61b97,APPROVED,建立英雄很簡單。,is simple.,2026-10-10,fdc00ea3c4dc8769a6cafcc08536128bcf5d8e88c7d008fda1f0eaa26635b46d
 ui.hero-builder.keywords.28f6721a,APPROVED,關鍵詞,Keywords,2026-10-10,8bfdb93cafaa91477de5fa9fa09d33946f57adae516e2ab45a309df988f36ba1
 ui.hero-builder.kit.63d5adfa,APPROVED,套裝,Kit,2026-10-10,875d60ed20f4b98f7868c57bf37463dbae31d46cb1369b0de0f2812b74811d0f
@@ -110,6 +119,7 @@ ui.hero-builder.level-t-level.e10d2e65,APPROVED,（等級 {level}+）,` (level $
 ui.hero-builder.level.b383f415,APPROVED,等級,Level,2026-10-10,1709305c9fa966d14f56f0da3c3614bbc10adcf53d72f90341bb96d24afcfca3
 ui.hero-builder.level.b63ee29c,APPROVED,{level} 級,`level ${props.hero.class.level}`,2026-10-10,39904dafb022ba9d6988c88cc033ffc8f8d514204343a2facfac93a0cf08e779
 ui.hero-builder.looking-for-something-specif.65c7e1a8,APPROVED,找不到想要的內容嗎？若是第三方或自製內容，請確認已加入所屬來源書。,"Looking for something specific? If it's third-party or homebrew, make sure you've included the sourcebook it's in.",2026-10-10,077ba1b6a7b7432ec709f8f016371a6c4f349d7af96cac1cdf5b22d0a3e605fb
+ui.hero-builder.lore-perk.9eddcd07,APPROVED,學識類專長,Lore Perk,2026-10-11,9eddcd079ca777f8b57e0cd0fc907e92593358c4455ada6ee18761ba1f947636
 ui.hero-builder.lost-skill.f6d9bfe4,APPROVED,失去的技能,Lost Skill,2026-10-10,527351440fd24da66a702b8f872555e445ec33c5c65417548768edc64ad8dd50
 ui.hero-builder.movement-mode.56db4b3c,APPROVED,移動模式。,movement mode.,2026-10-10,4a87677ddfc8054551bffc93067d3d2735617100e57688065bce9f7201cb3e1f
 ui.hero-builder.name.f7c27f51,APPROVED,名稱,Name,2026-10-10,dcd1d5223f73b3a965c07e3ff5dbee3eedcfedb806686a05b9b3868a2c3d6d50
@@ -127,8 +137,10 @@ ui.hero-builder.not-started.dad5ea5d,APPROVED,未開始,Not Started,2026-10-10,6
 ui.hero-builder.optional.1aea6d2c,APPROVED,非必要,Optional,2026-10-10,59be71333c960fd08e7e4fe9862206d9355f0a9884121a5b50ef8b36efdfe4cf
 ui.hero-builder.optionally-you-can-choose-a.1b063f03,APPROVED,此外，你也可以選擇 1 項,"Optionally, you can choose a",2026-10-10,d8a04137b7ead67e7a2c48eb91ebe5685ec058306ac0518a7b1fb7732b3212b5
 ui.hero-builder.organization.a6425036,APPROVED,組織型態,Organization,2026-10-10,d764d42592fc968709b4c6c25c6e6b77919295dfce2c57ead02bedac5ddb3218
+ui.hero-builder.other-perks.2706cc67,APPROVED,其他專長,Other Perks,2026-10-11,2706cc67fb4e2fc96edd28d904210313d86644559a94e4db6929c4dbf470eedf
 ui.hero-builder.other-skills.66fa9a26,APPROVED,其他技能,Other skills,2026-10-10,7160172aa4821c8d9481af37230227b698112fa5264130deae86eeab97ab69ad
 ui.hero-builder.otherwise.eea1c613,APPROVED,否則：,Otherwise:,2026-10-10,6ba58147f51567fccfa0a2fda563396679b94449ebbad5abc3093f92918504cc
+ui.hero-builder.overview.d4b1ea57,APPROVED,總覽,Overview,2026-10-11,d4b1ea5708dd532930a85188b45aff6f0a3ed458500c7577e0127a538eb0d100
 ui.hero-builder.portrait.84680994,APPROVED,肖像,Portrait,2026-10-10,f71094c30160d155c9b29fd67e3b6f86ad254003a163da4c24d1f0061b0ed0ad
 ui.hero-builder.professional-cultures.9011d8e9,APPROVED,職業文化,Professional Cultures,2026-10-10,ad64cf2fc08999ebe1715e24b059b6c7948c5b5aa0c62b6ca06379efeed55c33
 ui.hero-builder.project.7dc34b5f,APPROVED,專案,Project,2026-10-10,985959785319747668373cc6dee294b11db782b03cdd90a2851fbdc0637c6b7b
@@ -145,6 +157,7 @@ ui.hero-builder.select-a-feature-from-an-anc.baf83c80,APPROVED,選擇 1 項族�
 ui.hero-builder.select-an-ancestry.942750ad,APPROVED,選擇族裔,Select an ancestry,2026-10-10,92bacee0addfb627643708029b593a03ba3818678ded45ec273f370963fcdfe0
 ui.hero-builder.select-your-primary-characte.1c6c9fec,APPROVED,選擇主要屬性,Select your primary characteristics,2026-10-10,8dea1b0498a5541bdb5d80dcf54e27f6ae162425f7c1e70539cf036cc4bc1b99
 ui.hero-builder.select.ed8e93ef,APPROVED,選取,Select,2026-10-10,2a78025de6aae5e7ff88e5a951bb3a78ddd67388913529cf9e2dd9653e62b02d
+ui.hero-builder.selecting-a-perk-from-outside-th.1be9b4cd,APPROVED,選擇不屬於所列類別的專長，通常不符合規則。,Selecting a perk from outside the listed groups is typically against the rules.,2026-10-11,1be9b4cd0a123a411b34f354548192aaf8b01aed40ee33734a4c505dcba97e28
 ui.hero-builder.show-details.257cf510,APPROVED,顯示詳情,Show details,2026-10-10,1af77ee273cbdaaec500c36db6130612d94fc3450a9b4665433508954070fde9
 ui.hero-builder.size.0805dc7c,APPROVED,體型,Size,2026-10-10,1af851907331c0ed99e7c63b4e55df808bc5fc4c990a1cf80ca8c0f76daf1f3b
 ui.hero-builder.skill-choice-description.9172d5a4,APPROVED,從{source}中選擇 1 項技能。,`Choose a skill from ${source}.`,2026-10-11,9172d5a4b4a134f997f556511afbb53c6989c860ebce1b86b88f63f3960d50a1
@@ -153,17 +166,22 @@ ui.hero-builder.skill-list-custom.494ca78f,APPROVED,自訂,Custom,2026-10-11,494
 ui.hero-builder.skill-list-description.f94c20ab,APPROVED,{list}技能,`${list} skills`,2026-10-11,f94c20ab2c5e9f9cd4300f57108b6e33395495ecba1a58d0a57488d9b3e5b92a
 ui.hero-builder.skill.a5ed2dcb,APPROVED,技能,Skill,2026-10-10,6df1bb18a59ab97df82e307b93fe4f3bbda34d531bcbb79ec573dda23ba64918
 ui.hero-builder.skills-choice-description.1a7008a2,APPROVED,從{source}中選擇 {count} 項技能。,`Choose ${count} from ${source}.`,2026-10-11,1a7008a2ff710e04d0933b0a7b4a1e848a0e244a2801938e8b9f103b8ea8a1bb
+ui.hero-builder.skills.66d0f523,APPROVED,技能,Skills,2026-10-11,66d0f523a379b2de6f8d5fba3a817ebc395f7bcaa54cc132ca9dfa665d1e9378
 ui.hero-builder.sourcebooks.52e8200a,APPROVED,來源書,Sourcebooks,2026-10-10,d12ee3b74c91c396e9f8524784ce224992be28714cc7213a4e3dfe5bf6dfc1df
+ui.hero-builder.special.997c544f,APPROVED,特殊類,Special,2026-10-11,997c544f1be0a2dde15ce4e764321511ce9abdb34c7e7c661439e0382191a396
 ui.hero-builder.speed.a2b81141,APPROVED,速度,Speed,2026-10-10,c372fee9b4566b85a592ae6e98e571f3929c8e262cf2feff7acba63a65a50f14
 ui.hero-builder.stage-1.7031dbb9,APPROVED,第 1 階段,Stage 1,2026-10-10,05a619cc568c73506325ff2b766896461961b051c53433b9ad29f0d6e6baddd7
 ui.hero-builder.stage-2.d05b49f4,APPROVED,第 2 階段,Stage 2,2026-10-10,bc52af22d1648778ae9b83a7bbb0532b064beb07588540cb2cebdc05167738ef
 ui.hero-builder.stage-3.9c7fa387,APPROVED,第 3 階段,Stage 3,2026-10-10,608eeb4141e98e3b23002baaced131031a9badfa36f0c366ffb120bfe0a12b9e
 ui.hero-builder.start.08232aae,APPROVED,開始,Start,2026-10-10,e4bb9f1ece9af9264a3b9e3913bbdb2cf497457167b14ced5f85688bfde74644
 ui.hero-builder.state.31408083,APPROVED,狀況,State,2026-10-10,a3b50c476732c7409d297c3d7d0e23569fee5e08318553ae76041ab5fe60582e
+ui.hero-builder.supernatural-perk.a9143d55,APPROVED,超常類專長,Supernatural Perk,2026-10-11,a9143d55633633f2a8c3dd4f212e10f1ee5d603d8c4d33ee1977a5c71eaacd5a
+ui.hero-builder.supernatural.fe29726a,APPROVED,超常類,Supernatural,2026-10-11,fe29726a1809673daab4ef0d691657b131f650271b9c96b2c77770a1bc35794f
 ui.hero-builder.switch-this-on-if-you-want-t.402c5efc,APPROVED,若你想逐步取得招式，請開啟此選項。,Switch this on if you want to gain your abilities incrementally.,2026-10-10,a86f04cc33f7cee46d2a26b66b0e94fe942f0793509d501df3466126e0aead05
 ui.hero-builder.switch.e1b71c88,APPROVED,切換,Switch,2026-10-10,39921a740bf2b67802a2042e1f87e9dec566131c2458aba5683e2827ced0d2c3
 ui.hero-builder.tab-and-give-your-hero-a-nam.eead94f6,APPROVED,分頁，為英雄命名。,tab and give your hero a name.,2026-10-10,f630265515816f04ad2dde2c634042b8b7649df8faff5452a2ad27f0992e7366
 ui.hero-builder.this-can-t-be-undone-are-you.c4b878e6,APPROVED,此操作無法復原，確定要繼續嗎？,This can't be undone; are you sure?,2026-10-10,8eedcc53129ba36e95148bb359db36403a58bab49ee6e8e81dade59101b883de
+ui.hero-builder.this-feature-allows-you-to-choos.f843efd3,APPROVED,此特性能讓你選擇 1 項專長。,This feature allows you to choose a perk.,2026-10-11,f843efd3ba38a11472e4a2f70bfd3cdfda725873534dd16090919e769e10896d
 ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba,APPROVED,此英雄可使用以下來源書的內容：,This hero can use content from the following sourcebooks:,2026-10-10,695ae48becbe5f8d7d94633b29985cae9fc57635dc8670ef68d6d114c070c916
 ui.hero-builder.this-is-typically-against-th.a0988409,APPROVED,這通常不符合規則。,This is typically against the rules.,2026-10-10,5d4613d8f3832c9f7eff9cdfcc045e193bc21ef157f64c462a8ee6bd4252f156
 ui.hero-builder.title.f0bf18b2,APPROVED,稱號,Title,2026-10-10,7e8cd2056da73a7fefb6cd91f4e5d199d08d9058c517b9a2476b1b520324d674
@@ -171,6 +189,7 @@ ui.hero-builder.to-add.23ff0fd6,APPROVED,要新增,To Add,2026-10-10,505ef5f9b87
 ui.hero-builder.tutorial-mode.6b8e85d4,APPROVED,教學模式,Tutorial Mode,2026-10-10,ee143180258f9fd40599d0e53dcaca8737522cd5f5ca14e61df09bca2dc9af57
 ui.hero-builder.two-languages-description.0139e42b,APPROVED,選擇 2 種語言。,Choose 2  languages.,2026-10-11,0139e42b974421eca0081e59f696a85cc6e91a55c96b114f1b390b1900fe42e7
 ui.hero-builder.unknown-extension-target.b764cdc0,APPROVED,不明,Unknown,2026-10-11,b764cdc0eab7137467211272fa539f1260d1bf2e71bcf6ff3bdc960f5c16aa14
+ui.hero-builder.unnamed-career.137894c6,APPROVED,未命名生涯,Unnamed Career,2026-10-11,137894c60200388d74e5b9b3375a95ae453f3aee4d48875d1d6b7a6069f9491f
 ui.hero-builder.unnamed-extension.04301825,APPROVED,未命名擴充項目,Unnamed Extension,2026-10-11,04301825d4e68d2f88df87b5c5d2a3291d3ebe9e4c104aa97cb01d4fbd082ee5
 ui.hero-builder.unnamed-feature.fe5fa185,APPROVED,未命名特性,Unnamed Feature,2026-10-10,4d6e4a530354acf13201e68671822ae8975208703d3599289f317bfc865e1b79
 ui.hero-builder.unnamed-sourcebook.ff62ab3a,APPROVED,未命名來源書,Unnamed Sourcebook,2026-10-11,ff62ab3a46ff7e8ab6ddc32d14a4af750d957c319846ee50cf02efeea4dd7875

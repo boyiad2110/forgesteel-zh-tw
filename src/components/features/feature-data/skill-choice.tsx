@@ -44,6 +44,7 @@ interface EditProps {
 }
 
 export const EditSkillChoice = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureSkillChoiceData>(Utils.copy(props.data));
 
 	const setSkillOptions = (value: string[]) => {
@@ -91,7 +92,7 @@ export const EditSkillChoice = (props: EditProps) => {
 			<HeaderText>Options</HeaderText>
 			<Select
 				style={{ width: '100%' }}
-				placeholder='Skills'
+				placeholder={ui.text('ui.hero-builder.skills.66d0f523', 'Skills')}
 				allowClear={true}
 				mode='tags'
 				options={SourcebookLogic.getSkills(props.sourcebooks).map(option => ({ value: option.name, description: option.description }))}

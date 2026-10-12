@@ -955,6 +955,34 @@
         "zhHash": "edfba4b60b768afbc727f3d981e8cc9f931d93bf8c56e68deade6d3fe5148c42"
       }
     },
+    "heroes.background.career.performer.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.career.performer.description",
+          "enHash": "8f04f15cd9f7b703b68af220d8944832b0625fa33bf521cce2bfd5db888afc44",
+          "zhHash": "76ec20a9e3037d95ee5c06e0140dd4a10aed4593db6d334e5db7805ec9b18aee"
+        }
+      ],
+      "sourcesHash": "38279cb34938be182be06b1f031b5dd9b87623e3535ba81e99d6c63aa3152816",
+      "fs": {
+        "enHash": "e44e22dbd297650ac685567372bed4d309042f25748a17afbf474b1a1c818aec",
+        "zhHash": "76ec20a9e3037d95ee5c06e0140dd4a10aed4593db6d334e5db7805ec9b18aee"
+      }
+    },
+    "heroes.background.career.sailor.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.career.sailor.description",
+          "enHash": "96319d1054151ec514d2861b9cb31b4399df48a18cc4d1a55c9c5e91fd65daa7",
+          "zhHash": "2ff58947a2ba1ebea5e21ee49343d7e3c996043340561903c089e256de48adc4"
+        }
+      ],
+      "sourcesHash": "bb283b4cc2b2eca8bdb65d2cd6ecfecd72a5d723ee66bc46e52d4493b95a6a93",
+      "fs": {
+        "enHash": "41e22fe432a0ee5a6cf351d02df12ead921a182111e2b18890b13f8a80a391b4",
+        "zhHash": "2ff58947a2ba1ebea5e21ee49343d7e3c996043340561903c089e256de48adc4"
+      }
+    },
     "heroes.background.culture.archetypical.artisan-guild": {
       "sources": [
         {

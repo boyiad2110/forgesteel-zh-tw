@@ -1,5 +1,7 @@
 import { Segmented, Space } from 'antd';
 import { Career } from '@/models/career';
+import { ElementScope } from '@/l10n/element-scope';
+import { useUI } from '@/l10n/ui-text';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
 import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
 import { Field } from '@/components/controls/field/field';
@@ -24,6 +26,7 @@ interface Props {
 }
 
 export const CareerPanel = (props: Props) => {
+	const ui = useUI();
 	const [ page, setPage ] = useState<string>('overview');
 
 	const getOverview = () => {
@@ -81,9 +84,9 @@ export const CareerPanel = (props: Props) => {
 					style={{ marginBottom: '20px' }}
 					block={true}
 					options={[
-						{ value: 'overview', label: 'Overview' },
+						{ value: 'overview', label: ui.text('ui.hero-builder.overview.d4b1ea57', 'Overview') },
 						{ value: 'features', label: 'Features' },
-						{ value: 'incidents', label: 'Inciting Incidents' }
+						{ value: 'incidents', label: ui.text('ui.hero-builder.inciting-incidents.e87c535d', 'Inciting Incidents') }
 					]}
 					value={page}
 					onChange={setPage}
@@ -104,23 +107,27 @@ export const CareerPanel = (props: Props) => {
 
 	if (props.mode !== PanelMode.Full) {
 		return (
-			<div className='career-panel compact'>
-				<HeaderText level={1} tags={tags}>
-					{props.career.name || 'Unnamed Career'}
-				</HeaderText>
-				<Markdown text={props.career.description} />
-			</div>
+			<ElementScope element={props.career}>
+				<div className='career-panel compact'>
+					<HeaderText level={1} tags={tags}>
+						{props.career.name || ui.text('ui.hero-builder.unnamed-career.137894c6', 'Unnamed Career')}
+					</HeaderText>
+					<Markdown text={props.career.description} />
+				</div>
+			</ElementScope>
 		);
 	}
 
 	return (
-		<ErrorBoundary>
-			<div className='class-panel' id={SheetFormatter.getPageId('career', props.career.id)}>
-				<HeaderText level={1} tags={tags}>
-					{props.career.name || 'Unnamed Career'}
-				</HeaderText>
-				{getContent()}
-			</div>
-		</ErrorBoundary>
+		<ElementScope element={props.career}>
+			<ErrorBoundary>
+				<div className='class-panel' id={SheetFormatter.getPageId('career', props.career.id)}>
+					<HeaderText level={1} tags={tags}>
+						{props.career.name || ui.text('ui.hero-builder.unnamed-career.137894c6', 'Unnamed Career')}
+					</HeaderText>
+					{getContent()}
+				</div>
+			</ErrorBoundary>
+		</ElementScope>
 	);
 };

@@ -2067,6 +2067,621 @@
     "updated": "2026-10-01",
     "zh": "幻林精靈英雄可以獲得以下特性。"
   },
+  "heroes.background.career.agent.benefit.languages": {
+    "en": "Languages: Two languages",
+    "updated": "2026-10-11",
+    "zh": "語言：2 種語言"
+  },
+  "heroes.background.career.agent.benefit.perk": {
+    "en": "Perk: One intrigue perk (Quick Build: Forgettable Face.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項諜報類專長（速選：平凡容貌）。"
+  },
+  "heroes.background.career.agent.benefit.skills": {
+    "en": "Skills: The Sneak skill from the intrigue skill group, plus one skill from the interpersonal group and one other skill from the intrigue group (Quick Build: Disguise, Lie, Sneak.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「潛行」（諜報類技能），另從交涉類技能組選擇 1 項技能，並從諜報類技能組再選擇 1 項技能（速選：易容、欺瞞、潛行）。"
+  },
+  "heroes.background.career.agent.description": {
+    "en": "You worked as a spy for a government or organization.",
+    "updated": "2026-10-11",
+    "zh": "你曾經為政府或組織擔任間諜。"
+  },
+  "heroes.background.career.agent.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.agent.name": {
+    "en": "Agent",
+    "updated": "2026-10-11",
+    "zh": "特務"
+  },
+  "heroes.background.career.aristocrat.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.aristocrat.benefit.perk": {
+    "en": "Perk: One lore perk (Quick Build: I’ve Read About This Place.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項學識類專長（速選：我知道這地方）。"
+  },
+  "heroes.background.career.aristocrat.benefit.renown": {
+    "en": "Renown: +1",
+    "updated": "2026-10-11",
+    "zh": "聲望：+1"
+  },
+  "heroes.background.career.aristocrat.benefit.skills": {
+    "en": "Skills: One skill from the interpersonal skill group and one skill from the lore group (Quick Build: Brag, Society.)",
+    "updated": "2026-10-11",
+    "zh": "技能：從交涉類技能組和學識類技能組各選擇 1 項技能（速選：誇耀、社會）。"
+  },
+  "heroes.background.career.aristocrat.benefit.wealth": {
+    "en": "Wealth: +1",
+    "updated": "2026-10-11",
+    "zh": "財富：+1"
+  },
+  "heroes.background.career.aristocrat.description": {
+    "en": "Career? Who needs a career when you’re born into money! Or marry into it! Or con your way into it! Whatever the case, you didn’t need to work thanks to (someone’s) generational wealth.",
+    "updated": "2026-10-11",
+    "zh": "職涯？若你含著金湯匙出生、透過婚姻進入豪門，或是巧妙地騙取財富，誰還需要一技之長？無論方式如何，多虧了（某人）世代傳承的財富，你完全不需要工作。"
+  },
+  "heroes.background.career.aristocrat.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.aristocrat.name": {
+    "en": "Aristocrat",
+    "updated": "2026-10-11",
+    "zh": "貴族"
+  },
+  "heroes.background.career.artisan.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.artisan.benefit.perk": {
+    "en": "Perk: One crafting perk (Quick Build: Area of Expertise.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項工藝類專長（速選：專業領域）。"
+  },
+  "heroes.background.career.artisan.benefit.project-points": {
+    "en": "Project Points: 240",
+    "updated": "2026-10-11",
+    "zh": "專案點數：240"
+  },
+  "heroes.background.career.artisan.benefit.skills": {
+    "en": "Skills: Two skills from the crafting skill group (Quick Build: Blacksmithing, Carpentry.)",
+    "updated": "2026-10-11",
+    "zh": "技能：從工藝類技能組選擇 2 項技能（速選：鍛造、木工）。"
+  },
+  "heroes.background.career.artisan.description": {
+    "en": "You made and sold useful wares.",
+    "updated": "2026-10-11",
+    "zh": "你負責製作並販售實用的產品。"
+  },
+  "heroes.background.career.artisan.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.artisan.name": {
+    "en": "Artisan",
+    "updated": "2026-10-11",
+    "zh": "工匠"
+  },
+  "heroes.background.career.beggar.benefit.languages": {
+    "en": "Languages: Two languages",
+    "updated": "2026-10-11",
+    "zh": "語言：2 種語言"
+  },
+  "heroes.background.career.beggar.benefit.perk": {
+    "en": "Perk: One interpersonal perk (Quick Build: Spot the Tell.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項交涉類專長（速選：發現破綻）。"
+  },
+  "heroes.background.career.beggar.benefit.skills": {
+    "en": "Skills: The Rumors skill (from the lore skill group), plus one skill from the exploration group and one skill from the interpersonal group (Quick Build: Empathize, Endurance, Rumors.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「傳聞」（學識類技能），另從探索類技能組及交涉類技能組各選擇 1 項技能（速選：共感、耐力、傳聞）。"
+  },
+  "heroes.background.career.beggar.description": {
+    "en": "You lived by going to a tavern, crossroads, city street, or other busy area and begging passersby for money or food.",
+    "updated": "2026-10-11",
+    "zh": "你以前在酒館、十字路口、城市街道或其他人潮擁擠的地方，向路人乞討金錢或食物維生。"
+  },
+  "heroes.background.career.beggar.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.beggar.name": {
+    "en": "Beggar",
+    "updated": "2026-10-11",
+    "zh": "乞丐"
+  },
+  "heroes.background.career.criminal.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.criminal.benefit.perk": {
+    "en": "Perk: One intrigue perk (Quick Build: Criminal Contacts.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項諜報類專長（速選：江湖人脈）。"
+  },
+  "heroes.background.career.criminal.benefit.project-points": {
+    "en": "Project Points: 120",
+    "updated": "2026-10-11",
+    "zh": "專案點數：120"
+  },
+  "heroes.background.career.criminal.benefit.skills": {
+    "en": "Skills: The Criminal Underworld skill (from the lore skill group), plus two skills from the intrigue group (Quick Build: Criminal Underworld, Pick Lock, Pick Pocket.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「江湖」（學識類技能），另從諜報類技能組選擇 2 項技能（速選：江湖、開鎖、扒竊）。"
+  },
+  "heroes.background.career.criminal.description": {
+    "en": "You once worked as a bandit, insurgent, smuggler, outlaw, or even as an assassin.",
+    "updated": "2026-10-11",
+    "zh": "你曾是一名盜匪、叛亂分子、走私犯、亡命之徒，甚至是刺客。"
+  },
+  "heroes.background.career.criminal.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.criminal.name": {
+    "en": "Criminal",
+    "updated": "2026-10-11",
+    "zh": "罪犯"
+  },
+  "heroes.background.career.disciple.benefit.perk": {
+    "en": "Perk: One supernatural perk (Quick Build: Ritualist.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項超常類專長（速選：儀式師）。"
+  },
+  "heroes.background.career.disciple.benefit.project-points": {
+    "en": "Project Points: 240",
+    "updated": "2026-10-11",
+    "zh": "專案點數：240"
+  },
+  "heroes.background.career.disciple.benefit.skills": {
+    "en": "Skills: The Religion skill (from the lore skill group), plus two more skills from the lore group (Quick Build: Culture, Magic, Religion.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「宗教」（學識類技能），另從學識類技能組選擇 2 項其他技能（速選：文化、魔法、宗教）。"
+  },
+  "heroes.background.career.disciple.description": {
+    "en": "You worked in a church, temple, or other religious institution as part of the clergy.",
+    "updated": "2026-10-11",
+    "zh": "你曾在教會、神殿或其他宗教機構中擔任神職人員。"
+  },
+  "heroes.background.career.disciple.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.disciple.name": {
+    "en": "Disciple",
+    "updated": "2026-10-11",
+    "zh": "門徒"
+  },
+  "heroes.background.career.explorer.benefit.languages": {
+    "en": "Languages: Two languages",
+    "updated": "2026-10-11",
+    "zh": "語言：2 種語言"
+  },
+  "heroes.background.career.explorer.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Wood Wise.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：林野智慧）。"
+  },
+  "heroes.background.career.explorer.benefit.skills": {
+    "en": "Skills: The Navigate skill (from the exploration skill group), plus two more skills from the exploration group (Quick Build: Climb, Heal, Navigate.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「導航」（探索類技能），另從探索類技能組選擇 2 項其他技能（速選：攀爬、醫療、導航）。"
+  },
+  "heroes.background.career.explorer.description": {
+    "en": "You ventured into uncharted areas and made your living as a cartographer, researcher, resource seeker, or treasure hunter.",
+    "updated": "2026-10-11",
+    "zh": "你曾冒險前往未知區域，靠著繪製地圖、進行研究、尋找資源或寶藏為生。"
+  },
+  "heroes.background.career.explorer.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.explorer.name": {
+    "en": "Explorer",
+    "updated": "2026-10-11",
+    "zh": "探險家"
+  },
+  "heroes.background.career.farmer.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.farmer.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Monster Whisperer.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：怪物溝通師）。"
+  },
+  "heroes.background.career.farmer.benefit.project-points": {
+    "en": "Project Points: 120",
+    "updated": "2026-10-11",
+    "zh": "專案點數：120"
+  },
+  "heroes.background.career.farmer.benefit.skills": {
+    "en": "Skills: The Handle Animals skill (from the interpersonal skill group), plus two skills from the exploration group (Quick Build: Drive, Handle Animals, Lift.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「馴獸」（交涉類技能），另從探索類技能組選擇 2 項技能（速選：駕駛、馴獸、舉重）。"
+  },
+  "heroes.background.career.farmer.description": {
+    "en": "You grew crops or cared for livestock.",
+    "updated": "2026-10-11",
+    "zh": "你曾經以種植農作物或照顧牲畜為生。"
+  },
+  "heroes.background.career.farmer.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.farmer.name": {
+    "en": "Farmer",
+    "updated": "2026-10-11",
+    "zh": "農夫"
+  },
+  "heroes.background.career.gladiator.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.gladiator.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Friend Catapult.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：投擲盟友）。"
+  },
+  "heroes.background.career.gladiator.benefit.renown": {
+    "en": "Renown: +2",
+    "updated": "2026-10-11",
+    "zh": "聲望：+2"
+  },
+  "heroes.background.career.gladiator.benefit.skills": {
+    "en": "Skills: Two skills from the exploration skill group (Quick Build: Gymnastics, Jump.)",
+    "updated": "2026-10-11",
+    "zh": "技能：從探索類技能組選擇 2 項技能（速選：體操、跳躍）。"
+  },
+  "heroes.background.career.gladiator.description": {
+    "en": "In the past, you entertained the masses with flashy displays of violence in the arena.",
+    "updated": "2026-10-11",
+    "zh": "你曾經以華麗的暴力表演在競技場中娛樂大眾。"
+  },
+  "heroes.background.career.gladiator.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.gladiator.name": {
+    "en": "Gladiator",
+    "updated": "2026-10-11",
+    "zh": "角鬥士"
+  },
+  "heroes.background.career.laborer.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.laborer.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Brawny.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：肌肉發達）。"
+  },
+  "heroes.background.career.laborer.benefit.project-points": {
+    "en": "Project Points: 120",
+    "updated": "2026-10-11",
+    "zh": "專案點數：120"
+  },
+  "heroes.background.career.laborer.benefit.skills": {
+    "en": "Skills: The Endurance skill (from the exploration skill group), plus two skills from either the crafting group or the exploration group (Quick Build: Blacksmithing, Endurance, Lift.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「耐力」（探索類技能），另從工藝類或探索類技能組選擇 2 項技能（速選：鍛造、耐力、舉重）。"
+  },
+  "heroes.background.career.laborer.description": {
+    "en": "You worked as a farmer, builder, clothes washer, forester, miner, or some other profession engaged in hard manual labor.",
+    "updated": "2026-10-11",
+    "zh": "你曾經擔任農夫、建築工人、洗衣工、林務員、礦工或其他需要繁重體力勞動的職業。"
+  },
+  "heroes.background.career.laborer.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.laborer.name": {
+    "en": "Laborer",
+    "updated": "2026-10-11",
+    "zh": "勞工"
+  },
+  "heroes.background.career.mages-apprentice.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.mages-apprentice.benefit.perk": {
+    "en": "Perk: One supernatural perk (Quick Build: Arcane Trick.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項超常類專長（速選：奧術戲法）。"
+  },
+  "heroes.background.career.mages-apprentice.benefit.renown": {
+    "en": "Renown: +1",
+    "updated": "2026-10-11",
+    "zh": "聲望：+1"
+  },
+  "heroes.background.career.mages-apprentice.benefit.skills": {
+    "en": "Skills: The Magic skill (from the lore skill group), plus two other skills from the lore group (Quick Build: Magic, Monsters, Timescape.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「魔法」（學識類技能），另從學識類技能組選擇 2 項其他技能（速選：魔法、怪物、時界）。"
+  },
+  "heroes.background.career.mages-apprentice.description": {
+    "en": "For long years, you studied magic under the mentorship of a more experienced mage.",
+    "updated": "2026-10-11",
+    "zh": "多年以來，你在一位經驗豐富的法師指導下學習魔法。"
+  },
+  "heroes.background.career.mages-apprentice.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.mages-apprentice.name": {
+    "en": "Mage’s Apprentice",
+    "updated": "2026-10-11",
+    "zh": "法師學徒"
+  },
+  "heroes.background.career.performer.benefit.perk": {
+    "en": "Perk: One interpersonal perk (Quick Build: Harmonizer.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項交涉類專長（速選：和諧之音）。"
+  },
+  "heroes.background.career.performer.benefit.renown": {
+    "en": "Renown: +2",
+    "updated": "2026-10-11",
+    "zh": "聲望：+2"
+  },
+  "heroes.background.career.performer.benefit.skills": {
+    "en": "Skills: The Music or Perform skill (from the interpersonal skill group), plus two more skills from the interpersonal group (Quick Build: Flirt, Music, Perform.)",
+    "updated": "2026-10-11",
+    "zh": "技能：從交涉類技能組選擇「音樂」或「表演」，另選 2 項其他交涉類技能（速選：魅惑、音樂、表演）。"
+  },
+  "heroes.background.career.performer.description": {
+    "en": "You can sing, act, or dance well enough that people actually pay you to do it. Imagine that!",
+    "fs": {
+      "basisHash": "76ec20a9e3037d95ee5c06e0140dd4a10aed4593db6d334e5db7805ec9b18aee",
+      "en": "You can sing, act, or dance well enough that people actually pay to see you do it. Imagine that!",
+      "zh": "你擁有出色的歌唱、演戲或舞蹈技巧，讓人們願意為了觀賞你的表演而付錢。真不錯！"
+    },
+    "updated": "2026-10-11",
+    "zh": "你擁有出色的歌唱、演戲或舞蹈技巧，讓人們願意為了觀賞你的表演而付錢。真不錯！"
+  },
+  "heroes.background.career.performer.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.performer.name": {
+    "en": "Performer",
+    "updated": "2026-10-11",
+    "zh": "藝人"
+  },
+  "heroes.background.career.politician.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.politician.benefit.perk": {
+    "en": "Perk: One interpersonal perk (Quick Build: Engrossing Monologue.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項交涉類專長（速選：聚焦獨白）。"
+  },
+  "heroes.background.career.politician.benefit.renown": {
+    "en": "Renown: +1",
+    "updated": "2026-10-11",
+    "zh": "聲望：+1"
+  },
+  "heroes.background.career.politician.benefit.skills": {
+    "en": "Skills: Two skills from the interpersonal skill group (Quick Build: Lead, Lie.)",
+    "updated": "2026-10-11",
+    "zh": "技能：從交涉類技能組選擇 2 項技能（速選：領導、欺瞞）。"
+  },
+  "heroes.background.career.politician.benefit.wealth": {
+    "en": "Wealth: +1",
+    "updated": "2026-10-11",
+    "zh": "財富：+1"
+  },
+  "heroes.background.career.politician.description": {
+    "en": "You worked as a leader within a formal, bureaucratic organization or government. You might have been appointed, born, or elected into your position, but getting people to agree and making decisions for the people you serve (or who served you) was your job.",
+    "updated": "2026-10-11",
+    "zh": "你曾在正式的官僚組織或政府中擔任領導者。你可能是透過任命、世襲或選舉獲得該職位，但你的工作是促使人們達成共識，並為你服務的人民（或服侍你的人）做出決策。"
+  },
+  "heroes.background.career.politician.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.politician.name": {
+    "en": "Politician",
+    "updated": "2026-10-11",
+    "zh": "政治家"
+  },
+  "heroes.background.career.sage.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.sage.benefit.perk": {
+    "en": "Perk: One lore perk (Quick Build: Expert Sage.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項學識類專長（速選：學術專家）。"
+  },
+  "heroes.background.career.sage.benefit.project-points": {
+    "en": "Project Points: 240",
+    "updated": "2026-10-11",
+    "zh": "專案點數：240"
+  },
+  "heroes.background.career.sage.benefit.skills": {
+    "en": "Skills: Two skills from the lore skill group (Quick Build: History, Magic.)",
+    "updated": "2026-10-11",
+    "zh": "技能：從學識類技能組選擇 2 項技能（速選：歷史、魔法）。"
+  },
+  "heroes.background.career.sage.description": {
+    "en": "From an early age, you dedicated yourself to learning, whether you shared the knowledge of the world with others or sought out secret lore only for yourself.",
+    "updated": "2026-10-11",
+    "zh": "從小時候起，你就致力於學習各種知識，無論是與他人分享世界的奧祕，還是純粹為了自己而尋求祕密的學問。"
+  },
+  "heroes.background.career.sage.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.sage.name": {
+    "en": "Sage",
+    "updated": "2026-10-11",
+    "zh": "學者"
+  },
+  "heroes.background.career.sailor.benefit.languages": {
+    "en": "Languages: Two languages",
+    "updated": "2026-10-11",
+    "zh": "語言：2 種語言"
+  },
+  "heroes.background.career.sailor.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Put Your Back Into It!)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：全力以赴！）。"
+  },
+  "heroes.background.career.sailor.benefit.skills": {
+    "en": "Skills: Swim (from the exploration skill group), plus two more skills from the exploration group (Quick Build: Climb, Gymnastics, Swim.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「游泳」（探索類技能），另從探索類技能組選擇 2 項其他技能（速選：攀爬、體操、游泳）。"
+  },
+  "heroes.background.career.sailor.description": {
+    "en": "You worked on a ship, whether a merchant cog, a mercenary or military craft, or a pirate vessel. You might have been a deckhand, a mate, or even the captain.",
+    "fs": {
+      "basisHash": "2ff58947a2ba1ebea5e21ee49343d7e3c996043340561903c089e256de48adc4",
+      "en": "You worked on a ship that might have been a merchant cog, a mercenary or military craft, or a pirate vessel. You might have been a deckhand, a mate, or even the captain.",
+      "zh": "你曾在船上工作，無論是商船、傭兵船、軍艦，還是海盜船。你可能是甲板水手、大副，甚至是船長。"
+    },
+    "updated": "2026-10-11",
+    "zh": "你曾在船上工作，無論是商船、傭兵船、軍艦，還是海盜船。你可能是甲板水手、大副，甚至是船長。"
+  },
+  "heroes.background.career.sailor.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.sailor.name": {
+    "en": "Sailor",
+    "updated": "2026-10-11",
+    "zh": "水手"
+  },
+  "heroes.background.career.soldier.benefit.languages": {
+    "en": "Languages: Two languages",
+    "updated": "2026-10-11",
+    "zh": "語言：2 種語言"
+  },
+  "heroes.background.career.soldier.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Teamwork.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：團隊合作）。"
+  },
+  "heroes.background.career.soldier.benefit.renown": {
+    "en": "Renown: +1",
+    "updated": "2026-10-11",
+    "zh": "聲望：+1"
+  },
+  "heroes.background.career.soldier.benefit.skills": {
+    "en": "Skills: One skill from the exploration skill group and one skill from the intrigue group (Quick Build: Alertness, Endurance.)",
+    "updated": "2026-10-11",
+    "zh": "技能：從探索類技能組和諜報類技能組各選擇 1 項技能（速選：警覺、耐力）。"
+  },
+  "heroes.background.career.soldier.description": {
+    "en": "In your formative years, you fought tirelessly in skirmishes and campaigns against enemy forces.",
+    "updated": "2026-10-11",
+    "zh": "在你的成長歲月中，你不知疲倦地參與了無數次與敵軍的衝突與征戰。"
+  },
+  "heroes.background.career.soldier.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.soldier.name": {
+    "en": "Soldier",
+    "updated": "2026-10-11",
+    "zh": "士兵"
+  },
+  "heroes.background.career.warden.benefit.languages": {
+    "en": "Languages: One language",
+    "updated": "2026-10-11",
+    "zh": "語言：1 種語言"
+  },
+  "heroes.background.career.warden.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Camouflage Hunter.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：迷彩獵人）。"
+  },
+  "heroes.background.career.warden.benefit.project-points": {
+    "en": "Project Points: 120",
+    "updated": "2026-10-11",
+    "zh": "專案點數：120"
+  },
+  "heroes.background.career.warden.benefit.skills": {
+    "en": "Skills: Nature (from the lore skill group), plus one skill from the exploration group and one skill from the intrigue group (Quick Build: Nature, Navigate, Track.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「自然」（學識類技能），另從探索類技能組和諜報類技能組各選擇 1 項技能（速選：自然、導航、追蹤）。"
+  },
+  "heroes.background.career.warden.description": {
+    "en": "You protected a wild region from those who sought to harm it, such as poachers and cultists bent on the destruction of the natural world. Knowing your land well, you could also serve as a guide or the leader of a rescue party for those wandering the wilds.",
+    "updated": "2026-10-11",
+    "zh": "你保護著一片荒野，抵禦意圖破壞之人，包括盜獵者和企圖毀滅大自然的邪教徒。因為你非常熟悉這片土地，你也可以承擔嚮導和救援隊長的工作，幫助行經荒野的人們。"
+  },
+  "heroes.background.career.warden.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.warden.name": {
+    "en": "Warden",
+    "updated": "2026-10-11",
+    "zh": "守望者"
+  },
+  "heroes.background.career.watch-officer.benefit.languages": {
+    "en": "Languages: Two languages",
+    "updated": "2026-10-11",
+    "zh": "語言：2 種語言"
+  },
+  "heroes.background.career.watch-officer.benefit.perk": {
+    "en": "Perk: One exploration perk (Quick Build: Team Leader.)",
+    "updated": "2026-10-11",
+    "zh": "專長：1 項探索類專長（速選：團隊領袖）。"
+  },
+  "heroes.background.career.watch-officer.benefit.skills": {
+    "en": "Skills: Alertness (from the intrigue skill group), plus two more skills from the intrigue group (Quick Build: Alertness, Search, Track.)",
+    "updated": "2026-10-11",
+    "zh": "技能：獲得「警覺」（諜報類技能），另從諜報類技能組選擇 2 項其他技能（速選：警覺、搜索、追蹤）。"
+  },
+  "heroes.background.career.watch-officer.description": {
+    "en": "You served as an officer of the law for a local government. You might have been a single person in a much larger city watch or the only constable patrolling a small village.",
+    "updated": "2026-10-11",
+    "zh": "你曾在地方政府擔任執法人員，可能是大城市警衛的一員，或是小村莊唯一的治安官。"
+  },
+  "heroes.background.career.watch-officer.inciting.heading": {
+    "en": "Inciting Incident",
+    "updated": "2026-10-11",
+    "zh": "關鍵事件"
+  },
+  "heroes.background.career.watch-officer.name": {
+    "en": "Watch Officer",
+    "updated": "2026-10-11",
+    "zh": "執法者"
+  },
   "heroes.background.culture.alertness-sidebar.heading": {
     "en": "But I Really Want Alertness",
     "updated": "2026-10-02",

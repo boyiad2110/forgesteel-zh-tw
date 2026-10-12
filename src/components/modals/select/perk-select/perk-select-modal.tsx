@@ -7,6 +7,7 @@ import { Modal } from '@/components/modals/modal/modal';
 import { PanelMode } from '@/enums/panel-mode';
 import { Perk } from '@/models/perk';
 import { PerkList } from '@/enums/perk-list';
+import { useUI } from '@/l10n/ui-text';
 import { PerkPanel } from '@/components/panels/elements/perk-panel/perk-panel';
 import { SearchBox } from '@/components/controls/text-input/text-input';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
@@ -17,6 +18,18 @@ import { useState } from 'react';
 
 import './perk-select-modal.scss';
 
+const getPerkListText = (list: PerkList, ui: ReturnType<typeof useUI>) => {
+	switch (list) {
+		case PerkList.Crafting:
+		case PerkList.Exploration:
+		case PerkList.Interpersonal:
+		case PerkList.Intrigue:
+		case PerkList.Lore: return list;
+		case PerkList.Supernatural: return ui.text('ui.hero-builder.supernatural.fe29726a', 'Supernatural');
+		case PerkList.Special: return ui.text('ui.hero-builder.special.997c544f', 'Special');
+	}
+};
+
 interface Props {
 	perks: Perk[];
 	hero: Hero;
@@ -26,6 +39,7 @@ interface Props {
 }
 
 export const PerkSelectModal = (props: Props) => {
+	const ui = useUI();
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 
 	const onSelect = (perk: Perk) => {
@@ -61,7 +75,7 @@ export const PerkSelectModal = (props: Props) => {
 
 							return (
 								<Space key={list} orientation='vertical' style={{ width: '100%' }}>
-									<HeaderText level={1}>{list}</HeaderText>
+									<HeaderText level={1}>{getPerkListText(list, ui)}</HeaderText>
 									{
 										subset.map((p, n) => (
 											<SelectablePanel key={n} onSelect={() => onSelect(p)}>
@@ -77,12 +91,12 @@ export const PerkSelectModal = (props: Props) => {
 						otherPerks.length > 0 ?
 							<>
 								<Divider />
-								<Expander title='Other Perks'>
+								<Expander title={ui.text('ui.hero-builder.other-perks.2706cc67', 'Other Perks')}>
 									<Space orientation='vertical' style={{ width: '100%' }}>
 										<Alert
 											type='warning'
 											showIcon={true}
-											title='Selecting a perk from outside the listed groups is typically against the rules.'
+											title={ui.text('ui.hero-builder.selecting-a-perk-from-outside-th.1be9b4cd', 'Selecting a perk from outside the listed groups is typically against the rules.')}
 										/>
 										{
 											otherPerks.map((p, n) => (
