@@ -70,6 +70,20 @@ describe('dual-source capture', () => {
     expect(JSON.parse(catalog.get('adaptations.json'))[second[0]].usageKey).toBe('section:second-use:0');
     expect(JSON.parse(catalog.get('strings.json'))[bookId].fs.zh).toBe(fsZh);
   });
+  test.each([
+    [ 'unapproved status', { status: 'REVIEW' } ],
+    [ 'unknown target', { target: 'not present in the approved Chinese' } ],
+    [ 'duplicated value', { template: '{value} {value}' } ],
+    [ 'unknown placeholder', { template: '{unknown}' } ]
+  ])('rejects invalid %s Calculation Display from an approved source', (_name, changes) => {
+    const raw = base();
+    const record = raw.forge.Adaptations.values[1];
+    const marker = 'Calculation Display: ';
+    const current = record[7].split('\n').find(line => line.startsWith(marker));
+    const display = { ...JSON.parse(current.slice(marker.length)), ...changes };
+    record[7] = record[7].replace(current, marker + JSON.stringify(display));
+    expect(() => buildDualCatalog(projectDualCapture(raw))).toThrow('expected an APPROVED');
+  });
   test.each([ 'NEW', 'REVIEW' ])('ignores %s Adaptation and its existing source links', status => {
     const raw = base();
     const draft = [ ...raw.forge.Adaptations.values[1] ];

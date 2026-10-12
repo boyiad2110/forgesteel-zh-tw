@@ -2,7 +2,9 @@
 
 | 批次 | 狀態／PR／版本 | 驗證與下一步 |
 |---|---|---|
-| MASTER-SPLIT-C | Stage B 已由 Reviewer 驗收；Stage C 雙來源工具待 PR 審查，基底 develop `4da55d95` | 線上同版舊／新目錄逐筆比較 332 Glossary／60 Names／656 Strings／209 UI，差異 0；108 Adaptations、114 來源關聯及 2 筆動態 Note。既有 develop 檢查點 106 筆相符，另外 2 筆 Career 核准資料待相關內容 PR 併入；正式來源切換留 Stage D。 |
+| MASTER-SPLIT-C | 已完成；PR #62 已合併至 develop `139bc7d4` | 雙來源擷取與驗證工具已合併；後續來源切換由 MASTER-SPLIT-D2 處理。 |
+| MASTER-SPLIT-D1 | 已完成；PR #63 已 squash merge 至 develop `1a8c11f59f882e05ca44ad34a3c4d02acc445a8e` | CI #191 success。同步核准快照 Glossary／Names／Strings／UI 332／60／656／209，並整合 108 筆已核准 Adaptation checkpoints。 |
+| MASTER-SPLIT-D2 | 正式雙來源切換 PR #64 已開立；待 Reviewer 驗收 | 基底 `1a8c11f59f882e05ca44ad34a3c4d02acc445a8e`；本批僅新增雙來源快照 metadata／Adaptations 產物及更新操作文件。擷取時間、指紋及驗證結果記於 D2 PR。未授權合併、部署或清除舊 Sheet 資料。 |
 | 維護 1–5 | 已完成；[PR #54](https://github.com/boyiad2110/forgesteel-zh-tw/pull/54)，develop 合併 `b79c1d0d` | 2026-10-10，程式與治理版本 `70fa69e2`；972/972 測試、六項完整驗證、audit 0 漏洞及隔離瀏覽器回歸。詳見原 PR 與 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/37993319244) |
 | DISPLAY-01 | Marc 人工驗收通過並已合併；[PR #55](https://github.com/boyiad2110/forgesteel-zh-tw/pull/55)，develop 合併 `1154e6ca` | 2026-10-10，head `872ae31d`；973/973、六項完整驗證、audit 0 漏洞及文化瀏覽器操作。最新 [CI](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38017844450) 成功；Sheet Status／Project State／CHG-0078 已回讀確認。原批使用 merge，後續一般內容依 RULES 用 squash；不改寫歷史 |
 | DISPLAY-02 | Marc 人工驗收通過；[PR #57](https://github.com/boyiad2110/forgesteel-zh-tw/pull/57)，合併狀態見原 PR | 程式版本 `ea300a29`；隔離完整 verify：978/978、六項檢查、audit 0 漏洞、五組瀏覽器回歸通過；Marc 於 2026-10-10 驗收通過。接線限建角 ancestry／culture Choice 標題與描述；當時延後的 Bespoke Culture Field 描述已由 PR #59 接入，本次補齊 13 個面向核對；龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。 |
@@ -14,6 +16,6 @@
 
 DISPLAY-02 當時的核准清冊為 428／105／11；UI-01／UI-02 接入後為 579／105／11。兩個 DISPLAY 批次的來源、範圍與限制集中各自原 PR；本輪 UI 定稿與實作不代表其他 P3/P4 譯文已核准，也不代表網站正式發布。
 
-目前待辦與下一動作只看 [TODO](TODO.md)。截至 UI-05 核准寫入後，清冊為 618 / 106 / 11。UI-01 至 UI-04 的驗收與合併見上表；UI-05 PR #61 已由 Marc 人工驗收通過；合併狀態見原 PR。Career 411 NEW、Enhancement 待定。
+目前待辦與下一動作只看 [TODO](TODO.md)。核准目錄筆數與來源檢查點以 `src/l10n/generated/zh-TW/meta.json` 及 `src/l10n/source-dependencies.json` 為準；書本 Career 翻譯與 Enhancement 決策進度以 Draw Steel Master Sheet 的 Project State／Status 為準。UI-01 至 UI-04 的驗收與合併見上表；UI-05 PR #61 已由 Marc 人工驗收通過；合併狀態見原 PR。
 
 詳細治理與驗證入口見 [RULES](RULES.md)、[UPSTREAM](UPSTREAM.md)、[BATCH-TEMPLATE](BATCH-TEMPLATE.md)。完整舊進度保留 [歷史](history/PROGRESS-2026-10-10.md)，已結案項目不從歷史重新列待辦。

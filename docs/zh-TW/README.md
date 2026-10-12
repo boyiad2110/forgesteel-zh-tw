@@ -4,19 +4,19 @@
 
 ## 現況與下一步
 
-- MASTER-SPLIT-B 已由 Reviewer 於 2026-10-11 驗收；Forge Steel 專用資料已在獨立的 [Localization Master Sheet](https://docs.google.com/spreadsheets/d/1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw/edit)。MASTER-SPLIT-C 只建立雙來源擷取及驗證工具，正式快照與網站來源仍維持現況；Stage D 須另獲授權才切換。
+- MASTER-SPLIT-B 已由 Reviewer 於 2026-10-11 驗收；Forge Steel 專用資料已在獨立的 [Localization Master Sheet](https://docs.google.com/spreadsheets/d/1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw/edit)。MASTER-SPLIT-C 建立雙來源擷取與驗證工具；D2 切換 PR 合併後，正式快照更新將以兩份 Sheet 為來源。切換 PR 尚待 Reviewer 驗收與合併。
 
 - 維護順序 1–5、DISPLAY-01、DISPLAY-02、MAINT-WORKFLOW-01 與 UI-01／UI-02 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
-- 核准清冊：618 個 mapping / 106 列 Forge Steel Strings 版 / 11 個英文例外，其中 UI-01 新增 151 筆、UI-03 新增 15 筆、UI-04 新增 8 筆、UI-05 新增 16 筆核准 UI 對照。這是防錯清冊，不是產品中文化完成率。
+- 核准目錄筆數與雙來源版本以 Repo 的 `src/l10n/generated/zh-TW/meta.json`、`src/l10n/source-dependencies.json` 為準；書本翻譯進度以 Draw Steel Master Sheet 的 Project State／Status 為準，不在摘要固定複製易過期的總數。這些數字是資料清冊，不代表產品中文化完成率。
 - DISPLAY-01 已接上自訂文化已選面向名稱，官方三面向摘要使用中文標點；PR #59 已接上自訂文化 Field 描述，13 個面向已逐一核對來源與元件 DOM，詳見 [下一批盤點](NEXT-BATCH.md)。
 - DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。
 - UI-03 / DISPLAY-03 的建角與角色摘要範圍已由 Marc 人工驗收；15 筆 APPROVED UI 對照已接入，[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已合併至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 的 8 筆核准 UI 與龍鱗動態模板已接入並經 Marc 人工驗收，[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 已 squash 合併至 develop `4da55d95`，最新 CI 全綠；Master Sheet Status、Project State 與 CHG-0086 已回讀確認。原批核對紀錄保留在 [NEXT-BATCH](NEXT-BATCH.md)。
 - UI-05 / DISPLAY-05 的 16 筆新 UI 已獲核准並寫入 Master Sheet、快照及 mapping；PR #61 補齊官方語言 / 技能的直接與詳情重建提示、技能用途及 Name 欄位，並移除未知來源通用技能例外。新增 228 個候選 ID 兩路 DOM 核對、20 個保護案例、改寫來源實際詳情頁與 Artisan 生涯 / 儲存回歸；本機完整隔離驗證與最新 CI 見 [PROGRESS](PROGRESS.md)。Marc 已於 2026-10-11 人工驗收通過；合併狀態見 PR。本次只重用核准譯文；Crafting Perk、其預設說明及一般複數 Skills 標題依 Marc 指示留到 Career 批次再預覽與核准；35 種工廠生成描述不計入剩餘 54 種特性預設描述。完整範圍見 [NEXT-BATCH](NEXT-BATCH.md)。
-- Career 411 筆 NEW，需先翻譯與 QA；Enhancement 仍待定。所有剩餘工作與下一動作集中 [TODO](TODO.md)。
+- Career 翻譯與 QA、Enhancement 決策由書本翻譯工作流依 Master Sheet 的 Project State／Status 管理；Forge Steel 端剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線
 
-1. 書本正典只取 Draw Steel Master Sheet（`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`）的 APPROVED；網站 UI／Adaptations 只取 Forge Steel Sheet（`1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw`）的 APPROVED。不得自行補譯、改寫或把草稿放公開 repo。Stage D 前正式快照仍沿用舊路徑。
+1. 書本正典只取 Draw Steel Master Sheet（`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`）的 APPROVED；網站 UI／Adaptations 只取 Forge Steel Sheet（`1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw`）的 APPROVED。不得自行補譯、改寫或把草稿放公開 repo。一般快照更新使用雙來源流程；舊單來源流程僅供依核准回復程序還原 D1 快照。
 2. 只在顯示時套用中文；不改遊戲資料、計算、存檔或分享碼。自訂／改名／未知內容保留原值。
 3. 動態數值投射上游計算結果；未知改寫保留完整計算後英文。英文備援不算該段中文化完成。
 4. `main` 是上游鏡像；工作分支經 PR 合進 `develop`。上游 push URL 維持禁用；分叉不自動部署。

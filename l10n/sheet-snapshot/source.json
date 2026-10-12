@@ -1,4 +1,16 @@
 {
   "sheetFileId": "1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4",
-  "sheetModifiedTime": "2026-10-11T07:08:29.852Z"
+  "sheetModifiedTime": "2026-10-11T07:08:29.852Z",
+  "sources": {
+    "book": {
+      "spreadsheetId": "1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4",
+      "modifiedTime": "2026-10-11T07:08:29.852Z",
+      "contentSha256": "273c255f40136aa03dce92777e4e4c5db12609c128bcd9b532233295fb0d455c"
+    },
+    "forge": {
+      "spreadsheetId": "1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw",
+      "modifiedTime": "2026-10-12T04:59:18.447Z",
+      "contentSha256": "17988eb448808dfa9b6b4f3b6f0c1eaa2766dd7dd18bd3ea21f5a5fa47868982"
+    }
+  }
 }
