@@ -1,6 +1,6 @@
 # P4 資料結構決策
 
-> 2026-10-12 補充：原文保留 2026-10-10 的設計歷史。MASTER-SPLIT-B 已將網站專用資料放到獨立 Forge Steel Localization Sheet，並以 `Adaptations`／`Adaptation Sources` 實現一對多關聯；「在書本 Master Sheet 建分頁」不再是現行方案。Stage C 建立雙來源整合工具；D2 正式切換 PR 正在驗收，合併後雙來源成為正式快照路徑。
+> 2026-10-12 補充：原文保留 2026-10-10 的設計歷史。MASTER-SPLIT-B 已將網站專用資料放到獨立 Forge Steel Localization Sheet，並以 `Adaptations`／`Adaptation Sources` 實現一對多關聯；「在書本 Master Sheet 建分頁」不再是現行方案。Stage C 建立雙來源整合工具；D2 已於 2026-10-12 完成並合併 PR #64（`develop` `b983dd4d`）；雙來源是現行正式快照路徑。下方 2026-10-10 的「同一 Master Sheet 內獨立分頁」內容僅保留設計歷史，不是現行操作指示。
 
 2026-10-10 維護批次。結論：目前保留每列單一 `fs` 及既有顯示層，先啟用所有來源的過期偵測。P4 多用途採用 **Master Sheet 內獨立的 Forge Steel 對照分頁**；核准資料與分頁尚未具備，因此本批只定案資料契約，不建分頁、不遷移、不增加譯文或 mapping。
 

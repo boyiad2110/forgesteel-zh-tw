@@ -26,7 +26,7 @@
 - `main` 永遠等於上游；develop 工作必須走 PR。必要檢查與保護見 UPSTREAM。上游不能直接推送，分叉不自動部署。
 - Sheet、mapping、進度狀態維持單一寫入者；一般內容單一執行者，獨立盤點／審查才並行。
 - 每批範圍、來源、版本、驗收位置、限制放原 PR 一次，依 BATCH-TEMPLATE。合併前同步 PROGRESS／TODO／README／有效決策中的目前狀態；PROGRESS 只留狀態、PR、驗證版本與下一步。repo 文件寫「已驗收；合併狀態見 PR」，避免合併後仍留「等待驗收／等待合併」；合併後把實際 SHA 補到原 PR 與 Sheet，不為未知的 merge SHA 預留另一個文件 PR。
-- Sheet 批次依其 README／Handoff Protocol 更新 Project State、Status 與一筆必要結案 Changelog；翻譯或結構異動另記對應事件，避免為同一狀態重複新增紀錄。按 SNAPSHOT 的寫入規則先讀鍵值、範圍及序號，再精準寫入與回讀。快照仍須同次取得三頁核准欄位與 Note；修改時間不一致就停止，不能沿用舊 Note。
+- Sheet 批次依其 README／Handoff Protocol 更新 Project State、Status 與一筆必要結案 Changelog；翻譯或結構異動另記對應事件，避免為同一狀態重複新增紀錄。按 SNAPSHOT 的寫入規則先讀鍵值、範圍及序號，再精準寫入與回讀。正式快照須同次擷取書本 Master 的 Glossary／Names／Strings 與 Forge Steel Master 的 UI／Adaptations／Adaptation Sources 六個分頁的核准資料（含適用的動態 Note）；兩份來源分別核對讀取前後修改時間，不一致即停止，不能沿用舊 Note。
 
 ## 驗證
 

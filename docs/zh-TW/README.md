@@ -4,7 +4,7 @@
 
 ## 現況與下一步
 
-- MASTER-SPLIT-B 已由 Reviewer 於 2026-10-11 驗收；Forge Steel 專用資料已在獨立的 [Localization Master Sheet](https://docs.google.com/spreadsheets/d/1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw/edit)。MASTER-SPLIT-C 建立雙來源擷取與驗證工具；D2 切換 PR 合併後，正式快照更新將以兩份 Sheet 為來源。切換 PR 尚待 Reviewer 驗收與合併。
+- **MASTER-SPLIT B／C／D1／D2 全部 COMPLETE（2026-10-12）**：[PR #64](https://github.com/boyiad2110/forgesteel-zh-tw/pull/64) 已 squash merge 至 `develop` `b983dd4df4bc2dbafd1f6ca5be21af978a0a43c4`，合併後 [CI #196](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38218830788) 通過。現行正式快照同步整合 [書本 Master](https://docs.google.com/spreadsheets/d/1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4/edit) 的核准書本翻譯及 [Forge Steel Master](https://docs.google.com/spreadsheets/d/1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw/edit) 的核准 UI／Adaptations；舊單來源流程僅供回復，未部署或刪除舊資料。
 
 - 維護順序 1–5、DISPLAY-01、DISPLAY-02、MAINT-WORKFLOW-01 與 UI-01／UI-02 已驗收；合併狀態、PR 與驗證版本見 [PROGRESS](PROGRESS.md)。
 - 核准目錄筆數與雙來源版本以 Repo 的 `src/l10n/generated/zh-TW/meta.json`、`src/l10n/source-dependencies.json` 為準；書本翻譯進度以 Draw Steel Master Sheet 的 Project State／Status 為準，不在摘要固定複製易過期的總數。這些數字是資料清冊，不代表產品中文化完成率。
@@ -16,7 +16,7 @@
 
 ## 不可違反的界線
 
-1. 書本正典只取 Draw Steel Master Sheet（`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`）的 APPROVED；網站 UI／Adaptations 只取 Forge Steel Sheet（`1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw`）的 APPROVED。不得自行補譯、改寫或把草稿放公開 repo。一般快照更新使用雙來源流程；舊單來源流程僅供依核准回復程序還原 D1 快照。
+1. 書本正典只取 Draw Steel Master Sheet（`1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`）的 APPROVED；網站 UI／Adaptations 只取 Forge Steel Sheet（`1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw`）的 APPROVED。不得自行補譯、改寫或把草稿放公開 repo。一般快照更新使用雙來源流程；未核准或沒有核准適配的網站內容保留英文；舊單來源流程僅供依核准回復程序還原 D1 快照。
 2. 只在顯示時套用中文；不改遊戲資料、計算、存檔或分享碼。自訂／改名／未知內容保留原值。
 3. 動態數值投射上游計算結果；未知改寫保留完整計算後英文。英文備援不算該段中文化完成。
 4. `main` 是上游鏡像；工作分支經 PR 合進 `develop`。上游 push URL 維持禁用；分叉不自動部署。

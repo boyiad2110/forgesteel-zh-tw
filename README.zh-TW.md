@@ -7,10 +7,10 @@
 ## 原則
 
 - 不修改上游的資料、邏輯、存檔格式與分享碼。翻譯只在畫面顯示時套用。
-- 所有中文以中文 Master Sheet 為唯一依據，且只能採用狀態為 APPROVED 的條目。
-- 在地化不得超前 Master Sheet。
+- 書本翻譯正典是 [Draw Steel Book Master Sheet](https://docs.google.com/spreadsheets/d/1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4/edit)（Glossary／Names／Strings）；網站 UI 與 Adaptations 由獨立的 [Forge Steel Localization Master Sheet](https://docs.google.com/spreadsheets/d/1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw/edit) 管理。Repo 只整合兩份來源已核准的 APPROVED 快照。
+- 在地化不得超前書本正典的核准翻譯；書本尚未定稿、網站適配未核准或來源不一致時，保留英文，不自行補譯或模糊套用。
 - zh-TW 版本會隱藏社群與第三方來源書。
-- 主持人（Director）的工具和資料不是刻意留英文。Master Sheet 譯了就會顯示中文，只是優先順序比較後面。
+- 主持人（Director）的工具和資料不是永久留英文；需待書本與必要網站文字核准並完成接線後，才逐步顯示中文。
 
 ## 分支
 

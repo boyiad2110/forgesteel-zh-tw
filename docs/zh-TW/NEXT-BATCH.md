@@ -1,5 +1,7 @@
 # UI-05 / DISPLAY-05：建角詳情與語言 / 技能選擇盤點
 
+**歷史盤點說明（更新於 2026-10-12）**：下列 2026-10-10／11 的 UI-05、Career、核准數量與 PR 狀態屬當時盤點紀錄，不代表目前進度。MASTER-SPLIT-D2 已完成並合併 [PR #64](https://github.com/boyiad2110/forgesteel-zh-tw/pull/64)，現行網站 UI／Adaptations 來源為獨立 Forge Steel Master Sheet；最新核准目錄以 `src/l10n/generated/zh-TW/meta.json`、來源檢查點以 `src/l10n/source-dependencies.json` 為準，正式待辦只看 [TODO](TODO.md) 與 [PROGRESS](PROGRESS.md)。
+
 2026-10-11；基底 develop `4da55d95`；工作分支 `codex/ui-05-details-inventory`。16 筆新 UI 已由 Marc 核准並寫入 Master Sheet、快照與 mapping。Marc 驗收指出技能提示、用途及生涯語言漏接；同一 PR #61 補齊已核准接點，包含直接與詳情重建路徑，以及 Name 標題 / placeholder。移除未知 ID 的通用技能來源例外，詳情頁始終傳遞原始來源，避免改寫資料經重建後誤認官方。本機完整隔離驗證與最新 CI 狀態見 [PROGRESS](PROGRESS.md)；Marc 已於 2026-10-11 人工驗收通過，合併狀態見 PR。PR #60 的過時記載隨本批校正，不另開結案文件 PR。
 
 ## 本批建議範圍與來源
