@@ -1,6 +1,7 @@
 import { CareerSheet } from '@/models/classic-sheets/hero-sheet';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { Hero } from '@/models/hero';
+import { useUI } from '@/l10n/ui-text';
 import './career-card.scss';
 
 interface Props {
@@ -9,13 +10,14 @@ interface Props {
 }
 
 export const CareerCard = (props: Props) => {
+	const ui = useUI();
 	const career = props.career;
 	return (
 		<div className='career card'>
 			<h2>Career</h2>
 			<div className='name'>{career?.name}</div>
 			<section className='bordered benefit'>
-				<h3>Benefit</h3>
+				<h3>{ui.text('ui.hero-builder.benefit.0c0829d3', 'Benefit')}</h3>
 				{career?.benefits?.map(f =>
 					<FeatureComponent
 						feature={f}

@@ -7,6 +7,7 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Modal } from '@/components/modals/modal/modal';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Utils } from '@/utils/utils';
+import { useUI } from '@/l10n/ui-text';
 import { useState } from 'react';
 
 import './element-select-modal.scss';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export const ElementSelectModal = (props: Props) => {
+	const ui = useUI();
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ customElement, setCustomElement ] = useState<Element>({ id: Utils.guid(), name: '', description: '' });
 
@@ -57,7 +59,7 @@ export const ElementSelectModal = (props: Props) => {
 						}
 					</Space>
 					<Divider />
-					<Expander title='Add a custom element'>
+					<Expander title={ui.text('ui.hero-builder.add-a-custom-element.4555eada', 'Add a custom element')}>
 						<Space orientation='vertical' style={{ width: '100%' }}>
 							<HeaderText>Name</HeaderText>
 							<TextInput
@@ -66,7 +68,7 @@ export const ElementSelectModal = (props: Props) => {
 								value={customElement.name}
 								onChange={setCustomName}
 							/>
-							<HeaderText>Description</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.description.526e0087', 'Description')}</HeaderText>
 							<MarkdownEditor value={customElement.description} onChange={setCustomDescription} />
 							<Button block={true} disabled={!customElement.name} onClick={() => props.onSelect(customElement)}>Select</Button>
 						</Space>

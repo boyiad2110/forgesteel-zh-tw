@@ -572,8 +572,8 @@ try {
 	await careerChoices.getByText('語言', { exact: true }).waitFor();
 	await careerChoices.getByText('選擇 1 種語言。', { exact: true }).waitFor();
 	await careerChoices.getByText('工藝類技能', { exact: true }).waitFor();
-	await careerChoices.getByText('Crafting Perk', { exact: true }).waitFor();
-	await careerChoices.getByText('This feature allows you to choose a perk.', { exact: true }).waitFor();
+	await careerChoices.getByText(uiText('ui.hero-builder.crafting-perk.cc40cc14'), { exact: true }).waitFor();
+	await careerChoices.getByText(uiText('ui.hero-builder.this-feature-allows-you-to-choos.f843efd3'), { exact: true }).waitFor();
 	await page.goto(`${origin}#/hero/edit/${state.heroes.fury.id}/details`);
 	await page.locator('#details-main').getByText(uiText('ui.hero-builder.name.f7c27f51'), { exact: true }).waitFor();
 	await page.locator('#details-main').getByPlaceholder(uiText('ui.hero-builder.name.f7c27f51'), { exact: true }).waitFor();
@@ -582,6 +582,67 @@ try {
 	await page.waitForURL('**/hero/view/**');
 	assert.deepEqual((await readStoredHeroes(page)).find(hero => hero.id === state.heroes.fury.id).career, artisan, 'Saved career retains original source text');
 	console.log('PASS browser: Artisan career route, Details Name and language, unapproved perk fallback, saved source unchanged');
+	const careerPage = await context.newPage();
+	careerPage.on('pageerror', error => errors.push(error.message));
+	await careerPage.goto(origin);
+	const careerExpected = await careerPage.evaluate(async () => {
+		const reactModule = await import('/node_modules/.vite/deps/react.js');
+		const React = reactModule.default ?? reactModule;
+		const reactDom = await import('/node_modules/.vite/deps/react-dom_client.js');
+		const createRoot = reactDom.createRoot ?? reactDom.default.createRoot;
+		const { CareerPanel } = await import('/src/components/panels/elements/career-panel/career-panel.tsx');
+		const { CareerData } = await import('/src/data/career-data.ts');
+		const { core } = await import('/src/data/sourcebooks/official/core.ts');
+		const { FactoryLogic } = await import('/src/logic/factory-logic.ts');
+		const { OptionsContext } = await import('/src/contexts/data-context.tsx');
+		const { PanelMode } = await import('/src/enums/panel-mode.ts');
+		const { loadCatalog } = await import('/src/l10n/catalog.ts');
+		const { setLanguage } = await import('/src/l10n/language.ts');
+		const { default: strings } = await import('/src/l10n/generated/zh-TW/strings.json');
+		const { mapping } = await import('/src/l10n/mapping.ts');
+		await loadCatalog();
+		setLanguage('zh-TW');
+		const host = document.createElement('section');
+		host.id = 'career-l10n-regression';
+		document.body.append(host);
+		const root = createRoot(host);
+		const careers = [ CareerData.performer, CareerData.sailor ];
+		const source = careers.map(career => career.description);
+		const records = careers.map(career => {
+			const row = strings[mapping[`element:${career.id}:description`].sheetId].fs;
+			return { id: career.id, en: row.en, zh: row.zh };
+		});
+		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
+			React.createElement(React.Fragment, null, ...careers.flatMap(career => [ PanelMode.Compact, PanelMode.Full ].map(mode =>
+				React.createElement('div', { id: `${career.id}-${mode}`, key: `${career.id}-${mode}` },
+					React.createElement(CareerPanel, { career, sourcebooks: [ core ], mode }))
+			)))));
+		window.careerL10nRegression = { root, careers, source, records };
+		return records;
+	});
+	const careerParagraph = (id, mode) => careerPage.locator(`#${id}-${mode} p`).first();
+	for (const record of careerExpected) {
+		for (const mode of [ 0, 1 ]) await careerParagraph(record.id, mode).getByText(record.zh, { exact: true }).waitFor();
+	}
+	const visibleCareerText = async (id, mode) => (await careerParagraph(id, mode).innerText()).trim().replace(/\\s+/g, ' ');
+	for (const record of careerExpected) {
+		for (const mode of [ 0, 1 ]) assert.equal(await visibleCareerText(record.id, mode), record.zh, `${record.id}:${mode}:zh`);
+	}
+	await careerPage.evaluate(() => window.careerL10nRegression && import('/src/l10n/language.ts').then(({ setLanguage }) => setLanguage('en')));
+	for (const record of careerExpected) {
+		for (const mode of [ 0, 1 ]) {
+			await careerParagraph(record.id, mode).getByText(record.en, { exact: true }).waitFor();
+			assert.equal(await visibleCareerText(record.id, mode), record.en, `${record.id}:${mode}:en`);
+		}
+	}
+	await careerPage.evaluate(() => import('/src/l10n/language.ts').then(({ setLanguage }) => setLanguage('zh-TW')));
+	for (const record of careerExpected) {
+		for (const mode of [ 0, 1 ]) await careerParagraph(record.id, mode).getByText(record.zh, { exact: true }).waitFor();
+	}
+	assert.deepEqual(await careerPage.evaluate(() => window.careerL10nRegression.careers.map(career => career.description)),
+		await careerPage.evaluate(() => window.careerL10nRegression.source), 'Career source descriptions remain unchanged');
+	await careerPage.evaluate(() => { window.careerL10nRegression.root.unmount(); document.querySelector('#career-l10n-regression').remove(); });
+	console.log('PASS browser: approved Performer / Sailor adaptation descriptions in compact and full CareerPanel, zh / en / zh, source unchanged');
 	assert.deepEqual(errors, [], 'Browser page errors');
 	await context.close();
 } finally {

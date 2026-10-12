@@ -1,6 +1,7 @@
 import { Button, Drawer, Select, Space } from 'antd';
 import { Feature, FeaturePerkData } from '@/models/feature';
 import { Collections } from '@/utils/collections';
+import { isSingleCareerPerk } from '@/l10n/career-perk-ui';
 import { Empty } from '@/components/controls/empty/empty';
 import { FeatureType } from '@/enums/feature-type';
 import { Field } from '@/components/controls/field/field';
@@ -30,6 +31,7 @@ interface InfoProps {
 }
 
 export const InfoPerk = (props: InfoProps) => {
+	const ui = useUI();
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
@@ -41,7 +43,7 @@ export const InfoPerk = (props: InfoProps) => {
 	}
 
 	return (
-		<div className='ds-text'>Choose {props.data.count > 1 ? props.data.count : 'a'} {props.data.count > 1 ? 'perks' : 'perk'}.</div>
+		<div className='ds-text'>{isSingleCareerPerk(props.feature, props.sourcebooks || []) ? ui.text('ui.hero-builder.choose-a-perk.38f11151', 'Choose a perk.') : <>Choose {props.data.count > 1 ? props.data.count : 'a'} {props.data.count > 1 ? 'perks' : 'perk'}.</>}</div>
 	);
 };
 
