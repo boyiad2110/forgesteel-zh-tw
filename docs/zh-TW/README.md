@@ -12,7 +12,7 @@
 - DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。
 - UI-03 / DISPLAY-03 的建角與角色摘要範圍已由 Marc 人工驗收；15 筆 APPROVED UI 對照已接入，[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已合併至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 的 8 筆核准 UI 與龍鱗動態模板已接入並經 Marc 人工驗收，[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 已 squash 合併至 develop `4da55d95`，最新 CI 全綠；Master Sheet Status、Project State 與 CHG-0086 已回讀確認。原批核對紀錄保留在 [NEXT-BATCH](NEXT-BATCH.md)。
 - UI-05 / DISPLAY-05 的 16 筆新 UI 已獲核准並寫入 Master Sheet、快照及 mapping；PR #61 補齊官方語言 / 技能的直接與詳情重建提示、技能用途及 Name 欄位，並移除未知來源通用技能例外。新增 228 個候選 ID 兩路 DOM 核對、20 個保護案例、改寫來源實際詳情頁與 Artisan 生涯 / 儲存回歸；本機完整隔離驗證與最新 CI 見 [PROGRESS](PROGRESS.md)。Marc 已於 2026-10-11 人工驗收通過；合併狀態見 PR。本次只重用核准譯文；Crafting Perk、其預設說明及一般複數 Skills 標題依 Marc 指示留到 Career 批次再預覽與核准；35 種工廠生成描述不計入剩餘 54 種特性預設描述。完整範圍見 [NEXT-BATCH](NEXT-BATCH.md)。
-- Career 的 18 個名稱與 18 個背景簡介已補齊網站 mapping，並接入 Career 卡片、角色摘要及列印頁；Marc 已於 2026-10-13 人工驗收通過。Career Inciting Incidents 的 108 組名稱／描述也已依雙 Master 權責接入；[PR #66](https://github.com/boyiad2110/forgesteel-zh-tw/pull/66) 已 squash 合併至 develop，最新 head CI 通過。Marc 決定 5 筆版本差異描述直接沿用最新版規則書的 Book Master APPROVED 中文，Forge Steel Master 已註明這不是逐字翻譯網站英文，網站原文與書本正典均保留不變。Career UI 補接 [PR #68](https://github.com/boyiad2110/forgesteel-zh-tw/pull/68) 已接入核准的專長標籤、Career 益處欄位及 15 個英文吻合的專長名稱；另 3 個英文不同的名稱安全回退網站原文，等待 Forge Steel Master 核准適配。Book Master 的 74 筆 Career 背景問題仍須另行確認網站接入範圍；未核准的 Perk 預設說明另批處理。剩餘工作與下一動作集中 [TODO](TODO.md)。
+- Career 的 18 個名稱與 18 個背景簡介已補齊網站 mapping，並接入 Career 卡片、角色摘要及列印頁；Marc 已於 2026-10-13 人工驗收通過。Career Inciting Incidents 的 108 組名稱／描述也已依雙 Master 權責接入；[PR #66](https://github.com/boyiad2110/forgesteel-zh-tw/pull/66) 已 squash 合併至 develop，最新 head CI 通過。Marc 決定 5 筆版本差異描述直接沿用最新版規則書的 Book Master APPROVED 中文，Forge Steel Master 已註明這不是逐字翻譯網站英文，網站原文與書本正典均保留不變。Career UI 補接 [PR #68](https://github.com/boyiad2110/forgesteel-zh-tw/pull/68) 的本批範圍已由 Marc 確認：接入核准的專長標籤、Career 益處欄位及 15 個英文吻合的專長名稱；另 3 個英文不同的名稱安全回退網站原文。清單中其餘專長名稱另列後續批次；Book Master 的 74 筆 Career 背景問題仍須確認網站接入範圍，未核准的 Perk 預設說明另批處理。剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線
 
@@ -36,3 +36,4 @@
 | 例外與決策理由 | [DECISIONS](DECISIONS.md)；只有需要時讀其中的歷史索引 |
 
 本機：`C:\TRPG\Draw Steel site\forgesteel-zh-tw`。經典表格入口：`#/hero/view/<ID>` 改為 `#/hero/sheet/<ID>`。
+
