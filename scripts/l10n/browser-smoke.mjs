@@ -649,7 +649,7 @@ try {
 			await careerPanel(record.id, mode).locator('.header-text').first().getByText(record.name.en, { exact: true }).waitFor();
 			await careerPanel(record.id, mode).locator('p').first().getByText(record.description.en, { exact: true }).waitFor();
 			assert.deepEqual(await visibleCareerText(record.id, mode), {
-				name: record.name.en,
+				name: record.name.en.toUpperCase(),
 				description: record.description.en
 			}, `${record.id}:${mode}:en`);
 		}
