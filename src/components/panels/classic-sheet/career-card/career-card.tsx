@@ -2,6 +2,8 @@ import { CareerSheet } from '@/models/classic-sheets/hero-sheet';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { Hero } from '@/models/hero';
 import { useUI } from '@/l10n/ui-text';
+import { CareerIncident } from '@/l10n/career-incident';
+import { useOptionalSourcebooks } from '@/contexts/data-context';
 import './career-card.scss';
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 
 export const CareerCard = (props: Props) => {
 	const ui = useUI();
+	const sourcebooks = useOptionalSourcebooks() || [];
 	const career = props.career;
 	return (
 		<div className='career card'>
@@ -29,8 +32,13 @@ export const CareerCard = (props: Props) => {
 
 			<section className='bordered inciting-incident'>
 				<h3>Inciting Incident</h3>
-				<h4>{career?.incitingIncident?.name}</h4>
-				<p>{career?.incitingIncident?.description}</p>
+				{career?.incitingIncident
+					? (
+						<CareerIncident career={props.hero.career || undefined} incident={career.incitingIncident} sourcebooks={sourcebooks}>
+							{incident => <><h4>{incident.name}</h4><p>{incident.description}</p></>}
+						</CareerIncident>
+					)
+					: null}
 			</section>
 		</div>
 	);

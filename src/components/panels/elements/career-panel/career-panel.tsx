@@ -1,5 +1,6 @@
 import { Segmented, Space } from 'antd';
 import { Career } from '@/models/career';
+import { CareerIncident } from '@/l10n/career-incident';
 import { ElementScope } from '@/l10n/element-scope';
 import { useUI } from '@/l10n/ui-text';
 import { ErrorBoundary } from '@/components/controls/error-boundary/error-boundary';
@@ -53,13 +54,19 @@ export const CareerPanel = (props: Props) => {
 		const option = props.career.incitingIncidents.selected;
 		if (option) {
 			return (
-				<Field key={option.id} label={option.name} value={option.description} />
+				<CareerIncident career={props.career} incident={option} sourcebooks={props.sourcebooks}>
+					{incident => <Field key={option.id} label={incident.name} value={incident.description} />}
+				</CareerIncident>
 			);
 		}
 
 		return (
 			<div>
-				{props.career.incitingIncidents.options.map(option => <Field key={option.id} label={option.name} value={option.description} />)}
+				{props.career.incitingIncidents.options.map(option => (
+					<CareerIncident key={option.id} career={props.career} incident={option} sourcebooks={props.sourcebooks}>
+						{incident => <Field label={incident.name} value={incident.description} />}
+					</CareerIncident>
+				))}
 			</div>
 		);
 	};

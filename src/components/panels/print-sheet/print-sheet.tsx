@@ -6,6 +6,7 @@ import { AbilityUsage } from '@/enums/ability-usage';
 import { Ancestry } from '@/models/ancestry';
 import { AncestryLogic } from '@/logic/ancestry-logic';
 import { Career } from '@/models/career';
+import { CareerIncident } from '@/l10n/career-incident';
 import { Characteristic } from '@/enums/characteristic';
 import { Complication } from '@/models/complication';
 import { Culture } from '@/models/culture';
@@ -252,7 +253,9 @@ const CareerSheet = (props: CareerProps) => {
 			<HeaderText>Inciting Incidents</HeaderText>
 			{
 				props.career.incitingIncidents.options.map(option => (
-					<Field key={option.id} label={option.name} value={option.description} />
+					<CareerIncident key={option.id} career={props.career} incident={option} sourcebooks={props.sourcebooks}>
+						{incident => <Field label={incident.name} value={incident.description} />}
+					</CareerIncident>
 				))
 			}
 		</>

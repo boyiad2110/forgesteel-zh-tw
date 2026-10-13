@@ -16,6 +16,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { Title } from '@/models/title';
 import { useOptions } from '@/contexts/data-context';
 import { PlayerName } from '@/l10n/player-name';
+import { CareerIncident } from '@/l10n/career-incident';
 import { useUI } from '@/l10n/ui-text';
 
 import './choices-panel.scss';
@@ -94,7 +95,13 @@ export const ChoicesPanel = (props: Props) => {
 						<div className='overview-tile clickable' onClick={() => props.onSelectCareer(props.hero.career!)}>
 							<HeaderText>{ui.text('ui.hero-builder.career.d360a160', 'Career')}</HeaderText>
 							<Field label={ui.text('ui.hero-builder.career.d360a160', 'Career')} value={props.hero.career.name} />
-							{incitingIncident ? <Field label={ui.text('ui.hero-builder.inciting-incident.181ce686', 'Inciting Incident')} value={incitingIncident.name} /> : null}
+							{incitingIncident
+								? (
+									<CareerIncident career={props.hero.career || undefined} incident={incitingIncident} sourcebooks={props.sourcebooks}>
+										{incident => <Field label={ui.text('ui.hero-builder.inciting-incident.181ce686', 'Inciting Incident')} value={incident.name} />}
+									</CareerIncident>
+								)
+								: null}
 						</div>
 					:
 					<div className='overview-tile'>
