@@ -5,7 +5,7 @@
 | ID | 狀態／負責範圍 | 下一個動作 | 完成條件 |
 |---|---|---|---|
 | DISPLAY-DEFAULTS | 待後續批次 / 54 種未核准特性預設描述 | Crafting Perk / 一般複數 Skills 標題與 Perk 預設描述併入 BOOK-01；其餘核對候選庫遇到的 9 類空描述與實際頁面接點；其餘 45 類仍需依呼叫情境盤點。Choice 已有譯文，但其他官方 ID 尚待接線 | 不以生成語言 / 技能提示代替 FeatureType 預設描述完成率；每批先預覽 |
-| BOOK-01 | 外部書本翻譯依賴／Marc；Career 顯示已人工驗收；Inciting Incidents PR #66 等最新 head CI | 18 個 Career 名稱與簡介已補齊網站對照並接入建角卡片、角色摘要及列印頁，Marc 已於 2026-10-13 人工驗收通過。108 個 Inciting Incidents 已依 Book Master APPROVED 來源接入；5 筆網站版本差異依 Marc 決定重用最新版書本譯文，來源與核准註記已寫入 Forge Steel Master。另 74 筆 Career 背景問題雖已顯示 APPROVED，仍待獨立範圍確認後再接入；Skills / Crafting Perk 標題及 Perk 預設說明另待核准，再銜接 DISPLAY-DEFAULTS | 36 個 Career 名稱／簡介 mapping 經守門與覆蓋測試確認，顯示結果已人工驗收；五筆事件適配保留 Forge Steel 英文來源，標明中文直接沿用 Book Master 最新版翻譯、不是逐字翻譯網站版；74 筆背景問題不混入事件 PR；不改寫書本正典 |
+| BOOK-01 | Inciting Incidents／Career Summary 已驗收並合併；Career 後續內容另批 | #66 已接入 108 個事件名稱／描述及 18 個 Career 名稱／簡介，Marc 於 2026-10-13 驗收，PR 已 squash 合併 develop。另 74 筆 Career 背景問題雖已顯示 APPROVED，仍須確認獨立網站接入範圍；Career Perk／Skills 標題與 Perk 預設說明需先完成預覽及核准，再銜接 DISPLAY-DEFAULTS | #66 範圍依 Book Master APPROVED 與 Forge Steel Master 適配完成，最新 head CI 通過且 PR 已合併；後續 74 筆問題及 Career UI 各自完成範圍確認、來源核准、接入與驗收後另行結案；不改寫書本正典 |
 | BOOK-02 | 外部書本翻譯依賴／Marc | 書本工作流決定 Glossary Enhancement | 書本 Master Sheet 決策更新；不阻塞現有名稱顯示 |
 | RELEASE-01 | 正式開放前／runtime | 為目錄載入失敗設計受控重試與診斷，補失敗→恢復測試 | 可恢復且沒有 render 重試迴圈 |
 | RELEASE-02 | 正式開放前／網站識別 | 核對 HTML/PWA 語言、名稱、分享網址 | 與正式站識別一致 |
