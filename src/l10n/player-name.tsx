@@ -18,13 +18,20 @@ const sourcebookIndexes = new WeakMap<Sourcebook[], Map<string, string>>();
 
 export const isPlayerNameKey = (element: NamedElement) => {
 	const entry = mapping[`element:${element.id}:name`];
-	return !!entry && (entry.sheetId.startsWith('heroes.ancestries.') || entry.sheetId.startsWith('heroes.background.culture.'));
+	return !!entry && (entry.sheetId.startsWith('heroes.ancestries.')
+		|| entry.sheetId.startsWith('heroes.background.culture.')
+		|| entry.sheetId.startsWith('heroes.background.career.'));
 };
 
 const addName = (names: Map<string, string>, element: NamedElement) => {
 	if (isPlayerNameKey(element)) {
 		names.set(element.id, element.name);
 	}
+};
+
+const addCareer = (names: Map<string, string>, career: { id: string, name: string, features: Feature[] }) => {
+	addName(names, career);
+	career.features.forEach(feature => addFeature(names, feature));
 };
 
 const addFeature = (names: Map<string, string>, feature: Feature) => {
@@ -64,6 +71,7 @@ const getPlayerNameIndex = (sourcebooks: Sourcebook[]) => {
 				}
 			});
 			sourcebook.cultures.forEach(culture => addCulture(names, culture));
+			sourcebook.careers.forEach(career => addCareer(names, career));
 		});
 
 	sourcebookIndexes.set(sourcebooks, names);

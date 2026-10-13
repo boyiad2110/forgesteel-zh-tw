@@ -13,6 +13,7 @@ interface Props {
 export const HeroHeaderCard = (props: Props) => {
 	const character = props.character;
 	const ancestryName = usePlayerName(character.hero.ancestry ?? undefined, character.ancestryName);
+	const careerName = usePlayerName(character.hero.career ?? undefined, character.career?.name || '');
 	const options = useOptions();
 	const showState = options.includePlayState;
 
@@ -38,7 +39,7 @@ export const HeroHeaderCard = (props: Props) => {
 				/>
 				<LabeledTextField
 					label='Career'
-					content={character.career?.name || ''}
+					content={careerName}
 					additionalClasses={[ 'no-box', 'text-left' ]}
 				/>
 				<LabeledTextField

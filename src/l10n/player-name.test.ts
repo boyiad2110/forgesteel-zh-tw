@@ -40,6 +40,7 @@ describe('player name lookup', () => {
 		expect(new Set(ancestryFeatureIdsMapped)).toHaveLength(113);
 		expect(approvedIds('heroes.background.culture.').filter(id => cultureIds.has(id))).toHaveLength(27);
 		expect(approvedIds('heroes.background.culture.').filter(id => aspectIds.has(id))).toHaveLength(13);
+		expect(approvedIds('heroes.background.career.').filter(id => core.careers.some(career => career.id === id))).toHaveLength(18);
 	});
 
 	test('keys only an unchanged official name and leaves edited or unknown names alone', () => {
@@ -47,6 +48,9 @@ describe('player name lookup', () => {
 		expect(playerNameKey(ancestry, officialSourcebooks)).toBe('element:ancestry-high-elf:name');
 		expect(playerNameKey({ ...ancestry, name: 'My Elf' }, officialSourcebooks)).toBeUndefined();
 		expect(playerNameKey({ id: 'homebrew-ancestry', name: 'Orc' }, officialSourcebooks)).toBeUndefined();
+		const career = core.careers.find(item => item.id === 'career-artisan')!;
+		expect(playerNameKey(career, officialSourcebooks)).toBe('element:career-artisan:name');
+		expect(playerNameKey({ ...career, name: 'My Craft' }, officialSourcebooks)).toBeUndefined();
 	});
 
 	test('looks up cultures and their three aspects from official sourcebooks only', () => {

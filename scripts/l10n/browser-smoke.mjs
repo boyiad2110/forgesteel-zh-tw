@@ -606,11 +606,16 @@ try {
 		host.id = 'career-l10n-regression';
 		document.body.append(host);
 		const root = createRoot(host);
-		const careers = [ CareerData.performer, CareerData.sailor ];
-		const source = careers.map(career => career.description);
+		const careers = Object.values(CareerData);
+		const source = careers.map(career => ({ name: career.name, description: career.description }));
 		const records = careers.map(career => {
-			const row = strings[mapping[`element:${career.id}:description`].sheetId].fs;
-			return { id: career.id, en: row.en, zh: row.zh };
+			const nameRow = strings[mapping[`element:${career.id}:name`].sheetId];
+			const descriptionRow = strings[mapping[`element:${career.id}:description`].sheetId];
+			return {
+				id: career.id,
+				name: { en: career.name, zh: nameRow.fs?.zh ?? nameRow.zh },
+				description: { en: career.description, zh: descriptionRow.fs?.zh ?? descriptionRow.zh }
+			};
 		});
 		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
 			React.createElement(React.Fragment, null, ...careers.flatMap(career => [ PanelMode.Compact, PanelMode.Full ].map(mode =>
@@ -620,29 +625,46 @@ try {
 		window.careerL10nRegression = { root, careers, source, records };
 		return records;
 	});
-	const careerParagraph = (id, mode) => careerPage.locator(`#${id}-${mode} p`).first();
+	assert.equal(careerExpected.length, 18, 'All official Careers are covered');
+	const careerPanel = (id, mode) => careerPage.locator(`#${id}-${mode}`);
 	for (const record of careerExpected) {
-		for (const mode of [ 0, 1 ]) await careerParagraph(record.id, mode).getByText(record.zh, { exact: true }).waitFor();
+		for (const mode of [ 0, 1 ]) {
+			await careerPanel(record.id, mode).locator('.header-text').first().getByText(record.name.zh, { exact: true }).waitFor();
+			await careerPanel(record.id, mode).locator('p').first().getByText(record.description.zh, { exact: true }).waitFor();
+		}
 	}
-	const visibleCareerText = async (id, mode) => (await careerParagraph(id, mode).innerText()).trim().replace(/\\s+/g, ' ');
+	const visibleCareerText = async (id, mode) => ({
+		name: (await careerPanel(id, mode).locator('.header-text').first().innerText()).trim(),
+		description: (await careerPanel(id, mode).locator('p').first().innerText()).trim().replace(/\s+/g, ' ')
+	});
 	for (const record of careerExpected) {
-		for (const mode of [ 0, 1 ]) assert.equal(await visibleCareerText(record.id, mode), record.zh, `${record.id}:${mode}:zh`);
+		for (const mode of [ 0, 1 ]) assert.deepEqual(await visibleCareerText(record.id, mode), {
+			name: record.name.zh,
+			description: record.description.zh
+		}, `${record.id}:${mode}:zh`);
 	}
 	await careerPage.evaluate(() => window.careerL10nRegression && import('/src/l10n/language.ts').then(({ setLanguage }) => setLanguage('en')));
 	for (const record of careerExpected) {
 		for (const mode of [ 0, 1 ]) {
-			await careerParagraph(record.id, mode).getByText(record.en, { exact: true }).waitFor();
-			assert.equal(await visibleCareerText(record.id, mode), record.en, `${record.id}:${mode}:en`);
+			await careerPanel(record.id, mode).locator('.header-text').first().getByText(record.name.en, { exact: true }).waitFor();
+			await careerPanel(record.id, mode).locator('p').first().getByText(record.description.en, { exact: true }).waitFor();
+			assert.deepEqual(await visibleCareerText(record.id, mode), {
+				name: record.name.en,
+				description: record.description.en
+			}, `${record.id}:${mode}:en`);
 		}
 	}
 	await careerPage.evaluate(() => import('/src/l10n/language.ts').then(({ setLanguage }) => setLanguage('zh-TW')));
 	for (const record of careerExpected) {
-		for (const mode of [ 0, 1 ]) await careerParagraph(record.id, mode).getByText(record.zh, { exact: true }).waitFor();
+		for (const mode of [ 0, 1 ]) {
+			await careerPanel(record.id, mode).locator('.header-text').first().getByText(record.name.zh, { exact: true }).waitFor();
+			await careerPanel(record.id, mode).locator('p').first().getByText(record.description.zh, { exact: true }).waitFor();
+		}
 	}
-	assert.deepEqual(await careerPage.evaluate(() => window.careerL10nRegression.careers.map(career => career.description)),
-		await careerPage.evaluate(() => window.careerL10nRegression.source), 'Career source descriptions remain unchanged');
+	assert.deepEqual(await careerPage.evaluate(() => window.careerL10nRegression.careers.map(career => ({ name: career.name, description: career.description }))),
+		await careerPage.evaluate(() => window.careerL10nRegression.source), 'Career source names and descriptions remain unchanged');
 	await careerPage.evaluate(() => { window.careerL10nRegression.root.unmount(); document.querySelector('#career-l10n-regression').remove(); });
-	console.log('PASS browser: approved Performer / Sailor adaptation descriptions in compact and full CareerPanel, zh / en / zh, source unchanged');
+	console.log('PASS browser: all 18 Career names and descriptions in compact and full CareerPanel, zh / en / zh, source unchanged');
 	assert.deepEqual(errors, [], 'Browser page errors');
 	await context.close();
 } finally {
