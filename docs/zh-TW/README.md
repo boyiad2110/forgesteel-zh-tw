@@ -12,7 +12,7 @@
 - DISPLAY-02 已接上建角 ancestry／culture 選項的核准標題與描述。UI-01 的 151 筆建角器及共用玩家介面譯文已由 Marc 定稿為 APPROVED；UI-02 已接入同次快照、匯出、守門與顯示層；兩項均通過 Marc 人工驗收，合併狀態見 [PR #58](https://github.com/boyiad2110/forgesteel-zh-tw/pull/58)。龍鱗動態描述已在 UI-04 / DISPLAY-04 核准並接入。
 - UI-03 / DISPLAY-03 的建角與角色摘要範圍已由 Marc 人工驗收；15 筆 APPROVED UI 對照已接入，[PR #59](https://github.com/boyiad2110/forgesteel-zh-tw/pull/59) 已合併至 develop `71be5478`，CI 全綠。UI-04 / DISPLAY-04 的 8 筆核准 UI 與龍鱗動態模板已接入並經 Marc 人工驗收，[PR #60](https://github.com/boyiad2110/forgesteel-zh-tw/pull/60) 已 squash 合併至 develop `4da55d95`，最新 CI 全綠；Master Sheet Status、Project State 與 CHG-0086 已回讀確認。原批核對紀錄保留在 [NEXT-BATCH](NEXT-BATCH.md)。
 - UI-05 / DISPLAY-05 的 16 筆新 UI 已獲核准並寫入 Master Sheet、快照及 mapping；PR #61 補齊官方語言 / 技能的直接與詳情重建提示、技能用途及 Name 欄位，並移除未知來源通用技能例外。新增 228 個候選 ID 兩路 DOM 核對、20 個保護案例、改寫來源實際詳情頁與 Artisan 生涯 / 儲存回歸；本機完整隔離驗證與最新 CI 見 [PROGRESS](PROGRESS.md)。Marc 已於 2026-10-11 人工驗收通過；合併狀態見 PR。本次只重用核准譯文；Crafting Perk、其預設說明及一般複數 Skills 標題依 Marc 指示留到 Career 批次再預覽與核准；35 種工廠生成描述不計入剩餘 54 種特性預設描述。完整範圍見 [NEXT-BATCH](NEXT-BATCH.md)。
-- Career 翻譯與 QA、Enhancement 決策由書本翻譯工作流依 Master Sheet 的 Project State／Status 管理；Forge Steel 端剩餘工作與下一動作集中 [TODO](TODO.md)。
+- Career Inciting Incidents 的 108 組名稱／描述已依雙 Master 權責接入，PR #66 等待 CI；5 筆與 Forge Steel 英文版本存在情節差異的描述安全回退英文。其餘 74 筆 Career 背景問題仍待書本 Master 核准，Forge Steel 不自行補譯；剩餘工作與下一動作集中 [TODO](TODO.md)。
 
 ## 不可違反的界線
 
