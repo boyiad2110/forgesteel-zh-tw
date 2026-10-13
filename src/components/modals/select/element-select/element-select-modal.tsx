@@ -64,16 +64,16 @@ export const ElementSelectModal = (props: Props) => {
 					<Divider />
 					<Expander title={ui.text('ui.hero-builder.add-a-custom-element.4555eada', 'Add a custom element')}>
 						<Space orientation='vertical' style={{ width: '100%' }}>
-							<HeaderText>Name</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.name.f7c27f51', 'Name')}</HeaderText>
 							<TextInput
-								placeholder='Name'
+								placeholder={ui.text('ui.hero-builder.name.f7c27f51', 'Name')}
 								allowClear={true}
 								value={customElement.name}
 								onChange={setCustomName}
 							/>
 							<HeaderText>{ui.text('ui.hero-builder.description.526e0087', 'Description')}</HeaderText>
 							<MarkdownEditor value={customElement.description} onChange={setCustomDescription} />
-							<Button block={true} disabled={!customElement.name} onClick={() => props.onSelect(customElement)}>Select</Button>
+							<Button block={true} disabled={!customElement.name} onClick={() => props.onSelect(customElement)}>{ui.text('ui.hero-builder.select.ed8e93ef', 'Select')}</Button>
 						</Space>
 					</Expander>
 				</div>

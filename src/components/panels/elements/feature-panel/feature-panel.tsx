@@ -3,6 +3,7 @@ import { CSSProperties, useState } from 'react';
 import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
 import { AbilityLogic } from '@/logic/ability-logic';
+import { careerPerkNameText } from '@/l10n/career-perk-ui';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
 import { ElementScope } from '@/l10n/element-scope';
@@ -20,6 +21,8 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { perkListText } from '@/l10n/perk-list-ui';
+import { useUI } from '@/l10n/ui-text';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useOptions } from '@/contexts/data-context';
 
@@ -38,6 +41,7 @@ interface Props {
 
 export const FeaturePanel = (props: Props) => {
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
+	const ui = useUI();
 	const options = useOptions();
 	const clipboard = useClipboard();
 
@@ -53,7 +57,7 @@ export const FeaturePanel = (props: Props) => {
 				}
 			}
 
-			tags.push(list);
+			tags.push(perkListText(list, ui));
 		}
 
 		if (props.source) {
@@ -135,6 +139,10 @@ export const FeaturePanel = (props: Props) => {
 		customization = props.hero.abilityCustomizations.find(ac => ac.abilityID === props.feature.id) || null;
 	}
 
+	const perkLabel = 'type' in props.feature
+		? careerPerkNameText(props.feature as Feature, props.sourcebooks || [], ui)
+		: undefined;
+
 	return (
 		<ElementScope element={props.feature} overlay={customization}>
 			<ErrorBoundary>
@@ -167,7 +175,7 @@ export const FeaturePanel = (props: Props) => {
 							/>
 						}
 					>
-						{customization?.name || props.feature.name || 'Unnamed Feature'}
+						{customization?.name || perkLabel || props.feature.name || 'Unnamed Feature'}
 					</HeaderText>
 					<Markdown
 						text={AbilityLogic.getTextEffect(customization?.description || props.feature.description, autoCalc ? props.hero : undefined)}

@@ -12,13 +12,13 @@ import ui from '../../src/l10n/generated/zh-TW/ui.json';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const files = directory => readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
 	const target = path.join(directory, entry.name);
-	return entry.isDirectory() ? files(target) : target.endsWith('.tsx') ? [ target ] : [];
+	return entry.isDirectory() ? files(target) : /\.tsx?$/.test(target) ? [ target ] : [];
 });
 
 describe('approved UI bindings', () => {
 	test('every approved row has an exact source call and a guarded mapping', () => {
 		const used = new Set();
-		for (const file of files(path.join(root, 'src/components'))) {
+		for (const file of [ ...files(path.join(root, 'src/components')), ...files(path.join(root, 'src/l10n')) ]) {
 			const source = readFileSync(file, 'utf8');
 			const ast = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
 			const visit = node => {

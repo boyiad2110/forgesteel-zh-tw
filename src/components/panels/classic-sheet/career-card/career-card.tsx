@@ -26,6 +26,7 @@ export const CareerCard = (props: Props) => {
 					<FeatureComponent
 						feature={f}
 						hero={props.hero}
+						sourcebooks={sourcebooks}
 						key={f.id}
 					/>
 				)}
