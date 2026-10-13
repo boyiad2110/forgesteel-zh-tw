@@ -5,7 +5,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { mapping } from '@/l10n/mapping';
 import { useL10nText } from '@/l10n/hooks';
-import { useSourcebooks } from '@/contexts/data-context';
+import { useOptionalSourcebooks } from '@/contexts/data-context';
 import { Feature } from '@/models/feature';
 
 interface NamedElement {
@@ -20,7 +20,8 @@ export const isPlayerNameKey = (element: NamedElement) => {
 	const entry = mapping[`element:${element.id}:name`];
 	return !!entry && (entry.sheetId.startsWith('heroes.ancestries.')
 		|| entry.sheetId.startsWith('heroes.background.culture.')
-		|| entry.sheetId.startsWith('heroes.background.career.'));
+		|| entry.sheetId.startsWith('heroes.background.career.')
+		|| entry.sheetId.startsWith('name.perk.'));
 };
 
 const addName = (names: Map<string, string>, element: NamedElement) => {
@@ -72,6 +73,7 @@ const getPlayerNameIndex = (sourcebooks: Sourcebook[]) => {
 			});
 			sourcebook.cultures.forEach(culture => addCulture(names, culture));
 			sourcebook.careers.forEach(career => addCareer(names, career));
+			sourcebook.perks.forEach(perk => addName(names, perk));
 		});
 
 	sourcebookIndexes.set(sourcebooks, names);
@@ -95,7 +97,7 @@ export const playerNameKey = (element: NamedElement, sourcebooks: Sourcebook[]) 
 };
 
 export const usePlayerName = (element: NamedElement | undefined, fallback = '') => {
-	const sourcebooks = useSourcebooks();
+	const sourcebooks = useOptionalSourcebooks() || [];
 	const name = element ? fallback || element.name : fallback;
 	return useL10nText(element ? playerNameKey(element, sourcebooks) : undefined, name);
 };

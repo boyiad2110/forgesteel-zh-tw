@@ -7,6 +7,7 @@ import { LabeledBooleanField } from '@/components/panels/classic-sheet/component
 import { RollModifierMarker } from '@/components/controls/roll-modifier-marker/roll-modifier-marker';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { translate } from '@/l10n/text';
+import { useUI } from '@/l10n/ui-text';
 import { useSyncExternalStore } from 'react';
 
 import './skills-card.scss';
@@ -16,13 +17,14 @@ interface Props {
 }
 
 export const SkillsCard = (props: Props) => {
+	const ui = useUI();
 	useSyncExternalStore(subscribeToLanguage, getLanguage, getLanguage);
 	useSyncExternalStore(subscribeToCatalog, getCatalogTick, getCatalogTick);
 	const character = props.character;
 	const allSkills = character.allSkills?.entries() || new Map<string, string[]>();
 	return (
 		<div className='skills card'>
-			<h2>Skills</h2>
+			<h2>{ui.text('ui.hero-builder.skills.66d0f523', 'Skills')}</h2>
 			<div className='reference'>Have 1+ skills that apply to a test? +2 bonus</div>
 			<div className='skills-lists'>
 				{Array.from(allSkills).map(([ list, skills ]) =>

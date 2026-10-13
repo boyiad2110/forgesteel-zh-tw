@@ -10,6 +10,8 @@ import { ModifierEditor } from '@/components/panels/edit/modifier-edit/modifier-
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { careerBenefitFieldKey } from '@/l10n/career-benefit-ui';
+import { useL10nText } from '@/l10n/hooks';
 
 interface InfoProps {
 	data: FeatureBonusData;
@@ -19,8 +21,10 @@ interface InfoProps {
 }
 
 export const InfoBonus = (props: InfoProps) => {
+	const labelKey = careerBenefitFieldKey(props.feature, props.sourcebooks || []);
+	const label = useL10nText(labelKey, props.data.field);
 	return (
-		<Field label={props.data.field} value={FormatLogic.getModifier(props.data)} />
+		<Field label={label} value={FormatLogic.getModifier(props.data)} />
 	);
 };
 

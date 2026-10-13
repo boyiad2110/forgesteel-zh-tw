@@ -5,6 +5,7 @@ import { AbilityUsage } from '@/enums/ability-usage';
 import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { ConditionName } from '@/l10n/condition-text';
+import { careerBenefitFieldKey } from '@/l10n/career-benefit-ui';
 import { DamageModifier } from '@/models/damage-modifier';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
@@ -23,6 +24,7 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
 import { useL10nText } from '@/l10n/hooks';
+import { Sourcebook } from '@/models/sourcebook';
 
 import rollT1 from '@/assets/icons/power-roll-t1.svg';
 import rollT2 from '@/assets/icons/power-roll-t2.svg';
@@ -33,6 +35,7 @@ import './feature-component.scss';
 interface Props {
 	feature: Feature;
 	hero?: Hero,
+	sourcebooks?: Sourcebook[];
 	additionalClasses?: string[];
 }
 
@@ -113,10 +116,13 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 	}
 	const lists = SheetFormatter.joinCommasOr(listNames);
 	let selectedOptions;
-	if (feature.data.selected.length) {
+	if (feature.type === FeatureType.Perk && feature.data.selected.length) {
+		selectedOptions = feature.data.selected.map(perk => (
+			<div className='feature-iteration' key={perk.id}><PlayerName element={perk} /></div>
+		));
+	} else if (feature.data.selected.length) {
 		selectedOptions = feature.data.selected.map(s => typeof s === 'string' ? s : s.name).map(s => {
-			const shown = feature.type === FeatureType.SkillChoice ? <SkillName name={s} /> : s;
-			return (<div className='feature-iteration' key={s}>{shown}</div>);
+			return (<div className='feature-iteration' key={s}><SkillName name={s} /></div>);
 		});
 	} else {
 		selectedOptions = [
@@ -133,11 +139,12 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 	);
 };
 
-const BonusFeatureComponent = (feature: FeatureBonus, hero?: Hero) => {
-	const value = hero ? ModifierLogic.calculateModifierValue(feature.data, hero) : feature.data.value;
+const BonusFeatureComponent = (props: { feature: FeatureBonus, hero?: Hero, sourcebooks?: Sourcebook[] }) => {
+	const value = props.hero ? ModifierLogic.calculateModifierValue(props.feature.data, props.hero) : props.feature.data.value;
+	const label = useL10nText(careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
 	return (
 		<>
-			<div className='feature-line'><strong>• {feature.name}: </strong>{SheetFormatter.addSign(value)} {feature.data.field}</div>
+			<div className='feature-line'><strong>• {props.feature.name}: </strong>{SheetFormatter.addSign(value)} {label}</div>
 		</>
 	);
 };
@@ -528,7 +535,7 @@ export const FeatureComponent = (props: Props) => {
 			content = SkillChoiceFeatureComponent(feature);
 			break;
 		case FeatureType.Bonus:
-			content = BonusFeatureComponent(feature, hero);
+			content = <BonusFeatureComponent feature={feature} hero={hero} sourcebooks={props.sourcebooks} />;
 			break;
 		case FeatureType.CharacteristicBonus:
 			content = CharacteristicBonusFeatureComponent(feature);

@@ -1,7 +1,7 @@
 import { AbilityName, abilityDescriptionKey, abilityNameKey, abilitySectionKey, useAbilityName } from '@/l10n/ability-text';
 import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
-import { Feature, FeaturePerk, FeatureText } from '@/models/feature';
+import { Feature, FeaturePerk } from '@/models/feature';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
 import { displayKey, resolveText, translate } from '@/l10n/text';
@@ -27,7 +27,7 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { InfoConditionImmunity } from '@/components/features/feature-data/condition-immunity';
-import { OptionsContext } from '@/contexts/data-context';
+import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { PanelMode } from '@/enums/panel-mode';
 import { PartyModal } from '@/components/modals/party/party-modal';
 import { PerkList } from '@/enums/perk-list';
@@ -1167,20 +1167,13 @@ const renderSkillChoice = () => {
 };
 
 const renderPerkChoice = () => {
-	const selected: FeatureText & { list: PerkList } = {
-		id: 'alchemy-perk',
-		name: 'Alchemy',
-		description: '',
-		type: FeatureType.Text,
-		data: null,
-		list: PerkList.Crafting
-	};
+	const selected = core.perks.find(perk => perk.id === 'perk-area-of-expertise')!;
 	const feature: FeaturePerk = FactoryLogic.feature.createPerk({
 		id: 'perk',
 		lists: [ PerkList.Crafting ],
 		selected: [ selected ]
 	});
-	return renderToStaticMarkup(createElement(FeatureComponent, { feature }));
+	return renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, { feature })));
 };
 
 describe('condition immunity display', () => {
@@ -1316,7 +1309,7 @@ describe('skill display batch', () => {
 		expect(english).not.toContain('Criminal Underworld');
 	});
 
-	test('feature component translates skill choices and leaves perks unchanged', () => {
+	test('feature component translates skill choices and selected official perks', () => {
 		const skills = renderSkillChoice();
 		expect(skills).toContain('Lore Skill');
 		expect(skills).toContain('潛行');
@@ -1325,8 +1318,8 @@ describe('skill display batch', () => {
 		expect(skills).not.toContain('>Sneak<');
 
 		const perks = renderPerkChoice();
-		expect(perks).toContain('Alchemy');
-		expect(perks).not.toContain('鍊金');
+		expect(perks).toContain('專業領域');
+		expect(perks).not.toContain('Area of Expertise');
 
 		setLanguage('en');
 		const englishSkills = renderSkillChoice();
@@ -1336,8 +1329,8 @@ describe('skill display batch', () => {
 		expect(englishSkills).not.toContain('潛行');
 
 		const englishPerks = renderPerkChoice();
-		expect(englishPerks).toContain('Alchemy');
-		expect(englishPerks).not.toContain('鍊金');
+		expect(englishPerks).toContain('Area of Expertise');
+		expect(englishPerks).not.toContain('專業領域');
 	});
 });
 
