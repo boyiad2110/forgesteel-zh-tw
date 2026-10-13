@@ -6,6 +6,7 @@ import { AbilityUsage } from '@/enums/ability-usage';
 import { Ancestry } from '@/models/ancestry';
 import { AncestryLogic } from '@/logic/ancestry-logic';
 import { Career } from '@/models/career';
+import { CareerIncident } from '@/l10n/career-incident';
 import { Characteristic } from '@/enums/characteristic';
 import { Complication } from '@/models/complication';
 import { Culture } from '@/models/culture';
@@ -13,6 +14,7 @@ import { DamageModifierType } from '@/enums/damage-modifier-type';
 import { DamageType } from '@/enums/damage-type';
 import { Domain } from '@/models/domain';
 import { Element } from '@/models/element';
+import { ElementScope } from '@/l10n/element-scope';
 import { Extension } from '@/models/extension';
 import { ExtensionChangeType } from '@/enums/extension-change-type';
 import { ExtensionLogic } from '@/logic/extension-logic';
@@ -239,23 +241,27 @@ interface CareerProps {
 
 const CareerSheet = (props: CareerProps) => {
 	return (
-		<>
-			<HeaderText level={1}>
-				{props.career.name || 'Unnamed Career'}
-			</HeaderText>
-			<Markdown text={props.career.description} />
-			{
-				props.career.features.map(f => (
-					<FeaturePanel key={f.id} feature={f} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
-				))
-			}
-			<HeaderText>Inciting Incidents</HeaderText>
-			{
-				props.career.incitingIncidents.options.map(option => (
-					<Field key={option.id} label={option.name} value={option.description} />
-				))
-			}
-		</>
+		<ElementScope element={props.career}>
+			<>
+				<HeaderText level={1}>
+					{props.career.name || 'Unnamed Career'}
+				</HeaderText>
+				<Markdown text={props.career.description} />
+				{
+					props.career.features.map(f => (
+						<FeaturePanel key={f.id} feature={f} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
+					))
+				}
+				<HeaderText>Inciting Incidents</HeaderText>
+				{
+					props.career.incitingIncidents.options.map(option => (
+						<CareerIncident key={option.id} career={props.career} incident={option} sourcebooks={props.sourcebooks}>
+							{incident => <Field label={incident.name} value={incident.description} />}
+						</CareerIncident>
+					))
+				}
+			</>
+		</ElementScope>
 	);
 };
 

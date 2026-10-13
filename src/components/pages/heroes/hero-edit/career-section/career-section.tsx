@@ -3,6 +3,7 @@ import { FeatureConfigPanel, SelectionBox } from '@/components/panels/feature-co
 import { ReactNode, useState } from 'react';
 import { Career } from '@/models/career';
 import { CareerPanel } from '@/components/panels/elements/career-panel/career-panel';
+import { CareerIncident } from '@/l10n/career-incident';
 import { Element } from '@/models/element';
 import { ElementSelectModal } from '@/components/modals/select/element-select/element-select-modal';
 import { EmptyMessage } from '@/components/pages/heroes/hero-edit/empty-message/empty-message';
@@ -74,8 +75,16 @@ export const CareerSection = (props: Props) => {
 							content={
 								<Field
 									style={{ flex: '1 1 0' }}
-									label={props.hero.career.incitingIncidents.selected.name}
-									value={<Markdown text={props.hero.career.incitingIncidents.selected.description} useSpan={true} />}
+									label={
+										<CareerIncident career={props.hero.career} incident={props.hero.career.incitingIncidents.selected} sourcebooks={props.sourcebooks}>
+											{incident => incident.name}
+										</CareerIncident>
+									}
+									value={
+										<CareerIncident career={props.hero.career} incident={props.hero.career.incitingIncidents.selected} sourcebooks={props.sourcebooks}>
+											{incident => <Markdown text={incident.description} useSpan={true} />}
+										</CareerIncident>
+									}
 								/>
 							}
 							onRemove={() => props.selectIncitingIncident(null)}
@@ -132,6 +141,11 @@ export const CareerSection = (props: Props) => {
 			<Drawer open={showIncitingIncidents} onClose={() => setShowIncitingIncidents(false)} closeIcon={null} size={500}>
 				<ElementSelectModal
 					elements={props.hero.career ? props.hero.career.incitingIncidents.options : []}
+					renderElement={incident => (
+						<CareerIncident career={props.hero.career || undefined} incident={incident} sourcebooks={props.sourcebooks}>
+							{display => <><HeaderText>{display.name}</HeaderText><Markdown text={display.description} /></>}
+						</CareerIncident>
+					)}
 					onSelect={e => {
 						setShowIncitingIncidents(false);
 						props.selectIncitingIncident(Utils.copy(e));

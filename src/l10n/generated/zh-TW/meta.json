@@ -3,21 +3,21 @@
   "counts": {
     "glossary": 332,
     "names": 60,
-    "strings": 656,
+    "strings": 872,
     "ui": 209
   },
   "sheetFileId": "1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4",
-  "sheetModifiedTime": "2026-10-11T07:08:29.852Z",
+  "sheetModifiedTime": "2026-10-13T03:30:31.661Z",
   "sources": {
     "book": {
       "spreadsheetId": "1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4",
-      "modifiedTime": "2026-10-11T07:08:29.852Z",
-      "contentSha256": "273c255f40136aa03dce92777e4e4c5db12609c128bcd9b532233295fb0d455c"
+      "modifiedTime": "2026-10-13T03:30:31.661Z",
+      "contentSha256": "7c9bdb0bbb6440cf44289f718f96b2d5a0636da8ae868d0d110c35f558a9cc76"
     },
     "forge": {
       "spreadsheetId": "1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw",
-      "modifiedTime": "2026-10-12T04:59:18.447Z",
-      "contentSha256": "17988eb448808dfa9b6b4f3b6f0c1eaa2766dd7dd18bd3ea21f5a5fa47868982"
+      "modifiedTime": "2026-10-13T03:54:16.650Z",
+      "contentSha256": "443db00221c8a12f19ffa6e2351c2902632bbcc6a5a1ae5ffd18a64e0e4bf7a9"
     }
   }
 }

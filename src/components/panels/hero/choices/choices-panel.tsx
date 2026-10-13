@@ -1,5 +1,6 @@
 import { Ancestry } from '@/models/ancestry';
 import { Career } from '@/models/career';
+import { CareerIncident } from '@/l10n/career-incident';
 import { Complication } from '@/models/complication';
 import { Culture } from '@/models/culture';
 import { Domain } from '@/models/domain';
@@ -11,11 +12,11 @@ import { HeroClass } from '@/models/class';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroModalType } from '@/enums/hero-modal-type';
 import { Kit } from '@/models/kit';
+import { PlayerName } from '@/l10n/player-name';
 import { ProjectLogic } from '@/logic/project-logic';
 import { Sourcebook } from '@/models/sourcebook';
 import { Title } from '@/models/title';
 import { useOptions } from '@/contexts/data-context';
-import { PlayerName } from '@/l10n/player-name';
 import { useUI } from '@/l10n/ui-text';
 
 import './choices-panel.scss';
@@ -88,13 +89,19 @@ export const ChoicesPanel = (props: Props) => {
 				props.hero.career ?
 					useRows ?
 						<div className='selectable-row clickable' onClick={() => props.onSelectCareer(props.hero.career!)}>
-							<div>{ui.text('ui.hero-builder.career.bb829dbb', 'Career')}: <b>{props.hero.career.name}</b></div>
+							<div>{ui.text('ui.hero-builder.career.bb829dbb', 'Career')}: <b><PlayerName element={props.hero.career} /></b></div>
 						</div>
 						:
 						<div className='overview-tile clickable' onClick={() => props.onSelectCareer(props.hero.career!)}>
 							<HeaderText>{ui.text('ui.hero-builder.career.d360a160', 'Career')}</HeaderText>
-							<Field label={ui.text('ui.hero-builder.career.d360a160', 'Career')} value={props.hero.career.name} />
-							{incitingIncident ? <Field label={ui.text('ui.hero-builder.inciting-incident.181ce686', 'Inciting Incident')} value={incitingIncident.name} /> : null}
+							<Field label={ui.text('ui.hero-builder.career.d360a160', 'Career')} value={<PlayerName element={props.hero.career} />} />
+							{incitingIncident
+								? (
+									<CareerIncident career={props.hero.career || undefined} incident={incitingIncident} sourcebooks={props.sourcebooks}>
+										{incident => <Field label={ui.text('ui.hero-builder.inciting-incident.181ce686', 'Inciting Incident')} value={incident.name} />}
+									</CareerIncident>
+								)
+								: null}
 						</div>
 					:
 					<div className='overview-tile'>

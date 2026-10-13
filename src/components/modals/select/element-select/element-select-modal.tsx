@@ -8,6 +8,7 @@ import { Modal } from '@/components/modals/modal/modal';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { Utils } from '@/utils/utils';
 import { useUI } from '@/l10n/ui-text';
+import { ReactNode } from 'react';
 import { useState } from 'react';
 
 import './element-select-modal.scss';
@@ -16,6 +17,7 @@ interface Props {
 	elements: Element[];
 	onClose: () => void;
 	onSelect: (element: Element) => void;
+	renderElement?: (element: Element) => ReactNode;
 }
 
 export const ElementSelectModal = (props: Props) => {
@@ -50,12 +52,13 @@ export const ElementSelectModal = (props: Props) => {
 				<div className='element-select-modal'>
 					<Space orientation='vertical' style={{ width: '100%' }}>
 						{
-							elements.map(e => (
-								<SelectablePanel key={e.id} onSelect={() => props.onSelect(e)}>
-									<HeaderText>{e.name}</HeaderText>
-									<Markdown text={e.description} />
-								</SelectablePanel>
-							))
+							elements.map(e => {
+								const content = props.renderElement?.(e) || [
+									<HeaderText key='name'>{e.name}</HeaderText>,
+									<Markdown key='description' text={e.description} />
+								];
+								return <SelectablePanel key={e.id} onSelect={() => props.onSelect(e)}>{content}</SelectablePanel>;
+							})
 						}
 					</Space>
 					<Divider />
