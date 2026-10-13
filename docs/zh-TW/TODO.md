@@ -5,7 +5,7 @@
 | ID | 狀態／負責範圍 | 下一個動作 | 完成條件 |
 |---|---|---|---|
 | DISPLAY-DEFAULTS | 待後續批次 / 54 種未核准特性預設描述 | Crafting Perk / 一般複數 Skills 標題與 Perk 預設描述併入 BOOK-01；其餘核對候選庫遇到的 9 類空描述與實際頁面接點；其餘 45 類仍需依呼叫情境盤點。Choice 已有譯文，但其他官方 ID 尚待接線 | 不以生成語言 / 技能提示代替 FeatureType 預設描述完成率；每批先預覽 |
-| BOOK-01 | 外部書本翻譯依賴／Marc；事件接入 PR #66 等待 CI | 108 個 Inciting Incidents 已依 Book Master APPROVED 來源接入；接續等候其餘 Career 背景問題及 Skills / Crafting Perk 標題、Perk 預設說明核准，再銜接 DISPLAY-DEFAULTS | Forge Steel 只接入 APPROVED；PR #66 的 5 筆版本差異維持英文回退，不改寫書本正典 |
+| BOOK-01 | 外部書本翻譯依賴／Marc；Inciting Incidents PR #66 CI 通過、待合併 | 108 個 Inciting Incidents 已依 Book Master APPROVED 來源接入；接續等候其餘 Career 背景問題及 Skills / Crafting Perk 標題、Perk 預設說明核准，再銜接 DISPLAY-DEFAULTS | Forge Steel 只接入 APPROVED；PR #66 的 5 筆版本差異維持英文回退，不改寫書本正典 |
 | BOOK-02 | 外部書本翻譯依賴／Marc | 書本工作流決定 Glossary Enhancement | 書本 Master Sheet 決策更新；不阻塞現有名稱顯示 |
 | RELEASE-01 | 正式開放前／runtime | 為目錄載入失敗設計受控重試與診斷，補失敗→恢復測試 | 可恢復且沒有 render 重試迴圈 |
 | RELEASE-02 | 正式開放前／網站識別 | 核對 HTML/PWA 語言、名稱、分享網址 | 與正式站識別一致 |
