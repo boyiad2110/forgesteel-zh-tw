@@ -11,16 +11,8 @@ import { describe, expect, test } from 'vitest';
 const catalog = strings as Catalog;
 const careers = Object.values(CareerData);
 const officialBook = { type: SourcebookType.Official, careers } as Sourcebook;
-const unmappedDescriptions = new Set([
-	'career-aristocrat-ii-2',
-	'career-explorer-ii-3',
-	'career-gladiator-ii-3',
-	'career-laborer-ii-2',
-	'career-soldier-ii-5'
-]);
-
 describe('Career inciting incident localization', () => {
-	test('covers every approved event name and every safely mapped description', () => {
+	test('covers every approved event name and description', () => {
 		expect(careers).toHaveLength(18);
 		expect(careers.flatMap(career => career.incitingIncidents.options)).toHaveLength(108);
 		let names = 0;
@@ -42,14 +34,6 @@ describe('Career inciting incident localization', () => {
 				expect(resolveText('en', keys.nameKey, incident.name, { [nameKey]: nameId }, catalog)).toBe(incident.name);
 				names += 1;
 
-				if (unmappedDescriptions.has(incident.id)) {
-					expect(keys.descriptionKey).toBeUndefined();
-					expect(mapping[descriptionKey]).toBeUndefined();
-					expect(catalog[descriptionId].fs).toBeUndefined();
-					expect(resolveText('zh-TW', keys.descriptionKey, incident.description, {}, catalog)).toBe(incident.description);
-					continue;
-				}
-
 				const description = catalog[descriptionId];
 				expect(keys.descriptionKey).toBe(descriptionKey);
 				expect(mapping[descriptionKey]).toMatchObject({ sheetId: descriptionId, enHash: expect.stringMatching(/^[a-f0-9]{64}$/) });
@@ -62,7 +46,7 @@ describe('Career inciting incident localization', () => {
 		}
 
 		expect(names).toBe(108);
-		expect(descriptions).toBe(103);
+		expect(descriptions).toBe(108);
 	});
 
 	test('keeps renamed, rewritten, and non-official incidents in English', () => {

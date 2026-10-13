@@ -2269,6 +2269,11 @@
   },
   "heroes.background.career.aristocrat.inciting.2.description": {
     "en": "Whether through some supernatural power or your innate persuasiveness, you were able to defraud other aristocrats. You did it for fun. And when you were found out, you lost your status. Whether you served time or escaped punishment, you decided to rehabilitate yourself and became a hero.",
+    "fs": {
+      "basisHash": "5c33d3c4579c75138ae6046a5ad0da5aadfe5b12dfe6d92b0dc01988b5823122",
+      "en": "Through some treasure or innate ability, you were able to defraud other aristocrats. You did it for fun. When you were found out, you lost your status. Whether you served time or escaped from punishment, you decided to rehabilitate yourself and became a hero.",
+      "zh": "無論是藉由超自然力量還是天生的說服技巧，你成功欺騙了其他貴族，而且你是純粹為了樂趣而這麼做。當行為敗露後，你喪失了貴族身分。不管最終是服刑還是逃過懲罰，你決定洗心革面，成為一位英雄。"
+    },
     "updated": "2026-10-13",
     "zh": "無論是藉由超自然力量還是天生的說服技巧，你成功欺騙了其他貴族，而且你是純粹為了樂趣而這麼做。當行為敗露後，你喪失了貴族身分。不管最終是服刑還是逃過懲罰，你決定洗心革面，成為一位英雄。"
   },
@@ -3044,6 +3049,11 @@
   },
   "heroes.background.career.explorer.inciting.3.description": {
     "en": "Exploring distant lands to collect valuable artifacts for cultural institutions was once your way of life. But when people died trying to reclaim one of the objects you took, you realized the truth. Your work was part of a larger problem of cultural theft, and the best place for these significant objects wasn’t in a museum but with the people who created them. Setting out to return what had been taken and to protect others from theft set you on the path to become a hero.",
+    "fs": {
+      "basisHash": "b2119de8537afc2e33bfbc032c708d410fa7d63214a9d58f1cdc55ff95a1a80d",
+      "en": "Traversing seas and mountains to collect valuable artifacts for cultural institutions was once your way of life. When people died trying to reclaim one of the objects you took, you realized the truth. Your work was part of a larger problem of misappropriation and the best place for these significant objects wasn’t in a museum but with the people who created them. You set out to return what had been taken and to protect others from theft.",
+      "zh": "探索遙遠土地，並為文化機構收集珍貴文物曾是你的生活方式。然而，當人們為了奪回你帶走的一件物品而犧牲生命時，你領悟了真相，你的工作實際上是文化掠奪的一部分。這些重要物品的最佳歸屬並非博物館，而是創造它們的人民。你決心歸還被奪走之物，並保護他人免受竊盜，這段旅程引領你成為了一名英雄。"
+    },
     "updated": "2026-10-13",
     "zh": "探索遙遠土地，並為文化機構收集珍貴文物曾是你的生活方式。然而，當人們為了奪回你帶走的一件物品而犧牲生命時，你領悟了真相，你的工作實際上是文化掠奪的一部分。這些重要物品的最佳歸屬並非博物館，而是創造它們的人民。你決心歸還被奪走之物，並保護他人免受竊盜，這段旅程引領你成為了一名英雄。"
   },
@@ -3349,6 +3359,11 @@
   },
   "heroes.background.career.gladiator.inciting.3.description": {
     "en": "As a child, you loved gladiatorial matches, captivated by the fierce displays of bravery and bravado, never giving much thought to how the competitors ended up in the ring. Then your friend was wrongly accused of a crime and sentenced to compete. You went in their place. After viewing what life was like for those forced to fight, you survived your sentence and resolved to protect the unfairly condemned.",
+    "fs": {
+      "basisHash": "baf3b434457d0785f6edcda9fd4d2a6f4e1371f514d50ae371b717720779b6ae",
+      "en": "As a child, you loved gladiatorial matches, captivated by the fierce displays of showmanship, never giving much thought to how the competitors ended up in the ring. Then your friend was wrongly accused of a crime and sentenced to compete. You went in their place. After viewing what life was like for those forced to fight, you survived your sentence and resolved to protect the unfairly condemned.",
+      "zh": "小時候，你熱愛角鬥士比賽，被那些勇敢和豪邁的激烈表演所吸引，卻從未思考過參賽者如何走上角鬥場。後來，你的朋友被錯誤指控犯罪並被判處參賽，而你挺身替他上場。在親眼目睹那些戰士被迫戰鬥的生活後，你熬過了刑期，並發誓要保護那些被誣陷判罪的人。"
+    },
     "updated": "2026-10-13",
     "zh": "小時候，你熱愛角鬥士比賽，被那些勇敢和豪邁的激烈表演所吸引，卻從未思考過參賽者如何走上角鬥場。後來，你的朋友被錯誤指控犯罪並被判處參賽，而你挺身替他上場。在親眼目睹那些戰士被迫戰鬥的生活後，你熬過了刑期，並發誓要保護那些被誣陷判罪的人。"
   },
@@ -3479,6 +3494,11 @@
   },
   "heroes.background.career.laborer.inciting.2.description": {
     "en": "A disaster, such as a cave-in, wildfire, or tidal wave, hit the work crew you were in charge of. You saved as many as you could, but the ones you couldn’t save weigh heavily on your mind. You took up the life of a hero to save as many people as possible, vowing that what happened to you then won’t happen again.",
+    "fs": {
+      "basisHash": "0503e3122de1be12e0bde35d41d8eac534bd166c1998b416fdb6970478adf5b9",
+      "en": "A disaster, such as a cave-in, wildfire, or tidal wave, hit your crew while you were working. You saved as many as you could, but the ones you couldn’t save weigh heavily on your mind. You took up the life of a hero to save as many people as possible, vowing that what happened to you won’t happen again.",
+      "zh": "你負責帶領的工作隊伍遭遇了一場災難，例如塌方、野火或海嘯。你救了許多人，但不是所有人，那些死者在你心中留下了沉重的負擔。因此，你選擇了英雄的道路，立志拯救更多生命，並發誓不讓這樣的悲劇再次發生。"
+    },
     "updated": "2026-10-13",
     "zh": "你負責帶領的工作隊伍遭遇了一場災難，例如塌方、野火或海嘯。你救了許多人，但不是所有人，那些死者在你心中留下了沉重的負擔。因此，你選擇了英雄的道路，立志拯救更多生命，並發誓不讓這樣的悲劇再次發生。"
   },
@@ -4469,6 +4489,11 @@
   },
   "heroes.background.career.soldier.inciting.5.description": {
     "en": "Tired of eking out an existence on the streets, you enrolled in the military. However, you were unable to escape your lower-status background until the officer leading your unit fell in battle. In the chaos that ensued, you assumed their identity and returned home a hero. But when suspicion arose, you took on the life of an adventurer, staying always on the move.",
+    "fs": {
+      "basisHash": "00bb40d1c5e0f2ccfa97fa1c871545c3640852c359be9b6057e02e0f2cc79c0b",
+      "en": "Tired of eking out an existence on the streets, you enrolled in the military. However, you were unable to escape your lower-status background until the officer leading your unit fell in battle. In the chaos that ensued, you assumed their identity and returned home a hero. To avoid suspicion, you took on the life of an adventurer, staying always on the move.",
+      "zh": "你厭倦了街頭掙扎求生的日子，加入了軍隊。然而，你始終無法擺脫低微的出身，直到你部隊的軍官在戰鬥中陣亡。在隨後的混亂中，你假冒了該軍官的身分，以英雄之姿返鄉。但是懷疑聲四起，你決定踏上冒險的生活，不斷遷徙，保持流動。"
+    },
     "updated": "2026-10-13",
     "zh": "你厭倦了街頭掙扎求生的日子，加入了軍隊。然而，你始終無法擺脫低微的出身，直到你部隊的軍官在戰鬥中陣亡。在隨後的混亂中，你假冒了該軍官的身分，以英雄之姿返鄉。但是懷疑聲四起，你決定踏上冒險的生活，不斷遷徙，保持流動。"
   },

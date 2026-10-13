@@ -1753,6 +1753,20 @@
         "zhHash": "e4c873946139e8444a8a4ace60ec7854760f35057d6b40d86b577b4e1101c749"
       }
     },
+    "heroes.background.career.aristocrat.inciting.2.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.career.aristocrat.inciting.2.description",
+          "enHash": "a6f83c4f294e63d7d972483283b59daacaed23de460752acfb2a2a51948b5ee2",
+          "zhHash": "5c33d3c4579c75138ae6046a5ad0da5aadfe5b12dfe6d92b0dc01988b5823122"
+        }
+      ],
+      "sourcesHash": "1471f1ed7111de3aa36f1524aa83e83ad9654d6dbf069266a72e882de6929948",
+      "fs": {
+        "enHash": "89a5c15710aae982a234d19da8efa72461b5c8a3fd849dc9784cd8ea196cd764",
+        "zhHash": "5c33d3c4579c75138ae6046a5ad0da5aadfe5b12dfe6d92b0dc01988b5823122"
+      }
+    },
     "heroes.background.career.aristocrat.inciting.3.name": {
       "sources": [
         {
@@ -2607,6 +2621,20 @@
         "zhHash": "9c54274eae73607b8f01600364a95e0e2a41aab35a37cbf40c222917a7d2def0"
       }
     },
+    "heroes.background.career.explorer.inciting.3.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.career.explorer.inciting.3.description",
+          "enHash": "a78db315ab456d9ac1033adea73cd8ee2036ca6f975889c669dec80dfcbed9cd",
+          "zhHash": "b2119de8537afc2e33bfbc032c708d410fa7d63214a9d58f1cdc55ff95a1a80d"
+        }
+      ],
+      "sourcesHash": "b1245cb9c4538cf13c796e9d6424d2b596ef07754573f8b2b283656ba6781eae",
+      "fs": {
+        "enHash": "26ec243505272e5e53d9ac93ae3fe2193afed396cf3f304957b579433f33f57b",
+        "zhHash": "b2119de8537afc2e33bfbc032c708d410fa7d63214a9d58f1cdc55ff95a1a80d"
+      }
+    },
     "heroes.background.career.explorer.inciting.4.name": {
       "sources": [
         {
@@ -2929,6 +2957,20 @@
         "zhHash": "7dce7599b6b3dff3db8ac65ad6e1db5896ad55917257d83117f34335e8895176"
       }
     },
+    "heroes.background.career.gladiator.inciting.3.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.career.gladiator.inciting.3.description",
+          "enHash": "80b205357d2edc2dfa83c626fef24f7f857ba43e334dbfe5b6dcf81ce2e1279d",
+          "zhHash": "baf3b434457d0785f6edcda9fd4d2a6f4e1371f514d50ae371b717720779b6ae"
+        }
+      ],
+      "sourcesHash": "0df83b13f94f45b654628e3001d8b4947ad377cf7a545ba4979e2c888db70d34",
+      "fs": {
+        "enHash": "2f14559cef76542e41615ad20a0c479aaa9bebcdfa512f69bf820f167560c04c",
+        "zhHash": "baf3b434457d0785f6edcda9fd4d2a6f4e1371f514d50ae371b717720779b6ae"
+      }
+    },
     "heroes.background.career.gladiator.inciting.4.name": {
       "sources": [
         {
@@ -3053,6 +3095,20 @@
       "fs": {
         "enHash": "7ea0b689fe3b2f1af10fd59376a3230a30db0711a8b77a084413ee4d8fcdc623",
         "zhHash": "931bcd82b0eb9f88f1aac8fa1d500e44e2da78e9e38f2e10c01fa1b4a069e0a0"
+      }
+    },
+    "heroes.background.career.laborer.inciting.2.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.career.laborer.inciting.2.description",
+          "enHash": "970bf4a62dbe7bf6fd38949420a1bf1dbb4baa5b3d45537ec865e49c5ca6ecc7",
+          "zhHash": "0503e3122de1be12e0bde35d41d8eac534bd166c1998b416fdb6970478adf5b9"
+        }
+      ],
+      "sourcesHash": "30fb456deefe6be643d73e19ff63ef11995e361e38bd91bbe5a99ac3b95315a9",
+      "fs": {
+        "enHash": "04311b45e92880cf44f9aba8b5034c261cb4a634d37e08d803760167f527ab90",
+        "zhHash": "0503e3122de1be12e0bde35d41d8eac534bd166c1998b416fdb6970478adf5b9"
       }
     },
     "heroes.background.career.laborer.inciting.3.name": {
@@ -4131,6 +4187,20 @@
       "fs": {
         "enHash": "58f409f503843cbb5569e04f5370092af712a92b65781823c42ba22e7a191a11",
         "zhHash": "db7d11379dc89f1192a4c7a273a60e9825a49709350c7b51182e5572669f9e5b"
+      }
+    },
+    "heroes.background.career.soldier.inciting.5.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.background.career.soldier.inciting.5.description",
+          "enHash": "16d461847cea90f340eb769bfaede2412298319d3f507777db593485028d6f27",
+          "zhHash": "00bb40d1c5e0f2ccfa97fa1c871545c3640852c359be9b6057e02e0f2cc79c0b"
+        }
+      ],
+      "sourcesHash": "6609b1d4ace064222f3bba829f2ff1ab194d9baedf06e8acf6f0410502d970e3",
+      "fs": {
+        "enHash": "aee0f71483498b1f6625282ef27b38dab36e2444a74d6cfbafa0d40c154a4b73",
+        "zhHash": "00bb40d1c5e0f2ccfa97fa1c871545c3640852c359be9b6057e02e0f2cc79c0b"
       }
     },
     "heroes.background.career.soldier.inciting.6.name": {
