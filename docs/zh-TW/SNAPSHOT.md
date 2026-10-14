@@ -6,7 +6,7 @@
 
 - 書本 Sheet `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4` 只擷取 Glossary、Names 與 Strings A–O 書本欄位；網站 Sheet `1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw` 擷取 Forge Steel UI、Adaptations、Adaptation Sources。TM 留在書本 QA 工作流。
 - 各 Sheet 分別讀取前後 Drive 修改時間、驗證 Spreadsheet ID；任一讀取失敗、來源版本變更或欄位缺漏就丟棄兩份擷取。依標題投影；只將 APPROVED 與必要來源關聯送入離線整合，原始草稿不落盤。
-- `scripts/l10n/dual-sheet.mjs` 以 Adaptation ID 關聯有序來源，核對 Book APPROVED、Basis／Source List／英中 SHA-256、Usage Key 唯一性與動態 Note；兩個歷史空白 Usage Key 保留。雙來源快照額外含 `adaptations.csv`、`adaptation-sources.csv`；生成的 `adaptations.json` 以穩定 ID 保存多用途關聯，既有四份有效目錄結構不變。現有 runtime／`mapping.ts` 對應維持不變；本切換只納入已核准且受既有 mapping 使用的網站用途。`source.json` 與生成 metadata 記錄兩份 Spreadsheet ID、修改時間及內容指紋。重讀快照須逐項重建且核對指紋。
+- `scripts/l10n/dual-sheet.mjs` 以 Adaptation ID 關聯有序來源，核對 Book APPROVED、Basis／Source List／英中 SHA-256、Usage Key 唯一性與動態 Note；兩個歷史空白 Usage Key 保留。Source Type 可以是 `Book String` 或 `Book Name`。Book Name 的 Source Record ID，以及 Adaptations 的 Book String ID，都填 Names 的 Name ID；核准後把四個 Forge Steel 欄寫進 `names.csv`，匯出成該名稱的 `fs`。Calculation Display 仍只用於 Book String。雙來源快照額外含 `adaptations.csv`、`adaptation-sources.csv`；生成的 `adaptations.json` 以穩定 ID 保存多用途關聯，既有四份有效目錄結構不變。現有 runtime／`mapping.ts` 對應維持不變；本切換只納入已核准且受既有 mapping 使用的網站用途。`source.json` 與生成 metadata 記錄兩份 Spreadsheet ID、修改時間及內容指紋。重讀快照須逐項重建且核對指紋。
 - `scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json>` 預設僅試跑。確認雙來源版本、指紋、核准清冊與預期檔案差異後，才可在隔離工作分支以 `--apply` 更新待審查檔案。工具會先在暫存目錄重建並執行守門；異常時不更新正式檔案，可捕捉的寫入失敗依 `replaceFiles` 還原。
 
 ## 一次擷取與正式匯出
