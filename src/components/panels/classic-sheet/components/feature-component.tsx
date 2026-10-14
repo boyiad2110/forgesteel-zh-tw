@@ -19,14 +19,14 @@ import { LanguageName } from '@/l10n/language-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { ModifierLogic } from '@/logic/modifier-logic';
 import { PerkList } from '@/enums/perk-list';
-import { perkListText } from '@/l10n/perk-list-ui';
 import { PlayerName } from '@/l10n/player-name';
-import { useUI } from '@/l10n/ui-text';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
+import { perkListText } from '@/l10n/perk-list-ui';
+import { useUI } from '@/l10n/ui-text';
 
 import rollT1 from '@/assets/icons/power-roll-t1.svg';
 import rollT2 from '@/assets/icons/power-roll-t2.svg';
