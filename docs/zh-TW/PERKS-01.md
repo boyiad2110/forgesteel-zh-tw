@@ -4,10 +4,13 @@
 
 ## 第 1 段範圍
 
-- 快照納入書本 APPROVED。書本修改時間 `2026-10-14T04:49:24.959Z`，與本次附帶唯讀匯出（2026-10-14 12:49 UTC+8）一致。Forge Steel Master 沿用既有核准快照（修改時間 `2026-10-13T03:54:16.650Z`），未改 Google Sheets。
+- 第 1 段最初的快照納入書本 APPROVED。當時書本修改時間 `2026-10-14T04:49:24.959Z`，Forge Steel Master 沿用修改時間 `2026-10-13T03:54:16.650Z`。這兩個時間已被下方這一輪取代。
 - 目錄由 Names 60／Strings 872 增至 Names 89／Strings 993。新增 29 個專長名稱、47 個 `heroes.perks.*.effect`，以及 74 個已核准 Career 背景問題。Glossary 僅 `term.group-test` 由「團體考驗」改為核准後的「團隊考驗」；此術語目前沒有網站 mapping，本段畫面不因此改字。
-- 本段先新增 24 個名稱 mapping（既有 15 個＋本次 24 個＝39）。2026-10-14 Marc 再核准 4 個只差標點的名稱，mapping 增至 43。效果與 74 個背景問題在目錄中，沒有 mapping，畫面維持英文或維持不顯示。
-- 另外 4 個名稱差在大小寫或拼字。它們不進 `english-exceptions.json`。工具已能接受書本 Names 的 Adaptation；畫面仍是英文，直到協調者把核准列貼上 Forge Sheet 並重做快照。
+- 本段先新增 24 個名稱 mapping（既有 15 個＋本次 24 個＝39）。2026-10-14 Marc 再核准其餘 8 個名稱：4 個標點例外，以及 4 個 Book Name Adaptation。mapping 現為 47。效果與 74 個背景問題在目錄中，沒有 mapping，畫面維持英文或維持不顯示。
+- 2026-10-14 稍後的雙來源快照已套用。書本修改時間 `2026-10-14T06:02:56.566Z`，內容指紋 `7d2ea2a6a762ac0a76679c3f197b4957898996aa515095c7a237341931c7ab65`。Forge Steel Master 修改時間 `2026-10-14T06:07:05.257Z`，內容指紋 `9a61faa8348c65c779d65387fe32fc2d078fe45520b291354e1803fb16783182`。目錄為 Glossary 332、Names 101、Strings 1037、UI 209。
+- 同一次書本擷取裡，他人在 2026-10-14 14:02:56（UTC+8）寫入的核准套裝列也被刷新工具納入，因為工具會收進所有 APPROVED。多出的是 12 個套裝／招牌招式名稱，以及 44 筆 `heroes.kits.*` 字串，都沒有網站 mapping，畫面不改。Glossary 的 `term.enhancement` 狀態是 NEW，未納入。既有核准列的英文、中文與更新日期沒有變。
+
+未接入的 12 個名稱：`name.kit.arcane-archer` 魔弓、`name.kit-ability.exploding-arrow` 爆裂箭矢、`name.kit.battlemind` 戰念、`name.kit-ability.unmooring` 脫韁解錨、`name.kit.cloak-and-dagger` 潛襲、`name.kit-ability.fade` 回身掠影、`name.kit.dual-wielder` 雙持、`name.kit-ability.double-strike` 雙重打擊、`name.kit.guisarmier` 長兵、`name.kit-ability.forward-thrust-backward-smash` 前刺後劈、`name.kit.martial-artist` 武術、`name.kit-ability.battle-grace` 戰鬥之舞。44 筆字串是這 6 個套裝的 description、equipment、bonus 與 signature，ID 前綴為 `heroes.kits.arcane-archer.`、`heroes.kits.battlemind.`、`heroes.kits.cloak-and-dagger.`、`heroes.kits.dual-wielder.`、`heroes.kits.guisarmier.`、`heroes.kits.martial-artist.`。
 
 ## 對照摘要
 
@@ -47,7 +50,14 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 | `perk-ive-got-you` | 我接住你了！ |
 | `perk-so-tell-me` | 誠實告訴我…… |
 
-差在大小寫或拼字的 4 個不列例外：`perk-spot-the-tell`、`perk-gum-up-the-works`、`perk-travelling-artisan`、`perk-travelling-sage`。`dual-sheet.mjs` 現在接受 Source Type `Book Name`，Book String ID 填 Names 的 Name ID，雜湊規則與 Book String 相同。核准列貼上 Forge Sheet 並重做快照之後，這 4 個名稱才會顯示中文。
+差在大小寫或拼字的 4 個不列例外：`perk-spot-the-tell`、`perk-gum-up-the-works`、`perk-travelling-artisan`、`perk-travelling-sage`。`dual-sheet.mjs` 接受 Source Type `Book Name`，Book String ID 填 Names 的 Name ID，雜湊規則與 Book String 相同。這 4 列已是 Forge Master 的 APPROVED，並寫進本次快照的 `names.csv` `fs`。正體中文顯示書本核准中文；英文模式仍是網站英文。
+
+| FS id | 核准中文 | 網站英文 |
+|---|---|---|
+| `perk-spot-the-tell` | 發現破綻 | Spot The Tell |
+| `perk-gum-up-the-works` | 妨礙運作 | Gum Up The Works |
+| `perk-travelling-artisan` | 旅行工匠 | Travelling Artisan |
+| `perk-travelling-sage` | 旅行學者 | Travelling Sage |
 
 另外 5 個名稱同樣不同，本段才列入：
 
@@ -70,14 +80,14 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 | Crafting | `perk-handy` | Text | Handy | `name.perk.handy` | exact | exact | 心靈手巧 |
 | Crafting | `perk-improvisation-creation` | Text | Improvisation Creation | `name.perk.improvisation-creation` | exact | exact | 即興創造 |
 | Crafting | `perk-inspired-artisan` | Text | Inspired Artisan | `name.perk.inspired-artisan` | exact | exact | 創意工匠 |
-| Crafting | `perk-travelling-artisan` | Text | Travelling Artisan | `name.perk.traveling-artisan` | FS text differs from 1.01b | exact | Travelling Artisan |
+| Crafting | `perk-travelling-artisan` | Text | Travelling Artisan | `name.perk.traveling-artisan` | FS text differs from 1.01b | exact | 旅行工匠 |
 | Exploration | `perk-brawny` | Text | Brawny | `name.perk.brawny` | exact | exact | 肌肉發達 |
 | Exploration | `perk-camouflage-hunter` | Text | Camouflage Hunter | `name.perk.camouflage-hunter` | exact | exact | 迷彩獵人 |
 | Exploration | `perk-danger-sense` | Text | Danger Sense | `name.perk.danger-sense` | exact | exact | 危險感知 |
 | Exploration | `perk-friend-catapult` | Ability `perk-friend-catapult-1` | Friend Catapult | `name.perk.friend-catapult` | exact | FS text differs from 1.01b | 投擲盟友 |
-| Exploration | `perk-ive-got-you` | Ability `perk-ive-got-you-1` | I've Got You | `name.perk.ive-got-you` | FS text differs from 1.01b | FS text differs from 1.01b | I've Got You |
+| Exploration | `perk-ive-got-you` | Ability `perk-ive-got-you-1` | I've Got You | `name.perk.ive-got-you` | FS text differs from 1.01b | FS text differs from 1.01b | 我接住你了！ |
 | Exploration | `perk-monster-whisperer` | Text | Monster Whisperer | `name.perk.monster-whisperer` | exact | exact | 怪物溝通師 |
-| Exploration | `perk-put-your-back-into-it` | Text | Put Your Back Into It | `name.perk.put-your-back-into-it` | FS text differs from 1.01b | exact | Put Your Back Into It |
+| Exploration | `perk-put-your-back-into-it` | Text | Put Your Back Into It | `name.perk.put-your-back-into-it` | FS text differs from 1.01b | exact | 全力以赴！ |
 | Exploration | `perk-team-leader` | Text | Team Leader | `name.perk.team-leader` | exact | exact | 團隊領袖 |
 | Exploration | `perk-teamwork` | Text | Teamwork | `name.perk.teamwork` | exact | FS text differs from 1.01b | 團隊合作 |
 | Exploration | `perk-wood-wise` | Text | Wood Wise | `name.perk.wood-wise` | exact | exact | 林野智慧 |
@@ -89,22 +99,22 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 | Interpersonal | `perk-open-book` | Text | Open Book | `name.perk.open-book` | exact | exact | 坦誠相待 |
 | Interpersonal | `perk-pardon-my-friend` | Text | Pardon My Friend | `name.perk.pardon-my-friend` | exact | exact | 代友發言 |
 | Interpersonal | `perk-power-player` | Text | Power Player | `name.perk.power-player` | exact | exact | 強勢態度 |
-| Interpersonal | `perk-so-tell-me` | Text | So, Tell Me ... | `name.perk.so-tell-me` | FS text differs from 1.01b | exact | So, Tell Me ... |
-| Interpersonal | `perk-spot-the-tell` | Text | Spot The Tell | `name.perk.spot-the-tell` | FS text differs from 1.01b | exact | Spot The Tell |
+| Interpersonal | `perk-so-tell-me` | Text | So, Tell Me ... | `name.perk.so-tell-me` | FS text differs from 1.01b | exact | 誠實告訴我…… |
+| Interpersonal | `perk-spot-the-tell` | Text | Spot The Tell | `name.perk.spot-the-tell` | FS text differs from 1.01b | exact | 發現破綻 |
 | Intrigue | `perk-criminal-contacts` | Text | Criminal Contacts | `name.perk.criminal-contacts` | exact | exact | 江湖人脈 |
 | Intrigue | `perk-forgettable-face` | Text | Forgettable Face | `name.perk.forgettable-face` | exact | exact | 平凡容貌 |
-| Intrigue | `perk-gum-up-the-works` | Ability `perk-gum-up-the-works-1` | Gum Up The Works | `name.perk.gum-up-the-works` | FS text differs from 1.01b | FS text differs from 1.01b | Gum Up The Works |
+| Intrigue | `perk-gum-up-the-works` | Ability `perk-gum-up-the-works-1` | Gum Up The Works | `name.perk.gum-up-the-works` | FS text differs from 1.01b | FS text differs from 1.01b | 妨礙運作 |
 | Intrigue | `perk-lucky-dog` | Text | Lucky Dog | `name.perk.lucky-dog` | exact | exact | 幸運兒 |
 | Intrigue | `perk-master-of-disguise` | Text | Master of Disguise | `name.perk.master-of-disguise` | exact | exact | 易容大師 |
 | Intrigue | `perk-slipped-lead` | Text | Slipped Lead | `name.perk.slipped-lead` | exact | exact | 脫逃大師 |
 | Lore | `perk-but-i-know-who-does` | Text | But I Know Who Does | `name.perk.but-i-know-who-does` | exact | exact | 我知道誰知道 |
 | Lore | `perk-eidetic-memory` | SkillChoice | Eidetic Memory | `name.perk.eidetic-memory` | exact | exact | 過目不忘 |
 | Lore | `perk-expert-sage` | Text | Expert Sage | `name.perk.expert-sage` | exact | exact | 學術專家 |
-| Lore | `perk-ive-read-about-this-place` | Text | I've Read About This Place | `name.perk.ive-read-about-this-place` | FS text differs from 1.01b | FS text differs from 1.01b | I've Read About This Place |
+| Lore | `perk-ive-read-about-this-place` | Text | I've Read About This Place | `name.perk.ive-read-about-this-place` | FS text differs from 1.01b | FS text differs from 1.01b | 我知道這地方 |
 | Lore | `perk-linguist` | Multiple | Linguist | `name.perk.linguist` | exact | FS text differs from 1.01b | 語言學家 |
 | Lore | `perk-polymath` | Text | Polymath | `name.perk.polymath` | exact | exact | 博學多聞 |
 | Lore | `perk-specialist` | Text | Specialist | `name.perk.specialist` | exact | exact | 專業知識 |
-| Lore | `perk-travelling-sage` | Text | Travelling Sage | `name.perk.traveling-sage` | FS text differs from 1.01b | exact | Travelling Sage |
+| Lore | `perk-travelling-sage` | Text | Travelling Sage | `name.perk.traveling-sage` | FS text differs from 1.01b | exact | 旅行學者 |
 | Supernatural | `perk-arcane-trick` | Ability `perk-arcane-trick-1` | Arcane Trick | `name.perk.arcane-trick` | exact | FS text differs from 1.01b | 奧術戲法 |
 | Supernatural | `perk-creature-sense` | Ability `perk-creature-sense-1` | Creature Sense | `name.perk.creature-sense` | exact | FS text differs from 1.01b | 生物感應 |
 | Supernatural | `perk-familiar` | Summon `familiar` | Familiar | `name.perk.familiar` | exact | FS text differs from 1.01b | 魔寵 |
@@ -151,7 +161,7 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 ### 第 2 段：單純文字效果
 
-接入 `description` 與書本來源英文一致的文字型效果，原樣使用 APPROVED 中文。包含名稱仍為英文、但效果英文一致的 `perk-travelling-artisan`、`perk-put-your-back-into-it`、`perk-so-tell-me`、`perk-spot-the-tell`、`perk-travelling-sage`。
+接入 `description` 與書本來源英文一致的文字型效果，原樣使用 APPROVED 中文。名稱已經接入、效果英文仍一致的有 `perk-travelling-artisan`、`perk-put-your-back-into-it`、`perk-so-tell-me`、`perk-spot-the-tell`、`perk-travelling-sage`。
 
 先單獨處理這 3 個效果差異，不把書本中文直接套上不同英文：
 
@@ -172,7 +182,7 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 - `perk-invisible-force-1`：機動動作，靈能、遠程
 - `perk-psychic-whisper-1`：機動動作，靈能、遠程
 
-名稱英文與書本不同的 `I've Got You`、`Gum Up The Works` 仍先維持英文，除非另有核准 Adaptation。數值與占位符照網站計算結果顯示。
+專長名稱已顯示核准中文。本段要接的是招式區段；名稱 Adaptation 不代替招式內文。數值與占位符照網站計算結果顯示。
 
 ### 第 4 段：奧術戲法與魔寵
 
@@ -191,7 +201,7 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 ### 第 5 段：收尾
 
-更新 TODO、PROGRESS、README 與本文件的驗收狀態。確認 8 個名稱回退、非 Heroes 專長、74 個背景問題都仍標成未接入。不把第 1–4 段的顯示覆蓋寫成整批專長完成。
+更新 TODO、PROGRESS、README 與本文件的驗收狀態。8 個先前維持英文的專長名稱已在第 1 段接入。確認非 Heroes 專長、74 個背景問題，以及這次一併進入目錄、尚未 mapping 的套裝列，都仍標成未接入。不把第 1–4 段的顯示覆蓋寫成整批專長完成。
 
 ## 本段不處理
 

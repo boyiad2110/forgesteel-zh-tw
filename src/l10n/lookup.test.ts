@@ -1401,9 +1401,11 @@ describe('perk name segment', () => {
 		expect(catapultHtml).toContain('You hurl your ally through the air.');
 		expect(catapultHtml).not.toContain('>Friend Catapult<');
 
-		expect(panel(spot)).toContain('Spot The Tell');
-		expect(panel(spot)).not.toContain('發現破綻');
 		for (const [ id, chinese, english ] of [
+			[ 'perk-spot-the-tell', '發現破綻', 'Spot The Tell' ],
+			[ 'perk-gum-up-the-works', '妨礙運作', 'Gum Up The Works' ],
+			[ 'perk-travelling-artisan', '旅行工匠', 'Travelling Artisan' ],
+			[ 'perk-travelling-sage', '旅行學者', 'Travelling Sage' ],
 			[ 'perk-ive-read-about-this-place', '我知道這地方', 'I\'ve Read About This Place' ],
 			[ 'perk-put-your-back-into-it', '全力以赴！', 'Put Your Back Into It' ],
 			[ 'perk-ive-got-you', '我接住你了！', 'I\'ve Got You' ],
@@ -1421,15 +1423,32 @@ describe('perk name segment', () => {
 		expect(sheet(handy)).toContain('Whenever you make a test to craft something');
 		expect(sheet(catapult)).toContain('投擲盟友');
 		expect(sheet(catapult)).toContain('You hurl your ally through the air.');
-		expect(sheet(spot)).toContain('Spot The Tell');
-		for (const [ id, chinese ] of [
-			[ 'perk-ive-read-about-this-place', '我知道這地方' ],
-			[ 'perk-put-your-back-into-it', '全力以赴！' ],
-			[ 'perk-ive-got-you', '我接住你了！' ],
-			[ 'perk-so-tell-me', '誠實告訴我……' ]
+		for (const [ id, chinese, english ] of [
+			[ 'perk-spot-the-tell', '發現破綻', 'Spot The Tell' ],
+			[ 'perk-gum-up-the-works', '妨礙運作', 'Gum Up The Works' ],
+			[ 'perk-travelling-artisan', '旅行工匠', 'Travelling Artisan' ],
+			[ 'perk-travelling-sage', '旅行學者', 'Travelling Sage' ],
+			[ 'perk-ive-read-about-this-place', '我知道這地方', 'I\'ve Read About This Place' ],
+			[ 'perk-put-your-back-into-it', '全力以赴！', 'Put Your Back Into It' ],
+			[ 'perk-ive-got-you', '我接住你了！', 'I\'ve Got You' ],
+			[ 'perk-so-tell-me', '誠實告訴我……', 'So, Tell Me ...' ]
 		] as const) {
 			expect(sheet(core.perks.find(item => item.id === id)!)).toContain(chinese);
+			expect(sheet(core.perks.find(item => item.id === id)!)).not.toContain(english);
 		}
+		setLanguage('en');
+		for (const [ id, chinese, english ] of [
+			[ 'perk-spot-the-tell', '發現破綻', 'Spot The Tell' ],
+			[ 'perk-gum-up-the-works', '妨礙運作', 'Gum Up The Works' ],
+			[ 'perk-travelling-artisan', '旅行工匠', 'Travelling Artisan' ],
+			[ 'perk-travelling-sage', '旅行學者', 'Travelling Sage' ]
+		] as const) {
+			const html = panel(core.perks.find(item => item.id === id)!);
+			expect(html).toContain(english);
+			expect(html).not.toContain(chinese);
+			expect(html).not.toContain('項');
+		}
+		setLanguage('zh-TW');
 
 		const modal = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(PerkSelectModal, {
 			perks: [ handy, catapult, spot ],
@@ -1443,7 +1462,8 @@ describe('perk name segment', () => {
 		expect(modal).toContain('交涉類');
 		expect(modal).toContain('心靈手巧');
 		expect(modal).toContain('投擲盟友');
-		expect(modal).toContain('Spot The Tell');
+		expect(modal).toContain('發現破綻');
+		expect(modal).not.toContain('>Spot The Tell<');
 		expect(modal).not.toContain('>Crafting<');
 		expect(modal).not.toContain('>Exploration<');
 		expect(modal).not.toContain('>Interpersonal<');

@@ -209,6 +209,66 @@
     "updated": "2026-10-02",
     "zh": "札力語"
   },
+  "name.kit-ability.battle-grace": {
+    "en": "Battle Grace",
+    "updated": "2026-10-14",
+    "zh": "戰鬥之舞"
+  },
+  "name.kit-ability.double-strike": {
+    "en": "Double Strike",
+    "updated": "2026-10-14",
+    "zh": "雙重打擊"
+  },
+  "name.kit-ability.exploding-arrow": {
+    "en": "Exploding Arrow",
+    "updated": "2026-10-14",
+    "zh": "爆裂箭矢"
+  },
+  "name.kit-ability.fade": {
+    "en": "Fade",
+    "updated": "2026-10-14",
+    "zh": "回身掠影"
+  },
+  "name.kit-ability.forward-thrust-backward-smash": {
+    "en": "Forward Thrust, Backward Smash",
+    "updated": "2026-10-14",
+    "zh": "前刺後劈"
+  },
+  "name.kit-ability.unmooring": {
+    "en": "Unmooring",
+    "updated": "2026-10-14",
+    "zh": "脫韁解錨"
+  },
+  "name.kit.arcane-archer": {
+    "en": "Arcane Archer",
+    "updated": "2026-10-14",
+    "zh": "魔弓"
+  },
+  "name.kit.battlemind": {
+    "en": "Battlemind",
+    "updated": "2026-10-14",
+    "zh": "戰念"
+  },
+  "name.kit.cloak-and-dagger": {
+    "en": "Cloak and Dagger",
+    "updated": "2026-10-14",
+    "zh": "潛襲"
+  },
+  "name.kit.dual-wielder": {
+    "en": "Dual Wielder",
+    "updated": "2026-10-14",
+    "zh": "雙持"
+  },
+  "name.kit.guisarmier": {
+    "en": "Guisarmier",
+    "updated": "2026-10-14",
+    "zh": "長兵"
+  },
+  "name.kit.martial-artist": {
+    "en": "Martial Artist",
+    "updated": "2026-10-14",
+    "zh": "武術"
+  },
   "name.perk.arcane-trick": {
     "en": "Arcane Trick",
     "updated": "2026-10-11",
@@ -296,6 +356,11 @@
   },
   "name.perk.gum-up-the-works": {
     "en": "Gum Up the Works",
+    "fs": {
+      "basisHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9",
+      "en": "Gum Up The Works",
+      "zh": "妨礙運作"
+    },
     "updated": "2026-10-14",
     "zh": "妨礙運作"
   },
@@ -411,6 +476,11 @@
   },
   "name.perk.spot-the-tell": {
     "en": "Spot the Tell",
+    "fs": {
+      "basisHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5",
+      "en": "Spot The Tell",
+      "zh": "發現破綻"
+    },
     "updated": "2026-10-11",
     "zh": "發現破綻"
   },
@@ -431,11 +501,21 @@
   },
   "name.perk.traveling-artisan": {
     "en": "Traveling Artisan",
+    "fs": {
+      "basisHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa",
+      "en": "Travelling Artisan",
+      "zh": "旅行工匠"
+    },
     "updated": "2026-10-14",
     "zh": "旅行工匠"
   },
   "name.perk.traveling-sage": {
     "en": "Traveling Sage",
+    "fs": {
+      "basisHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e",
+      "en": "Travelling Sage",
+      "zh": "旅行學者"
+    },
     "updated": "2026-10-14",
     "zh": "旅行學者"
   },

@@ -4566,6 +4566,62 @@
         "enHash": "403a6bbd3ffe26c5594eb06b2b6f2305d98a272a365f9801484f993b9ec92a90",
         "zhHash": "827a9efd4895644413e59f1ef2b24d1fc794128cf675f9b893134379fc6c9556"
       }
+    },
+    "name.perk.gum-up-the-works": {
+      "sources": [
+        {
+          "sheetId": "name.perk.gum-up-the-works",
+          "enHash": "406c0c088e274240eceb94b446ee8bf4e55e057c4d4970174dde5e6275eecc90",
+          "zhHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9"
+        }
+      ],
+      "sourcesHash": "11fb84f75c956f021afab5b54208fdb6775d01a69f34fc9d37bc12855b126227",
+      "fs": {
+        "enHash": "e85a3735d47d37a0d9c51d4622cf518353eb2fad950fc78595f28cef32ef4337",
+        "zhHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9"
+      }
+    },
+    "name.perk.spot-the-tell": {
+      "sources": [
+        {
+          "sheetId": "name.perk.spot-the-tell",
+          "enHash": "684dae46f702e0fa5439d44337485c52478fea1ef14353389f30ecd965e5a56a",
+          "zhHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5"
+        }
+      ],
+      "sourcesHash": "9d4d30c67109212f76883ccb76b604528ff2cdd650de08f2e4079b35f8055014",
+      "fs": {
+        "enHash": "b3f1dbdb4edd2d0289f00cbbfa2be83af6fb5ef245ee11a0944c044b216fb733",
+        "zhHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5"
+      }
+    },
+    "name.perk.traveling-artisan": {
+      "sources": [
+        {
+          "sheetId": "name.perk.traveling-artisan",
+          "enHash": "e13e96a12c56ce52594b43f46a481e1941b5c367550a682c6d46870c5e84961b",
+          "zhHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa"
+        }
+      ],
+      "sourcesHash": "7932446c1d6ee6cd74e82cf95ad0090e4bd0d55980bf2c54671a045e76788d82",
+      "fs": {
+        "enHash": "fd2c7250bfbb6ac539bf3574b054283353ea92ba8582567bfbe64e09857e33c0",
+        "zhHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa"
+      }
+    },
+    "name.perk.traveling-sage": {
+      "sources": [
+        {
+          "sheetId": "name.perk.traveling-sage",
+          "enHash": "30be17fe7cc21d352f63d7a1b021376c482d613fbbb9d6fa612184034c1dde18",
+          "zhHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e"
+        }
+      ],
+      "sourcesHash": "0c338f522046675de9d87c31a8c683e4a4163dfb2b08501f3e2ce01592750c3e",
+      "fs": {
+        "enHash": "891cbeeb5619897edf0cd06e88b2abf36727dedf6b0a2b884a190cc46f324d4a",
+        "zhHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e"
+      }
     }
   }
 }

@@ -6287,6 +6287,226 @@
     "updated": "2026-09-30",
     "zh": "虛弱\n\n若你陷入虛弱狀態，你進行的任何檢定都會承受 1 個劣勢。"
   },
+  "heroes.kits.arcane-archer.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.arcane-archer.bonus.ranged-damage": {
+    "en": "Ranged Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "遠程傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.arcane-archer.bonus.ranged-distance": {
+    "en": "Ranged Distance Bonus: +10",
+    "updated": "2026-10-14",
+    "zh": "遠程射程加值：+10"
+  },
+  "heroes.kits.arcane-archer.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.arcane-archer.description": {
+    "en": "The Arcane Archer kit allows you to combine magic and ranged weapon strikes. Your lack of armor keeps you mobile, and your magic makes your arrows explode to devastate your foes.",
+    "updated": "2026-10-14",
+    "zh": "魔弓套裝能讓你結合魔法與遠程武器的攻擊。沒有穿戴護甲讓你的行動保持靈活，而你的魔法能讓箭矢爆炸，摧毀敵人。"
+  },
+  "heroes.kits.arcane-archer.equipment": {
+    "en": "You wear no armor and wield a bow.",
+    "updated": "2026-10-14",
+    "zh": "你沒有穿戴護甲，持用 1 把弓箭。"
+  },
+  "heroes.kits.arcane-archer.signature.exploding-arrow": {
+    "en": "Exploding Arrow\nYour ammunition explodes with magical energy.\nMagic, Ranged, Strike, Weapon • Main action • Ranged 15 • One creature or object\nPower Roll + Agility, Reason, Intuition, or Presence:\nTier 1: 5 + A, R, I, or P fire damage\nTier 2: 7 + A, R, I, or P fire damage\nTier 3: 10 + A, R, I, or P fire damage\nEffect: One creature or object of your choice within 2 squares of the target takes fire damage equal to the characteristic score used for this ability’s power roll.",
+    "updated": "2026-10-14",
+    "zh": "爆裂箭矢（Exploding Arrow）\n你的彈藥在魔法能量的作用下爆炸。\n魔法、遠程、打擊、武器／主要動作／遠程 15／1 個生物或物體\n檢定 + 敏捷、理智、直覺或氣場：\n① 5 + 敏捷、理智、直覺或氣場火焰傷害\n② 7 + 敏捷、理智、直覺或氣場火焰傷害\n③ 10 + 敏捷、理智、直覺或氣場火焰傷害\n效果：目標 2 格內的 1 個生物或物體（由你選擇）會受到 X 點火焰傷害，X 等於此招式檢定所使用的屬性值。"
+  },
+  "heroes.kits.battlemind.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.battlemind.bonus.speed": {
+    "en": "Speed Bonus: +2",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+2"
+  },
+  "heroes.kits.battlemind.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.battlemind.bonus.stamina": {
+    "en": "Stamina Bonus: +3 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +3"
+  },
+  "heroes.kits.battlemind.description": {
+    "en": "Who says lightly armored heroes can’t also be hard to move? You just need to employ some psionics! The Battlemind kit harnesses the power of your mind to make you harder to move—and to make your foes easier to push around.",
+    "updated": "2026-10-14",
+    "zh": "誰說輕甲英雄不能難以撼動？只要運用一些靈能就行了！戰念套裝利用你的心靈力量讓你更難被移動，同時讓你的敵人更容易被推開。"
+  },
+  "heroes.kits.battlemind.equipment": {
+    "en": "You wear light armor and wield a medium weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用 1 件中型武器。"
+  },
+  "heroes.kits.battlemind.signature.unmooring": {
+    "en": "Unmooring\nYour weapon unleashes psionic energy that reduces your target’s weight.\nMelee, Psionic, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might, Reason, Intuition, or Presence:\nTier 1: 5 + M, R, I, or P damage\nTier 2: 8 + M, R, I, or P damage\nTier 3: 11 + M, R, I, or P damage\nEffect: Until the end of the target’s next turn, any forced movement that affects the target has its distance increased by 2.",
+    "updated": "2026-10-14",
+    "zh": "脫韁解錨（Unmooring）\n你的武器釋放出靈能，減輕目標的重量。\n近戰、靈能、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量、理智、直覺或氣場：\n① 5 + 力量、理智、直覺或氣場傷害\n② 8 + 力量、理智、直覺或氣場傷害\n③ 11 + 力量、理智、直覺或氣場傷害\n效果：直到目標下個回合結束之前，所有對目標造成的強制移動距離都會 +2。"
+  },
+  "heroes.kits.cloak-and-dagger.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.cloak-and-dagger.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.cloak-and-dagger.bonus.ranged-damage": {
+    "en": "Ranged Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "遠程傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.cloak-and-dagger.bonus.ranged-distance": {
+    "en": "Ranged Distance Bonus: +5",
+    "updated": "2026-10-14",
+    "zh": "遠程射程加值：+5"
+  },
+  "heroes.kits.cloak-and-dagger.bonus.speed": {
+    "en": "Speed Bonus: +2",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+2"
+  },
+  "heroes.kits.cloak-and-dagger.bonus.stamina": {
+    "en": "Stamina Bonus: +3 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +3"
+  },
+  "heroes.kits.cloak-and-dagger.description": {
+    "en": "Providing throwable light weapons and light armor easily concealed by a cloak to confuse your enemies, the Cloak and Dagger kit makes you more mobile while increasing the effectiveness of your short-range strikes.",
+    "updated": "2026-10-14",
+    "zh": "潛襲套裝提供可投擲的輕型武器，以及隱藏在斗篷之下、用以迷惑敵人的輕甲，不僅讓你更機動靈活，還提升了短程攻擊的效率。"
+  },
+  "heroes.kits.cloak-and-dagger.equipment": {
+    "en": "You wear light armor and wield one or two light weapons.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用 1 件或 2 件輕型武器。"
+  },
+  "heroes.kits.cloak-and-dagger.signature.fade": {
+    "en": "Fade\nA stab, and a few quick, careful steps back.\nMelee, Ranged, Strike, Weapon • Main action • Melee 1 or ranged 10 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage; you can shift 1 square\nTier 2: 6 + M or A damage; you can shift up to 2 squares\nTier 3: 8 + M or A damage; you can shift up to 3 squares",
+    "updated": "2026-10-14",
+    "zh": "回身掠影（Fade）\n一記精準刺擊，隨後靈巧後退幾步。\n近戰、遠程、打擊、武器／主要動作／近戰 1 或遠程 10／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害；你可以遁移 1 格\n② 6 + 力量或敏捷傷害；你可以遁移最多 2 格\n③ 8 + 力量或敏捷傷害；你可以遁移最多 3 格"
+  },
+  "heroes.kits.dual-wielder.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.dual-wielder.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.dual-wielder.bonus.speed": {
+    "en": "Speed Bonus: +2",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+2"
+  },
+  "heroes.kits.dual-wielder.bonus.stamina": {
+    "en": "Stamina Bonus: +6 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +6"
+  },
+  "heroes.kits.dual-wielder.description": {
+    "en": "The Dual Wielder kit is for folks who want to excel at using two weapons at the same time. Your fighting style maximizes the power of each weapon you have in hand, making you a whirling dealer of death.",
+    "updated": "2026-10-14",
+    "zh": "雙持套裝是為了那些想要同時精通兩種武器的人所設計的。你的戰鬥風格能充分發揮兩把武器的威力，讓你成為旋風般的死亡使者。"
+  },
+  "heroes.kits.dual-wielder.equipment": {
+    "en": "You wear medium armor and wield a light weapon and a medium weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴中甲，持用 1 件輕型武器和 1 件中型武器。"
+  },
+  "heroes.kits.dual-wielder.signature.double-strike": {
+    "en": "Double Strike\nWhy strike once when you could do it twice?\nMelee, Strike, Weapon • Main action • Melee 1 • Two creatures or objects\nPower Roll + Might or Agility:\nTier 1: 4 damage\nTier 2: 6 damage\nTier 3: 8 damage\nEffect: If you use this ability on your turn, you can use it against one target, then use your maneuver and your move action for that turn before using the ability against a second target. You still use the same power roll for both targets.",
+    "updated": "2026-10-14",
+    "zh": "雙重打擊（Double Strike）\n既然可以打兩次，為什麼只打一次呢？\n近戰、打擊、武器／主要動作／近戰 1／2 個生物或物體\n檢定 + 力量或敏捷：\n① 4 傷害\n② 6 傷害\n③ 8 傷害\n效果：若你在你的回合中發動此招式，你可以先打擊第一個目標，然後使用你該回合的機動動作和移動動作，然後再打擊第二個目標。你仍然只進行 1 次檢定。"
+  },
+  "heroes.kits.guisarmier.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.guisarmier.bonus.melee-distance": {
+    "en": "Melee Distance Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "近戰射程加值：+1"
+  },
+  "heroes.kits.guisarmier.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.guisarmier.bonus.stamina": {
+    "en": "Stamina Bonus: +6 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +6"
+  },
+  "heroes.kits.guisarmier.description": {
+    "en": "The Guisarmier kit is for those who want to use a polearm for extended reach while remaining protected by sturdy armor. This is the kit that allows you to become the ultimate halberd, longspear, or glaive fighter.",
+    "updated": "2026-10-14",
+    "zh": "長兵套裝適合想要使用長柄武器來延伸攻擊範圍，同時受到堅固護甲保護的戰士。這件套裝能讓你成為無與倫比的長戟、長矛或長柄刀戰士。"
+  },
+  "heroes.kits.guisarmier.equipment": {
+    "en": "You wear medium armor and wield a polearm.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴中甲，持用 1 件長柄武器。"
+  },
+  "heroes.kits.guisarmier.signature.forward-thrust-backward-smash": {
+    "en": "Forward Thrust, Backward Smash\nIn your hands, the haft is as good as the head.\nMelee, Strike, Weapon • Main action • Melee 2 • Two creatures or objects\nPower Roll + Might or Agility:\nTier 1: 4 damage\nTier 2: 7 damage\nTier 3: 9 damage",
+    "updated": "2026-10-14",
+    "zh": "前刺後劈（Forward Thrust, Backward Smash）\n武器的握柄和頭部在你手中同樣致命。\n近戰、打擊、武器／主要動作／近戰 2／2 個生物或物體\n檢定 + 力量或敏捷：\n① 4 傷害\n② 7 傷害\n③ 9 傷害"
+  },
+  "heroes.kits.martial-artist.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.martial-artist.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.martial-artist.bonus.speed": {
+    "en": "Speed Bonus: +3",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+3"
+  },
+  "heroes.kits.martial-artist.bonus.stamina": {
+    "en": "Stamina Bonus: +3 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +3"
+  },
+  "heroes.kits.martial-artist.description": {
+    "en": "If you want to be fast in a fight, then Martial Artist is the kit for you. Unencumbered by weapons or armor, this fighting style rewards quick, focused unarmed strikes against opponents, and allows you to be the ultimate skirmisher.",
+    "updated": "2026-10-14",
+    "zh": "如果你想在戰鬥中保持靈活敏捷，武術套裝就是為你準備的完美選擇。這種戰鬥風格不受武器和護甲的束縛，能讓你對敵人進行快速且精準的徒手打擊，讓你成為無與倫比的游擊戰士。"
+  },
+  "heroes.kits.martial-artist.equipment": {
+    "en": "You wear no armor and wield only your unarmed strikes.",
+    "updated": "2026-10-14",
+    "zh": "你不穿戴任何護甲，只依靠徒手打擊。"
+  },
+  "heroes.kits.martial-artist.signature.battle-grace": {
+    "en": "Battle Grace\nYou feint to move your enemies into perfect position.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 5 + M or A damage\nTier 2: 8 + M or A damage; you can swap places with the target\nTier 3: 11 + M or A damage; you can swap places with the target\nEffect: If you obtain a tier 2 or tier 3 outcome and can’t swap places with the target because one or both of you is too big to fit into the swapped space, you both remain in your original spaces and the target takes 1 extra damage.",
+    "updated": "2026-10-14",
+    "zh": "戰鬥之舞（Battle Grace）\n你虛晃一招，引誘敵人站到最完美的位置。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 5 + 力量或敏捷傷害\n② 8 + 力量或敏捷傷害；你可以與目標互換位置\n③ 11 + 力量或敏捷傷害；你可以與目標互換位置\n效果：若你獲得 T2 或 T3 結果，但因為其中一方或雙方體型太大而無法互換位置，則雙方將維持在原本的位置，而且目標會額外受到 1 點傷害。"
+  },
   "heroes.perks.arcane-trick.effect": {
     "en": "You have the following ability.\nArcane Trick\nYou cast an entertaining spell that creates a minor but impressive magical effect.\nMagic • Main Action • Self; see below • Self\nEffect: Choose one of the following effects:\n• You teleport a size 1S or smaller object adjacent to you into an unoccupied space adjacent to you.\n• Until the start of your next turn, a part of your body shoots a shower of harmless noisy sparks that light up each square adjacent to you.\n• You ignite or snuff out (your choice) every mundane light source of 1L or smaller adjacent to you.\n• You transform up to 1 pound of edible food you touch to make it taste delicious or disgusting.\n• Until the start of your next turn, you make your body exude a particular odor you’ve smelled before. This smell can be sensed by each creature within 5 squares of you, but can’t impose any condition or other drawback on those creatures.\n• You place a small magical inscription on the surface of a mundane object you touch, or you can remove an inscription that was made by you or by another creature using Arcane Trick.\n• You touch a size 1T object to cover it with an illusion that makes it look like a different object. Any creature who handles the object becomes aware of the illusion. The illusion ends when you stop touching the object.",
     "updated": "2026-10-14",

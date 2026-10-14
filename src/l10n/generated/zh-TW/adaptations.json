@@ -5218,5 +5218,69 @@
         "zhHash": "ddc35670bb2de71783fb331163374fd4a83da89974da6401c18f2429f6e70810"
       }
     ]
+  },
+  "fs-adapt:name.perk.gum-up-the-works": {
+    "bookStringId": "name.perk.gum-up-the-works",
+    "usageKey": "element:perk-gum-up-the-works:name",
+    "en": "Gum Up The Works",
+    "zh": "妨礙運作",
+    "basisHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.gum-up-the-works",
+        "enHash": "406c0c088e274240eceb94b446ee8bf4e55e057c4d4970174dde5e6275eecc90",
+        "zhHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9"
+      }
+    ]
+  },
+  "fs-adapt:name.perk.spot-the-tell": {
+    "bookStringId": "name.perk.spot-the-tell",
+    "usageKey": "element:perk-spot-the-tell:name",
+    "en": "Spot The Tell",
+    "zh": "發現破綻",
+    "basisHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.spot-the-tell",
+        "enHash": "684dae46f702e0fa5439d44337485c52478fea1ef14353389f30ecd965e5a56a",
+        "zhHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5"
+      }
+    ]
+  },
+  "fs-adapt:name.perk.traveling-artisan": {
+    "bookStringId": "name.perk.traveling-artisan",
+    "usageKey": "element:perk-travelling-artisan:name",
+    "en": "Travelling Artisan",
+    "zh": "旅行工匠",
+    "basisHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.traveling-artisan",
+        "enHash": "e13e96a12c56ce52594b43f46a481e1941b5c367550a682c6d46870c5e84961b",
+        "zhHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa"
+      }
+    ]
+  },
+  "fs-adapt:name.perk.traveling-sage": {
+    "bookStringId": "name.perk.traveling-sage",
+    "usageKey": "element:perk-travelling-sage:name",
+    "en": "Travelling Sage",
+    "zh": "旅行學者",
+    "basisHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.traveling-sage",
+        "enHash": "30be17fe7cc21d352f63d7a1b021376c482d613fbbb9d6fa612184034c1dde18",
+        "zhHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e"
+      }
+    ]
   }
 }
