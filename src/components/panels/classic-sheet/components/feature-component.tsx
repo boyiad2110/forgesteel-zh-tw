@@ -19,7 +19,9 @@ import { LanguageName } from '@/l10n/language-text';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { ModifierLogic } from '@/logic/modifier-logic';
 import { PerkList } from '@/enums/perk-list';
+import { perkListText } from '@/l10n/perk-list-ui';
 import { PlayerName } from '@/l10n/player-name';
+import { useUI } from '@/l10n/ui-text';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
@@ -39,10 +41,17 @@ interface Props {
 	additionalClasses?: string[];
 }
 
+const OfficialPerkName = (props: { feature: { id: string, name: string } }) => {
+	if (props.feature.id.startsWith('perk-')) {
+		return <PlayerName element={props.feature} />;
+	}
+	return <>{props.feature.name}</>;
+};
+
 const BasicFeatureComponent = (feature: Feature) => {
 	return (
 		<>
-			<div className='feature-line'><strong>{`• ${feature.type}: `}</strong>{feature.name}</div>
+			<div className='feature-line'><strong>{`• ${feature.type}: `}</strong><OfficialPerkName feature={feature} /></div>
 			{feature.description ?
 				<div className='feature-description'>{feature.description}</div>
 				: undefined}
@@ -97,7 +106,7 @@ const isAllPerkLists = (lists: PerkList[]): boolean => {
 	return Object.values(PerkList).every(l => lists.includes(l));
 };
 
-const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) => {
+const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, ui: ReturnType<typeof useUI>) => {
 	let listNames;
 	let choiceType;
 	switch (feature.type) {
@@ -109,7 +118,7 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 			break;
 		case FeatureType.Perk:
 			if (!isAllPerkLists(feature.data.lists)) {
-				listNames = feature.data.lists.map(l => l.toString());
+				listNames = feature.data.lists.map(l => perkListText(l, ui));
 			}
 			choiceType = 'Perk';
 			break;
@@ -131,6 +140,7 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 	}
 	return (
 		<>
+			{feature.id.startsWith('perk-') ? <div className='feature-title'><OfficialPerkName feature={feature} /></div> : null}
 			<div className='feature-line'>
 				• {feature.data.count} {lists} {SheetFormatter.pluralize(choiceType, feature.data.count)}
 			</div>
@@ -160,7 +170,7 @@ const CharacteristicBonusFeatureComponent = (feature: FeatureCharacteristicBonus
 const TextFeatureComponent = (feature: FeatureText | FeatureMultiple) => {
 	return (
 		<>
-			<div className='feature-title'>{feature.name}</div>
+			<div className='feature-title'><OfficialPerkName feature={feature} /></div>
 			<Markdown
 				text={feature.description}
 				className='feature-description'
@@ -221,7 +231,7 @@ const AbilityFeatureComponent = (feature: FeatureAbility) => {
 		<>
 			<div className='feature-title'>
 				<img src={abilityIcon} alt='Ability' />
-				<span className='ability-name'>{feature.name}</span>
+				<span className='ability-name'><OfficialPerkName feature={feature} /></span>
 				<span className={typeClasses.join(' ')}>{type}</span>
 			</div>
 			<div className='feature-description'><em>{feature.description.replace(/^\s+/, '')}</em></div>
@@ -520,6 +530,7 @@ export const FeatureComponent = (props: Props) => {
 	const classes = [ 'feature' ].concat(props.additionalClasses || []).join(' ');
 	const feature = props.feature;
 	const hero = props.hero;
+	const ui = useUI();
 	let content;
 	switch (feature.type) {
 		case FeatureType.LanguageChoice:
@@ -532,7 +543,7 @@ export const FeatureComponent = (props: Props) => {
 			break;
 		case FeatureType.SkillChoice:
 		case FeatureType.Perk:
-			content = SkillChoiceFeatureComponent(feature);
+			content = SkillChoiceFeatureComponent(feature, ui);
 			break;
 		case FeatureType.Bonus:
 			content = <BonusFeatureComponent feature={feature} hero={hero} sourcebooks={props.sourcebooks} />;

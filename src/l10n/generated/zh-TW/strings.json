@@ -2217,6 +2217,26 @@
     "updated": "2026-10-11",
     "zh": "特務"
   },
+  "heroes.background.career.agent.question.1": {
+    "en": "Who did you work for?",
+    "updated": "2026-10-13",
+    "zh": "你為誰工作？"
+  },
+  "heroes.background.career.agent.question.2": {
+    "en": "Who did you spy on?",
+    "updated": "2026-10-13",
+    "zh": "你負責監視誰？"
+  },
+  "heroes.background.career.agent.question.3": {
+    "en": "Who shouldn’t know your true identity and allegiance but does?",
+    "updated": "2026-10-13",
+    "zh": "誰不該知道你的真實身分和效忠對象，現在卻知道了？"
+  },
+  "heroes.background.career.agent.question.4": {
+    "en": "Who did you burn or leave behind to get a job done?",
+    "updated": "2026-10-13",
+    "zh": "為了完成任務，你曾背叛或拋棄過誰？"
+  },
   "heroes.background.career.aristocrat.benefit.languages": {
     "en": "Languages: One language",
     "updated": "2026-10-11",
@@ -2377,6 +2397,26 @@
     "updated": "2026-10-11",
     "zh": "貴族"
   },
+  "heroes.background.career.aristocrat.question.1": {
+    "en": "How did you become an aristocrat?",
+    "updated": "2026-10-13",
+    "zh": "你是如何成為貴族的？"
+  },
+  "heroes.background.career.aristocrat.question.2": {
+    "en": "What did you do to fill your days?",
+    "updated": "2026-10-13",
+    "zh": "你平時如何打發閒暇時光？"
+  },
+  "heroes.background.career.aristocrat.question.3": {
+    "en": "Which aristocrats and people who worked for you were your best friends and greatest enemies?",
+    "updated": "2026-10-13",
+    "zh": "哪些貴族和曾為你工作的人，是你最親密的朋友或最大的敵人？"
+  },
+  "heroes.background.career.aristocrat.question.4": {
+    "en": "What sentimental heirloom from your old estate do you carry, and what does it mean to you?",
+    "updated": "2026-10-13",
+    "zh": "你隨身攜帶了哪件來自舊莊園、具有紀念意義的傳家寶？它對你有什麼特殊意義？"
+  },
   "heroes.background.career.artisan.benefit.languages": {
     "en": "Languages: One language",
     "updated": "2026-10-11",
@@ -2532,6 +2572,26 @@
     "updated": "2026-10-11",
     "zh": "工匠"
   },
+  "heroes.background.career.artisan.question.1": {
+    "en": "What did you create?",
+    "updated": "2026-10-13",
+    "zh": "你曾經製作過什麼產品？"
+  },
+  "heroes.background.career.artisan.question.2": {
+    "en": "Who taught you your craft?",
+    "updated": "2026-10-13",
+    "zh": "誰教導你這門手藝？"
+  },
+  "heroes.background.career.artisan.question.3": {
+    "en": "Was there any particular creation you were known for?",
+    "updated": "2026-10-13",
+    "zh": "你有沒有因為某項特別的創作而出名？"
+  },
+  "heroes.background.career.artisan.question.4": {
+    "en": "Did you have a shop, or did you travel to sell your wares?",
+    "updated": "2026-10-13",
+    "zh": "你是否擁有自己的店鋪，還是四處旅行販售你的產品？"
+  },
   "heroes.background.career.beggar.benefit.languages": {
     "en": "Languages: Two languages",
     "updated": "2026-10-11",
@@ -2681,6 +2741,26 @@
     "en": "Beggar",
     "updated": "2026-10-11",
     "zh": "乞丐"
+  },
+  "heroes.background.career.beggar.question.1": {
+    "en": "What unfortunate circumstances led you to become a beggar?",
+    "updated": "2026-10-13",
+    "zh": "什麼不幸的際遇讓你淪為乞丐？"
+  },
+  "heroes.background.career.beggar.question.2": {
+    "en": "Where did you beg?",
+    "updated": "2026-10-13",
+    "zh": "你通常在哪些地方乞討？"
+  },
+  "heroes.background.career.beggar.question.3": {
+    "en": "Who made sport out of bullying you?",
+    "updated": "2026-10-13",
+    "zh": "誰曾經把欺負你當作娛樂？"
+  },
+  "heroes.background.career.beggar.question.4": {
+    "en": "Who showed you the most kindness?",
+    "updated": "2026-10-13",
+    "zh": "誰對你展現過最多的善意？"
   },
   "heroes.background.career.criminal.benefit.languages": {
     "en": "Languages: One language",
@@ -2837,6 +2917,26 @@
     "updated": "2026-10-11",
     "zh": "罪犯"
   },
+  "heroes.background.career.criminal.question.1": {
+    "en": "What crimes did you commit, and why?",
+    "updated": "2026-10-13",
+    "zh": "你犯下了什麼罪行？你為什麼要這麼做？"
+  },
+  "heroes.background.career.criminal.question.2": {
+    "en": "Did anyone help you perform your illicit activities?",
+    "updated": "2026-10-13",
+    "zh": "有人協助你進行這些非法活動嗎？"
+  },
+  "heroes.background.career.criminal.question.3": {
+    "en": "What is one crime you botched?",
+    "updated": "2026-10-13",
+    "zh": "你曾經搞砸過的一次犯罪是什麼？"
+  },
+  "heroes.background.career.criminal.question.4": {
+    "en": "Who was your nemesis while you were a criminal?",
+    "updated": "2026-10-13",
+    "zh": "誰是你曾經的宿敵？"
+  },
   "heroes.background.career.disciple.benefit.perk": {
     "en": "Perk: One supernatural perk (Quick Build: Ritualist.)",
     "updated": "2026-10-11",
@@ -2987,6 +3087,26 @@
     "updated": "2026-10-11",
     "zh": "門徒"
   },
+  "heroes.background.career.disciple.question.1": {
+    "en": "What gods or saints did your institution venerate?",
+    "updated": "2026-10-13",
+    "zh": "你的機構崇拜哪些神明或聖者？"
+  },
+  "heroes.background.career.disciple.question.2": {
+    "en": "What initiation rites did you undergo to get the job?",
+    "updated": "2026-10-13",
+    "zh": "你為了取得這份職務，經歷過哪些入門儀式？"
+  },
+  "heroes.background.career.disciple.question.3": {
+    "en": "What were your responsibilities as a disciple?",
+    "updated": "2026-10-13",
+    "zh": "作為門徒，你的職責是什麼？"
+  },
+  "heroes.background.career.disciple.question.4": {
+    "en": "How was your institution viewed by members of the local culture?",
+    "updated": "2026-10-13",
+    "zh": "當地人如何看待你所屬的宗教機構？"
+  },
   "heroes.background.career.explorer.benefit.languages": {
     "en": "Languages: Two languages",
     "updated": "2026-10-11",
@@ -3136,6 +3256,31 @@
     "en": "Explorer",
     "updated": "2026-10-11",
     "zh": "探險家"
+  },
+  "heroes.background.career.explorer.question.1": {
+    "en": "For what purpose did you explore the unknown?",
+    "updated": "2026-10-13",
+    "zh": "讓你探索未知領域的動機是什麼？"
+  },
+  "heroes.background.career.explorer.question.2": {
+    "en": "Who else was part of your exploration team?",
+    "updated": "2026-10-13",
+    "zh": "你的探險隊伍還有哪些成員？"
+  },
+  "heroes.background.career.explorer.question.3": {
+    "en": "What types of environments did you explore?",
+    "updated": "2026-10-13",
+    "zh": "你探索過什麼類型的環境？"
+  },
+  "heroes.background.career.explorer.question.4": {
+    "en": "What legend or rumor did you search for but never found?",
+    "updated": "2026-10-13",
+    "zh": "有什麼傳說或傳聞你一直在尋找卻從未發現？"
+  },
+  "heroes.background.career.explorer.question.5": {
+    "en": "What is your greatest discovery?",
+    "updated": "2026-10-13",
+    "zh": "你最偉大的發現是什麼？"
   },
   "heroes.background.career.farmer.benefit.languages": {
     "en": "Languages: One language",
@@ -3292,6 +3437,26 @@
     "updated": "2026-10-11",
     "zh": "農夫"
   },
+  "heroes.background.career.farmer.question.1": {
+    "en": "Did you own the land you farmed, or did you farm for another?",
+    "updated": "2026-10-13",
+    "zh": "你擁有自己耕種的土地，還是為他人耕作？"
+  },
+  "heroes.background.career.farmer.question.2": {
+    "en": "What crops or livestock did you cultivate?",
+    "updated": "2026-10-13",
+    "zh": "你培育了哪些農作物，或飼養了什麼牲畜？"
+  },
+  "heroes.background.career.farmer.question.3": {
+    "en": "Who else worked on the farm with you?",
+    "updated": "2026-10-13",
+    "zh": "誰與你一起在農場工作？"
+  },
+  "heroes.background.career.farmer.question.4": {
+    "en": "What ill omen did you witness that caused you to have a poor season of farming?",
+    "updated": "2026-10-13",
+    "zh": "你曾目睹什麼不祥之兆，導致你經歷了糟糕的農耕季節？"
+  },
   "heroes.background.career.gladiator.benefit.languages": {
     "en": "Languages: One language",
     "updated": "2026-10-11",
@@ -3446,6 +3611,26 @@
     "en": "Gladiator",
     "updated": "2026-10-11",
     "zh": "角鬥士"
+  },
+  "heroes.background.career.gladiator.question.1": {
+    "en": "What led you to this life of violent entertainment?",
+    "updated": "2026-10-13",
+    "zh": "是什麼原因讓你走上暴力娛樂這條路？"
+  },
+  "heroes.background.career.gladiator.question.2": {
+    "en": "What was your gladiator name and persona?",
+    "updated": "2026-10-13",
+    "zh": "你的角鬥士名號和形象是什麼？"
+  },
+  "heroes.background.career.gladiator.question.3": {
+    "en": "Who was your biggest rival?",
+    "updated": "2026-10-13",
+    "zh": "誰是你最大的勁敵？"
+  },
+  "heroes.background.career.gladiator.question.4": {
+    "en": "What happened during your most famous match?",
+    "updated": "2026-10-13",
+    "zh": "在你最著名的比賽中發生了什麼事？"
   },
   "heroes.background.career.laborer.benefit.languages": {
     "en": "Languages: One language",
@@ -3602,6 +3787,26 @@
     "updated": "2026-10-11",
     "zh": "勞工"
   },
+  "heroes.background.career.laborer.question.1": {
+    "en": "What type of manual labor did you do?",
+    "updated": "2026-10-13",
+    "zh": "你從事過哪種類型的體力勞動？"
+  },
+  "heroes.background.career.laborer.question.2": {
+    "en": "What important friendship did you make on the job?",
+    "updated": "2026-10-13",
+    "zh": "你在工作中建立了什麼重要的友誼？"
+  },
+  "heroes.background.career.laborer.question.3": {
+    "en": "Where did you go with your coworkers to blow off steam when the job was done?",
+    "updated": "2026-10-13",
+    "zh": "工作結束後，你和同事通常會去哪裡放鬆紓壓？"
+  },
+  "heroes.background.career.laborer.question.4": {
+    "en": "What aspect of the job was most difficult for you?",
+    "updated": "2026-10-13",
+    "zh": "在這份工作中，哪方面對你來說最具挑戰性？"
+  },
   "heroes.background.career.mages-apprentice.benefit.languages": {
     "en": "Languages: One language",
     "updated": "2026-10-11",
@@ -3757,6 +3962,26 @@
     "updated": "2026-10-11",
     "zh": "法師學徒"
   },
+  "heroes.background.career.mages-apprentice.question.1": {
+    "en": "Who did you study under, and what kind of person were they?",
+    "updated": "2026-10-13",
+    "zh": "你師從何人？對方是怎樣的人？"
+  },
+  "heroes.background.career.mages-apprentice.question.2": {
+    "en": "What were your mentor’s areas of expertise?",
+    "updated": "2026-10-13",
+    "zh": "你的導師專精於哪些魔法領域？"
+  },
+  "heroes.background.career.mages-apprentice.question.3": {
+    "en": "What aspects of magic did you struggle to comprehend?",
+    "updated": "2026-10-13",
+    "zh": "你對魔法的哪些方面感到難以理解？"
+  },
+  "heroes.background.career.mages-apprentice.question.4": {
+    "en": "What is your current relationship with your mentor?",
+    "updated": "2026-10-13",
+    "zh": "你現在與導師的關係如何？"
+  },
   "heroes.background.career.performer.benefit.perk": {
     "en": "Perk: One interpersonal perk (Quick Build: Harmonizer.)",
     "updated": "2026-10-11",
@@ -3911,6 +4136,26 @@
     "en": "Performer",
     "updated": "2026-10-11",
     "zh": "藝人"
+  },
+  "heroes.background.career.performer.question.1": {
+    "en": "What is the tone of your performances?",
+    "updated": "2026-10-13",
+    "zh": "你的表演通常帶有什麼樣的風格？"
+  },
+  "heroes.background.career.performer.question.2": {
+    "en": "What song, role, or dance are you most known for?",
+    "updated": "2026-10-13",
+    "zh": "哪首歌曲、哪個角色或哪支舞蹈讓你最為人所知？"
+  },
+  "heroes.background.career.performer.question.3": {
+    "en": "Did you perform in the same place throughout your career, or did you travel?",
+    "updated": "2026-10-13",
+    "zh": "在你的職業生涯中，你是固定在一處表演，還是到處巡迴？"
+  },
+  "heroes.background.career.performer.question.4": {
+    "en": "Were you part of a troupe, or were you a solo act?",
+    "updated": "2026-10-13",
+    "zh": "你是表演團體的一員，還是獨立藝人？"
   },
   "heroes.background.career.politician.benefit.languages": {
     "en": "Languages: One language",
@@ -4072,6 +4317,26 @@
     "updated": "2026-10-11",
     "zh": "政治家"
   },
+  "heroes.background.career.politician.question.1": {
+    "en": "Who were you responsible for ruling or representing?",
+    "updated": "2026-10-13",
+    "zh": "你負責統治或代表誰？"
+  },
+  "heroes.background.career.politician.question.2": {
+    "en": "What was your official title and how did you earn it?",
+    "updated": "2026-10-13",
+    "zh": "你的官方頭銜是什麼？你如何獲得這個頭銜？"
+  },
+  "heroes.background.career.politician.question.3": {
+    "en": "Who was your greatest political rival?",
+    "updated": "2026-10-13",
+    "zh": "誰是你最大的政治對手？"
+  },
+  "heroes.background.career.politician.question.4": {
+    "en": "What secret do you know that could tear apart the entire system you worked within?",
+    "updated": "2026-10-13",
+    "zh": "你知道什麼祕密可能會摧毀你所在的整個體系？"
+  },
   "heroes.background.career.sage.benefit.languages": {
     "en": "Languages: One language",
     "updated": "2026-10-11",
@@ -4226,6 +4491,26 @@
     "en": "Sage",
     "updated": "2026-10-11",
     "zh": "學者"
+  },
+  "heroes.background.career.sage.question.1": {
+    "en": "What subjects did you study?",
+    "updated": "2026-10-13",
+    "zh": "你研究了哪些學科？"
+  },
+  "heroes.background.career.sage.question.2": {
+    "en": "Where did your studies take place?",
+    "updated": "2026-10-13",
+    "zh": "你在哪裡進行學習？"
+  },
+  "heroes.background.career.sage.question.3": {
+    "en": "How did you acquire the books and other materials you needed for work?",
+    "updated": "2026-10-13",
+    "zh": "你如何獲取工作所需的書籍和其他材料？"
+  },
+  "heroes.background.career.sage.question.4": {
+    "en": "Who benefited most from your research?",
+    "updated": "2026-10-13",
+    "zh": "誰從你的研究中獲益最多？"
   },
   "heroes.background.career.sailor.benefit.languages": {
     "en": "Languages: Two languages",
@@ -4382,6 +4667,26 @@
     "updated": "2026-10-11",
     "zh": "水手"
   },
+  "heroes.background.career.sailor.question.1": {
+    "en": "What is the name of the vessel you sailed on, and what type of business was the crew engaged in?",
+    "updated": "2026-10-13",
+    "zh": "你的船隻叫什麼名字？你們從事什麼類型的業務？"
+  },
+  "heroes.background.career.sailor.question.2": {
+    "en": "What was your job aboard the ship?",
+    "updated": "2026-10-13",
+    "zh": "你在船上擔任什麼工作？"
+  },
+  "heroes.background.career.sailor.question.3": {
+    "en": "What’s the longest amount of time you’ve spent at sea?",
+    "updated": "2026-10-13",
+    "zh": "你在海上停留過最長的時間是多久？"
+  },
+  "heroes.background.career.sailor.question.4": {
+    "en": "Who or what did you lose on your maritime journeys?",
+    "updated": "2026-10-13",
+    "zh": "在海上旅程中，你失去了什麼人或什麼事物？"
+  },
   "heroes.background.career.soldier.benefit.languages": {
     "en": "Languages: Two languages",
     "updated": "2026-10-11",
@@ -4536,6 +4841,26 @@
     "en": "Soldier",
     "updated": "2026-10-11",
     "zh": "士兵"
+  },
+  "heroes.background.career.soldier.question.1": {
+    "en": "In which army and company did you serve?",
+    "updated": "2026-10-13",
+    "zh": "你曾效力於哪支軍隊？隸屬哪個連隊？"
+  },
+  "heroes.background.career.soldier.question.2": {
+    "en": "What conflicts were you a part of?",
+    "updated": "2026-10-13",
+    "zh": "你參加過哪些衝突？"
+  },
+  "heroes.background.career.soldier.question.3": {
+    "en": "What rank did you achieve?",
+    "updated": "2026-10-13",
+    "zh": "你最高的軍銜是？"
+  },
+  "heroes.background.career.soldier.question.4": {
+    "en": "What heroics did you perform in the heat of battle?",
+    "updated": "2026-10-13",
+    "zh": "你在戰場上展現過哪些英勇事蹟？"
   },
   "heroes.background.career.warden.benefit.languages": {
     "en": "Languages: One language",
@@ -4692,6 +5017,26 @@
     "updated": "2026-10-11",
     "zh": "守望者"
   },
+  "heroes.background.career.warden.question.1": {
+    "en": "What environment did you protect?",
+    "updated": "2026-10-13",
+    "zh": "你守護的是什麼環境？"
+  },
+  "heroes.background.career.warden.question.2": {
+    "en": "Were you part of a formal group of wardens or did you take the job upon yourself?",
+    "updated": "2026-10-13",
+    "zh": "你是正式守望組織的成員，還是自己主動承擔這個責任？"
+  },
+  "heroes.background.career.warden.question.3": {
+    "en": "Which animal became your constant companion while you worked in the wild?",
+    "updated": "2026-10-13",
+    "zh": "在野外工作時，哪種動物始終陪伴在你身邊？"
+  },
+  "heroes.background.career.warden.question.4": {
+    "en": "What mysterious creature or wanderer did you meet in the forest, and what prophecy did they share with you?",
+    "updated": "2026-10-13",
+    "zh": "你在森林中遇見了什麼神祕生物或流浪者？他們向你分享了什麼預言？"
+  },
   "heroes.background.career.watch-officer.benefit.languages": {
     "en": "Languages: Two languages",
     "updated": "2026-10-11",
@@ -4841,6 +5186,31 @@
     "en": "Watch Officer",
     "updated": "2026-10-11",
     "zh": "執法者"
+  },
+  "heroes.background.career.watch-officer.question.1": {
+    "en": "What type of settlement did you protect?",
+    "updated": "2026-10-13",
+    "zh": "你保護的是哪種類型的聚落？"
+  },
+  "heroes.background.career.watch-officer.question.2": {
+    "en": "What was your law enforcement style like? Were you a by-the-book officer, a more lenient-but-fair type, or totally corrupt?",
+    "updated": "2026-10-13",
+    "zh": "你的執法風格如何？你是照章辦事、寬容但公正，還是完全腐敗？"
+  },
+  "heroes.background.career.watch-officer.question.3": {
+    "en": "What criminal still eludes your grasp to this day?",
+    "updated": "2026-10-13",
+    "zh": "有哪位罪犯至今你仍未追捕到案？"
+  },
+  "heroes.background.career.watch-officer.question.4": {
+    "en": "Whose life did you save in the line of duty?",
+    "updated": "2026-10-13",
+    "zh": "你在執勤時救過誰的性命？"
+  },
+  "heroes.background.career.watch-officer.question.5": {
+    "en": "What is the most absurd call you ever responded to and how did you handle it?",
+    "updated": "2026-10-13",
+    "zh": "你曾接獲並處理過最荒謬的報案是什麼？你如何應對？"
   },
   "heroes.background.culture.alertness-sidebar.heading": {
     "en": "But I Really Want Alertness",
@@ -5916,6 +6286,241 @@
     "en": "Weakened\n\nA creature who is weakened takes a bane on power rolls.",
     "updated": "2026-09-30",
     "zh": "虛弱\n\n若你陷入虛弱狀態，你進行的任何檢定都會承受 1 個劣勢。"
+  },
+  "heroes.perks.arcane-trick.effect": {
+    "en": "You have the following ability.\nArcane Trick\nYou cast an entertaining spell that creates a minor but impressive magical effect.\nMagic • Main Action • Self; see below • Self\nEffect: Choose one of the following effects:\n• You teleport a size 1S or smaller object adjacent to you into an unoccupied space adjacent to you.\n• Until the start of your next turn, a part of your body shoots a shower of harmless noisy sparks that light up each square adjacent to you.\n• You ignite or snuff out (your choice) every mundane light source of 1L or smaller adjacent to you.\n• You transform up to 1 pound of edible food you touch to make it taste delicious or disgusting.\n• Until the start of your next turn, you make your body exude a particular odor you’ve smelled before. This smell can be sensed by each creature within 5 squares of you, but can’t impose any condition or other drawback on those creatures.\n• You place a small magical inscription on the surface of a mundane object you touch, or you can remove an inscription that was made by you or by another creature using Arcane Trick.\n• You touch a size 1T object to cover it with an illusion that makes it look like a different object. Any creature who handles the object becomes aware of the illusion. The illusion ends when you stop touching the object.",
+    "updated": "2026-10-14",
+    "zh": "你擁有以下招式。\n\n奧術戲法（Arcane Trick）\n你施展一個趣味的法術，創造出微小但令人驚豔的魔法效果。\n魔法／主要動作／自身；見說明／自身\n效果：選擇以下 1 種效果：\n• 你將 1 個體型 1S 以下且與你相鄰的物體傳送至 1 個與你相鄰的未占據空間。\n• 在你下個回合開始前，你身體的 1 個部位會射出無害的吵雜火花，照亮每個與你相鄰的方格。\n• 你點燃或熄滅每個與你相鄰、體型為 1L 以下的尋常光源。\n• 你觸碰最多 1 磅的可食用食物，使其味道變得美味或噁心。\n• 在你下個回合開始前，你的身體會散發出 1 種你曾經聞過的氣味。在你 5 格內的每個生物都能聞到這個氣味，但不會因此陷入任何狀態或受到不良影響。\n• 你觸碰 1 個尋常物體的表面並留下小型魔法銘文，或移除由你或其他生物使用【奧術戲法】留下的任何銘文。\n• 你觸碰 1 個體型 1T 的物體，用幻術讓它的外觀變成其他物體。任何與該物體互動的生物都會察覺此幻術。當你不再觸碰該物體時，幻術就會消失。"
+  },
+  "heroes.perks.area-of-expertise.effect": {
+    "en": "Choose one skill you already have from the crafting skill group. Whenever you obtain a tier 1 outcome on an easy or medium test using this skill, you treat it as a tier 2 outcome instead. Additionally, if you spend 1 minute inspecting an object related to the chosen skill, you can estimate its value and learn of any flaws in its construction.",
+    "updated": "2026-10-14",
+    "zh": "從工藝類技能中選擇 1 項你擁有的技能。每當你使用該技能進行簡單或中等難度的考驗時，任何 T1 結果都會視為 T2。此外，若你花費 1 分鐘檢查與該技能有關的物體，你能估算該物體的價值，並發現其結構的缺陷。"
+  },
+  "heroes.perks.brawny.effect": {
+    "en": "Whenever you fail a Might test, you can lose Stamina equal to 1d6 + your level to improve the outcome of the test by one tier. You can use this perk only once per test.",
+    "updated": "2026-10-14",
+    "zh": "每當你的力量考驗失敗時，你可以失去 1d6 + 等級的體力，將考驗的結果提升 1 階。此專長每次考驗只能使用 1 次。"
+  },
+  "heroes.perks.but-i-know-who-does.effect": {
+    "en": "Whenever you fail a test to recall lore using a skill from the lore skill group, you instinctively recall the nearest location where the information you seek might be found. This could be the tower of a local sage, a library in a nearby city, somewhere deep in a dungeon, or any other location of the Director’s determination. The Director can decide that certain lore can’t be revealed this way.",
+    "updated": "2026-10-14",
+    "zh": "每當你使用學識類技能進行回想知識的考驗失敗時，你能直覺地想起最近的哪個地方可能有你需要的資訊。例如當地的賢者塔樓、附近城市的圖書館、地城深處的某個角落，或任何導演指定的地點。有些知識可能無法透過這種方式取得（由導演判定）。"
+  },
+  "heroes.perks.camouflage-hunter.effect": {
+    "en": "Whenever you are in wilderness, once you are hidden from a creature, you don’t need cover or concealment to stay hidden from them.",
+    "updated": "2026-10-14",
+    "zh": "當你身處荒野環境時，一旦你對 1 個生物處於隱藏，即使沒有掩護或遮蔽，你也能持續保持隱藏。"
+  },
+  "heroes.perks.charming-liar.effect": {
+    "en": "If you fail a test using the Lie skill, you don’t suffer any consequences associated with the failure. Additionally, during a negotiation, you can be caught in one lie without negative consequences. When you use either benefit of this perk, you can’t use this perk again until you earn 1 or more Victories.",
+    "updated": "2026-10-14",
+    "zh": "若你使用欺瞞技能但考驗失敗，你不會承受任何失敗的後果。此外，在談判期間，當你首次被發現說謊時，你不會承受負面後果。在你獲得此專長的任何一個好處後，你必須至少獲得 1 點勝利值才能再次使用此專長。"
+  },
+  "heroes.perks.creature-sense.effect": {
+    "en": "As a maneuver, choose a creature within 10 squares. If that creature is your level or lower, you learn the keywords in their stat block (Demon, Humanoid, Undead, and so forth).",
+    "updated": "2026-10-14",
+    "zh": "使用機動動作，你可以選擇 10 格內的 1 個生物。若該生物的等級 ≦ 你的等級，你會知道他數據表中的關鍵詞（例如惡魔、類人生物、亡靈等）。"
+  },
+  "heroes.perks.criminal-contacts.effect": {
+    "en": "You have access to a network of criminal contacts. As a respite activity while you take a respite in a settlement, you can ask a question of your contacts by making a Presence test. On a tier 2 outcome, you learn one piece of information that would be common among criminals—the secret entrances into a building, the location of a local criminal in hiding, the name of a local thieves’ guild leader, and so forth. On a tier 3 outcome, you can instead gain knowledge that would be uncommon among criminals as long as such information exists—the location of a local treasure cache, the location of a murder weapon used in a noble’s assassination, the name of an NPC secretly bankrolling a local assassin’s guild, and so forth.",
+    "updated": "2026-10-14",
+    "zh": "你有一個由犯罪人士組成的人脈網路。在聚落進行休整時，作為休整活動，你可以進行氣場考驗向你的人脈提出 1 個問題。若考驗結果為 T2，你可以獲得 1 則在江湖中廣為人知的情報，例如某棟建築的祕密入口、某個躲起來的罪犯位置，或當地盜賊公會首領的名字等等。若考驗結果為 T3，你可以獲得 1 則在江湖中鮮為人知的情報（前提是真的有這樣的情報），例如當地某個寶藏的藏匿地點、某件用來刺殺貴族的兇器下落，或是某個暗中資助當地刺客公會的 NPC 名字等等。"
+  },
+  "heroes.perks.danger-sense.effect": {
+    "en": "Whenever you are in a natural environment (but not in a settlement in that environment), you gain an edge on tests made using the Alertness skill, and you can’t be surprised. Additionally, you have a connection to nature that warns you if any natural disaster is imminent within the next 72 hours, though you don’t know exactly what it will entail (an earthquake, a wildfire, and so forth).",
+    "updated": "2026-10-14",
+    "zh": "當你身處自然環境時（但不是在聚落內），你使用警覺技能進行考驗會獲得 1 個優勢，而且你不會措手不及。此外，你與大自然有一種奇妙的連結，你會知道未來 72 小時內是否有任何自然災害即將發生，但你無法確切知道會發生什麼事（例如地震或野火等）。"
+  },
+  "heroes.perks.dazzler.effect": {
+    "en": "Whenever a creature watches you sing, dance, or perform a role (as an actor, not just in disguise) for 1 uninterrupted minute or more, you gain an edge on any test made to influence that creature for 1 hour after the performance ends.",
+    "updated": "2026-10-14",
+    "zh": "若有生物不間斷地觀賞你唱歌、跳舞或演戲（以演員身分演出，而不只是易容）至少 1 分鐘，在表演結束後的 1 小時內，你試圖影響該生物的所有考驗都會獲得 1 個優勢。"
+  },
+  "heroes.perks.eidetic-memory.effect": {
+    "en": "Your mind is an encyclopedia, though not always an easy one to organize. When you finish a respite, choose one skill from the lore skill group that you don’t have. You have that skill until you finish your next respite. Additionally, if you spend 1 uninterrupted minute or more reading any page of text, you can memorize its contents, allowing you to memorize entire books with sufficient time.",
+    "updated": "2026-10-14",
+    "zh": "不管凌亂還是整齊，你的心智都如同一部百科全書。當你完成休整時，你可以從學識類技能中選擇 1 項你沒有的技能。你可以獲得該技能，直到下次休整結束。此外，若你花費至少 1 分鐘不間斷地閱讀任何一頁文字，你可以記住全部的內容，讓你在有充足時間的情況下記住整本書。"
+  },
+  "heroes.perks.engrossing-monologue.effect": {
+    "en": "Whenever you are not in combat, you can shout to get the attention of hearing creatures within 10 squares of you. Each such creature who is not hostile toward you listens to what you have to say for 1 uninterrupted minute or more, or until they sense danger or any form of imminent harm. While creatures are listening to you, each of your allies gains an edge on tests made to avoid being noticed by those creatures.",
+    "updated": "2026-10-14",
+    "zh": "若你不處於戰鬥，你可以大聲呼喊，讓 10 格內所有能聽見你的生物將注意力放在你身上。每個對你不懷敵意的生物都會不間斷地專心聽你說的話，至少 1 分鐘，除非他們感知到任何危險或即將來襲的傷害。當生物正在聽你說話時，你的每個盟友在進行避免被該生物發現的考驗時都會獲得 1 個優勢。"
+  },
+  "heroes.perks.expert-artisan.effect": {
+    "en": "Whenever you make a test as part of a crafting or research project that uses a skill you already have from the crafting skill group, you can make the power roll twice and use either roll.",
+    "updated": "2026-10-14",
+    "zh": "每當你進行工藝類或研究類專案的考驗時，若你使用你擁有的工藝類技能，你可以擲骰 2 次，並選用其中 1 個結果。"
+  },
+  "heroes.perks.expert-sage.effect": {
+    "en": "Whenever you make a test as part of a crafting or research project using a skill from the lore skill group, you can make the power roll twice and use either roll.",
+    "updated": "2026-10-14",
+    "zh": "每當你進行工藝類或研究類專案的考驗時，若你使用學識類技能，你可以擲骰 2 次，並選用其中 1 個結果。"
+  },
+  "heroes.perks.familiar.effect": {
+    "en": "Familiar\nA supernatural spirit who has taken the form of a specific small animal or animated object has chosen to be your familiar—or to adopt you as their familiar.\nThe spirit uses the familiar stat block.\n\nThe familiar can hold small objects in their mouth or claws, but can’t perform activities that would typically require hands (opening a door, unrolling a scroll, and so forth). They can’t harm other creatures or objects. They can flank in combat, but only with you.\nIf your familiar is destroyed, you can restore them as a respite activity, or by spending a Recovery as a main action to bring them back into existence in an unoccupied space adjacent to you.\n\nFamilliar [stat block heading as printed in Heroes 1.01b]\nSize: 1T | Speed: 5 | Stamina: 2 × your level | Stability: 0 | Free Strike: 0\nImmunity: — | Weakness: — | Movement: —\nMight: -3 | Agility: +2 | Reason: 0 | Intuition: 0 | Presence: +1\nTelepathic\nThe While you and your familiar are within 10 squares of each other, you can communicate telepathically and share each other’s senses. While sharing senses, each of you also benefits from your own senses at the same time.",
+    "updated": "2026-10-14",
+    "zh": "1 個超自然的精魂化身為特定的小動物或活化物體，成為你的魔寵。或者，將你當成牠的魔寵。魔寵的數據表請見下文。\n\n魔寵可以用嘴巴或爪子握住小型物體，但無法進行需要使用手的行為（例如開門或打開卷軸）。牠不能傷害其他生物或物體。在戰鬥中，牠只能與你一起進行夾擊。\n\n若你的魔寵被消滅，你可以透過休整活動來復活牠，或使用主要動作並花費 1 點復元力，讓牠在 1 個與你相鄰的未占據空間中重新出現。\n\n魔寵（Familiar）\n體型：1T｜速度：5｜體力：2 × 你的等級｜穩度：0｜基礎打擊：0\n免疫：—｜弱點：—｜移動：—\n力量：−3｜敏捷：+2｜理智：0｜直覺：0｜氣場：+1\n\n心靈感應（Telepathic）\n若你和你的魔寵相距 10 格內，你們可以進行心靈溝通並共享彼此的感官。在共享感官的同時，你們仍然會保有自己原本的感官能力。"
+  },
+  "heroes.perks.forgettable-face.effect": {
+    "en": "If you spend 10 minutes or less interacting with a creature who hasn’t met you before, you can cause them to forget your face when you part. If asked to describe you, the creature gives only a vague, blank, and unhelpful description. Additionally, if you spend 1 hour or more assembling a disguise, you automatically obtain a tier 2 outcome on any test that could make use of the Disguise skill. If you have the Disguise skill, you automatically obtain a tier 3 outcome on the test.",
+    "updated": "2026-10-14",
+    "zh": "若你與初次見面的生物互動不超過 10 分鐘，你可以讓對方在離開後忘記你的長相。若他人問起你的外表，該生物只能提供模糊、空泛且毫無參考價值的描述。此外，若你投入 1 小時以上的時間進行偽裝，在任何可以使用易容技能的考驗中，你都會自動獲得 T2 結果。如果你已經擁有易容技能，則自動獲得 T3 結果。"
+  },
+  "heroes.perks.friend-catapult.effect": {
+    "en": "As a maneuver, you grab a willing adjacent ally or object of your size or smaller, then vertical push that target up to a number of squares equal to twice your Might score. If a creature you push falls as a result of this movement, the effective distance of the fall is reduced by a number of squares equal to twice your Might score. When you use this perk, you can’t use it again until you earn 1 or more Victories.",
+    "updated": "2026-10-14",
+    "zh": "使用機動動作，你抓住 1 個相鄰的自願盟友或物體（兩者的體型都必須 ≦ 你），然後將目標垂直推動最多等於你力量 ×2 的格數。如果你推動的生物因此墜落，墜落的有效距離會減少等於你力量 ×2 的格數。使用此專長後，你必須至少獲得 1 點勝利值才能再次使用。"
+  },
+  "heroes.perks.gum-up-the-works.effect": {
+    "en": "Whenever a mundane trap activates within 3 squares, you can use a triggered action to move up to 3 squares toward it. If this movement brings you adjacent to any of the trap’s mechanisms, you can jam the trap, preventing it from activating. As long as you stay adjacent to the mechanism, the trap can’t go off unless an attempt to disarm it fails.",
+    "updated": "2026-10-14",
+    "zh": "每當 3 格內的 1 個尋常陷阱啟動時，你可以使用反應動作向陷阱移動最多 3 格。若這次移動能讓你與陷阱的任何機關相鄰，你可以卡住陷阱，阻止它啟動。只要你保持與機關相鄰，除非有人嘗試解除陷阱卻失敗，否則陷阱不會觸發。"
+  },
+  "heroes.perks.handy.effect": {
+    "en": "Whenever you make a test to craft something and don’t have a skill that applies to the test, you gain a +1 bonus to the power roll.",
+    "updated": "2026-10-14",
+    "zh": "每當你進行考驗來製造物品時，若你沒有任何適用的技能，你的檢定會獲得 +1 加值。"
+  },
+  "heroes.perks.harmonizer.effect": {
+    "en": "You can make a Presence test using the Music skill to influence creatures who don’t have emotions or can’t understand you. Additionally, once during a negotiation when an ally makes an argument, you can play music to give that ally an edge on their test.",
+    "updated": "2026-10-14",
+    "zh": "你可以使用音樂技能進行氣場考驗來影響那些沒有情感或無法理解你的生物。此外，每次談判 1 次，當 1 個盟友提出論據時，你可以演奏音樂讓該次考驗獲得 1 個優勢。"
+  },
+  "heroes.perks.improvisation-creation.effect": {
+    "en": "Without needing to make a test—and even without tools—you can quickly jury-rig or repair a mundane item or piece of equipment related to a skill you have from the crafting skill group. That item lasts for 1 hour or works for one use or activation (whichever comes first, as the Director determines), then breaks beyond repair. For example, if you have the Carpentry skill, you could repair a rickety wooden bridge long enough for a group of creatures to cross it, or build a simple shovel made of wood that can be used for 1 hour.",
+    "updated": "2026-10-14",
+    "zh": "你不需要進行考驗，甚至不需要工具，就可以迅速組裝或修復 1 個尋常道具或裝備（前提是該物體必須與你擁有的 1 個工藝類技能有關）。該道具可以持續 1 小時或使用或啟動 1 次（以先發生者為準，由導演判定），然後就會損壞，無法再修復。\n\n例如，若你擁有木工技能，你可以修復一座搖搖欲墜的木橋來讓一群生物通過，或製作一把能使用 1 小時的簡易木鏟。"
+  },
+  "heroes.perks.inspired-artisan.effect": {
+    "en": "When you make a project roll using a skill from the crafting skill group, you can spend a hero token to make another project roll for the same project as part of the same respite activity. You can’t use this perk more than once per respite.",
+    "updated": "2026-10-14",
+    "zh": "當你使用工藝類技能進行專案檢定時，作為同一次休整活動的一部分，你可以花費 1 枚英雄幣，為同一個專案額外進行 1 次專案檢定。此專長每次休整只能使用 1 次。"
+  },
+  "heroes.perks.invisible-force.effect": {
+    "en": "You have the ability Invisible Force.\nInvisible Force\nYou manipulate a tiny object with your mind.\nPsionic, Ranged • Maneuver • Ranged 10 • One size 1T object\nEffect: You can grab or manipulate the target object with your mind, moving the object up to a number of squares equal to your Reason, Intuition, or Presence score (your choice). You can use this ability to turn doorknobs, pull levers, and so forth. You can manipulate any small movable piece of a larger object as long as the piece is unattended and size 1T. You can’t use this ability to break a smaller piece off a larger object.",
+    "updated": "2026-10-14",
+    "zh": "你擁有以下招式。\n\n無形念力（Invisible Force）\n你可以透過意念操控微小的物體。\n靈能、遠程／機動動作／遠程 10／1 個體型 1T 的物體\n效果：你可以透過意念抓取或操控目標物體，將它移動最多等於你理智、直覺或氣場（由你選擇）的格數。你可以使用此招式來轉動門把、拉動操縱桿等物體。你也可以操控較大物體中的較小且可移動的部件（前提是該部件無人持有或操控，且體型為 1T），但你無法使用此招式將這些較小的部件從較大的物體上折斷。"
+  },
+  "heroes.perks.ive-got-you.effect": {
+    "en": "Whenever a willing ally falls and would land on you or adjacent to you, you can safely catch them as a free triggered action. Neither of you takes damage from the ally’s fall.",
+    "updated": "2026-10-14",
+    "zh": "當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時，你可以使用免費反應動作安全地接住他。你和盟友都不會受到墜落造成的傷害。"
+  },
+  "heroes.perks.ive-read-about-this-place.effect": {
+    "en": "Each time you enter a settlement you’ve never been to before, you can ask the Director one of the following questions:\n• Who is the most influential public figure in this settlement?\n• Who in this settlement would be the friendliest to us right now?\n• What does this settlement need most from outsiders?\nIf the Director doesn’t have an answer to the question you ask, or doesn’t want to answer, you can instead ask a different question.",
+    "updated": "2026-10-14",
+    "zh": "每當你首次進入未曾造訪的聚落時，你可以向導演提出以下 1 個問題：\n• 誰是這聚落中最有影響力的公眾人物？\n• 這聚落中誰目前對我們最友善？\n• 這聚落最需要外來者提供什麼？\n若導演對你提出的問題沒有答案或不願回答，你可以改提其他問題。"
+  },
+  "heroes.perks.lie-detector.effect": {
+    "en": "In response to another creature communicating information to you, you can spend a hero token to determine whether that information contained any knowing lies. If so, you know what the lies are, but not what the truth is.",
+    "updated": "2026-10-14",
+    "zh": "當其他生物向你傳達資訊時，你可以花費 1 枚英雄幣來判斷該資訊是否包含任何故意的謊言。若有，你會知道哪些部分是謊言，但不會知道背後的真相。"
+  },
+  "heroes.perks.linguist.effect": {
+    "en": "You automatically learn two new languages, as long as you have regularly heard those languages spoken or seen them written before. Additionally, if you spend 7 days or more in a place where you regularly hear or read a language you don’t know, you can pick up enough of that language to hold a conversation or understand basic written information. Having picked up a language this way, you can subsequently learn it using the Learn New Language research project at half the usual project goal cost (see Chapter 12: Downtime Projects).",
+    "updated": "2026-10-14",
+    "zh": "你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。此外，若你在某個地方停留至少 7 天，並有機會經常聽到或讀到 1 種你不懂的語言，你就可以掌握足夠的語言能力來進行對話或理解基礎書面資訊。以這種方式掌握語言後，你可以使用「學習新語言」研究類專案來進一步學習，且專案目標費用只需要原本的一半（詳見第 12 章〈休整專案〉）。"
+  },
+  "heroes.perks.lucky-dog.effect": {
+    "en": "Whenever you fail a test using any skill from the intrigue skill group, you can lose Stamina equal to 1d6 + your level to improve the outcome of the test by one tier. You can use this perk only once per test.",
+    "updated": "2026-10-14",
+    "zh": "每當你使用任一項諜報類技能進行考驗而失敗時，你可以失去 1d6 + 等級的體力，將考驗結果提升 1 階。此專長每次考驗只能使用 1 次。"
+  },
+  "heroes.perks.master-of-disguise.effect": {
+    "en": "You can don or remove a disguise as part of any test you make using the Hide skill, or while using the Hide maneuver.",
+    "updated": "2026-10-14",
+    "zh": "當你進行任何躲藏考驗或使用躲藏機動動作時，你可以同時換上或卸下偽裝。"
+  },
+  "heroes.perks.monster-whisperer.effect": {
+    "en": "You can use the Handle Animals skill to interact with nonsapient creatures who are not animals.",
+    "updated": "2026-10-14",
+    "zh": "你可以使用馴獸技能與不是動物的非智慧生物進行互動。"
+  },
+  "heroes.perks.open-book.effect": {
+    "en": "Whenever you speak one-on-one with a creature, you can ask them one question about themself that might typically offend them or raise suspicion. If they choose not to answer honestly, they simply deflect or redirect the question, with no further complications. If they choose to answer honestly, the creature can immediately ask you a question about yourself in turn, which you must answer honestly.",
+    "updated": "2026-10-14",
+    "zh": "當你與某個生物一對一交談時，你可以向他提出 1 個關於他自己的問題，即使這個問題通常會冒犯他或引起懷疑。若他不想誠實回答，他只會簡單地迴避或轉移話題，不會有其他後果。若他誠實回答，該生物可以立刻反過來向你提出 1 個關於你自己的問題，而你必須誠實回答。"
+  },
+  "heroes.perks.pardon-my-friend.effect": {
+    "en": "When an ally within 5 squares fails a Presence test, you can step in and make a Presence test that takes a bane, with your roll replacing the ally’s roll. This perk can be used only once per test, even if more than one character has it.",
+    "updated": "2026-10-14",
+    "zh": "當 5 格內的 1 個盟友進行氣場考驗而失敗時，你可以介入進行帶有 1 個劣勢的氣場考驗，並以你的擲骰結果取代盟友的結果。即使有多名角色擁有此專長，每次考驗也只能使用 1 次。"
+  },
+  "heroes.perks.polymath.effect": {
+    "en": "Whenever you make a test to recall lore and don’t have a skill that applies to the test, you gain a +1 bonus to the power roll.",
+    "updated": "2026-10-14",
+    "zh": "每當你進行考驗來回想知識時，若你沒有任何適用的技能，你的檢定會獲得 +1 加值。"
+  },
+  "heroes.perks.power-player.effect": {
+    "en": "Whenever you make a test that uses the Brag, Flirt, or Intimidate skills, you can use Might instead of any other characteristic the test calls for.",
+    "updated": "2026-10-14",
+    "zh": "每當你使用誇耀、魅惑或威嚇技能進行考驗時，你可以使用力量取代原本要求的屬性。"
+  },
+  "heroes.perks.psychic-whisper.effect": {
+    "en": "You have the following ability.\nPsychic Whisper\nYou send a one-way telepathic message to a friend.\nPsionic, Ranged • Maneuver • Ranged 10 • One ally\nEffect: As long as the target understands one or more languages, you send a telepathic message to them that takes 10 seconds or less to speak. The target knows who the message is from and can decide to ignore it and subsequent messages.",
+    "updated": "2026-10-14",
+    "zh": "你擁有以下招式。\n\n心靈低語（Psychic Whisper）\n你向朋友發送單向的心靈訊息。\n靈能、遠程／機動動作／遠程 10／1 個盟友\n效果：只要目標理解至少 1 種語言，你可以向目標傳送 1 則 10 秒之內能說完的心靈訊息。目標會知道訊息來自何人，而且可以決定是否忽略此訊息及後續訊息。"
+  },
+  "heroes.perks.put-your-back-into-it.effect": {
+    "en": "During montage tests, whenever you make a test to assist a test and obtain a tier 1 outcome, the assisted test doesn’t take a bane. Additionally, once per montage test, you can turn an ally’s tier 1 test outcome into a tier 2 outcome.",
+    "updated": "2026-10-14",
+    "zh": "在蒙太奇考驗中，每當你進行協助考驗並獲得 T1 結果時，被協助的考驗不會承受 1 個劣勢。此外，每場蒙太奇考驗 1 次，你可以將 1 個盟友的 T1 考驗結果提升為 T2。"
+  },
+  "heroes.perks.ritualist.effect": {
+    "en": "You can spend 1 uninterrupted minute to perform a magic ritual of blessing, targeting yourself or one willing creature you touch. The target has a double edge on the next test they make within the next minute. A target can’t use this benefit on an activity that takes longer than 1 minute.",
+    "updated": "2026-10-14",
+    "zh": "你可以花費 1 分鐘不間斷地進行祝福魔法儀式，指定自身或觸碰 1 個自願生物為目標。目標在接下來 1 分鐘內進行的下次考驗會獲得雙優勢。此效果不能用於耗時超過 1 分鐘的活動。"
+  },
+  "heroes.perks.slipped-lead.effect": {
+    "en": "You gain an edge on tests made to escape bonds. Given 1 uninterrupted minute, you can escape any mundane bonds without making a test. Additionally, it’s not immediately obvious when you’ve escaped bonds until you do something that makes it clear you have done so (cast them off, use an ability that harms one or more creatures, and so forth).",
+    "updated": "2026-10-14",
+    "zh": "當你進行掙脫束縛的考驗時，你獲得 1 個優勢。若你擁有 1 分鐘不間斷的時間，你不需要進行考驗即可掙脫任何尋常束縛。此外，在你做出明顯表明你已掙脫的行為前（例如丟開束縛物、發動能傷害生物的招式等），其他人不會一眼看出你已經掙脫。"
+  },
+  "heroes.perks.so-tell-me.effect": {
+    "en": "Whenever you succeed on a Presence test to influence one or more creatures, you can ask one creature you influenced a follow-up question after the test resolves, which they must answer honestly. At the Director’s discretion, the creature doesn’t have to answer the question completely—or at all—if the response would put them or a loved one in danger.",
+    "updated": "2026-10-14",
+    "zh": "每當你進行氣場考驗並成功影響 1 個以上的生物時，你可以在考驗結算後向其中 1 個被影響的生物提出 1 個後續問題，該生物必須誠實回答。在導演的判定下，若回答問題會讓該生物或他所愛的人陷入危險，他可以選擇只回答一部分，或完全不回答。"
+  },
+  "heroes.perks.specialist.effect": {
+    "en": "You are a leading expert on a particular subject. Choose one skill you have from the lore skill group. You always have a double edge on tests made to recall lore using this skill. Additionally, your specialist knowledge grants you notoriety in fields related to the chosen skill. You treat your Renown as 1 higher when negotiating with an NPC who knows your reputation, or 2 higher if they have the same skill you chose for this perk.",
+    "updated": "2026-10-14",
+    "zh": "你是特定領域的頂尖專家。從學識類技能中選擇 1 項你擁有的技能。每當你使用該技能進行回想知識的考驗時，你總是獲得雙優勢。此外，你的專業知識讓你在相關領域贏得了一定的名聲。在與了解你名聲的 NPC 進行談判時，你的聲望會視為增加 1 點；若該 NPC 也擁有你為此專長選擇的技能，則視為增加 2 點。"
+  },
+  "heroes.perks.spot-the-tell.effect": {
+    "en": "Whenever you make a test to read a person and obtain a tier 3 outcome, you notice several tells that give away their true feelings. Any test you make to read that person in the future gains an edge.",
+    "updated": "2026-10-14",
+    "zh": "每當你進行觀色考驗並獲得 T3 結果時，你會發現對方幾個顯露真實感受的破綻。你之後對他進行的任何觀色考驗都會獲得 1 個優勢。"
+  },
+  "heroes.perks.team-leader.effect": {
+    "en": "At the start of a group test or montage test, you can spend a hero token. If you do, all participants make tests as if they also had any skill you have from the exploration group.",
+    "updated": "2026-10-14",
+    "zh": "在團隊考驗或蒙太奇考驗開始時，你可以花費 1 枚英雄幣。若你這麼做，所有參與者在進行考驗時，都會視為擁有你具備的任何探索類技能。"
+  },
+  "heroes.perks.teamwork.effect": {
+    "en": "When you take your first turn during any montage test, you can both make a test and assist another hero’s test.",
+    "updated": "2026-10-14",
+    "zh": "在任何蒙太奇考驗中，當你進行你的第 1 個回合時，你可以同時進行自己的考驗並協助另 1 個英雄的考驗。"
+  },
+  "heroes.perks.thingspeaker.effect": {
+    "en": "When you hold an object in your hand for 1 uninterrupted minute, you can sense whether it bears emotional resonance. Objects with emotional resonance could include treasured gifts, murder weapons, or personal keepsakes. If the Director determines that the object bears emotional resonance, you learn the most dominant emotion associated with the object, then receive a vision that answers one of the following questions:\n• What was the name of the person whose emotion is imprinted on this object?\n• Why does this emotion linger on the object?\n• How long has it been since the object was held by the person whose emotion lingers on it?\nAfter asking one question, you can choose to delve deeper by asking one additional question from the list, but you are then overcome with emotions that do not belong to you. You take a bane on Intuition and Presence tests until you finish a respite, and you can’t use this perk again while you suffer this bane.",
+    "updated": "2026-10-14",
+    "zh": "若你不間斷地持握 1 個物體達 1 分鐘，你可以感應它是否帶有情感共鳴。具有情感共鳴的物體可能包括珍貴的禮物、凶器或個人紀念物。若導演判定該物體確實帶有情感共鳴，你會感應到與之相關的最強烈情感，然後獲得 1 個可以回答以下其中 1 個問題的異象：\n① 情感烙印在這個物體上的人，叫什麼名字？\n② 為什麼這種情感會殘留在物體上？\n③ 留下這份情感的人，上次持握這個物體距今已過了多久？\n詢問 1 個問題後，你可以深入探索，再從列表中額外提出 1 個問題，但你隨後會被不屬於自己的情感所淹沒。在完成休整之前，你的直覺和氣場考驗會承受 1 個劣勢，而且在承受此劣勢期間，你無法再次使用此專長。"
+  },
+  "heroes.perks.traveling-artisan.effect": {
+    "en": "On any day when you don’t take a respite, you can spend 1 uninterrupted hour working on a crafting project using a skill you have from the crafting skill group. If you do so, you gain 1d10 project points toward that project.",
+    "updated": "2026-10-14",
+    "zh": "在任何你沒有進行休整的日子裡，你可以花費 1 小時不間斷地使用你擁有的工藝類技能進行工藝類專案。若你這麼做，該專案會獲得 1d10 點專案點數。"
+  },
+  "heroes.perks.traveling-sage.effect": {
+    "en": "On any day when you don’t take a respite, you can spend 1 uninterrupted hour working on a research project using a skill you have from the lore skill group. If you do so, you gain 1d10 project points toward that project.",
+    "updated": "2026-10-14",
+    "zh": "在任何你沒有進行休整的日子裡，你可以花費 1 小時不間斷地使用你擁有的學識類技能進行研究類專案。若你這麼做，該專案會獲得 1d10 點專案點數。"
+  },
+  "heroes.perks.wood-wise.effect": {
+    "en": "When you make a test using a skill from the exploration skill group and at least one of the d10s rolled is a 1, you can reroll one d10. You can use this perk only once per test.",
+    "updated": "2026-10-14",
+    "zh": "當你使用探索類技能進行考驗時，若至少有 1 顆 d10 擲出 1，你可以重擲 1 顆 d10。此專長每次考驗只能使用 1 次。"
   },
   "heroes.skills.applying.rules": {
     "en": "Applying Skills\n\nIf you have a skill that applies to a test you make, you gain a +2 bonus to the test. For instance, if your hero has the Hide skill, you have a +2 bonus to any test you make that involves hiding yourself. This might include an Agility test to hide behind a barrel, or a Presence test to disappear into a crowd.\n\nThe +2 bonus gained for a skill isn’t an edge. A player can make a test that has both the +2 bonus for a skill and the +2 bonus for an edge.\n\nYou can’t apply more than one skill to a test.",

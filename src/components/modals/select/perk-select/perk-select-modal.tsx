@@ -7,6 +7,7 @@ import { Modal } from '@/components/modals/modal/modal';
 import { PanelMode } from '@/enums/panel-mode';
 import { Perk } from '@/models/perk';
 import { PerkList } from '@/enums/perk-list';
+import { perkListText } from '@/l10n/perk-list-ui';
 import { useUI } from '@/l10n/ui-text';
 import { PerkPanel } from '@/components/panels/elements/perk-panel/perk-panel';
 import { SearchBox } from '@/components/controls/text-input/text-input';
@@ -17,18 +18,6 @@ import { Utils } from '@/utils/utils';
 import { useState } from 'react';
 
 import './perk-select-modal.scss';
-
-const getPerkListText = (list: PerkList, ui: ReturnType<typeof useUI>) => {
-	switch (list) {
-		case PerkList.Crafting:
-		case PerkList.Exploration:
-		case PerkList.Interpersonal:
-		case PerkList.Intrigue:
-		case PerkList.Lore: return list;
-		case PerkList.Supernatural: return ui.text('ui.hero-builder.supernatural.fe29726a', 'Supernatural');
-		case PerkList.Special: return ui.text('ui.hero-builder.special.997c544f', 'Special');
-	}
-};
 
 interface Props {
 	perks: Perk[];
@@ -75,7 +64,7 @@ export const PerkSelectModal = (props: Props) => {
 
 							return (
 								<Space key={list} orientation='vertical' style={{ width: '100%' }}>
-									<HeaderText level={1}>{getPerkListText(list, ui)}</HeaderText>
+									<HeaderText level={1}>{perkListText(list, ui)}</HeaderText>
 									{
 										subset.map((p, n) => (
 											<SelectablePanel key={n} onSelect={() => onSelect(p)}>

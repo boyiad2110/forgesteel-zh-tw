@@ -29,6 +29,7 @@ import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { InfoConditionImmunity } from '@/components/features/feature-data/condition-immunity';
 import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { PanelMode } from '@/enums/panel-mode';
+import { PerkSelectModal } from '@/components/modals/select/perk-select/perk-select-modal';
 import { PartyModal } from '@/components/modals/party/party-modal';
 import { PerkList } from '@/enums/perk-list';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
@@ -1331,6 +1332,67 @@ describe('skill display batch', () => {
 		const englishPerks = renderPerkChoice();
 		expect(englishPerks).toContain('Area of Expertise');
 		expect(englishPerks).not.toContain('專業領域');
+		setLanguage('zh-TW');
+	});
+});
+
+describe('perk name segment', () => {
+	beforeEach(async () => {
+		await loadCatalog();
+		setLanguage('zh-TW');
+	});
+
+	test('selection, detail, and the classic sheet use approved perk names and categories', () => {
+		const handy = core.perks.find(perk => perk.id === 'perk-handy')!;
+		const catapult = core.perks.find(perk => perk.id === 'perk-friend-catapult')!;
+		const spot = core.perks.find(perk => perk.id === 'perk-spot-the-tell')!;
+		const options = FactoryLogic.createOptions();
+		const panel = (perk: typeof handy) => renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: perk,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+
+		const handyHtml = panel(handy);
+		expect(handyHtml).toContain('心靈手巧');
+		expect(handyHtml).toContain('工藝類');
+		expect(handyHtml).toContain('Whenever you make a test to craft something');
+		expect(handyHtml).not.toContain('>Handy<');
+
+		const catapultHtml = panel(catapult);
+		expect(catapultHtml).toContain('投擲盟友');
+		expect(catapultHtml).toContain('探索類');
+		expect(catapultHtml).toContain('You hurl your ally through the air.');
+		expect(catapultHtml).not.toContain('>Friend Catapult<');
+
+		expect(panel(spot)).toContain('Spot The Tell');
+		expect(panel(spot)).not.toContain('發現破綻');
+
+		const sheet = (perk: typeof handy) => renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: perk as Feature
+		})));
+		expect(sheet(handy)).toContain('心靈手巧');
+		expect(sheet(handy)).toContain('Whenever you make a test to craft something');
+		expect(sheet(catapult)).toContain('投擲盟友');
+		expect(sheet(catapult)).toContain('You hurl your ally through the air.');
+		expect(sheet(spot)).toContain('Spot The Tell');
+
+		const modal = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(PerkSelectModal, {
+			perks: [ handy, catapult, spot ],
+			hero: FactoryLogic.createHero(),
+			sourcebooks: [ core ],
+			onClose: () => undefined,
+			onSelect: () => undefined
+		}))));
+		expect(modal).toContain('工藝類');
+		expect(modal).toContain('探索類');
+		expect(modal).toContain('交涉類');
+		expect(modal).toContain('心靈手巧');
+		expect(modal).toContain('投擲盟友');
+		expect(modal).toContain('Spot The Tell');
+		expect(modal).not.toContain('>Crafting<');
+		expect(modal).not.toContain('>Exploration<');
+		expect(modal).not.toContain('>Interpersonal<');
 	});
 });
 

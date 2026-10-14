@@ -224,25 +224,65 @@
     "updated": "2026-10-11",
     "zh": "肌肉發達"
   },
+  "name.perk.but-i-know-who-does": {
+    "en": "But I Know Who Does",
+    "updated": "2026-10-14",
+    "zh": "我知道誰知道"
+  },
   "name.perk.camouflage-hunter": {
     "en": "Camouflage Hunter",
     "updated": "2026-10-11",
     "zh": "迷彩獵人"
+  },
+  "name.perk.charming-liar": {
+    "en": "Charming Liar",
+    "updated": "2026-10-14",
+    "zh": "迷人騙子"
+  },
+  "name.perk.creature-sense": {
+    "en": "Creature Sense",
+    "updated": "2026-10-14",
+    "zh": "生物感應"
   },
   "name.perk.criminal-contacts": {
     "en": "Criminal Contacts",
     "updated": "2026-10-11",
     "zh": "江湖人脈"
   },
+  "name.perk.danger-sense": {
+    "en": "Danger Sense",
+    "updated": "2026-10-14",
+    "zh": "危險感知"
+  },
+  "name.perk.dazzler": {
+    "en": "Dazzler",
+    "updated": "2026-10-14",
+    "zh": "閃耀表演"
+  },
+  "name.perk.eidetic-memory": {
+    "en": "Eidetic Memory",
+    "updated": "2026-10-14",
+    "zh": "過目不忘"
+  },
   "name.perk.engrossing-monologue": {
     "en": "Engrossing Monologue",
     "updated": "2026-10-11",
     "zh": "聚焦獨白"
   },
+  "name.perk.expert-artisan": {
+    "en": "Expert Artisan",
+    "updated": "2026-10-14",
+    "zh": "工藝專家"
+  },
   "name.perk.expert-sage": {
     "en": "Expert Sage",
     "updated": "2026-10-11",
     "zh": "學術專家"
+  },
+  "name.perk.familiar": {
+    "en": "Familiar",
+    "updated": "2026-10-14",
+    "zh": "魔寵"
   },
   "name.perk.forgettable-face": {
     "en": "Forgettable Face",
@@ -254,20 +294,95 @@
     "updated": "2026-10-11",
     "zh": "投擲盟友"
   },
+  "name.perk.gum-up-the-works": {
+    "en": "Gum Up the Works",
+    "updated": "2026-10-14",
+    "zh": "妨礙運作"
+  },
+  "name.perk.handy": {
+    "en": "Handy",
+    "updated": "2026-10-14",
+    "zh": "心靈手巧"
+  },
   "name.perk.harmonizer": {
     "en": "Harmonizer",
     "updated": "2026-10-11",
     "zh": "和諧之音"
+  },
+  "name.perk.improvisation-creation": {
+    "en": "Improvisation Creation",
+    "updated": "2026-10-14",
+    "zh": "即興創造"
+  },
+  "name.perk.inspired-artisan": {
+    "en": "Inspired Artisan",
+    "updated": "2026-10-14",
+    "zh": "創意工匠"
+  },
+  "name.perk.invisible-force": {
+    "en": "Invisible Force",
+    "updated": "2026-10-14",
+    "zh": "無形念力"
+  },
+  "name.perk.ive-got-you": {
+    "en": "I’ve Got You!",
+    "updated": "2026-10-14",
+    "zh": "我接住你了！"
   },
   "name.perk.ive-read-about-this-place": {
     "en": "I’ve Read About This Place",
     "updated": "2026-10-11",
     "zh": "我知道這地方"
   },
+  "name.perk.lie-detector": {
+    "en": "Lie Detector",
+    "updated": "2026-10-14",
+    "zh": "測謊專家"
+  },
+  "name.perk.linguist": {
+    "en": "Linguist",
+    "updated": "2026-10-14",
+    "zh": "語言學家"
+  },
+  "name.perk.lucky-dog": {
+    "en": "Lucky Dog",
+    "updated": "2026-10-14",
+    "zh": "幸運兒"
+  },
+  "name.perk.master-of-disguise": {
+    "en": "Master of Disguise",
+    "updated": "2026-10-14",
+    "zh": "易容大師"
+  },
   "name.perk.monster-whisperer": {
     "en": "Monster Whisperer",
     "updated": "2026-10-11",
     "zh": "怪物溝通師"
+  },
+  "name.perk.open-book": {
+    "en": "Open Book",
+    "updated": "2026-10-14",
+    "zh": "坦誠相待"
+  },
+  "name.perk.pardon-my-friend": {
+    "en": "Pardon My Friend",
+    "updated": "2026-10-14",
+    "zh": "代友發言"
+  },
+  "name.perk.polymath": {
+    "en": "Polymath",
+    "updated": "2026-10-14",
+    "zh": "博學多聞"
+  },
+  "name.perk.power-player": {
+    "en": "Power Player",
+    "updated": "2026-10-14",
+    "zh": "強勢態度"
+  },
+  "name.perk.psychic-whisper": {
+    "en": "Psychic Whisper",
+    "updated": "2026-10-14",
+    "zh": "心靈低語"
   },
   "name.perk.put-your-back-into-it": {
     "en": "Put Your Back Into It!",
@@ -278,6 +393,21 @@
     "en": "Ritualist",
     "updated": "2026-10-11",
     "zh": "儀式師"
+  },
+  "name.perk.slipped-lead": {
+    "en": "Slipped Lead",
+    "updated": "2026-10-14",
+    "zh": "脫逃大師"
+  },
+  "name.perk.so-tell-me": {
+    "en": "So Tell Me …",
+    "updated": "2026-10-14",
+    "zh": "誠實告訴我……"
+  },
+  "name.perk.specialist": {
+    "en": "Specialist",
+    "updated": "2026-10-14",
+    "zh": "專業知識"
   },
   "name.perk.spot-the-tell": {
     "en": "Spot the Tell",
@@ -293,6 +423,21 @@
     "en": "Teamwork",
     "updated": "2026-10-11",
     "zh": "團隊合作"
+  },
+  "name.perk.thingspeaker": {
+    "en": "Thingspeaker",
+    "updated": "2026-10-14",
+    "zh": "憶物通靈"
+  },
+  "name.perk.traveling-artisan": {
+    "en": "Traveling Artisan",
+    "updated": "2026-10-14",
+    "zh": "旅行工匠"
+  },
+  "name.perk.traveling-sage": {
+    "en": "Traveling Sage",
+    "updated": "2026-10-14",
+    "zh": "旅行學者"
   },
   "name.perk.wood-wise": {
     "en": "Wood Wise",

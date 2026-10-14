@@ -2,6 +2,7 @@ import { Button, Drawer, Select, Space } from 'antd';
 import { Feature, FeaturePerkData } from '@/models/feature';
 import { Collections } from '@/utils/collections';
 import { isSingleCareerPerk } from '@/l10n/career-perk-ui';
+import { PlayerName } from '@/l10n/player-name';
 import { Empty } from '@/components/controls/empty/empty';
 import { FeatureType } from '@/enums/feature-type';
 import { Field } from '@/components/controls/field/field';
@@ -156,7 +157,7 @@ export const ConfigPerk = (props: ConfigProps) => {
 						content={
 							<Field
 								style={{ flex: '1 1 0' }}
-								label={perk.name}
+								label={<PlayerName element={perk} />}
 								value={<Markdown text={perk.description} useSpan={true} />}
 							/>
 						}

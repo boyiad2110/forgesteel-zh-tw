@@ -107,7 +107,7 @@ export const FeaturePanel = (props: Props) => {
 	};
 
 	if ((props.feature.type === FeatureType.Ability) || (props.feature.type === FeatureType.MaliceAbility)) {
-		return (
+		const panel = (
 			<AbilityPanel
 				ability={props.feature.data.ability}
 				hero={props.hero}
@@ -118,6 +118,16 @@ export const FeaturePanel = (props: Props) => {
 				style={props.style}
 			/>
 		);
+		// Ability perks show the perk name on the ability header. The effect,
+		// keywords, action, distance, and target stay on the ability itself.
+		if ('list' in props.feature && props.feature.list) {
+			return (
+				<ElementScope element={props.feature}>
+					{panel}
+				</ElementScope>
+			);
+		}
+		return panel;
 	}
 
 	if (props.feature.type === FeatureType.AncestryFeatureChoice) {

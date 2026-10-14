@@ -5,8 +5,8 @@
 | ID | 狀態／負責範圍 | 下一個動作 | 完成條件 |
 |---|---|---|---|
 | DISPLAY-DEFAULTS | 待後續批次 / 54 種未核准特性預設描述 | Career 的 Crafting Perk 標題、Skills 標題及 Perk 類別標籤已接入既有 APPROVED UI／Glossary；一般特性預設說明仍需依呼叫情境盤點：9 類空描述先核對實際頁面，45 類逐一追蹤接點。Perk 預設說明仍待來源核准 | 不以生成語言／技能提示代替 FeatureType 預設描述完成率；每批先預覽 |
-| BOOK-01 | Inciting Incidents／Career Summary／Career UI 本批已驗收；PR #66 已合併、PR #68 收尾中 | #66 已接入 108 個事件名稱／描述及 18 個 Career 名稱／簡介，Marc 於 2026-10-13 驗收並合併 develop。Career UI [PR #68](https://github.com/boyiad2110/forgesteel-zh-tw/pull/68) 重用既有 APPROVED 資料：18 個相關專長名稱中 15 個英文吻合並接入；`I've Read About This Place`、`Put Your Back Into It`、`Spot The Tell` 維持網站英文回退。Career 益處欄位、專長類別及核准 UI 標題已接線，Marc 已確認本 PR 範圍；另 74 筆 Career 背景問題仍待確認獨立網站接入範圍 | 完成 #68 的狀態同步、最新 head CI 與 squash merge；74 筆問題及 3 筆名稱適配另行確認範圍／來源，不改寫書本正典 |
-| PERK-NAMES | 待後續批次／網站專長名稱 | 盤點專長清單中未接入的名稱，逐筆對照 Book Master 與 Forge Steel Master；英文不吻合者先取得核准 Adaptation，再接入 mapping | 核准來源與網站名稱可靠對應；已核准名稱依官方 ID 顯示正體中文，未知、自訂及未核准名稱安全回退英文 |
+| BOOK-01 | Inciting Incidents／Career Summary／Career UI 已驗收；PR #66 與 PR #68 均已合併 | #66 已接入 108 個事件名稱／描述及 18 個 Career 名稱／簡介，Marc 於 2026-10-13 驗收並合併 develop。Career UI [PR #68](https://github.com/boyiad2110/forgesteel-zh-tw/pull/68) 已於 2026-10-13 squash 合併 develop `5e7f7220`：15 個英文吻合的專長名稱已接入；`I've Read About This Place`、`Put Your Back Into It`、`Spot The Tell` 維持網站英文。74 筆 Career 背景問題已隨 2026-10-14 書本快照進入核准目錄，網站仍無對應欄位 | 74 筆問題維持書本範圍，不新增欄位、不改模型或存檔 |
+| PERKS-01 | 第 1 段：專長名稱與 6 個類別，待 Marc 人工驗收 | 盤點與接入見 [PERKS-01](PERKS-01.md)。39 個英文吻合的名稱已接入；8 個名稱與書本英文不同，維持網站英文。效果、招式、奧術戲法／魔寵留第 2–4 段 | Marc 驗收第 1 段後才開始第 2 段；未知、自訂及未核准名稱維持英文 |
 | BOOK-02 | 外部書本翻譯依賴／Marc | 書本工作流決定 Glossary Enhancement | 書本 Master Sheet 決策更新；不阻塞現有名稱顯示 |
 | RELEASE-01 | 正式開放前／runtime | 為目錄載入失敗設計受控重試與診斷，補失敗→恢復測試 | 可恢復且沒有 render 重試迴圈 |
 | RELEASE-02 | 正式開放前／網站識別 | 核對 HTML/PWA 語言、名稱、分享網址 | 與正式站識別一致 |
