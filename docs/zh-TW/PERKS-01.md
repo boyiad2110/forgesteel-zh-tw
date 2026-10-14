@@ -165,14 +165,14 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 已接入：`perk-area-of-expertise`、`perk-brawny`、`perk-but-i-know-who-does`、`perk-camouflage-hunter`、`perk-charming-liar`、`perk-criminal-contacts`、`perk-danger-sense`、`perk-dazzler`、`perk-eidetic-memory`、`perk-engrossing-monologue`、`perk-expert-artisan`、`perk-expert-sage`、`perk-forgettable-face`、`perk-handy`、`perk-harmonizer`、`perk-improvisation-creation`、`perk-inspired-artisan`、`perk-ive-read-about-this-place`、`perk-lie-detector`、`perk-lucky-dog`、`perk-master-of-disguise`、`perk-monster-whisperer`、`perk-open-book`、`perk-pardon-my-friend`、`perk-polymath`、`perk-power-player`、`perk-put-your-back-into-it`、`perk-ritualist`、`perk-slipped-lead`、`perk-so-tell-me`、`perk-specialist`、`perk-spot-the-tell`、`perk-team-leader`、`perk-thingspeaker`、`perk-travelling-artisan`、`perk-travelling-sage`、`perk-wood-wise`。
 
-`perk-eidetic-memory` 是技能選擇。詳情抽屜與經典角色卡都顯示完整效果；技能選擇列本身不改。改寫過的官方效果維持英文。
+`perk-eidetic-memory` 是技能選擇。詳情抽屜與經典角色卡都顯示完整效果。角色卡的計數列用核准的「{list}技能」模板，顯示「1 學識類技能」。尚未選擇的占位 `Unselected` 沒有核准 UI 列，維持英文。改寫過的官方效果維持英文。
 
 肌肉發達與幸運兒的書本英文和網站英文相同，不是版本差異。抽屜有英雄時，上游把 “your level” 換成該英雄的等級數字，靜態中文因此對不上。這兩則書本列沒有 Forge Steel 版；計算綁定直接指核准書本列，把上游整數投射進「等級」，並沿用既有綁定在數字後留一個空格，所以 1 級顯示「1d6 + 1 的體力」。沒有英雄時仍是「等級」。沒有新增中文，也沒有 Adaptation。未知改寫仍顯示完整計算後英文。
 
 維持英文，本段不接：
 
 - `perk-teamwork`：網站是 “during a montage test”，書本是 “during any montage test”。Marc 已於 2026-10-14 核准 Adaptation `fs-adapt:heroes.perks.teamwork.effect`。中文只刪掉書本句的「任何」，其餘逐字保留，並已接入 mapping。
-- `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。Marc 已於 2026-10-14 核准兩列 Adaptation。父項 `fs-adapt:heroes.perks.linguist.effect` 寫進書本列的 Forge Steel 版，中文只留「你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。」整段父項換成這句，多出來的英文句子在正體中文模式不會出現。子項 `fs-adapt:heroes.perks.linguist.effect.1` 對應 `perk-linguist-1`，刪掉「此外，」和「（詳見第 12 章〈休整專案〉）」，保留句號；同一書本列的第二次用途留在 `adaptations.json`，由 usage key 選出。語言選擇 `perk-linguist-2` 在書本效果裡沒有對應句子，維持語言選擇器。
+- `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。Marc 已於 2026-10-14 核准兩列 Adaptation。父項 `fs-adapt:heroes.perks.linguist.effect` 寫進書本列的 Forge Steel 版，中文只留「你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。」整段父項換成這句，多出來的英文句子在正體中文模式不會出現。子項 `fs-adapt:heroes.perks.linguist.effect.1` 對應 `perk-linguist-1`，刪掉「此外，」和「（詳見第 12 章〈休整專案〉）」，保留句號；同一書本列的第二次用途留在 `adaptations.json`，由 usage key 選出。這個子特性的英文名稱與專長相同，畫面重用 `name.perk.linguist` 的「語言學家」。語言選擇 `perk-linguist-2` 沒有書本句子；名稱與提示重用核准 UI「語言」和「選擇 2 種語言。」。角色卡上尚未選擇的占位仍是英文 `Unselected`。
 - 招式型短描述（第 3 段）：`perk-friend-catapult`、`perk-ive-got-you`、`perk-gum-up-the-works`、`perk-creature-sense`、`perk-invisible-force`、`perk-psychic-whisper`。短描述與完整招式不同，不把書本整段套上去。
 - 第 4 段結構：`perk-arcane-trick`、`perk-familiar`。
 

@@ -1636,6 +1636,7 @@ describe('perk name segment', () => {
 			throw new Error('linguist');
 		}
 		const child = linguist.data.features.find(feature => feature.id === 'perk-linguist-1')!;
+		const languages = linguist.data.features.find(feature => feature.id === 'perk-linguist-2')!;
 		const options = FactoryLogic.createOptions();
 		const hero = FactoryLogic.createHero();
 		const panel = (feature: Feature | typeof linguist) => renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
@@ -1666,12 +1667,30 @@ describe('perk name segment', () => {
 			expect(html).not.toContain('You have an ear for languages');
 		}
 		const childHtml = panel(child);
+		expect(childHtml).toContain('語言學家');
 		expect(childHtml).toContain(childSentence);
 		expect(childHtml).toContain('專案目標費用只需要原本的一半。');
+		expect(childHtml).not.toContain('Linguist');
 		expect(childHtml).not.toContain('If you spend 7 days');
 		expect(childHtml).not.toContain('You have an ear for languages');
 		expect(childHtml).not.toContain('詳見第 12 章');
 		expect(childHtml).not.toContain('此外，');
+		const languageHtml = panel(languages);
+		expect(languageHtml).toContain('語言');
+		expect(languageHtml).toContain('選擇 2 種語言。');
+		expect(languageHtml).not.toContain('Languages');
+		expect(languageHtml).not.toContain('Choose 2');
+		const languageSheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: languages
+		})));
+		expect(languageSheet).toContain('語言');
+		expect(languageSheet).not.toContain('Languages');
+		const memory = core.perks.find(perk => perk.id === 'perk-eidetic-memory')!;
+		const memorySheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: memory
+		})));
+		expect(memorySheet).toContain('1 學識類技能');
+		expect(memorySheet).not.toContain('Lore Skill');
 		setLanguage('en');
 		const englishSheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
 			feature: linguist as Feature
@@ -1686,7 +1705,11 @@ describe('perk name segment', () => {
 		expect(panel(linguist)).toContain('You have an ear for languages.');
 		expect(panel(linguist)).not.toContain(parentSentence);
 		expect(panel(child)).toContain('If you spend 7 days');
+		expect(panel(child)).toContain('Linguist');
 		expect(panel(child)).not.toContain(childSentence);
+		expect(panel(languages)).toContain('Choose 2  languages.');
+		expect(panel(languages)).toContain('Languages');
+		expect(panel(languages)).not.toContain('選擇 2 種語言。');
 		expect(englishSheet).toContain('You have an ear for languages.');
 		expect(englishSheet).not.toContain(parentSentence);
 		expect(englishSelected).toContain('You have an ear for languages.');

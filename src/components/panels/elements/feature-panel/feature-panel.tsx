@@ -21,7 +21,9 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { perkListText } from '@/l10n/perk-list-ui';
+import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { useUI } from '@/l10n/ui-text';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useOptions } from '@/contexts/data-context';
@@ -152,6 +154,10 @@ export const FeaturePanel = (props: Props) => {
 	const perkLabel = 'type' in props.feature
 		? careerPerkNameText(props.feature as Feature, props.sourcebooks || [], ui)
 		: undefined;
+	const languageChoice = officialLanguageChoiceDisplay(props.feature, props.sourcebooks || []);
+	const reusedName = reusedOfficialPerkName(props.feature, props.sourcebooks || []);
+	const headerName = customization?.name || perkLabel || languageChoice.name || reusedName || props.feature.name || 'Unnamed Feature';
+	const description = customization?.description || languageChoice.description || props.feature.description;
 
 	return (
 		<ElementScope element={props.feature} overlay={customization}>
@@ -185,10 +191,10 @@ export const FeaturePanel = (props: Props) => {
 							/>
 						}
 					>
-						{customization?.name || perkLabel || props.feature.name || 'Unnamed Feature'}
+						{headerName}
 					</HeaderText>
 					<Markdown
-						text={AbilityLogic.getTextEffect(customization?.description || props.feature.description, autoCalc ? props.hero : undefined)}
+						text={AbilityLogic.getTextEffect(description, autoCalc ? props.hero : undefined)}
 					/>
 					{
 						props.mode === PanelMode.Full ?

@@ -23,7 +23,10 @@ import { PlayerName } from '@/l10n/player-name';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
+import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
+import { perkSkillCountLine } from '@/l10n/perk-list-ui';
+import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
@@ -45,6 +48,11 @@ interface Props {
 }
 
 const OfficialPerkName = (props: { feature: { id: string, name: string } }) => {
+	const sourcebooks = useOptionalSourcebooks() || [];
+	const reused = reusedOfficialPerkName(props.feature, sourcebooks);
+	if (reused) {
+		return reused;
+	}
 	if (props.feature.id.startsWith('perk-')) {
 		return <PlayerName element={props.feature} />;
 	}
@@ -62,7 +70,7 @@ const BasicFeatureComponent = (feature: Feature) => {
 	);
 };
 
-const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice | FeatureItemChoice, hero?: Hero) => {
+const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice | FeatureItemChoice, hero: Hero | undefined, sourcebooks: Sourcebook[]) => {
 	let selectedOptions;
 	if (feature.data.selected.length > 0) {
 		selectedOptions = feature.data.selected.map(s => typeof s === 'string' ? s : s.name).map(s => {
@@ -79,10 +87,14 @@ const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice |
 		ancestryPts = HeroLogic.getAncestryPoints(hero);
 	}
 	const count = feature.data.count === 'ancestry' ? ancestryPts : feature.data.count;
+	const languageChoice = feature.id.startsWith('perk-') ? officialLanguageChoiceDisplay(feature, sourcebooks) : {};
+	const choiceLine = languageChoice.name
+		? `• ${count} ${languageChoice.name}`
+		: `• ${feature.data.count} ${SheetFormatter.pluralize(feature.name, count)}`;
 	return (
 		<>
 			<div className='feature-line'>
-				{`• ${feature.data.count} ${SheetFormatter.pluralize(feature.name, count)}`}
+				{choiceLine}
 			</div>
 			{selectedOptions}
 		</>
@@ -127,6 +139,9 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 			break;
 	}
 	const lists = SheetFormatter.joinCommasOr(listNames);
+	const skillLine = feature.type === FeatureType.SkillChoice && feature.id.startsWith('perk-')
+		? perkSkillCountLine(feature.data.count, feature.data.listOptions.map(list => list.toString()), ui.language)
+		: undefined;
 	let selectedOptions;
 	if (feature.type === FeatureType.Perk && feature.data.selected.length) {
 		selectedOptions = feature.data.selected.map(perk => (
@@ -150,7 +165,7 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 			<div className='feature-line'>
 				• {feature.type === FeatureType.Perk
 					? perkCountCategoryLine(feature.data.count, listNames ?? [], ui.language)
-					: `${feature.data.count} ${lists} ${SheetFormatter.pluralize(choiceType, feature.data.count)}`}
+					: skillLine ?? `${feature.data.count} ${lists} ${SheetFormatter.pluralize(choiceType, feature.data.count)}`}
 			</div>
 			{selectedOptions}
 		</>
@@ -547,7 +562,7 @@ export const FeatureComponent = (props: Props) => {
 		case FeatureType.LanguageChoice:
 		case FeatureType.Choice:
 		case FeatureType.ItemChoice:
-			content = ChoiceFeatureComponent(feature, hero);
+			content = ChoiceFeatureComponent(feature, hero, sourcebooks);
 			break;
 		case FeatureType.AncestryChoice:
 			content = AncestryChoiceFeatureComponent(feature);

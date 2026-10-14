@@ -1,8 +1,14 @@
+import { Feature } from '@/models/feature';
+import { FeatureType } from '@/enums/feature-type';
 import { Language } from '@/l10n/language';
+import { LanguageType } from '@/enums/language-type';
 import { PerkList } from '@/enums/perk-list';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { applyUITemplate } from '@/l10n/ui-text';
+import { getChoiceDisplaySource } from '@/l10n/official-feature-source';
 import { mapping } from '@/l10n/mapping';
+import { skillListKey } from '@/l10n/skill-text';
 import { translate } from '@/l10n/text';
 import { useUI } from '@/l10n/ui-text';
 
@@ -68,11 +74,99 @@ export const perkCountCategoryLine = (count: number, categories: string[], langu
 	return label ? `${count} ${label} ${word}` : `${count} ${word}`;
 };
 
-const officialPerk = (id: string, sourcebooks: Sourcebook[]) => {
+const featuresWithin = (feature: Feature): Feature[] => {
+	if (feature.type !== FeatureType.Multiple || !feature.data) {
+		return [];
+	}
+	return feature.data.features.flatMap(child => [ child, ...featuresWithin(child) ]);
+};
+
+const officialPerks = (sourcebooks: Sourcebook[]) => {
 	return sourcebooks
 		.filter(sourcebook => sourcebook.type === SourcebookType.Official)
-		.flatMap(sourcebook => sourcebook.perks)
-		.find(perk => perk.id === id);
+		.flatMap(sourcebook => sourcebook.perks);
+};
+
+const officialPerk = (id: string, sourcebooks: Sourcebook[]) => {
+	const perks = officialPerks(sourcebooks);
+	return perks.find(perk => perk.id === id)
+		?? perks.flatMap(featuresWithin).find(feature => feature.id === id);
+};
+
+const standardLanguageTypes = [ LanguageType.Common, LanguageType.Regional, LanguageType.Cultural, LanguageType.Dead ];
+
+/**
+ * An official language-choice label whose English is still the factory sentence.
+ * The approved UI row supplies the Chinese. A rewritten label stays English.
+ */
+export const officialLanguageChoiceDisplay = (feature: Feature, sourcebooks: Sourcebook[]) => {
+	const source = getChoiceDisplaySource(feature, sourcebooks);
+	if (!source || source.type !== FeatureType.LanguageChoice || feature.type !== FeatureType.LanguageChoice) {
+		return {};
+	}
+	const shown: { name?: string, description?: string } = {};
+	if (feature.name === source.name && (feature.name === 'Languages' || feature.name === 'Language')) {
+		const id = feature.name === 'Languages'
+			? 'ui.hero-builder.languages.318655ce'
+			: 'ui.hero-builder.language.996aaf3b';
+		const translated = translate(`ui:${id}`, feature.name);
+		if (translated !== feature.name) {
+			shown.name = translated;
+		}
+	}
+	const { count, allowedTypes } = source.data;
+	const unrestricted = allowedTypes.length === standardLanguageTypes.length
+		&& standardLanguageTypes.every((type, index) => allowedTypes[index] === type);
+	if (feature.description === source.description && unrestricted && count === 2 && feature.description === 'Choose 2  languages.') {
+		const translated = translate('ui:ui.hero-builder.two-languages-description.0139e42b', feature.description);
+		if (translated !== feature.description) {
+			shown.description = translated;
+		}
+	}
+	return shown;
+};
+
+/**
+ * A perk sub-feature that repeats its perk's English name uses that perk's approved name.
+ * Its own mapped name wins. Two perks with the same name stay English.
+ */
+export const reusedOfficialPerkName = (feature: { id: string, name: string }, sourcebooks: Sourcebook[]) => {
+	if (!feature.id.startsWith('perk-') || !feature.name || mapping[`element:${feature.id}:name`]) {
+		return undefined;
+	}
+	const matches = officialPerks(sourcebooks)
+		.filter(perk => perk.id !== feature.id && perk.name === feature.name && mapping[`element:${perk.id}:name`]);
+	if (matches.length !== 1) {
+		return undefined;
+	}
+	const translated = translate(`element:${matches[0].id}:name`, feature.name);
+	return translated === feature.name ? undefined : translated;
+};
+
+/**
+ * Classic-sheet skill count for a perk. Chinese uses the approved skill-list template.
+ * A missing group translation keeps the English line.
+ */
+export const perkSkillCountLine = (count: number, lists: string[], language: Language) => {
+	if (language !== 'zh-TW' || lists.length === 0) {
+		return undefined;
+	}
+	const translated = lists.map(list => translate(skillListKey(list), list));
+	if (translated.some((name, index) => name === lists[index])) {
+		return undefined;
+	}
+	const list = translated.join(' / ');
+	const english = `${list} skills`;
+	const grouped = applyUITemplate(
+		translate('ui:ui.hero-builder.skill-list-description.f94c20ab', '`${list} skills`'),
+		'`${list} skills`',
+		english,
+		{ list }
+	);
+	if (grouped === english) {
+		return undefined;
+	}
+	return `${count} ${grouped}`;
 };
 
 /**
