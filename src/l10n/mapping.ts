@@ -736,6 +736,7 @@ export const mapping: Record<string, MappingEntry> = {
 	'ui:ui.hero-builder.supernatural.fe29726a': { sheetId: 'ui.hero-builder.supernatural.fe29726a', enHash: 'fe29726a1809673daab4ef0d691657b131f650271b9c96b2c77770a1bc35794f' },
 	'ui:ui.hero-builder.this-feature-allows-you-to-choos.f843efd3': { sheetId: 'ui.hero-builder.this-feature-allows-you-to-choos.f843efd3', enHash: 'f843efd3ba38a11472e4a2f70bfd3cdfda725873534dd16090919e769e10896d' },
 	'ui:ui.hero-builder.unnamed-career.137894c6': { sheetId: 'ui.hero-builder.unnamed-career.137894c6', enHash: '137894c60200388d74e5b9b3375a95ae453f3aee4d48875d1d6b7a6069f9491f' },
+	'ui:ui.hero-builder.unselected.26118cfc': { sheetId: 'ui.hero-builder.unselected.26118cfc', enHash: '26118cfc7e5b8d7fed80dcfa06afca3c8c8d310040b2628dcaaee20d2f046406' },
 	'element:career-agent-ii-1:name': { sheetId: 'heroes.background.career.agent.inciting.1.name', enHash: 'c79498451ab752a84e5f5fcb18cd80bf846ac3702b453bdec4bdb85b03152227' },
 	'element:career-agent-ii-1:description': { sheetId: 'heroes.background.career.agent.inciting.1.description', enHash: '82aa6d2d70b2c1d35dac709c8640f138e840131d8a036ee3565f89951cf994f6' },
 	'element:career-agent-ii-2:name': { sheetId: 'heroes.background.career.agent.inciting.2.name', enHash: '10470f9f48a2b690caa101f69988925a19fda6ef9b85b1723395c59f17b43c1d' },

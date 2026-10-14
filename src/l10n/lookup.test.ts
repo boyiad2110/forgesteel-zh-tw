@@ -1684,13 +1684,17 @@ describe('perk name segment', () => {
 			feature: languages
 		})));
 		expect(languageSheet).toContain('語言');
+		expect(languageSheet).toContain('尚未選擇');
 		expect(languageSheet).not.toContain('Languages');
+		expect(languageSheet).not.toContain('Unselected');
 		const memory = core.perks.find(perk => perk.id === 'perk-eidetic-memory')!;
 		const memorySheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
 			feature: memory
 		})));
 		expect(memorySheet).toContain('1 學識類技能');
+		expect(memorySheet).toContain('尚未選擇');
 		expect(memorySheet).not.toContain('Lore Skill');
+		expect(memorySheet).not.toContain('Unselected');
 		setLanguage('en');
 		const englishSheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
 			feature: linguist as Feature
@@ -1714,6 +1718,16 @@ describe('perk name segment', () => {
 		expect(englishSheet).not.toContain(parentSentence);
 		expect(englishSelected).toContain('You have an ear for languages.');
 		expect(englishSelected).not.toContain(parentSentence);
+		const englishLanguage = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: languages
+		})));
+		const englishMemory = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: memory
+		})));
+		expect(englishLanguage).toContain('Unselected');
+		expect(englishLanguage).not.toContain('尚未選擇');
+		expect(englishMemory).toContain('Unselected');
+		expect(englishMemory).not.toContain('尚未選擇');
 		setLanguage('zh-TW');
 	});
 

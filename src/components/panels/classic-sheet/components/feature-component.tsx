@@ -47,6 +47,11 @@ interface Props {
 	additionalClasses?: string[];
 }
 
+const UnselectedLabel = () => {
+	const ui = useUI();
+	return ui.text('ui.hero-builder.unselected.26118cfc', 'Unselected');
+};
+
 const OfficialPerkName = (props: { feature: { id: string, name: string } }) => {
 	const sourcebooks = useOptionalSourcebooks() || [];
 	const reused = reusedOfficialPerkName(props.feature, sourcebooks);
@@ -79,7 +84,7 @@ const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice |
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	let ancestryPts = 0;
@@ -153,7 +158,7 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	return (
@@ -280,7 +285,7 @@ const ClassAbilityFeatureComponent = (feature: FeatureClassAbility) => {
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	return (
@@ -361,7 +366,7 @@ const DomainFeatureComponent = (feature: FeatureDomain | FeatureDomainFeature) =
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	return (

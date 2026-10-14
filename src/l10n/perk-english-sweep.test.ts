@@ -162,15 +162,6 @@ describe('perk English sweep', () => {
 				pending[place] = rest;
 			}
 		}
-		const pendingSurfaces = Object.keys(pending).map(place => place.replace(/ L\d+$/, '')).sort();
-		expect(pendingSurfaces).toEqual([
-			'perk-eidetic-memory @ sheet',
-			'perk-eidetic-memory @ sheet',
-			'perk-linguist-2 @ sheet',
-			'perk-linguist-2 @ sheet'
-		]);
-		for (const phrases of Object.values(pending)) {
-			expect(phrases).toEqual([ 'Unselected' ]);
-		}
+		expect(pending).toEqual({});
 	});
 });

@@ -207,5 +207,6 @@
   "ui.hero-builder.selecting-a-perk-from-outside-th.1be9b4cd": "Selecting a perk from outside the listed groups is typically against the rules.",
   "ui.hero-builder.choose-a-perk.38f11151": "Choose a perk.",
   "ui.hero-builder.supernatural.fe29726a": "Supernatural",
-  "ui.hero-builder.special.997c544f": "Special"
+  "ui.hero-builder.special.997c544f": "Special",
+  "ui.hero-builder.unselected.26118cfc": "Unselected"
 }

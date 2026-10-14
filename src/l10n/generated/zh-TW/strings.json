@@ -6482,6 +6482,76 @@
     "updated": "2026-10-14",
     "zh": "自訂裝備外觀\n你完全可以按照遊戲故事與英雄形象自由描述裝備外觀。例如，若你的英雄使用套裝中的鞭笞武器，可以選擇皮鞭、帶刺鐵鍊，或將匕首綁在打結的繩索上。身穿重甲的英雄也可能穿著鎖子甲、板甲，或把厚重的木板綁在身上當作護甲。你的裝備選擇不受本書範例的限制。"
   },
+  "heroes.kits.general.improvised-weapons.definition": {
+    "en": "Improvised Weapons\nImprovised weapons include rocks, bottles, plates, furniture, and anything else you pick up that can be bashed, hurled, or stabbed into an enemy. As well, any weapons that aren’t part of your kit count as improvised weapons for you. If you’re not using a kit with unarmed strikes, then your feet and fists are improvised weapons. If you’re not using any kit and pick up a sword to use as part of a melee free strike, the sword counts as an improvised weapon.",
+    "updated": "2026-10-14",
+    "zh": "臨時武器\n臨時武器包括石頭、瓶子、盤子、家具，以及其他任何你隨手拿起、可以用來敲擊、投擲或刺向敵人的東西。此外，任何不屬於你套裝的武器，對你而言也都算是臨時武器。若你沒有使用提供徒手攻擊的套裝，你的拳腳也視為臨時武器。如果你沒有使用任何套裝，卻拿起一把劍發動近戰基礎打擊，這把劍也視為臨時武器。"
+  },
+  "heroes.kits.general.improvised-weapons.use": {
+    "en": "Improvised weapons can be used with weapon abilities you gain from your class. For instance, many melee-focused heroes choose a kit that maximizes their melee capabilities, then make ranged free strikes with improvised weapons. However, you can’t use improvised weapons with weapon abilities gained from your kit, and you add no special bonuses from your kit to a weapon ability used with an improvised weapon.",
+    "updated": "2026-10-14",
+    "zh": "你可以使用臨時武器施展職業賦予的武器招式。例如，許多以近戰為主的英雄會選擇能夠強化近戰能力的套裝，並使用臨時武器發動遠程基礎打擊。不過，臨時武器不能用於套裝賦予的武器招式；而且當你使用臨時武器施展武器招式時，不能將套裝的任何特殊加值加到該招式上。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.bonuses-across-tiers.example": {
+    "en": "For example, the Shining Armor kit has a +2/+2/+2 melee damage bonus, increasing the damage of melee weapon abilities across all tier outcomes. The Sniper kit has a +0/+0/+4 ranged damage bonus, having no effect on a tier 1 or tier 2 outcome on an ability roll, but increasing the damage of tier 3 outcomes by +4 for your ranged weapon abilities.",
+    "updated": "2026-10-14",
+    "zh": "例如，鐵騎套裝提供 +2/+2/+2 的近戰傷害加值，讓近戰武器招式在所有階級結果下造成的傷害都增加。狙擊套裝則提供 +0/+0/+4 的遠程傷害加值，對招式檢定的 T1 與 T2 結果沒有影響，但會使遠程武器招式的 T3 結果額外增加 4 點傷害。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.bonuses-across-tiers.rule": {
+    "en": "Bonuses Across Tiers\nKit damage bonuses increase based on the tier outcome of the power roll for a weapon ability, and are presented as “+X/+Y/+Z.” The X bonus is added to a tier 1 outcome, the Y bonus is added to a tier 2 outcome, and the Z bonus is added to a tier 3 outcome.",
+    "updated": "2026-10-14",
+    "zh": "各階級的加值\n套裝的傷害加值會依照武器招式的檢定階級結果而有所不同，以「+X/+Y/+Z」表示。X 加值適用於 T1 結果，Y 加值適用於 T2 結果，Z 加值適用於 T3 結果。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.damage-bonuses": {
+    "en": "Damage Bonuses\nKits can grant you a bonus to damage with both melee and ranged weapon abilities. If a kit has a melee damage bonus, that bonus is added to the rolled damage of any damage-dealing ability with both the Melee and Weapon keywords. A kit’s ranged damage bonus is added to the rolled damage of damage-dealing abilities with both the Ranged and Weapon keywords.",
+    "updated": "2026-10-14",
+    "zh": "傷害加值\n套裝可以為近戰與遠程武器招式提供傷害加值。若套裝具有近戰傷害加值，任何同時具有「近戰」與「武器」關鍵詞、而且會造成傷害的招式，其檢定傷害都會加上這項加值。同樣地，遠程傷害加值則適用於同時具有「遠程」與「武器」關鍵詞、而且會造成傷害的招式。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.disengage-bonus": {
+    "en": "Disengage Bonus\nA kit that has a disengage bonus increases the number of squares you can shift when you take the Disengage move action (see Chapter 10: Combat).",
+    "updated": "2026-10-14",
+    "zh": "撤離加值\n若套裝具有撤離加值，你執行「撤離」移動動作時能遁移的格數就會增加（詳見第 10 章〈戰鬥〉）。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.distance-bonus.aoe": {
+    "en": "A distance bonus doesn’t increase the size of any ability’s area of effect.",
+    "updated": "2026-10-14",
+    "zh": "射程加值不會增加任何招式的效果範圍大小。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.distance-bonus.rule": {
+    "en": "Distance Bonus\nA kit’s melee distance bonus increases the distance of abilities with the Melee and Weapon keywords. A kit’s ranged distance bonus increases the distance of abilities with the Ranged and Weapon keywords.",
+    "updated": "2026-10-14",
+    "zh": "射程加值\n套裝的近戰射程加值會增加同時具有「近戰」與「武器」關鍵詞之招式的射程。遠程射程加值則會增加同時具有「遠程」與「武器」關鍵詞之招式的射程。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.intro": {
+    "en": "Kit Bonuses and Traits\nA kit can grant a bonus to your Stamina, speed, and stability, as well as the damage and distance of your weapon abilities, including your free strikes. (Abilities in Chapter 5: Classes has information on abilities, ability keywords, and more.)",
+    "updated": "2026-10-14",
+    "zh": "套裝加值與特性\n套裝可以為你的體力、速度與穩度，以及武器招式（包含基礎打擊）的傷害與射程提供加值。（招式、招式關鍵詞等相關資訊，詳見第 5 章〈職業〉的〈招式〉。）"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.signature-ability.reference": {
+    "en": "For details on the ability format, see Abilities in Chapter 5: Classes.",
+    "updated": "2026-10-14",
+    "zh": "招式格式的詳細資訊，請見第 5 章〈職業〉的〈招式〉。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.signature-ability.rule": {
+    "en": "Kit Signature Ability\nEach kit grants a signature ability, whose distance and damage already includes the kit’s bonuses. For instance, the Guisarmier kit’s Forward Thrust, Backward Smash ability has a distance of melee 2 and deals 4, 7, or 9 damage depending on the tier outcome, with that distance and damage including the bonuses from the kit.",
+    "updated": "2026-10-14",
+    "zh": "套裝招牌招式\n每個套裝都會提供 1 個招牌招式，其射程與傷害已經包含套裝提供的加值。例如，長兵套裝的「前刺後劈」招式具有「近戰 2」的射程，並依照階級結果造成 4、7 或 9 點傷害，這些射程與傷害數值都已經包含套裝加值。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.speed-bonus": {
+    "en": "Speed Bonus\nYour kit’s speed bonus is added to your speed.",
+    "updated": "2026-10-14",
+    "zh": "速度加值\n套裝提供的速度加值會加到你的速度。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.stability-bonus": {
+    "en": "Stability Bonus\nYour kit’s stability bonus is added to your stability.",
+    "updated": "2026-10-14",
+    "zh": "穩度加值\n套裝提供的穩度加值會加到你的穩度。"
+  },
+  "heroes.kits.general.kit-bonuses-and-traits.stamina-bonus": {
+    "en": "Stamina Bonus\nYour kit’s Stamina bonus is added to your Stamina maximum and scales with your echelon.",
+    "updated": "2026-10-14",
+    "zh": "體力加值\n套裝提供的體力加值會加到你的體力上限，並隨著境界提高而增加。"
+  },
   "heroes.kits.general.kit-equipment.examples": {
     "en": "The description of equipment in your kit is limited to broad categories, leaving you free to decide the specifics that best align with your vision of your character. For instance, the Guisarmier kit provides medium armor and a polearm. One player using this kit could wear heavy layers of hide and wield a longspear, while another might wear a shining breastplate and carry a halberd into battle.",
     "updated": "2026-10-14",
@@ -6496,6 +6566,56 @@
     "en": "You can wear armor and wield weapons that aren’t part of your kit, but if you do, you don’t get your kit’s bonuses.",
     "updated": "2026-10-14",
     "zh": "你也可以使用不屬於套裝的護甲和武器，但這樣就無法獲得套裝加值。"
+  },
+  "heroes.kits.general.kits-a-to-z.intro": {
+    "en": "Kits A to Z\nThis section details each kit, whose bonuses and benefits are summarized in the Kits table.",
+    "updated": "2026-10-14",
+    "zh": "套裝一覽\n本節詳細介紹各種套裝，其加值與益處則彙整於「套裝」總表。"
+  },
+  "heroes.kits.general.kits-and-treasures.change-kit": {
+    "en": "If you find a piece of equipment you really want to use that isn’t part of your kit, you can always change your kit as a respite activity.",
+    "updated": "2026-10-14",
+    "zh": "若你找到 1 件你非常想用但不屬於你當前套裝的裝備，你還是可以使用休整活動來變更套裝。"
+  },
+  "heroes.kits.general.kits-and-treasures.use": {
+    "en": "Kits and Treasures\nWhen you find a supernatural treasure such as a magic sword, you can use the item as long as it’s in one of your kit’s equipment categories. A Blade of Quintessence is a medium weapon, so you can use it with the Ranger or Shining Armor kits. However, you can’t use it with the Cloak and Dagger or Stick and Robe kits because those kits don’t include medium weapons, meaning you haven’t done the necessary preparations to use the weapon effectively. You can still swing a Blade of Quintessence around as an improvised weapon, but you don’t get any of its bonuses or benefits.",
+    "updated": "2026-10-14",
+    "zh": "套裝與寶物\n當你找到 1 件超常寶物時（例如 1 把魔劍），只要該道具屬於你當前套裝的裝備類別，你就可以使用它。例如，「極粹之刃」屬於中型武器，因此遊俠或鐵騎套裝可以使用這把武器，但潛襲或杖袍套裝無法，因為這些套裝不提供中型武器，代表你還沒有做好有效使用這把武器的必要準備。當然，你仍然可以將「極粹之刃」當作臨時武器揮舞，但你無法獲得寶物提供的任何加值或益處。"
+  },
+  "heroes.kits.general.losing-equipment.armor-shield": {
+    "en": "If your kit has armor and you aren’t wearing it or wielding it (in the case of a shield), you lose your kit’s Stamina bonus and stability bonus. If you lose your shield but keep the rest of your armor, your Stamina decreases by 3 per echelon. As long as you are carrying your shield, you don’t lose its Stamina bonus, even if you aren’t actively wielding it.",
+    "updated": "2026-10-14",
+    "zh": "若套裝提供護甲，而你沒有穿戴該護甲（盾牌則為沒有持用），你會失去套裝的體力加值與穩度加值。若你失去盾牌，但仍保留其他護甲，你的體力會每境界減少 3 點。只要你仍攜帶盾牌，即使沒有實際持用，也不會失去盾牌提供的體力加值。"
+  },
+  "heroes.kits.general.losing-equipment.bow": {
+    "en": "If your kit has a bow weapon you aren’t wielding, you lose the kit’s ranged damage bonus and distance bonus.",
+    "updated": "2026-10-14",
+    "zh": "若套裝提供弓箭武器，而你沒有持用該武器，你會失去套裝的遠程傷害加值與遠程射程加值。"
+  },
+  "heroes.kits.general.losing-equipment.ensnaring": {
+    "en": "If your kit has an ensnaring weapon you aren’t wielding, you lose the kit’s signature ability.",
+    "updated": "2026-10-14",
+    "zh": "若套裝提供捕縛武器，而你沒有持用該武器，你會失去套裝的招牌招式。"
+  },
+  "heroes.kits.general.losing-equipment.intro": {
+    "en": "Optional Rule: Losing Equipment\nThe rules of the game expect that heroes always have access to their equipment. That’s because for most of the time in the game, heroes aren’t worried about surviving for days on end in a dungeon and tracking every piece of gear they carry. However, there might be times where your group wants to tell a story of heroes who are captured and stripped of their equipment, or who find themselves at a masquerade where weapons need to be checked at the door. For those kinds of scenarios, you can use the following rules:",
+    "updated": "2026-10-14",
+    "zh": "可選規則：失去裝備\n遊戲規則假設英雄隨時都能使用自己的裝備。這是因為在大多數情況下，英雄不需要擔心如何在地下城中連續求生數日，也不必逐件清點隨身攜帶的裝備。然而，你們有時可能想要講述英雄遭到俘虜、裝備被奪走的故事，或是英雄參加化裝舞會、必須在門口寄放武器的情境。在這類情況下，你可以使用以下規則："
+  },
+  "heroes.kits.general.losing-equipment.light": {
+    "en": "If your kit has a light weapon you aren’t wielding, you lose the kit’s melee damage bonus, ranged damage bonus, and distance bonus for a weapon you throw. If your kit also has a bow, you don’t lose those benefits for the bow.",
+    "updated": "2026-10-14",
+    "zh": "若套裝提供輕型武器，而你沒有持用該武器，你會失去套裝的近戰傷害加值，以及用於投擲武器的遠程傷害加值與射程加值。若套裝同時提供弓箭武器，你不會失去該弓箭武器的上述益處。"
+  },
+  "heroes.kits.general.losing-equipment.medium-heavy": {
+    "en": "If your kit has a medium or heavy weapon you aren’t wielding, you lose the kit’s melee damage bonus.",
+    "updated": "2026-10-14",
+    "zh": "若套裝提供中型或重型武器，而你沒有持用該武器，你會失去套裝的近戰傷害加值。"
+  },
+  "heroes.kits.general.losing-equipment.polearm-whip": {
+    "en": "If your kit has a polearm or whip you aren’t wielding, you lose the kit’s melee damage bonus and melee distance bonus.",
+    "updated": "2026-10-14",
+    "zh": "若套裝提供長柄或鞭笞武器，而你沒有持用該武器，你會失去套裝的近戰傷害加值與近戰射程加值。"
   },
   "heroes.kits.general.weapon-categories.intro": {
     "en": "Kit Weapon Categories\nThe weapons provided by a kit fall into eight categories that indicate the types of weapons you wield while using the kit.",
