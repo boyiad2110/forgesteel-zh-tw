@@ -172,11 +172,11 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 維持英文，本段不接：
 
 - `perk-teamwork`：網站是 “during a montage test”，書本是 “during any montage test”。Marc 已於 2026-10-14 核准 Adaptation `fs-adapt:heroes.perks.teamwork.effect`。中文只刪掉書本句的「任何」，其餘逐字保留，並已接入 mapping。
-- `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。不能把整段書本效果貼到較短的父項。已起草兩列 Adaptation，狀態 DRAFT，尚未寫入 Sheet、也沒有 mapping。父項目標只留書本第一句「你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。」核准後整段父項會換成這句，多出來的英文句子在正體中文模式不會出現。子項 `perk-linguist-1` 刪掉「此外，」和「（詳見第 12 章〈休整專案〉）」，保留句號。語言選擇 `perk-linguist-2` 在書本效果裡沒有對應句子，不起草。
+- `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。Marc 已於 2026-10-14 核准兩列 Adaptation。父項 `fs-adapt:heroes.perks.linguist.effect` 寫進書本列的 Forge Steel 版，中文只留「你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。」整段父項換成這句，多出來的英文句子在正體中文模式不會出現。子項 `fs-adapt:heroes.perks.linguist.effect.1` 對應 `perk-linguist-1`，刪掉「此外，」和「（詳見第 12 章〈休整專案〉）」，保留句號；同一書本列的第二次用途留在 `adaptations.json`，由 usage key 選出。語言選擇 `perk-linguist-2` 在書本效果裡沒有對應句子，維持語言選擇器。
 - 招式型短描述（第 3 段）：`perk-friend-catapult`、`perk-ive-got-you`、`perk-gum-up-the-works`、`perk-creature-sense`、`perk-invisible-force`、`perk-psychic-whisper`。短描述與完整招式不同，不把書本整段套上去。
 - 第 4 段結構：`perk-arcane-trick`、`perk-familiar`。
 
-mapping 982。英文例外 17。帶 Forge Steel 版本的字串列是 325。同次書本擷取另有 30 個名稱與 110 筆字串進入核准目錄，沒有 mapping。Glossary 與 UI 筆數不變，既有核准列的英文與中文沒有變。
+mapping 984。英文例外 17。帶 Forge Steel 版本的字串列是 326。語言學家父項與子項都已接入；子項不是另一筆 Forge Steel 字串列。這次刷新的書本目錄多了 1 筆 Glossary 與 21 筆 Strings，Names 與 UI 不變。這些新增列沒有本段 mapping。快照：書本 `2026-10-14T08:11:19.699Z` 指紋 `448baee98907131985976b2d9519a057acc1afbe0e0c18f5591e992ea415115d`，Forge `2026-10-14T08:26:16.686Z` 指紋 `6693954f02e3f45fa4457af4ad45e68058d99c64575b94548e2c16da7170ec00`。目錄 Glossary 333／Names 131／Strings 1168／UI 209。
 
 ### 第 3 段：專長授予的招式
 
@@ -204,7 +204,7 @@ mapping 982。英文例外 17。帶 Forge Steel 版本的字串列是 325。同�
 
 網站目前把速度存成 5、基礎打擊 0、理智 0、氣場 +1，體力則是基礎 0 再加固定 2 與每級 2。這和「2 × 等級」不是同一組儲存數字。第 4 段只做顯示；若無法在不改存檔數值的前提下呈現核准數據表，先停下來請 Marc 決定，不改怪物資料。書本英文來源列印有 Familliar 與 “The While” 字樣，那是來源紀錄，不在網站上「修正」。
 
-`perk-linguist` 的子特性與語言選擇若還沒有獨立核准接點，也放本段處理，避免和第 2 段的單段描述混在一起。
+`perk-linguist` 的父項與 7 日句子已在第 2 段接入。語言選擇 `perk-linguist-2` 沒有書本句子，留在選擇器。
 
 ### 第 5 段：收尾
 
@@ -212,7 +212,7 @@ mapping 982。英文例外 17。帶 Forge Steel 版本的字串列是 325。同�
 
 ## 本段不處理
 
-- 尚未接入的效果：`perk-linguist`、6 個招式型短描述、奧術戲法、魔寵數據表與 Telepathic。
+- 尚未接入的效果：6 個招式型短描述、奧術戲法、魔寵數據表與 Telepathic。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
 - 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
 - 非 Heroes 來源書的專長。
 - Google Sheets、遊戲規則、存檔與分享格式。

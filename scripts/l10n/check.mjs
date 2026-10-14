@@ -1687,6 +1687,62 @@ const forgeSteelShape = fs => {
 		&& typeof fs.basisHash === 'string';
 };
 
+const loadUsageAdaptations = catalogRoot => {
+	const text = read(path.join(catalogRoot, 'src/l10n/generated/zh-TW/adaptations.json'));
+	const map = new Map();
+	if (text === null) {
+		return map;
+	}
+	let data;
+	try {
+		data = JSON.parse(text);
+	} catch {
+		return map;
+	}
+	if (!data || typeof data !== 'object' || Array.isArray(data)) {
+		return map;
+	}
+	for (const entry of Object.values(data)) {
+		if (!entry || typeof entry !== 'object' || typeof entry.usageKey !== 'string' || entry.usageKey === '') {
+			continue;
+		}
+		map.set(entry.usageKey, entry);
+	}
+	return map;
+};
+
+/**
+ * A second approved use of one book row keeps its own source and target.
+ * The string's canonical Forge Steel version stays the adaptation whose id is fs-adapt:<book id>.
+ */
+const checkAlternateAdaptation = (entry, row, forgeEn, adaptation) => {
+	const found = [];
+	if (adaptation.bookStringId !== entry.sheetId || typeof adaptation.en !== 'string' || typeof adaptation.zh !== 'string') {
+		found.push(issue('forge-steel', 'src/l10n/mapping.ts', entry.line, entry.key, 'alternate Forge Steel use does not match its mapped book row'));
+		return found;
+	}
+	if (forgeEn.trim() !== adaptation.en) {
+		found.push(issue(
+			'forge-steel',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`Forge Steel English does not match the alternate Forge Steel Source Text (${englishPreview(adaptation.en, forgeEn.trim())})`
+		));
+	}
+	const current = typeof row.zh === 'string' ? hashEnglish(row.zh) : '';
+	if (current !== adaptation.basisHash) {
+		found.push(issue(
+			'forge-steel',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`alternate Forge Steel use is stale (basis ${adaptation.basisHash}, book Chinese ${current})`
+		));
+	}
+	return found;
+};
+
 const checkForgeSteelVersion = (entry, row, forgeEn, hasException) => {
 	const found = [];
 	const fs = row.fs;
@@ -1892,6 +1948,7 @@ export const checkMapping = (root, catalogRoot = root) => {
 		errors.push(...sheet.errors);
 	}
 	const rows = loadSheetRows(path.join(catalogRoot, 'src/l10n/generated/zh-TW'));
+	const usageAdaptations = loadUsageAdaptations(catalogRoot);
 	const cache = { current: null };
 	for (const entry of parsed.entries) {
 		if (sheet.errors.length === 0 && !sheet.ids.has(entry.sheetId)) {
@@ -1922,12 +1979,17 @@ export const checkMapping = (root, catalogRoot = root) => {
 		}
 		const row = rows.get(entry.sheetId);
 		if (hasForgeSteel(row)) {
-			errors.push(...checkForgeSteelVersion(
-				entry,
-				row,
-				resolved.english,
-				loadedExceptions.exceptions.has(entry.key)
-			));
+			const adaptation = usageAdaptations.get(entry.key);
+			const alternate = adaptation && row.fs
+				&& (adaptation.en !== row.fs.en || adaptation.zh !== row.fs.zh);
+			errors.push(...(alternate
+				? checkAlternateAdaptation(entry, row, resolved.english, adaptation)
+				: checkForgeSteelVersion(
+					entry,
+					row,
+					resolved.english,
+					loadedExceptions.exceptions.has(entry.key)
+				)));
 		} else {
 			if (entry.stripHeading) {
 				const heading = checkRulesHeading(catalogRoot, entry, resolved.english);

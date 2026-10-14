@@ -5219,6 +5219,38 @@
       }
     ]
   },
+  "fs-adapt:heroes.perks.linguist.effect": {
+    "bookStringId": "heroes.perks.linguist.effect",
+    "usageKey": "element:perk-linguist:description",
+    "en": "You have an ear for languages. You automatically learn two new languages, as long as you have regularly heard those languages spoken or seen them written before.",
+    "zh": "你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。",
+    "basisHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.linguist.effect",
+        "enHash": "03f29eb20d6a8fcd95a97a9094f266e29979c757cf227bea92d647b691ca0d89",
+        "zhHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.linguist.effect.1": {
+    "bookStringId": "heroes.perks.linguist.effect",
+    "usageKey": "element:perk-linguist-1:description",
+    "en": "If you spend 7 days or more in a place where you regularly hear or read a language you don’t know, you can pick up enough of that language to hold a conversation or understand basic written information. Having picked up a language this way, you can subsequently learn it using the Learn New Language research project at half the usual project goal cost.",
+    "zh": "若你在某個地方停留至少 7 天，並有機會經常聽到或讀到 1 種你不懂的語言，你就可以掌握足夠的語言能力來進行對話或理解基礎書面資訊。以這種方式掌握語言後，你可以使用「學習新語言」研究類專案來進一步學習，且專案目標費用只需要原本的一半。",
+    "basisHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.linguist.effect",
+        "enHash": "03f29eb20d6a8fcd95a97a9094f266e29979c757cf227bea92d647b691ca0d89",
+        "zhHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f"
+      }
+    ]
+  },
   "fs-adapt:heroes.perks.teamwork.effect": {
     "bookStringId": "heroes.perks.teamwork.effect",
     "usageKey": "element:perk-teamwork:description",

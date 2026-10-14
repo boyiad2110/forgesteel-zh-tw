@@ -794,6 +794,8 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:perk-lie-detector:name': { sheetId: 'name.perk.lie-detector', enHash: '1fe5690b47766de4b530d207bce39fb1a02da6dc7053745b889855aa4bbed018' },
 	'element:perk-lie-detector:description': { sheetId: 'heroes.perks.lie-detector.effect', enHash: '1f09f8339c5af3608e32ee172200dc74c540421bb7fbca6c27637e45ee7cb61b' },
 	'element:perk-linguist:name': { sheetId: 'name.perk.linguist', enHash: '8ece6158f988da8005e1c6d27e63d488ddebb75983ad075cd4596c280f613837' },
+	'element:perk-linguist:description': { sheetId: 'heroes.perks.linguist.effect', enHash: '68c4ee3bfd13b01562f11c4ff5555cd0c29da408f457155a86978b6e4e31d785' },
+	'element:perk-linguist-1:description': { sheetId: 'heroes.perks.linguist.effect', enHash: '4b60bee81cc0b74f1f3bbd3d5374275a26ef23cc1b87feec1a2021ac6726eca6' },
 	'element:perk-lucky-dog:name': { sheetId: 'name.perk.lucky-dog', enHash: 'a82363bad30d504ae776c52ed6346eb1e8387077f527bb603514381e07ff2b03' },
 	'element:perk-lucky-dog:description': { sheetId: 'heroes.perks.lucky-dog.effect', enHash: '51cb5b447249fc0fc9b67344424789ef8bf1e2842bc10992c3902f5112174f52' },
 	'element:perk-master-of-disguise:name': { sheetId: 'name.perk.master-of-disguise', enHash: '75e6fd749804ca5193d02260041e17df9fe127455138e7b99fcaccd2c6ec0d2f' },

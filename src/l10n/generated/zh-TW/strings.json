@@ -6437,6 +6437,111 @@
     "updated": "2026-10-14",
     "zh": "雙重打擊（Double Strike）\n既然可以打兩次，為什麼只打一次呢？\n近戰、打擊、武器／主要動作／近戰 1／2 個生物或物體\n檢定 + 力量或敏捷：\n① 4 傷害\n② 6 傷害\n③ 8 傷害\n效果：若你在你的回合中發動此招式，你可以先打擊第一個目標，然後使用你該回合的機動動作和移動動作，然後再打擊第二個目標。你仍然只進行 1 次檢定。"
   },
+  "heroes.kits.general.armor-categories.intro": {
+    "en": "Kit Armor Categories\nThe armor provided by each kit fits into one of five categories, indicating the kind of protection you have while using the kit.",
+    "updated": "2026-10-14",
+    "zh": "套裝護甲類別\n套裝提供的護甲分為以下 5 種類別，分別代表你使用套裝時所受到的防護。"
+  },
+  "heroes.kits.general.armor.heavy": {
+    "en": "Heavy Armor\nIf a kit has heavy armor, then you’re likely wearing metal from head to toe. Chain mail, ring mail, and suits of plate armor protect you better than any other mundane defense.",
+    "updated": "2026-10-14",
+    "zh": "重甲\n若套裝提供重甲，那你可能從頭到腳都穿戴著金屬護具。鎖子甲、環甲和全身板甲都能為你提供最頂級的防禦。"
+  },
+  "heroes.kits.general.armor.light": {
+    "en": "Light Armor\nIf a kit features light armor, you might wear padded cloth, leather armor, or a chain shirt.",
+    "updated": "2026-10-14",
+    "zh": "輕甲\n若套裝提供輕甲，你可能會穿戴有襯墊的布甲、皮甲或鎖甲衫。"
+  },
+  "heroes.kits.general.armor.medium": {
+    "en": "Medium Armor\nIf a kit has medium armor, you might wear layers of thick hides, a breastplate, or armor made of metal scales.",
+    "updated": "2026-10-14",
+    "zh": "中甲\n若套裝提供中甲，你可以穿戴厚實的多層獸皮、胸甲或金屬鱗甲。"
+  },
+  "heroes.kits.general.armor.none": {
+    "en": "None\nIf a kit provides no armor, you can wear whatever clothing you like! Robes, a fashionable tunic and pants—or your character might just loincloth it. It’s totally up to you.",
+    "updated": "2026-10-14",
+    "zh": "無甲\n若套裝沒有提供護甲，你可以穿著任何你喜歡的服裝！無論是長袍、時尚的束腰外衣和長褲，或是只穿著 1 塊遮羞布都可以，完全由你決定。"
+  },
+  "heroes.kits.general.armor.shield": {
+    "en": "Shield\nIf a kit has a shield, then you wield a shield that can be any shape and made of any mundane material you like. The best shields have a sweet insignia on them, so start thinking about yours!",
+    "updated": "2026-10-14",
+    "zh": "盾牌\n若套裝提供盾牌，你可以使用任何形狀、任何尋常材質製成的盾牌。最好的盾牌都會搭配 1 枚帥氣的徽章，不妨開始構思你的專屬徽章吧！"
+  },
+  "heroes.kits.general.changing-your-kit": {
+    "en": "Changing Your Kit\nYour choice of kit is always flexible, and your hero is never locked into a specific kit. If you want to change your kit, you can do so as a respite activity (see Respite in Chapter 1: The Basics).",
+    "updated": "2026-10-14",
+    "zh": "更換套裝\n你可以靈活地更換套裝，不會被限制在特定套裝中。你可以使用休整活動來更換套裝（詳見第 1 章〈基礎〉的〈休整〉）。"
+  },
+  "heroes.kits.general.chapter-intro": {
+    "en": "Kits\nThe knight in shining armor. The warrior priest. The sniper. Censors, furies, shadows, tacticians, and troubadours can tap into these and many more archetypal concepts using kits. A kit is a combination of weapons, armor, and fighting techniques that lets you personalize your martial hero for battle.",
+    "updated": "2026-10-14",
+    "zh": "套裝\n身披閃亮鎧甲的騎士。武祭。狙擊手。懲戒者、熾怒者、影舞者、戰術家與遊唱家，都能透過套裝展現這些以及更多經典的英雄形象。套裝由武器、護甲與戰鬥技巧組成，讓你能依照自己的喜好，打造英雄在戰鬥中的風格。"
+  },
+  "heroes.kits.general.customizing-equipment-appearances": {
+    "en": "Customizing Equipment Appearances\nYou should absolutely feel free to describe your equipment in a way that makes sense for the story of your game and hero. For instance, if your hero uses a weapon in the whip category as part of their kit, they could use a leather whip, a spiked chain, or a dagger tied to a knotted rope. A hero who wears heavy armor might wear a suit of chain mail, plate armor, or heavy wooden planks tied together. Your choices for equipment aren’t limited just to the examples in this book.",
+    "updated": "2026-10-14",
+    "zh": "自訂裝備外觀\n你完全可以按照遊戲故事與英雄形象自由描述裝備外觀。例如，若你的英雄使用套裝中的鞭笞武器，可以選擇皮鞭、帶刺鐵鍊，或將匕首綁在打結的繩索上。身穿重甲的英雄也可能穿著鎖子甲、板甲，或把厚重的木板綁在身上當作護甲。你的裝備選擇不受本書範例的限制。"
+  },
+  "heroes.kits.general.kit-equipment.examples": {
+    "en": "The description of equipment in your kit is limited to broad categories, leaving you free to decide the specifics that best align with your vision of your character. For instance, the Guisarmier kit provides medium armor and a polearm. One player using this kit could wear heavy layers of hide and wield a longspear, while another might wear a shining breastplate and carry a halberd into battle.",
+    "updated": "2026-10-14",
+    "zh": "套裝中的裝備只是廣泛的參考類別，你能自由決定最符合角色畫風的具體細節。以長兵套裝為例，它提供了中甲和長柄武器。使用此套裝的玩家可以選擇穿戴厚重的獸皮並揮舞長矛，也可能穿戴閃亮的胸甲，手持長戟進入戰場。"
+  },
+  "heroes.kits.general.kit-equipment.intro": {
+    "en": "Kit Equipment\nEach kit’s equipment entry details the armor and weapons the kit provides. It’s important to know what equipment a kit uses, because that informs your hero’s appearance and story. Equipment is part of what affects the math behind your kit’s benefits, alongside the fighting techniques each kit provides. Equipment also determines the type of magic and psionic treasures your character can wield.",
+    "updated": "2026-10-14",
+    "zh": "套裝裝備\n每個套裝的裝備條目都會詳細列出該套裝提供的護甲和武器。了解套裝的裝備很重要，因為這會直接影響你英雄的外觀和故事。裝備和套裝提供的戰鬥技巧，也會影響套裝益處的數值。此外，裝備還決定了你的角色可以使用哪些類型的魔法和靈能寶物。"
+  },
+  "heroes.kits.general.kit-equipment.nonkit": {
+    "en": "You can wear armor and wield weapons that aren’t part of your kit, but if you do, you don’t get your kit’s bonuses.",
+    "updated": "2026-10-14",
+    "zh": "你也可以使用不屬於套裝的護甲和武器，但這樣就無法獲得套裝加值。"
+  },
+  "heroes.kits.general.weapon-categories.intro": {
+    "en": "Kit Weapon Categories\nThe weapons provided by a kit fall into eight categories that indicate the types of weapons you wield while using the kit.",
+    "updated": "2026-10-14",
+    "zh": "套裝武器類別\n套裝提供的武器分為以下 8 種類別，表示你使用套裝時所持用的武器類型。"
+  },
+  "heroes.kits.general.weapon.bow": {
+    "en": "Bow\nBows cover any weapon used to fire an arrow or bolt projectile, including crossbows, longbows, and shortbows. This weapon group also includes weapons that hurl bullets, stones, darts, or small spears, including slings and atlatls. You don’t need to track mundane ammunition for these weapons unless the Director says otherwise.",
+    "updated": "2026-10-14",
+    "zh": "弓箭\n弓箭武器涵蓋任何用於發射箭矢或弩矢的武器，包括弩、長弓和短弓。這類武器也包括投射彈丸、石塊、飛鏢或短矛的武器，例如投石索和投矛器。除非導演另有規定，你不需要追蹤武器的尋常彈藥。"
+  },
+  "heroes.kits.general.weapon.ensnaring": {
+    "en": "Ensnaring Weapon\nEnsnaring weapons include bolas, nets, and other weapons made to capture an enemy and hold them in place.",
+    "updated": "2026-10-14",
+    "zh": "捕縛武器\n捕縛武器包括流星索、網子，以及其他用於捕獲並固定敵人的武器。"
+  },
+  "heroes.kits.general.weapon.heavy": {
+    "en": "Heavy Weapon\nHeavy weapons are two-handed melee weapons with weighty bladed or bludgeoning heads, made to seriously harm or kill enemies in a single mighty blow. Greatswords, greataxes, mauls, and morningstars are all examples of heavy weapons.",
+    "updated": "2026-10-14",
+    "zh": "重型武器\n重型武器是雙手近戰武器，帶有沉重的刀刃或鎚頭，主要透過強力的攻擊重創或殺死敵人。巨劍、巨斧、巨鎚和釘頭鎚都是重型武器的例子。"
+  },
+  "heroes.kits.general.weapon.light": {
+    "en": "Light Weapon\nLight weapons are one-handed melee weapons that can be used to make several strikes in rapid succession. Many such weapons can be thrown or used as an off-hand defensive weapon. Daggers, shortswords, rapiers, handaxes, and throwing hammers are typical light weapons.\nIf your kit uses a light weapon, you can wield two light weapons at a time.",
+    "updated": "2026-10-14",
+    "zh": "輕型武器\n輕型武器是單手近戰武器，可以快速連續發動多次打擊。這類武器有些可以用來投擲，或作為副手防禦武器使用。匕首、短劍、刺劍、手斧和飛鎚都是典型的輕型武器。如果你的套裝提供輕型武器，你可以雙手各持 1 把輕型武器。"
+  },
+  "heroes.kits.general.weapon.medium": {
+    "en": "Medium Weapon\nMedium weapons are one-handed melee weapons that can be carried into battle while leaving one hand free, allowing you to use that hand to hold a shield or implement. Battleaxes, clubs, longswords, and warhammers are medium weapons.",
+    "updated": "2026-10-14",
+    "zh": "中型武器\n中型武器是單手近戰武器，可以讓你的另 1 隻空手持握盾牌或法器。戰斧、棍棒、長劍和戰鎚都屬於中型武器。"
+  },
+  "heroes.kits.general.weapon.polearm": {
+    "en": "Polearm\nPolearms are two-handed melee weapons with long hafts that increase the wielder’s reach. They include glaives, halberds, longspears, and quarterstaffs.",
+    "updated": "2026-10-14",
+    "zh": "長柄武器\n長柄武器是帶有長握柄的雙手近戰武器，可以增加使用者的攻擊範圍，包括長柄刀、長戟、長矛和長棍。"
+  },
+  "heroes.kits.general.weapon.unarmed-strikes": {
+    "en": "Unarmed Strikes\nAny kit that uses unarmed strikes allows you to use your body as a weapon. Punches, kicks, eye gouges, and the like are your forte.",
+    "updated": "2026-10-14",
+    "zh": "徒手\n任何使用徒手攻擊的套裝都允許你將身體當作武器。拳擊、踢擊、挖眼等都是你的專長。"
+  },
+  "heroes.kits.general.weapon.whip": {
+    "en": "Whip\nWhip weapons include the standard whip, spiked chains, flails, and any similarly long and flexible melee weapon.",
+    "updated": "2026-10-14",
+    "zh": "鞭笞武器\n鞭笞武器包括普通的鞭子、帶刺的鐵鍊、連枷，以及任何類似的近戰武器。"
+  },
   "heroes.kits.guisarmier.bonus.melee-damage": {
     "en": "Melee Damage Bonus: +2/+2/+2",
     "updated": "2026-10-14",
@@ -7189,6 +7294,11 @@
   },
   "heroes.perks.linguist.effect": {
     "en": "You automatically learn two new languages, as long as you have regularly heard those languages spoken or seen them written before. Additionally, if you spend 7 days or more in a place where you regularly hear or read a language you don’t know, you can pick up enough of that language to hold a conversation or understand basic written information. Having picked up a language this way, you can subsequently learn it using the Learn New Language research project at half the usual project goal cost (see Chapter 12: Downtime Projects).",
+    "fs": {
+      "basisHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f",
+      "en": "You have an ear for languages. You automatically learn two new languages, as long as you have regularly heard those languages spoken or seen them written before.",
+      "zh": "你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。"
+    },
     "updated": "2026-10-14",
     "zh": "你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。此外，若你在某個地方停留至少 7 天，並有機會經常聽到或讀到 1 種你不懂的語言，你就可以掌握足夠的語言能力來進行對話或理解基礎書面資訊。以這種方式掌握語言後，你可以使用「學習新語言」研究類專案來進一步學習，且專案目標費用只需要原本的一半（詳見第 12 章〈休整專案〉）。"
   },

@@ -4567,6 +4567,20 @@
         "zhHash": "827a9efd4895644413e59f1ef2b24d1fc794128cf675f9b893134379fc6c9556"
       }
     },
+    "heroes.perks.linguist.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.linguist.effect",
+          "enHash": "03f29eb20d6a8fcd95a97a9094f266e29979c757cf227bea92d647b691ca0d89",
+          "zhHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f"
+        }
+      ],
+      "sourcesHash": "275be3acca5994f4f910986de42c93e1bf728b287b5264bbb0137bd5363d628a",
+      "fs": {
+        "enHash": "68c4ee3bfd13b01562f11c4ff5555cd0c29da408f457155a86978b6e4e31d785",
+        "zhHash": "294f79aaa4a7278dc7d5d88766acab3d39f35af594cef6e08e3f31548d2ca2f0"
+      }
+    },
     "heroes.perks.teamwork.effect": {
       "sources": [
         {

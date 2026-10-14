@@ -1,4 +1,4 @@
-import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
+import { Catalog, loadCatalog, peekCatalog, peekUsageAdaptation } from '@/l10n/catalog';
 import { Language, getLanguage } from '@/l10n/language';
 import { hasCalculationBinding, plainForLookup, projectCalculatedText } from '@/l10n/calculated-text';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
@@ -285,6 +285,17 @@ export const resolveText = (language: Language, key: string | undefined, english
 
 	const row = catalog[sheetId];
 	const show = (shown: string) => displayListMarkup(key, carryConditionBold(english, shown));
+	const usage = peekUsageAdaptation(key);
+	const alternate = usage && usage.bookStringId === sheetId && row?.fs
+		&& (usage.en !== row.fs.en || usage.zh !== row.fs.zh)
+		? usage
+		: undefined;
+	if (alternate) {
+		if (!alternate.zh || blank(alternate.zh)) {
+			return english;
+		}
+		return show(projectCalculatedText(key, alternate.en, english, alternate.zh));
+	}
 	if (row?.fs) {
 		if (!row.fs.zh || blank(row.fs.zh)) {
 			return english;

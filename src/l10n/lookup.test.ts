@@ -1629,9 +1629,73 @@ describe('perk name segment', () => {
 		setLanguage('zh-TW');
 	});
 
+	test('Linguist splits the approved paragraph and omits the extra English sentence', () => {
+		const linguist = core.perks.find(perk => perk.id === 'perk-linguist')!;
+		expect(linguist.type).toBe(FeatureType.Multiple);
+		if (linguist.type !== FeatureType.Multiple || !linguist.data) {
+			throw new Error('linguist');
+		}
+		const child = linguist.data.features.find(feature => feature.id === 'perk-linguist-1')!;
+		const options = FactoryLogic.createOptions();
+		const hero = FactoryLogic.createHero();
+		const panel = (feature: Feature | typeof linguist) => renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		const sheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: linguist as Feature
+		})));
+		const choice = FactoryLogic.feature.createPerk({
+			id: 'linguist-choice',
+			lists: [ linguist.list ],
+			selected: [ linguist ]
+		});
+		const selected = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(ConfigPerk, {
+			data: choice.data,
+			feature: choice,
+			hero,
+			sourcebooks: [ core ],
+			setData: () => undefined
+		})));
+		const parentSentence = '你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。';
+		const childSentence = '若你在某個地方停留至少 7 天';
+		for (const html of [ panel(linguist), sheet, selected ]) {
+			expect(html).toContain(parentSentence);
+			expect(html).not.toContain('You have an ear for languages');
+		}
+		const childHtml = panel(child);
+		expect(childHtml).toContain(childSentence);
+		expect(childHtml).toContain('專案目標費用只需要原本的一半。');
+		expect(childHtml).not.toContain('If you spend 7 days');
+		expect(childHtml).not.toContain('You have an ear for languages');
+		expect(childHtml).not.toContain('詳見第 12 章');
+		expect(childHtml).not.toContain('此外，');
+		setLanguage('en');
+		const englishSheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: linguist as Feature
+		})));
+		const englishSelected = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(ConfigPerk, {
+			data: choice.data,
+			feature: choice,
+			hero,
+			sourcebooks: [ core ],
+			setData: () => undefined
+		})));
+		expect(panel(linguist)).toContain('You have an ear for languages.');
+		expect(panel(linguist)).not.toContain(parentSentence);
+		expect(panel(child)).toContain('If you spend 7 days');
+		expect(panel(child)).not.toContain(childSentence);
+		expect(englishSheet).toContain('You have an ear for languages.');
+		expect(englishSheet).not.toContain(parentSentence);
+		expect(englishSelected).toContain('You have an ear for languages.');
+		expect(englishSelected).not.toContain(parentSentence);
+		setLanguage('zh-TW');
+	});
+
 	test('every connected perk effect stays Chinese on the drawer, selected row, and classic sheet', () => {
 		const deferred = new Set([
-			'perk-linguist',
 			'perk-friend-catapult',
 			'perk-ive-got-you',
 			'perk-gum-up-the-works',
