@@ -8,13 +8,14 @@
  * and writes src/l10n/generated/zh-TW/. The sheet id and modified time come
  * from l10n/sheet-snapshot/source.json so a later refresh only replaces data.
  *
- * strings.csv may also carry four Forge Steel columns, found by header name:
- * Forge Steel Source Text, Forge Steel Target Text, Forge Steel Status, and
- * Forge Steel Basis Hash. They are all present once, or all absent. A row
- * that fills any of them must be APPROVED in both Status columns, with
- * non-empty source and target text and a 64-character lowercase basis hash.
- * That row is exported as `fs`. Export does not check whether the basis hash
- * is stale. Glossary and names ignore these columns.
+ * strings.csv and names.csv may also carry four Forge Steel columns, found
+ * by header name: Forge Steel Source Text, Forge Steel Target Text, Forge
+ * Steel Status, and Forge Steel Basis Hash. They are all present once, or all
+ * absent. A row that fills any of them must be APPROVED in both Status
+ * columns, with non-empty source and target text and a 64-character lowercase
+ * basis hash. That row is exported as `fs`. Export does not check whether the
+ * basis hash is stale. Glossary ignores these columns. A Book Name adaptation
+ * writes them on names.csv; a Book String adaptation writes them on strings.csv.
  *
  * A temp copy can be checked without touching the committed snapshot:
  *   node scripts/l10n/export-sheet.mjs --snapshot <dir> --out <dir>
@@ -285,7 +286,7 @@ const loadTab = (snapshotDir, spec, seen, errors) => {
 	const tmIndex = tmIndexes.length === 1 ? tmIndexes[0] : -1;
 
 	let fsColumns = null;
-	if (spec.file === 'strings.csv') {
+	if (spec.file === 'strings.csv' || spec.file === 'names.csv') {
 		const indexes = FS_HEADERS.map(name => headerIndexes(headers, name));
 		const allAbsent = indexes.every(found => found.length === 0);
 		const allOnce = indexes.every(found => found.length === 1);

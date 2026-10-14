@@ -41,7 +41,7 @@ describe('player name lookup', () => {
 		expect(approvedIds('heroes.background.culture.').filter(id => cultureIds.has(id))).toHaveLength(27);
 		expect(approvedIds('heroes.background.culture.').filter(id => aspectIds.has(id))).toHaveLength(13);
 		expect(approvedIds('heroes.background.career.').filter(id => core.careers.some(career => career.id === id))).toHaveLength(18);
-		expect(approvedIds('name.perk.').filter(id => core.perks.some(perk => perk.id === id))).toHaveLength(39);
+		expect(approvedIds('name.perk.').filter(id => core.perks.some(perk => perk.id === id))).toHaveLength(43);
 	});
 
 	test('keys only an unchanged official name and leaves edited or unknown names alone', () => {
@@ -53,11 +53,16 @@ describe('player name lookup', () => {
 		expect(playerNameKey(career, officialSourcebooks)).toBe('element:career-artisan:name');
 		expect(playerNameKey({ ...career, name: 'My Craft' }, officialSourcebooks)).toBeUndefined();
 		for (const id of [
-			'perk-gum-up-the-works',
 			'perk-ive-got-you',
 			'perk-ive-read-about-this-place',
 			'perk-put-your-back-into-it',
-			'perk-so-tell-me',
+			'perk-so-tell-me'
+		]) {
+			const perk = core.perks.find(item => item.id === id)!;
+			expect(playerNameKey(perk, officialSourcebooks)).toBe(`element:${id}:name`);
+		}
+		for (const id of [
+			'perk-gum-up-the-works',
 			'perk-spot-the-tell',
 			'perk-travelling-artisan',
 			'perk-travelling-sage'

@@ -42,5 +42,21 @@
   "language:Za'hariax": {
     "kind": "punctuation",
     "note": "Forge Steel uses a straight apostrophe; the approved Names row 25 uses a curly apostrophe."
+  },
+  "element:perk-ive-got-you:name": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses a straight apostrophe and has no exclamation mark. The approved Names row uses a curly apostrophe and ends with an exclamation mark."
+  },
+  "element:perk-ive-read-about-this-place:name": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses a straight apostrophe in I've. The approved Names row uses a curly apostrophe."
+  },
+  "element:perk-put-your-back-into-it:name": {
+    "kind": "punctuation",
+    "note": "The approved Names row ends with an exclamation mark. Forge Steel does not."
+  },
+  "element:perk-so-tell-me:name": {
+    "kind": "punctuation",
+    "note": "Forge Steel has a comma and three periods. The approved Names row has neither the comma nor the periods, and uses one ellipsis character."
   }
 }

@@ -6,8 +6,8 @@
 
 - 快照納入書本 APPROVED。書本修改時間 `2026-10-14T04:49:24.959Z`，與本次附帶唯讀匯出（2026-10-14 12:49 UTC+8）一致。Forge Steel Master 沿用既有核准快照（修改時間 `2026-10-13T03:54:16.650Z`），未改 Google Sheets。
 - 目錄由 Names 60／Strings 872 增至 Names 89／Strings 993。新增 29 個專長名稱、47 個 `heroes.perks.*.effect`，以及 74 個已核准 Career 背景問題。Glossary 僅 `term.group-test` 由「團體考驗」改為核准後的「團隊考驗」；此術語目前沒有網站 mapping，本段畫面不因此改字。
-- 本段只新增 24 個名稱 mapping（既有 15 個＋本次 24 個＝39）。效果與 74 個背景問題在目錄中，沒有 mapping，畫面維持英文或維持不顯示。
-- 8 個網站英文名稱與書本 Names 不完全相同，且沒有核准 Adaptation，維持網站英文。
+- 本段先新增 24 個名稱 mapping（既有 15 個＋本次 24 個＝39）。2026-10-14 Marc 再核准 4 個只差標點的名稱，mapping 增至 43。效果與 74 個背景問題在目錄中，沒有 mapping，畫面維持英文或維持不顯示。
+- 另外 4 個名稱差在大小寫或拼字。它們不進 `english-exceptions.json`。工具已能接受書本 Names 的 Adaptation；畫面仍是英文，直到協調者把核准列貼上 Forge Sheet 並重做快照。
 
 ## 對照摘要
 
@@ -32,7 +32,22 @@
 | `perk-put-your-back-into-it` | Put Your Back Into It | `name.perk.put-your-back-into-it` | Put Your Back Into It! | 全力以赴！ |
 | `perk-spot-the-tell` | Spot The Tell | `name.perk.spot-the-tell` | Spot the Tell | 發現破綻 |
 
-撇號、驚嘆號與 the／The 都算不同來源，不改寫書本正典，也不把中文套到不同的網站英文上。
+撇號、驚嘆號與 the／The 都算不同來源，不改寫書本正典。
+
+## 2026-10-14：8 個延後名稱
+
+Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不改網站英文、不改書本正典。
+
+只差標點的 4 個列入 `src/l10n/english-exceptions.json`，kind 為 `punctuation`。正體中文模式顯示核准中文原樣，包含「！」與「……」：
+
+| FS id | 核准中文 |
+|---|---|
+| `perk-ive-read-about-this-place` | 我知道這地方 |
+| `perk-put-your-back-into-it` | 全力以赴！ |
+| `perk-ive-got-you` | 我接住你了！ |
+| `perk-so-tell-me` | 誠實告訴我…… |
+
+差在大小寫或拼字的 4 個不列例外：`perk-spot-the-tell`、`perk-gum-up-the-works`、`perk-travelling-artisan`、`perk-travelling-sage`。`dual-sheet.mjs` 現在接受 Source Type `Book Name`，Book String ID 填 Names 的 Name ID，雜湊規則與 Book String 相同。核准列貼上 Forge Sheet 並重做快照之後，這 4 個名稱才會顯示中文。
 
 另外 5 個名稱同樣不同，本段才列入：
 

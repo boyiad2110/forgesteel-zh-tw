@@ -1403,6 +1403,16 @@ describe('perk name segment', () => {
 
 		expect(panel(spot)).toContain('Spot The Tell');
 		expect(panel(spot)).not.toContain('發現破綻');
+		for (const [ id, chinese, english ] of [
+			[ 'perk-ive-read-about-this-place', '我知道這地方', 'I\'ve Read About This Place' ],
+			[ 'perk-put-your-back-into-it', '全力以赴！', 'Put Your Back Into It' ],
+			[ 'perk-ive-got-you', '我接住你了！', 'I\'ve Got You' ],
+			[ 'perk-so-tell-me', '誠實告訴我……', 'So, Tell Me ...' ]
+		] as const) {
+			const perk = core.perks.find(item => item.id === id)!;
+			expect(panel(perk)).toContain(chinese);
+			expect(panel(perk)).not.toContain(`>${english}<`);
+		}
 
 		const sheet = (perk: typeof handy) => renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
 			feature: perk as Feature
@@ -1412,6 +1422,14 @@ describe('perk name segment', () => {
 		expect(sheet(catapult)).toContain('投擲盟友');
 		expect(sheet(catapult)).toContain('You hurl your ally through the air.');
 		expect(sheet(spot)).toContain('Spot The Tell');
+		for (const [ id, chinese ] of [
+			[ 'perk-ive-read-about-this-place', '我知道這地方' ],
+			[ 'perk-put-your-back-into-it', '全力以赴！' ],
+			[ 'perk-ive-got-you', '我接住你了！' ],
+			[ 'perk-so-tell-me', '誠實告訴我……' ]
+		] as const) {
+			expect(sheet(core.perks.find(item => item.id === id)!)).toContain(chinese);
+		}
 
 		const modal = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(PerkSelectModal, {
 			perks: [ handy, catapult, spot ],
