@@ -4567,6 +4567,20 @@
         "zhHash": "827a9efd4895644413e59f1ef2b24d1fc794128cf675f9b893134379fc6c9556"
       }
     },
+    "heroes.perks.teamwork.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.teamwork.effect",
+          "enHash": "d1398bd8e44a3882dd47128b34819d7f4056f226f0575f53d6cce1c79cf5c1f6",
+          "zhHash": "7712c24f917dd6d7a1cf2b1c2c55a610b02665cb542ed8ea520d61d3b3cf8532"
+        }
+      ],
+      "sourcesHash": "12ea486de8e18942e3ae2637f8edaceae7dc7faf1a8d2d0ceaaa64a5d2c4b15c",
+      "fs": {
+        "enHash": "00826934882a8effaa89f4d074f3b2c0ef406376ae6e90805031296bbe9fe899",
+        "zhHash": "bbe0f2816f97a82fba6131f4c4181e19381ad0378319b51d44c22ce7910ff663"
+      }
+    },
     "name.perk.gum-up-the-works": {
       "sources": [
         {

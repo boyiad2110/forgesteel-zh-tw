@@ -169,12 +169,12 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 維持英文，本段不接：
 
-- `perk-teamwork`：網站是 “during a montage test”，書本是 “during any montage test”。any 不是冠詞，不能用例外。需要一筆只刪除書本中文「任何」二字的 Forge Adaptation。草稿未寫入 Sheet，也沒有 mapping。
+- `perk-teamwork`：網站是 “during a montage test”，書本是 “during any montage test”。Marc 已於 2026-10-14 核准 Adaptation `fs-adapt:heroes.perks.teamwork.effect`。中文只刪掉書本句的「任何」，其餘逐字保留，並已接入 mapping。
 - `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。不能把整段書本效果貼到較短的父項。留第 4 段。
 - 招式型短描述（第 3 段）：`perk-friend-catapult`、`perk-ive-got-you`、`perk-gum-up-the-works`、`perk-creature-sense`、`perk-invisible-force`、`perk-psychic-whisper`。短描述與完整招式不同，不把書本整段套上去。
 - 第 4 段結構：`perk-arcane-trick`、`perk-familiar`。
 
-mapping 981。英文例外 17。帶 Forge Steel 版本的字串列仍是 324。
+mapping 982。英文例外 17。帶 Forge Steel 版本的字串列是 325。同次書本擷取另有 30 個名稱與 110 筆字串進入核准目錄，沒有 mapping。Glossary 與 UI 筆數不變，既有核准列的英文與中文沒有變。
 
 ### 第 3 段：專長授予的招式
 
@@ -210,7 +210,7 @@ mapping 981。英文例外 17。帶 Forge Steel 版本的字串列仍是 324。
 
 ## 本段不處理
 
-- 尚未接入的效果：`perk-teamwork`、`perk-linguist`、6 個招式型短描述、奧術戲法、魔寵數據表與 Telepathic。
+- 尚未接入的效果：`perk-linguist`、6 個招式型短描述、奧術戲法、魔寵數據表與 Telepathic。
 - 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
 - 非 Heroes 來源書的專長。
 - Google Sheets、遊戲規則、存檔與分享格式。

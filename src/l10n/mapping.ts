@@ -824,6 +824,7 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:perk-team-leader:name': { sheetId: 'name.perk.team-leader', enHash: '0d420b564b17e6e4e33b7a4934ee397441d7726ec502a7220bf44fa36aa81921' },
 	'element:perk-team-leader:description': { sheetId: 'heroes.perks.team-leader.effect', enHash: 'eef9eb39bf2da3382f44e49dbfa7f245d359cf62fccb60e9c1a816ed53aafcae' },
 	'element:perk-teamwork:name': { sheetId: 'name.perk.teamwork', enHash: '4a84556e7fd02081e0e92242b82822cce9eb6bae14aec2590bbf14c24e74930e' },
+	'element:perk-teamwork:description': { sheetId: 'heroes.perks.teamwork.effect', enHash: '00826934882a8effaa89f4d074f3b2c0ef406376ae6e90805031296bbe9fe899' },
 	'element:perk-thingspeaker:name': { sheetId: 'name.perk.thingspeaker', enHash: 'ec13344c96511ed250c18463db801af11fcb5b21e0b9fab3352d722d6713fb68' },
 	'element:perk-thingspeaker:description': { sheetId: 'heroes.perks.thingspeaker.effect', enHash: 'adfbfca7665dbf33f6aba2a406ec7a441114628b9b330c39c27458e032eb8763' },
 	'element:perk-travelling-artisan:name': { sheetId: 'name.perk.traveling-artisan', enHash: 'fd2c7250bfbb6ac539bf3574b054283353ea92ba8582567bfbe64e09857e33c0' },

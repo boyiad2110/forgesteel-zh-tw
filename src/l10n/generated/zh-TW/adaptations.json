@@ -5219,6 +5219,22 @@
       }
     ]
   },
+  "fs-adapt:heroes.perks.teamwork.effect": {
+    "bookStringId": "heroes.perks.teamwork.effect",
+    "usageKey": "element:perk-teamwork:description",
+    "en": "When you take your first turn during a montage test, you can both make a test and assist another hero’s test.",
+    "zh": "在蒙太奇考驗中，當你進行你的第 1 個回合時，你可以同時進行自己的考驗並協助另 1 個英雄的考驗。",
+    "basisHash": "7712c24f917dd6d7a1cf2b1c2c55a610b02665cb542ed8ea520d61d3b3cf8532",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.teamwork.effect",
+        "enHash": "d1398bd8e44a3882dd47128b34819d7f4056f226f0575f53d6cce1c79cf5c1f6",
+        "zhHash": "7712c24f917dd6d7a1cf2b1c2c55a610b02665cb542ed8ea520d61d3b3cf8532"
+      }
+    ]
+  },
   "fs-adapt:name.perk.gum-up-the-works": {
     "bookStringId": "name.perk.gum-up-the-works",
     "usageKey": "element:perk-gum-up-the-works:name",

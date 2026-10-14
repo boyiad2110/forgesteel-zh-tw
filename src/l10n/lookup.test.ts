@@ -1436,9 +1436,9 @@ describe('perk name segment', () => {
 			expect(sheet(perk)).toContain(phrase);
 		}
 		const teamwork = core.perks.find(item => item.id === 'perk-teamwork')!;
-		expect(panel(teamwork)).toContain('during a montage test');
+		expect(panel(teamwork)).toContain('在蒙太奇考驗中，當你進行你的第 1 個回合時');
 		expect(panel(teamwork)).not.toContain('任何蒙太奇');
-		expect(sheet(teamwork)).toContain('during a montage test');
+		expect(sheet(teamwork)).toContain('在蒙太奇考驗中，當你進行你的第 1 個回合時');
 		expect(sheet(teamwork)).not.toContain('任何蒙太奇');
 		for (const [ id, chinese, english ] of [
 			[ 'perk-spot-the-tell', '發現破綻', 'Spot The Tell' ],
@@ -1459,6 +1459,11 @@ describe('perk name segment', () => {
 		expect(handyEnglish).not.toContain('獲得 +1 加值');
 		expect(sheet(handy)).toContain('Whenever you make a test to craft something');
 		expect(sheet(handy)).not.toContain('獲得 +1 加值');
+		const teamworkEnglish = panel(teamwork);
+		expect(teamworkEnglish).toContain('during a montage test');
+		expect(teamworkEnglish).not.toContain('在蒙太奇考驗中');
+		expect(sheet(teamwork)).toContain('during a montage test');
+		expect(sheet(teamwork)).not.toContain('在蒙太奇考驗中');
 		for (const [ id, chinese, english ] of [
 			[ 'perk-spot-the-tell', '發現破綻', 'Spot The Tell' ],
 			[ 'perk-gum-up-the-works', '妨礙運作', 'Gum Up The Works' ],

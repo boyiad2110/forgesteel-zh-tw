@@ -6507,6 +6507,556 @@
     "updated": "2026-10-14",
     "zh": "戰鬥之舞（Battle Grace）\n你虛晃一招，引誘敵人站到最完美的位置。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 5 + 力量或敏捷傷害\n② 8 + 力量或敏捷傷害；你可以與目標互換位置\n③ 11 + 力量或敏捷傷害；你可以與目標互換位置\n效果：若你獲得 T2 或 T3 結果，但因為其中一方或雙方體型太大而無法互換位置，則雙方將維持在原本的位置，而且目標會額外受到 1 點傷害。"
   },
+  "heroes.kits.mountain.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +0/+0/+4",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+0/+0/+4"
+  },
+  "heroes.kits.mountain.bonus.stability": {
+    "en": "Stability Bonus: +2",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+2"
+  },
+  "heroes.kits.mountain.bonus.stamina": {
+    "en": "Stamina Bonus: +9 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +9"
+  },
+  "heroes.kits.mountain.description": {
+    "en": "The Mountain kit does exactly what it says on the tin. You don heavy armor and raise a heavy weapon to stand strong against your foes, quickly demolishing them when it’s your turn to strike.",
+    "updated": "2026-10-14",
+    "zh": "山嶽套裝完美體現其名稱的精神。你身穿重甲、手持重型武器，穩固地抵禦敵人，並在輪到你攻擊時迅速擊潰他們。"
+  },
+  "heroes.kits.mountain.equipment": {
+    "en": "You wear heavy armor and wield a heavy weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴重甲，持用 1 件重型武器。"
+  },
+  "heroes.kits.mountain.signature.pain-for-pain": {
+    "en": "Pain for Pain\nAn enemy who tagged you will pay for that.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 5 + M or A damage\nTier 3: 13 + M or A damage\nEffect: If the target dealt damage to you since the end of your last turn, this strike deals additional damage equal to your Might or Agility score (your choice).",
+    "updated": "2026-10-14",
+    "zh": "以牙還牙（Pain for Pain）\n傷害你的敵人將會付出代價。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 5 + 力量或敏捷傷害\n③ 13 + 力量或敏捷傷害\n效果：若目標從你上回合結束後曾對你造成傷害，此次打擊會額外造成等於你力量或敏捷（由你選擇）屬性值的傷害。"
+  },
+  "heroes.kits.panther.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +0/+0/+4",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+0/+0/+4"
+  },
+  "heroes.kits.panther.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.panther.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.panther.bonus.stamina": {
+    "en": "Stamina Bonus: +6 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +6"
+  },
+  "heroes.kits.panther.description": {
+    "en": "If you want a good balance of protection, speed, and damage, the Panther kit is for you. This kit increases your Stamina not by wearing armor, but through the focused battle preparation of body and mind, letting you be fast and mobile while swinging a heavy weapon at your foes.",
+    "updated": "2026-10-14",
+    "zh": "若你想在防護、速度和傷害之間達到最佳平衡，獵豹套裝正適合你。這套裝備不靠穿戴護甲來增加體力，而是透過專注的戰前準備來強化身心，讓你能在揮舞重型武器的同時，仍保持迅速靈活的移動力。"
+  },
+  "heroes.kits.panther.equipment": {
+    "en": "You wear no armor and wield a heavy weapon.",
+    "updated": "2026-10-14",
+    "zh": "你沒有穿戴護甲，持用 1 件重型武器。"
+  },
+  "heroes.kits.panther.signature.devastating-rush": {
+    "en": "Devastating Rush\nThe faster you move, the harder you hit.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature or object\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage\nTier 3: 13 + M or A damage\nEffect: You can move up to 3 squares straight toward the target before this strike, which deals extra damage equal to the number of squares you move this way.",
+    "updated": "2026-10-14",
+    "zh": "毀滅衝刺（Devastating Rush）\n你衝得越快，打得就越痛。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物或物體\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害\n③ 13 + 力量或敏捷傷害\n效果：打擊前，你可以朝目標直線移動最多 3 格，每移動 1 格就會額外造成 1 點傷害。"
+  },
+  "heroes.kits.pugilist.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.pugilist.bonus.speed": {
+    "en": "Speed Bonus: +2",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+2"
+  },
+  "heroes.kits.pugilist.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.pugilist.bonus.stamina": {
+    "en": "Stamina Bonus: +6 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +6"
+  },
+  "heroes.kits.pugilist.description": {
+    "en": "Meant for brawlers and boxers, the Pugilist kit gives you access to a melee fighting style that grants a boost to Stamina and damage while allowing you to float like a butterfly. If you want to be a tough, strong hero who doles out punishment with your fists, then this kit is for you.",
+    "updated": "2026-10-14",
+    "zh": "拳鬥套裝專為格鬥者與拳擊手設計，提供近戰格鬥風格，同時提升體力和傷害，讓你能像蝴蝶般輕盈移動。若你想成為強壯有力的英雄，用拳頭痛擊敵人，這個套裝正是為你準備的。"
+  },
+  "heroes.kits.pugilist.equipment": {
+    "en": "You wear no armor and wield only your unarmed strikes.",
+    "updated": "2026-10-14",
+    "zh": "你不穿戴任何護甲，只依靠徒手打擊。"
+  },
+  "heroes.kits.pugilist.signature.lets-dance": {
+    "en": "Let’s Dance\nKeeping your enemies stumbling around the battlefield is second nature to you.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage; slide 1\nTier 3: 8 + M or A damage; slide 2\nEffect: You can shift into any square the target leaves after you slide them.",
+    "updated": "2026-10-14",
+    "zh": "共舞吧（Let’s Dance）\n讓敵人在戰場上踉蹌不已是你的拿手好戲。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害；滑動 1\n③ 8 + 力量或敏捷傷害；滑動 2\n效果：在你滑動目標後，你可以遁移到目標離開的任何方格。"
+  },
+  "heroes.kits.raider.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.raider.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.raider.bonus.ranged-damage": {
+    "en": "Ranged Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "遠程傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.raider.bonus.ranged-distance": {
+    "en": "Ranged Distance Bonus: +5",
+    "updated": "2026-10-14",
+    "zh": "遠程射程加值：+5"
+  },
+  "heroes.kits.raider.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.raider.bonus.stamina": {
+    "en": "Stamina Bonus: +6 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +6"
+  },
+  "heroes.kits.raider.description": {
+    "en": "The Raider kit keeps you protected while granting you full mobility, providing a boost to speed and distance that lets you run around the battlefield like a Viking warrior.",
+    "updated": "2026-10-14",
+    "zh": "突擊套裝能在保護你的同時提供完全的機動性，提升你的速度和射程，讓你有如維京戰士般在戰場上靈活奔馳。"
+  },
+  "heroes.kits.raider.equipment": {
+    "en": "You wear light armor and wield a shield and a light weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用 1 面盾牌和 1 件輕型武器。"
+  },
+  "heroes.kits.raider.signature.raiders-awe": {
+    "en": "Raider's Awe\nYou execute a brutal strike that leaves your foe reeling.\nMelee, Ranged, Strike, Weapon • Main action • Melee 1 or ranged 10 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage\nTier 3: 8 + M or A damage\nEffect: The target takes a bane on their next power roll made before the end of their next turn.",
+    "updated": "2026-10-14",
+    "zh": "突擊威勢（Raider's Awe）\n你施展一次兇猛打擊，讓敵人踉蹌不已。\n近戰、遠程、打擊、武器／主要動作／近戰 1 或遠程 10／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害\n③ 8 + 力量或敏捷傷害\n效果：在目標下個回合結束之前，他的下次檢定會承受 1 個劣勢。"
+  },
+  "heroes.kits.ranger.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.ranger.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.ranger.bonus.ranged-damage": {
+    "en": "Ranged Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "遠程傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.ranger.bonus.ranged-distance": {
+    "en": "Ranged Distance Bonus: +5",
+    "updated": "2026-10-14",
+    "zh": "遠程射程加值：+5"
+  },
+  "heroes.kits.ranger.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.ranger.bonus.stamina": {
+    "en": "Stamina Bonus: +6 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +6"
+  },
+  "heroes.kits.ranger.description": {
+    "en": "The Ranger kit outfits you with medium armor and weapons for every challenge, letting you easily switch between melee and ranged combat. This kit provides a good balance of bonuses to defense and offense to create a hero who is a jack-of-all-trades.",
+    "updated": "2026-10-14",
+    "zh": "遊俠套裝為你提供了應對各種挑戰的中甲和武器，能讓你在近身和遠程戰鬥之間靈活切換。這組套裝在防禦與攻擊之間達到良好的平衡，塑造出全方位的英雄。"
+  },
+  "heroes.kits.ranger.equipment": {
+    "en": "You wear medium armor and wield a bow and a medium weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴中甲，持用 1 把弓箭和 1 件中型武器。"
+  },
+  "heroes.kits.ranger.signature.hamstring-shot": {
+    "en": "Hamstring Shot\nA well-placed shot leaves your enemy struggling to move.\nRanged, Strike, Weapon • Main action • Ranged 10 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage; A < w, slowed (save ends)\nTier 2: 5 + M or A damage; A < v, slowed (save ends)\nTier 3: 7 + M or A damage; A < s, slowed (save ends)",
+    "updated": "2026-10-14",
+    "zh": "斷筋射擊（Hamstring Shot）\n一發精準的射擊讓你的敵人舉步維艱。\n遠程、打擊、武器／主要動作／遠程 10／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害；敏捷 < 弱，緩速（豁免解除）\n② 5 + 力量或敏捷傷害；敏捷 < 中，緩速（豁免解除）\n③ 7 + 力量或敏捷傷害；敏捷 < 強，緩速（豁免解除）"
+  },
+  "heroes.kits.rapid-fire.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.rapid-fire.bonus.ranged-damage": {
+    "en": "Ranged Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "遠程傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.rapid-fire.bonus.ranged-distance": {
+    "en": "Ranged Distance Bonus: +7",
+    "updated": "2026-10-14",
+    "zh": "遠程射程加值：+7"
+  },
+  "heroes.kits.rapid-fire.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.rapid-fire.bonus.stamina": {
+    "en": "Stamina Bonus: +3 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +3"
+  },
+  "heroes.kits.rapid-fire.description": {
+    "en": "The Rapid-Fire kit is for archers who want to deal maximum damage by shooting as many arrows as possible into nearby enemies. With this kit, your fighting technique focuses on peppering foes before they can get close enough to counterattack.",
+    "updated": "2026-10-14",
+    "zh": "箭雨套裝適合想要對敵人射出大量箭矢來造成最大傷害的弓箭手。你的戰鬥技巧專注於在敵人接近到足以發動反擊前，以密集的箭雨壓制他們。"
+  },
+  "heroes.kits.rapid-fire.equipment": {
+    "en": "You wear light armor and wield a bow.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用 1 把弓箭。"
+  },
+  "heroes.kits.rapid-fire.signature.two-shot": {
+    "en": "Two Shot\nWhen you fire two arrows back-to-back, both hit their mark.\nRanged, Strike, Weapon • Main action • Ranged 12 • Two creatures or objects\nPower Roll + Might or Agility:\nTier 1: 4 damage\nTier 2: 6 damage\nTier 3: 8 damage",
+    "updated": "2026-10-14",
+    "zh": "雙重射擊（Two Shot）\n你連射兩箭，每一箭都精準命中目標。\n遠程、打擊、武器／主要動作／遠程 12／2 個生物或物體\n檢定 + 力量或敏捷：\n① 4 傷害\n② 6 傷害\n③ 8 傷害"
+  },
+  "heroes.kits.retiarius.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.retiarius.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.retiarius.bonus.melee-distance": {
+    "en": "Melee Distance Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "近戰射程加值：+1"
+  },
+  "heroes.kits.retiarius.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.retiarius.bonus.stamina": {
+    "en": "Stamina Bonus: +3 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +3"
+  },
+  "heroes.kits.retiarius.description": {
+    "en": "The retiarius is often depicted as a lightly armored warrior with a net in one hand and a trident in the other, and this kit gives you the equipment and fighting technique to make that happen. Tie up your foe with a net and then poke them to death!",
+    "updated": "2026-10-14",
+    "zh": "網鬥士通常是指身穿輕甲、一手持網，一手持三叉戟的戰士。這組套裝能讓你獲得這種戰鬥風格所需的裝備與技巧。先用網子捆住敵人，再刺死他們！"
+  },
+  "heroes.kits.retiarius.equipment": {
+    "en": "You wear light armor and wield several ensnaring weapons and a polearm.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用幾件捕縛武器和 1 件長柄武器。"
+  },
+  "heroes.kits.retiarius.signature.net-and-stab": {
+    "en": "Net and Stab\nThe well-thrown net that follows your main attack leaves your foes right where you want them.\nMelee, Strike, Weapon • Main action • Melee 2 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage; A < w, slowed (EoT)\nTier 2: 6 + M or A damage; A < v, slowed (EoT)\nTier 3: 8 + M or A damage; A < s, restrained (EoT)",
+    "updated": "2026-10-14",
+    "zh": "捕縛刺擊（Net and Stab）\n隨著你的主要攻擊，一張精準投擲的捕網將敵人固定在你想要的位置。\n近戰、打擊、武器／主要動作／近戰 2／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害；敏捷 < 弱，緩速（EoT）\n② 6 + 力量或敏捷傷害；敏捷 < 中，緩速（EoT）\n③ 8 + 力量或敏捷傷害；敏捷 < 強，束縛（EoT）"
+  },
+  "heroes.kits.shining-armor.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.shining-armor.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.shining-armor.bonus.stamina": {
+    "en": "Stamina Bonus: +12 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +12"
+  },
+  "heroes.kits.shining-armor.description": {
+    "en": "The Shining Armor kit provides the most protection a kit can afford, providing you with the sword, shield, and armor necessary to play the prototypical knight.",
+    "updated": "2026-10-14",
+    "zh": "鐵騎套裝提供最高級別的防護，配備劍、盾與鎧甲，讓你能完美扮演經典的騎士角色。"
+  },
+  "heroes.kits.shining-armor.equipment": {
+    "en": "You wear heavy armor and wield a shield and a medium weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴重甲，持用 1 面盾牌和 1 件中型武器。"
+  },
+  "heroes.kits.shining-armor.signature.protective-attack": {
+    "en": "Protective Attack\nThe strength of your assault makes it impossible for your foe to ignore you.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 5 + M or A damage\nTier 2: 8 + M or A damage\nTier 3: 11 + M or A damage\nEffect: The target is taunted until the end of their next turn.",
+    "updated": "2026-10-14",
+    "zh": "以攻為守（Protective Attack）\n你銳不可當的攻勢讓敵人無法忽視你的存在。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 5 + 力量或敏捷傷害\n② 8 + 力量或敏捷傷害\n③ 11 + 力量或敏捷傷害\n效果：目標被你嘲諷，直到他下個回合結束。"
+  },
+  "heroes.kits.sniper.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.sniper.bonus.ranged-damage": {
+    "en": "Ranged Damage Bonus: +0/+0/+4",
+    "updated": "2026-10-14",
+    "zh": "遠程傷害加值：+0/+0/+4"
+  },
+  "heroes.kits.sniper.bonus.ranged-distance": {
+    "en": "Ranged Distance Bonus: +10",
+    "updated": "2026-10-14",
+    "zh": "遠程射程加值：+10"
+  },
+  "heroes.kits.sniper.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.sniper.description": {
+    "en": "The Sniper kit gives you the tools and techniques to take down enemies from afar. This kit can help you become the archer who lurks behind trees or down tunnels, picking off enemies with a bow or crossbow as they approach.",
+    "updated": "2026-10-14",
+    "zh": "狙擊套裝為你提供從遠距離擊倒敵人的裝備與技巧。這組套裝能幫助你成為潛伏在樹木後或隧道裡的弓箭手，讓你在敵人接近時用弓或弩將他們一一擊倒。"
+  },
+  "heroes.kits.sniper.equipment": {
+    "en": "You wear no armor and wield a bow.",
+    "updated": "2026-10-14",
+    "zh": "你沒有穿戴護甲，持用 1 把弓箭。"
+  },
+  "heroes.kits.sniper.signature.patient-shot": {
+    "en": "Patient Shot\nBreathe … aim … wait … then strike!\nRanged, Strike, Weapon • Main action • Ranged 15 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage\nTier 3: 13 + M or A damage\nEffect: If you don’t take a move action this turn, this strike deals extra damage equal to your Might or Agility score (your choice).",
+    "updated": "2026-10-14",
+    "zh": "沉穩射擊（Patient Shot）\n呼吸……瞄準……等待……然後射擊！\n遠程、打擊、武器／主要動作／遠程 15／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害\n③ 13 + 力量或敏捷傷害\n效果：若你在本回合沒有進行移動動作，此打擊會額外造成等於你力量或敏捷屬性值（由你選擇）的傷害。"
+  },
+  "heroes.kits.spellsword.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.spellsword.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.spellsword.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.spellsword.bonus.stamina": {
+    "en": "Stamina Bonus: +6 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +6"
+  },
+  "heroes.kits.spellsword.description": {
+    "en": "The Spellsword kit combines melee strikes and a little bit of magic, letting you create a warrior who doesn’t have to choose between the incantation and the blade.",
+    "updated": "2026-10-14",
+    "zh": "魔刃套裝結合了近身戰鬥與少量魔法，讓你不需要在咒語和刀刃之間陷入二選一的窘境。"
+  },
+  "heroes.kits.spellsword.equipment": {
+    "en": "You wear light armor and wield a shield and a medium weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用 1 面盾牌和 1 件中型武器。"
+  },
+  "heroes.kits.spellsword.signature.leaping-lightning": {
+    "en": "Leaping Lightning\nLightning jumps from your weapon as you strike to harm a nearby foe.\nMagic, Melee, Strike, Weapon • Main action • Melee 1 • One creature or object\nPower Roll + Might, Reason, Intuition, or Presence:\nTier 1: 5 + M, R, I, or P lightning damage\nTier 2: 8 + M, R, I, or P lightning damage\nTier 3: 11 + M, R, I, or P lightning damage\nEffect: A creature or object of your choice within 2 squares of the target takes lightning damage equal to the characteristic score used for this ability’s power roll.",
+    "updated": "2026-10-14",
+    "zh": "電光閃擊（Leaping Lightning）\n當你發動攻擊時，一道閃電從你的武器躍出，傷害附近的敵人。\n魔法、近戰、打擊、武器／主要動作／近戰 1／1 個生物或物體\n檢定 + 力量、理智、直覺或氣場：\n① 5 + 力量、理智、直覺或氣場閃電傷害\n② 8 + 力量、理智、直覺或氣場閃電傷害\n③ 11 + 力量、理智、直覺或氣場閃電傷害\n效果：目標 2 格內的 1 個生物或物體（由你選擇）會受到 X 點閃電傷害，X 等於此招式檢定所使用的屬性值。"
+  },
+  "heroes.kits.stick-and-robe.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.stick-and-robe.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.stick-and-robe.bonus.melee-distance": {
+    "en": "Melee Distance Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "近戰射程加值：+1"
+  },
+  "heroes.kits.stick-and-robe.bonus.speed": {
+    "en": "Speed Bonus: +2",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+2"
+  },
+  "heroes.kits.stick-and-robe.bonus.stamina": {
+    "en": "Stamina Bonus: +3 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +3"
+  },
+  "heroes.kits.stick-and-robe.description": {
+    "en": "Armed with a simple reach weapon, often a quarterstaff, a character using the Stick and Robe kit is highly mobile thanks to their light armor. This allows your hero to make maximum use of their weapon’s length.",
+    "updated": "2026-10-14",
+    "zh": "使用杖袍套裝的角色持用一把簡單的長兵器（通常是長棍），並因穿戴輕甲而具有高度機動性。這讓你的英雄能夠充分發揮長柄武器的優勢。"
+  },
+  "heroes.kits.stick-and-robe.equipment": {
+    "en": "You wear light armor and wield a polearm.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用 1 件長柄武器。"
+  },
+  "heroes.kits.stick-and-robe.signature.where-i-want-you": {
+    "en": "Where I Want You\nWhen your stick speaks, your enemy moves.\nMelee, Strike, Weapon • Main action • Melee 2 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage\nTier 2: 7 + M or A damage; slide 1\nTier 3: 10 + M or A damage; slide 3",
+    "updated": "2026-10-14",
+    "zh": "隨心所置（Where I Want You）\n當你的棍杖發聲，敵人就得移動。\n近戰、打擊、武器／主要動作／近戰 2／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害\n② 7 + 力量或敏捷傷害；滑動 1\n③ 10 + 力量或敏捷傷害；滑動 3"
+  },
+  "heroes.kits.swashbuckler.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.swashbuckler.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.swashbuckler.bonus.speed": {
+    "en": "Speed Bonus: +3",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+3"
+  },
+  "heroes.kits.swashbuckler.bonus.stamina": {
+    "en": "Stamina Bonus: +3 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +3"
+  },
+  "heroes.kits.swashbuckler.description": {
+    "en": "If you want to be mobile and deal a lot of damage with melee strikes, then you should reach for the Swashbuckler kit. This is a great kit for heroes who want to be master duelists.",
+    "updated": "2026-10-14",
+    "zh": "若你想靈活移動並在近身戰鬥中造成大量傷害，劍客套裝是你的最佳選擇。這組套裝特別適合渴望成為決鬥大師的英雄。"
+  },
+  "heroes.kits.swashbuckler.equipment": {
+    "en": "You wear light armor and wield a medium weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴輕甲，持用 1 件中型武器。"
+  },
+  "heroes.kits.swashbuckler.signature.fancy-footwork": {
+    "en": "Fancy Footwork\nAll combat is a dance—and you’ll be the one leading.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 5 + M or A damage\nTier 2: 7 + M or A damage; push 1\nTier 3: 10 + M or A damage; push 2\nEffect: You can shift into any square the target leaves after you push them.",
+    "updated": "2026-10-14",
+    "zh": "華麗步法（Fancy Footwork）\n每場戰鬥都是一場舞蹈，而你就是領舞者。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 5 + 力量或敏捷傷害\n② 7 + 力量或敏捷傷害；推動 1\n③ 10 + 力量或敏捷傷害；推動 2\n效果：在你推動目標後，你可以遁移到目標離開的任何方格。"
+  },
+  "heroes.kits.sword-and-board.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.sword-and-board.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +2/+2/+2",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+2/+2/+2"
+  },
+  "heroes.kits.sword-and-board.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.sword-and-board.bonus.stamina": {
+    "en": "Stamina Bonus: +9 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +9"
+  },
+  "heroes.kits.sword-and-board.description": {
+    "en": "The Sword and Board kit doesn’t just give you a shield—it makes the shield part of your offensive arsenal. With a medium weapon in one hand and a block of steel or solid oak in the other, you protect yourself while you control the battlefield.",
+    "updated": "2026-10-14",
+    "zh": "劍盾套裝不只提供你一面盾牌，而是讓盾牌成為你重要的進攻手段。一手持中型武器，一手握著鋼鐵或實木盾牌，你既能控制戰場，又能保護自己。"
+  },
+  "heroes.kits.sword-and-board.equipment": {
+    "en": "You wear medium armor and wield a shield and a medium weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴中甲，持用 1 面盾牌和 1 件中型武器。"
+  },
+  "heroes.kits.sword-and-board.signature.shield-bash": {
+    "en": "Shield Bash\nIn your hands, a shield isn’t just for protection.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage; push 1\nTier 2: 7 + M or A damage; push 2\nTier 3: 9 + M or A damage; push 3; M < s, prone",
+    "updated": "2026-10-14",
+    "zh": "盾擊（Shield Bash）\n你手中的盾牌不僅僅是防禦工具。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害；推動 1\n② 7 + 力量或敏捷傷害；推動 2\n③ 9 + 力量或敏捷傷害；推動 3；力量 < 強，伏地"
+  },
+  "heroes.kits.warrior-priest.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.warrior-priest.bonus.speed": {
+    "en": "Speed Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+1"
+  },
+  "heroes.kits.warrior-priest.bonus.stability": {
+    "en": "Stability Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "穩度加值：+1"
+  },
+  "heroes.kits.warrior-priest.bonus.stamina": {
+    "en": "Stamina Bonus: +9 per echelon",
+    "updated": "2026-10-14",
+    "zh": "體力加值：每境界 +9"
+  },
+  "heroes.kits.warrior-priest.description": {
+    "en": "The Warrior Priest kit imbues the power of the gods into your weapon, making it a smiting instrument. You wade into the fray without fear, thanks to the power of the divine … and the heavy armor you wear.",
+    "updated": "2026-10-14",
+    "zh": "武祭套裝將神力注入你的武器，使其成為懲戒之器。多虧了神聖力量以及身穿的重甲，你能夠無懼地投入戰鬥。"
+  },
+  "heroes.kits.warrior-priest.equipment": {
+    "en": "You wear heavy armor and wield a light weapon.",
+    "updated": "2026-10-14",
+    "zh": "你穿戴重甲，持用 1 件輕型武器。"
+  },
+  "heroes.kits.warrior-priest.signature.weakening-brand": {
+    "en": "Weakening Brand\nThe impact of your weapon brands your target for destruction.\nMagic, Melee, Strike, Weapon • Main action • Melee 1 • One creature or object\nPower Roll + Might, Reason, Intuition, or Presence:\nTier 1: 3 + M, R, I, or P holy damage\nTier 2: 5 + M, R, I, or P holy damage\nTier 3: 8 + M, R, I, or P holy damage\nEffect: Until the end of the target’s next turn, they have damage weakness equal to the characteristic score used for this ability’s power roll.",
+    "updated": "2026-10-14",
+    "zh": "弱化烙印（Weakening Brand）\n你的武器擊中目標，在對方身上烙下毀滅的印記。\n魔法、近戰、打擊、武器／主要動作／近戰 1／1 個生物或物體\n檢定 + 力量、理智、直覺或氣場：\n① 3 + 力量、理智、直覺或氣場神聖傷害\n② 5 + 力量、理智、直覺或氣場神聖傷害\n③ 8 + 力量、理智、直覺或氣場神聖傷害\n效果：在目標下個回合結束之前，他具有 X 點傷害弱點，X 等於此招式檢定所使用的屬性值。"
+  },
+  "heroes.kits.whirlwind.bonus.disengage": {
+    "en": "Disengage Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "撤離加值：+1"
+  },
+  "heroes.kits.whirlwind.bonus.melee-damage": {
+    "en": "Melee Damage Bonus: +1/+1/+1",
+    "updated": "2026-10-14",
+    "zh": "近戰傷害加值：+1/+1/+1"
+  },
+  "heroes.kits.whirlwind.bonus.melee-distance": {
+    "en": "Melee Distance Bonus: +1",
+    "updated": "2026-10-14",
+    "zh": "近戰射程加值：+1"
+  },
+  "heroes.kits.whirlwind.bonus.speed": {
+    "en": "Speed Bonus: +3",
+    "updated": "2026-10-14",
+    "zh": "速度加值：+3"
+  },
+  "heroes.kits.whirlwind.description": {
+    "en": "The Whirlwind kit makes effective use of whips, granting you mobility, damage, and reach. If you want to be a fast-moving warrior who lashes foes with a chain or whip, then this is the kit for you.",
+    "updated": "2026-10-14",
+    "zh": "旋風套裝讓你有效地運用鞭笞武器，提供你卓越的機動性、傷害力和攻擊距離。若你希望成為用鐵鍊或鞭子打擊敵人的靈活戰士，這組套裝正是為你準備的。"
+  },
+  "heroes.kits.whirlwind.equipment": {
+    "en": "You wear no armor and wield a whip.",
+    "updated": "2026-10-14",
+    "zh": "你沒有穿戴護甲，持用 1 件鞭笞武器。"
+  },
+  "heroes.kits.whirlwind.signature.extension-of-my-arm": {
+    "en": "Extension of My Arm\nWhen you draw your whip back after an attack, your enemy is drawn ever closer.\nMelee, Strike, Weapon • Main action • Melee 3 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage; vertical pull 1\nTier 2: 7 + M or A damage; vertical pull 2\nTier 3: 10 + M or A damage; vertical pull 3",
+    "updated": "2026-10-14",
+    "zh": "鞭影出臂（Extension of My Arm）\n在你攻擊並收回鞭子後，敵人會被拉得更近。\n近戰、打擊、武器／主要動作／近戰 3／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害；垂直拉動 1\n② 7 + 力量或敏捷傷害；垂直拉動 2\n③ 10 + 力量或敏捷傷害；垂直拉動 3"
+  },
   "heroes.perks.arcane-trick.effect": {
     "en": "You have the following ability.\nArcane Trick\nYou cast an entertaining spell that creates a minor but impressive magical effect.\nMagic • Main Action • Self; see below • Self\nEffect: Choose one of the following effects:\n• You teleport a size 1S or smaller object adjacent to you into an unoccupied space adjacent to you.\n• Until the start of your next turn, a part of your body shoots a shower of harmless noisy sparks that light up each square adjacent to you.\n• You ignite or snuff out (your choice) every mundane light source of 1L or smaller adjacent to you.\n• You transform up to 1 pound of edible food you touch to make it taste delicious or disgusting.\n• Until the start of your next turn, you make your body exude a particular odor you’ve smelled before. This smell can be sensed by each creature within 5 squares of you, but can’t impose any condition or other drawback on those creatures.\n• You place a small magical inscription on the surface of a mundane object you touch, or you can remove an inscription that was made by you or by another creature using Arcane Trick.\n• You touch a size 1T object to cover it with an illusion that makes it look like a different object. Any creature who handles the object becomes aware of the illusion. The illusion ends when you stop touching the object.",
     "updated": "2026-10-14",
@@ -6719,6 +7269,11 @@
   },
   "heroes.perks.teamwork.effect": {
     "en": "When you take your first turn during any montage test, you can both make a test and assist another hero’s test.",
+    "fs": {
+      "basisHash": "7712c24f917dd6d7a1cf2b1c2c55a610b02665cb542ed8ea520d61d3b3cf8532",
+      "en": "When you take your first turn during a montage test, you can both make a test and assist another hero’s test.",
+      "zh": "在蒙太奇考驗中，當你進行你的第 1 個回合時，你可以同時進行自己的考驗並協助另 1 個英雄的考驗。"
+    },
     "updated": "2026-10-14",
     "zh": "在任何蒙太奇考驗中，當你進行你的第 1 個回合時，你可以同時進行自己的考驗並協助另 1 個英雄的考驗。"
   },
