@@ -58,5 +58,13 @@
   "element:perk-so-tell-me:name": {
     "kind": "punctuation",
     "note": "Forge Steel has a comma and three periods. The approved Names row has neither the comma nor the periods, and uses one ellipsis character."
+  },
+  "element:perk-ive-read-about-this-place:description": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses asterisks and blank lines between the questions. The approved Strings row uses bullets and has no blank lines. The wording is the same."
+  },
+  "element:perk-thingspeaker:description": {
+    "kind": "punctuation",
+    "note": "Forge Steel uses asterisks and blank lines between the questions. The approved Strings row uses bullets and has no blank lines. The wording is the same."
   }
 }

@@ -6,9 +6,9 @@ import strings from '@/l10n/generated/zh-TW/strings.json';
 
 // Update only these approved totals when a content batch changes the inventory.
 const expectedInventory = {
-	mappingKeys: 944,
+	mappingKeys: 981,
 	forgeSteelStringRows: 324,
-	englishExceptions: 15
+	englishExceptions: 17
 };
 
 describe('approved localization inventory', () => {

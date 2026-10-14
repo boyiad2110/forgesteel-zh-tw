@@ -1392,7 +1392,8 @@ describe('perk name segment', () => {
 		const handyHtml = panel(handy);
 		expect(handyHtml).toContain('心靈手巧');
 		expect(handyHtml).toContain('工藝類');
-		expect(handyHtml).toContain('Whenever you make a test to craft something');
+		expect(handyHtml).toContain('獲得 +1 加值');
+		expect(handyHtml).not.toContain('Whenever you make a test to craft something');
 		expect(handyHtml).not.toContain('>Handy<');
 
 		const catapultHtml = panel(catapult);
@@ -1420,9 +1421,25 @@ describe('perk name segment', () => {
 			feature: perk as Feature
 		})));
 		expect(sheet(handy)).toContain('心靈手巧');
-		expect(sheet(handy)).toContain('Whenever you make a test to craft something');
+		expect(sheet(handy)).toContain('獲得 +1 加值');
+		expect(sheet(handy)).not.toContain('Whenever you make a test to craft something');
 		expect(sheet(catapult)).toContain('投擲盟友');
 		expect(sheet(catapult)).toContain('You hurl your ally through the air.');
+		for (const [ id, phrase ] of [
+			[ 'perk-improvisation-creation', '簡易木鏟' ],
+			[ 'perk-ive-read-about-this-place', '最有影響力的公眾人物' ],
+			[ 'perk-thingspeaker', '情感共鳴' ],
+			[ 'perk-eidetic-memory', '百科全書' ]
+		] as const) {
+			const perk = core.perks.find(item => item.id === id)!;
+			expect(panel(perk)).toContain(phrase);
+			expect(sheet(perk)).toContain(phrase);
+		}
+		const teamwork = core.perks.find(item => item.id === 'perk-teamwork')!;
+		expect(panel(teamwork)).toContain('during a montage test');
+		expect(panel(teamwork)).not.toContain('任何蒙太奇');
+		expect(sheet(teamwork)).toContain('during a montage test');
+		expect(sheet(teamwork)).not.toContain('任何蒙太奇');
 		for (const [ id, chinese, english ] of [
 			[ 'perk-spot-the-tell', '發現破綻', 'Spot The Tell' ],
 			[ 'perk-gum-up-the-works', '妨礙運作', 'Gum Up The Works' ],
@@ -1437,6 +1454,11 @@ describe('perk name segment', () => {
 			expect(sheet(core.perks.find(item => item.id === id)!)).not.toContain(english);
 		}
 		setLanguage('en');
+		const handyEnglish = panel(handy);
+		expect(handyEnglish).toContain('Whenever you make a test to craft something');
+		expect(handyEnglish).not.toContain('獲得 +1 加值');
+		expect(sheet(handy)).toContain('Whenever you make a test to craft something');
+		expect(sheet(handy)).not.toContain('獲得 +1 加值');
 		for (const [ id, chinese, english ] of [
 			[ 'perk-spot-the-tell', '發現破綻', 'Spot The Tell' ],
 			[ 'perk-gum-up-the-works', '妨礙運作', 'Gum Up The Works' ],
@@ -1467,6 +1489,24 @@ describe('perk name segment', () => {
 		expect(modal).not.toContain('>Crafting<');
 		expect(modal).not.toContain('>Exploration<');
 		expect(modal).not.toContain('>Interpersonal<');
+	});
+
+	test('a rewritten perk description stays English on the classic sheet and the detail panel', () => {
+		const handy = core.perks.find(perk => perk.id === 'perk-handy')!;
+		const rewritten = { ...handy, description: 'A rewritten handy note that is not the sourcebook text.' };
+		const options = FactoryLogic.createOptions();
+		const sheetHtml = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: rewritten
+		})));
+		expect(sheetHtml).toContain('A rewritten handy note that is not the sourcebook text.');
+		expect(sheetHtml).not.toContain('獲得 +1 加值');
+		const panelHtml = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: rewritten,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(panelHtml).toContain('A rewritten handy note that is not the sourcebook text.');
+		expect(panelHtml).not.toContain('獲得 +1 加值');
 	});
 });
 

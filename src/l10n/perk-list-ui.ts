@@ -1,5 +1,8 @@
 import { Language } from '@/l10n/language';
 import { PerkList } from '@/enums/perk-list';
+import { Sourcebook } from '@/models/sourcebook';
+import { SourcebookType } from '@/enums/sourcebook-type';
+import { mapping } from '@/l10n/mapping';
 import { translate } from '@/l10n/text';
 import { useUI } from '@/l10n/ui-text';
 
@@ -63,4 +66,36 @@ export const perkCountCategoryLine = (count: number, categories: string[], langu
 	}
 	const word = count === 1 ? 'Perk' : 'Perks';
 	return label ? `${count} ${label} ${word}` : `${count} ${word}`;
+};
+
+const officialPerk = (id: string, sourcebooks: Sourcebook[]) => {
+	return sourcebooks
+		.filter(sourcebook => sourcebook.type === SourcebookType.Official)
+		.flatMap(sourcebook => sourcebook.perks)
+		.find(perk => perk.id === id);
+};
+
+/**
+ * Description key for an official perk whose rules text is still the sourcebook text.
+ * A rewrite, a missing catalog row, or a perk outside the official books stays untranslated.
+ */
+export const officialPerkDescriptionKey = (
+	feature: { id: string, description: string },
+	sourcebooks: Sourcebook[]
+) => {
+	const canonical = officialPerk(feature.id, sourcebooks);
+	if (!canonical || canonical.description !== feature.description) {
+		return undefined;
+	}
+	const key = `element:${feature.id}:description`;
+	return mapping[key] ? key : undefined;
+};
+
+/** An official perk exists and its description is no longer the sourcebook text. */
+export const perkDescriptionRewritten = (
+	feature: { id: string, description: string },
+	sourcebooks: Sourcebook[]
+) => {
+	const canonical = officialPerk(feature.id, sourcebooks);
+	return !!canonical && canonical.description !== feature.description;
 };

@@ -23,10 +23,12 @@ import { PlayerName } from '@/l10n/player-name';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
+import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
 import { perkListText } from '@/l10n/perk-list-ui';
+import { useOptionalSourcebooks } from '@/contexts/data-context';
 import { useUI } from '@/l10n/ui-text';
 
 import rollT1 from '@/assets/icons/power-roll-t1.svg';
@@ -107,7 +109,7 @@ const isAllPerkLists = (lists: PerkList[]): boolean => {
 	return Object.values(PerkList).every(l => lists.includes(l));
 };
 
-const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, ui: ReturnType<typeof useUI>) => {
+const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, ui: ReturnType<typeof useUI>, descriptionKey?: string) => {
 	let listNames;
 	let choiceType;
 	switch (feature.type) {
@@ -142,6 +144,9 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 	return (
 		<>
 			{feature.id.startsWith('perk-') ? <div className='feature-title'><OfficialPerkName feature={feature} /></div> : null}
+			{feature.type === FeatureType.SkillChoice && feature.id.startsWith('perk-') && feature.description ?
+				<Markdown text={feature.description} className='feature-description' l10nKey={descriptionKey} />
+				: null}
 			<div className='feature-line'>
 				• {feature.type === FeatureType.Perk
 					? perkCountCategoryLine(feature.data.count, listNames ?? [], ui.language)
@@ -170,13 +175,14 @@ const CharacteristicBonusFeatureComponent = (feature: FeatureCharacteristicBonus
 	);
 };
 
-const TextFeatureComponent = (feature: FeatureText | FeatureMultiple) => {
+const TextFeatureComponent = (feature: FeatureText | FeatureMultiple, descriptionKey?: string) => {
 	return (
 		<>
 			<div className='feature-title'><OfficialPerkName feature={feature} /></div>
 			<Markdown
 				text={feature.description}
 				className='feature-description'
+				l10nKey={descriptionKey}
 			/>
 		</>
 	);
@@ -534,6 +540,8 @@ export const FeatureComponent = (props: Props) => {
 	const feature = props.feature;
 	const hero = props.hero;
 	const ui = useUI();
+	const sourcebooks = useOptionalSourcebooks() || [];
+	const perkDescriptionKey = feature.id.startsWith('perk-') ? officialPerkDescriptionKey(feature, sourcebooks) : undefined;
 	let content;
 	switch (feature.type) {
 		case FeatureType.LanguageChoice:
@@ -546,7 +554,7 @@ export const FeatureComponent = (props: Props) => {
 			break;
 		case FeatureType.SkillChoice:
 		case FeatureType.Perk:
-			content = SkillChoiceFeatureComponent(feature, ui);
+			content = SkillChoiceFeatureComponent(feature, ui, perkDescriptionKey);
 			break;
 		case FeatureType.Bonus:
 			content = <BonusFeatureComponent feature={feature} hero={hero} sourcebooks={props.sourcebooks} />;
@@ -555,7 +563,7 @@ export const FeatureComponent = (props: Props) => {
 			content = CharacteristicBonusFeatureComponent(feature);
 			break;
 		case FeatureType.Text:
-			content = TextFeatureComponent(feature);
+			content = TextFeatureComponent(feature, perkDescriptionKey);
 			break;
 		case FeatureType.Package:
 			content = PackageFeatureComponent(feature, hero);
@@ -608,7 +616,7 @@ export const FeatureComponent = (props: Props) => {
 			content = MaliceAbilityFeatureComponent(feature);
 			break;
 		case FeatureType.Multiple:
-			content = feature.description ? TextFeatureComponent(feature) : undefined;
+			content = feature.description ? TextFeatureComponent(feature, perkDescriptionKey) : undefined;
 			break;
 		case FeatureType.PackageContent: // These are brought in as part of the Package
 			break;

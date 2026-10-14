@@ -1,6 +1,6 @@
 # PERKS-01 專長在地化
 
-2026-10-14。本批對照 Heroes 1.01b 的 47 個專長（Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`，BOOK-02 已核准）。第 1 段只盤點並接入專長名稱與 6 個類別名稱。效果、招式與魔寵數據表留後續段，經 Marc 人工驗收後才做。
+2026-10-14。本批對照 Heroes 1.01b 的 47 個專長（Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`，BOOK-02 已核准）。第 1 段已由 Marc 驗收（head `f8cf1d3`）：47 個專長名稱與 6 個類別。第 2 段接入純文字效果，仍在同一 PR #69，待 Marc 驗收後才做招式。
 
 ## 第 1 段範圍
 
@@ -161,15 +161,20 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 ### 第 2 段：單純文字效果
 
-接入 `description` 與書本來源英文一致的文字型效果，原樣使用 APPROVED 中文。名稱已經接入、效果英文仍一致的有 `perk-travelling-artisan`、`perk-put-your-back-into-it`、`perk-so-tell-me`、`perk-spot-the-tell`、`perk-travelling-sage`。
+沿用第 1 段快照，不重新擷取。37 個純文字效果以 APPROVED `heroes.perks.*.effect` 原樣接入，不摘要、不截斷。網站英文與書本英文相同的有 35 個。`perk-ive-read-about-this-place` 與 `perk-thingspeaker` 只有條列符號和空行差異，走既有標點例外；畫面上的中文仍是書本原文（我知道這地方用 •，通物者用 ①②③）。旅行工匠與旅行學者的書本 ID 是 `traveling`（一個 l），網站 id 是 `travelling`。
 
-先單獨處理這 3 個效果差異，不把書本中文直接套上不同英文：
+已接入：`perk-area-of-expertise`、`perk-brawny`、`perk-but-i-know-who-does`、`perk-camouflage-hunter`、`perk-charming-liar`、`perk-criminal-contacts`、`perk-danger-sense`、`perk-dazzler`、`perk-eidetic-memory`、`perk-engrossing-monologue`、`perk-expert-artisan`、`perk-expert-sage`、`perk-forgettable-face`、`perk-handy`、`perk-harmonizer`、`perk-improvisation-creation`、`perk-inspired-artisan`、`perk-ive-read-about-this-place`、`perk-lie-detector`、`perk-lucky-dog`、`perk-master-of-disguise`、`perk-monster-whisperer`、`perk-open-book`、`perk-pardon-my-friend`、`perk-polymath`、`perk-power-player`、`perk-put-your-back-into-it`、`perk-ritualist`、`perk-slipped-lead`、`perk-so-tell-me`、`perk-specialist`、`perk-spot-the-tell`、`perk-team-leader`、`perk-thingspeaker`、`perk-travelling-artisan`、`perk-travelling-sage`、`perk-wood-wise`。
 
-- `perk-teamwork` 的 any
-- `perk-thingspeaker` 的條列符號
-- `perk-ive-read-about-this-place` 的撇號與條列符號
+`perk-eidetic-memory` 是技能選擇。詳情抽屜與經典角色卡都顯示完整效果；技能選擇列本身不改。改寫過的官方效果維持英文。
 
-`perk-eidetic-memory` 的效果英文一致，可放本段；它的技能選擇 UI 若要連動，先確認是否只翻譯描述。`perk-linguist` 的描述被拆成子特性，不放本段。
+維持英文，本段不接：
+
+- `perk-teamwork`：網站是 “during a montage test”，書本是 “during any montage test”。any 不是冠詞，不能用例外。需要一筆只刪除書本中文「任何」二字的 Forge Adaptation。草稿未寫入 Sheet，也沒有 mapping。
+- `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。不能把整段書本效果貼到較短的父項。留第 4 段。
+- 招式型短描述（第 3 段）：`perk-friend-catapult`、`perk-ive-got-you`、`perk-gum-up-the-works`、`perk-creature-sense`、`perk-invisible-force`、`perk-psychic-whisper`。短描述與完整招式不同，不把書本整段套上去。
+- 第 4 段結構：`perk-arcane-trick`、`perk-familiar`。
+
+mapping 981。英文例外 17。帶 Forge Steel 版本的字串列仍是 324。
 
 ### 第 3 段：專長授予的招式
 
@@ -205,7 +210,7 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 ## 本段不處理
 
-- 專長效果、招式內文、魔寵數據表與 Telepathic。
+- 尚未接入的效果：`perk-teamwork`、`perk-linguist`、6 個招式型短描述、奧術戲法、魔寵數據表與 Telepathic。
 - 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
 - 非 Heroes 來源書的專長。
 - Google Sheets、遊戲規則、存檔與分享格式。
