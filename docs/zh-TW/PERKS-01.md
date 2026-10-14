@@ -161,7 +161,7 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 ### 第 2 段：單純文字效果
 
-沿用第 1 段快照，不重新擷取。37 個純文字效果以 APPROVED `heroes.perks.*.effect` 原樣接入，不摘要、不截斷。網站英文與書本英文相同的有 35 個。`perk-ive-read-about-this-place` 與 `perk-thingspeaker` 只有條列符號和空行差異，走既有標點例外；畫面上的中文仍是書本原文（我知道這地方用 •，通物者用 ①②③）。旅行工匠與旅行學者的書本 ID 是 `traveling`（一個 l），網站 id 是 `travelling`。
+沿用第 1 段快照，不重新擷取。37 個純文字效果以 APPROVED `heroes.perks.*.effect` 原樣接入，不摘要、不截斷。網站英文與書本英文相同的有 35 個。`perk-ive-read-about-this-place` 與 `perk-thingspeaker` 只有條列符號和空行差異，走既有標點例外；畫面上的中文仍是書本原文（我知道這地方用 •，憶物通靈用 ①②③）。旅行工匠與旅行學者的書本 ID 是 `traveling`（一個 l），網站 id 是 `travelling`。
 
 已接入：`perk-area-of-expertise`、`perk-brawny`、`perk-but-i-know-who-does`、`perk-camouflage-hunter`、`perk-charming-liar`、`perk-criminal-contacts`、`perk-danger-sense`、`perk-dazzler`、`perk-eidetic-memory`、`perk-engrossing-monologue`、`perk-expert-artisan`、`perk-expert-sage`、`perk-forgettable-face`、`perk-handy`、`perk-harmonizer`、`perk-improvisation-creation`、`perk-inspired-artisan`、`perk-ive-read-about-this-place`、`perk-lie-detector`、`perk-lucky-dog`、`perk-master-of-disguise`、`perk-monster-whisperer`、`perk-open-book`、`perk-pardon-my-friend`、`perk-polymath`、`perk-power-player`、`perk-put-your-back-into-it`、`perk-ritualist`、`perk-slipped-lead`、`perk-so-tell-me`、`perk-specialist`、`perk-spot-the-tell`、`perk-team-leader`、`perk-thingspeaker`、`perk-travelling-artisan`、`perk-travelling-sage`、`perk-wood-wise`。
 
