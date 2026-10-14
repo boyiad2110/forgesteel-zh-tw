@@ -25,6 +25,7 @@ import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
+import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
 import { perkListText } from '@/l10n/perk-list-ui';
 import { useUI } from '@/l10n/ui-text';
 
@@ -142,7 +143,9 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 		<>
 			{feature.id.startsWith('perk-') ? <div className='feature-title'><OfficialPerkName feature={feature} /></div> : null}
 			<div className='feature-line'>
-				• {feature.data.count} {lists} {SheetFormatter.pluralize(choiceType, feature.data.count)}
+				• {feature.type === FeatureType.Perk
+					? perkCountCategoryLine(feature.data.count, listNames ?? [], ui.language)
+					: `${feature.data.count} ${lists} ${SheetFormatter.pluralize(choiceType, feature.data.count)}`}
 			</div>
 			{selectedOptions}
 		</>

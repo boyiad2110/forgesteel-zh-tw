@@ -1320,7 +1320,9 @@ describe('skill display batch', () => {
 
 		const perks = renderPerkChoice();
 		expect(perks).toContain('專業領域');
+		expect(perks).toContain('1 項工藝類 Perk');
 		expect(perks).not.toContain('Area of Expertise');
+		expect(perks).not.toContain('1 工藝類 Perk');
 
 		setLanguage('en');
 		const englishSkills = renderSkillChoice();
@@ -1331,7 +1333,41 @@ describe('skill display batch', () => {
 
 		const englishPerks = renderPerkChoice();
 		expect(englishPerks).toContain('Area of Expertise');
+		expect(englishPerks).toContain('1 Crafting Perk');
 		expect(englishPerks).not.toContain('專業領域');
+		expect(englishPerks).not.toContain('項');
+		setLanguage('zh-TW');
+	});
+
+	test('a perk count keeps Perk in English and uses 項 for every category', () => {
+		const selected = core.perks.find(perk => perk.id === 'perk-brawny')!;
+		const feature: FeaturePerk = FactoryLogic.feature.createPerk({
+			id: 'perk-count',
+			lists: [ PerkList.Exploration ],
+			count: 2,
+			selected: [ selected ]
+		});
+		const html = () => renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, { feature })));
+
+		expect(html()).toContain('• 2 項探索類 Perk');
+		expect(html()).not.toContain('• 2 項探索類 Perks');
+		expect(html()).not.toContain('專長');
+
+		setLanguage('en');
+		expect(html()).toContain('2 Exploration Perks');
+		expect(html()).not.toContain('項');
+
+		const several: FeaturePerk = FactoryLogic.feature.createPerk({
+			id: 'perk-several',
+			lists: [ PerkList.Exploration, PerkList.Interpersonal, PerkList.Intrigue ],
+			selected: []
+		});
+		setLanguage('zh-TW');
+		const severalHtml = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, { feature: several })));
+		expect(severalHtml).toContain('• 1 項探索類、交涉類或諜報類 Perk');
+		setLanguage('en');
+		const severalEnglish = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, { feature: several })));
+		expect(severalEnglish).toContain('• 1 Exploration, Interpersonal or Intrigue Perk');
 		setLanguage('zh-TW');
 	});
 });
