@@ -6,7 +6,7 @@
 |---|---|---|---|
 | DISPLAY-DEFAULTS | 待後續批次 / 54 種未核准特性預設描述 | Career 的 Crafting Perk 標題、Skills 標題及 Perk 類別標籤已接入既有 APPROVED UI／Glossary；一般特性預設說明仍需依呼叫情境盤點：9 類空描述先核對實際頁面，45 類逐一追蹤接點。Perk 預設說明仍待來源核准 | 不以生成語言／技能提示代替 FeatureType 預設描述完成率；每批先預覽 |
 | BOOK-01 | Inciting Incidents／Career Summary／Career UI 已驗收；PR #66 與 PR #68 均已合併 | #66 已接入 108 個事件名稱／描述及 18 個 Career 名稱／簡介，Marc 於 2026-10-13 驗收並合併 develop。Career UI [PR #68](https://github.com/boyiad2110/forgesteel-zh-tw/pull/68) 已於 2026-10-13 squash 合併 develop `5e7f7220`：15 個英文吻合的專長名稱已接入；`I've Read About This Place`、`Put Your Back Into It`、`Spot The Tell` 維持網站英文。74 筆 Career 背景問題已隨 2026-10-14 書本快照進入核准目錄，網站仍無對應欄位 | 74 筆問題維持書本範圍，不新增欄位、不改模型或存檔 |
-| PERKS-01 | 第 1 段已由 Marc 驗收（`f8cf1d3`）。第 2 段：37 個純文字效果與團隊合作適配已接入，待 Marc 人工驗收 | 盤點見 [PERKS-01](PERKS-01.md)。37 個效果用書本原文。`perk-teamwork` 使用已核准 Adaptation，中文只少「任何」。語言學家、招式、奧術戲法／魔寵留第 3–4 段。同次快照多出的書本名稱與字串，以及套裝列，沒有 mapping | Marc 驗收第 2 段後才開始第 3 段；改寫、未知及未核准效果維持英文 |
+| PERKS-01 | 第 1 段已由 Marc 驗收（`f8cf1d3`）。第 2 段已接入，並修了已選列、憶物通靈清單與等級投射；語言學家適配仍是 DRAFT | 盤點見 [PERKS-01](PERKS-01.md)。已選專長列讀核准效果。憶物通靈目錄保留 ①②③，畫面用與英文相同的清單。肌肉發達、幸運兒把上游等級投射進「等級」。語言學家兩列草稿待 Marc 核准後才接入。招式、奧術戲法／魔寵留第 3–4 段 | Marc 驗收第 2 段與語言學家草稿後才開始第 3 段；改寫、未知及未核准效果維持英文 |
 | BOOK-02 | 外部書本翻譯依賴／Marc | 書本工作流決定 Glossary Enhancement | 書本 Master Sheet 決策更新；不阻塞現有名稱顯示 |
 | RELEASE-01 | 正式開放前／runtime | 為目錄載入失敗設計受控重試與診斷，補失敗→恢復測試 | 可恢復且沒有 render 重試迴圈 |
 | RELEASE-02 | 正式開放前／網站識別 | 核對 HTML/PWA 語言、名稱、分享網址 | 與正式站識別一致 |

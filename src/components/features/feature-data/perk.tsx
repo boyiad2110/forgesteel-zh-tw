@@ -21,6 +21,7 @@ import { SelectionBox } from '@/components/panels/feature-config-panel/feature-c
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
 import { useState } from 'react';
 import { useUI } from '@/l10n/ui-text';
 
@@ -158,7 +159,7 @@ export const ConfigPerk = (props: ConfigProps) => {
 							<Field
 								style={{ flex: '1 1 0' }}
 								label={<PlayerName element={perk} />}
-								value={<Markdown text={perk.description} useSpan={true} />}
+								value={<Markdown text={perk.description} useSpan={true} l10nKey={officialPerkDescriptionKey(perk, props.sourcebooks)} />}
 							/>
 						}
 						onSelect={() => setSelectedPerk(perk)}

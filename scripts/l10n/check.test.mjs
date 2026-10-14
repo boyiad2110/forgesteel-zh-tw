@@ -136,7 +136,15 @@ describe('calculated display bindings', () => {
 		const { root, binding, store } = fixture();
 		binding.sheetId = 'another';
 		store();
-		expect(formatIssues(checkCalculationBindings(root))).toContain('mapped approved Forge Steel row');
+		expect(formatIssues(checkCalculationBindings(root))).toContain('mapped approved row');
+	});
+
+	test('accepts a calculation binding on an approved book row with no Forge Steel version', () => {
+		const { root, en, zh } = fixture();
+		write(root, 'src/l10n/generated/zh-TW/strings.json', JSON.stringify({
+			demo: { en, zh, updated: '2026-10-07' }
+		}));
+		expect(checkCalculationBindings(root)).toEqual([]);
 	});
 
 	test('templates require an approved Sheet target matching the binding span', () => {

@@ -226,6 +226,42 @@ const carryConditionBold = (english: string, chinese: string) => {
 	}).join('');
 };
 
+const THINGSPEAKER_DESCRIPTION = 'element:perk-thingspeaker:description';
+const CIRCLED_ITEM = /^[\u2460\u2461\u2462][ \t]+(.*)$/;
+
+/**
+ * Thingspeaker's approved Chinese keeps its circled numerals.
+ * On screen, each of those line markers becomes the same markdown list item
+ * the English uses. A blank line is only inserted around that list so the
+ * following sentence stays outside it. Every word stays in order.
+ * Tier numerals in any other string are left alone.
+ */
+export const displayListMarkup = (key: string | undefined, text: string) => {
+	if (key !== THINGSPEAKER_DESCRIPTION) {
+		return text;
+	}
+	const lines = text.split('\n');
+	const out: string[] = [];
+	let inList = false;
+	for (const line of lines) {
+		const item = CIRCLED_ITEM.exec(line);
+		if (item) {
+			if (!inList && out.length > 0 && out[out.length - 1] !== '') {
+				out.push('');
+			}
+			inList = true;
+			out.push(`* ${item[1]}`);
+			continue;
+		}
+		if (inList && line !== '') {
+			out.push('');
+		}
+		inList = false;
+		out.push(line);
+	}
+	return out.join('\n');
+};
+
 /**
  * The string to show. English mode always returns `english`, the exact value
  * the screen already had — never the sheet's own English copy.
@@ -233,7 +269,9 @@ const carryConditionBold = (english: string, chinese: string) => {
  * In zh-TW, a missing key, a missing table row, a sheet id that is not
  * loaded, or a blank translation also returns `english`. A row with a
  * Forge Steel version uses that Chinese. A blank Forge Steel translation
- * returns `english`.
+ * returns `english`. A calculation binding projects one upstream integer
+ * into either version. Book text is projected only when that binding exists,
+ * so a punctuation exception is not compared back to the sheet's English.
  */
 export const resolveText = (language: Language, key: string | undefined, english: string, table: Record<string, string>, catalog: Catalog | null, stripHeading = false): string => {
 	if (language === 'en' || !key) {
@@ -246,11 +284,12 @@ export const resolveText = (language: Language, key: string | undefined, english
 	}
 
 	const row = catalog[sheetId];
+	const show = (shown: string) => displayListMarkup(key, carryConditionBold(english, shown));
 	if (row?.fs) {
 		if (!row.fs.zh || blank(row.fs.zh)) {
 			return english;
 		}
-		return carryConditionBold(english, projectCalculatedText(key, row.fs.en, english, row.fs.zh, row.fs.calculationDisplay));
+		return show(projectCalculatedText(key, row.fs.en, english, row.fs.zh, row.fs.calculationDisplay));
 	}
 
 	const zh = row?.zh;
@@ -259,7 +298,8 @@ export const resolveText = (language: Language, key: string | undefined, english
 	}
 
 	if (!stripHeading) {
-		return carryConditionBold(english, zh);
+		const shown = hasCalculationBinding(key) ? projectCalculatedText(key, row.en, english, zh) : zh;
+		return show(shown);
 	}
 
 	const body = stripRulesHeading(zh);
@@ -267,7 +307,7 @@ export const resolveText = (language: Language, key: string | undefined, english
 		return english;
 	}
 
-	return carryConditionBold(english, body);
+	return show(body);
 };
 
 /**

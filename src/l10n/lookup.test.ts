@@ -4,7 +4,7 @@ import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/cultur
 import { Feature, FeaturePerk } from '@/models/feature';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
-import { displayKey, resolveText, translate } from '@/l10n/text';
+import { displayKey, displayListMarkup, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { hasCalculationBinding, plainForLookup, projectCalculatedText } from '@/l10n/calculated-text';
 import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text';
@@ -18,6 +18,7 @@ import { AncestryData } from '@/data/ancestry-data';
 import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { ConditionType } from '@/enums/condition-type';
+import { ConfigPerk } from '@/components/features/feature-data/perk';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { FeatureField } from '@/enums/feature-field';
@@ -1512,6 +1513,195 @@ describe('perk name segment', () => {
 		}))));
 		expect(panelHtml).toContain('A rewritten handy note that is not the sourcebook text.');
 		expect(panelHtml).not.toContain('獲得 +1 加值');
+		const choice = FactoryLogic.feature.createPerk({
+			id: 'rewritten-handy-choice',
+			lists: [ handy.list ],
+			selected: [ rewritten ]
+		});
+		const selectedHtml = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(ConfigPerk, {
+			data: choice.data,
+			feature: choice,
+			hero: FactoryLogic.createHero(),
+			sourcebooks: [ core ],
+			setData: () => undefined
+		})));
+		expect(selectedHtml).toContain('A rewritten handy note that is not the sourcebook text.');
+		expect(selectedHtml).not.toContain('獲得 +1 加值');
+	});
+
+	test('the selected perk row shows the approved effect', () => {
+		const handy = core.perks.find(perk => perk.id === 'perk-handy')!;
+		const choice = FactoryLogic.feature.createPerk({
+			id: 'handy-choice',
+			lists: [ handy.list ],
+			selected: [ handy ]
+		});
+		const html = () => renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(ConfigPerk, {
+			data: choice.data,
+			feature: choice,
+			hero: FactoryLogic.createHero(),
+			sourcebooks: [ core ],
+			setData: () => undefined
+		})));
+		expect(html()).toContain('心靈手巧');
+		expect(html()).toContain('獲得 +1 加值');
+		expect(html()).not.toContain('Whenever you make a test to craft something');
+		setLanguage('en');
+		expect(html()).toContain('Whenever you make a test to craft something');
+		expect(html()).not.toContain('獲得 +1 加值');
+		setLanguage('zh-TW');
+	});
+
+	test('Thingspeaker keeps the approved words and renders the English list', () => {
+		const key = 'element:perk-thingspeaker:description';
+		const sheetId = mapping[key].sheetId;
+		const row = (strings as Catalog)[sheetId];
+		const words = (text: string) => text
+			.split('\n')
+			.map(line => line.replace(/^[\u2460\u2461\u2462]\s+/, '').replace(/^\* /, ''))
+			.filter(line => line.length > 0)
+			.join('\n');
+		const shown = resolveText('zh-TW', key, row.en, { [key]: sheetId }, peekCatalog());
+		expect(row.zh).toContain('\u2460');
+		expect(shown).toBe(displayListMarkup(key, row.zh));
+		expect(words(shown)).toBe(words(row.zh));
+		expect(shown).toContain('* 情感烙印在這個物體上的人，叫什麼名字？');
+		expect(shown).not.toMatch(/[\u2460\u2461\u2462]/);
+		const perk = core.perks.find(item => item.id === 'perk-thingspeaker')!;
+		const options = FactoryLogic.createOptions();
+		const html = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: perk,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(html).toContain('<li>情感烙印在這個物體上的人，叫什麼名字？</li>');
+		expect(html).toContain('<li>為什麼這種情感會殘留在物體上？</li>');
+		expect(html).toContain('<li>留下這份情感的人，上次持握這個物體距今已過了多久？</li>');
+		expect(html).toContain('詢問 1 個問題後');
+		expect(html).not.toContain('多久？<br>詢問');
+		expect(html).not.toMatch(/[\u2460\u2461\u2462]/);
+		const kitId = 'heroes.kits.arcane-archer.signature.exploding-arrow';
+		const kit = (strings as Catalog)[kitId];
+		const kept = resolveText('zh-TW', 'element:not-thingspeaker:description', kit.en, { 'element:not-thingspeaker:description': kitId }, peekCatalog());
+		expect(kept).toBe(kit.zh);
+		expect(kept).toContain('\u2460');
+		expect(displayListMarkup('element:not-thingspeaker:description', kit.zh)).toBe(kit.zh);
+	});
+
+	test('Brawny and Lucky Dog project the hero level into the approved effect', () => {
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.level = 1;
+		const options = FactoryLogic.createOptions();
+		const panel = (id: string, current: ReturnType<typeof FactoryLogic.createHero> | null = hero) => {
+			const perk = core.perks.find(item => item.id === id)!;
+			return renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+				feature: perk,
+				hero: current ?? undefined,
+				sourcebooks: [ core ],
+				mode: PanelMode.Full
+			}))));
+		};
+		expect(panel('perk-brawny')).toContain('1d6 + 1 的體力');
+		expect(panel('perk-brawny')).not.toContain('your level');
+		expect(panel('perk-brawny')).not.toContain('Whenever you fail a Might test');
+		expect(panel('perk-lucky-dog')).toContain('1d6 + 1 的體力');
+		expect(panel('perk-lucky-dog')).not.toContain('Whenever you fail a test using any skill');
+		hero.class.level = 2;
+		expect(panel('perk-brawny')).toContain('1d6 + 2 的體力');
+		expect(panel('perk-lucky-dog')).toContain('1d6 + 2 的體力');
+		expect(panel('perk-brawny', null)).toContain('等級的體力');
+		expect(panel('perk-brawny', null)).not.toContain('1d6 + 1 的體力');
+		const brawny = core.perks.find(item => item.id === 'perk-brawny')!;
+		const rewritten = { ...brawny, description: `${brawny.description} Extra rule.` };
+		const rewrittenHtml = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: rewritten,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(rewrittenHtml).toContain('equal to 1d6 + 2');
+		expect(rewrittenHtml).toContain('Extra rule.');
+		expect(rewrittenHtml).not.toContain('等級');
+		setLanguage('en');
+		expect(panel('perk-brawny')).toContain('equal to 1d6 + 2');
+		expect(panel('perk-brawny')).not.toContain('的體力');
+		setLanguage('zh-TW');
+	});
+
+	test('every connected perk effect stays Chinese on the drawer, selected row, and classic sheet', () => {
+		const deferred = new Set([
+			'perk-linguist',
+			'perk-friend-catapult',
+			'perk-ive-got-you',
+			'perk-gum-up-the-works',
+			'perk-creature-sense',
+			'perk-invisible-force',
+			'perk-psychic-whisper',
+			'perk-arcane-trick',
+			'perk-familiar'
+		]);
+		expect(core.perks).toHaveLength(47);
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.level = 1;
+		const options = FactoryLogic.createOptions();
+		const panel = (perk: typeof core.perks[number]) => renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: perk,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		const sheet = (perk: typeof core.perks[number]) => renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: perk as Feature
+		})));
+		const selected = (perk: typeof core.perks[number]) => {
+			const choice = FactoryLogic.feature.createPerk({
+				id: `choice-${perk.id}`,
+				lists: [ perk.list ],
+				selected: [ perk ]
+			});
+			return renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(ConfigPerk, {
+				data: choice.data,
+				feature: choice,
+				hero,
+				sourcebooks: [ core ],
+				setData: () => undefined
+			})));
+		};
+		for (const perk of core.perks) {
+			const key = `element:${perk.id}:description`;
+			const entry = mapping[key];
+			expect(Boolean(entry), perk.id).toBe(!deferred.has(perk.id));
+			const plain = perk.description.trim();
+			const quote = plain.search(/['’"“”]/);
+			const probe = (quote > 16 ? plain.slice(0, quote) : plain).slice(0, 32);
+			if (!entry) {
+				if (probe.length > 0) {
+					expect(panel(perk), perk.id).toContain(probe);
+					expect(selected(perk), perk.id).toContain(probe);
+				}
+				continue;
+			}
+			const row = peekCatalog()![entry.sheetId];
+			const zh = row.fs?.zh ?? row.zh ?? '';
+			const marker = zh.replace(/等級/g, '').match(/\p{Script=Han}{4}/u)?.[0];
+			expect(marker, perk.id).toBeTruthy();
+			for (const html of [ panel(perk), sheet(perk), selected(perk) ]) {
+				expect(html, perk.id).toContain(marker!);
+				expect(html, perk.id).not.toContain(probe);
+			}
+			if (perk.id === 'perk-brawny' || perk.id === 'perk-lucky-dog') {
+				expect(panel(perk), perk.id).toContain('1d6 + 1 的體力');
+				expect(sheet(perk), perk.id).toContain('等級的體力');
+				expect(selected(perk), perk.id).toContain('等級的體力');
+			}
+			if (perk.id === 'perk-thingspeaker') {
+				expect(panel(perk), perk.id).toContain('<li>情感烙印在這個物體上的人，叫什麼名字？</li>');
+				expect(panel(perk), perk.id).not.toMatch(/[\u2460\u2461\u2462]/);
+				expect(selected(perk), perk.id).toContain('<li>情感烙印在這個物體上的人，叫什麼名字？</li>');
+			}
+		}
 	});
 });
 

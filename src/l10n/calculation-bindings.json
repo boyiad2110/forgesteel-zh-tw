@@ -82,5 +82,37 @@
     "valueSuffix": " ",
     "useDisplayTemplate": true,
     "sourceHash": "3a1a0e23c2887baf8495e79405f0579450d063de2d13df64637c13a763ca8a1b"
+  },
+  "element:perk-brawny:description": {
+    "sheetId": "heroes.perks.brawny.effect",
+    "enHash": "0d81562bf837846fcb43cff89bde405fc4ca1309f2a4b6257798a97a418cd434",
+    "zhHash": "ce1c6eee6a245ec67a7e5223f31faa45d124a0f8eeabf12e32c71a285af4f10d",
+    "sourceSpan": [
+      68,
+      78
+    ],
+    "targetSpan": [
+      24,
+      26
+    ],
+    "sourceLength": 168,
+    "targetLength": 59,
+    "valueSuffix": " "
+  },
+  "element:perk-lucky-dog:description": {
+    "sheetId": "heroes.perks.lucky-dog.effect",
+    "enHash": "51cb5b447249fc0fc9b67344424789ef8bf1e2842bc10992c3902f5112174f52",
+    "zhHash": "9545078a58fe54dc1a4e42193090e8c31a4463e0a9c0638883ee5a6d012b426e",
+    "sourceSpan": [
+      108,
+      118
+    ],
+    "targetSpan": [
+      34,
+      36
+    ],
+    "sourceLength": 208,
+    "targetLength": 68,
+    "valueSuffix": " "
   }
 }

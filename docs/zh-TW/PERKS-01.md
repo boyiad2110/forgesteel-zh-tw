@@ -152,7 +152,7 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 正體中文只在顯示時套用。改名、自訂與非官方來源維持原文字。
 
 - 專長選擇抽屜與專長詳情：`FeaturePanel` 標籤使用 `perkListText`；文字型專長標題走 `ElementScope`。招式型專長的標題與專長名稱相同，因此只把專長名稱範圍套在招式面板外層；關鍵詞、動作、距離、目標與效果仍留在招式資料，本段不翻譯。
-- 已選專長列：`PlayerName`。
+- 已選專長列：名稱用 `PlayerName`。效果用 `officialPerkDescriptionKey`，所以這列和抽屜、經典角色卡讀同一則核准效果。改寫過的描述沒有這個鍵，維持英文。
 - 經典角色卡：官方專長標題與已選專長使用 `PlayerName`；專長類別清單使用 `perkListText`。數量列在正體中文寫成「1 項工藝類 Perk」（多類別為「1 項探索類、交涉類或諜報類 Perk」），Perk 維持英文；英文模式仍是 “1 Crafting Perk”／“2 Exploration Perks”。量詞取自核准提示「選擇 1 項專長。」裡「1 」後面的字，連接詞取自核准的 Small! 描述括號，程式碼本身不另寫漢字。生涯選擇提示沿用核准的「選擇 1 項專長。」，益處句沿用「N 項X類專長」，兩者都不是這條數量列。
 
 ## 後續段
@@ -161,16 +161,18 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 ### 第 2 段：單純文字效果
 
-沿用第 1 段快照，不重新擷取。37 個純文字效果以 APPROVED `heroes.perks.*.effect` 原樣接入，不摘要、不截斷。網站英文與書本英文相同的有 35 個。`perk-ive-read-about-this-place` 與 `perk-thingspeaker` 只有條列符號和空行差異，走既有標點例外；畫面上的中文仍是書本原文（我知道這地方用 •，憶物通靈用 ①②③）。旅行工匠與旅行學者的書本 ID 是 `traveling`（一個 l），網站 id 是 `travelling`。
+沿用第 1 段快照，不重新擷取。37 個純文字效果以 APPROVED `heroes.perks.*.effect` 原樣接入，不摘要、不截斷。網站英文與書本英文相同的有 35 個。`perk-ive-read-about-this-place` 與 `perk-thingspeaker` 只有條列符號和空行差異，走既有標點例外。我知道這地方的畫面沿用書本圓點。憶物通靈的核准中文仍是 ①②③，目錄不改；顯示時只把行首圈號換成與網站英文相同的 `*` 清單，每個字維持原樣，後面的句子留在清單外。套裝招式裡的 ①②③ 是階序，不套用這個轉換。旅行工匠與旅行學者的書本 ID 是 `traveling`（一個 l），網站 id 是 `travelling`。
 
 已接入：`perk-area-of-expertise`、`perk-brawny`、`perk-but-i-know-who-does`、`perk-camouflage-hunter`、`perk-charming-liar`、`perk-criminal-contacts`、`perk-danger-sense`、`perk-dazzler`、`perk-eidetic-memory`、`perk-engrossing-monologue`、`perk-expert-artisan`、`perk-expert-sage`、`perk-forgettable-face`、`perk-handy`、`perk-harmonizer`、`perk-improvisation-creation`、`perk-inspired-artisan`、`perk-ive-read-about-this-place`、`perk-lie-detector`、`perk-lucky-dog`、`perk-master-of-disguise`、`perk-monster-whisperer`、`perk-open-book`、`perk-pardon-my-friend`、`perk-polymath`、`perk-power-player`、`perk-put-your-back-into-it`、`perk-ritualist`、`perk-slipped-lead`、`perk-so-tell-me`、`perk-specialist`、`perk-spot-the-tell`、`perk-team-leader`、`perk-thingspeaker`、`perk-travelling-artisan`、`perk-travelling-sage`、`perk-wood-wise`。
 
 `perk-eidetic-memory` 是技能選擇。詳情抽屜與經典角色卡都顯示完整效果；技能選擇列本身不改。改寫過的官方效果維持英文。
 
+肌肉發達與幸運兒的書本英文和網站英文相同，不是版本差異。抽屜有英雄時，上游把 “your level” 換成該英雄的等級數字，靜態中文因此對不上。這兩則書本列沒有 Forge Steel 版；計算綁定直接指核准書本列，把上游整數投射進「等級」，並沿用既有綁定在數字後留一個空格，所以 1 級顯示「1d6 + 1 的體力」。沒有英雄時仍是「等級」。沒有新增中文，也沒有 Adaptation。未知改寫仍顯示完整計算後英文。
+
 維持英文，本段不接：
 
 - `perk-teamwork`：網站是 “during a montage test”，書本是 “during any montage test”。Marc 已於 2026-10-14 核准 Adaptation `fs-adapt:heroes.perks.teamwork.effect`。中文只刪掉書本句的「任何」，其餘逐字保留，並已接入 mapping。
-- `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。不能把整段書本效果貼到較短的父項。留第 4 段。
+- `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。不能把整段書本效果貼到較短的父項。已起草兩列 Adaptation，狀態 DRAFT，尚未寫入 Sheet、也沒有 mapping。父項目標只留書本第一句「你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。」核准後整段父項會換成這句，多出來的英文句子在正體中文模式不會出現。子項 `perk-linguist-1` 刪掉「此外，」和「（詳見第 12 章〈休整專案〉）」，保留句號。語言選擇 `perk-linguist-2` 在書本效果裡沒有對應句子，不起草。
 - 招式型短描述（第 3 段）：`perk-friend-catapult`、`perk-ive-got-you`、`perk-gum-up-the-works`、`perk-creature-sense`、`perk-invisible-force`、`perk-psychic-whisper`。短描述與完整招式不同，不把書本整段套上去。
 - 第 4 段結構：`perk-arcane-trick`、`perk-familiar`。
 

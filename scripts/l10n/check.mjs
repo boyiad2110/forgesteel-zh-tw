@@ -2027,9 +2027,14 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 			continue;
 		}
 		const entry = entries.find(entry => entry.key === key);
-		const row = rows.get(binding.sheetId)?.fs;
+		const stored = rows.get(binding.sheetId);
+		// The screen reads a Forge Steel version when one exists. A book row
+		// is the text on screen only when that version is absent.
+		const row = stored?.fs ?? (
+			stored && typeof stored.en === 'string' && typeof stored.zh === 'string' ? stored : undefined
+		);
 		if (!entry || entry.sheetId !== binding.sheetId || !row) {
-			fail('binding must reference its mapped approved Forge Steel row');
+			fail('binding must reference its mapped approved row');
 			continue;
 		}
 		// Mapping hashes anchor the exact upstream literal. The approved Forge
