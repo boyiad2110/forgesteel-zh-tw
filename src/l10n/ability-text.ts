@@ -137,8 +137,19 @@ export const perkGrantUi = (ui: PerkUi, english: string): string => {
 		case 'Triggered Action': return ui.text('ui.hero-builder.triggered-action.5550c36a', 'Triggered Action');
 		case 'Free Triggered Action': return ui.text('ui.hero-builder.free-triggered-action.acb2b603', 'Free Triggered Action');
 		case 'Main Action': return ui.text('ui.hero-builder.main-action.147a0625', 'Main Action');
-		case 'main': return ui.text('ui.hero-builder.main-sash.0d6e4079', 'main');
 		default: return english;
+	}
+};
+
+/** Two-character sash labels for every ability that uses these monograms. */
+export const abilitySashLabel = (ui: PerkUi, monogram: string): string => {
+	switch (monogram) {
+		case 'main': return ui.text('ui.hero-builder.main-sash.0d6e4079', 'main');
+		case 'maneuver': return ui.text('ui.hero-builder.maneuver-sash.ce99528b', 'maneuver');
+		case 'move': return ui.text('ui.hero-builder.move-sash.683a62ce', 'move');
+		case 'free': return ui.text('ui.hero-builder.free-sash.ad95d5fa', 'free');
+		case 'trigger': return ui.text('ui.hero-builder.trigger-sash.683259fe', 'trigger');
+		default: return monogram;
 	}
 };
 

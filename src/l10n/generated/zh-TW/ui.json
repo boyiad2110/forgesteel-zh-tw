@@ -464,6 +464,11 @@
     "updated": "2026-10-10",
     "zh": "昔日人生"
   },
+  "ui.hero-builder.free-sash.ad95d5fa": {
+    "en": "free",
+    "updated": "2026-10-15",
+    "zh": "免費"
+  },
   "ui.hero-builder.free-triggered-action.acb2b603": {
     "en": "Free Triggered Action",
     "updated": "2026-10-15",
@@ -647,7 +652,17 @@
   "ui.hero-builder.main-sash.0d6e4079": {
     "en": "main",
     "updated": "2026-10-15",
-    "zh": "主要動作"
+    "zh": "主要"
+  },
+  "ui.hero-builder.maneuver-sash.ce99528b": {
+    "en": "maneuver",
+    "updated": "2026-10-15",
+    "zh": "機動"
+  },
+  "ui.hero-builder.move-sash.683a62ce": {
+    "en": "move",
+    "updated": "2026-10-15",
+    "zh": "移動"
   },
   "ui.hero-builder.movement-mode.56db4b3c": {
     "en": "movement mode.",
@@ -998,6 +1013,11 @@
     "en": "To Add",
     "updated": "2026-10-10",
     "zh": "要新增"
+  },
+  "ui.hero-builder.trigger-sash.683259fe": {
+    "en": "trigger",
+    "updated": "2026-10-15",
+    "zh": "反應"
   },
   "ui.hero-builder.trigger.8b9c6437": {
     "en": "Trigger",

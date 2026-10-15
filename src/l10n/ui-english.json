@@ -224,5 +224,9 @@
   "ui.hero-builder.immunities.3721f3cd": "Immunities",
   "ui.hero-builder.weaknesses.af393b75": "Weaknesses",
   "ui.hero-builder.bonus-per-level.f68c64a2": "`${mod.value >= 0 ? '+' : ''}${mod.value} per level`",
-  "ui.hero-builder.summon.759c2262": "Summon"
+  "ui.hero-builder.summon.759c2262": "Summon",
+  "ui.hero-builder.maneuver-sash.ce99528b": "maneuver",
+  "ui.hero-builder.move-sash.683a62ce": "move",
+  "ui.hero-builder.free-sash.ad95d5fa": "free",
+  "ui.hero-builder.trigger-sash.683259fe": "trigger"
 }

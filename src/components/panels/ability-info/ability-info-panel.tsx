@@ -1,4 +1,4 @@
-import { abilityTargetKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel } from '@/l10n/ability-text';
+import { abilitySashLabel, abilityTargetKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel } from '@/l10n/ability-text';
 import { Ability } from '@/models/ability';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
@@ -61,9 +61,7 @@ export const AbilityInfoPanel = (props: Props) => {
 
 	const distance = props.ability.distance.map(d => AbilityLogic.getDistance(d, props.ability, props.hero)).join(' or ');
 	const monogram = getMonogram();
-	const sashPhrase = monogram === 'main' ? 'main' : monogram === 'maneuver' ? 'Maneuver' : monogram === 'trigger' ? 'Triggered Action' : monogram === 'free' ? 'Free Triggered Action' : '';
-	const translatedSash = sashPhrase ? perkGrantLabel(props.ability.id, sashPhrase, ui) : monogram;
-	const sashLabel = !sashPhrase || translatedSash === sashPhrase ? monogram : translatedSash;
+	const sashLabel = abilitySashLabel(ui, monogram);
 	const distanceLabel = props.ability.target !== distance ? 'Distance' : 'Distance / Target';
 
 	return (

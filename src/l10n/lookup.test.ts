@@ -12,6 +12,7 @@ import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-pan
 import { Ability } from '@/models/ability';
 import { AbilityCard } from '@/components/panels/classic-sheet/ability-card/ability-card';
 import { AbilityData } from '@/data/ability-data';
+import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { AncestryData } from '@/data/ancestry-data';
@@ -1862,7 +1863,11 @@ describe('perk name segment', () => {
 		const forceCard = renderToStaticMarkup(createElement(AbilityCard, {
 			ability: ClassicSheetBuilder.buildAbilitySheet(force.data.ability, hero, undefined, options)
 		}));
+		expect(forcePanel).toContain('sash-panel type-maneuver">機動</div>');
 		expect(forcePanel).toContain('機動動作');
+		expect(forcePanel).not.toContain('type-maneuver">機動動作');
+		expect(forcePanel).not.toContain('type-maneuver labeled');
+		expect(forcePanel).not.toContain('>maneuver<');
 		expect(forcePanel).toContain('遠程');
 		expect(forcePanel).toContain('遠程 10');
 		expect(forcePanel).not.toContain('>Ranged<');
@@ -1953,7 +1958,11 @@ describe('perk name segment', () => {
 			sourcebooks: [ core ],
 			mode: PanelMode.Full
 		}))));
+		expect(caughtPanel).toContain('sash-panel type-free">免費</div>');
 		expect(caughtPanel).toContain('免費反應動作');
+		expect(caughtPanel).not.toContain('type-free">免費反應動作');
+		expect(caughtPanel).not.toContain('type-free labeled');
+		expect(caughtPanel).not.toContain('>free<');
 		expect(caughtPanel).toContain('觸發');
 		expect(caughtPanel).toContain('射程 / 目標');
 		expect(caughtPanel).toContain('自身');
@@ -2004,8 +2013,10 @@ describe('perk name segment', () => {
 			expect(panel).toContain('魔法');
 			expect(panel).toContain('自身');
 			expect(panel).toContain('射程 / 目標');
-			expect(panel).toContain('type-main');
+			expect(panel).toContain('sash-panel type-main">主要</div>');
 			expect(panel).toContain('主要動作');
+			expect(panel).not.toContain('type-main">主要動作');
+			expect(panel).not.toContain('type-main labeled');
 			expect(panel).toContain('你施展一個趣味的法術，創造出微小但令人驚豔的魔法效果。');
 			expect(panel).toContain('選擇以下 1 種效果：');
 			expect(panel).toContain('<li>你將 1 個體型 1S 以下且與你相鄰的物體傳送至 1 個與你相鄰的未占據空間。</li>');
@@ -2118,8 +2129,10 @@ describe('perk name segment', () => {
 		expect(englishArcane).toContain('Arcane Trick');
 		expect(englishArcane).toContain('Magic');
 		expect(englishArcane).toContain('Self');
+		expect(englishArcane).toContain('sash-panel type-main">main</div>');
 		expect(englishArcane).not.toContain('奧術戲法');
 		expect(englishArcane).not.toContain('魔法');
+		expect(englishArcane).not.toContain('>主要<');
 		const englishFamiliar = renderPerk('perk-familiar', 1);
 		expect(englishFamiliar).toContain('Familiar');
 		expect(englishFamiliar).toContain('Size');
@@ -2135,6 +2148,74 @@ describe('perk name segment', () => {
 		expect(englishFamiliar).not.toContain('Immunities');
 		expect(englishFamiliar).not.toContain('每級 +2');
 		expect(englishFamiliar).not.toContain('2 × 你的等級');
+		setLanguage('zh-TW');
+	});
+
+	test('ability sashes use the two-character labels on every ability', () => {
+		const options = FactoryLogic.createOptions();
+		const renderAbility = (ability: ReturnType<typeof FactoryLogic.createAbility>) => renderToStaticMarkup(withOptions(options, createElement(AbilityPanel, {
+			ability,
+			mode: PanelMode.Full
+		})));
+		const charge = renderAbility(AbilityData.charge);
+		expect(charge).toContain('sash-panel type-main">主要</div>');
+		expect(charge).toContain('Main Action');
+		expect(charge).not.toContain('type-main">主要動作');
+		const grab = renderAbility(AbilityData.grab);
+		expect(grab).toContain('sash-panel type-maneuver">機動</div>');
+		expect(grab).toContain('Maneuver');
+		expect(grab).not.toContain('type-maneuver">機動動作');
+		const moved = renderAbility(FactoryLogic.createAbility({
+			id: 'sash-move',
+			name: 'Step',
+			description: '',
+			type: FactoryLogic.type.createMove(),
+			sections: []
+		}));
+		expect(moved).toContain('sash-panel type-move">移動</div>');
+		expect(moved).toContain('Move Action');
+		expect(moved).not.toContain('>move<');
+		const gum = core.perks.find(item => item.id === 'perk-gum-up-the-works')!;
+		const gumPanel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: gum,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(gumPanel).toContain('sash-panel type-trigger">反應</div>');
+		expect(gumPanel).toContain('反應動作');
+		expect(gumPanel).not.toContain('type-trigger">反應動作');
+		expect(gumPanel).not.toContain('>trigger<');
+		const villain = renderAbility(FactoryLogic.createAbility({
+			id: 'sash-villain',
+			name: 'Villainous',
+			description: '',
+			type: FactoryLogic.type.createVillainAction(1),
+			sections: []
+		}));
+		expect(villain).toContain('sash-panel type-villain">villain</div>');
+		expect(villain).not.toContain('>主要<');
+		const champion = renderAbility(FactoryLogic.createAbility({
+			id: 'sash-champion',
+			name: 'Champion',
+			description: '',
+			type: FactoryLogic.type.createChampionAction(),
+			sections: []
+		}));
+		expect(champion).toContain('sash-panel type-champion">champion</div>');
+		const performed = renderAbility(FactoryLogic.createAbility({
+			id: 'sash-perform',
+			name: 'Perform',
+			description: '',
+			type: FactoryLogic.type.createMain(),
+			keywords: [ AbilityKeyword.Performance ],
+			sections: []
+		}));
+		expect(performed).toContain('sash-panel type-perform">perform</div>');
+		expect(performed).not.toContain('>主要<');
+		setLanguage('en');
+		const englishCharge = renderAbility(AbilityData.charge);
+		expect(englishCharge).toContain('sash-panel type-main">main</div>');
+		expect(englishCharge).not.toContain('>主要<');
 		setLanguage('zh-TW');
 	});
 });

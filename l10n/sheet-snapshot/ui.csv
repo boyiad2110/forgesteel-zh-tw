@@ -92,6 +92,7 @@ ui.hero-builder.finally-go-to-the.3f9b524b,APPROVED,最後，前往,"Finally, go
 ui.hero-builder.folder.5d207c4a,APPROVED,資料夾,Folder,2026-10-10,74ccd43303847f2655300641a934959cdb11689ce171aa0f00faa92917fbd340
 ui.hero-builder.formatlogic-getmodifier-prop.d3388eac,APPROVED,{modifier} 射程,`${FormatLogic.getModifier(props.data)} distance`,2026-10-10,0338c39a721c64b9f6a768836c71aab49271c52e1e1fbcf1224441eb2d131f4e
 ui.hero-builder.former-life.2d120c9d,APPROVED,昔日人生,Former Life,2026-10-10,425730bf002330c3a8ae87348a9232524ec66fb89177c9d5492b6110ce3990a3
+ui.hero-builder.free-sash.ad95d5fa,APPROVED,免費,free,2026-10-15,ad95d5fa651ba86d8923fe1238d24a4f1988a752acfe426ac72ac7c04471bc17
 ui.hero-builder.free-triggered-action.acb2b603,APPROVED,免費反應動作,Free Triggered Action,2026-10-15,acb2b603e9d2bf99e48f0e8bb188c3103b9cb0770448d2055476d78b9bc0d196
 ui.hero-builder.from-the-heroclass-name.1847bb79,APPROVED,（來自 {class}）,` from the ${heroClass.name}`,2026-10-10,947228dc41d500a4dcc5a8bbadc9edbad76564de80c9488d6a12e961e0cdd09b
 ui.hero-builder.hero-builder.bd7e4ec0,APPROVED,英雄建構器,Hero Builder,2026-10-10,c3101ee23ed309c15cb07ff34fb07ccde48abd52afcbc2ee653ac76cc5068e3e
@@ -128,7 +129,9 @@ ui.hero-builder.looking-for-something-specif.65c7e1a8,APPROVED,找不到想要�
 ui.hero-builder.lore-perk.9eddcd07,APPROVED,學識類專長,Lore Perk,2026-10-11,9eddcd079ca777f8b57e0cd0fc907e92593358c4455ada6ee18761ba1f947636
 ui.hero-builder.lost-skill.f6d9bfe4,APPROVED,失去的技能,Lost Skill,2026-10-10,527351440fd24da66a702b8f872555e445ec33c5c65417548768edc64ad8dd50
 ui.hero-builder.main-action.147a0625,APPROVED,主要動作,Main Action,2026-10-15,147a062503182fda6a85d535bc2ec7207895a104f1ff51f068b33a6d4e734a1d
-ui.hero-builder.main-sash.0d6e4079,APPROVED,主要動作,main,2026-10-15,0d6e4079e36703ebd37c00722f5891d28b0e2811dc114b129215123adcce3605
+ui.hero-builder.main-sash.0d6e4079,APPROVED,主要,main,2026-10-15,0d6e4079e36703ebd37c00722f5891d28b0e2811dc114b129215123adcce3605
+ui.hero-builder.maneuver-sash.ce99528b,APPROVED,機動,maneuver,2026-10-15,ce99528b7b40b2daefb88cb6ce5da51844ee8c5d51b94677c1e2c970e2ca5949
+ui.hero-builder.move-sash.683a62ce,APPROVED,移動,move,2026-10-15,683a62ce15fbabb1ac867022e56e6e4f4f581762d77c3abb2f8dc8b165b3b1b9
 ui.hero-builder.movement-mode.56db4b3c,APPROVED,移動模式。,movement mode.,2026-10-10,4a87677ddfc8054551bffc93067d3d2735617100e57688065bce9f7201cb3e1f
 ui.hero-builder.movement.49ba63e8,APPROVED,移動,Movement,2026-10-15,49ba63e89af69e4d6d4cf7618c4dca31e1fa03753edddbc9ddeaf773364c9665
 ui.hero-builder.name.f7c27f51,APPROVED,名稱,Name,2026-10-10,dcd1d5223f73b3a965c07e3ff5dbee3eedcfedb806686a05b9b3868a2c3d6d50
@@ -199,6 +202,7 @@ ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba,APPROVED,此英雄可使�
 ui.hero-builder.this-is-typically-against-th.a0988409,APPROVED,這通常不符合規則。,This is typically against the rules.,2026-10-10,5d4613d8f3832c9f7eff9cdfcc045e193bc21ef157f64c462a8ee6bd4252f156
 ui.hero-builder.title.f0bf18b2,APPROVED,稱號,Title,2026-10-10,7e8cd2056da73a7fefb6cd91f4e5d199d08d9058c517b9a2476b1b520324d674
 ui.hero-builder.to-add.23ff0fd6,APPROVED,要新增,To Add,2026-10-10,505ef5f9b8778b78bfae0a1b523f237e174d3550013bfd31cda41b1b882ef675
+ui.hero-builder.trigger-sash.683259fe,APPROVED,反應,trigger,2026-10-15,683259feabbf5eb39895d7a5d3f4872d6989d5fa7a3eca713251d996d99a1630
 ui.hero-builder.trigger.8b9c6437,APPROVED,觸發,Trigger,2026-10-15,8b9c643731c941195b61d1f3de78fda81ac490ee73f420bb7543df59d6a92206
 ui.hero-builder.triggered-action.5550c36a,APPROVED,反應動作,Triggered Action,2026-10-15,5550c36afbbb7c38dc7f49a4d6dd4a0f2cdfe6f0b4501bea6e66483a8dd91f98
 ui.hero-builder.tutorial-mode.6b8e85d4,APPROVED,教學模式,Tutorial Mode,2026-10-10,ee143180258f9fd40599d0e53dcaca8737522cd5f5ca14e61df09bca2dc9af57
