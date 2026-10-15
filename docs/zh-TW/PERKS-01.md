@@ -190,7 +190,7 @@ Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。
 
 我接住你了的效果中文已改成書本句的刪節：「你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。」Adaptations 第 337 列 `fs-adapt:heroes.perks.ive-got-you.effect` 的 Forge Steel Target Text 就是這句。
 
-有英雄時，投擲盟友的上游計算把兩處 “twice your Might score” 換成整數。綁定 `section:perk-friend-catapult-1:0` 把每個整數填進對應的「你力量 ×2」，其餘核准文字不動。預設力量 0 顯示「等於0 的格數」兩次；力量 2 顯示「等於4 的格數」。沒有英雄時仍是「你力量 ×2」。未知改寫保留完整計算後英文。奧術戲法與魔寵仍是英文，留第 4 段。
+有英雄時，投擲盟友的上游計算把兩處 “twice your Might score” 換成整數。綁定 `section:perk-friend-catapult-1:0` 把每個整數填進對應的「你力量 ×2」，其餘核准文字不動。預設力量 0 顯示「等於0 的格數」兩次；力量 2 顯示「等於4 的格數」。沒有英雄時仍是「你力量 ×2」。未知改寫保留完整計算後英文。奧術戲法與魔寵仍是英文，留第 4 段。Node 24.21.0 執行 `node scripts/l10n/verify.mjs` 通過：guard、lint 0 errors（26 個既有 warnings）、TypeScript、1041/1041 測試、正式建置、audit 0 漏洞。
 
 ### 第 4 段：奧術戲法與魔寵
 
