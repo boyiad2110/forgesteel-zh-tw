@@ -26,7 +26,7 @@ export const familiarNameKey = (monster: { id: string, name: string }): string |
 
 /**
  * Heroes 1.01b prints an em dash when the familiar has no movement mode.
- * The label stays English: no enum value equals Movement.
+ * The label is the approved Movement UI row.
  */
 export const familiarMovementDash = (monster: { id: string, speed: { modes: readonly unknown[] } }): string | undefined => {
 	if (monster.id !== 'familiar' || monster.speed.modes.length > 0) {

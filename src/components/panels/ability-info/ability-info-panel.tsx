@@ -61,7 +61,7 @@ export const AbilityInfoPanel = (props: Props) => {
 
 	const distance = props.ability.distance.map(d => AbilityLogic.getDistance(d, props.ability, props.hero)).join(' or ');
 	const monogram = getMonogram();
-	const sashPhrase = monogram === 'maneuver' ? 'Maneuver' : monogram === 'trigger' ? 'Triggered Action' : monogram === 'free' ? 'Free Triggered Action' : '';
+	const sashPhrase = monogram === 'main' ? 'main' : monogram === 'maneuver' ? 'Maneuver' : monogram === 'trigger' ? 'Triggered Action' : monogram === 'free' ? 'Free Triggered Action' : '';
 	const translatedSash = sashPhrase ? perkGrantLabel(props.ability.id, sashPhrase, ui) : monogram;
 	const sashLabel = !sashPhrase || translatedSash === sashPhrase ? monogram : translatedSash;
 	const distanceLabel = props.ability.target !== distance ? 'Distance' : 'Distance / Target';

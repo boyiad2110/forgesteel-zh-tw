@@ -217,5 +217,12 @@
   "ui.hero-builder.trigger.8b9c6437": "Trigger",
   "ui.hero-builder.psionic.cd9fca98": "Psionic",
   "ui.hero-builder.triggered-action.5550c36a": "Triggered Action",
-  "ui.hero-builder.free-triggered-action.acb2b603": "Free Triggered Action"
+  "ui.hero-builder.free-triggered-action.acb2b603": "Free Triggered Action",
+  "ui.hero-builder.main-action.147a0625": "Main Action",
+  "ui.hero-builder.main-sash.0d6e4079": "main",
+  "ui.hero-builder.movement.49ba63e8": "Movement",
+  "ui.hero-builder.immunities.3721f3cd": "Immunities",
+  "ui.hero-builder.weaknesses.af393b75": "Weaknesses",
+  "ui.hero-builder.bonus-per-level.f68c64a2": "`${mod.value >= 0 ? '+' : ''}${mod.value} per level`",
+  "ui.hero-builder.summon.759c2262": "Summon"
 }

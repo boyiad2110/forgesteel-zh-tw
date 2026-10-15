@@ -11,8 +11,10 @@ import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
 import { careerBenefitFieldKey } from '@/l10n/career-benefit-ui';
+import { familiarPerLevelLine } from '@/l10n/ability-text';
 import { familiarStaminaKey } from '@/l10n/familiar-stat';
 import { useL10nText } from '@/l10n/hooks';
+import { useUI } from '@/l10n/ui-text';
 
 interface InfoProps {
 	data: FeatureBonusData;
@@ -22,10 +24,12 @@ interface InfoProps {
 }
 
 export const InfoBonus = (props: InfoProps) => {
+	const ui = useUI();
 	const labelKey = familiarStaminaKey(props.feature) ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []);
 	const label = useL10nText(labelKey, props.data.field);
+	const perLevel = props.feature.id === 'familiar-1' ? familiarPerLevelLine(ui, props.data) : undefined;
 	return (
-		<Field label={label} value={FormatLogic.getModifier(props.data)} />
+		<Field label={label} value={perLevel ?? FormatLogic.getModifier(props.data)} />
 	);
 };
 

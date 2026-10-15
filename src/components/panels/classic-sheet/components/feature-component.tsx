@@ -1,4 +1,5 @@
 import { Feature, FeatureAbility, FeatureAbilityDamage, FeatureAbilityDistance, FeatureAncestryChoice, FeatureBonus, FeatureCharacteristicBonus, FeatureChoice, FeatureClassAbility, FeatureCompanion, FeatureConditionImmunity, FeatureDamageModifier, FeatureDomain, FeatureDomainFeature, FeatureFollower, FeatureHeroicResource, FeatureHeroicResourceThreshold, FeatureItemChoice, FeatureKit, FeatureLanguageChoice, FeatureMalice, FeatureMaliceAbility, FeatureMultiple, FeaturePackage, FeaturePerk, FeaturePotencyResistance, FeatureSkillChoice, FeatureSurgeGain, FeatureText } from '@/models/feature';
+import { familiarPerLevelLine, familiarSummonLabel, perkGrantLabel } from '@/l10n/ability-text';
 import { Ability } from '@/models/ability';
 import { AbilityComponent } from '@/components/panels/classic-sheet/components/ability-component';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -31,7 +32,6 @@ import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
-import { perkGrantLabel } from '@/l10n/ability-text';
 import { perkListText } from '@/l10n/perk-list-ui';
 import { useOptionalSourcebooks } from '@/contexts/data-context';
 import { useUI } from '@/l10n/ui-text';
@@ -66,10 +66,11 @@ const OfficialPerkName = (props: { feature: { id: string, name: string } }) => {
 	return <>{props.feature.name}</>;
 };
 
-const BasicFeatureComponent = (feature: Feature) => {
+const BasicFeatureComponent = (feature: Feature, ui: ReturnType<typeof useUI>) => {
+	const typeLabel = familiarSummonLabel(ui, feature) ?? feature.type;
 	return (
 		<>
-			<div className='feature-line'><strong>{`• ${feature.type}: `}</strong><OfficialPerkName feature={feature} /></div>
+			<div className='feature-line'><strong>{`• ${typeLabel}: `}</strong><OfficialPerkName feature={feature} /></div>
 			{feature.description ?
 				<div className='feature-description'>{feature.description}</div>
 				: undefined}
@@ -180,13 +181,15 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 };
 
 const BonusFeatureComponent = (props: { feature: FeatureBonus, hero?: Hero, sourcebooks?: Sourcebook[] }) => {
+	const ui = useUI();
 	const value = props.hero ? ModifierLogic.calculateModifierValue(props.feature.data, props.hero) : props.feature.data.value;
 	const staminaKey = familiarStaminaKey(props.feature);
 	const label = useL10nText(staminaKey ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
 	const title = useL10nText(staminaKey, props.feature.name);
+	const perLevel = props.feature.id === 'familiar-1' ? familiarPerLevelLine(ui, props.feature.data) : undefined;
 	return (
 		<>
-			<div className='feature-line'><strong>• {title}: </strong>{SheetFormatter.addSign(value)} {label}</div>
+			<div className='feature-line'><strong>• {title}: </strong>{perLevel ?? `${SheetFormatter.addSign(value)} ${label}`}</div>
 		</>
 	);
 };
@@ -200,13 +203,15 @@ const CharacteristicBonusFeatureComponent = (feature: FeatureCharacteristicBonus
 };
 
 const TextFeatureComponent = (feature: FeatureText | FeatureMultiple, descriptionKey?: string) => {
+	const familiar = feature.id === 'familiar-2';
+	const name = useL10nText(familiar ? 'element:familiar-2:name' : undefined, feature.name);
 	return (
 		<>
-			<div className='feature-title'><OfficialPerkName feature={feature} /></div>
+			<div className='feature-title'>{familiar ? name : <OfficialPerkName feature={feature} />}</div>
 			<Markdown
 				text={feature.description}
 				className='feature-description'
-				l10nKey={descriptionKey}
+				l10nKey={familiar ? 'element:familiar-2:description' : descriptionKey}
 			/>
 		</>
 	);
@@ -646,7 +651,7 @@ export const FeatureComponent = (props: Props) => {
 		case FeatureType.PackageContent: // These are brought in as part of the Package
 			break;
 		default:
-			content = BasicFeatureComponent(feature);
+			content = BasicFeatureComponent(feature, ui);
 			break;
 	}
 	return (

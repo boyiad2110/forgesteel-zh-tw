@@ -3,6 +3,7 @@ import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { Markdown } from '@/components/controls/markdown/markdown';
+import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useUI } from '@/l10n/ui-text';
 
 import './ability-card.scss';
@@ -128,9 +129,10 @@ export const AbilityCard = (props: Props) => {
 
 	const getEffectSection = (section: string, isFirstText: boolean, key: number) => {
 		const label = perkGrantLabel(ability.id, 'Effect', ui);
+		const listed = arcaneTrickSection(ability.id, section);
 		const split = isFirstText && label !== 'Effect' && !(section.startsWith('##') || ability.isNotTrueAbility);
-		let text = section;
-		if (!split && isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
+		let text = listed ?? section;
+		if (!listed && !split && isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
 			text = '**Effect:** ' + section;
 		}
 		return (
@@ -139,7 +141,7 @@ export const AbilityCard = (props: Props) => {
 				<Markdown
 					text={text}
 					className='ability-effect'
-					l10nKey={abilitySectionKey(ability.id, key, text)}
+					l10nKey={listed ? undefined : abilitySectionKey(ability.id, key, text)}
 				/>
 			</div>
 		);

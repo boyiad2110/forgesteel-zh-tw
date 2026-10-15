@@ -136,6 +136,8 @@ export const perkGrantUi = (ui: PerkUi, english: string): string => {
 		case 'Psionic': return ui.text('ui.hero-builder.psionic.cd9fca98', 'Psionic');
 		case 'Triggered Action': return ui.text('ui.hero-builder.triggered-action.5550c36a', 'Triggered Action');
 		case 'Free Triggered Action': return ui.text('ui.hero-builder.free-triggered-action.acb2b603', 'Free Triggered Action');
+		case 'Main Action': return ui.text('ui.hero-builder.main-action.147a0625', 'Main Action');
+		case 'main': return ui.text('ui.hero-builder.main-sash.0d6e4079', 'main');
 		default: return english;
 	}
 };
@@ -158,6 +160,45 @@ export const perkGrantList = (abilityId: string, english: string, ui: PerkUi): s
 		return english;
 	}
 	return english.split(', ').map(part => perkGrantLabel(abilityId, part, ui)).join(', ');
+};
+
+/** Approved stat-block labels for the familiar. Other monsters stay as written. */
+export const familiarBlockLabel = (ui: PerkUi, monsterId: string, english: string): string => {
+	if (monsterId !== 'familiar') {
+		return english;
+	}
+	switch (english) {
+		case 'Movement': return ui.text('ui.hero-builder.movement.49ba63e8', 'Movement');
+		case 'Immunities': return ui.text('ui.hero-builder.immunities.3721f3cd', 'Immunities');
+		case 'Weaknesses': return ui.text('ui.hero-builder.weaknesses.af393b75', 'Weaknesses');
+		default: return english;
+	}
+};
+
+/** The classic-sheet type word for this summon perk. */
+export const familiarSummonLabel = (ui: PerkUi, feature: { id: string, type: string }): string | undefined => {
+	if (feature.id !== 'perk-familiar' || feature.type !== 'Summon') {
+		return undefined;
+	}
+	return ui.text('ui.hero-builder.summon.759c2262', 'Summon');
+};
+
+/**
+ * The familiar stamina bonus prints the approved per-level template.
+ * `{value}` keeps the stored sign. English mode stays on the upstream phrase.
+ */
+export const familiarPerLevelLine = (ui: PerkUi, modifier: { value: number, valuePerLevel: number }): string | undefined => {
+	if (!modifier.value || modifier.value !== modifier.valuePerLevel) {
+		return undefined;
+	}
+	const signed = `${modifier.value >= 0 ? '+' : ''}${modifier.value}`;
+	const shown = ui.format(
+		'ui.hero-builder.bonus-per-level.f68c64a2',
+		'`${mod.value >= 0 ? \'+\' : \'\'}${mod.value} per level`',
+		`${signed} per level`,
+		{ value: signed }
+	);
+	return shown === `${signed} per level` ? undefined : shown;
 };
 
 /** "Ranged 10" keeps the upstream number. "Self" uses the approved UI word. */

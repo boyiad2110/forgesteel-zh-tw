@@ -74,6 +74,11 @@
     "updated": "2026-10-10",
     "zh": "自訂文化"
   },
+  "ui.hero-builder.bonus-per-level.f68c64a2": {
+    "en": "`${mod.value >= 0 ? '+' : ''}${mod.value} per level`",
+    "updated": "2026-10-15",
+    "zh": "每級 {value}"
+  },
   "ui.hero-builder.but-you-can-skip-this-if-you.21d25869": {
     "en": "- but you can skip this if you'd prefer.",
     "updated": "2026-10-10",
@@ -494,6 +499,11 @@
     "updated": "2026-10-10",
     "zh": "若要使用此處未列出的自製來源書，請在這裡匯入。"
   },
+  "ui.hero-builder.immunities.3721f3cd": {
+    "en": "Immunities",
+    "updated": "2026-10-15",
+    "zh": "免疫"
+  },
   "ui.hero-builder.import-a-sourcebook.37cebd77": {
     "en": "Import a sourcebook",
     "updated": "2026-10-10",
@@ -629,10 +639,25 @@
     "updated": "2026-10-10",
     "zh": "失去的技能"
   },
+  "ui.hero-builder.main-action.147a0625": {
+    "en": "Main Action",
+    "updated": "2026-10-15",
+    "zh": "主要動作"
+  },
+  "ui.hero-builder.main-sash.0d6e4079": {
+    "en": "main",
+    "updated": "2026-10-15",
+    "zh": "主要動作"
+  },
   "ui.hero-builder.movement-mode.56db4b3c": {
     "en": "movement mode.",
     "updated": "2026-10-10",
     "zh": "移動模式。"
+  },
+  "ui.hero-builder.movement.49ba63e8": {
+    "en": "Movement",
+    "updated": "2026-10-15",
+    "zh": "移動"
   },
   "ui.hero-builder.name.f7c27f51": {
     "en": "Name",
@@ -909,6 +934,11 @@
     "updated": "2026-10-10",
     "zh": "狀況"
   },
+  "ui.hero-builder.summon.759c2262": {
+    "en": "Summon",
+    "updated": "2026-10-15",
+    "zh": "召喚物"
+  },
   "ui.hero-builder.supernatural-perk.a9143d55": {
     "en": "Supernatural Perk",
     "updated": "2026-10-11",
@@ -1033,6 +1063,11 @@
     "en": "Use the tabs above to select your hero's",
     "updated": "2026-10-10",
     "zh": "使用上方分頁設定英雄的"
+  },
+  "ui.hero-builder.weaknesses.af393b75": {
+    "en": "Weaknesses",
+    "updated": "2026-10-15",
+    "zh": "弱點"
   },
   "ui.hero-builder.weapons.3189d297": {
     "en": "Weapons",

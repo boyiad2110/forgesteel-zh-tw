@@ -4567,6 +4567,20 @@
         "zhHash": "827a9efd4895644413e59f1ef2b24d1fc794128cf675f9b893134379fc6c9556"
       }
     },
+    "heroes.perks.arcane-trick.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.arcane-trick.effect",
+          "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+          "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+        }
+      ],
+      "sourcesHash": "a0c60cf7cd36c3e116d5ed1ac98c59e9f610f0b715f4a89ac9dae179c84705b6",
+      "fs": {
+        "enHash": "e415441619629d3fc7255131a27aafc54dfa44e214b6bd9d5637ff18bb1deef6",
+        "zhHash": "f5eec47d25a9f11bb78989983200a1922090de639a787da1d78b467be623768d"
+      }
+    },
     "heroes.perks.creature-sense.effect": {
       "sources": [
         {
@@ -4579,6 +4593,20 @@
       "fs": {
         "enHash": "627220ec901c727d9b4bbe6f3516680b73a44781c2d83fe5932bca2fe5302b1f",
         "zhHash": "308a5f9a418183272eab66efc38620df70acbbae78278a77f6c651ad6c42dcce"
+      }
+    },
+    "heroes.perks.familiar.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.familiar.effect",
+          "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+          "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+        }
+      ],
+      "sourcesHash": "3e347a1baf66a52157e6fa9163a608b599f36b5213808902ef16aac13ce410d6",
+      "fs": {
+        "enHash": "750d0d4ff8b07ccda835e0429cb448723a2568fd070c87686ce2c2fa886aa688",
+        "zhHash": "94b2494c29c83116d0b6fea14f800767ca8602e1143ca14c4830e94717ecc2ad"
       }
     },
     "heroes.perks.friend-catapult.effect": {

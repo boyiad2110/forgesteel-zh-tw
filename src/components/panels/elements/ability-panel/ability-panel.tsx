@@ -25,6 +25,7 @@ import { PanelMode } from '@/enums/panel-mode';
 import { PowerRollPanel } from '@/components/panels/power-roll/power-roll-panel';
 import { RollModifierPanel } from '@/components/panels/roll-modifier-panel/roll-modifier-panel';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
+import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useOptions } from '@/contexts/data-context';
 import { useUI } from '@/l10n/ui-text';
@@ -214,8 +215,9 @@ export const AbilityPanel = (props: Props) => {
 		switch (section.type) {
 			case 'text': {
 				const text = parseText(section.text);
+				const listed = arcaneTrickSection(props.ability.id, text);
 				return (
-					<Markdown key={index} text={text} l10nKey={abilitySectionKey(props.ability.id, index, text, section.text)} />
+					<Markdown key={index} text={listed ?? text} l10nKey={listed ? undefined : abilitySectionKey(props.ability.id, index, text, section.text)} />
 				);
 			}
 			case 'field': {

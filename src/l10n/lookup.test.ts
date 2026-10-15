@@ -1742,7 +1742,6 @@ describe('perk name segment', () => {
 
 	test('every connected perk effect stays Chinese on the drawer, selected row, and classic sheet', () => {
 		const deferred = new Set([
-			'perk-arcane-trick',
 			'perk-familiar'
 		]);
 		expect(core.perks).toHaveLength(47);
@@ -2006,13 +2005,17 @@ describe('perk name segment', () => {
 			expect(panel).toContain('自身');
 			expect(panel).toContain('射程 / 目標');
 			expect(panel).toContain('type-main');
-			expect(panel).toContain('>main<');
-			expect(panel).toContain('Main Action');
-			expect(panel).toContain('You cast an entertaining spell that creates a minor but impressive magical effect.');
-			expect(panel).toContain('You teleport a size 1S or smaller object adjacent to you');
-			expect(panel).toContain('You touch a size 1T object to cover it with an illusion');
-			expect(panel).not.toContain('主要動作');
-			expect(panel).not.toContain('你將 1 個體型 1S');
+			expect(panel).toContain('主要動作');
+			expect(panel).toContain('你施展一個趣味的法術，創造出微小但令人驚豔的魔法效果。');
+			expect(panel).toContain('選擇以下 1 種效果：');
+			expect(panel).toContain('<li>你將 1 個體型 1S 以下且與你相鄰的物體傳送至 1 個與你相鄰的未占據空間。</li>');
+			expect(panel).toContain('<li>你點燃或熄滅每個與你相鄰、體型為 1L 以下的尋常光源。</li>');
+			expect(panel).toContain('<li>你觸碰 1 個體型 1T 的物體，用幻術讓它的外觀變成其他物體。');
+			expect(panel).not.toContain('>main<');
+			expect(panel).not.toContain('Main Action');
+			expect(panel).not.toContain('You cast an entertaining spell');
+			expect(panel).not.toContain('You teleport');
+			expect(panel).not.toContain('your choice');
 			expect(panel).not.toContain('>Magic<');
 			expect(panel).not.toContain('>Self<');
 			const card = renderToStaticMarkup(createElement(AbilityCard, {
@@ -2021,8 +2024,17 @@ describe('perk name segment', () => {
 			expect(card).toContain('奧術戲法');
 			expect(card).toContain('魔法');
 			expect(card).toContain('效果');
-			expect(card).toContain('You ignite or snuff out');
-			expect(card).not.toContain('你點燃或熄滅');
+			expect(card).toContain('主要動作');
+			expect(card).toContain('<li>你點燃或熄滅每個與你相鄰、體型為 1L 以下的尋常光源。</li>');
+			expect(card).not.toContain('You ignite or snuff out');
+			expect(card).not.toContain('your choice');
+			const sheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+				feature: arcane
+			})));
+			expect(sheet).toContain('你施展一個趣味的法術，創造出微小但令人驚豔的魔法效果。');
+			expect(sheet).toContain('主要動作');
+			expect(sheet).not.toContain('You cast an entertaining spell');
+			expect(sheet).not.toContain('Main Action');
 		}
 		const familiarPerk = core.perks.find(item => item.id === 'perk-familiar')!;
 		if (familiarPerk.type !== FeatureType.Summon || !familiarPerk.data) {
@@ -2034,6 +2046,7 @@ describe('perk name segment', () => {
 		expect(familiarMonster.speed.modes).toEqual([]);
 		for (const level of [ 1, 5 ]) {
 			const panel = renderPerk('perk-familiar', level);
+			const stamina = level === 1 ? '2' : '10';
 			expect(panel).toContain('魔寵');
 			expect(panel).toContain('體型');
 			expect(panel).toContain('速度');
@@ -2046,15 +2059,46 @@ describe('perk name segment', () => {
 			expect(panel).toContain('>-3<');
 			expect(panel).toContain('>2<');
 			expect(panel).toContain('>1<');
-			expect(panel).toContain('field-label">Movement</span><span class="field-value">—</span>');
-			expect(panel).toContain('Telepathic');
-			expect(panel).toContain('While you and your familiar are within 10 squares');
-			expect(panel).not.toContain('心靈感應');
+			expect(panel).toContain(`field-label">體力</span><span class="field-value">${stamina}</span>`);
+			expect(panel).toContain('field-label">移動</span><span class="field-value">—</span>');
+			expect(panel).toContain('field-label">免疫</span><span class="field-value">—</span>');
+			expect(panel).toContain('field-label">弱點</span><span class="field-value">—</span>');
+			expect(panel).toContain('1 個超自然的精魂化身為特定的小動物或活化物體，成為你的魔寵。');
+			expect(panel).toContain('魔寵可以用嘴巴或爪子握住小型物體');
+			expect(panel).toContain('牠不能傷害其他生物或物體。');
+			expect(panel).toContain('若你的魔寵被消滅');
+			expect(panel).toContain('心靈感應');
+			expect(panel).toContain('若你和你的魔寵相距 10 格內');
 			expect(panel).not.toContain('2 × 你的等級');
+			expect(panel).not.toContain('Telepathic');
+			expect(panel).not.toContain('Movement');
+			expect(panel).not.toContain('Immunities');
+			expect(panel).not.toContain('per level');
 			expect(panel).not.toContain('>Familiar<');
 			expect(panel).not.toContain('>Size<');
 			expect(panel).not.toContain('>Free Strike<');
+			const bonus = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+				feature: familiarMonster.features.find(feature => feature.id === 'familiar-1')!,
+				hero
+			})));
+			expect(bonus).toContain('每級 +2');
+			expect(bonus).not.toContain('per level');
+			expect(bonus).not.toContain(level === 1 ? '+2 體力' : '+10');
 		}
+		const sheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+			feature: familiarPerk
+		})));
+		expect(sheet).toContain('召喚物');
+		expect(sheet).toContain('魔寵');
+		expect(sheet).not.toContain('Summon');
+		const unowned = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(MonsterPanel, {
+			monster: familiarMonster,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		})));
+		expect(unowned).toContain('field-label">體力</span><span class="field-value">2 × 你的等級</span>');
+		expect(unowned).toContain('field-label">免疫</span><span class="field-value">—</span>');
+		expect(peekCatalog()!['heroes.perks.familiar.effect'].zh.slice(223, 231)).toBe('2 × 你的等級');
 		const renamed = structuredClone(familiarMonster);
 		renamed.id = 'not-the-familiar';
 		const other = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(MonsterPanel, {
@@ -2080,9 +2124,17 @@ describe('perk name segment', () => {
 		expect(englishFamiliar).toContain('Familiar');
 		expect(englishFamiliar).toContain('Size');
 		expect(englishFamiliar).toContain('Free Strike');
+		expect(englishFamiliar).toContain('field-label">Stamina</span><span class="field-value">0</span>');
+		expect(englishFamiliar).toContain('field-label">Movement</span><span class="field-value">—</span>');
+		expect(englishFamiliar).toContain('Telepathic');
 		expect(englishFamiliar).not.toContain('魔寵');
 		expect(englishFamiliar).not.toContain('體型');
 		expect(englishFamiliar).not.toContain('基礎打擊');
+		expect(englishFamiliar).not.toContain('免疫');
+		expect(englishFamiliar).not.toContain('弱點');
+		expect(englishFamiliar).not.toContain('Immunities');
+		expect(englishFamiliar).not.toContain('每級 +2');
+		expect(englishFamiliar).not.toContain('2 × 你的等級');
 		setLanguage('zh-TW');
 	});
 });

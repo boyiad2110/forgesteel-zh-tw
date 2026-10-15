@@ -5219,6 +5219,150 @@
       }
     ]
   },
+  "fs-adapt:heroes.perks.arcane-trick.effect": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0",
+    "en": "Choose one of the following effects:",
+    "zh": "選擇以下 1 種效果：",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.1": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:1",
+    "en": "You teleport a size 1S or smaller object adjacent to you into an unoccupied space adjacent to you.",
+    "zh": "你將 1 個體型 1S 以下且與你相鄰的物體傳送至 1 個與你相鄰的未占據空間。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.2": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:2",
+    "en": "Until the start of your next turn, a part of your body shoots a shower of harmless noisy sparks that light up each square adjacent to you.",
+    "zh": "在你下個回合開始前，你身體的 1 個部位會射出無害的吵雜火花，照亮每個與你相鄰的方格。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.3": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:3",
+    "en": "You ignite or snuff out (your choice) every mundane light source of 1L or smaller adjacent to you.",
+    "zh": "你點燃或熄滅每個與你相鄰、體型為 1L 以下的尋常光源。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.4": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:4",
+    "en": "You transform up to 1 pound of edible food you touch to make it taste delicious or disgusting.",
+    "zh": "你觸碰最多 1 磅的可食用食物，使其味道變得美味或噁心。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.5": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:5",
+    "en": "Until the start of your next turn, you make your body exude a particular odor you’ve smelled before. This smell can be sensed by each creature within 5 squares of you, but can’t impose any condition or other drawback on those creatures.",
+    "zh": "在你下個回合開始前，你的身體會散發出 1 種你曾經聞過的氣味。在你 5 格內的每個生物都能聞到這個氣味，但不會因此陷入任何狀態或受到不良影響。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.6": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:6",
+    "en": "You place a small magical inscription on the surface of a mundane object you touch, or you can remove an inscription that was made by you or by another creature using Arcane Trick.",
+    "zh": "你觸碰 1 個尋常物體的表面並留下小型魔法銘文，或移除由你或其他生物使用【奧術戲法】留下的任何銘文。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.7": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:7",
+    "en": "You touch a size 1T object to cover it with an illusion that makes it look like a different object. Any creature who handles the object becomes aware of the illusion. The illusion ends when you stop touching the object.",
+    "zh": "你觸碰 1 個體型 1T 的物體，用幻術讓它的外觀變成其他物體。任何與該物體互動的生物都會察覺此幻術。當你不再觸碰該物體時，幻術就會消失。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.short": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "element:perk-arcane-trick:description",
+    "en": "You cast an entertaining spell that creates a minor but impressive magical effect.",
+    "zh": "你施展一個趣味的法術，創造出微小但令人驚豔的魔法效果。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
   "fs-adapt:heroes.perks.creature-sense.effect": {
     "bookStringId": "heroes.perks.creature-sense.effect",
     "usageKey": "section:perk-creature-sense-1:0",
@@ -5248,6 +5392,102 @@
         "sourceId": "heroes.perks.creature-sense.effect",
         "enHash": "09e5c0547819368f2d7aa92fd3c62042bba4fc3942f733cb1bd243eb7f9c941d",
         "zhHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description",
+    "en": "A supernatural spirit who has taken the form of a specific small animal or animated object has chosen to be your familiar—or to adopt you as their familiar.",
+    "zh": "1 個超自然的精魂化身為特定的小動物或活化物體，成為你的魔寵。或者，將你當成牠的魔寵。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.1": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description:1",
+    "en": "The familiar can hold small objects in their mouth or claws, but can’t perform activities that would typically require hands (opening a door, unrolling a scroll, and so forth).",
+    "zh": "魔寵可以用嘴巴或爪子握住小型物體，但無法進行需要使用手的行為（例如開門或打開卷軸）。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.2": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description:2",
+    "en": "They can’t harm other creatures or objects. They can flank in combat, but only with you.",
+    "zh": "牠不能傷害其他生物或物體。在戰鬥中，牠只能與你一起進行夾擊。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.3": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description:3",
+    "en": "If your familiar is destroyed, you can restore them as a respite activity, or by spending a Recovery as a main action to bring them back into existence in an unoccupied space adjacent to you.",
+    "zh": "若你的魔寵被消滅，你可以透過休整活動來復活牠，或使用主要動作並花費 1 點復元力，讓牠在 1 個與你相鄰的未占據空間中重新出現。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.telepathic": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar-2:description",
+    "en": "While you and your familiar are within 10 squares of each other, you can communicate telepathically and share each other’s senses. While sharing senses, each of you also benefits from your own senses at the same time.",
+    "zh": "若你和你的魔寵相距 10 格內，你們可以進行心靈溝通並共享彼此的感官。在共享感官的同時，你們仍然會保有自己原本的感官能力。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.telepathic.name": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar-2:name",
+    "en": "Telepathic",
+    "zh": "心靈感應",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
       }
     ]
   },
