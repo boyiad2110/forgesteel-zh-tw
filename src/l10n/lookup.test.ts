@@ -1804,6 +1804,87 @@ describe('perk name segment', () => {
 			}
 		}
 	});
+
+	test('segment 3 ability titles reuse the perk name, and Maneuver and Ranged reuse the glossary', () => {
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.level = 1;
+		const options = FactoryLogic.createOptions();
+		const rows = [
+			[ 'perk-friend-catapult', '投擲盟友', 'Friend Catapult' ],
+			[ 'perk-ive-got-you', '我接住你了！', 'I\'ve Got You' ],
+			[ 'perk-gum-up-the-works', '妨礙運作', 'Gum Up The Works' ],
+			[ 'perk-creature-sense', '生物感應', 'Creature Sense' ],
+			[ 'perk-invisible-force', '無形念力', 'Invisible Force' ],
+			[ 'perk-psychic-whisper', '心靈低語', 'Psychic Whisper' ]
+		] as const;
+		for (const [ id, chinese, english ] of rows) {
+			const perk = core.perks.find(item => item.id === id)!;
+			expect(perk.type).toBe(FeatureType.Ability);
+			if (perk.type !== FeatureType.Ability || !perk.data) {
+				throw new Error(id);
+			}
+			const ability = perk.data.ability;
+			expect(abilityNameKey(ability)).toBe(`element:${id}:name`);
+			expect(abilityNameKey({ id: ability.id, name: `My ${english}` })).toBeUndefined();
+			const panel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+				feature: perk,
+				hero,
+				sourcebooks: [ core ],
+				mode: PanelMode.Full
+			}))));
+			const card = renderToStaticMarkup(createElement(AbilityCard, {
+				ability: ClassicSheetBuilder.buildAbilitySheet(ability, hero, undefined, options)
+			}));
+			const sheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, {
+				feature: perk
+			})));
+			expect(panel).toContain(chinese);
+			expect(card).toContain(chinese);
+			expect(sheet).toContain(chinese);
+			expect(panel).not.toContain(`>${english}<`);
+			expect(card).not.toContain(`ability-name">${english}<`);
+		}
+		const force = core.perks.find(item => item.id === 'perk-invisible-force')!;
+		if (force.type !== FeatureType.Ability || !force.data) {
+			throw new Error('force');
+		}
+		const forcePanel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: force,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		const forceCard = renderToStaticMarkup(createElement(AbilityCard, {
+			ability: ClassicSheetBuilder.buildAbilitySheet(force.data.ability, hero, undefined, options)
+		}));
+		expect(forcePanel).toContain('機動動作');
+		expect(forcePanel).toContain('遠程');
+		expect(forcePanel).toContain('遠程 10');
+		expect(forcePanel).not.toContain('>Ranged<');
+		expect(forcePanel).not.toContain('>Maneuver<');
+		expect(forceCard).toContain('機動動作');
+		expect(forceCard).toContain('遠程 10');
+		expect(forceCard).toContain('Psionic');
+		expect(forcePanel).toContain('You manipulate a tiny object with your mind.');
+		const catapult = core.perks.find(item => item.id === 'perk-friend-catapult')!;
+		const catapultSheet = renderToStaticMarkup(createElement(FeatureComponent, { feature: catapult }));
+		expect(catapultSheet).toContain('機動動作');
+		expect(catapultSheet).toContain('You hurl your ally through the air.');
+		setLanguage('en');
+		const englishPanel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: force,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(englishPanel).toContain('Invisible Force');
+		expect(englishPanel).toContain('Maneuver');
+		expect(englishPanel).toContain('Ranged 10');
+		expect(englishPanel).not.toContain('無形念力');
+		expect(englishPanel).not.toContain('機動動作');
+		setLanguage('zh-TW');
+	});
 });
 
 describe('Prismatic Scales option display batch', () => {

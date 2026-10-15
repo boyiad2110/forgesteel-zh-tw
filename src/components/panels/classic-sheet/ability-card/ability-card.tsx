@@ -1,4 +1,4 @@
-import { AbilityDescription, AbilityName, abilitySectionKey } from '@/l10n/ability-text';
+import { AbilityDescription, AbilityName, abilitySectionKey, perkGrantDistance, perkGrantLabel, perkGrantList } from '@/l10n/ability-text';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
@@ -31,15 +31,15 @@ export const AbilityCard = (props: Props) => {
 		return (
 			<div className='stats'>
 				<div className='keywords-action-type'>
-					<div className='keywords'>{ability.keywords}</div>
-					<div className='action-type'>{ability.actionType}</div>
+					<div className='keywords'>{perkGrantList(ability.id, ability.keywords || '')}</div>
+					<div className='action-type'>{perkGrantLabel(ability.id, ability.actionType || '')}</div>
 				</div>
 				<div className='distance-target'>
 					<div className='distance'>
 						{ability.distance?.length ?
 							<img src={distanceIcon} alt='Distance' />
 							: undefined }
-						<span>{ability.distance}</span>
+						<span>{perkGrantDistance(ability.id, ability.distance || '')}</span>
 					</div>
 					<div className='target'>
 						{ability.target?.length ?
@@ -145,7 +145,7 @@ export const AbilityCard = (props: Props) => {
 	return (
 		<div className={getCardClasses(ability)}>
 			<section className='bordered'>
-				<h3>{ability.abilityType}</h3>
+				<h3>{perkGrantLabel(ability.id, ability.abilityType || '')}</h3>
 				<h2><span className='ability-name'><AbilityName ability={ability} /></span>{getAbilityCost()}</h2>
 				{ability.description?.length ?
 					<p className='description'><AbilityDescription ability={ability} /></p>

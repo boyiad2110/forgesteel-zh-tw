@@ -30,6 +30,7 @@ import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
+import { perkGrantLabel } from '@/l10n/ability-text';
 import { perkListText } from '@/l10n/perk-list-ui';
 import { useOptionalSourcebooks } from '@/contexts/data-context';
 import { useUI } from '@/l10n/ui-text';
@@ -261,7 +262,7 @@ const AbilityFeatureComponent = (feature: FeatureAbility) => {
 			<div className='feature-title'>
 				<img src={abilityIcon} alt='Ability' />
 				<span className='ability-name'><OfficialPerkName feature={feature} /></span>
-				<span className={typeClasses.join(' ')}>{type}</span>
+				<span className={typeClasses.join(' ')}>{perkGrantLabel(feature.data.ability.id, type)}</span>
 			</div>
 			<div className='feature-description'><em>{feature.description.replace(/^\s+/, '')}</em></div>
 		</>

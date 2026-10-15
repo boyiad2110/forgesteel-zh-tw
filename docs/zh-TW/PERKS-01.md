@@ -189,7 +189,9 @@ mapping 985。英文例外 17。帶 Forge Steel 版本的字串列是 326。語�
 - `perk-invisible-force-1`：機動動作，靈能、遠程
 - `perk-psychic-whisper-1`：機動動作，靈能、遠程
 
-專長名稱已顯示核准中文。本段要接的是招式區段；名稱 Adaptation 不代替招式內文。數值與占位符照網站計算結果顯示。
+這六個招式都沒有檢定階級。專長名稱已顯示核准中文。招式標題在英文仍與專長名稱相同時，重用同一個名稱鍵。`Maneuver` 與 `Ranged` 重用詞彙「機動動作」「遠程」；「遠程 10」只換詞、保留上游數字。色帶的 CSS 類別維持 `maneuver`。
+
+書本沒有拆開的招式欄位，只有整段 `heroes.perks.*.effect`。網站的短描述、效果、觸發、目標與 `Self` 跟這段英文不是同一句，不能原樣對上，也不能在程式裡刪字。`Triggered Action`／`Free Triggered Action` 的詞彙列已核准，但守門要比對 `heroes.actions.triggered.rules` 與 `heroes.actions.free-triggered.rules`，快照裡的列是 `heroes.actions.triggered-actions.rules`。這些欄位維持英文，建議譯文只放在 PR，不進 repo。名稱 Adaptation 不代替招式內文。數值與占位符照網站計算結果顯示。
 
 ### 第 4 段：奧術戲法與魔寵
 
@@ -212,7 +214,7 @@ mapping 985。英文例外 17。帶 Forge Steel 版本的字串列是 326。語�
 
 ## 本段不處理
 
-- 尚未接入的效果：6 個招式型短描述、奧術戲法、魔寵數據表與 Telepathic。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
+- 尚未接入的效果：6 個招式型的短描述、觸發、目標、`Self` 與效果內文仍是英文；招式標題、機動動作與遠程已接入。奧術戲法、魔寵數據表與 Telepathic 留第 4 段。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
 - 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
 - 非 Heroes 來源書的專長。
 - Google Sheets、遊戲規則、存檔與分享格式。

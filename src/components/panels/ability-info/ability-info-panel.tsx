@@ -1,3 +1,4 @@
+import { perkGrantDistance, perkGrantLabel } from '@/l10n/ability-text';
 import { Ability } from '@/models/ability';
 import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
@@ -58,19 +59,21 @@ export const AbilityInfoPanel = (props: Props) => {
 
 	const distance = props.ability.distance.map(d => AbilityLogic.getDistance(d, props.ability, props.hero)).join(' or ');
 	const monogram = getMonogram();
+	const maneuverLabel = monogram === 'maneuver' ? perkGrantLabel(props.ability.id, 'Maneuver') : monogram;
+	const sashLabel = maneuverLabel === 'Maneuver' ? monogram : maneuverLabel;
 
 	return (
 		<div className='ability-info-panel'>
-			{monogram ? <SashPanel monogram={monogram} /> : null}
+			{monogram ? <SashPanel monogram={monogram} label={sashLabel} /> : null}
 			<div className='ds-text compact-text bold-text' style={{ position: 'relative', zIndex: '10' }}>
-				{FormatLogic.getAbilityType(props.ability.type)}
+				{perkGrantLabel(props.ability.id, FormatLogic.getAbilityType(props.ability.type))}
 			</div>
 			{
 				distance ?
 					<Field
 						compact={true}
 						label={props.ability.target !== distance ? 'Distance' : 'Distance / Target'}
-						value={<Markdown useSpan={true} text={distance} />}
+						value={<Markdown useSpan={true} text={perkGrantDistance(props.ability.id, distance)} />}
 					/>
 					: null
 			}

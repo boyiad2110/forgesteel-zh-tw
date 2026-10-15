@@ -43,6 +43,8 @@ export interface MappingEntry {
  *                          The nth text section of an ability.
  */
 export const mapping: Record<string, MappingEntry> = {
+	'enum:AbilityKeyword:Ranged': { sheetId: 'term.ranged', enHash: '3f0b51a2492f73ecf48a84bc7f261e4223a8701efbda4726fa1de490fdf12498' },
+	'enum:AbilityUsage:Maneuver': { sheetId: 'term.maneuver', enHash: 'd7846fc90c7818076d672fe7dad73c25fd88954c0146ecfc5a7ede49bcf343de' },
 	'enum:ConditionType:Bleeding': { sheetId: 'term.bleeding', enHash: '68a89d8475444066a48efe8debcef05fc25306d5f950db02d9bec6cc3e61e4d4' },
 	'data:ConditionData:bleeding': { sheetId: 'heroes.conditions.bleeding.rules', enHash: 'd88a981038c39238673b38ef8d5b4b46b192d0ff55c94b30f72fcb8864cbe8fd', stripHeading: true },
 	'enum:ConditionType:Dazed': { sheetId: 'term.dazed', enHash: '885b940d512c1f48cb8a32d5050192046c57facff335b5f4fff97812a057ed69' },

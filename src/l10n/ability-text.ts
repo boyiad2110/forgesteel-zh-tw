@@ -2,8 +2,13 @@ import { hasCalculationBinding, plainForLookup } from '@/l10n/calculated-text';
 import { Ability } from '@/models/ability';
 import { AbilityData } from '@/data/ability-data';
 import { AncestryData } from '@/data/ancestry-data';
+import { ExplorationPerkData } from '@/data/perks/exploration';
 import { Feature } from '@/models/feature';
 import { FeatureType } from '@/enums/feature-type';
+import { IntriguePerkData } from '@/data/perks/intrigue';
+import { SupernaturalPerkData } from '@/data/perks/supernatural';
+import { mapping } from '@/l10n/mapping';
+import { translate } from '@/l10n/text';
 import { useL10nText } from '@/l10n/hooks';
 
 const ancestryAbilities = new Map<string, Ability>();
@@ -45,6 +50,78 @@ const collectAncestryAbilities = (feature: Feature) => {
 
 const abilities = new Map([ ...AbilityData.standardAbilities, ...ancestryAbilities.values() ].map(ability => [ ability.id, ability ]));
 
+/** Segment 3 grants. Arcane Trick and Familiar stay in segment 4. */
+const perkGrantAbilityIds = new Set([
+	'perk-friend-catapult-1',
+	'perk-ive-got-you-1',
+	'perk-gum-up-the-works-1',
+	'perk-creature-sense-1',
+	'perk-invisible-force-1',
+	'perk-psychic-whisper-1'
+]);
+
+const perkGrantNames = new Map<string, { name: string, key: string }>();
+
+const rememberPerkGrant = (perk: { id: string, name: string, type: FeatureType, data: { ability: { id: string, name: string } } | null }) => {
+	if (perk.type !== FeatureType.Ability || !perk.data) {
+		return;
+	}
+	const ability = perk.data.ability;
+	if (!perkGrantAbilityIds.has(ability.id) || ability.name !== perk.name) {
+		return;
+	}
+	const key = `element:${perk.id}:name`;
+	if (!mapping[key]) {
+		return;
+	}
+	perkGrantNames.set(ability.id, { name: ability.name, key });
+};
+
+[ ExplorationPerkData, IntriguePerkData, SupernaturalPerkData ].forEach(group => {
+	Object.values(group).forEach(perk => {
+		if (perk && typeof perk === 'object' && 'id' in perk) {
+			rememberPerkGrant(perk);
+		}
+	});
+});
+
+const perkGrantLabelKeys: Record<string, string> = {
+	Maneuver: 'enum:AbilityUsage:Maneuver',
+	Ranged: 'enum:AbilityKeyword:Ranged'
+};
+
+/** An approved glossary word on one of these six abilities. Anything else stays as written. */
+export const perkGrantLabel = (abilityId: string, english: string): string => {
+	if (!perkGrantAbilityIds.has(abilityId)) {
+		return english;
+	}
+	const key = perkGrantLabelKeys[english];
+	if (!key) {
+		return english;
+	}
+	return translate(key, english);
+};
+
+/** Comma-separated keywords. Only a word with its own approved row changes. */
+export const perkGrantList = (abilityId: string, english: string): string => {
+	if (!english) {
+		return english;
+	}
+	return english.split(', ').map(part => perkGrantLabel(abilityId, part)).join(', ');
+};
+
+/** "Ranged 10" keeps the upstream number and replaces only the approved word. */
+export const perkGrantDistance = (abilityId: string, english: string): string => {
+	if (!perkGrantAbilityIds.has(abilityId)) {
+		return english;
+	}
+	const match = /^Ranged( \d+.*)$/.exec(english);
+	if (!match) {
+		return english;
+	}
+	return `${translate('enum:AbilityKeyword:Ranged', 'Ranged')}${match[1]}`;
+};
+
 /**
  * The key for a basic action's name, or an ancestry ability's name.
  *
@@ -54,6 +131,13 @@ const abilities = new Map([ ...AbilityData.standardAbilities, ...ancestryAbiliti
  * Strike (melee) and Free Strike (ranged), has no key.
  */
 export const abilityNameKey = (ability: { id: string, name: string }): string | undefined => {
+	const perk = perkGrantNames.get(ability.id);
+	if (perk) {
+		if (!ability.name || ability.name !== perk.name) {
+			return undefined;
+		}
+		return perk.key;
+	}
 	const dataName = abilities.get(ability.id)?.name;
 	if (!ability.name || dataName === undefined || ability.name !== dataName) {
 		return undefined;

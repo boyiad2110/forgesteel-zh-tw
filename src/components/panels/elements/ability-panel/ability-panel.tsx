@@ -3,7 +3,7 @@ import { Alert, Flex, Space, Tag } from 'antd';
 import { CSSProperties, useState } from 'react';
 import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
-import { abilityDescriptionKey, abilityNameKey, abilitySectionKey } from '@/l10n/ability-text';
+import { abilityDescriptionKey, abilityNameKey, abilitySectionKey, perkGrantLabel } from '@/l10n/ability-text';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -344,7 +344,7 @@ export const AbilityPanel = (props: Props) => {
 				<Markdown text={props.ability.description} className='ability-description-text' l10nKey={descriptionKey} />
 				{
 					keywords.length > 0 ?
-						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{k}</Tag>)}</Flex>
+						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{perkGrantLabel(props.ability.id, k)}</Tag>)}</Flex>
 						: null
 				}
 				<AbilityInfoPanel ability={props.ability} hero={props.hero} />
