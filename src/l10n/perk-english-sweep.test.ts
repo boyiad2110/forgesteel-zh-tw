@@ -39,29 +39,8 @@ const reserved = new Set([
 
 const kept = new Set([ 'Perk', 'Perks', 'info-circle', 'close', 'right', 'left', 'thunderbolt', 'potency', 'etc', 'Auto-calculate damage' ]);
 
-// Level 1 and level 5 match. Friend Catapult's effect is the one remainder:
-// a hero rewrites "twice your Might score" to a number, and that section has
-// no approved calculation binding, so the calculated English stays.
-const segment3Leftovers: Record<string, string[]> = {
-	'perk-friend-catapult @ drawer': [
-		'You grab a willing adjacent ally or object of your size or smaller',
-		'then vertical push that target up to a number of squares equal to',
-		'If a creature you push falls as a result of this movement',
-		'the effective distance of the fall is reduced by a number of squares equal to',
-		'When you use this perk',
-		'you can’t use it again until you earn',
-		'or more Victories.'
-	],
-	'perk-friend-catapult @ card': [
-		'You grab a willing adjacent ally or object of your size or smaller',
-		'then vertical push that target up to a number of squares equal to',
-		'If a creature you push falls as a result of this movement',
-		'the effective distance of the fall is reduced by a number of squares equal to',
-		'When you use this perk',
-		'you can’t use it again until you earn',
-		'or more Victories.'
-	]
-};
+// Level 1 and level 5 match. The six perk abilities have no leftover English.
+const segment3Leftovers: Record<string, string[]> = {};
 
 const nestedFeatures = (feature: Feature): Feature[] => {
 	if (!feature.data || typeof feature.data !== 'object') {

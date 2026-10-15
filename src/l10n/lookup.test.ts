@@ -1884,8 +1884,45 @@ describe('perk name segment', () => {
 			mode: PanelMode.Full
 		}))));
 		expect(catapultPanel).toContain('你將盟友擲向空中。');
-		expect(catapultPanel).toContain('equal to 0');
-		expect(catapultPanel).not.toContain('你抓住 1 個相鄰的自願盟友');
+		expect(catapultPanel.match(/等於0 的格數/g)).toHaveLength(2);
+		expect(catapultPanel).toContain('你抓住 1 個相鄰的自願盟友');
+		expect(catapultPanel).not.toContain('你力量 ×2');
+		expect(catapultPanel).not.toContain('twice your Might');
+		if (catapult.type !== FeatureType.Ability || !catapult.data) {
+			throw new Error('catapult');
+		}
+		const catapultCard = renderToStaticMarkup(createElement(AbilityCard, {
+			ability: ClassicSheetBuilder.buildAbilitySheet(catapult.data.ability, hero, undefined, options)
+		}));
+		expect(catapultCard.match(/等於0 的格數/g)).toHaveLength(2);
+		hero.class.characteristics = FactoryLogic.createCharacteristics(2, 0, 0, 0, 0);
+		const boosted = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: catapult,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(boosted.match(/等於4 的格數/g)).toHaveLength(2);
+		expect(boosted).not.toContain('你力量');
+		hero.class.characteristics = FactoryLogic.createCharacteristics(-1, 0, 0, 0, 0);
+		const reduced = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: catapult,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(reduced.match(/等於-2 的格數/g)).toHaveLength(2);
+		hero.class.characteristics = [];
+		setLanguage('en');
+		const englishCatapult = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: catapult,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(englishCatapult).toContain('equal to 0');
+		expect(englishCatapult).not.toContain('等於');
+		setLanguage('zh-TW');
 		const caught = core.perks.find(item => item.id === 'perk-ive-got-you')!;
 		const caughtPanel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
 			feature: caught,
@@ -1898,7 +1935,7 @@ describe('perk name segment', () => {
 		expect(caughtPanel).toContain('射程 / 目標');
 		expect(caughtPanel).toContain('自身');
 		expect(caughtPanel).toContain('當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時。');
-		expect(caughtPanel).toContain('你接住你的盟友。你們都不會受到墜落造成的傷害。');
+		expect(caughtPanel).toContain('你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。');
 		expect(caughtPanel).toContain('type-free');
 		expect(caughtPanel).not.toContain('>free<');
 		setLanguage('en');

@@ -114,5 +114,21 @@
     "sourceLength": 208,
     "targetLength": 68,
     "valueSuffix": " "
+  },
+  "section:perk-friend-catapult-1:0": {
+    "sheetId": "heroes.perks.friend-catapult.effect",
+    "enHash": "c805074e205a05cffcfdd92ec7ab8e130036ce2acc838189f19fc2157f775ed7",
+    "zhHash": "43dcd6186e4fd7ad24ea3c945072d01eb9be60b1709a46bf7507729522170e6d",
+    "sourceSpan": [
+      134,
+      156
+    ],
+    "targetSpan": [
+      45,
+      51
+    ],
+    "sourceLength": 401,
+    "targetLength": 120,
+    "valueSuffix": ""
   }
 }

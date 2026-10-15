@@ -7422,7 +7422,7 @@
     "fs": {
       "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
       "en": "You catch your ally. Neither of you takes damage from the fall.",
-      "zh": "你接住你的盟友。你們都不會受到墜落造成的傷害。"
+      "zh": "你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。"
     },
     "updated": "2026-10-14",
     "zh": "當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時，你可以使用免費反應動作安全地接住他。你和盟友都不會受到墜落造成的傷害。"

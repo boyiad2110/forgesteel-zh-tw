@@ -6,7 +6,7 @@
 |---|---|---|---|
 | DISPLAY-DEFAULTS | 待後續批次 / 54 種未核准特性預設描述 | Career 的 Crafting Perk 標題、Skills 標題及 Perk 類別標籤已接入既有 APPROVED UI／Glossary；一般特性預設說明仍需依呼叫情境盤點：9 類空描述先核對實際頁面，45 類逐一追蹤接點。Perk 預設說明仍待來源核准 | 不以生成語言／技能提示代替 FeatureType 預設描述完成率；每批先預覽 |
 | BOOK-01 | Inciting Incidents／Career Summary／Career UI 已驗收；PR #66 與 PR #68 均已合併 | #66 已接入 108 個事件名稱／描述及 18 個 Career 名稱／簡介，Marc 於 2026-10-13 驗收並合併 develop。Career UI [PR #68](https://github.com/boyiad2110/forgesteel-zh-tw/pull/68) 已於 2026-10-13 squash 合併 develop `5e7f7220`：15 個英文吻合的專長名稱已接入；`I've Read About This Place`、`Put Your Back Into It`、`Spot The Tell` 維持網站英文。74 筆 Career 背景問題已隨 2026-10-14 書本快照進入核准目錄，網站仍無對應欄位 | 74 筆問題維持書本範圍，不新增欄位、不改模型或存檔 |
-| PERKS-01 | 第 1 段已由 Marc 驗收（`f8cf1d3`）。第 2 段已由 Marc 驗收。第 3 段已接入 6 個招式的核准短描述、標籤、觸發、目標與效果；我接住你了的效果中文尚未通過刪字守門 | 盤點見 [PERKS-01](PERKS-01.md)。請把 Adaptations 第 337 列 `fs-adapt:heroes.perks.ive-got-you.effect` 的 Forge Steel Target Text 改成書本句的刪節。有英雄時，投擲盟友效果維持計算後英文。奧術戲法／魔寵留第 4 段 | 該格改成可由書本中文刪字得到之後，`verify.mjs` 才會全過；未核准內容維持英文 |
+| PERKS-01 | 第 1 段已由 Marc 驗收（`f8cf1d3`）。第 2 段已由 Marc 驗收。第 3 段已接入 6 個招式的核准短描述、標籤、觸發、目標與效果，並投射投擲盟友的力量數字 | 盤點見 [PERKS-01](PERKS-01.md)。奧術戲法／魔寵留第 4 段 | 未核准內容維持英文 |
 | BOOK-02 | 外部書本翻譯依賴／Marc | 書本工作流決定 Glossary Enhancement | 書本 Master Sheet 決策更新；不阻塞現有名稱顯示 |
 | RELEASE-01 | 正式開放前／runtime | 為目錄載入失敗設計受控重試與診斷，補失敗→恢復測試 | 可恢復且沒有 render 重試迴圈 |
 | RELEASE-02 | 正式開放前／網站識別 | 核對 HTML/PWA 語言、名稱、分享網址 | 與正式站識別一致 |

@@ -5383,7 +5383,7 @@
     "bookStringId": "heroes.perks.ive-got-you.effect",
     "usageKey": "section:perk-ive-got-you-1:0",
     "en": "You catch your ally. Neither of you takes damage from the fall.",
-    "zh": "你接住你的盟友。你們都不會受到墜落造成的傷害。",
+    "zh": "你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。",
     "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
     "updated": "2026-10-15",
     "sources": [

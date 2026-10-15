@@ -1,4 +1,4 @@
-import { hasCalculationBinding, plainForLookup } from '@/l10n/calculated-text';
+import { hasCalculationBinding, isProjectedCalculation, plainForLookup } from '@/l10n/calculated-text';
 import { Ability } from '@/models/ability';
 import { AbilityData } from '@/data/ability-data';
 import { AncestryData } from '@/data/ancestry-data';
@@ -236,7 +236,7 @@ const sectionKeyForSource = (abilityId: string, index: number, shown: string, so
 		return undefined;
 	}
 	const lookup = canonical !== undefined && hasCalculationBinding(key) ? canonical : shown;
-	if (plainForLookup(lookup).trim() !== stored) {
+	if (plainForLookup(lookup).trim() !== stored && !isProjectedCalculation(key, source, shown)) {
 		return undefined;
 	}
 	return key;

@@ -180,7 +180,7 @@ mapping 985。英文例外 17。帶 Forge Steel 版本的字串列是 326。語�
 
 ### 第 3 段：專長授予的招式
 
-Marc 已核准第 3 段草稿，並把 Distance / Target 定為「射程 / 目標」（半形斜線，兩側各一個半形空格）。snapshot-capture-6：書本修改時間與指紋不變（`2026-10-14T08:59:41.775Z`，`23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`）。Forge 修改時間 `2026-10-15T02:35:59.806Z`，指紋 `c9c28cd7812f5ad03ad2fb1578b594c4a3928789576346ab44fa65db2b73e043`。目錄 Glossary 333／Names 131／Strings 1192／UI 219。書本 Strings 多出的 24 筆套裝列仍沒有 mapping。
+Marc 已核准第 3 段草稿，並把 Distance / Target 定為「射程 / 目標」（半形斜線，兩側各一個半形空格）。snapshot-capture-7：書本修改時間與指紋不變（`2026-10-14T08:59:41.775Z`，`23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`）。Forge 修改時間 `2026-10-15T03:07:32.421Z`，指紋 `a3720f4e9e951eaea3c40e6fb51cdcf9ec3b234eb684030db7f5fc82269d7a50`。目錄 Glossary 333／Names 131／Strings 1192／UI 219。書本 Strings 多出的 24 筆套裝列仍沒有 mapping。
 
 Forge Steel UI 第 212–220 列已接入：射程、目標、射程 / 目標、自身、效果、觸發、靈能、反應動作、免費反應動作。反應動作與免費反應動作使用這些 UI 列。書本沒有 `heroes.actions.triggered.rules` 與 `heroes.actions.free-triggered.rules`，畫面不引用它們。
 
@@ -188,9 +188,9 @@ Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。
 
 六個招式都沒有檢定階級。標題在英文仍與專長相同時重用名稱鍵。`Maneuver` 與 `Ranged` 重用詞彙；「遠程 10」只換詞、保留上游數字。色帶可見文字在正體中文是「機動動作」「反應動作」「免費反應動作」；CSS 類別維持 `type-maneuver`、`type-trigger`、`type-free`。英文模式與其他招式的色帶仍是小寫單字。六個字的色帶去掉字距，不截斷。
 
-有英雄時，投擲盟友的效果會被上游把 “twice your Might score” 換成數字。這段沒有核准的計算綁定，計算後的英文整句保留。沒有改寫時才顯示核准效果。其餘五個效果、兩句觸發、兩句目標與六句短描述都已接入。奧術戲法與魔寵仍是英文，留第 4 段。
+我接住你了的效果中文已改成書本句的刪節：「你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。」Adaptations 第 337 列 `fs-adapt:heroes.perks.ive-got-you.effect` 的 Forge Steel Target Text 就是這句。
 
-來源覆蓋守門只檢查寫進書本列 `fs` 的那一列中文：它必須能由書本中文刪字得到。`fs-adapt:heroes.perks.ive-got-you.effect`（Adaptations 第 337 列，Usage Key `section:perk-ive-got-you-1:0`，Forge Steel Target Text）目前是「你接住你的盟友。你們都不會受到墜落造成的傷害。」書本句是「當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時，你可以使用免費反應動作安全地接住他。你和盟友都不會受到墜落造成的傷害。」刪字對不上「你接住你的盟友。你們」。`.short` 與 `.trigger` 不寫進 `fs`，不受這條檢查。其餘五個無後綴效果都通過。這格改成書本句的刪節之後才能重跑通過；程式沒有改這句核准中文。
+有英雄時，投擲盟友的上游計算把兩處 “twice your Might score” 換成整數。綁定 `section:perk-friend-catapult-1:0` 把每個整數填進對應的「你力量 ×2」，其餘核准文字不動。預設力量 0 顯示「等於0 的格數」兩次；力量 2 顯示「等於4 的格數」。沒有英雄時仍是「你力量 ×2」。未知改寫保留完整計算後英文。奧術戲法與魔寵仍是英文，留第 4 段。
 
 ### 第 4 段：奧術戲法與魔寵
 
@@ -213,7 +213,7 @@ Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。
 
 ## 本段不處理
 
-- 第 4 段：奧術戲法、魔寵數據表與 Telepathic。有英雄時，投擲盟友的效果內文維持計算後英文，因為沒有核准計算綁定。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
+- 第 4 段：奧術戲法、魔寵數據表與 Telepathic。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
 - 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
 - 非 Heroes 來源書的專長。
 - Google Sheets、遊戲規則、存檔與分享格式。
