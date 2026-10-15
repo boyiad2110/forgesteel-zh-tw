@@ -1605,11 +1605,13 @@ describe('perk name segment', () => {
 			}))));
 		};
 		expect(panel('perk-brawny')).toContain('1d6 + 1 的體力');
+		expect(panel('perk-brawny')).not.toContain('等於 1 的');
 		expect(panel('perk-brawny')).not.toContain('1d6 +1');
 		expect(panel('perk-brawny')).not.toContain('+ 1的');
 		expect(panel('perk-brawny')).not.toContain('your level');
 		expect(panel('perk-brawny')).not.toContain('Whenever you fail a Might test');
 		expect(panel('perk-lucky-dog')).toContain('1d6 + 1 的體力');
+		expect(panel('perk-lucky-dog')).not.toContain('等於 1 的');
 		expect(panel('perk-lucky-dog')).not.toContain('1d6 +1');
 		expect(panel('perk-lucky-dog')).not.toContain('+ 1的');
 		expect(panel('perk-lucky-dog')).not.toContain('Whenever you fail a test using any skill');
@@ -1888,9 +1890,10 @@ describe('perk name segment', () => {
 			mode: PanelMode.Full
 		}))));
 		expect(catapultPanel).toContain('你將盟友擲向空中。');
-		expect(catapultPanel.match(/等於 0 的格數/g)).toHaveLength(2);
-		expect(catapultPanel).not.toContain('等於0');
-		expect(catapultPanel).not.toContain('0  的');
+		expect(catapultPanel).toContain('推動最多 0 格');
+		expect(catapultPanel).toContain('會減少 0 格');
+		expect(catapultPanel).not.toContain('等於');
+		expect(catapultPanel).not.toContain('0  格');
 		expect(catapultPanel).toContain('你抓住 1 個相鄰的自願盟友');
 		expect(catapultPanel).not.toContain('你力量 ×2');
 		expect(catapultPanel).not.toContain('twice your Might');
@@ -1900,8 +1903,9 @@ describe('perk name segment', () => {
 		const catapultCard = renderToStaticMarkup(createElement(AbilityCard, {
 			ability: ClassicSheetBuilder.buildAbilitySheet(catapult.data.ability, hero, undefined, options)
 		}));
-		expect(catapultCard.match(/等於 0 的格數/g)).toHaveLength(2);
-		expect(catapultCard).not.toContain('等於0');
+		expect(catapultCard).toContain('推動最多 0 格');
+		expect(catapultCard).toContain('會減少 0 格');
+		expect(catapultCard).not.toContain('等於');
 		hero.class.characteristics = FactoryLogic.createCharacteristics(2, 0, 0, 0, 0);
 		const boosted = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
 			feature: catapult,
@@ -1909,8 +1913,9 @@ describe('perk name segment', () => {
 			sourcebooks: [ core ],
 			mode: PanelMode.Full
 		}))));
-		expect(boosted.match(/等於 4 的格數/g)).toHaveLength(2);
-		expect(boosted).not.toContain('等於4');
+		expect(boosted).toContain('推動最多 4 格');
+		expect(boosted).toContain('會減少 4 格');
+		expect(boosted).not.toContain('等於');
 		expect(boosted).not.toContain('你力量');
 		hero.class.characteristics = FactoryLogic.createCharacteristics(-1, 0, 0, 0, 0);
 		const reduced = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
@@ -1919,8 +1924,17 @@ describe('perk name segment', () => {
 			sourcebooks: [ core ],
 			mode: PanelMode.Full
 		}))));
-		expect(reduced.match(/等於 -2 的格數/g)).toHaveLength(2);
-		expect(reduced).not.toContain('等於-2');
+		expect(reduced).toContain('推動最多 -2 格');
+		expect(reduced).toContain('會減少 -2 格');
+		expect(reduced).not.toContain('等於');
+		const staticCatapult = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: catapult,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(staticCatapult.match(/等於你力量 ×2 的格數/g)).toHaveLength(2);
+		expect(staticCatapult).not.toContain('推動最多 0 格');
+		expect(staticCatapult).not.toContain('會減少 0 格');
 		hero.class.characteristics = [];
 		setLanguage('en');
 		const englishCatapult = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {

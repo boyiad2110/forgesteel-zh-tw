@@ -2160,7 +2160,7 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 	}
 	const entries = parseMapping('src/l10n/mapping.ts', read(path.join(root, 'src/l10n/mapping.ts')) ?? '').entries;
 	const rows = loadSheetRows(path.join(catalogRoot, 'src/l10n/generated/zh-TW'));
-	const fields = new Set([ 'sheetId', 'enHash', 'sourceHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix', 'useDisplayTemplate' ]);
+	const fields = new Set([ 'sheetId', 'enHash', 'sourceHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix', 'useDisplayTemplate', 'valueTemplate', 'suffixSpan' ]);
 	const errors = [];
 	const validSpan = (span, length) => Array.isArray(span) && span.length === 2 && span.every(Number.isInteger) && span[0] >= 0 && span[0] < span[1] && span[1] <= length;
 	for (const [ key, binding ] of Object.entries(bindings)) {
@@ -2194,6 +2194,24 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 		}
 		if (typeof binding.valueSuffix !== 'string' || !/^\s*$/.test(binding.valueSuffix)) {
 			fail('valueSuffix may contain only display whitespace');
+		}
+		if (binding.valueTemplate !== undefined) {
+			const template = binding.valueTemplate;
+			const formulaLength = Array.isArray(binding.targetSpan) ? binding.targetSpan[1] - binding.targetSpan[0] : 0;
+			const suffixCount = typeof template === 'string' ? template.split('{suffix}').length - 1 : 0;
+			const valueCount = typeof template === 'string' ? template.split('{value}').length - 1 : 0;
+			const remainder = typeof template === 'string' ? template.replaceAll('{value}', '').replaceAll('{suffix}', '') : '';
+			if (typeof template !== 'string' || valueCount !== 1 || suffixCount > 1 || !/^[\s]*$/.test(remainder) || binding.useDisplayTemplate) {
+				fail('valueTemplate may contain only {value}, optional {suffix}, and whitespace');
+			} else if ((suffixCount === 1) !== Array.isArray(binding.suffixSpan)) {
+				fail('suffixSpan is required exactly when valueTemplate contains {suffix}');
+			} else if (binding.suffixSpan && !validSpan(binding.suffixSpan, formulaLength)) {
+				fail('suffixSpan must sit inside the formula span');
+			} else if (binding.valueSuffix !== '') {
+				fail('valueSuffix must be empty when valueTemplate rewrites the formula');
+			}
+		} else if (binding.suffixSpan !== undefined) {
+			fail('suffixSpan requires valueTemplate');
 		}
 		if (binding.useDisplayTemplate !== undefined && binding.useDisplayTemplate !== true) {
 			fail('useDisplayTemplate must be true or absent');

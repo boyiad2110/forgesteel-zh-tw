@@ -12,6 +12,10 @@ interface CalculationBinding {
 	targetLength: number;
 	valueSuffix: string;
 	useDisplayTemplate?: boolean;
+	/** Display rewrite of the whole target span. Only `{value}`, `{suffix}`, and whitespace. */
+	valueTemplate?: string;
+	/** UTF-16 offsets of `{suffix}` inside each target span. The characters are copied from the approved formula. */
+	suffixSpan?: number[];
 }
 
 const table: Record<string, CalculationBinding> = bindings;
@@ -91,8 +95,9 @@ export const isProjectedCalculation = (key: string, canonical: string, calculate
  * The guard checks both approved text hashes and the UTF-16 slice positions.
  * No hero data or arithmetic enters this display adapter. One approved phrase
  * may occur more than once; each upstream integer fills that same phrase.
- * Each integer keeps one half-width space on both sides. A different rewrite
- * retains the complete calculated English.
+ * A valueTemplate replaces that whole formula. `{suffix}` is copied from the
+ * approved span, and each integer keeps one half-width space on both sides.
+ * A different rewrite retains the complete calculated English.
  */
 export const projectCalculatedText = (key: string, canonical: string, calculated: string, chinese: string, display?: CalculationDisplay): string => {
 	const binding = table[key];
@@ -122,6 +127,16 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 	if (targetParts.length !== values.length + 1) {
 		return calculated;
 	}
+	if (binding.valueTemplate) {
+		const suffix = binding.suffixSpan
+			? targetPhrase.slice(binding.suffixSpan[0], binding.suffixSpan[1])
+			: '';
+		let projected = targetParts[0];
+		values.forEach((value, index) => {
+			projected += formulaReplacement(projected, value, binding.valueTemplate!, suffix) + targetParts[index + 1];
+		});
+		return calculated.slice(0, leadingLength) + projected + calculated.slice(trailingStart);
+	}
 	if (values.length === 1 && binding.useDisplayTemplate) {
 		if (!display || display.target !== targetPhrase
 			|| display.template.split('{value}').length !== 2 || /[{}]/.test(display.template.replace('{value}', ''))) {
@@ -139,6 +154,19 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 		projected += spacedInteger(projected, value, binding.valueSuffix, after) + after;
 	});
 	return calculated.slice(0, leadingLength) + projected + calculated.slice(trailingStart);
+};
+
+/**
+ * Replaces one whole formula. The template may only add the upstream integer
+ * and a suffix copied from that formula. The integer keeps one half-width
+ * space on each side, without doubling a space the template already has.
+ */
+const formulaReplacement = (before: string, value: string, template: string, suffix: string) => {
+	let filled = template.replaceAll('{suffix}', suffix).replaceAll('{value}', value);
+	if (before.length > 0 && !/\s$/.test(before) && !/^\s/.test(filled)) {
+		filled = ` ${filled}`;
+	}
+	return filled.replace(/(-?\d+)(?!\s)/, '$1 ');
 };
 
 /**

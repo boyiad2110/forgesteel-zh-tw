@@ -124,11 +124,16 @@
       156
     ],
     "targetSpan": [
-      45,
-      51
+      43,
+      55
     ],
     "sourceLength": 401,
     "targetLength": 120,
-    "valueSuffix": ""
+    "valueSuffix": "",
+    "valueTemplate": "{value} {suffix}",
+    "suffixSpan": [
+      10,
+      11
+    ]
   }
 }
