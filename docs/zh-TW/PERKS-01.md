@@ -206,7 +206,7 @@ Adaptations 第 349–363 列、Adaptation Sources 第 355–369 列已接入。
 
 正體中文的魔寵在免疫與弱點為空時仍顯示「免疫：—」與「弱點：—」。英文模式維持上游，空列不顯示。有英雄時，抽屜體力顯示上游加值在該英雄等級的結果：1 級是 2、5 級是 10。沒有英雄時，數值改取書本句裡的「2 × 你的等級」。經典角色卡的 `familiar-1` 使用「每級 +2」，`{value}` 保留正號。這些都只改顯示，不改存檔。心靈感應是「心靈感應」與「若你和你的魔寵相距 10 格內……」。經典角色卡的類型字是「召喚物」。
 
-47 個專長在英雄 1 級與 5 級的抽屜、經典角色卡、招式卡與已選列不再留下英文句子。刻意保留的英文只有量詞 Perk，以及按鈕與圖示既有的 Perks、info-circle、close、right、left、thunderbolt、potency、etc、Auto-calculate damage。屬性字母與 `type-main` 仍是英文。
+47 個專長在英雄 1 級與 5 級的抽屜、經典角色卡、招式卡與已選列不再留下英文句子。刻意保留的英文只有量詞 Perk，以及按鈕與圖示既有的 Perks、info-circle、close、right、left、thunderbolt、potency、etc、Auto-calculate damage。屬性字母與 `type-main` 仍是英文。Node 24.21.0 的 `node scripts/l10n/verify.mjs` 在 head `12ff28e5` 通過：guard、lint 0 errors（26 個既有 warnings）、TypeScript、1042/1042 測試、正式建置、audit 0 漏洞。
 
 ### 第 5 段：收尾
 
