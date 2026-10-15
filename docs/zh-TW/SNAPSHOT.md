@@ -94,6 +94,10 @@ node scripts/l10n/check.mjs
 - 成功後移除暫存輸入並核對 `git diff`。來源時間是這次取得時間，後續寫 Project State／Status 不代表譯文再取得一次。非本批的譯文差異另列對照預覽，不順帶納入。
 
 相關測試：`npx vitest run scripts/l10n/refresh-sheet.test.mjs scripts/l10n/check.test.mjs`。每批依 RULES 跑 `node scripts/l10n/verify.mjs` 並如實記錄未通過項目；不改預設逾時或依賴來讓本批過關。
+
+## PERKS-01 結案快照（2026-10-15）
+
+Marc 已驗收，PERKS-01 為 COMPLETE：Heroes 47/47 專長、6 個類別。正式快照仍是雙來源。書本 Master 修改時間 `2026-10-14T08:59:41.775Z`，指紋 `23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`。Forge Master 修改時間 `2026-10-15T05:07:31.438Z`，指紋 `b89e086e22cc1febcdd14b24d53ff818aed1aaa7cdfd6ac16a2fa892f888bb56`。目錄 Glossary 333／Names 131／Strings 1192／UI 230。mapping 1031。這次書本快照多出的 24 筆 Book Strings（套裝列）沒有 mapping，不在 PERKS-01 範圍，不另做對照。刻意保留英文：量詞 Perk、既有圖示與按鈕字、villain／champion／perform 色帶。合併狀態見 [PR #69](https://github.com/boyiad2110/forgesteel-zh-tw/pull/69)。
 # 多來源核准檢查點（2026-10-10）
 
 每個 Forge Steel 版的完整來源 ID／en／zh 雜湊與合成內容雜湊另存 `src/l10n/source-dependencies.json`，只有 ID 與雜湊，不是翻譯來源。整合腳本的 staged 守門沿用 repo 核准檢查點來檢查新的 catalog；後續來源變動、刪列或缺檢查點會停止發布。不能自動重算雜湊消掉警告：先依 Master Sheet 重新確認所有來源及網站版本已核准，檢閱並更新檢查點後再整合。完整方案見 [P4-STRUCTURE.md](P4-STRUCTURE.md)。

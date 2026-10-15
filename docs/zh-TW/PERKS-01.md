@@ -1,6 +1,8 @@
 # PERKS-01 專長在地化
 
-2026-10-14。本批對照 Heroes 1.01b 的 47 個專長（Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`，BOOK-02 已核准）。第 1 段已由 Marc 驗收（head `f8cf1d3`）：47 個專長名稱與 6 個類別。第 2 段已由 Marc 驗收。第 3 段的核准招式欄位與整段算式顯示已接入。第 4 段的核准短描述、七個效果、魔寵散文、心靈感應與標籤已接入。都在同一 PR #69。
+**COMPLETE（2026-10-15）。** Marc 已驗收全部 5 段。Heroes 1.01b 的 47/47 個專長、6 個類別都已接入。同一 [PR #69](https://github.com/boyiad2110/forgesteel-zh-tw/pull/69)，合併狀態見 PR。這不是整站中文化完成。
+
+本批對照 Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`（BOOK-02 已核准）。第 1 段名稱與類別的驗收 head 是 `f8cf1d3`。第 2 段接入純文字效果。第 3 段接入核准招式欄位與整段算式顯示。第 4 段接入短描述、七個效果、魔寵散文、心靈感應、標籤，以及其後的兩字色帶。
 
 ## 第 1 段範圍
 
@@ -218,11 +220,12 @@ Node 24.21.0 的 `node scripts/l10n/verify.mjs` 在 head `610b7670` 通過：gua
 
 ### 第 5 段：收尾
 
-更新 TODO、PROGRESS、README 與本文件的驗收狀態。8 個先前維持英文的專長名稱已在第 1 段接入。確認非 Heroes 專長、74 個背景問題，以及這次一併進入目錄、尚未 mapping 的套裝列，都仍標成未接入。第 1–4 段的 47 個 Heroes 專長已無剩餘英文句子，量詞 Perk 除外；這不是整站中文化完成。
+Marc 已驗收。PERKS-01 標為 COMPLETE：47/47 個 Heroes 專長，6 個類別（工藝類 6、探索類 10、交涉類 10、諜報類 6、學識類 8、超常類 7）。8 個先前維持英文的專長名稱已在第 1 段接入。本段只更新狀態文件，不改程式與快照。程式接線 `610b7670` 的 Node 24.21.0 `verify.mjs` 已通過：guard、lint 0 errors（26 個既有 warnings）、TypeScript、1043/1043 測試、正式建置、audit 0 漏洞。
 
-## 本段不處理
+刻意保留英文：
 
-- `perk-linguist-2` 仍是語言選擇，沒有書本句子。第 4 段的核准列已接入。
-- 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
-- 非 Heroes 來源書的專長。
-- Google Sheets、遊戲規則、存檔與分享格式。
+- 量詞 **Perk**。數量列仍是「1 項工藝類 Perk」這類寫法。
+- 既有圖示與按鈕字：Perks、info-circle、close、right、left、thunderbolt、potency、etc、Auto-calculate damage。
+- villain、champion、perform 色帶。劇情面板的 Encounter、Montage、Negotiation、Map 也維持英文。
+
+2026-10-14 書本快照多出的 24 筆 Book Strings（套裝列）沒有 mapping，不在本批範圍，維持未接入。`perk-linguist-2` 仍是語言選擇，沒有書本句子；名稱與提示已重用核准 UI。74 個 Career 背景問題只留在書本目錄。非 Heroes 來源書的專長維持英文。未核准的 Perk 預設說明另批處理。Google Sheets、遊戲規則、存檔與分享格式沒有改。
