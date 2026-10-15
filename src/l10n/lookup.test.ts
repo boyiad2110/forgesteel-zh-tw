@@ -28,6 +28,7 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { InfoConditionImmunity } from '@/components/features/feature-data/condition-immunity';
+import { MonsterPanel } from '@/components/panels/elements/monster-panel/monster-panel';
 import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { PanelMode } from '@/enums/panel-mode';
 import { PartyModal } from '@/components/modals/party/party-modal';
@@ -1977,6 +1978,111 @@ describe('perk name segment', () => {
 		expect(englishPanel).not.toContain('機動動作');
 		expect(englishPanel).not.toContain('靈能');
 		expect(englishPanel).not.toContain('你可以透過意念操控微小的物體。');
+		setLanguage('zh-TW');
+	});
+
+	test('segment 4 wires Arcane Trick labels and the familiar stat block', () => {
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		const options = FactoryLogic.createOptions();
+		const renderPerk = (id: string, level: number) => {
+			hero.class!.level = level;
+			const perk = core.perks.find(item => item.id === id)!;
+			return renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+				feature: perk,
+				hero,
+				sourcebooks: [ core ],
+				mode: PanelMode.Full
+			}))));
+		};
+		const arcane = core.perks.find(item => item.id === 'perk-arcane-trick')!;
+		if (arcane.type !== FeatureType.Ability || !arcane.data) {
+			throw new Error('arcane');
+		}
+		for (const level of [ 1, 5 ]) {
+			const panel = renderPerk('perk-arcane-trick', level);
+			expect(panel).toContain('奧術戲法');
+			expect(panel).toContain('魔法');
+			expect(panel).toContain('自身');
+			expect(panel).toContain('射程 / 目標');
+			expect(panel).toContain('type-main');
+			expect(panel).toContain('>main<');
+			expect(panel).toContain('Main Action');
+			expect(panel).toContain('You cast an entertaining spell that creates a minor but impressive magical effect.');
+			expect(panel).toContain('You teleport a size 1S or smaller object adjacent to you');
+			expect(panel).toContain('You touch a size 1T object to cover it with an illusion');
+			expect(panel).not.toContain('主要動作');
+			expect(panel).not.toContain('你將 1 個體型 1S');
+			expect(panel).not.toContain('>Magic<');
+			expect(panel).not.toContain('>Self<');
+			const card = renderToStaticMarkup(createElement(AbilityCard, {
+				ability: ClassicSheetBuilder.buildAbilitySheet(arcane.data.ability, hero, undefined, options)
+			}));
+			expect(card).toContain('奧術戲法');
+			expect(card).toContain('魔法');
+			expect(card).toContain('效果');
+			expect(card).toContain('You ignite or snuff out');
+			expect(card).not.toContain('你點燃或熄滅');
+		}
+		const familiarPerk = core.perks.find(item => item.id === 'perk-familiar')!;
+		if (familiarPerk.type !== FeatureType.Summon || !familiarPerk.data) {
+			throw new Error('familiar');
+		}
+		const familiarMonster = familiarPerk.data.summons[0].monster;
+		expect(familiarMonster.characteristics.find(item => item.characteristic === 'Reason')?.value).toBe(0);
+		expect(familiarMonster.freeStrikeDamage).toBe(0);
+		expect(familiarMonster.speed.modes).toEqual([]);
+		for (const level of [ 1, 5 ]) {
+			const panel = renderPerk('perk-familiar', level);
+			expect(panel).toContain('魔寵');
+			expect(panel).toContain('體型');
+			expect(panel).toContain('速度');
+			expect(panel).toContain('體力');
+			expect(panel).toContain('穩度');
+			expect(panel).toContain('基礎打擊');
+			expect(panel).toContain('1T');
+			expect(panel).toContain('>5<');
+			expect(panel).toContain('>0<');
+			expect(panel).toContain('>-3<');
+			expect(panel).toContain('>2<');
+			expect(panel).toContain('>1<');
+			expect(panel).toContain('field-label">Movement</span><span class="field-value">—</span>');
+			expect(panel).toContain('Telepathic');
+			expect(panel).toContain('While you and your familiar are within 10 squares');
+			expect(panel).not.toContain('心靈感應');
+			expect(panel).not.toContain('2 × 你的等級');
+			expect(panel).not.toContain('>Familiar<');
+			expect(panel).not.toContain('>Size<');
+			expect(panel).not.toContain('>Free Strike<');
+		}
+		const renamed = structuredClone(familiarMonster);
+		renamed.id = 'not-the-familiar';
+		const other = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(MonsterPanel, {
+			monster: renamed,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		})));
+		expect(other).toContain('Familiar');
+		expect(other).toContain('Size');
+		expect(other).toContain('Free Strike');
+		expect(other).not.toContain('魔寵');
+		expect(other).not.toContain('體型');
+		expect(other).not.toContain('基礎打擊');
+		expect(other).not.toContain('field-label">Movement</span>');
+		setLanguage('en');
+		const englishArcane = renderPerk('perk-arcane-trick', 1);
+		expect(englishArcane).toContain('Arcane Trick');
+		expect(englishArcane).toContain('Magic');
+		expect(englishArcane).toContain('Self');
+		expect(englishArcane).not.toContain('奧術戲法');
+		expect(englishArcane).not.toContain('魔法');
+		const englishFamiliar = renderPerk('perk-familiar', 1);
+		expect(englishFamiliar).toContain('Familiar');
+		expect(englishFamiliar).toContain('Size');
+		expect(englishFamiliar).toContain('Free Strike');
+		expect(englishFamiliar).not.toContain('魔寵');
+		expect(englishFamiliar).not.toContain('體型');
+		expect(englishFamiliar).not.toContain('基礎打擊');
 		setLanguage('zh-TW');
 	});
 });

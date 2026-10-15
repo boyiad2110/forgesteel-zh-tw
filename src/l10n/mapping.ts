@@ -43,6 +43,7 @@ export interface MappingEntry {
  *                          The nth text section of an ability.
  */
 export const mapping: Record<string, MappingEntry> = {
+	'enum:AbilityKeyword:Magic': { sheetId: 'term.magic-skill', enHash: 'ed1a5a81b8121ad13a8796e7a7eb113f25d5b18b0a3831bae13d697ba5dae38b' },
 	'enum:AbilityKeyword:Ranged': { sheetId: 'term.ranged', enHash: '3f0b51a2492f73ecf48a84bc7f261e4223a8701efbda4726fa1de490fdf12498' },
 	'enum:AbilityUsage:Maneuver': { sheetId: 'term.maneuver', enHash: 'd7846fc90c7818076d672fe7dad73c25fd88954c0146ecfc5a7ede49bcf343de' },
 	'enum:ConditionType:Bleeding': { sheetId: 'term.bleeding', enHash: '68a89d8475444066a48efe8debcef05fc25306d5f950db02d9bec6cc3e61e4d4' },
@@ -68,7 +69,11 @@ export const mapping: Record<string, MappingEntry> = {
 	'enum:Characteristic:Presence': { sheetId: 'term.presence', enHash: 'd6b3e8c828d3742089ed59ebbfd89492ec2ce0bc89a19294cae52a6ac233b244' },
 	'enum:FeatureField:ProjectPoints': { sheetId: 'term.project-points', enHash: '66b60f8b266766312cdc294e4a7eb858fc4bcd76fa1435dfcf35218bca9c07af' },
 	'enum:FeatureField:Renown': { sheetId: 'term.renown', enHash: '538ff6fdc1e22e1228992c030d1e121151903fece828b6baf48e9937fb0557d1' },
+	'enum:FeatureField:Speed': { sheetId: 'term.speed', enHash: 'c372fee9b4566b85a592ae6e98e571f3929c8e262cf2feff7acba63a65a50f14' },
+	'enum:FeatureField:Stability': { sheetId: 'term.stability', enHash: '1e42d0c86af7a9c6a4d88038a3fe9043520f95c6b06afd2ac6ca5dcc885f6c36' },
+	'enum:FeatureField:Stamina': { sheetId: 'term.stamina', enHash: 'cc350ea3393968f7cd7cbf135e8c1ec826c85b881b68dc619c699667805a3e96' },
 	'enum:FeatureField:Wealth': { sheetId: 'term.wealth', enHash: '35466d70b1189c565c010d286ca6e27265b7b5be031a960d1754a9bf8839d695' },
+	'enum:FeatureType:Size': { sheetId: 'term.size', enHash: '1af851907331c0ed99e7c63b4e55df808bc5fc4c990a1cf80ca8c0f76daf1f3b' },
 	'element:ancestry-orc:name': { sheetId: 'heroes.ancestries.orc.name', enHash: '3907af2e3409c8737e09736dee955306c798dc0c1ce5a728d2d806278f4d8e0b' },
 	'element:ancestry-orc:description': { sheetId: 'heroes.ancestries.orc.description.1', enHash: '64caf7a29d7c79c9fd22811918917a2bd2b7f0d81f00df14bc1b1aeb0679238a' },
 	'element:orc-feature-1:name': { sheetId: 'heroes.ancestries.orc.signature.relentless.name', enHash: '4cf92935c62ffa8219001e1d9378d741ee32c3542b98f5aa44763529b78f90b5' },

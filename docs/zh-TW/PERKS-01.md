@@ -1,6 +1,6 @@
 # PERKS-01 專長在地化
 
-2026-10-14。本批對照 Heroes 1.01b 的 47 個專長（Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`，BOOK-02 已核准）。第 1 段已由 Marc 驗收（head `f8cf1d3`）：47 個專長名稱與 6 個類別。第 2 段已由 Marc 驗收。第 3 段的核准招式欄位已接入，仍在同一 PR #69。
+2026-10-14。本批對照 Heroes 1.01b 的 47 個專長（Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`，BOOK-02 已核准）。第 1 段已由 Marc 驗收（head `f8cf1d3`）：47 個專長名稱與 6 個類別。第 2 段已由 Marc 驗收。第 3 段的核准招式欄位與整段算式顯示已接入。第 4 段接入已經對得上的標籤；短描述、七個效果、魔寵散文與心靈感應仍是草案。都在同一 PR #69。
 
 ## 第 1 段範圍
 
@@ -190,20 +190,32 @@ Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。
 
 我接住你了的效果中文已改成書本句的刪節：「你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。」Adaptations 第 337 列 `fs-adapt:heroes.perks.ive-got-you.effect` 的 Forge Steel Target Text 就是這句。
 
-有英雄時，投擲盟友的上游計算把兩處 “twice your Might score” 換成整數。綁定 `section:perk-friend-catapult-1:0` 改寫整段「等於你力量 ×2 的格數」：力量 2 顯示「推動最多 4 格」與「墜落的有效距離會減少 4 格」。量詞「格」取自該段核准原文。數字兩側各留一個半形空格。沒有英雄時仍是「等於你力量 ×2 的格數」。肌肉發達與幸運兒已是「1d6 + 1 的體力」，擒抱與擊退已是「體型 ≦ 2 的生物」，發光眼已是「等於 1d10 + 2 的心靈傷害」，龍鱗與命定視線沿用核准 Calculation Display。這些句子已經通順，沒有改綁定。未知改寫保留完整計算後英文。奧術戲法與魔寵仍是英文，留第 4 段。
+有英雄時，投擲盟友的上游計算把兩處 “twice your Might score” 換成整數。綁定 `section:perk-friend-catapult-1:0` 改寫整段「等於你力量 ×2 的格數」：力量 2 顯示「推動最多 4 格」與「墜落的有效距離會減少 4 格」。量詞「格」取自該段核准原文。數字兩側各留一個半形空格。沒有英雄時仍是「等於你力量 ×2 的格數」。肌肉發達與幸運兒已是「1d6 + 1 的體力」，擒抱與擊退已是「體型 ≦ 2 的生物」，發光眼已是「等於 1d10 + 2 的心靈傷害」，龍鱗與命定視線沿用核准 Calculation Display。這些句子已經通順，沒有改綁定，也不需要新的 Adaptation。未知改寫保留完整計算後英文。Node 24.21.0 的 `node scripts/l10n/verify.mjs` 在 head `ec9d01a2` 通過：guard、lint 0 errors（26 個既有 warnings）、TypeScript、1041/1041 測試、正式建置、audit 0 漏洞。
 
 ### 第 4 段：奧術戲法與魔寵
 
-`perk-arcane-trick-1` 是主要動作、關鍵詞 Magic，效果區有 7 個選項。書本 String `heroes.perks.arcane-trick.effect` 的核准中文要完整顯示，不摘要。
+已接入的都是英文與核准列完全相同、而且現有鍵對得上的字。沒有新的 Adaptation、UI 列或英文例外。mapping 1017。書本 Strings 沒有改。
 
-魔寵以 Heroes 1.01b 核准列為準，不用舊 Notion 數字。書本來源與核准中文寫明：
+奧術戲法 `perk-arcane-trick-1` 納入專長招式後，標題重用 `name.perk.arcane-trick`「奧術戲法」。自身、效果、射程 / 目標沿用第 3 段 UI。關鍵詞 Magic 重用 `term.magic-skill`「魔法」，只作用在這批專長招式。色帶 CSS 仍是 `type-main`，可見文字仍是 `main`。類型列仍是 Main Action。
 
-- 理智 0、基礎打擊 0、移動 —
-- 體型 1T、速度 5、體力 2 × 等級、穩度 0
-- 力量 −3、敏捷 +2、直覺 0、氣場 +1
-- 特性名稱 Telepathic／心靈感應
+魔寵名稱重用 `element:perk-familiar:name`「魔寵」，包含頁首與圖示的 title。圖示縮寫仍取英文 Familiar 的字母，避免漢字被縮寫函式清成空白。數據表標籤只在怪物 id 為 `familiar` 時換成核准詞：體型、速度、體力、穩度、基礎打擊。其他怪物維持英文。屬性字母仍是 M／A／R／I／P。
 
-網站目前把速度存成 5、基礎打擊 0、理智 0、氣場 +1，體力則是基礎 0 再加固定 2 與每級 2。這和「2 × 等級」不是同一組儲存數字。第 4 段只做顯示；若無法在不改存檔數值的前提下呈現核准數據表，先停下來請 Marc 決定，不改怪物資料。書本英文來源列印有 Familliar 與 “The While” 字樣，那是來源紀錄，不在網站上「修正」。
+儲存值已是 Heroes 1.01b，沒有改怪物資料：理智 0、基礎打擊 0、力量 −3、敏捷 2、直覺 0、氣場 1、體型 1T、速度 5、穩度 0。畫面顯示儲存整數，不加正號。沒有移動模式時，這隻怪物補上書本用的破折號 —（U+2014）。標籤 Movement 沒有列舉值可對，維持英文。
+
+體力數字是上游算法：基礎 0，再加上固定 2 與每級 2，怪物等級是 0，所以抽屜數據表在英雄 1 級與 5 級都顯示 0。這不是書本「2 × 你的等級」。經典角色卡把 `familiar-1` 當成英雄加值來算，1 級顯示 +2、5 級顯示 +10，標籤是「體力」。沒有改存檔。
+
+抽屜、經典角色卡、招式卡與已選列在英雄 1 級與 5 級的剩餘英文相同。那些句子收成下面這一份草案，不寫 Sheet。
+
+#### 草案（不接入）
+
+1. 奧術戲法短描述與 7 個效果。網站英文不是 `heroes.perks.arcane-trick.effect` 整段，不能把書本整段套上去。需要 Adaptation，Forge Steel 英文等於網站句子，中文只刪節書本核准句。短描述：「You cast an entertaining spell that creates a minor but impressive magical effect.」效果區是 “Choose one of the following effects:” 加 7 個 `*` 條目（傳送 1S 物體、火花、點滅光源、食物味道、氣味、銘文、1T 幻術）。書本中文在同一列，條列是圓點。
+2. 魔寵散文。網站描述少了 “The spirit uses the familiar stat block.”，而且把「不能傷害」另起一段。書本中文在 `heroes.perks.familiar.effect`。需要 Adaptation。
+3. 心靈感應。網站特性 id `familiar-2`，名稱 Telepathic，句子是 “While you and your familiar are within 10 squares of each other…”。沒有獨立 String ID。書本英文印成 “The While”，中文是「心靈感應（Telepathic）」與「若你和你的魔寵相距 10 格內……」。需要 Adaptation。不在網站上改正書本拼字。
+4. 主要動作。`term.main-action` 的英文是 Main Action、中文是「主要動作」，但守門要求來源列 `heroes.actions.main.rules`，目錄只有 `heroes.actions.main-actions.rules`。不改守門、不另開鍵。色帶與類型列維持英文。
+5. 移動標籤。`term.movement` 的中文是「移動」，沒有列舉值等於 Movement。數值 — 已顯示，標籤維持英文。
+6. 免疫與弱點。書本是「免疫：—」「弱點：—」。空值時面板不顯示這兩列。詞彙是單數 Immunity／Weakness，畫面標籤是複數。
+7. 體力公式。數據表顯示 0，加值格式是 “+2 per level”，都不是「2 × 你的等級」。
+8. 經典角色卡的類型字 Summon。沒有核准列。名稱已是「魔寵」。
 
 `perk-linguist` 的父項與 7 日句子已在第 2 段接入。語言選擇 `perk-linguist-2` 沒有書本句子，留在選擇器。
 
@@ -213,7 +225,7 @@ Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。
 
 ## 本段不處理
 
-- 第 4 段：奧術戲法、魔寵數據表與 Telepathic。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
+- 第 4 段草案：奧術戲法短描述與 7 個效果、魔寵散文、心靈感應、主要動作、移動標籤、免疫／弱點空列、體力公式、Summon。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
 - 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
 - 非 Heroes 來源書的專長。
 - Google Sheets、遊戲規則、存檔與分享格式。

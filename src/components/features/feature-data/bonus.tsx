@@ -11,6 +11,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
 import { careerBenefitFieldKey } from '@/l10n/career-benefit-ui';
+import { familiarStaminaKey } from '@/l10n/familiar-stat';
 import { useL10nText } from '@/l10n/hooks';
 
 interface InfoProps {
@@ -21,7 +22,7 @@ interface InfoProps {
 }
 
 export const InfoBonus = (props: InfoProps) => {
-	const labelKey = careerBenefitFieldKey(props.feature, props.sourcebooks || []);
+	const labelKey = familiarStaminaKey(props.feature) ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []);
 	const label = useL10nText(labelKey, props.data.field);
 	return (
 		<Field label={label} value={FormatLogic.getModifier(props.data)} />

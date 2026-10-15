@@ -23,6 +23,7 @@ import { PlayerName } from '@/l10n/player-name';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
+import { familiarStaminaKey } from '@/l10n/familiar-stat';
 import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
 import { perkSkillCountLine } from '@/l10n/perk-list-ui';
@@ -180,10 +181,12 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 
 const BonusFeatureComponent = (props: { feature: FeatureBonus, hero?: Hero, sourcebooks?: Sourcebook[] }) => {
 	const value = props.hero ? ModifierLogic.calculateModifierValue(props.feature.data, props.hero) : props.feature.data.value;
-	const label = useL10nText(careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
+	const staminaKey = familiarStaminaKey(props.feature);
+	const label = useL10nText(staminaKey ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
+	const title = useL10nText(staminaKey, props.feature.name);
 	return (
 		<>
-			<div className='feature-line'><strong>• {props.feature.name}: </strong>{SheetFormatter.addSign(value)} {label}</div>
+			<div className='feature-line'><strong>• {title}: </strong>{SheetFormatter.addSign(value)} {label}</div>
 		</>
 	);
 };

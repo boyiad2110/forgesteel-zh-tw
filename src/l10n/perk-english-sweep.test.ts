@@ -32,15 +32,105 @@ vi.mock('@/hooks/use-clipboard', () => ({
 	})
 }));
 
-const reserved = new Set([
-	'perk-arcane-trick',
-	'perk-familiar'
-]);
+const reserved = new Set<string>();
 
 const kept = new Set([ 'Perk', 'Perks', 'info-circle', 'close', 'right', 'left', 'thunderbolt', 'potency', 'etc', 'Auto-calculate damage' ]);
 
-// Level 1 and level 5 match. The six perk abilities have no leftover English.
-const segment3Leftovers: Record<string, string[]> = {};
+// Level 1 and level 5 match. These leftovers are the segment 4 draft.
+const segment4Leftovers: Record<string, string[]> = {
+	'familiar-1 @ drawer': [
+		'per level'
+	],
+	'familiar-2 @ drawer': [
+		'Telepathic',
+		'While you and your familiar are within',
+		'squares of each other',
+		'you can communicate telepathically and share each other’s senses. While sharing senses',
+		'each of you also benefits from your own senses at the same time.'
+	],
+	'familiar-2 @ sheet': [
+		'Telepathic',
+		'While you and your familiar are within',
+		'squares of each other',
+		'you can communicate telepathically and share each other’s senses. While sharing senses',
+		'each of you also benefits from your own senses at the same time.'
+	],
+	'perk-arcane-trick @ card': [
+		'Main Action',
+		'You cast an entertaining spell that creates a minor but impressive magical effect.',
+		'Choose one of the following effects',
+		'You teleport a size',
+		'S or smaller object adjacent to you into an unoccupied space adjacent to you.',
+		'Until the start of your next turn',
+		'a part of your body shoots a shower of harmless noisy sparks that light up each square adjacent to you.',
+		'You ignite or snuff out',
+		'your choice',
+		'every mundane light source of',
+		'L or smaller adjacent to you.',
+		'You transform up to',
+		'pound of edible food you touch to make it taste delicious or disgusting.',
+		'you make your body exude a particular odor you’ve smelled before. This smell can be sensed by each creature within',
+		'squares of you',
+		'but can’t impose any condition or other drawback on those creatures.',
+		'You place a small magical inscription on the surface of a mundane object you touch',
+		'or you can remove an inscription that was made by you or by another creature using Arcane Trick.',
+		'You touch a size',
+		'T object to cover it with an illusion that makes it look like a different object. Any creature who handles the object becomes aware of the illusion. The illusion ends when you stop touching the object.'
+	],
+	'perk-arcane-trick @ drawer': [
+		'You cast an entertaining spell that creates a minor but impressive magical effect.',
+		'main',
+		'Main Action',
+		'Choose one of the following effects',
+		'You teleport a size',
+		'S or smaller object adjacent to you into an unoccupied space adjacent to you.',
+		'Until the start of your next turn',
+		'a part of your body shoots a shower of harmless noisy sparks that light up each square adjacent to you.',
+		'You ignite or snuff out',
+		'your choice',
+		'every mundane light source of',
+		'L or smaller adjacent to you.',
+		'You transform up to',
+		'pound of edible food you touch to make it taste delicious or disgusting.',
+		'you make your body exude a particular odor you’ve smelled before. This smell can be sensed by each creature within',
+		'squares of you',
+		'but can’t impose any condition or other drawback on those creatures.',
+		'You place a small magical inscription on the surface of a mundane object you touch',
+		'or you can remove an inscription that was made by you or by another creature using Arcane Trick.',
+		'You touch a size',
+		'T object to cover it with an illusion that makes it look like a different object. Any creature who handles the object becomes aware of the illusion. The illusion ends when you stop touching the object.'
+	],
+	'perk-arcane-trick @ selected': [
+		'You cast an entertaining spell that creates a minor but impressive magical effect.'
+	],
+	'perk-arcane-trick @ sheet': [
+		'Main Action',
+		'You cast an entertaining spell that creates a minor but impressive magical effect.'
+	],
+	'perk-familiar @ drawer': [
+		'A supernatural spirit who has taken the form of a specific small animal or animated object has chosen to be your familiar',
+		'or to adopt you as their familiar.',
+		'The familiar can hold small objects in their mouth or claws',
+		'but can’t perform activities that would typically require hands',
+		'opening a door',
+		'unrolling a scroll',
+		'and so forth',
+		'They can’t harm other creatures or objects. They can flank in combat',
+		'but only with you.',
+		'If your familiar is destroyed',
+		'you can restore them as a respite activity',
+		'or by spending a Recovery as a main action to bring them back into existence in an unoccupied space adjacent to you.',
+		'Movement',
+		'Telepathic',
+		'While you and your familiar are within',
+		'squares of each other',
+		'you can communicate telepathically and share each other’s senses. While sharing senses',
+		'each of you also benefits from your own senses at the same time.'
+	],
+	'perk-familiar @ sheet': [
+		'Summon'
+	]
+};
 
 const nestedFeatures = (feature: Feature): Feature[] => {
 	if (!feature.data || typeof feature.data !== 'object') {
@@ -179,6 +269,6 @@ describe('perk English sweep', () => {
 				seen[surface] = phrases;
 			}
 		}
-		expect(seen).toEqual(segment3Leftovers);
+		expect(seen).toEqual(segment4Leftovers);
 	});
 });

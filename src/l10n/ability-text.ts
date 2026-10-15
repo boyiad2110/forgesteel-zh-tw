@@ -51,14 +51,15 @@ const collectAncestryAbilities = (feature: Feature) => {
 
 const abilities = new Map([ ...AbilityData.standardAbilities, ...ancestryAbilities.values() ].map(ability => [ ability.id, ability ]));
 
-/** Segment 3 grants. Arcane Trick and Familiar stay in segment 4. */
+/** Segment 3 grants plus Arcane Trick. Familiar is a summon, not an ability. */
 const perkGrantAbilityIds = new Set([
 	'perk-friend-catapult-1',
 	'perk-ive-got-you-1',
 	'perk-gum-up-the-works-1',
 	'perk-creature-sense-1',
 	'perk-invisible-force-1',
-	'perk-psychic-whisper-1'
+	'perk-psychic-whisper-1',
+	'perk-arcane-trick-1'
 ]);
 
 const perkGrantNames = new Map<string, { name: string, key: string }>();
@@ -118,11 +119,12 @@ const rememberPerkGrant = (perk: {
 type PerkUi = ReturnType<typeof useUI>;
 
 const perkGrantLabelKeys: Record<string, string> = {
+	Magic: 'enum:AbilityKeyword:Magic',
 	Maneuver: 'enum:AbilityUsage:Maneuver',
 	Ranged: 'enum:AbilityKeyword:Ranged'
 };
 
-/** Approved labels for these six abilities. The calls are the UI test's source bindings. */
+/** Approved labels for these perk abilities. The calls are the UI test's source bindings. */
 export const perkGrantUi = (ui: PerkUi, english: string): string => {
 	switch (english) {
 		case 'Distance': return ui.text('ui.hero-builder.distance.b7bdf7a2', 'Distance');
@@ -138,7 +140,7 @@ export const perkGrantUi = (ui: PerkUi, english: string): string => {
 	}
 };
 
-/** An approved glossary or UI word on one of these six abilities. Anything else stays as written. */
+/** An approved glossary or UI word on one of these perk abilities. Anything else stays as written. */
 export const perkGrantLabel = (abilityId: string, english: string, ui: PerkUi): string => {
 	if (!perkGrantAbilityIds.has(abilityId)) {
 		return english;
@@ -244,7 +246,7 @@ const sectionKeyForSource = (abilityId: string, index: number, shown: string, so
 
 /**
  * The key for one text section of a basic action, ancestry ability, or one of
- * the six perk grants.
+ * these perk grants.
  *
  * Only when the data section at this index is a text section, and the supplied
  * text still matches that English once `**bold**` marks are removed and both
@@ -271,7 +273,7 @@ export const abilitySectionKey = (abilityId: string, index: number, shown: strin
 };
 
 /**
- * An ancestry ability's unchanged description, or one of the six perk grants
+ * An ancestry ability's unchanged description, or one of these perk grants
  * when the short description is still the stored English.
  */
 export const abilityDescriptionKey = (ability: { id: string, description?: string }): string | undefined => {

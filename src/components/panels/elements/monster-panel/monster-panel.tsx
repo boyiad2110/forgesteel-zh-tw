@@ -1,5 +1,6 @@
 import { Alert, Divider, Drawer, Flex } from 'antd';
 import { CSSProperties, ReactNode, useState } from 'react';
+import { familiarMovementDash, familiarNameKey, familiarStatKey } from '@/l10n/familiar-stat';
 import { Ability } from '@/models/ability';
 import { AbilityModal } from '@/components/modals/ability/ability-modal';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
@@ -32,6 +33,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { StatsRow } from '@/components/panels/stats-row/stats-row';
 import { SummoningInfo } from '@/models/summon';
+import { useL10nText } from '@/l10n/hooks';
 
 import './monster-panel.scss';
 
@@ -98,6 +100,13 @@ export const MonsterPanel = (props: Props) => {
 		}
 	}
 
+	const shownName = MonsterLogic.getMonsterName(props.monster, props.monsterGroup);
+	const nameKey = shownName === props.monster.name ? familiarNameKey(props.monster) : undefined;
+	const movementDash = familiarMovementDash(props.monster);
+	const StatLabel = (labelProps: { english: string }) => {
+		return useL10nText(familiarStatKey(props.monster.id, labelProps.english), labelProps.english);
+	};
+
 	const higherLevels: { level: number, feature: Feature }[] = [];
 	if (props.monster.retainer) {
 		if (props.monster.retainer.level4 && (props.monster.retainer.level < 4)) {
@@ -130,8 +139,9 @@ export const MonsterPanel = (props: Props) => {
 					ribbon={<MonsterToken monster={props.monster} monsterGroup={props.monsterGroup} size={28} />}
 					tags={tags}
 					extra={props.extra}
+					l10nKey={nameKey}
 				>
-					{MonsterLogic.getMonsterName(props.monster, props.monsterGroup)}
+					{shownName}
 				</HeaderText>
 				<MonsterLabel monster={props.monster} extra={rightOfTags} />
 				<Markdown text={props.monster.description} />
@@ -139,11 +149,11 @@ export const MonsterPanel = (props: Props) => {
 					props.mode === PanelMode.Full ?
 						<>
 							<StatsRow>
-								<Field orientation='vertical' compact={true} label='Size' value={FormatLogic.getSize(props.monster.size)} />
-								<Field orientation='vertical' compact={true} label='Speed' value={speedStr} />
-								<Field orientation='vertical' compact={true} label='Stamina' value={MonsterLogic.getStaminaDescription(props.monster)} />
-								<Field orientation='vertical' compact={true} label='Stability' value={MonsterLogic.getStability(props.monster)} />
-								<Field orientation='vertical' compact={true} label='Free Strike' value={MonsterLogic.getFreeStrikeDamage(props.monster)} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Size' />} value={FormatLogic.getSize(props.monster.size)} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Speed' />} value={speedStr} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Stamina' />} value={MonsterLogic.getStaminaDescription(props.monster)} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Stability' />} value={MonsterLogic.getStability(props.monster)} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Free Strike' />} value={MonsterLogic.getFreeStrikeDamage(props.monster)} />
 							</StatsRow>
 							{
 								![ 'healthy', 'injured' ].includes(MonsterLogic.getCombatState(props.monster)) ?
@@ -173,7 +183,12 @@ export const MonsterPanel = (props: Props) => {
 													label='Movement'
 													value={Format.capitalize(FormatLogic.getSpeedModes(speed.modes))}
 												/>
-												: null
+												: movementDash ?
+													<Field
+														label='Movement'
+														value={movementDash}
+													/>
+													: null
 										}
 										{
 											immunities.length > 0 ?
