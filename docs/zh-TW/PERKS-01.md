@@ -186,7 +186,7 @@ Forge Steel UI 第 212–220 列已接入：射程、目標、射程 / 目標、
 
 Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。ID 是 `fs-adapt:heroes.perks.<perk>.effect`，以及 `.short`、`.trigger`、`.target`。書本沒有這三個後綴 ID，每一列的來源都是該專長的 `.effect`。作者寫的 usage key 與現有文法相同，守門已接受，沒有改 Sheet 儲存格：`element:perk-<id>:description`、`section:perk-<id>-1:0`、`element:perk-<id>-1:trigger`、`element:perk-<id>-1:target`。沒有後綴的適配寫進書本列的 Forge Steel 版，帶 Forge Steel 版本的字串列由 326 增至 332。短描述、觸發與目標由 usage key 選出。mapping 1012。英文例外仍是 17。
 
-六個招式都沒有檢定階級。標題在英文仍與專長相同時重用名稱鍵。`Maneuver` 與 `Ranged` 重用詞彙；「遠程 10」只換詞、保留上游數字。色帶可見文字在正體中文是「機動動作」「反應動作」「免費反應動作」；CSS 類別維持 `type-maneuver`、`type-trigger`、`type-free`。英文模式與其他招式的色帶仍是小寫單字。六個字的色帶去掉字距，不截斷。
+六個招式都沒有檢定階級。標題在英文仍與專長相同時重用名稱鍵。`Maneuver` 與 `Ranged` 重用詞彙；「遠程 10」只換詞、保留上游數字。類型列在正體中文是「機動動作」「反應動作」「免費反應動作」。色帶其後改成兩字，見下方「色帶兩字」。CSS 類別維持 `type-maneuver`、`type-trigger`、`type-free`。英文模式的色帶仍是小寫單字。
 
 我接住你了的效果中文已改成書本句的刪節：「你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。」Adaptations 第 337 列 `fs-adapt:heroes.perks.ive-got-you.effect` 的 Forge Steel Target Text 就是這句。
 
@@ -196,7 +196,7 @@ Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。
 
 Marc 已核准第 4 段。snapshot-capture-8：書本修改時間與指紋不變（`2026-10-14T08:59:41.775Z`，`23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`）。Forge 修改時間 `2026-10-15T04:33:19.904Z`，指紋 `5e7a4c1c337ce106adf66a731e48243ad014e114513add273ca061de572cc757`。目錄 Glossary 333／Names 131／Strings 1192／UI 226。mapping 1027。英文例外仍是 17。帶 Forge Steel 版本的字串列由 332 增至 334。書本 Strings 沒有改。
 
-Forge Steel UI 第 221–227 列已接入，而且只作用在這兩個專長：主要動作、色帶 `main`、移動、免疫、弱點、每級模板、召喚物。`term.main-action` 仍不進 mapping，因為守門要的是 `heroes.actions.main.rules`，目錄只有 `heroes.actions.main-actions.rules`。色帶 CSS 維持 `type-main`，可見文字是「主要動作」。其他招式的色帶仍是小寫英文。
+Forge Steel UI 第 221–227 列已接入。主要動作、移動、免疫、弱點、每級模板、召喚物只作用在這兩個專長。`term.main-action` 仍不進 mapping，因為守門要的是 `heroes.actions.main.rules`，目錄只有 `heroes.actions.main-actions.rules`。色帶 CSS 維持 `type-main`。capture-8 的色帶可見文字曾是「主要動作」，其後改為「主要」，見下方「色帶兩字」。
 
 Adaptations 第 349–363 列、Adaptation Sources 第 355–369 列已接入。沒有後綴的 `fs-adapt:heroes.perks.arcane-trick.effect` 與 `fs-adapt:heroes.perks.familiar.effect` 寫進書本列的 Forge Steel 版，分別只留引言「選擇以下 1 種效果：」與魔寵第一段。短描述、七個效果、其餘三段散文與心靈感應由 usage key 選出，不新增 mapping 鍵文法。第 3 項光源效果的核准中文沒有「由你選擇」，畫面也不補。
 
@@ -207,6 +207,14 @@ Adaptations 第 349–363 列、Adaptation Sources 第 355–369 列已接入。
 正體中文的魔寵在免疫與弱點為空時仍顯示「免疫：—」與「弱點：—」。英文模式維持上游，空列不顯示。有英雄時，抽屜體力顯示上游加值在該英雄等級的結果：1 級是 2、5 級是 10。沒有英雄時，數值改取書本句裡的「2 × 你的等級」。經典角色卡的 `familiar-1` 使用「每級 +2」，`{value}` 保留正號。這些都只改顯示，不改存檔。心靈感應是「心靈感應」與「若你和你的魔寵相距 10 格內……」。經典角色卡的類型字是「召喚物」。
 
 47 個專長在英雄 1 級與 5 級的抽屜、經典角色卡、招式卡與已選列不再留下英文句子。刻意保留的英文只有量詞 Perk，以及按鈕與圖示既有的 Perks、info-circle、close、right、left、thunderbolt、potency、etc、Auto-calculate damage。屬性字母與 `type-main` 仍是英文。Node 24.21.0 的 `node scripts/l10n/verify.mjs` 在 head `12ff28e5` 通過：guard、lint 0 errors（26 個既有 warnings）、TypeScript、1042/1042 測試、正式建置、audit 0 漏洞。
+
+### 色帶兩字
+
+Marc 驗收第 4 段後，把能力卡色帶改成兩字。刷新使用 Forge Master 修改時間 `2026-10-15T05:07:31.438Z`，指紋 `b89e086e22cc1febcdd14b24d53ff818aed1aaa7cdfd6ac16a2fa892f888bb56`。書本指紋不變（`2026-10-14T08:59:41.775Z`，`23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`）。UI 由 226 增至 230。mapping 1031。英文例外仍是 17。Forge Steel 字串列仍是 334。
+
+Forge Steel UI 第 222 列 `main` 的目標改為「主要」。第 228–231 列是 `maneuver`「機動」、`move`「移動」、`free`「免費」、`trigger`「反應」。這些列直接對上 `getMonogram()` 的單字，所有顯示這些色帶的招式都使用。類型列維持全名，例如「機動動作」「主要動作」「反應動作」「免費反應動作」。兩字不會加上 `labeled`。villain、champion、perform 與劇情面板的 Encounter、Montage、Negotiation、Map 維持英文。英文模式的色帶仍是小寫單字。
+
+Node 24.21.0 的 `node scripts/l10n/verify.mjs` 在 head `610b7670` 通過：guard、lint 0 errors（26 個既有 warnings）、TypeScript、1043/1043 測試、正式建置、audit 0 漏洞。
 
 ### 第 5 段：收尾
 
