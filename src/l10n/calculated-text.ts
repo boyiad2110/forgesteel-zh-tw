@@ -91,7 +91,8 @@ export const isProjectedCalculation = (key: string, canonical: string, calculate
  * The guard checks both approved text hashes and the UTF-16 slice positions.
  * No hero data or arithmetic enters this display adapter. One approved phrase
  * may occur more than once; each upstream integer fills that same phrase.
- * A different rewrite retains the complete calculated English.
+ * Each integer keeps one half-width space on both sides. A different rewrite
+ * retains the complete calculated English.
  */
 export const projectCalculatedText = (key: string, canonical: string, calculated: string, chinese: string, display?: CalculationDisplay): string => {
 	const binding = table[key];
@@ -134,7 +135,18 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 	}
 	let projected = targetParts[0];
 	values.forEach((value, index) => {
-		projected += value + binding.valueSuffix + targetParts[index + 1];
+		const after = targetParts[index + 1];
+		projected += spacedInteger(projected, value, binding.valueSuffix, after) + after;
 	});
 	return calculated.slice(0, leadingLength) + projected + calculated.slice(trailingStart);
+};
+
+/**
+ * Arabic numerals take one half-width space on each side. Spaces already
+ * present in the approved text, or supplied by valueSuffix, are kept once.
+ */
+const spacedInteger = (before: string, value: string, valueSuffix: string, after: string) => {
+	const lead = before.length > 0 && !/\s$/.test(before) ? ' ' : '';
+	const trail = valueSuffix.length > 0 ? valueSuffix : (after.length > 0 && !/^\s/.test(after) ? ' ' : '');
+	return lead + value + trail;
 };
