@@ -9,6 +9,8 @@ import { MonsterRoleType } from '@/enums/monster-role-type';
 import { Pregen } from '@/models/pregen';
 import { Terrain } from '@/models/terrain';
 import { TerrainLogic } from '@/logic/terrain-logic';
+import { familiarNameKey } from '@/l10n/familiar-stat';
+import { useL10nText } from '@/l10n/hooks';
 
 import './token.scss';
 
@@ -19,6 +21,7 @@ interface Props {
 	type?: string;
 	isDefeated?: boolean;
 	size?: number;
+	title?: string;
 	onClick?: () => void;
 }
 
@@ -42,7 +45,7 @@ export const Token = (props: Props) => {
 		<div
 			className={className}
 			style={{ width: `${size}px`, height: `${size}px`, padding: `${size * 0.08}px` }}
-			title={props.name}
+			title={props.title ?? props.name}
 			onClick={props.onClick}
 		>
 			<div
@@ -51,7 +54,7 @@ export const Token = (props: Props) => {
 			>
 				{
 					props.picture ?
-						<img className='portrait' src={props.picture} title={props.name} />
+						<img className='portrait' src={props.picture} title={props.title ?? props.name} />
 						:
 						Format.getMonogram(props.name)
 				}
@@ -159,9 +162,12 @@ interface MonsterTokenProps {
 }
 
 export const MonsterToken = (props: MonsterTokenProps) => {
+	const english = MonsterLogic.getMonsterName(props.monster, props.monsterGroup);
+	const title = useL10nText(english === props.monster.name ? familiarNameKey(props.monster) : undefined, english);
 	return (
 		<Token
-			name={MonsterLogic.getMonsterName(props.monster, props.monsterGroup)}
+			name={english}
+			title={title}
 			picture={props.monster.picture || props.monsterGroup?.picture || undefined}
 			role={props.monster.role.type}
 			type='monster'
@@ -182,7 +188,7 @@ export const MonsterInfo = (props: MonsterInfoProps) => {
 		<div className='combatant-button-content' style={props.style}>
 			<MonsterToken monster={props.monster} size={30} />
 			<div className='combatant-button-details'>
-				<div className='combatant-name'>{props.monster.name}</div>
+				<div className='combatant-name'>{useL10nText(familiarNameKey(props.monster), props.monster.name)}</div>
 				<div className='combatant-info'>{MonsterLogic.getMonsterDescription(props.monster)}</div>
 			</div>
 		</div>

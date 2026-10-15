@@ -104,6 +104,11 @@
     "updated": "2026-09-29",
     "zh": "劣勢"
   },
+  "term.benefit": {
+    "en": "Benefit",
+    "updated": "2026-10-14",
+    "zh": "益處"
+  },
   "term.blacksmithing-skill": {
     "en": "Blacksmithing",
     "updated": "2026-10-06",
@@ -651,8 +656,8 @@
   },
   "term.group-test": {
     "en": "Group Test",
-    "updated": "2026-09-29",
-    "zh": "團體考驗"
+    "updated": "2026-10-14",
+    "zh": "團隊考驗"
   },
   "term.guide": {
     "en": "Guide",

@@ -4,6 +4,7 @@ import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-desig
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { careerPerkNameText } from '@/l10n/career-perk-ui';
+import { familiarStaminaKey } from '@/l10n/familiar-stat';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
 import { ElementScope } from '@/l10n/element-scope';
@@ -21,9 +22,12 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
+import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { perkListText } from '@/l10n/perk-list-ui';
+import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { useUI } from '@/l10n/ui-text';
 import { useClipboard } from '@/hooks/use-clipboard';
+import { useL10nText } from '@/l10n/hooks';
 import { useOptions } from '@/contexts/data-context';
 
 import './feature-panel.scss';
@@ -41,6 +45,8 @@ interface Props {
 
 export const FeaturePanel = (props: Props) => {
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
+	const staminaKey = familiarStaminaKey(props.feature);
+	const staminaLabel = useL10nText(staminaKey, props.feature.name);
 	const ui = useUI();
 	const options = useOptions();
 	const clipboard = useClipboard();
@@ -107,7 +113,7 @@ export const FeaturePanel = (props: Props) => {
 	};
 
 	if ((props.feature.type === FeatureType.Ability) || (props.feature.type === FeatureType.MaliceAbility)) {
-		return (
+		const panel = (
 			<AbilityPanel
 				ability={props.feature.data.ability}
 				hero={props.hero}
@@ -118,6 +124,16 @@ export const FeaturePanel = (props: Props) => {
 				style={props.style}
 			/>
 		);
+		// Ability perks show the perk name on the ability header. The effect,
+		// keywords, action, distance, and target stay on the ability itself.
+		if ('list' in props.feature && props.feature.list) {
+			return (
+				<ElementScope element={props.feature}>
+					{panel}
+				</ElementScope>
+			);
+		}
+		return panel;
 	}
 
 	if (props.feature.type === FeatureType.AncestryFeatureChoice) {
@@ -142,6 +158,10 @@ export const FeaturePanel = (props: Props) => {
 	const perkLabel = 'type' in props.feature
 		? careerPerkNameText(props.feature as Feature, props.sourcebooks || [], ui)
 		: undefined;
+	const languageChoice = officialLanguageChoiceDisplay(props.feature, props.sourcebooks || []);
+	const reusedName = reusedOfficialPerkName(props.feature, props.sourcebooks || []);
+	const headerName = customization?.name || perkLabel || languageChoice.name || reusedName || (staminaKey ? staminaLabel : props.feature.name) || 'Unnamed Feature';
+	const description = customization?.description || languageChoice.description || props.feature.description;
 
 	return (
 		<ElementScope element={props.feature} overlay={customization}>
@@ -175,10 +195,10 @@ export const FeaturePanel = (props: Props) => {
 							/>
 						}
 					>
-						{customization?.name || perkLabel || props.feature.name || 'Unnamed Feature'}
+						{headerName}
 					</HeaderText>
 					<Markdown
-						text={AbilityLogic.getTextEffect(customization?.description || props.feature.description, autoCalc ? props.hero : undefined)}
+						text={AbilityLogic.getTextEffect(description, autoCalc ? props.hero : undefined)}
 					/>
 					{
 						props.mode === PanelMode.Full ?

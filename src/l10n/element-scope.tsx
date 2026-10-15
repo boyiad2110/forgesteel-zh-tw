@@ -2,6 +2,7 @@ import { L10nScope, useDisplayKey, useL10nText } from '@/l10n/hooks';
 import { L10nField } from '@/l10n/text';
 import { ReactNode } from 'react';
 import { isPlayerNameKey, playerNameKey } from '@/l10n/player-name';
+import { perkDescriptionRewritten } from '@/l10n/perk-list-ui';
 import { useOptionalSourcebooks } from '@/contexts/data-context';
 
 export { L10nUnscoped } from '@/l10n/hooks';
@@ -49,8 +50,12 @@ export const elementScopeFields = (element: ElementText, overlay?: ElementOverla
 export const ElementScope = (props: { element: ElementText, overlay?: ElementOverlay | null, children: ReactNode }) => {
 	const sourcebooks = useOptionalSourcebooks();
 	const canonicalPlayerName = !isPlayerNameKey(props.element) || !sourcebooks || playerNameKey(props.element, sourcebooks) !== undefined;
+	const fields = elementScopeFields(props.element, props.overlay, canonicalPlayerName);
+	const guarded = perkDescriptionRewritten(props.element, sourcebooks || [])
+		? fields.filter(field => field.field !== 'description')
+		: fields;
 	return (
-		<L10nScope id={props.element.id} fields={elementScopeFields(props.element, props.overlay, canonicalPlayerName)}>
+		<L10nScope id={props.element.id} fields={guarded}>
 			{props.children}
 		</L10nScope>
 	);

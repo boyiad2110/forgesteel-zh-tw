@@ -19,7 +19,15 @@ export interface SheetEntry {
 
 export type Catalog = Record<string, SheetEntry>;
 
+export interface UsageAdaptation {
+	bookStringId: string;
+	en: string;
+	zh: string;
+	basisHash: string;
+}
+
 let catalog: Catalog | null = null;
+let usageAdaptations: Record<string, UsageAdaptation> | null = null;
 let loading: Promise<void> | null = null;
 let tick = 0;
 const subscribers = new Set<() => void>();
@@ -27,6 +35,39 @@ const subscribers = new Set<() => void>();
 /** The loaded sheet, or null when nothing has been fetched yet. */
 export const peekCatalog = (): Catalog | null => {
 	return catalog;
+};
+
+/** A second approved use of a book row, selected by its usage key. */
+export const peekUsageAdaptation = (key: string | undefined): UsageAdaptation | undefined => {
+	if (!key || !usageAdaptations) {
+		return undefined;
+	}
+	return usageAdaptations[key];
+};
+
+const readUsageAdaptations = (value: unknown): Record<string, UsageAdaptation> => {
+	const map: Record<string, UsageAdaptation> = {};
+	if (!value || typeof value !== 'object') {
+		return map;
+	}
+	for (const entry of Object.values(value as Record<string, unknown>)) {
+		if (!entry || typeof entry !== 'object') {
+			continue;
+		}
+		const row = entry as Record<string, unknown>;
+		if (typeof row.usageKey !== 'string' || row.usageKey.length === 0
+			|| typeof row.bookStringId !== 'string' || typeof row.en !== 'string'
+			|| typeof row.zh !== 'string' || typeof row.basisHash !== 'string') {
+			continue;
+		}
+		map[row.usageKey] = {
+			bookStringId: row.bookStringId,
+			en: row.en,
+			zh: row.zh,
+			basisHash: row.basisHash
+		};
+	}
+	return map;
 };
 
 /** Changes when a load finishes, so React can re-render. */
@@ -95,10 +136,12 @@ export const loadCatalog = (): Promise<void> => {
 		import('@/l10n/generated/zh-TW/glossary.json'),
 		import('@/l10n/generated/zh-TW/names.json'),
 		import('@/l10n/generated/zh-TW/strings.json'),
-		import('@/l10n/generated/zh-TW/ui.json')
+		import('@/l10n/generated/zh-TW/ui.json'),
+		import('@/l10n/generated/zh-TW/adaptations.json')
 	]).then(modules => {
 		const loaded: Catalog = {};
-		modules.forEach(mod => readEntries(mod.default, loaded));
+		modules.slice(0, 4).forEach(mod => readEntries(mod.default, loaded));
+		usageAdaptations = readUsageAdaptations(modules[4].default);
 		catalog = loaded;
 		tick += 1;
 		subscribers.forEach(onChange => onChange());

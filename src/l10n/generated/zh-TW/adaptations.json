@@ -5218,5 +5218,613 @@
         "zhHash": "ddc35670bb2de71783fb331163374fd4a83da89974da6401c18f2429f6e70810"
       }
     ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0",
+    "en": "Choose one of the following effects:",
+    "zh": "選擇以下 1 種效果：",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.1": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:1",
+    "en": "You teleport a size 1S or smaller object adjacent to you into an unoccupied space adjacent to you.",
+    "zh": "你將 1 個體型 1S 以下且與你相鄰的物體傳送至 1 個與你相鄰的未占據空間。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.2": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:2",
+    "en": "Until the start of your next turn, a part of your body shoots a shower of harmless noisy sparks that light up each square adjacent to you.",
+    "zh": "在你下個回合開始前，你身體的 1 個部位會射出無害的吵雜火花，照亮每個與你相鄰的方格。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.3": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:3",
+    "en": "You ignite or snuff out (your choice) every mundane light source of 1L or smaller adjacent to you.",
+    "zh": "你點燃或熄滅每個與你相鄰、體型為 1L 以下的尋常光源。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.4": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:4",
+    "en": "You transform up to 1 pound of edible food you touch to make it taste delicious or disgusting.",
+    "zh": "你觸碰最多 1 磅的可食用食物，使其味道變得美味或噁心。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.5": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:5",
+    "en": "Until the start of your next turn, you make your body exude a particular odor you’ve smelled before. This smell can be sensed by each creature within 5 squares of you, but can’t impose any condition or other drawback on those creatures.",
+    "zh": "在你下個回合開始前，你的身體會散發出 1 種你曾經聞過的氣味。在你 5 格內的每個生物都能聞到這個氣味，但不會因此陷入任何狀態或受到不良影響。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.6": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:6",
+    "en": "You place a small magical inscription on the surface of a mundane object you touch, or you can remove an inscription that was made by you or by another creature using Arcane Trick.",
+    "zh": "你觸碰 1 個尋常物體的表面並留下小型魔法銘文，或移除由你或其他生物使用【奧術戲法】留下的任何銘文。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.7": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "section:perk-arcane-trick-1:0:item:7",
+    "en": "You touch a size 1T object to cover it with an illusion that makes it look like a different object. Any creature who handles the object becomes aware of the illusion. The illusion ends when you stop touching the object.",
+    "zh": "你觸碰 1 個體型 1T 的物體，用幻術讓它的外觀變成其他物體。任何與該物體互動的生物都會察覺此幻術。當你不再觸碰該物體時，幻術就會消失。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.arcane-trick.effect.short": {
+    "bookStringId": "heroes.perks.arcane-trick.effect",
+    "usageKey": "element:perk-arcane-trick:description",
+    "en": "You cast an entertaining spell that creates a minor but impressive magical effect.",
+    "zh": "你施展一個趣味的法術，創造出微小但令人驚豔的魔法效果。",
+    "basisHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.arcane-trick.effect",
+        "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+        "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.creature-sense.effect": {
+    "bookStringId": "heroes.perks.creature-sense.effect",
+    "usageKey": "section:perk-creature-sense-1:0",
+    "en": "Choose a creature within 10 squares. If that creature is your level or lower, you learn the keywords in their stat block (Demon, Humanoid, Undead, and so forth)",
+    "zh": "你可以選擇 10 格內的 1 個生物。若該生物的等級 ≦ 你的等級，你會知道他數據表中的關鍵詞（例如惡魔、類人生物、亡靈等）。",
+    "basisHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.creature-sense.effect",
+        "enHash": "09e5c0547819368f2d7aa92fd3c62042bba4fc3942f733cb1bd243eb7f9c941d",
+        "zhHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.creature-sense.effect.short": {
+    "bookStringId": "heroes.perks.creature-sense.effect",
+    "usageKey": "element:perk-creature-sense:description",
+    "en": "You intuit a creature's keywords.",
+    "zh": "你直覺得知生物的關鍵詞。",
+    "basisHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.creature-sense.effect",
+        "enHash": "09e5c0547819368f2d7aa92fd3c62042bba4fc3942f733cb1bd243eb7f9c941d",
+        "zhHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description",
+    "en": "A supernatural spirit who has taken the form of a specific small animal or animated object has chosen to be your familiar—or to adopt you as their familiar.",
+    "zh": "1 個超自然的精魂化身為特定的小動物或活化物體，成為你的魔寵。或者，將你當成牠的魔寵。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.1": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description:1",
+    "en": "The familiar can hold small objects in their mouth or claws, but can’t perform activities that would typically require hands (opening a door, unrolling a scroll, and so forth).",
+    "zh": "魔寵可以用嘴巴或爪子握住小型物體，但無法進行需要使用手的行為（例如開門或打開卷軸）。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.2": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description:2",
+    "en": "They can’t harm other creatures or objects. They can flank in combat, but only with you.",
+    "zh": "牠不能傷害其他生物或物體。在戰鬥中，牠只能與你一起進行夾擊。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.3": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:description:3",
+    "en": "If your familiar is destroyed, you can restore them as a respite activity, or by spending a Recovery as a main action to bring them back into existence in an unoccupied space adjacent to you.",
+    "zh": "若你的魔寵被消滅，你可以透過休整活動來復活牠，或使用主要動作並花費 1 點復元力，讓牠在 1 個與你相鄰的未占據空間中重新出現。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.telepathic": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar-2:description",
+    "en": "While you and your familiar are within 10 squares of each other, you can communicate telepathically and share each other’s senses. While sharing senses, each of you also benefits from your own senses at the same time.",
+    "zh": "若你和你的魔寵相距 10 格內，你們可以進行心靈溝通並共享彼此的感官。在共享感官的同時，你們仍然會保有自己原本的感官能力。",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.familiar.effect.telepathic.name": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar-2:name",
+    "en": "Telepathic",
+    "zh": "心靈感應",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.friend-catapult.effect": {
+    "bookStringId": "heroes.perks.friend-catapult.effect",
+    "usageKey": "section:perk-friend-catapult-1:0",
+    "en": "You grab a willing adjacent ally or object of your size or smaller, then vertical push that target up to a number of squares equal to twice your Might score. If a creature you push falls as a result of this movement, the effective distance of the fall is reduced by a number of squares equal to twice your Might score. When you use this perk, you can’t use it again until you earn 1 or more Victories.",
+    "zh": "你抓住 1 個相鄰的自願盟友或物體（兩者的體型都必須 ≦ 你），然後將目標垂直推動最多等於你力量 ×2 的格數。如果你推動的生物因此墜落，墜落的有效距離會減少等於你力量 ×2 的格數。使用此專長後，你必須至少獲得 1 點勝利值才能再次使用。",
+    "basisHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.friend-catapult.effect",
+        "enHash": "e70b4175bc0242917dd2dfe89d09091cd2f341f7442fa7b1a7da8207ffbf5841",
+        "zhHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.friend-catapult.effect.short": {
+    "bookStringId": "heroes.perks.friend-catapult.effect",
+    "usageKey": "element:perk-friend-catapult:description",
+    "en": "You hurl your ally through the air.",
+    "zh": "你將盟友擲向空中。",
+    "basisHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.friend-catapult.effect",
+        "enHash": "e70b4175bc0242917dd2dfe89d09091cd2f341f7442fa7b1a7da8207ffbf5841",
+        "zhHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.gum-up-the-works.effect": {
+    "bookStringId": "heroes.perks.gum-up-the-works.effect",
+    "usageKey": "section:perk-gum-up-the-works-1:0",
+    "en": "You can move up to 3 squares toward the trap. If this movement brings you adjacent to any of the trap’s mechanisms, you can jam the trap, preventing it from activating. As long as you stay adjacent to the mechanism, the trap can’t go off unless an attempt to disarm it fails.",
+    "zh": "向陷阱移動最多 3 格。若這次移動能讓你與陷阱的任何機關相鄰，你可以卡住陷阱，阻止它啟動。只要你保持與機關相鄰，除非有人嘗試解除陷阱卻失敗，否則陷阱不會觸發。",
+    "basisHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.gum-up-the-works.effect",
+        "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+        "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.gum-up-the-works.effect.short": {
+    "bookStringId": "heroes.perks.gum-up-the-works.effect",
+    "usageKey": "element:perk-gum-up-the-works:description",
+    "en": "You prevent a trap from activating.",
+    "zh": "你阻止陷阱啟動。",
+    "basisHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.gum-up-the-works.effect",
+        "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+        "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.gum-up-the-works.effect.trigger": {
+    "bookStringId": "heroes.perks.gum-up-the-works.effect",
+    "usageKey": "element:perk-gum-up-the-works-1:trigger",
+    "en": "A mundane trap activates within 3 squares of you.",
+    "zh": "3 格內的 1 個尋常陷阱啟動時。",
+    "basisHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.gum-up-the-works.effect",
+        "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+        "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.invisible-force.effect": {
+    "bookStringId": "heroes.perks.invisible-force.effect",
+    "usageKey": "section:perk-invisible-force-1:0",
+    "en": "You can grab or manipulate the target object with your mind, moving the object up to a number of squares equal to your Reason, Intuition, or Presence score (your choice). You can use this ability to turn doorknobs, pull levers, and so forth. You can manipulate any small movable piece of a larger object as long as the piece is unattended and size 1T. You can’t use this ability to break a smaller piece off a larger object.",
+    "zh": "你可以透過意念抓取或操控目標物體，將它移動最多等於你理智、直覺或氣場（由你選擇）的格數。你可以使用此招式來轉動門把、拉動操縱桿等物體。你也可以操控較大物體中的較小且可移動的部件（前提是該部件無人持有或操控，且體型為 1T），但你無法使用此招式將這些較小的部件從較大的物體上折斷。",
+    "basisHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.invisible-force.effect",
+        "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+        "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.invisible-force.effect.short": {
+    "bookStringId": "heroes.perks.invisible-force.effect",
+    "usageKey": "element:perk-invisible-force:description",
+    "en": "You manipulate a tiny object with your mind.",
+    "zh": "你可以透過意念操控微小的物體。",
+    "basisHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.invisible-force.effect",
+        "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+        "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.invisible-force.effect.target": {
+    "bookStringId": "heroes.perks.invisible-force.effect",
+    "usageKey": "element:perk-invisible-force-1:target",
+    "en": "1 size 1T unattended object",
+    "zh": "1 個體型 1T、無人持有的物體",
+    "basisHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.invisible-force.effect",
+        "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+        "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.ive-got-you.effect": {
+    "bookStringId": "heroes.perks.ive-got-you.effect",
+    "usageKey": "section:perk-ive-got-you-1:0",
+    "en": "You catch your ally. Neither of you takes damage from the fall.",
+    "zh": "你可以安全地接住他。你和盟友都不會受到墜落造成的傷害。",
+    "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.ive-got-you.effect",
+        "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+        "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.ive-got-you.effect.short": {
+    "bookStringId": "heroes.perks.ive-got-you.effect",
+    "usageKey": "element:perk-ive-got-you:description",
+    "en": "You catch a falling ally at the last possible moment.",
+    "zh": "你在最後一刻接住墜落的盟友。",
+    "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.ive-got-you.effect",
+        "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+        "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.ive-got-you.effect.trigger": {
+    "bookStringId": "heroes.perks.ive-got-you.effect",
+    "usageKey": "element:perk-ive-got-you-1:trigger",
+    "en": "A willing ally lands on you or adjacent to you when they fall.",
+    "zh": "當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時。",
+    "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.ive-got-you.effect",
+        "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+        "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.linguist.effect": {
+    "bookStringId": "heroes.perks.linguist.effect",
+    "usageKey": "element:perk-linguist:description",
+    "en": "You have an ear for languages. You automatically learn two new languages, as long as you have regularly heard those languages spoken or seen them written before.",
+    "zh": "你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。",
+    "basisHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.linguist.effect",
+        "enHash": "03f29eb20d6a8fcd95a97a9094f266e29979c757cf227bea92d647b691ca0d89",
+        "zhHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.linguist.effect.1": {
+    "bookStringId": "heroes.perks.linguist.effect",
+    "usageKey": "element:perk-linguist-1:description",
+    "en": "If you spend 7 days or more in a place where you regularly hear or read a language you don’t know, you can pick up enough of that language to hold a conversation or understand basic written information. Having picked up a language this way, you can subsequently learn it using the Learn New Language research project at half the usual project goal cost.",
+    "zh": "若你在某個地方停留至少 7 天，並有機會經常聽到或讀到 1 種你不懂的語言，你就可以掌握足夠的語言能力來進行對話或理解基礎書面資訊。以這種方式掌握語言後，你可以使用「學習新語言」研究類專案來進一步學習，且專案目標費用只需要原本的一半。",
+    "basisHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.linguist.effect",
+        "enHash": "03f29eb20d6a8fcd95a97a9094f266e29979c757cf227bea92d647b691ca0d89",
+        "zhHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.psychic-whisper.effect": {
+    "bookStringId": "heroes.perks.psychic-whisper.effect",
+    "usageKey": "section:perk-psychic-whisper-1:0",
+    "en": "You send a telepathic message to them that takes 10 seconds or less to speak. The target knows who the message is from and can decide to ignore it and subsequent messages.",
+    "zh": "你可以向目標傳送 1 則 10 秒之內能說完的心靈訊息。目標會知道訊息來自何人，而且可以決定是否忽略此訊息及後續訊息。",
+    "basisHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.psychic-whisper.effect",
+        "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+        "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.psychic-whisper.effect.short": {
+    "bookStringId": "heroes.perks.psychic-whisper.effect",
+    "usageKey": "element:perk-psychic-whisper:description",
+    "en": "You send a one-way telepathic message to a friend.",
+    "zh": "你向朋友發送單向的心靈訊息。",
+    "basisHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.psychic-whisper.effect",
+        "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+        "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.psychic-whisper.effect.target": {
+    "bookStringId": "heroes.perks.psychic-whisper.effect",
+    "usageKey": "element:perk-psychic-whisper-1:target",
+    "en": "1 ally who understands at least one language",
+    "zh": "1 個理解至少 1 種語言的盟友",
+    "basisHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.psychic-whisper.effect",
+        "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+        "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.teamwork.effect": {
+    "bookStringId": "heroes.perks.teamwork.effect",
+    "usageKey": "element:perk-teamwork:description",
+    "en": "When you take your first turn during a montage test, you can both make a test and assist another hero’s test.",
+    "zh": "在蒙太奇考驗中，當你進行你的第 1 個回合時，你可以同時進行自己的考驗並協助另 1 個英雄的考驗。",
+    "basisHash": "7712c24f917dd6d7a1cf2b1c2c55a610b02665cb542ed8ea520d61d3b3cf8532",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.teamwork.effect",
+        "enHash": "d1398bd8e44a3882dd47128b34819d7f4056f226f0575f53d6cce1c79cf5c1f6",
+        "zhHash": "7712c24f917dd6d7a1cf2b1c2c55a610b02665cb542ed8ea520d61d3b3cf8532"
+      }
+    ]
+  },
+  "fs-adapt:name.perk.gum-up-the-works": {
+    "bookStringId": "name.perk.gum-up-the-works",
+    "usageKey": "element:perk-gum-up-the-works:name",
+    "en": "Gum Up The Works",
+    "zh": "妨礙運作",
+    "basisHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.gum-up-the-works",
+        "enHash": "406c0c088e274240eceb94b446ee8bf4e55e057c4d4970174dde5e6275eecc90",
+        "zhHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9"
+      }
+    ]
+  },
+  "fs-adapt:name.perk.spot-the-tell": {
+    "bookStringId": "name.perk.spot-the-tell",
+    "usageKey": "element:perk-spot-the-tell:name",
+    "en": "Spot The Tell",
+    "zh": "發現破綻",
+    "basisHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.spot-the-tell",
+        "enHash": "684dae46f702e0fa5439d44337485c52478fea1ef14353389f30ecd965e5a56a",
+        "zhHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5"
+      }
+    ]
+  },
+  "fs-adapt:name.perk.traveling-artisan": {
+    "bookStringId": "name.perk.traveling-artisan",
+    "usageKey": "element:perk-travelling-artisan:name",
+    "en": "Travelling Artisan",
+    "zh": "旅行工匠",
+    "basisHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.traveling-artisan",
+        "enHash": "e13e96a12c56ce52594b43f46a481e1941b5c367550a682c6d46870c5e84961b",
+        "zhHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa"
+      }
+    ]
+  },
+  "fs-adapt:name.perk.traveling-sage": {
+    "bookStringId": "name.perk.traveling-sage",
+    "usageKey": "element:perk-travelling-sage:name",
+    "en": "Travelling Sage",
+    "zh": "旅行學者",
+    "basisHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e",
+    "updated": "2026-10-14",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.perk.traveling-sage",
+        "enHash": "30be17fe7cc21d352f63d7a1b021376c482d613fbbb9d6fa612184034c1dde18",
+        "zhHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e"
+      }
+    ]
   }
 }

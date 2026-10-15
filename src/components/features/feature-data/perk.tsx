@@ -16,10 +16,12 @@ import { Perk } from '@/models/perk';
 import { PerkList } from '@/enums/perk-list';
 import { PerkPanel } from '@/components/panels/elements/perk-panel/perk-panel';
 import { PerkSelectModal } from '@/components/modals/select/perk-select/perk-select-modal';
+import { PlayerName } from '@/l10n/player-name';
 import { SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Utils } from '@/utils/utils';
+import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
 import { useState } from 'react';
 import { useUI } from '@/l10n/ui-text';
 
@@ -156,8 +158,8 @@ export const ConfigPerk = (props: ConfigProps) => {
 						content={
 							<Field
 								style={{ flex: '1 1 0' }}
-								label={perk.name}
-								value={<Markdown text={perk.description} useSpan={true} />}
+								label={<PlayerName element={perk} />}
+								value={<Markdown text={perk.description} useSpan={true} l10nKey={officialPerkDescriptionKey(perk, props.sourcebooks)} />}
 							/>
 						}
 						onSelect={() => setSelectedPerk(perk)}

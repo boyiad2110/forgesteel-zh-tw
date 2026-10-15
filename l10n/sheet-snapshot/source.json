@@ -1,16 +1,16 @@
 {
   "sheetFileId": "1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4",
-  "sheetModifiedTime": "2026-10-13T03:30:31.661Z",
+  "sheetModifiedTime": "2026-10-14T08:59:41.775Z",
   "sources": {
     "book": {
       "spreadsheetId": "1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4",
-      "modifiedTime": "2026-10-13T03:30:31.661Z",
-      "contentSha256": "7c9bdb0bbb6440cf44289f718f96b2d5a0636da8ae868d0d110c35f558a9cc76"
+      "modifiedTime": "2026-10-14T08:59:41.775Z",
+      "contentSha256": "23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573"
     },
     "forge": {
       "spreadsheetId": "1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw",
-      "modifiedTime": "2026-10-13T03:54:16.650Z",
-      "contentSha256": "443db00221c8a12f19ffa6e2351c2902632bbcc6a5a1ae5ffd18a64e0e4bf7a9"
+      "modifiedTime": "2026-10-15T05:07:31.438Z",
+      "contentSha256": "b89e086e22cc1febcdd14b24d53ff818aed1aaa7cdfd6ac16a2fa892f888bb56"
     }
   }
 }

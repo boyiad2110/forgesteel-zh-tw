@@ -3,7 +3,7 @@ import { Alert, Flex, Space, Tag } from 'antd';
 import { CSSProperties, useState } from 'react';
 import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
-import { abilityDescriptionKey, abilityNameKey, abilitySectionKey } from '@/l10n/ability-text';
+import { abilityDescriptionKey, abilityNameKey, abilitySectionKey, perkGrantLabel } from '@/l10n/ability-text';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -25,8 +25,10 @@ import { PanelMode } from '@/enums/panel-mode';
 import { PowerRollPanel } from '@/components/panels/power-roll/power-roll-panel';
 import { RollModifierPanel } from '@/components/panels/roll-modifier-panel/roll-modifier-panel';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
+import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useOptions } from '@/contexts/data-context';
+import { useUI } from '@/l10n/ui-text';
 
 import './ability-panel.scss';
 
@@ -46,6 +48,7 @@ interface Props {
 export const AbilityPanel = (props: Props) => {
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 	const options = useOptions();
+	const ui = useUI();
 	const clipboard = useClipboard();
 
 	const keywords = AbilityLogic.getKeywords(props.ability, props.hero);
@@ -212,8 +215,9 @@ export const AbilityPanel = (props: Props) => {
 		switch (section.type) {
 			case 'text': {
 				const text = parseText(section.text);
+				const listed = arcaneTrickSection(props.ability.id, text);
 				return (
-					<Markdown key={index} text={text} l10nKey={abilitySectionKey(props.ability.id, index, text, section.text)} />
+					<Markdown key={index} text={listed ?? text} l10nKey={listed ? undefined : abilitySectionKey(props.ability.id, index, text, section.text)} />
 				);
 			}
 			case 'field': {
@@ -344,7 +348,7 @@ export const AbilityPanel = (props: Props) => {
 				<Markdown text={props.ability.description} className='ability-description-text' l10nKey={descriptionKey} />
 				{
 					keywords.length > 0 ?
-						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{k}</Tag>)}</Flex>
+						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{perkGrantLabel(props.ability.id, k, ui)}</Tag>)}</Flex>
 						: null
 				}
 				<AbilityInfoPanel ability={props.ability} hero={props.hero} />

@@ -34,7 +34,7 @@ export const InfoSummon = (props: InfoProps) => {
 	if (props.data.summons.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
-				{props.data.summons.map(s => <SelectablePanel key={s.id}><MonsterPanel monster={s.monster} summon={s.info} sourcebooks={props.sourcebooks || []} mode={PanelMode.Full} /></SelectablePanel>)}
+				{props.data.summons.map(s => <SelectablePanel key={s.id}><MonsterPanel monster={s.monster} hero={props.hero} summon={s.info} sourcebooks={props.sourcebooks || []} mode={PanelMode.Full} /></SelectablePanel>)}
 			</Space>
 		);
 	}

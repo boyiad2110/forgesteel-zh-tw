@@ -1,8 +1,10 @@
-import { AbilityDescription, AbilityName, abilitySectionKey } from '@/l10n/ability-text';
+import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel, perkGrantList, perkGrantTarget } from '@/l10n/ability-text';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { Markdown } from '@/components/controls/markdown/markdown';
+import { arcaneTrickSection } from '@/l10n/perk-prose';
+import { useUI } from '@/l10n/ui-text';
 
 import './ability-card.scss';
 
@@ -18,6 +20,7 @@ interface Props {
 
 export const AbilityCard = (props: Props) => {
 	const ability = props.ability;
+	const ui = useUI();
 
 	const getAbilityCost = () => {
 		if (ability.cost > 0) {
@@ -31,21 +34,21 @@ export const AbilityCard = (props: Props) => {
 		return (
 			<div className='stats'>
 				<div className='keywords-action-type'>
-					<div className='keywords'>{ability.keywords}</div>
-					<div className='action-type'>{ability.actionType}</div>
+					<div className='keywords'>{perkGrantList(ability.id, ability.keywords || '', ui)}</div>
+					<div className='action-type'>{perkGrantLabel(ability.id, ability.actionType || '', ui)}</div>
 				</div>
 				<div className='distance-target'>
 					<div className='distance'>
 						{ability.distance?.length ?
-							<img src={distanceIcon} alt='Distance' />
+							<img src={distanceIcon} alt={perkGrantLabel(ability.id, 'Distance', ui)} />
 							: undefined }
-						<span>{ability.distance}</span>
+						<span>{perkGrantDistance(ability.id, ability.distance || '', ui)}</span>
 					</div>
 					<div className='target'>
 						{ability.target?.length ?
-							<img src={targetIcon} alt='Target' />
+							<img src={targetIcon} alt={perkGrantLabel(ability.id, 'Target', ui)} />
 							: undefined }
-						<span>{ability.target}</span>
+						<span>{perkGrantTarget(ability.id, ability.target || '', ui)}</span>
 					</div>
 				</div>
 			</div>
@@ -54,6 +57,15 @@ export const AbilityCard = (props: Props) => {
 
 	const getTriggerSection = () => {
 		if (ability.trigger) {
+			const label = perkGrantLabel(ability.id, 'Trigger', ui);
+			if (label !== 'Trigger') {
+				return (
+					<div className='trigger'>
+						<Markdown text={`**${label}:**`} className='trigger' />
+						<Markdown text={ability.trigger} className='trigger' l10nKey={abilityTriggerKey(ability.id, ability.trigger)} />
+					</div>
+				);
+			}
 			return (
 				<Markdown
 					text={'**Trigger:** ' + ability.trigger}
@@ -116,16 +128,20 @@ export const AbilityCard = (props: Props) => {
 	};
 
 	const getEffectSection = (section: string, isFirstText: boolean, key: number) => {
-		let text = section;
-		if (isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
+		const label = perkGrantLabel(ability.id, 'Effect', ui);
+		const listed = arcaneTrickSection(ability.id, section);
+		const split = isFirstText && label !== 'Effect' && !(section.startsWith('##') || ability.isNotTrueAbility);
+		let text = listed ?? section;
+		if (!listed && !split && isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
 			text = '**Effect:** ' + section;
 		}
 		return (
 			<div className='effect' key={key}>
+				{split ? <Markdown text={`**${label}:**`} className='ability-effect' /> : null}
 				<Markdown
 					text={text}
 					className='ability-effect'
-					l10nKey={abilitySectionKey(ability.id, key, text)}
+					l10nKey={listed ? undefined : abilitySectionKey(ability.id, key, text)}
 				/>
 			</div>
 		);
@@ -145,7 +161,7 @@ export const AbilityCard = (props: Props) => {
 	return (
 		<div className={getCardClasses(ability)}>
 			<section className='bordered'>
-				<h3>{ability.abilityType}</h3>
+				<h3>{perkGrantLabel(ability.id, ability.abilityType || '', ui)}</h3>
 				<h2><span className='ability-name'><AbilityName ability={ability} /></span>{getAbilityCost()}</h2>
 				{ability.description?.length ?
 					<p className='description'><AbilityDescription ability={ability} /></p>

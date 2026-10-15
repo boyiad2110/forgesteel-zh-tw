@@ -130,6 +130,49 @@ describe('dual-source capture', () => {
     change(raw);
     expect(() => projectDualCapture(raw)).toThrow();
   });
+  test('projects an approved Book Name adaptation onto the name, not a string', () => {
+    const raw = base();
+    const nameId = 'name.perk.demo';
+    const bookEn = 'Spot the Tell';
+    const bookZh = '發現破綻';
+    const websiteEn = 'Spot The Tell';
+    raw.book.Names.values.push([ nameId, 'APPROVED', bookZh, bookEn, '2026-10-14' ]);
+    const adaptation = [ `fs-adapt:${nameId}`, nameId, 'element:perk-demo:name', websiteEn, bookZh, 'APPROVED',
+      hashDependencyText(bookZh), 'Capitalization only. The approved Book target is reused verbatim.', '2026-10-14',
+      hashDependencyIds([ { sheetId: nameId } ]), hashDependencyText(websiteEn), hashDependencyText(bookZh) ];
+    raw.forge.Adaptations.values.push(adaptation);
+    raw.forge['Adaptation Sources'].values.push([ adaptation[0], '1', 'Book Name', nameId,
+      hashDependencyText(bookEn), hashDependencyText(bookZh), BOOK_SHEET_ID ]);
+    const { snapshot, catalog } = buildDualCatalog(projectDualCapture(raw));
+    const names = JSON.parse(catalog.get('names.json'));
+    expect(names[nameId].fs).toEqual({ basisHash: hashDependencyText(bookZh), en: websiteEn, zh: bookZh });
+    expect(JSON.parse(catalog.get('strings.json'))[bookId].fs.zh).toBe(fsZh);
+    expect(snapshot.get('names.csv')).toContain('Forge Steel Source Text');
+    expect(snapshot.get('names.csv')).toContain(websiteEn);
+    expect(JSON.parse(catalog.get('adaptations.json'))[`fs-adapt:${nameId}`].usageKey).toBe('element:perk-demo:name');
+    expect(JSON.parse(snapshot.get('source.json')).sources.book.contentSha256)
+      .not.toBe(JSON.parse(buildDualCatalog(projectDualCapture(base())).snapshot.get('source.json')).sources.book.contentSha256);
+  });
+  test.each([
+    [ 'Book Name hash', raw => { raw.forge['Adaptation Sources'].values.at(-1)[4] = sha('wrong'); } ],
+    [ 'Book Name used as a Book String', raw => { raw.forge['Adaptation Sources'].values.at(-1)[2] = 'Book String'; } ],
+    [ 'Book String used as a Book Name', raw => { raw.forge['Adaptation Sources'].values[1][2] = 'Book Name'; } ],
+    [ 'Calculation Display on a Book Name', raw => { raw.forge.Adaptations.values.at(-1)[7] = 'Calculation Display: {"status":"APPROVED","target":"破綻","template":"{value}"}'; } ]
+  ])('rejects a Book Name adaptation with %s', (_name, change) => {
+    const raw = base();
+    const nameId = 'name.perk.demo';
+    const bookEn = 'Spot the Tell';
+    const bookZh = '發現破綻';
+    const websiteEn = 'Spot The Tell';
+    raw.book.Names.values.push([ nameId, 'APPROVED', bookZh, bookEn, '2026-10-14' ]);
+    raw.forge.Adaptations.values.push([ `fs-adapt:${nameId}`, nameId, 'element:perk-demo:name', websiteEn, bookZh, 'APPROVED',
+      hashDependencyText(bookZh), '', '2026-10-14', hashDependencyIds([ { sheetId: nameId } ]),
+      hashDependencyText(websiteEn), hashDependencyText(bookZh) ]);
+    raw.forge['Adaptation Sources'].values.push([ `fs-adapt:${nameId}`, '1', 'Book Name', nameId,
+      hashDependencyText(bookEn), hashDependencyText(bookZh), BOOK_SHEET_ID ]);
+    change(raw);
+    expect(() => projectDualCapture(raw)).toThrow();
+  });
   test('fetch failure aborts before a capture is returned', async () => {
     const raw = base();
     await expect(captureDualSheets(async () => raw.bookBefore, async () => raw.forgeBefore,

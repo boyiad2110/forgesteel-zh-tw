@@ -92,6 +92,15 @@ export function projectDualCapture(raw) {
   for (const [ name, rows ] of Object.entries(book)) unique(rows, 0, name);
   unique(forge['Forge Steel UI'], 0, 'Forge Steel UI');
   const strings = new Map(book.Strings.map(row => [ row[0], row ]));
+  const names = new Map(book.Names.map(row => [ row[0], row ]));
+  const locateBookRecord = id => {
+    const asString = strings.get(id);
+    const asName = names.get(id);
+    if (asString && asName) throw new Error(`Adaptations: ${id} is both a Book String and a Book Name`);
+    if (asString) return { kind: 'Book String', row: asString };
+    if (asName) return { kind: 'Book Name', row: asName };
+    return null;
+  };
   const usage = new Map();
   const sourceGroups = new Map();
   const sourceLinks = new Set();
@@ -104,9 +113,11 @@ export function projectDualCapture(raw) {
       throw new Error(`Adaptation Sources: duplicate or invalid Source Order for ${id}`);
     }
     sourceLinks.add(`${id}\0${order}`);
-    if (type !== 'Book String' || sheetId !== BOOK_SHEET_ID) throw new Error(`Adaptation Sources: invalid source identity for ${id}`);
-    const source = strings.get(sourceId);
-    if (!source) throw new Error(`Adaptation Sources: unapproved or missing Book String ${sourceId}`);
+    if ((type !== 'Book String' && type !== 'Book Name') || sheetId !== BOOK_SHEET_ID) {
+      throw new Error(`Adaptation Sources: invalid source identity for ${id}`);
+    }
+    const source = (type === 'Book Name' ? names : strings).get(sourceId);
+    if (!source) throw new Error(`Adaptation Sources: unapproved or missing ${type} ${sourceId}`);
     if (hashDependencyText(source[3]) !== enHash || hashDependencyText(source[2]) !== zhHash) {
       throw new Error(`Adaptation Sources: stale English/Chinese hash for ${id} / ${sourceId}`);
     }
@@ -119,25 +130,31 @@ export function projectDualCapture(raw) {
   }
   for (const row of forge.Adaptations) {
     const [ id, bookId, key, en, zh, , basis, note, , listHash, enHash, zhHash ] = row;
-    if (!id.startsWith('fs-adapt:') || !strings.has(bookId) || !en || !zh) {
-      throw new Error(`Adaptations: invalid ID, approved Book String, or text for ${id}`);
+    const primary = locateBookRecord(bookId);
+    if (!id.startsWith('fs-adapt:') || !primary || !en || !zh) {
+      throw new Error(`Adaptations: invalid ID, approved Book source, or text for ${id}`);
     }
     // Blank usage keys are approved historical exceptions; IDs remain authoritative.
     if (key && usage.has(key)) throw new Error(`Adaptations: duplicate active Usage Key ${key}`);
     if (key) usage.set(key, id);
     const sources = sourceGroups.get(id) || [];
     sources.sort((a, b) => Number(a[1]) - Number(b[1]));
-    if (!sources.length || sources[0][3] !== bookId
+    if (!sources.length || sources[0][3] !== bookId || sources[0][2] !== primary.kind
       || sources.some((source, index) => Number(source[1]) !== index + 1)
       || new Set(sources.map(source => source[3])).size !== sources.length) {
       throw new Error(`Adaptations: incomplete, reordered, or duplicate sources for ${id}`);
     }
-    if (basis !== hashDependencyText(strings.get(bookId)[2])
+    if (basis !== hashDependencyText(primary.row[2])
       || listHash !== hashDependencyIds(sources.map(source => ({ sheetId: source[3] })))
       || enHash !== hashDependencyText(en) || zhHash !== hashDependencyText(zh)) {
       throw new Error(`Adaptations: stale Basis, Source List, or Forge Steel hash for ${id}`);
     }
-    if (/(^|\r?\n)\s*Calculation Display:/.test(note)) parseCalculationDisplay(note, zh);
+    if (/(^|\r?\n)\s*Calculation Display:/.test(note)) {
+      if (primary.kind === 'Book Name') {
+        throw new Error(`Adaptations: Calculation Display is only valid on a Book String for ${id}`);
+      }
+      parseCalculationDisplay(note, zh);
+    }
   }
   return { sources: {
     book: { spreadsheetId: BOOK_SHEET_ID, modifiedTime: bookTime },
@@ -150,21 +167,26 @@ export function buildDualSnapshot(capture) {
   if (capture?.sources?.book?.spreadsheetId !== BOOK_SHEET_ID
     || capture?.sources?.forge?.spreadsheetId !== FORGE_SHEET_ID) throw new Error('missing dual-source identity');
   const files = new Map();
+  const nameIds = new Set(capture.book.Names.map(row => row[0]));
   const byBook = new Map();
+  const byName = new Map();
   const notes = {};
   for (const row of capture.forge.Adaptations) {
     const [ id, bookId, , en, zh, , basis, note ] = row;
     if (id === `fs-adapt:${bookId}`) {
-      if (byBook.has(bookId)) throw new Error(`duplicate canonical Adaptation for ${bookId}`);
-      byBook.set(bookId, [ en, zh, 'APPROVED', basis ]);
-      if (/(^|\r?\n)\s*Calculation Display:/.test(note)) notes[bookId] = note;
+      const canonical = nameIds.has(bookId) ? byName : byBook;
+      if (canonical.has(bookId)) throw new Error(`duplicate canonical Adaptation for ${bookId}`);
+      canonical.set(bookId, [ en, zh, 'APPROVED', basis ]);
+      if (!nameIds.has(bookId) && /(^|\r?\n)\s*Calculation Display:/.test(note)) notes[bookId] = note;
     }
   }
+  const nameForgeHeaders = [ 'Forge Steel Source Text', 'Forge Steel Target Text', 'Forge Steel Status', 'Forge Steel Basis Hash' ];
   for (const [ name, headers ] of Object.entries(DUAL_HEADERS.book)) {
     const rows = capture.book[name].slice().sort((a, b) => a[0].localeCompare(b[0], 'en'));
     if (name === 'Strings') {
-      files.set('strings.csv', csv([ [ ...headers, 'Forge Steel Source Text', 'Forge Steel Target Text',
-        'Forge Steel Status', 'Forge Steel Basis Hash' ], ...rows.map(row => [ ...row, ...(byBook.get(row[0]) || [ '', '', '', '' ]) ]) ]));
+      files.set('strings.csv', csv([ [ ...headers, ...nameForgeHeaders ], ...rows.map(row => [ ...row, ...(byBook.get(row[0]) || [ '', '', '', '' ]) ]) ]));
+    } else if (name === 'Names' && byName.size) {
+      files.set('names.csv', csv([ [ ...headers, ...nameForgeHeaders ], ...rows.map(row => [ ...row, ...(byName.get(row[0]) || [ '', '', '', '' ]) ]) ]));
     } else files.set(`${name.toLowerCase()}.csv`, csv([ headers, ...rows ]));
   }
   files.set('ui.csv', csv([ DUAL_HEADERS.forge['Forge Steel UI'],
@@ -175,7 +197,10 @@ export function buildDualSnapshot(capture) {
     ...capture.forge['Adaptation Sources'].slice().sort((a, b) =>
       a[0].localeCompare(b[0], 'en') || Number(a[1]) - Number(b[1])) ]));
   files.set('calculation-displays.json', json(notes));
-  const bookFingerprint = sha([ 'glossary.csv', 'names.csv' ].map(name => files.get(name)).join('')
+  const namesForFingerprint = byName.size
+    ? csv([ DUAL_HEADERS.book.Names, ...capture.book.Names.slice().sort((a, b) => a[0].localeCompare(b[0], 'en')) ])
+    : files.get('names.csv');
+  const bookFingerprint = sha(files.get('glossary.csv') + namesForFingerprint
     + csv([ DUAL_HEADERS.book.Strings, ...capture.book.Strings.slice()
       .sort((a, b) => a[0].localeCompare(b[0], 'en')) ]));
   const forgeFingerprint = sha([ 'ui.csv', 'adaptations.csv', 'adaptation-sources.csv' ]

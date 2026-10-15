@@ -18,6 +18,10 @@
 	text-transform: uppercase;
 	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
 
+	&.labeled {
+		letter-spacing: 0;
+	}
+
 	&.type-main {
 		background-color: colors.$ability-main;
 	}

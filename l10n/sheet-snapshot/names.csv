@@ -1,61 +1,132 @@
-Name ID,Status,Target Name,Source Name,Last Updated
-heroes.language.ananjali,APPROVED,阿納賈利語,Ananjali,2026-10-02
-heroes.language.anjali,APPROVED,安賈利語,Anjali,2026-10-02
-heroes.language.axiomatic,APPROVED,公理語,Axiomatic,2026-10-02
-heroes.language.caelian,APPROVED,凱利安語,Caelian,2026-10-02
-heroes.language.filliaric,APPROVED,菲利亞語,Filliaric,2026-10-02
-heroes.language.first-language,APPROVED,太古語,The First Language,2026-10-02
-heroes.language.higaran,APPROVED,希伽拉語,Higaran,2026-10-02
-heroes.language.high-kuric,APPROVED,高庫語,High Kuric,2026-10-02
-heroes.language.high-rhyvian,APPROVED,高瑞維亞語,High Rhyvian,2026-10-02
-heroes.language.hyrallic,APPROVED,赫拉語,Hyrallic,2026-10-02
-heroes.language.illyvric,APPROVED,伊利夫語,Illyvric,2026-10-02
-heroes.language.kalliak,APPROVED,卡力語,Kalliak,2026-10-02
-heroes.language.kethaic,APPROVED,克薩語,Kethaic,2026-10-02
-heroes.language.khamish,APPROVED,卡米希語,Khamish,2026-10-02
-heroes.language.khelt,APPROVED,克特語,Khelt,2026-10-02
-heroes.language.kheltivari,APPROVED,克提華里語,Kheltivari,2026-10-02
-heroes.language.khemharic,APPROVED,凱姆哈拉語,Khemharic,2026-10-02
-heroes.language.khoursirian,APPROVED,科爾瑟語,Khoursirian,2026-10-02
-heroes.language.low-kuric,APPROVED,低庫語,Low Kuric,2026-10-02
-heroes.language.low-rhyvian,APPROVED,低瑞維亞語,Low Rhyvian,2026-10-02
-heroes.language.mindspeech,APPROVED,心靈語,Mindspeech,2026-10-02
-heroes.language.oaxuatl,APPROVED,瓦蘇奧語,Oaxuatl,2026-10-02
-heroes.language.old-variac,APPROVED,古華里亞語,Old Variac,2026-10-02
-heroes.language.phaedran,APPROVED,斐德羅語,Phaedran,2026-10-02
-heroes.language.phorialtic,APPROVED,佛里奧語,Phorialtic,2026-10-02
-heroes.language.proto-ctholl,APPROVED,原墮語,Proto-Ctholl,2026-10-02
-heroes.language.rallarian,APPROVED,拉拉里安語,Rallarian,2026-10-02
-heroes.language.riojan,APPROVED,里歐哈語,Riojan,2026-10-02
-heroes.language.szetch,APPROVED,澤奇語,Szetch,2026-10-02
-heroes.language.tholl,APPROVED,墮語,Tholl,2026-10-02
-heroes.language.ullorvic,APPROVED,烏洛維克語,Ullorvic,2026-10-02
-heroes.language.urollialic,APPROVED,巫羅語,Urollialic,2026-10-02
-heroes.language.uvalic,APPROVED,烏華利語,Uvalic,2026-10-02
-heroes.language.vaniric,APPROVED,華尼伽語,Vaniric,2026-10-02
-heroes.language.variac,APPROVED,華里亞語,Variac,2026-10-02
-heroes.language.vaslorian,APPROVED,華斯洛里亞語,Vaslorian,2026-10-02
-heroes.language.vastariax,APPROVED,華斯塔里亞語,Vastariax,2026-10-02
-heroes.language.vhoric,APPROVED,沃瑞語,Vhoric,2026-10-02
-heroes.language.voll,APPROVED,沃爾語,Voll,2026-10-02
-heroes.language.yllyric,APPROVED,伊林語,Yllyric,2026-10-02
-heroes.language.zahariax,APPROVED,札哈里亞語,Za’hariax,2026-10-02
-heroes.language.zaliac,APPROVED,札力語,Zaliac,2026-10-02
-name.perk.arcane-trick,APPROVED,奧術戲法,Arcane Trick,2026-10-11
-name.perk.area-of-expertise,APPROVED,專業領域,Area of Expertise,2026-10-11
-name.perk.brawny,APPROVED,肌肉發達,Brawny,2026-10-11
-name.perk.camouflage-hunter,APPROVED,迷彩獵人,Camouflage Hunter,2026-10-11
-name.perk.criminal-contacts,APPROVED,江湖人脈,Criminal Contacts,2026-10-11
-name.perk.engrossing-monologue,APPROVED,聚焦獨白,Engrossing Monologue,2026-10-11
-name.perk.expert-sage,APPROVED,學術專家,Expert Sage,2026-10-11
-name.perk.forgettable-face,APPROVED,平凡容貌,Forgettable Face,2026-10-11
-name.perk.friend-catapult,APPROVED,投擲盟友,Friend Catapult,2026-10-11
-name.perk.harmonizer,APPROVED,和諧之音,Harmonizer,2026-10-11
-name.perk.ive-read-about-this-place,APPROVED,我知道這地方,I’ve Read About This Place,2026-10-11
-name.perk.monster-whisperer,APPROVED,怪物溝通師,Monster Whisperer,2026-10-11
-name.perk.put-your-back-into-it,APPROVED,全力以赴！,Put Your Back Into It!,2026-10-11
-name.perk.ritualist,APPROVED,儀式師,Ritualist,2026-10-11
-name.perk.spot-the-tell,APPROVED,發現破綻,Spot the Tell,2026-10-11
-name.perk.team-leader,APPROVED,團隊領袖,Team Leader,2026-10-11
-name.perk.teamwork,APPROVED,團隊合作,Teamwork,2026-10-11
-name.perk.wood-wise,APPROVED,林野智慧,Wood Wise,2026-10-11
+Name ID,Status,Target Name,Source Name,Last Updated,Forge Steel Source Text,Forge Steel Target Text,Forge Steel Status,Forge Steel Basis Hash
+heroes.language.ananjali,APPROVED,阿納賈利語,Ananjali,2026-10-02,,,,
+heroes.language.anjali,APPROVED,安賈利語,Anjali,2026-10-02,,,,
+heroes.language.axiomatic,APPROVED,公理語,Axiomatic,2026-10-02,,,,
+heroes.language.caelian,APPROVED,凱利安語,Caelian,2026-10-02,,,,
+heroes.language.filliaric,APPROVED,菲利亞語,Filliaric,2026-10-02,,,,
+heroes.language.first-language,APPROVED,太古語,The First Language,2026-10-02,,,,
+heroes.language.higaran,APPROVED,希伽拉語,Higaran,2026-10-02,,,,
+heroes.language.high-kuric,APPROVED,高庫語,High Kuric,2026-10-02,,,,
+heroes.language.high-rhyvian,APPROVED,高瑞維亞語,High Rhyvian,2026-10-02,,,,
+heroes.language.hyrallic,APPROVED,赫拉語,Hyrallic,2026-10-02,,,,
+heroes.language.illyvric,APPROVED,伊利夫語,Illyvric,2026-10-02,,,,
+heroes.language.kalliak,APPROVED,卡力語,Kalliak,2026-10-02,,,,
+heroes.language.kethaic,APPROVED,克薩語,Kethaic,2026-10-02,,,,
+heroes.language.khamish,APPROVED,卡米希語,Khamish,2026-10-02,,,,
+heroes.language.khelt,APPROVED,克特語,Khelt,2026-10-02,,,,
+heroes.language.kheltivari,APPROVED,克提華里語,Kheltivari,2026-10-02,,,,
+heroes.language.khemharic,APPROVED,凱姆哈拉語,Khemharic,2026-10-02,,,,
+heroes.language.khoursirian,APPROVED,科爾瑟語,Khoursirian,2026-10-02,,,,
+heroes.language.low-kuric,APPROVED,低庫語,Low Kuric,2026-10-02,,,,
+heroes.language.low-rhyvian,APPROVED,低瑞維亞語,Low Rhyvian,2026-10-02,,,,
+heroes.language.mindspeech,APPROVED,心靈語,Mindspeech,2026-10-02,,,,
+heroes.language.oaxuatl,APPROVED,瓦蘇奧語,Oaxuatl,2026-10-02,,,,
+heroes.language.old-variac,APPROVED,古華里亞語,Old Variac,2026-10-02,,,,
+heroes.language.phaedran,APPROVED,斐德羅語,Phaedran,2026-10-02,,,,
+heroes.language.phorialtic,APPROVED,佛里奧語,Phorialtic,2026-10-02,,,,
+heroes.language.proto-ctholl,APPROVED,原墮語,Proto-Ctholl,2026-10-02,,,,
+heroes.language.rallarian,APPROVED,拉拉里安語,Rallarian,2026-10-02,,,,
+heroes.language.riojan,APPROVED,里歐哈語,Riojan,2026-10-02,,,,
+heroes.language.szetch,APPROVED,澤奇語,Szetch,2026-10-02,,,,
+heroes.language.tholl,APPROVED,墮語,Tholl,2026-10-02,,,,
+heroes.language.ullorvic,APPROVED,烏洛維克語,Ullorvic,2026-10-02,,,,
+heroes.language.urollialic,APPROVED,巫羅語,Urollialic,2026-10-02,,,,
+heroes.language.uvalic,APPROVED,烏華利語,Uvalic,2026-10-02,,,,
+heroes.language.vaniric,APPROVED,華尼伽語,Vaniric,2026-10-02,,,,
+heroes.language.variac,APPROVED,華里亞語,Variac,2026-10-02,,,,
+heroes.language.vaslorian,APPROVED,華斯洛里亞語,Vaslorian,2026-10-02,,,,
+heroes.language.vastariax,APPROVED,華斯塔里亞語,Vastariax,2026-10-02,,,,
+heroes.language.vhoric,APPROVED,沃瑞語,Vhoric,2026-10-02,,,,
+heroes.language.voll,APPROVED,沃爾語,Voll,2026-10-02,,,,
+heroes.language.yllyric,APPROVED,伊林語,Yllyric,2026-10-02,,,,
+heroes.language.zahariax,APPROVED,札哈里亞語,Za’hariax,2026-10-02,,,,
+heroes.language.zaliac,APPROVED,札力語,Zaliac,2026-10-02,,,,
+name.kit-ability.battle-grace,APPROVED,戰鬥之舞,Battle Grace,2026-10-14,,,,
+name.kit-ability.devastating-rush,APPROVED,毀滅衝刺,Devastating Rush,2026-10-14,,,,
+name.kit-ability.double-strike,APPROVED,雙重打擊,Double Strike,2026-10-14,,,,
+name.kit-ability.exploding-arrow,APPROVED,爆裂箭矢,Exploding Arrow,2026-10-14,,,,
+name.kit-ability.extension-of-my-arm,APPROVED,鞭影出臂,Extension of My Arm,2026-10-14,,,,
+name.kit-ability.fade,APPROVED,回身掠影,Fade,2026-10-14,,,,
+name.kit-ability.fancy-footwork,APPROVED,華麗步法,Fancy Footwork,2026-10-14,,,,
+name.kit-ability.forward-thrust-backward-smash,APPROVED,前刺後劈,"Forward Thrust, Backward Smash",2026-10-14,,,,
+name.kit-ability.hamstring-shot,APPROVED,斷筋射擊,Hamstring Shot,2026-10-14,,,,
+name.kit-ability.leaping-lightning,APPROVED,電光閃擊,Leaping Lightning,2026-10-14,,,,
+name.kit-ability.lets-dance,APPROVED,共舞吧,Let’s Dance,2026-10-14,,,,
+name.kit-ability.net-and-stab,APPROVED,捕縛刺擊,Net and Stab,2026-10-14,,,,
+name.kit-ability.pain-for-pain,APPROVED,以牙還牙,Pain for Pain,2026-10-14,,,,
+name.kit-ability.patient-shot,APPROVED,沉穩射擊,Patient Shot,2026-10-14,,,,
+name.kit-ability.protective-attack,APPROVED,以攻為守,Protective Attack,2026-10-14,,,,
+name.kit-ability.raiders-awe,APPROVED,突擊威勢,Raider's Awe,2026-10-14,,,,
+name.kit-ability.shield-bash,APPROVED,盾擊,Shield Bash,2026-10-14,,,,
+name.kit-ability.two-shot,APPROVED,雙重射擊,Two Shot,2026-10-14,,,,
+name.kit-ability.unmooring,APPROVED,脫韁解錨,Unmooring,2026-10-14,,,,
+name.kit-ability.weakening-brand,APPROVED,弱化烙印,Weakening Brand,2026-10-14,,,,
+name.kit-ability.where-i-want-you,APPROVED,隨心所置,Where I Want You,2026-10-14,,,,
+name.kit.arcane-archer,APPROVED,魔弓,Arcane Archer,2026-10-14,,,,
+name.kit.battlemind,APPROVED,戰念,Battlemind,2026-10-14,,,,
+name.kit.cloak-and-dagger,APPROVED,潛襲,Cloak and Dagger,2026-10-14,,,,
+name.kit.dual-wielder,APPROVED,雙持,Dual Wielder,2026-10-14,,,,
+name.kit.guisarmier,APPROVED,長兵,Guisarmier,2026-10-14,,,,
+name.kit.martial-artist,APPROVED,武術,Martial Artist,2026-10-14,,,,
+name.kit.mountain,APPROVED,山嶽,Mountain,2026-10-14,,,,
+name.kit.panther,APPROVED,獵豹,Panther,2026-10-14,,,,
+name.kit.pugilist,APPROVED,拳鬥,Pugilist,2026-10-14,,,,
+name.kit.raider,APPROVED,突擊,Raider,2026-10-14,,,,
+name.kit.ranger,APPROVED,遊俠,Ranger,2026-10-14,,,,
+name.kit.rapid-fire,APPROVED,箭雨,Rapid-Fire,2026-10-14,,,,
+name.kit.retiarius,APPROVED,網鬥,Retiarius,2026-10-14,,,,
+name.kit.shining-armor,APPROVED,鐵騎,Shining Armor,2026-10-14,,,,
+name.kit.sniper,APPROVED,狙擊,Sniper,2026-10-14,,,,
+name.kit.spellsword,APPROVED,魔刃,Spellsword,2026-10-14,,,,
+name.kit.stick-and-robe,APPROVED,杖袍,Stick and Robe,2026-10-14,,,,
+name.kit.swashbuckler,APPROVED,劍客,Swashbuckler,2026-10-14,,,,
+name.kit.sword-and-board,APPROVED,劍盾,Sword and Board,2026-10-14,,,,
+name.kit.warrior-priest,APPROVED,武祭,Warrior Priest,2026-10-14,,,,
+name.kit.whirlwind,APPROVED,旋風,Whirlwind,2026-10-14,,,,
+name.perk.arcane-trick,APPROVED,奧術戲法,Arcane Trick,2026-10-11,,,,
+name.perk.area-of-expertise,APPROVED,專業領域,Area of Expertise,2026-10-11,,,,
+name.perk.brawny,APPROVED,肌肉發達,Brawny,2026-10-11,,,,
+name.perk.but-i-know-who-does,APPROVED,我知道誰知道,But I Know Who Does,2026-10-14,,,,
+name.perk.camouflage-hunter,APPROVED,迷彩獵人,Camouflage Hunter,2026-10-11,,,,
+name.perk.charming-liar,APPROVED,迷人騙子,Charming Liar,2026-10-14,,,,
+name.perk.creature-sense,APPROVED,生物感應,Creature Sense,2026-10-14,,,,
+name.perk.criminal-contacts,APPROVED,江湖人脈,Criminal Contacts,2026-10-11,,,,
+name.perk.danger-sense,APPROVED,危險感知,Danger Sense,2026-10-14,,,,
+name.perk.dazzler,APPROVED,閃耀表演,Dazzler,2026-10-14,,,,
+name.perk.eidetic-memory,APPROVED,過目不忘,Eidetic Memory,2026-10-14,,,,
+name.perk.engrossing-monologue,APPROVED,聚焦獨白,Engrossing Monologue,2026-10-11,,,,
+name.perk.expert-artisan,APPROVED,工藝專家,Expert Artisan,2026-10-14,,,,
+name.perk.expert-sage,APPROVED,學術專家,Expert Sage,2026-10-11,,,,
+name.perk.familiar,APPROVED,魔寵,Familiar,2026-10-14,,,,
+name.perk.forgettable-face,APPROVED,平凡容貌,Forgettable Face,2026-10-11,,,,
+name.perk.friend-catapult,APPROVED,投擲盟友,Friend Catapult,2026-10-11,,,,
+name.perk.gum-up-the-works,APPROVED,妨礙運作,Gum Up the Works,2026-10-14,Gum Up The Works,妨礙運作,APPROVED,2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9
+name.perk.handy,APPROVED,心靈手巧,Handy,2026-10-14,,,,
+name.perk.harmonizer,APPROVED,和諧之音,Harmonizer,2026-10-11,,,,
+name.perk.improvisation-creation,APPROVED,即興創造,Improvisation Creation,2026-10-14,,,,
+name.perk.inspired-artisan,APPROVED,創意工匠,Inspired Artisan,2026-10-14,,,,
+name.perk.invisible-force,APPROVED,無形念力,Invisible Force,2026-10-14,,,,
+name.perk.ive-got-you,APPROVED,我接住你了！,I’ve Got You!,2026-10-14,,,,
+name.perk.ive-read-about-this-place,APPROVED,我知道這地方,I’ve Read About This Place,2026-10-11,,,,
+name.perk.lie-detector,APPROVED,測謊專家,Lie Detector,2026-10-14,,,,
+name.perk.linguist,APPROVED,語言學家,Linguist,2026-10-14,,,,
+name.perk.lucky-dog,APPROVED,幸運兒,Lucky Dog,2026-10-14,,,,
+name.perk.master-of-disguise,APPROVED,易容大師,Master of Disguise,2026-10-14,,,,
+name.perk.monster-whisperer,APPROVED,怪物溝通師,Monster Whisperer,2026-10-11,,,,
+name.perk.open-book,APPROVED,坦誠相待,Open Book,2026-10-14,,,,
+name.perk.pardon-my-friend,APPROVED,代友發言,Pardon My Friend,2026-10-14,,,,
+name.perk.polymath,APPROVED,博學多聞,Polymath,2026-10-14,,,,
+name.perk.power-player,APPROVED,強勢態度,Power Player,2026-10-14,,,,
+name.perk.psychic-whisper,APPROVED,心靈低語,Psychic Whisper,2026-10-14,,,,
+name.perk.put-your-back-into-it,APPROVED,全力以赴！,Put Your Back Into It!,2026-10-11,,,,
+name.perk.ritualist,APPROVED,儀式師,Ritualist,2026-10-11,,,,
+name.perk.slipped-lead,APPROVED,脫逃大師,Slipped Lead,2026-10-14,,,,
+name.perk.so-tell-me,APPROVED,誠實告訴我……,So Tell Me …,2026-10-14,,,,
+name.perk.specialist,APPROVED,專業知識,Specialist,2026-10-14,,,,
+name.perk.spot-the-tell,APPROVED,發現破綻,Spot the Tell,2026-10-11,Spot The Tell,發現破綻,APPROVED,d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5
+name.perk.team-leader,APPROVED,團隊領袖,Team Leader,2026-10-11,,,,
+name.perk.teamwork,APPROVED,團隊合作,Teamwork,2026-10-11,,,,
+name.perk.thingspeaker,APPROVED,憶物通靈,Thingspeaker,2026-10-14,,,,
+name.perk.traveling-artisan,APPROVED,旅行工匠,Traveling Artisan,2026-10-14,Travelling Artisan,旅行工匠,APPROVED,899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa
+name.perk.traveling-sage,APPROVED,旅行學者,Traveling Sage,2026-10-14,Travelling Sage,旅行學者,APPROVED,55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e
+name.perk.wood-wise,APPROVED,林野智慧,Wood Wise,2026-10-11,,,,

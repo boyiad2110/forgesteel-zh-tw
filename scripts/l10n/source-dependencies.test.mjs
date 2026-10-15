@@ -151,8 +151,22 @@ describe('committed approved source inventory', () => {
 	test('all current Forge Steel rows have a valid checkpoint', () => {
 		expect(checkSourceDependencies(repo)).toEqual([]);
 	});
+	test('a Book Name checkpoint uses the same hash guard as a Book String', () => {
+		const row = { en: 'Traveling Artisan', zh: '旅行工匠', fs: { en: 'Travelling Artisan', zh: '旅行工匠' } };
+		const source = { sheetId: 'name.perk.traveling-artisan', enHash: hashDependencyText(row.en), zhHash: hashDependencyText(row.zh) };
+		const manifest = { version: 1, rows: { [source.sheetId]: {
+			sources: [ source ], sourcesHash: hashDependencyIds([ source ]),
+			fs: { enHash: hashDependencyText(row.fs.en), zhHash: hashDependencyText(row.fs.zh) }
+		} } };
+		expect(validateSourceDependencies(manifest, { [source.sheetId]: row })).toEqual([]);
+		row.zh = '改寫';
+		expect(validateSourceDependencies(manifest, { [source.sheetId]: row })[0].message).toContain('zh changed');
+	});
 	test('every adaptation derives from its declared book sources, except six explicitly approved option names', () => {
-		const rows = JSON.parse(readFileSync(path.join(repo, 'src/l10n/generated/zh-TW/strings.json'), 'utf8'));
+		const rows = {};
+		for (const file of [ 'glossary.json', 'names.json', 'strings.json' ]) {
+			Object.assign(rows, JSON.parse(readFileSync(path.join(repo, 'src/l10n/generated/zh-TW', file), 'utf8')));
+		}
 		const optionPrefix = 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.';
 		const exceptions = new Set([ 'acid', 'cold', 'corruption', 'fire', 'lightning', 'poison' ].map(type => `${optionPrefix}${type}.name`));
 		for (const [ id, entry ] of Object.entries(manifest.rows)) {
@@ -165,6 +179,21 @@ describe('committed approved source inventory', () => {
 			}
 			expect(position, `Declared sources do not cover the approved adaptation ${id}`).toBe(target.length);
 		}
+	});
+	test('the linguist child use deletes from the same approved paragraph', () => {
+		const adaptations = JSON.parse(readFileSync(path.join(repo, 'src/l10n/generated/zh-TW/adaptations.json'), 'utf8'));
+		const strings = JSON.parse(readFileSync(path.join(repo, 'src/l10n/generated/zh-TW/strings.json'), 'utf8'));
+		const child = adaptations['fs-adapt:heroes.perks.linguist.effect.1'];
+		const source = strings['heroes.perks.linguist.effect'].zh.replace(/\s/g, '');
+		const target = child.zh.replace(/\s/g, '');
+		let position = 0;
+		for (const char of source) {
+			if (char === target[position]) position += 1;
+		}
+		expect(position).toBe(target.length);
+		expect(child.sources[0].sourceId).toBe('heroes.perks.linguist.effect');
+		expect(strings['heroes.perks.linguist.effect'].fs.zh.startsWith('你自動學會')).toBe(true);
+		expect(child.zh.includes('此外')).toBe(false);
 	});
 	// Independent evidence from approved Sheet rows and DECISIONS P2-9-1/P2-9-2.
 	// These assertions prevent a later manifest rebuild from forgetting a source.

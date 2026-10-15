@@ -74,6 +74,11 @@
     "updated": "2026-10-10",
     "zh": "自訂文化"
   },
+  "ui.hero-builder.bonus-per-level.f68c64a2": {
+    "en": "`${mod.value >= 0 ? '+' : ''}${mod.value} per level`",
+    "updated": "2026-10-15",
+    "zh": "每級 {value}"
+  },
   "ui.hero-builder.but-you-can-skip-this-if-you.21d25869": {
     "en": "- but you can skip this if you'd prefer.",
     "updated": "2026-10-10",
@@ -389,6 +394,16 @@
     "updated": "2026-10-10",
     "zh": "詳情"
   },
+  "ui.hero-builder.distance-target.2c3fa3ef": {
+    "en": "Distance / Target",
+    "updated": "2026-10-15",
+    "zh": "射程 / 目標"
+  },
+  "ui.hero-builder.distance.b7bdf7a2": {
+    "en": "Distance",
+    "updated": "2026-10-15",
+    "zh": "射程"
+  },
   "ui.hero-builder.domain.67b22e3e": {
     "en": "Domain",
     "updated": "2026-10-10",
@@ -403,6 +418,11 @@
     "en": "Duplicated",
     "updated": "2026-10-10",
     "zh": "重複選擇"
+  },
+  "ui.hero-builder.effect.2252d5cf": {
+    "en": "Effect",
+    "updated": "2026-10-15",
+    "zh": "效果"
   },
   "ui.hero-builder.environment.b9b1aade": {
     "en": "Environment",
@@ -444,6 +464,16 @@
     "updated": "2026-10-10",
     "zh": "昔日人生"
   },
+  "ui.hero-builder.free-sash.ad95d5fa": {
+    "en": "free",
+    "updated": "2026-10-15",
+    "zh": "免費"
+  },
+  "ui.hero-builder.free-triggered-action.acb2b603": {
+    "en": "Free Triggered Action",
+    "updated": "2026-10-15",
+    "zh": "免費反應動作"
+  },
   "ui.hero-builder.from-the-heroclass-name.1847bb79": {
     "en": "` from the ${heroClass.name}`",
     "updated": "2026-10-10",
@@ -473,6 +503,11 @@
     "en": "If you have a homebrew sourcebook you want to use, and it isn't listed here, you can import it now.",
     "updated": "2026-10-10",
     "zh": "若要使用此處未列出的自製來源書，請在這裡匯入。"
+  },
+  "ui.hero-builder.immunities.3721f3cd": {
+    "en": "Immunities",
+    "updated": "2026-10-15",
+    "zh": "免疫"
   },
   "ui.hero-builder.import-a-sourcebook.37cebd77": {
     "en": "Import a sourcebook",
@@ -609,10 +644,35 @@
     "updated": "2026-10-10",
     "zh": "失去的技能"
   },
+  "ui.hero-builder.main-action.147a0625": {
+    "en": "Main Action",
+    "updated": "2026-10-15",
+    "zh": "主要動作"
+  },
+  "ui.hero-builder.main-sash.0d6e4079": {
+    "en": "main",
+    "updated": "2026-10-15",
+    "zh": "主要"
+  },
+  "ui.hero-builder.maneuver-sash.ce99528b": {
+    "en": "maneuver",
+    "updated": "2026-10-15",
+    "zh": "機動"
+  },
+  "ui.hero-builder.move-sash.683a62ce": {
+    "en": "move",
+    "updated": "2026-10-15",
+    "zh": "移動"
+  },
   "ui.hero-builder.movement-mode.56db4b3c": {
     "en": "movement mode.",
     "updated": "2026-10-10",
     "zh": "移動模式。"
+  },
+  "ui.hero-builder.movement.49ba63e8": {
+    "en": "Movement",
+    "updated": "2026-10-15",
+    "zh": "移動"
   },
   "ui.hero-builder.name.f7c27f51": {
     "en": "Name",
@@ -729,6 +789,11 @@
     "updated": "2026-10-10",
     "zh": "{cost}pt"
   },
+  "ui.hero-builder.psionic.cd9fca98": {
+    "en": "Psionic",
+    "updated": "2026-10-15",
+    "zh": "靈能"
+  },
   "ui.hero-builder.pt-ancestry-feature.c76f6671": {
     "en": "pt ancestry feature.",
     "updated": "2026-10-10",
@@ -793,6 +858,11 @@
     "en": "Selecting a perk from outside the listed groups is typically against the rules.",
     "updated": "2026-10-11",
     "zh": "選擇不屬於所列類別的專長，通常不符合規則。"
+  },
+  "ui.hero-builder.self.85bc0f95": {
+    "en": "Self",
+    "updated": "2026-10-15",
+    "zh": "自身"
   },
   "ui.hero-builder.show-details.257cf510": {
     "en": "Show details",
@@ -879,6 +949,11 @@
     "updated": "2026-10-10",
     "zh": "狀況"
   },
+  "ui.hero-builder.summon.759c2262": {
+    "en": "Summon",
+    "updated": "2026-10-15",
+    "zh": "召喚物"
+  },
   "ui.hero-builder.supernatural-perk.a9143d55": {
     "en": "Supernatural Perk",
     "updated": "2026-10-11",
@@ -903,6 +978,11 @@
     "en": "tab and give your hero a name.",
     "updated": "2026-10-10",
     "zh": "分頁，為英雄命名。"
+  },
+  "ui.hero-builder.target.978354db": {
+    "en": "Target",
+    "updated": "2026-10-15",
+    "zh": "目標"
   },
   "ui.hero-builder.this-can-t-be-undone-are-you.c4b878e6": {
     "en": "This can't be undone; are you sure?",
@@ -933,6 +1013,21 @@
     "en": "To Add",
     "updated": "2026-10-10",
     "zh": "要新增"
+  },
+  "ui.hero-builder.trigger-sash.683259fe": {
+    "en": "trigger",
+    "updated": "2026-10-15",
+    "zh": "反應"
+  },
+  "ui.hero-builder.trigger.8b9c6437": {
+    "en": "Trigger",
+    "updated": "2026-10-15",
+    "zh": "觸發"
+  },
+  "ui.hero-builder.triggered-action.5550c36a": {
+    "en": "Triggered Action",
+    "updated": "2026-10-15",
+    "zh": "反應動作"
   },
   "ui.hero-builder.tutorial-mode.6b8e85d4": {
     "en": "Tutorial Mode",
@@ -974,6 +1069,11 @@
     "updated": "2026-10-10",
     "zh": "取消選擇"
   },
+  "ui.hero-builder.unselected.26118cfc": {
+    "en": "Unselected",
+    "updated": "2026-10-14",
+    "zh": "尚未選擇"
+  },
   "ui.hero-builder.upbringing.402fbf01": {
     "en": "Upbringing",
     "updated": "2026-10-10",
@@ -983,6 +1083,11 @@
     "en": "Use the tabs above to select your hero's",
     "updated": "2026-10-10",
     "zh": "使用上方分頁設定英雄的"
+  },
+  "ui.hero-builder.weaknesses.af393b75": {
+    "en": "Weaknesses",
+    "updated": "2026-10-15",
+    "zh": "弱點"
   },
   "ui.hero-builder.weapons.3189d297": {
     "en": "Weapons",

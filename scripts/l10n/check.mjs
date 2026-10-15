@@ -633,10 +633,24 @@ const elementEnglish = (root, cache, id, field) => {
 		return { error: `element id ${id} was not found under src/data` };
 	}
 	const value = object.fields.get(field);
-	if (!value) {
-		return { error: `element ${id} has no string field ${field} (${object.file})` };
+	if (value) {
+		return { english: value.text };
 	}
-	return { english: value.text };
+	if (field === 'trigger') {
+		cache.abilities ??= indexAbilitySections(root);
+		const { index: abilities, duplicates } = cache.abilities;
+		if (duplicates.has(id)) {
+			return { error: `ability id ${id} is defined more than once under src/data` };
+		}
+		const ability = abilities.get(id);
+		if (ability?.triggerError) {
+			return { error: `element ${id} trigger ${ability.triggerError}` };
+		}
+		if (typeof ability?.trigger === 'string') {
+			return { english: ability.trigger };
+		}
+	}
+	return { error: `element ${id} has no string field ${field} (${object.file})` };
 };
 
 const dataEnglish = (root, className, field) => {
@@ -1324,8 +1338,69 @@ const depth1ValueAt = (objectText, name) => {
 };
 
 /**
+ * The first string argument of one call, or an error when the call is not a
+ * single string literal. A missing call returns null.
+ */
+const callStringArgument = (objectText, name) => {
+	let found = null;
+	let i = 0;
+	let line = 1;
+	while (i < objectText.length) {
+		const char = objectText[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(objectText, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = skipLiteral(objectText, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (objectText.startsWith(name, i)) {
+			const before = i > 0 ? objectText[i - 1] : '';
+			const after = objectText[i + name.length] ?? '';
+			if (!/[A-Za-z0-9_$]/.test(before) && !/[A-Za-z0-9_$]/.test(after)) {
+				let j = i + name.length;
+				while (j < objectText.length && /[ \t\r\n]/.test(objectText[j])) {
+					j += 1;
+				}
+				if (objectText[j] === '(') {
+					j += 1;
+					while (j < objectText.length && /[ \t\r\n]/.test(objectText[j])) {
+						j += 1;
+					}
+					const quote = objectText[j];
+					if (quote !== '\'' && quote !== '"' && quote !== '`') {
+						return { error: `${name} argument is not a string literal` };
+					}
+					const parsed = readString(objectText, j, line);
+					if (!parsed.ok) {
+						return { error: `${name} argument is not a string literal` };
+					}
+					if (found !== null) {
+						return { error: `more than one ${name}` };
+					}
+					found = parsed.value;
+				}
+			}
+		}
+		i += 1;
+	}
+	return found === null ? null : { english: found };
+};
+
+/**
  * FactoryLogic.createAbility({ ... }) objects. The id comes from objectsWithId
  * and must also be the depth-1 string field, so a nested id is not the ability.
+ * A createTrigger string on that object is the ability's trigger field.
  */
 const abilitiesFromCalls = text => {
 	const found = [];
@@ -1379,7 +1454,13 @@ const abilitiesFromCalls = text => {
 										sections = splitTopLevel(objectText.slice(valueAt + 1, end)).map(textSectionLiteral);
 									}
 								}
-								found.push({ id, sections });
+								const trigger = callStringArgument(objectText, 'createTrigger');
+								found.push({
+									id,
+									sections,
+									trigger: trigger?.english,
+									triggerError: trigger?.error
+								});
 							}
 						}
 					}
@@ -1687,6 +1768,62 @@ const forgeSteelShape = fs => {
 		&& typeof fs.basisHash === 'string';
 };
 
+const loadUsageAdaptations = catalogRoot => {
+	const text = read(path.join(catalogRoot, 'src/l10n/generated/zh-TW/adaptations.json'));
+	const map = new Map();
+	if (text === null) {
+		return map;
+	}
+	let data;
+	try {
+		data = JSON.parse(text);
+	} catch {
+		return map;
+	}
+	if (!data || typeof data !== 'object' || Array.isArray(data)) {
+		return map;
+	}
+	for (const entry of Object.values(data)) {
+		if (!entry || typeof entry !== 'object' || typeof entry.usageKey !== 'string' || entry.usageKey === '') {
+			continue;
+		}
+		map.set(entry.usageKey, entry);
+	}
+	return map;
+};
+
+/**
+ * A second approved use of one book row keeps its own source and target.
+ * The string's canonical Forge Steel version stays the adaptation whose id is fs-adapt:<book id>.
+ */
+const checkAlternateAdaptation = (entry, row, forgeEn, adaptation) => {
+	const found = [];
+	if (adaptation.bookStringId !== entry.sheetId || typeof adaptation.en !== 'string' || typeof adaptation.zh !== 'string') {
+		found.push(issue('forge-steel', 'src/l10n/mapping.ts', entry.line, entry.key, 'alternate Forge Steel use does not match its mapped book row'));
+		return found;
+	}
+	if (forgeEn.trim() !== adaptation.en) {
+		found.push(issue(
+			'forge-steel',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`Forge Steel English does not match the alternate Forge Steel Source Text (${englishPreview(adaptation.en, forgeEn.trim())})`
+		));
+	}
+	const current = typeof row.zh === 'string' ? hashEnglish(row.zh) : '';
+	if (current !== adaptation.basisHash) {
+		found.push(issue(
+			'forge-steel',
+			'src/l10n/mapping.ts',
+			entry.line,
+			entry.key,
+			`alternate Forge Steel use is stale (basis ${adaptation.basisHash}, book Chinese ${current})`
+		));
+	}
+	return found;
+};
+
 const checkForgeSteelVersion = (entry, row, forgeEn, hasException) => {
 	const found = [];
 	const fs = row.fs;
@@ -1892,6 +2029,7 @@ export const checkMapping = (root, catalogRoot = root) => {
 		errors.push(...sheet.errors);
 	}
 	const rows = loadSheetRows(path.join(catalogRoot, 'src/l10n/generated/zh-TW'));
+	const usageAdaptations = loadUsageAdaptations(catalogRoot);
 	const cache = { current: null };
 	for (const entry of parsed.entries) {
 		if (sheet.errors.length === 0 && !sheet.ids.has(entry.sheetId)) {
@@ -1922,12 +2060,17 @@ export const checkMapping = (root, catalogRoot = root) => {
 		}
 		const row = rows.get(entry.sheetId);
 		if (hasForgeSteel(row)) {
-			errors.push(...checkForgeSteelVersion(
-				entry,
-				row,
-				resolved.english,
-				loadedExceptions.exceptions.has(entry.key)
-			));
+			const adaptation = usageAdaptations.get(entry.key);
+			const alternate = adaptation && row.fs
+				&& (adaptation.en !== row.fs.en || adaptation.zh !== row.fs.zh);
+			errors.push(...(alternate
+				? checkAlternateAdaptation(entry, row, resolved.english, adaptation)
+				: checkForgeSteelVersion(
+					entry,
+					row,
+					resolved.english,
+					loadedExceptions.exceptions.has(entry.key)
+				)));
 		} else {
 			if (entry.stripHeading) {
 				const heading = checkRulesHeading(catalogRoot, entry, resolved.english);
@@ -2017,7 +2160,7 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 	}
 	const entries = parseMapping('src/l10n/mapping.ts', read(path.join(root, 'src/l10n/mapping.ts')) ?? '').entries;
 	const rows = loadSheetRows(path.join(catalogRoot, 'src/l10n/generated/zh-TW'));
-	const fields = new Set([ 'sheetId', 'enHash', 'sourceHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix', 'useDisplayTemplate' ]);
+	const fields = new Set([ 'sheetId', 'enHash', 'sourceHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix', 'useDisplayTemplate', 'valueTemplate', 'suffixSpan' ]);
 	const errors = [];
 	const validSpan = (span, length) => Array.isArray(span) && span.length === 2 && span.every(Number.isInteger) && span[0] >= 0 && span[0] < span[1] && span[1] <= length;
 	for (const [ key, binding ] of Object.entries(bindings)) {
@@ -2027,9 +2170,14 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 			continue;
 		}
 		const entry = entries.find(entry => entry.key === key);
-		const row = rows.get(binding.sheetId)?.fs;
+		const stored = rows.get(binding.sheetId);
+		// The screen reads a Forge Steel version when one exists. A book row
+		// is the text on screen only when that version is absent.
+		const row = stored?.fs ?? (
+			stored && typeof stored.en === 'string' && typeof stored.zh === 'string' ? stored : undefined
+		);
 		if (!entry || entry.sheetId !== binding.sheetId || !row) {
-			fail('binding must reference its mapped approved Forge Steel row');
+			fail('binding must reference its mapped approved row');
 			continue;
 		}
 		// Mapping hashes anchor the exact upstream literal. The approved Forge
@@ -2046,6 +2194,24 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 		}
 		if (typeof binding.valueSuffix !== 'string' || !/^\s*$/.test(binding.valueSuffix)) {
 			fail('valueSuffix may contain only display whitespace');
+		}
+		if (binding.valueTemplate !== undefined) {
+			const template = binding.valueTemplate;
+			const formulaLength = Array.isArray(binding.targetSpan) ? binding.targetSpan[1] - binding.targetSpan[0] : 0;
+			const suffixCount = typeof template === 'string' ? template.split('{suffix}').length - 1 : 0;
+			const valueCount = typeof template === 'string' ? template.split('{value}').length - 1 : 0;
+			const remainder = typeof template === 'string' ? template.replaceAll('{value}', '').replaceAll('{suffix}', '') : '';
+			if (typeof template !== 'string' || valueCount !== 1 || suffixCount > 1 || !/^[\s]*$/.test(remainder) || binding.useDisplayTemplate) {
+				fail('valueTemplate may contain only {value}, optional {suffix}, and whitespace');
+			} else if ((suffixCount === 1) !== Array.isArray(binding.suffixSpan)) {
+				fail('suffixSpan is required exactly when valueTemplate contains {suffix}');
+			} else if (binding.suffixSpan && !validSpan(binding.suffixSpan, formulaLength)) {
+				fail('suffixSpan must sit inside the formula span');
+			} else if (binding.valueSuffix !== '') {
+				fail('valueSuffix must be empty when valueTemplate rewrites the formula');
+			}
+		} else if (binding.suffixSpan !== undefined) {
+			fail('suffixSpan requires valueTemplate');
 		}
 		if (binding.useDisplayTemplate !== undefined && binding.useDisplayTemplate !== true) {
 			fail('useDisplayTemplate must be true or absent');

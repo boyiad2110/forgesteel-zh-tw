@@ -1,4 +1,5 @@
 import { Feature, FeatureAbility, FeatureAbilityDamage, FeatureAbilityDistance, FeatureAncestryChoice, FeatureBonus, FeatureCharacteristicBonus, FeatureChoice, FeatureClassAbility, FeatureCompanion, FeatureConditionImmunity, FeatureDamageModifier, FeatureDomain, FeatureDomainFeature, FeatureFollower, FeatureHeroicResource, FeatureHeroicResourceThreshold, FeatureItemChoice, FeatureKit, FeatureLanguageChoice, FeatureMalice, FeatureMaliceAbility, FeatureMultiple, FeaturePackage, FeaturePerk, FeaturePotencyResistance, FeatureSkillChoice, FeatureSurgeGain, FeatureText } from '@/models/feature';
+import { familiarPerLevelLine, familiarSummonLabel, perkGrantLabel } from '@/l10n/ability-text';
 import { Ability } from '@/models/ability';
 import { AbilityComponent } from '@/components/panels/classic-sheet/components/ability-component';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -23,8 +24,17 @@ import { PlayerName } from '@/l10n/player-name';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SkillList } from '@/enums/skill-list';
 import { SkillName } from '@/l10n/skill-text';
+import { familiarStaminaKey } from '@/l10n/familiar-stat';
+import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
+import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
+import { perkSkillCountLine } from '@/l10n/perk-list-ui';
+import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
+import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
+import { perkListText } from '@/l10n/perk-list-ui';
+import { useOptionalSourcebooks } from '@/contexts/data-context';
+import { useUI } from '@/l10n/ui-text';
 
 import rollT1 from '@/assets/icons/power-roll-t1.svg';
 import rollT2 from '@/assets/icons/power-roll-t2.svg';
@@ -39,10 +49,28 @@ interface Props {
 	additionalClasses?: string[];
 }
 
-const BasicFeatureComponent = (feature: Feature) => {
+const UnselectedLabel = () => {
+	const ui = useUI();
+	return ui.text('ui.hero-builder.unselected.26118cfc', 'Unselected');
+};
+
+const OfficialPerkName = (props: { feature: { id: string, name: string } }) => {
+	const sourcebooks = useOptionalSourcebooks() || [];
+	const reused = reusedOfficialPerkName(props.feature, sourcebooks);
+	if (reused) {
+		return reused;
+	}
+	if (props.feature.id.startsWith('perk-')) {
+		return <PlayerName element={props.feature} />;
+	}
+	return <>{props.feature.name}</>;
+};
+
+const BasicFeatureComponent = (feature: Feature, ui: ReturnType<typeof useUI>) => {
+	const typeLabel = familiarSummonLabel(ui, feature) ?? feature.type;
 	return (
 		<>
-			<div className='feature-line'><strong>{`• ${feature.type}: `}</strong>{feature.name}</div>
+			<div className='feature-line'><strong>{`• ${typeLabel}: `}</strong><OfficialPerkName feature={feature} /></div>
 			{feature.description ?
 				<div className='feature-description'>{feature.description}</div>
 				: undefined}
@@ -50,7 +78,7 @@ const BasicFeatureComponent = (feature: Feature) => {
 	);
 };
 
-const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice | FeatureItemChoice, hero?: Hero) => {
+const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice | FeatureItemChoice, hero: Hero | undefined, sourcebooks: Sourcebook[]) => {
 	let selectedOptions;
 	if (feature.data.selected.length > 0) {
 		selectedOptions = feature.data.selected.map(s => typeof s === 'string' ? s : s.name).map(s => {
@@ -59,7 +87,7 @@ const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice |
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	let ancestryPts = 0;
@@ -67,10 +95,14 @@ const ChoiceFeatureComponent = (feature: FeatureChoice | FeatureLanguageChoice |
 		ancestryPts = HeroLogic.getAncestryPoints(hero);
 	}
 	const count = feature.data.count === 'ancestry' ? ancestryPts : feature.data.count;
+	const languageChoice = feature.id.startsWith('perk-') ? officialLanguageChoiceDisplay(feature, sourcebooks) : {};
+	const choiceLine = languageChoice.name
+		? `• ${count} ${languageChoice.name}`
+		: `• ${feature.data.count} ${SheetFormatter.pluralize(feature.name, count)}`;
 	return (
 		<>
 			<div className='feature-line'>
-				{`• ${feature.data.count} ${SheetFormatter.pluralize(feature.name, count)}`}
+				{choiceLine}
 			</div>
 			{selectedOptions}
 		</>
@@ -97,7 +129,7 @@ const isAllPerkLists = (lists: PerkList[]): boolean => {
 	return Object.values(PerkList).every(l => lists.includes(l));
 };
 
-const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) => {
+const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, ui: ReturnType<typeof useUI>, descriptionKey?: string) => {
 	let listNames;
 	let choiceType;
 	switch (feature.type) {
@@ -109,12 +141,15 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 			break;
 		case FeatureType.Perk:
 			if (!isAllPerkLists(feature.data.lists)) {
-				listNames = feature.data.lists.map(l => l.toString());
+				listNames = feature.data.lists.map(l => perkListText(l, ui));
 			}
 			choiceType = 'Perk';
 			break;
 	}
 	const lists = SheetFormatter.joinCommasOr(listNames);
+	const skillLine = feature.type === FeatureType.SkillChoice && feature.id.startsWith('perk-')
+		? perkSkillCountLine(feature.data.count, feature.data.listOptions.map(list => list.toString()), ui.language)
+		: undefined;
 	let selectedOptions;
 	if (feature.type === FeatureType.Perk && feature.data.selected.length) {
 		selectedOptions = feature.data.selected.map(perk => (
@@ -126,13 +161,19 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	return (
 		<>
+			{feature.id.startsWith('perk-') ? <div className='feature-title'><OfficialPerkName feature={feature} /></div> : null}
+			{feature.type === FeatureType.SkillChoice && feature.id.startsWith('perk-') && feature.description ?
+				<Markdown text={feature.description} className='feature-description' l10nKey={descriptionKey} />
+				: null}
 			<div className='feature-line'>
-				• {feature.data.count} {lists} {SheetFormatter.pluralize(choiceType, feature.data.count)}
+				• {feature.type === FeatureType.Perk
+					? perkCountCategoryLine(feature.data.count, listNames ?? [], ui.language)
+					: skillLine ?? `${feature.data.count} ${lists} ${SheetFormatter.pluralize(choiceType, feature.data.count)}`}
 			</div>
 			{selectedOptions}
 		</>
@@ -140,11 +181,15 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk) 
 };
 
 const BonusFeatureComponent = (props: { feature: FeatureBonus, hero?: Hero, sourcebooks?: Sourcebook[] }) => {
+	const ui = useUI();
 	const value = props.hero ? ModifierLogic.calculateModifierValue(props.feature.data, props.hero) : props.feature.data.value;
-	const label = useL10nText(careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
+	const staminaKey = familiarStaminaKey(props.feature);
+	const label = useL10nText(staminaKey ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
+	const title = useL10nText(staminaKey, props.feature.name);
+	const perLevel = props.feature.id === 'familiar-1' ? familiarPerLevelLine(ui, props.feature.data) : undefined;
 	return (
 		<>
-			<div className='feature-line'><strong>• {props.feature.name}: </strong>{SheetFormatter.addSign(value)} {label}</div>
+			<div className='feature-line'><strong>• {title}: </strong>{perLevel ?? `${SheetFormatter.addSign(value)} ${label}`}</div>
 		</>
 	);
 };
@@ -157,13 +202,16 @@ const CharacteristicBonusFeatureComponent = (feature: FeatureCharacteristicBonus
 	);
 };
 
-const TextFeatureComponent = (feature: FeatureText | FeatureMultiple) => {
+const TextFeatureComponent = (feature: FeatureText | FeatureMultiple, descriptionKey?: string) => {
+	const familiar = feature.id === 'familiar-2';
+	const name = useL10nText(familiar ? 'element:familiar-2:name' : undefined, feature.name);
 	return (
 		<>
-			<div className='feature-title'>{feature.name}</div>
+			<div className='feature-title'>{familiar ? name : <OfficialPerkName feature={feature} />}</div>
 			<Markdown
 				text={feature.description}
 				className='feature-description'
+				l10nKey={familiar ? 'element:familiar-2:description' : descriptionKey}
 			/>
 		</>
 	);
@@ -196,7 +244,7 @@ const PackageFeatureComponent = (feature: FeaturePackage, hero: Hero | undefined
 	);
 };
 
-const AbilityFeatureComponent = (feature: FeatureAbility) => {
+const AbilityFeatureComponent = (feature: FeatureAbility, ui: ReturnType<typeof useUI>, description: string) => {
 	const abilityIcon = SheetFormatter.getAbilityIcon(feature.data.ability);
 
 	const getAbilityType = (ability: Ability) => {
@@ -221,10 +269,10 @@ const AbilityFeatureComponent = (feature: FeatureAbility) => {
 		<>
 			<div className='feature-title'>
 				<img src={abilityIcon} alt='Ability' />
-				<span className='ability-name'>{feature.name}</span>
-				<span className={typeClasses.join(' ')}>{type}</span>
+				<span className='ability-name'><OfficialPerkName feature={feature} /></span>
+				<span className={typeClasses.join(' ')}>{perkGrantLabel(feature.data.ability.id, type, ui)}</span>
 			</div>
-			<div className='feature-description'><em>{feature.description.replace(/^\s+/, '')}</em></div>
+			<div className='feature-description'><em>{description.replace(/^\s+/, '')}</em></div>
 		</>
 	);
 };
@@ -246,7 +294,7 @@ const ClassAbilityFeatureComponent = (feature: FeatureClassAbility) => {
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	return (
@@ -327,7 +375,7 @@ const DomainFeatureComponent = (feature: FeatureDomain | FeatureDomainFeature) =
 		});
 	} else {
 		selectedOptions = [
-			<div className='feature-iteration no-selection' key='unselected'>Unselected</div>
+			<div className='feature-iteration no-selection' key='unselected'><UnselectedLabel /></div>
 		];
 	}
 	return (
@@ -520,19 +568,23 @@ export const FeatureComponent = (props: Props) => {
 	const classes = [ 'feature' ].concat(props.additionalClasses || []).join(' ');
 	const feature = props.feature;
 	const hero = props.hero;
+	const ui = useUI();
+	const sourcebooks = useOptionalSourcebooks() || [];
+	const perkDescriptionKey = feature.id.startsWith('perk-') ? officialPerkDescriptionKey(feature, sourcebooks) : undefined;
+	const perkDescription = useL10nText(perkDescriptionKey, feature.description);
 	let content;
 	switch (feature.type) {
 		case FeatureType.LanguageChoice:
 		case FeatureType.Choice:
 		case FeatureType.ItemChoice:
-			content = ChoiceFeatureComponent(feature, hero);
+			content = ChoiceFeatureComponent(feature, hero, sourcebooks);
 			break;
 		case FeatureType.AncestryChoice:
 			content = AncestryChoiceFeatureComponent(feature);
 			break;
 		case FeatureType.SkillChoice:
 		case FeatureType.Perk:
-			content = SkillChoiceFeatureComponent(feature);
+			content = SkillChoiceFeatureComponent(feature, ui, perkDescriptionKey);
 			break;
 		case FeatureType.Bonus:
 			content = <BonusFeatureComponent feature={feature} hero={hero} sourcebooks={props.sourcebooks} />;
@@ -541,13 +593,13 @@ export const FeatureComponent = (props: Props) => {
 			content = CharacteristicBonusFeatureComponent(feature);
 			break;
 		case FeatureType.Text:
-			content = TextFeatureComponent(feature);
+			content = TextFeatureComponent(feature, perkDescriptionKey);
 			break;
 		case FeatureType.Package:
 			content = PackageFeatureComponent(feature, hero);
 			break;
 		case FeatureType.Ability:
-			content = AbilityFeatureComponent(feature);
+			content = AbilityFeatureComponent(feature, ui, perkDescription);
 			break;
 		case FeatureType.ClassAbility:
 			content = ClassAbilityFeatureComponent(feature);
@@ -594,12 +646,12 @@ export const FeatureComponent = (props: Props) => {
 			content = MaliceAbilityFeatureComponent(feature);
 			break;
 		case FeatureType.Multiple:
-			content = feature.description ? TextFeatureComponent(feature) : undefined;
+			content = feature.description ? TextFeatureComponent(feature, perkDescriptionKey) : undefined;
 			break;
 		case FeatureType.PackageContent: // These are brought in as part of the Package
 			break;
 		default:
-			content = BasicFeatureComponent(feature);
+			content = BasicFeatureComponent(feature, ui);
 			break;
 	}
 	return (

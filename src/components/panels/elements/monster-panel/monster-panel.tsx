@@ -1,5 +1,7 @@
 import { Alert, Divider, Drawer, Flex } from 'antd';
 import { CSSProperties, ReactNode, useState } from 'react';
+import { familiarDescription, familiarStaminaValue } from '@/l10n/perk-prose';
+import { familiarMovementDash, familiarNameKey, familiarStatKey } from '@/l10n/familiar-stat';
 import { Ability } from '@/models/ability';
 import { AbilityModal } from '@/components/modals/ability/ability-modal';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
@@ -16,6 +18,7 @@ import { Field } from '@/components/controls/field/field';
 import { Format } from '@/utils/format';
 import { FormatLogic } from '@/logic/format-logic';
 import { HeaderText } from '@/components/controls/header-text/header-text';
+import { Hero } from '@/models/hero';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { MonsterGroup } from '@/models/monster-group';
@@ -32,11 +35,15 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { StatsRow } from '@/components/panels/stats-row/stats-row';
 import { SummoningInfo } from '@/models/summon';
+import { familiarBlockLabel } from '@/l10n/ability-text';
+import { useL10nText } from '@/l10n/hooks';
+import { useUI } from '@/l10n/ui-text';
 
 import './monster-panel.scss';
 
 interface Props {
 	monster: Monster;
+	hero?: Hero;
 	monsterGroup?: MonsterGroup;
 	summon?: SummoningInfo;
 	sourcebooks: Sourcebook[];
@@ -47,6 +54,7 @@ interface Props {
 }
 
 export const MonsterPanel = (props: Props) => {
+	const ui = useUI();
 	const [ selectedAbility, setSelectedAbility ] = useState<Ability | null>(null);
 	const [ selectedCharacteristic, setSelectedCharacteristic ] = useState<Characteristic | null>(null);
 
@@ -98,6 +106,19 @@ export const MonsterPanel = (props: Props) => {
 		}
 	}
 
+	const shownName = MonsterLogic.getMonsterName(props.monster, props.monsterGroup);
+	const nameKey = shownName === props.monster.name ? familiarNameKey(props.monster) : undefined;
+	const movementDash = familiarMovementDash(props.monster);
+	const prose = familiarDescription(props.monster.id, props.monster.description);
+	const staminaValue = familiarStaminaValue(props.monster, props.hero) ?? MonsterLogic.getStaminaDescription(props.monster);
+	const showBlankResist = props.monster.id === 'familiar' && ui.language === 'zh-TW';
+	const telepathic = props.monster.id === 'familiar' ? props.monster.features.find(feature => feature.id === 'familiar-2') : undefined;
+	const telepathicName = useL10nText(telepathic?.name === 'Telepathic' ? 'element:familiar-2:name' : undefined, telepathic?.name ?? '');
+	const labelFor = (english: string) => familiarBlockLabel(ui, props.monster.id, english);
+	const StatLabel = (labelProps: { english: string }) => {
+		return useL10nText(familiarStatKey(props.monster.id, labelProps.english), labelProps.english);
+	};
+
 	const higherLevels: { level: number, feature: Feature }[] = [];
 	if (props.monster.retainer) {
 		if (props.monster.retainer.level4 && (props.monster.retainer.level < 4)) {
@@ -130,20 +151,21 @@ export const MonsterPanel = (props: Props) => {
 					ribbon={<MonsterToken monster={props.monster} monsterGroup={props.monsterGroup} size={28} />}
 					tags={tags}
 					extra={props.extra}
+					l10nKey={nameKey}
 				>
-					{MonsterLogic.getMonsterName(props.monster, props.monsterGroup)}
+					{shownName}
 				</HeaderText>
 				<MonsterLabel monster={props.monster} extra={rightOfTags} />
-				<Markdown text={props.monster.description} />
+				<Markdown text={prose ?? props.monster.description} />
 				{
 					props.mode === PanelMode.Full ?
 						<>
 							<StatsRow>
-								<Field orientation='vertical' compact={true} label='Size' value={FormatLogic.getSize(props.monster.size)} />
-								<Field orientation='vertical' compact={true} label='Speed' value={speedStr} />
-								<Field orientation='vertical' compact={true} label='Stamina' value={MonsterLogic.getStaminaDescription(props.monster)} />
-								<Field orientation='vertical' compact={true} label='Stability' value={MonsterLogic.getStability(props.monster)} />
-								<Field orientation='vertical' compact={true} label='Free Strike' value={MonsterLogic.getFreeStrikeDamage(props.monster)} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Size' />} value={FormatLogic.getSize(props.monster.size)} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Speed' />} value={speedStr} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Stamina' />} value={staminaValue} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Stability' />} value={MonsterLogic.getStability(props.monster)} />
+								<Field orientation='vertical' compact={true} label={<StatLabel english='Free Strike' />} value={MonsterLogic.getFreeStrikeDamage(props.monster)} />
 							</StatsRow>
 							{
 								![ 'healthy', 'injured' ].includes(MonsterLogic.getCombatState(props.monster)) ?
@@ -170,24 +192,29 @@ export const MonsterPanel = (props: Props) => {
 										{
 											speed.modes.length > 0 ?
 												<Field
-													label='Movement'
+													label={labelFor('Movement')}
 													value={Format.capitalize(FormatLogic.getSpeedModes(speed.modes))}
 												/>
-												: null
+												: movementDash ?
+													<Field
+														label={labelFor('Movement')}
+														value={movementDash}
+													/>
+													: null
 										}
 										{
-											immunities.length > 0 ?
+											immunities.length > 0 || showBlankResist ?
 												<Field
-													label='Immunities'
-													value={immunities.map(mod => `${mod.damageType} ${mod.value}`).join(', ')}
+													label={labelFor('Immunities')}
+													value={immunities.length > 0 ? immunities.map(mod => `${mod.damageType} ${mod.value}`).join(', ') : '\u2014'}
 												/>
 												: null
 										}
 										{
-											weaknesses.length > 0 ?
+											weaknesses.length > 0 || showBlankResist ?
 												<Field
-													label='Weaknesses'
-													value={weaknesses.map(mod => `${mod.damageType} ${mod.value}`).join(', ')}
+													label={labelFor('Weaknesses')}
+													value={weaknesses.length > 0 ? weaknesses.map(mod => `${mod.damageType} ${mod.value}`).join(', ') : '\u2014'}
 												/>
 												: null
 										}
@@ -240,8 +267,8 @@ export const MonsterPanel = (props: Props) => {
 											features.map(f => (
 												<Field
 													key={f.id}
-													label={f.name}
-													value={<Markdown text={f.description} useSpan={true} />}
+													label={f.id === 'familiar-2' ? telepathicName : f.name}
+													value={<Markdown text={f.description} useSpan={true} l10nKey={f.id === 'familiar-2' && telepathic ? 'element:familiar-2:description' : undefined} />}
 												/>
 											))
 										}

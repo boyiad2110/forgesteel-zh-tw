@@ -4566,6 +4566,202 @@
         "enHash": "403a6bbd3ffe26c5594eb06b2b6f2305d98a272a365f9801484f993b9ec92a90",
         "zhHash": "827a9efd4895644413e59f1ef2b24d1fc794128cf675f9b893134379fc6c9556"
       }
+    },
+    "heroes.perks.arcane-trick.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.arcane-trick.effect",
+          "enHash": "7239b74e3b7b04256c725f5c9e2e364ed912dd030f763515df40cab6ab332422",
+          "zhHash": "15da040002ecd0df7b2b7e506ce68e3e57b463a73afb334e0fb5915bcb83500c"
+        }
+      ],
+      "sourcesHash": "a0c60cf7cd36c3e116d5ed1ac98c59e9f610f0b715f4a89ac9dae179c84705b6",
+      "fs": {
+        "enHash": "e415441619629d3fc7255131a27aafc54dfa44e214b6bd9d5637ff18bb1deef6",
+        "zhHash": "f5eec47d25a9f11bb78989983200a1922090de639a787da1d78b467be623768d"
+      }
+    },
+    "heroes.perks.creature-sense.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.creature-sense.effect",
+          "enHash": "09e5c0547819368f2d7aa92fd3c62042bba4fc3942f733cb1bd243eb7f9c941d",
+          "zhHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1"
+        }
+      ],
+      "sourcesHash": "4f07edc076668b025d10baf0f09ad66d063cc87281d9bc98f81248c6f126ac2d",
+      "fs": {
+        "enHash": "627220ec901c727d9b4bbe6f3516680b73a44781c2d83fe5932bca2fe5302b1f",
+        "zhHash": "308a5f9a418183272eab66efc38620df70acbbae78278a77f6c651ad6c42dcce"
+      }
+    },
+    "heroes.perks.familiar.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.familiar.effect",
+          "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+          "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+        }
+      ],
+      "sourcesHash": "3e347a1baf66a52157e6fa9163a608b599f36b5213808902ef16aac13ce410d6",
+      "fs": {
+        "enHash": "750d0d4ff8b07ccda835e0429cb448723a2568fd070c87686ce2c2fa886aa688",
+        "zhHash": "94b2494c29c83116d0b6fea14f800767ca8602e1143ca14c4830e94717ecc2ad"
+      }
+    },
+    "heroes.perks.friend-catapult.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.friend-catapult.effect",
+          "enHash": "e70b4175bc0242917dd2dfe89d09091cd2f341f7442fa7b1a7da8207ffbf5841",
+          "zhHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2"
+        }
+      ],
+      "sourcesHash": "b31a6197770e0db72bbdfe944bbb5699c9312894e1acd9513f260e94f1792a16",
+      "fs": {
+        "enHash": "c805074e205a05cffcfdd92ec7ab8e130036ce2acc838189f19fc2157f775ed7",
+        "zhHash": "43dcd6186e4fd7ad24ea3c945072d01eb9be60b1709a46bf7507729522170e6d"
+      }
+    },
+    "heroes.perks.gum-up-the-works.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.gum-up-the-works.effect",
+          "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+          "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+        }
+      ],
+      "sourcesHash": "804e5ab26044f1d6bae44cde6b9161fa0845863e18076fe62dd80269034f7c14",
+      "fs": {
+        "enHash": "81d4b952d84a7c5f6a5f4028286d0681caa96adb8f756e53548ca7fe1571353d",
+        "zhHash": "89d1642e6f16826d3d0e3ee230ef01563d7a217fb26125c0cf8dd663a8bc6634"
+      }
+    },
+    "heroes.perks.invisible-force.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.invisible-force.effect",
+          "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+          "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+        }
+      ],
+      "sourcesHash": "068c5886c44d3cc912c05a4bbfe19c9074c4fa73885e622b1581fb75575b69b5",
+      "fs": {
+        "enHash": "1a1f4e8b768b94d0a3fe5655e422b75ca75c378d2fbecdc680477db1512975c5",
+        "zhHash": "8990d4b9eb2cd4cb506696f46ea8cabbee5e00efee6cab7f15256968462cd81b"
+      }
+    },
+    "heroes.perks.ive-got-you.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.ive-got-you.effect",
+          "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+          "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+        }
+      ],
+      "sourcesHash": "1d005aa4d15318b066f1d7eab0dbe484cfd690adc5d9cc01100b45efa84642b0",
+      "fs": {
+        "enHash": "fd4f90d06e618753af0d08fe400fb3a772d1b2ea9ad40c447666a1f66251e499",
+        "zhHash": "f3b3c7ca205435a87e916ab645384b6a0f505edef40394b12bd342b4f96bea48"
+      }
+    },
+    "heroes.perks.linguist.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.linguist.effect",
+          "enHash": "03f29eb20d6a8fcd95a97a9094f266e29979c757cf227bea92d647b691ca0d89",
+          "zhHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f"
+        }
+      ],
+      "sourcesHash": "275be3acca5994f4f910986de42c93e1bf728b287b5264bbb0137bd5363d628a",
+      "fs": {
+        "enHash": "68c4ee3bfd13b01562f11c4ff5555cd0c29da408f457155a86978b6e4e31d785",
+        "zhHash": "294f79aaa4a7278dc7d5d88766acab3d39f35af594cef6e08e3f31548d2ca2f0"
+      }
+    },
+    "heroes.perks.psychic-whisper.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.psychic-whisper.effect",
+          "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+          "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
+        }
+      ],
+      "sourcesHash": "456dc4a64e3474a09a54c6bd920da8ade9e4a8eb92139595ab5dfe232b972728",
+      "fs": {
+        "enHash": "3ef13d8a9fb00378134cbb8a998de87160997c6e77d2dfa2fc01d1bac60b1f67",
+        "zhHash": "d0679ff6838d6ca688c74e7cdccf017c808edcc130599efc93358eddc2f9d728"
+      }
+    },
+    "heroes.perks.teamwork.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.teamwork.effect",
+          "enHash": "d1398bd8e44a3882dd47128b34819d7f4056f226f0575f53d6cce1c79cf5c1f6",
+          "zhHash": "7712c24f917dd6d7a1cf2b1c2c55a610b02665cb542ed8ea520d61d3b3cf8532"
+        }
+      ],
+      "sourcesHash": "12ea486de8e18942e3ae2637f8edaceae7dc7faf1a8d2d0ceaaa64a5d2c4b15c",
+      "fs": {
+        "enHash": "00826934882a8effaa89f4d074f3b2c0ef406376ae6e90805031296bbe9fe899",
+        "zhHash": "bbe0f2816f97a82fba6131f4c4181e19381ad0378319b51d44c22ce7910ff663"
+      }
+    },
+    "name.perk.gum-up-the-works": {
+      "sources": [
+        {
+          "sheetId": "name.perk.gum-up-the-works",
+          "enHash": "406c0c088e274240eceb94b446ee8bf4e55e057c4d4970174dde5e6275eecc90",
+          "zhHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9"
+        }
+      ],
+      "sourcesHash": "11fb84f75c956f021afab5b54208fdb6775d01a69f34fc9d37bc12855b126227",
+      "fs": {
+        "enHash": "e85a3735d47d37a0d9c51d4622cf518353eb2fad950fc78595f28cef32ef4337",
+        "zhHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9"
+      }
+    },
+    "name.perk.spot-the-tell": {
+      "sources": [
+        {
+          "sheetId": "name.perk.spot-the-tell",
+          "enHash": "684dae46f702e0fa5439d44337485c52478fea1ef14353389f30ecd965e5a56a",
+          "zhHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5"
+        }
+      ],
+      "sourcesHash": "9d4d30c67109212f76883ccb76b604528ff2cdd650de08f2e4079b35f8055014",
+      "fs": {
+        "enHash": "b3f1dbdb4edd2d0289f00cbbfa2be83af6fb5ef245ee11a0944c044b216fb733",
+        "zhHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5"
+      }
+    },
+    "name.perk.traveling-artisan": {
+      "sources": [
+        {
+          "sheetId": "name.perk.traveling-artisan",
+          "enHash": "e13e96a12c56ce52594b43f46a481e1941b5c367550a682c6d46870c5e84961b",
+          "zhHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa"
+        }
+      ],
+      "sourcesHash": "7932446c1d6ee6cd74e82cf95ad0090e4bd0d55980bf2c54671a045e76788d82",
+      "fs": {
+        "enHash": "fd2c7250bfbb6ac539bf3574b054283353ea92ba8582567bfbe64e09857e33c0",
+        "zhHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa"
+      }
+    },
+    "name.perk.traveling-sage": {
+      "sources": [
+        {
+          "sheetId": "name.perk.traveling-sage",
+          "enHash": "30be17fe7cc21d352f63d7a1b021376c482d613fbbb9d6fa612184034c1dde18",
+          "zhHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e"
+        }
+      ],
+      "sourcesHash": "0c338f522046675de9d87c31a8c683e4a4163dfb2b08501f3e2ce01592750c3e",
+      "fs": {
+        "enHash": "891cbeeb5619897edf0cd06e88b2abf36727dedf6b0a2b884a190cc46f324d4a",
+        "zhHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e"
+      }
     }
   }
 }

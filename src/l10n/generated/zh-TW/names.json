@@ -209,6 +209,216 @@
     "updated": "2026-10-02",
     "zh": "札力語"
   },
+  "name.kit-ability.battle-grace": {
+    "en": "Battle Grace",
+    "updated": "2026-10-14",
+    "zh": "戰鬥之舞"
+  },
+  "name.kit-ability.devastating-rush": {
+    "en": "Devastating Rush",
+    "updated": "2026-10-14",
+    "zh": "毀滅衝刺"
+  },
+  "name.kit-ability.double-strike": {
+    "en": "Double Strike",
+    "updated": "2026-10-14",
+    "zh": "雙重打擊"
+  },
+  "name.kit-ability.exploding-arrow": {
+    "en": "Exploding Arrow",
+    "updated": "2026-10-14",
+    "zh": "爆裂箭矢"
+  },
+  "name.kit-ability.extension-of-my-arm": {
+    "en": "Extension of My Arm",
+    "updated": "2026-10-14",
+    "zh": "鞭影出臂"
+  },
+  "name.kit-ability.fade": {
+    "en": "Fade",
+    "updated": "2026-10-14",
+    "zh": "回身掠影"
+  },
+  "name.kit-ability.fancy-footwork": {
+    "en": "Fancy Footwork",
+    "updated": "2026-10-14",
+    "zh": "華麗步法"
+  },
+  "name.kit-ability.forward-thrust-backward-smash": {
+    "en": "Forward Thrust, Backward Smash",
+    "updated": "2026-10-14",
+    "zh": "前刺後劈"
+  },
+  "name.kit-ability.hamstring-shot": {
+    "en": "Hamstring Shot",
+    "updated": "2026-10-14",
+    "zh": "斷筋射擊"
+  },
+  "name.kit-ability.leaping-lightning": {
+    "en": "Leaping Lightning",
+    "updated": "2026-10-14",
+    "zh": "電光閃擊"
+  },
+  "name.kit-ability.lets-dance": {
+    "en": "Let’s Dance",
+    "updated": "2026-10-14",
+    "zh": "共舞吧"
+  },
+  "name.kit-ability.net-and-stab": {
+    "en": "Net and Stab",
+    "updated": "2026-10-14",
+    "zh": "捕縛刺擊"
+  },
+  "name.kit-ability.pain-for-pain": {
+    "en": "Pain for Pain",
+    "updated": "2026-10-14",
+    "zh": "以牙還牙"
+  },
+  "name.kit-ability.patient-shot": {
+    "en": "Patient Shot",
+    "updated": "2026-10-14",
+    "zh": "沉穩射擊"
+  },
+  "name.kit-ability.protective-attack": {
+    "en": "Protective Attack",
+    "updated": "2026-10-14",
+    "zh": "以攻為守"
+  },
+  "name.kit-ability.raiders-awe": {
+    "en": "Raider's Awe",
+    "updated": "2026-10-14",
+    "zh": "突擊威勢"
+  },
+  "name.kit-ability.shield-bash": {
+    "en": "Shield Bash",
+    "updated": "2026-10-14",
+    "zh": "盾擊"
+  },
+  "name.kit-ability.two-shot": {
+    "en": "Two Shot",
+    "updated": "2026-10-14",
+    "zh": "雙重射擊"
+  },
+  "name.kit-ability.unmooring": {
+    "en": "Unmooring",
+    "updated": "2026-10-14",
+    "zh": "脫韁解錨"
+  },
+  "name.kit-ability.weakening-brand": {
+    "en": "Weakening Brand",
+    "updated": "2026-10-14",
+    "zh": "弱化烙印"
+  },
+  "name.kit-ability.where-i-want-you": {
+    "en": "Where I Want You",
+    "updated": "2026-10-14",
+    "zh": "隨心所置"
+  },
+  "name.kit.arcane-archer": {
+    "en": "Arcane Archer",
+    "updated": "2026-10-14",
+    "zh": "魔弓"
+  },
+  "name.kit.battlemind": {
+    "en": "Battlemind",
+    "updated": "2026-10-14",
+    "zh": "戰念"
+  },
+  "name.kit.cloak-and-dagger": {
+    "en": "Cloak and Dagger",
+    "updated": "2026-10-14",
+    "zh": "潛襲"
+  },
+  "name.kit.dual-wielder": {
+    "en": "Dual Wielder",
+    "updated": "2026-10-14",
+    "zh": "雙持"
+  },
+  "name.kit.guisarmier": {
+    "en": "Guisarmier",
+    "updated": "2026-10-14",
+    "zh": "長兵"
+  },
+  "name.kit.martial-artist": {
+    "en": "Martial Artist",
+    "updated": "2026-10-14",
+    "zh": "武術"
+  },
+  "name.kit.mountain": {
+    "en": "Mountain",
+    "updated": "2026-10-14",
+    "zh": "山嶽"
+  },
+  "name.kit.panther": {
+    "en": "Panther",
+    "updated": "2026-10-14",
+    "zh": "獵豹"
+  },
+  "name.kit.pugilist": {
+    "en": "Pugilist",
+    "updated": "2026-10-14",
+    "zh": "拳鬥"
+  },
+  "name.kit.raider": {
+    "en": "Raider",
+    "updated": "2026-10-14",
+    "zh": "突擊"
+  },
+  "name.kit.ranger": {
+    "en": "Ranger",
+    "updated": "2026-10-14",
+    "zh": "遊俠"
+  },
+  "name.kit.rapid-fire": {
+    "en": "Rapid-Fire",
+    "updated": "2026-10-14",
+    "zh": "箭雨"
+  },
+  "name.kit.retiarius": {
+    "en": "Retiarius",
+    "updated": "2026-10-14",
+    "zh": "網鬥"
+  },
+  "name.kit.shining-armor": {
+    "en": "Shining Armor",
+    "updated": "2026-10-14",
+    "zh": "鐵騎"
+  },
+  "name.kit.sniper": {
+    "en": "Sniper",
+    "updated": "2026-10-14",
+    "zh": "狙擊"
+  },
+  "name.kit.spellsword": {
+    "en": "Spellsword",
+    "updated": "2026-10-14",
+    "zh": "魔刃"
+  },
+  "name.kit.stick-and-robe": {
+    "en": "Stick and Robe",
+    "updated": "2026-10-14",
+    "zh": "杖袍"
+  },
+  "name.kit.swashbuckler": {
+    "en": "Swashbuckler",
+    "updated": "2026-10-14",
+    "zh": "劍客"
+  },
+  "name.kit.sword-and-board": {
+    "en": "Sword and Board",
+    "updated": "2026-10-14",
+    "zh": "劍盾"
+  },
+  "name.kit.warrior-priest": {
+    "en": "Warrior Priest",
+    "updated": "2026-10-14",
+    "zh": "武祭"
+  },
+  "name.kit.whirlwind": {
+    "en": "Whirlwind",
+    "updated": "2026-10-14",
+    "zh": "旋風"
+  },
   "name.perk.arcane-trick": {
     "en": "Arcane Trick",
     "updated": "2026-10-11",
@@ -224,25 +434,65 @@
     "updated": "2026-10-11",
     "zh": "肌肉發達"
   },
+  "name.perk.but-i-know-who-does": {
+    "en": "But I Know Who Does",
+    "updated": "2026-10-14",
+    "zh": "我知道誰知道"
+  },
   "name.perk.camouflage-hunter": {
     "en": "Camouflage Hunter",
     "updated": "2026-10-11",
     "zh": "迷彩獵人"
+  },
+  "name.perk.charming-liar": {
+    "en": "Charming Liar",
+    "updated": "2026-10-14",
+    "zh": "迷人騙子"
+  },
+  "name.perk.creature-sense": {
+    "en": "Creature Sense",
+    "updated": "2026-10-14",
+    "zh": "生物感應"
   },
   "name.perk.criminal-contacts": {
     "en": "Criminal Contacts",
     "updated": "2026-10-11",
     "zh": "江湖人脈"
   },
+  "name.perk.danger-sense": {
+    "en": "Danger Sense",
+    "updated": "2026-10-14",
+    "zh": "危險感知"
+  },
+  "name.perk.dazzler": {
+    "en": "Dazzler",
+    "updated": "2026-10-14",
+    "zh": "閃耀表演"
+  },
+  "name.perk.eidetic-memory": {
+    "en": "Eidetic Memory",
+    "updated": "2026-10-14",
+    "zh": "過目不忘"
+  },
   "name.perk.engrossing-monologue": {
     "en": "Engrossing Monologue",
     "updated": "2026-10-11",
     "zh": "聚焦獨白"
   },
+  "name.perk.expert-artisan": {
+    "en": "Expert Artisan",
+    "updated": "2026-10-14",
+    "zh": "工藝專家"
+  },
   "name.perk.expert-sage": {
     "en": "Expert Sage",
     "updated": "2026-10-11",
     "zh": "學術專家"
+  },
+  "name.perk.familiar": {
+    "en": "Familiar",
+    "updated": "2026-10-14",
+    "zh": "魔寵"
   },
   "name.perk.forgettable-face": {
     "en": "Forgettable Face",
@@ -254,20 +504,100 @@
     "updated": "2026-10-11",
     "zh": "投擲盟友"
   },
+  "name.perk.gum-up-the-works": {
+    "en": "Gum Up the Works",
+    "fs": {
+      "basisHash": "2ca9407201f0d8064f20b0d51a36917e5ef25e75426bf2dd527693ea8a2163d9",
+      "en": "Gum Up The Works",
+      "zh": "妨礙運作"
+    },
+    "updated": "2026-10-14",
+    "zh": "妨礙運作"
+  },
+  "name.perk.handy": {
+    "en": "Handy",
+    "updated": "2026-10-14",
+    "zh": "心靈手巧"
+  },
   "name.perk.harmonizer": {
     "en": "Harmonizer",
     "updated": "2026-10-11",
     "zh": "和諧之音"
+  },
+  "name.perk.improvisation-creation": {
+    "en": "Improvisation Creation",
+    "updated": "2026-10-14",
+    "zh": "即興創造"
+  },
+  "name.perk.inspired-artisan": {
+    "en": "Inspired Artisan",
+    "updated": "2026-10-14",
+    "zh": "創意工匠"
+  },
+  "name.perk.invisible-force": {
+    "en": "Invisible Force",
+    "updated": "2026-10-14",
+    "zh": "無形念力"
+  },
+  "name.perk.ive-got-you": {
+    "en": "I’ve Got You!",
+    "updated": "2026-10-14",
+    "zh": "我接住你了！"
   },
   "name.perk.ive-read-about-this-place": {
     "en": "I’ve Read About This Place",
     "updated": "2026-10-11",
     "zh": "我知道這地方"
   },
+  "name.perk.lie-detector": {
+    "en": "Lie Detector",
+    "updated": "2026-10-14",
+    "zh": "測謊專家"
+  },
+  "name.perk.linguist": {
+    "en": "Linguist",
+    "updated": "2026-10-14",
+    "zh": "語言學家"
+  },
+  "name.perk.lucky-dog": {
+    "en": "Lucky Dog",
+    "updated": "2026-10-14",
+    "zh": "幸運兒"
+  },
+  "name.perk.master-of-disguise": {
+    "en": "Master of Disguise",
+    "updated": "2026-10-14",
+    "zh": "易容大師"
+  },
   "name.perk.monster-whisperer": {
     "en": "Monster Whisperer",
     "updated": "2026-10-11",
     "zh": "怪物溝通師"
+  },
+  "name.perk.open-book": {
+    "en": "Open Book",
+    "updated": "2026-10-14",
+    "zh": "坦誠相待"
+  },
+  "name.perk.pardon-my-friend": {
+    "en": "Pardon My Friend",
+    "updated": "2026-10-14",
+    "zh": "代友發言"
+  },
+  "name.perk.polymath": {
+    "en": "Polymath",
+    "updated": "2026-10-14",
+    "zh": "博學多聞"
+  },
+  "name.perk.power-player": {
+    "en": "Power Player",
+    "updated": "2026-10-14",
+    "zh": "強勢態度"
+  },
+  "name.perk.psychic-whisper": {
+    "en": "Psychic Whisper",
+    "updated": "2026-10-14",
+    "zh": "心靈低語"
   },
   "name.perk.put-your-back-into-it": {
     "en": "Put Your Back Into It!",
@@ -279,8 +609,28 @@
     "updated": "2026-10-11",
     "zh": "儀式師"
   },
+  "name.perk.slipped-lead": {
+    "en": "Slipped Lead",
+    "updated": "2026-10-14",
+    "zh": "脫逃大師"
+  },
+  "name.perk.so-tell-me": {
+    "en": "So Tell Me …",
+    "updated": "2026-10-14",
+    "zh": "誠實告訴我……"
+  },
+  "name.perk.specialist": {
+    "en": "Specialist",
+    "updated": "2026-10-14",
+    "zh": "專業知識"
+  },
   "name.perk.spot-the-tell": {
     "en": "Spot the Tell",
+    "fs": {
+      "basisHash": "d90823e197a7a835e30cd819742f45f4127488954246272cb21944dafc2441a5",
+      "en": "Spot The Tell",
+      "zh": "發現破綻"
+    },
     "updated": "2026-10-11",
     "zh": "發現破綻"
   },
@@ -293,6 +643,31 @@
     "en": "Teamwork",
     "updated": "2026-10-11",
     "zh": "團隊合作"
+  },
+  "name.perk.thingspeaker": {
+    "en": "Thingspeaker",
+    "updated": "2026-10-14",
+    "zh": "憶物通靈"
+  },
+  "name.perk.traveling-artisan": {
+    "en": "Traveling Artisan",
+    "fs": {
+      "basisHash": "899ee1370ceb87ee985fdc701a52cd85528f9e4de66d8cb7517117e0382651fa",
+      "en": "Travelling Artisan",
+      "zh": "旅行工匠"
+    },
+    "updated": "2026-10-14",
+    "zh": "旅行工匠"
+  },
+  "name.perk.traveling-sage": {
+    "en": "Traveling Sage",
+    "fs": {
+      "basisHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e",
+      "en": "Travelling Sage",
+      "zh": "旅行學者"
+    },
+    "updated": "2026-10-14",
+    "zh": "旅行學者"
   },
   "name.perk.wood-wise": {
     "en": "Wood Wise",
