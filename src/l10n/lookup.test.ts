@@ -1,5 +1,5 @@
 import { AbilityName, abilityDescriptionKey, abilityNameKey, abilitySectionKey, useAbilityName } from '@/l10n/ability-text';
-import { Catalog, loadCatalog, peekCatalog } from '@/l10n/catalog';
+import { Catalog, loadCatalog, peekCatalog, peekUsageAdaptation } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { Feature, FeaturePerk } from '@/models/feature';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
@@ -1400,7 +1400,8 @@ describe('perk name segment', () => {
 		const catapultHtml = panel(catapult);
 		expect(catapultHtml).toContain('投擲盟友');
 		expect(catapultHtml).toContain('探索類');
-		expect(catapultHtml).toContain('You hurl your ally through the air.');
+		expect(catapultHtml).toContain('你將盟友擲向空中。');
+		expect(catapultHtml).not.toContain('You hurl your ally through the air.');
 		expect(catapultHtml).not.toContain('>Friend Catapult<');
 
 		for (const [ id, chinese, english ] of [
@@ -1425,7 +1426,8 @@ describe('perk name segment', () => {
 		expect(sheet(handy)).toContain('獲得 +1 加值');
 		expect(sheet(handy)).not.toContain('Whenever you make a test to craft something');
 		expect(sheet(catapult)).toContain('投擲盟友');
-		expect(sheet(catapult)).toContain('You hurl your ally through the air.');
+		expect(sheet(catapult)).toContain('你將盟友擲向空中。');
+		expect(sheet(catapult)).not.toContain('You hurl your ally through the air.');
 		for (const [ id, phrase ] of [
 			[ 'perk-improvisation-creation', '簡易木鏟' ],
 			[ 'perk-ive-read-about-this-place', '最有影響力的公眾人物' ],
@@ -1733,12 +1735,6 @@ describe('perk name segment', () => {
 
 	test('every connected perk effect stays Chinese on the drawer, selected row, and classic sheet', () => {
 		const deferred = new Set([
-			'perk-friend-catapult',
-			'perk-ive-got-you',
-			'perk-gum-up-the-works',
-			'perk-creature-sense',
-			'perk-invisible-force',
-			'perk-psychic-whisper',
 			'perk-arcane-trick',
 			'perk-familiar'
 		]);
@@ -1785,7 +1781,9 @@ describe('perk name segment', () => {
 				continue;
 			}
 			const row = peekCatalog()![entry.sheetId];
-			const zh = row.fs?.zh ?? row.zh ?? '';
+			const usage = peekUsageAdaptation(key);
+			const alternate = usage && row?.fs && (usage.en !== row.fs.en || usage.zh !== row.fs.zh) ? usage.zh : undefined;
+			const zh = alternate ?? row.fs?.zh ?? row.zh ?? '';
 			const marker = zh.replace(/等級/g, '').match(/\p{Script=Han}{4}/u)?.[0];
 			expect(marker, perk.id).toBeTruthy();
 			for (const html of [ panel(perk), sheet(perk), selected(perk) ]) {
@@ -1865,12 +1863,44 @@ describe('perk name segment', () => {
 		expect(forcePanel).not.toContain('>Maneuver<');
 		expect(forceCard).toContain('機動動作');
 		expect(forceCard).toContain('遠程 10');
-		expect(forceCard).toContain('Psionic');
-		expect(forcePanel).toContain('You manipulate a tiny object with your mind.');
+		expect(forceCard).toContain('靈能');
+		expect(forceCard).toContain('1 個體型 1T、無人持有的物體');
+		expect(forceCard).toContain('效果');
+		expect(forceCard).not.toContain('Psionic');
+		expect(forcePanel).toContain('你可以透過意念操控微小的物體。');
+		expect(forcePanel).toContain('射程');
+		expect(forcePanel).toContain('目標');
+		expect(forcePanel).not.toContain('You manipulate a tiny object with your mind.');
+		expect(forcePanel).not.toContain('>Psionic<');
 		const catapult = core.perks.find(item => item.id === 'perk-friend-catapult')!;
-		const catapultSheet = renderToStaticMarkup(createElement(FeatureComponent, { feature: catapult }));
+		const catapultSheet = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, { feature: catapult })));
 		expect(catapultSheet).toContain('機動動作');
-		expect(catapultSheet).toContain('You hurl your ally through the air.');
+		expect(catapultSheet).toContain('你將盟友擲向空中。');
+		expect(catapultSheet).not.toContain('You hurl your ally through the air.');
+		const catapultPanel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: catapult,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(catapultPanel).toContain('你將盟友擲向空中。');
+		expect(catapultPanel).toContain('equal to 0');
+		expect(catapultPanel).not.toContain('你抓住 1 個相鄰的自願盟友');
+		const caught = core.perks.find(item => item.id === 'perk-ive-got-you')!;
+		const caughtPanel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
+			feature: caught,
+			hero,
+			sourcebooks: [ core ],
+			mode: PanelMode.Full
+		}))));
+		expect(caughtPanel).toContain('免費反應動作');
+		expect(caughtPanel).toContain('觸發');
+		expect(caughtPanel).toContain('射程 / 目標');
+		expect(caughtPanel).toContain('自身');
+		expect(caughtPanel).toContain('當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時。');
+		expect(caughtPanel).toContain('你接住你的盟友。你們都不會受到墜落造成的傷害。');
+		expect(caughtPanel).toContain('type-free');
+		expect(caughtPanel).not.toContain('>free<');
 		setLanguage('en');
 		const englishPanel = renderToStaticMarkup(withOptions(options, createElement(SourcebooksContext, { value: [ core ] }, createElement(FeaturePanel, {
 			feature: force,
@@ -1881,8 +1911,12 @@ describe('perk name segment', () => {
 		expect(englishPanel).toContain('Invisible Force');
 		expect(englishPanel).toContain('Maneuver');
 		expect(englishPanel).toContain('Ranged 10');
+		expect(englishPanel).toContain('Psionic');
+		expect(englishPanel).toContain('You manipulate a tiny object with your mind.');
 		expect(englishPanel).not.toContain('無形念力');
 		expect(englishPanel).not.toContain('機動動作');
+		expect(englishPanel).not.toContain('靈能');
+		expect(englishPanel).not.toContain('你可以透過意念操控微小的物體。');
 		setLanguage('zh-TW');
 	});
 });

@@ -208,5 +208,14 @@
   "ui.hero-builder.choose-a-perk.38f11151": "Choose a perk.",
   "ui.hero-builder.supernatural.fe29726a": "Supernatural",
   "ui.hero-builder.special.997c544f": "Special",
-  "ui.hero-builder.unselected.26118cfc": "Unselected"
+  "ui.hero-builder.unselected.26118cfc": "Unselected",
+  "ui.hero-builder.distance.b7bdf7a2": "Distance",
+  "ui.hero-builder.target.978354db": "Target",
+  "ui.hero-builder.distance-target.2c3fa3ef": "Distance / Target",
+  "ui.hero-builder.self.85bc0f95": "Self",
+  "ui.hero-builder.effect.2252d5cf": "Effect",
+  "ui.hero-builder.trigger.8b9c6437": "Trigger",
+  "ui.hero-builder.psionic.cd9fca98": "Psionic",
+  "ui.hero-builder.triggered-action.5550c36a": "Triggered Action",
+  "ui.hero-builder.free-triggered-action.acb2b603": "Free Triggered Action"
 }

@@ -6,7 +6,9 @@ interface Props {
 }
 
 export const SashPanel = (props: Props) => {
+	const shown = props.label ?? props.monogram;
+	const labeled = shown !== props.monogram && shown.length > 4;
 	return (
-		<div className={`sash-panel type-${props.monogram.toLowerCase()}`}>{props.label ?? props.monogram}</div>
+		<div className={`sash-panel type-${props.monogram.toLowerCase()}${labeled ? ' labeled' : ''}`}>{shown}</div>
 	);
 };

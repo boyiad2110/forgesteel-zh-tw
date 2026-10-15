@@ -236,7 +236,7 @@ const PackageFeatureComponent = (feature: FeaturePackage, hero: Hero | undefined
 	);
 };
 
-const AbilityFeatureComponent = (feature: FeatureAbility) => {
+const AbilityFeatureComponent = (feature: FeatureAbility, ui: ReturnType<typeof useUI>, description: string) => {
 	const abilityIcon = SheetFormatter.getAbilityIcon(feature.data.ability);
 
 	const getAbilityType = (ability: Ability) => {
@@ -262,9 +262,9 @@ const AbilityFeatureComponent = (feature: FeatureAbility) => {
 			<div className='feature-title'>
 				<img src={abilityIcon} alt='Ability' />
 				<span className='ability-name'><OfficialPerkName feature={feature} /></span>
-				<span className={typeClasses.join(' ')}>{perkGrantLabel(feature.data.ability.id, type)}</span>
+				<span className={typeClasses.join(' ')}>{perkGrantLabel(feature.data.ability.id, type, ui)}</span>
 			</div>
-			<div className='feature-description'><em>{feature.description.replace(/^\s+/, '')}</em></div>
+			<div className='feature-description'><em>{description.replace(/^\s+/, '')}</em></div>
 		</>
 	);
 };
@@ -563,6 +563,7 @@ export const FeatureComponent = (props: Props) => {
 	const ui = useUI();
 	const sourcebooks = useOptionalSourcebooks() || [];
 	const perkDescriptionKey = feature.id.startsWith('perk-') ? officialPerkDescriptionKey(feature, sourcebooks) : undefined;
+	const perkDescription = useL10nText(perkDescriptionKey, feature.description);
 	let content;
 	switch (feature.type) {
 		case FeatureType.LanguageChoice:
@@ -590,7 +591,7 @@ export const FeatureComponent = (props: Props) => {
 			content = PackageFeatureComponent(feature, hero);
 			break;
 		case FeatureType.Ability:
-			content = AbilityFeatureComponent(feature);
+			content = AbilityFeatureComponent(feature, ui, perkDescription);
 			break;
 		case FeatureType.ClassAbility:
 			content = ClassAbilityFeatureComponent(feature);

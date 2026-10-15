@@ -1,6 +1,6 @@
 # PERKS-01 專長在地化
 
-2026-10-14。本批對照 Heroes 1.01b 的 47 個專長（Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`，BOOK-02 已核准）。第 1 段已由 Marc 驗收（head `f8cf1d3`）：47 個專長名稱與 6 個類別。第 2 段接入純文字效果，仍在同一 PR #69，待 Marc 驗收後才做招式。
+2026-10-14。本批對照 Heroes 1.01b 的 47 個專長（Book Master `1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4`，BOOK-02 已核准）。第 1 段已由 Marc 驗收（head `f8cf1d3`）：47 個專長名稱與 6 個類別。第 2 段已由 Marc 驗收。第 3 段的核准招式欄位已接入，仍在同一 PR #69。
 
 ## 第 1 段範圍
 
@@ -173,25 +173,22 @@ Marc 在對話中核准這 8 個名稱使用書本 Names 的核准中文，不�
 
 - `perk-teamwork`：網站是 “during a montage test”，書本是 “during any montage test”。Marc 已於 2026-10-14 核准 Adaptation `fs-adapt:heroes.perks.teamwork.effect`。中文只刪掉書本句的「任何」，其餘逐字保留，並已接入 mapping。
 - `perk-linguist`：網站父項多了 “You have an ear for languages.”，子項再拆成 7 日句子與語言選擇。Marc 已於 2026-10-14 核准兩列 Adaptation。父項 `fs-adapt:heroes.perks.linguist.effect` 寫進書本列的 Forge Steel 版，中文只留「你自動學會 2 種新語言，前提是你曾經有機會經常聽到或讀到這些語言。」整段父項換成這句，多出來的英文句子在正體中文模式不會出現。子項 `fs-adapt:heroes.perks.linguist.effect.1` 對應 `perk-linguist-1`，刪掉「此外，」和「（詳見第 12 章〈休整專案〉）」，保留句號；同一書本列的第二次用途留在 `adaptations.json`，由 usage key 選出。這個子特性的英文名稱與專長相同，畫面重用 `name.perk.linguist` 的「語言學家」。語言選擇 `perk-linguist-2` 沒有書本句子；名稱與提示重用核准 UI「語言」和「選擇 2 種語言。」。角色卡上尚未選擇的占位使用同一筆核准 UI「尚未選擇」。
-- 招式型短描述（第 3 段）：`perk-friend-catapult`、`perk-ive-got-you`、`perk-gum-up-the-works`、`perk-creature-sense`、`perk-invisible-force`、`perk-psychic-whisper`。短描述與完整招式不同，不把書本整段套上去。
+- 招式型短描述（第 3 段，當時尚未核准）：`perk-friend-catapult`、`perk-ive-got-you`、`perk-gum-up-the-works`、`perk-creature-sense`、`perk-invisible-force`、`perk-psychic-whisper`。短描述與完整招式不同，不把書本整段套上去。Marc 其後核准 Adaptation，接入方式見第 3 段。
 - 第 4 段結構：`perk-arcane-trick`、`perk-familiar`。
 
 mapping 985。英文例外 17。帶 Forge Steel 版本的字串列是 326。語言學家父項與子項都已接入；子項不是另一筆 Forge Steel 字串列。這次刷新書本 Strings 多 24 筆，Glossary 與 Names 不變；這些新列沒有 mapping。UI 多 1 筆「尚未選擇」，已接入經典角色卡占位。快照：書本 `2026-10-14T08:59:41.775Z` 指紋 `23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`，Forge `2026-10-14T09:03:19.136Z` 指紋 `d5e2cbd87713b26eb51924af2ad9d232b3ed513711d5fc7467f758355790c4f7`。目錄 Glossary 333／Names 131／Strings 1192／UI 210。
 
 ### 第 3 段：專長授予的招式
 
-範圍是招式名稱、描述、關鍵詞、動作類型、距離、目標與效果區段：
+Marc 已核准第 3 段草稿，並把 Distance / Target 定為「射程 / 目標」（半形斜線，兩側各一個半形空格）。snapshot-capture-6：書本修改時間與指紋不變（`2026-10-14T08:59:41.775Z`，`23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`）。Forge 修改時間 `2026-10-15T02:35:59.806Z`，指紋 `c9c28cd7812f5ad03ad2fb1578b594c4a3928789576346ab44fa65db2b73e043`。目錄 Glossary 333／Names 131／Strings 1192／UI 219。書本 Strings 多出的 24 筆套裝列仍沒有 mapping。
 
-- `perk-friend-catapult-1`：機動動作，自身
-- `perk-ive-got-you-1`：免費反應
-- `perk-gum-up-the-works-1`：反應
-- `perk-creature-sense-1`：機動動作
-- `perk-invisible-force-1`：機動動作，靈能、遠程
-- `perk-psychic-whisper-1`：機動動作，靈能、遠程
+Forge Steel UI 第 212–220 列已接入：射程、目標、射程 / 目標、自身、效果、觸發、靈能、反應動作、免費反應動作。反應動作與免費反應動作使用這些 UI 列。書本沒有 `heroes.actions.triggered.rules` 與 `heroes.actions.free-triggered.rules`，畫面不引用它們。
 
-這六個招式都沒有檢定階級。專長名稱已顯示核准中文。招式標題在英文仍與專長名稱相同時，重用同一個名稱鍵。`Maneuver` 與 `Ranged` 重用詞彙「機動動作」「遠程」；「遠程 10」只換詞、保留上游數字。色帶的 CSS 類別維持 `maneuver`。
+Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。ID 是 `fs-adapt:heroes.perks.<perk>.effect`，以及 `.short`、`.trigger`、`.target`。書本沒有這三個後綴 ID，每一列的來源都是該專長的 `.effect`。作者寫的 usage key 與現有文法相同，守門已接受，沒有改 Sheet 儲存格：`element:perk-<id>:description`、`section:perk-<id>-1:0`、`element:perk-<id>-1:trigger`、`element:perk-<id>-1:target`。沒有後綴的適配寫進書本列的 Forge Steel 版，帶 Forge Steel 版本的字串列由 326 增至 332。短描述、觸發與目標由 usage key 選出。mapping 1012。英文例外仍是 17。
 
-書本沒有拆開的招式欄位，只有整段 `heroes.perks.*.effect`。網站的短描述、效果、觸發、目標與 `Self` 跟這段英文不是同一句，不能原樣對上，也不能在程式裡刪字。`Triggered Action`／`Free Triggered Action` 的詞彙列已核准，但守門要比對 `heroes.actions.triggered.rules` 與 `heroes.actions.free-triggered.rules`，快照裡的列是 `heroes.actions.triggered-actions.rules`。這些欄位維持英文，建議譯文只放在 PR，不進 repo。名稱 Adaptation 不代替招式內文。數值與占位符照網站計算結果顯示。
+六個招式都沒有檢定階級。標題在英文仍與專長相同時重用名稱鍵。`Maneuver` 與 `Ranged` 重用詞彙；「遠程 10」只換詞、保留上游數字。色帶可見文字在正體中文是「機動動作」「反應動作」「免費反應動作」；CSS 類別維持 `type-maneuver`、`type-trigger`、`type-free`。英文模式與其他招式的色帶仍是小寫單字。六個字的色帶去掉字距，不截斷。
+
+有英雄時，投擲盟友的效果會被上游把 “twice your Might score” 換成數字。這段沒有核准的計算綁定，計算後的英文整句保留。沒有改寫時才顯示核准效果。其餘五個效果、兩句觸發、兩句目標與六句短描述都已接入。奧術戲法與魔寵仍是英文，留第 4 段。
 
 ### 第 4 段：奧術戲法與魔寵
 
@@ -214,7 +211,7 @@ mapping 985。英文例外 17。帶 Forge Steel 版本的字串列是 326。語�
 
 ## 本段不處理
 
-- 尚未接入的效果：6 個招式型的短描述、觸發、目標、`Self` 與效果內文仍是英文；招式標題、機動動作與遠程已接入。奧術戲法、魔寵數據表與 Telepathic 留第 4 段。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
+- 第 4 段：奧術戲法、魔寵數據表與 Telepathic。有英雄時，投擲盟友的效果內文維持計算後英文，因為沒有核准計算綁定。`perk-linguist` 父項與 7 日句子已接入；`perk-linguist-2` 仍是語言選擇。
 - 74 個 Career 背景問題。網站模型沒有這些欄位，快照只保存核准書本譯文。
 - 非 Heroes 來源書的專長。
 - Google Sheets、遊戲規則、存檔與分享格式。

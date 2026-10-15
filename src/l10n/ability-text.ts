@@ -10,6 +10,7 @@ import { SupernaturalPerkData } from '@/data/perks/supernatural';
 import { mapping } from '@/l10n/mapping';
 import { translate } from '@/l10n/text';
 import { useL10nText } from '@/l10n/hooks';
+import { useUI } from '@/l10n/ui-text';
 
 const ancestryAbilities = new Map<string, Ability>();
 
@@ -61,20 +62,49 @@ const perkGrantAbilityIds = new Set([
 ]);
 
 const perkGrantNames = new Map<string, { name: string, key: string }>();
+const perkGrantDescriptions = new Map<string, { text: string, key: string }>();
+const perkGrantSections = new Map<string, (string | null)[]>();
+const perkGrantTriggers = new Map<string, string>();
+const perkGrantTargets = new Map<string, string>();
 
-const rememberPerkGrant = (perk: { id: string, name: string, type: FeatureType, data: { ability: { id: string, name: string } } | null }) => {
+const rememberPerkGrant = (perk: {
+	id: string,
+	name: string,
+	type: FeatureType,
+	data: {
+		ability: {
+			id: string,
+			name: string,
+			description: string,
+			target: string,
+			type: { trigger: string },
+			sections: { type: string, text?: string }[]
+		}
+	} | null
+}) => {
 	if (perk.type !== FeatureType.Ability || !perk.data) {
 		return;
 	}
 	const ability = perk.data.ability;
-	if (!perkGrantAbilityIds.has(ability.id) || ability.name !== perk.name) {
+	if (!perkGrantAbilityIds.has(ability.id)) {
 		return;
 	}
-	const key = `element:${perk.id}:name`;
-	if (!mapping[key]) {
-		return;
+	if (ability.name === perk.name && mapping[`element:${perk.id}:name`]) {
+		perkGrantNames.set(ability.id, { name: ability.name, key: `element:${perk.id}:name` });
 	}
-	perkGrantNames.set(ability.id, { name: ability.name, key });
+	const descriptionKey = `element:${perk.id}:description`;
+	if (ability.description && mapping[descriptionKey]) {
+		perkGrantDescriptions.set(ability.id, { text: ability.description, key: descriptionKey });
+	}
+	perkGrantSections.set(ability.id, ability.sections.map(section => section.type === 'text' ? section.text ?? null : null));
+	const triggerKey = `element:${ability.id}:trigger`;
+	if (ability.type.trigger && mapping[triggerKey]) {
+		perkGrantTriggers.set(ability.id, ability.type.trigger);
+	}
+	const targetKey = `element:${ability.id}:target`;
+	if (ability.target && mapping[targetKey]) {
+		perkGrantTargets.set(ability.id, ability.target);
+	}
 };
 
 [ ExplorationPerkData, IntriguePerkData, SupernaturalPerkData ].forEach(group => {
@@ -85,41 +115,92 @@ const rememberPerkGrant = (perk: { id: string, name: string, type: FeatureType, 
 	});
 });
 
+type PerkUi = ReturnType<typeof useUI>;
+
 const perkGrantLabelKeys: Record<string, string> = {
 	Maneuver: 'enum:AbilityUsage:Maneuver',
 	Ranged: 'enum:AbilityKeyword:Ranged'
 };
 
-/** An approved glossary word on one of these six abilities. Anything else stays as written. */
-export const perkGrantLabel = (abilityId: string, english: string): string => {
+/** Approved labels for these six abilities. The calls are the UI test's source bindings. */
+export const perkGrantUi = (ui: PerkUi, english: string): string => {
+	switch (english) {
+		case 'Distance': return ui.text('ui.hero-builder.distance.b7bdf7a2', 'Distance');
+		case 'Target': return ui.text('ui.hero-builder.target.978354db', 'Target');
+		case 'Distance / Target': return ui.text('ui.hero-builder.distance-target.2c3fa3ef', 'Distance / Target');
+		case 'Self': return ui.text('ui.hero-builder.self.85bc0f95', 'Self');
+		case 'Effect': return ui.text('ui.hero-builder.effect.2252d5cf', 'Effect');
+		case 'Trigger': return ui.text('ui.hero-builder.trigger.8b9c6437', 'Trigger');
+		case 'Psionic': return ui.text('ui.hero-builder.psionic.cd9fca98', 'Psionic');
+		case 'Triggered Action': return ui.text('ui.hero-builder.triggered-action.5550c36a', 'Triggered Action');
+		case 'Free Triggered Action': return ui.text('ui.hero-builder.free-triggered-action.acb2b603', 'Free Triggered Action');
+		default: return english;
+	}
+};
+
+/** An approved glossary or UI word on one of these six abilities. Anything else stays as written. */
+export const perkGrantLabel = (abilityId: string, english: string, ui: PerkUi): string => {
 	if (!perkGrantAbilityIds.has(abilityId)) {
 		return english;
 	}
-	const key = perkGrantLabelKeys[english];
-	if (!key) {
-		return english;
+	const glossary = perkGrantLabelKeys[english];
+	if (glossary) {
+		return translate(glossary, english);
 	}
-	return translate(key, english);
+	return perkGrantUi(ui, english);
 };
 
 /** Comma-separated keywords. Only a word with its own approved row changes. */
-export const perkGrantList = (abilityId: string, english: string): string => {
+export const perkGrantList = (abilityId: string, english: string, ui: PerkUi): string => {
 	if (!english) {
 		return english;
 	}
-	return english.split(', ').map(part => perkGrantLabel(abilityId, part)).join(', ');
+	return english.split(', ').map(part => perkGrantLabel(abilityId, part, ui)).join(', ');
 };
 
-/** "Ranged 10" keeps the upstream number and replaces only the approved word. */
-export const perkGrantDistance = (abilityId: string, english: string): string => {
+/** "Ranged 10" keeps the upstream number. "Self" uses the approved UI word. */
+export const perkGrantDistance = (abilityId: string, english: string, ui: PerkUi): string => {
 	if (!perkGrantAbilityIds.has(abilityId)) {
 		return english;
+	}
+	if (english === 'Self') {
+		return perkGrantUi(ui, 'Self');
 	}
 	const match = /^Ranged( \d+.*)$/.exec(english);
 	if (!match) {
 		return english;
 	}
 	return `${translate('enum:AbilityKeyword:Ranged', 'Ranged')}${match[1]}`;
+};
+
+/** The approved target sentence, or the approved word for Self. */
+export const perkGrantTarget = (abilityId: string, target: string, ui: PerkUi): string => {
+	const key = abilityTargetKey({ id: abilityId, target });
+	if (key) {
+		return translate(key, target);
+	}
+	if (target === 'Self') {
+		return perkGrantLabel(abilityId, 'Self', ui);
+	}
+	return target;
+};
+
+export const abilityTriggerKey = (abilityId: string, shown: string): string | undefined => {
+	const source = perkGrantTriggers.get(abilityId);
+	if (source === undefined || shown !== source) {
+		return undefined;
+	}
+	const key = `element:${abilityId}:trigger`;
+	return mapping[key] ? key : undefined;
+};
+
+export const abilityTargetKey = (ability: { id: string, target: string }): string | undefined => {
+	const source = perkGrantTargets.get(ability.id);
+	if (source === undefined || ability.target !== source) {
+		return undefined;
+	}
+	const key = `element:${ability.id}:target`;
+	return mapping[key] ? key : undefined;
 };
 
 /**
@@ -145,36 +226,62 @@ export const abilityNameKey = (ability: { id: string, name: string }): string | 
 	return `element:${ability.id}:name`;
 };
 
-/**
- * The key for one text section of a basic action or ancestry ability.
- *
- * Only when the ability is one of the standard actions or ancestry abilities, the data section at
- * this index is a text section, and the supplied text still matches that English
- * once `**bold**` marks are removed and both sides are trimmed. A classic-sheet
- * `**Effect:**` prefix, a rewritten sentence, a roll or field section, and an
- * action that is not one of these stay as written. Mapped action sections can
- * receive a key; unmapped ones stay as written. With canonical source supplied,
- * only an approved calculation binding may key rewritten display text.
- */
-export const abilitySectionKey = (abilityId: string, index: number, shown: string, canonical?: string): string | undefined => {
-	const section = abilities.get(abilityId)?.sections[index];
-	if (!section || section.type !== 'text') {
-		return undefined;
-	}
-	const source = plainForLookup(section.text).trim();
-	if (canonical !== undefined && plainForLookup(canonical).trim() !== source) {
+const sectionKeyForSource = (abilityId: string, index: number, shown: string, source: string, canonical: string | undefined, requireMapping: boolean): string | undefined => {
+	const stored = plainForLookup(source).trim();
+	if (canonical !== undefined && plainForLookup(canonical).trim() !== stored) {
 		return undefined;
 	}
 	const key = `section:${abilityId}:${index}`;
+	if (requireMapping && !mapping[key]) {
+		return undefined;
+	}
 	const lookup = canonical !== undefined && hasCalculationBinding(key) ? canonical : shown;
-	if (plainForLookup(lookup).trim() !== source) {
+	if (plainForLookup(lookup).trim() !== stored) {
 		return undefined;
 	}
 	return key;
 };
 
-/** Only an ancestry ability's unchanged, non-empty description can be keyed. */
+/**
+ * The key for one text section of a basic action, ancestry ability, or one of
+ * the six perk grants.
+ *
+ * Only when the data section at this index is a text section, and the supplied
+ * text still matches that English once `**bold**` marks are removed and both
+ * sides are trimmed. A classic-sheet `**Effect:**` prefix, a rewritten sentence,
+ * a roll or field section, and an action that is not one of these stay as
+ * written. Mapped action sections can receive a key; unmapped ones stay as
+ * written. Perk sections require an approved usage key. With canonical source
+ * supplied, only an approved calculation binding may key rewritten display text.
+ */
+export const abilitySectionKey = (abilityId: string, index: number, shown: string, canonical?: string): string | undefined => {
+	const perkSections = perkGrantSections.get(abilityId);
+	if (perkSections) {
+		const stored = perkSections[index];
+		if (!stored) {
+			return undefined;
+		}
+		return sectionKeyForSource(abilityId, index, shown, stored, canonical, true);
+	}
+	const section = abilities.get(abilityId)?.sections[index];
+	if (!section || section.type !== 'text') {
+		return undefined;
+	}
+	return sectionKeyForSource(abilityId, index, shown, section.text, canonical, false);
+};
+
+/**
+ * An ancestry ability's unchanged description, or one of the six perk grants
+ * when the short description is still the stored English.
+ */
 export const abilityDescriptionKey = (ability: { id: string, description?: string }): string | undefined => {
+	const perk = perkGrantDescriptions.get(ability.id);
+	if (perk) {
+		if (!ability.description || ability.description !== perk.text) {
+			return undefined;
+		}
+		return perk.key;
+	}
 	const description = ancestryAbilities.get(ability.id)?.description;
 	if (!ability.description || description === undefined || ability.description !== description) {
 		return undefined;

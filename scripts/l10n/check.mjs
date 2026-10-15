@@ -633,10 +633,24 @@ const elementEnglish = (root, cache, id, field) => {
 		return { error: `element id ${id} was not found under src/data` };
 	}
 	const value = object.fields.get(field);
-	if (!value) {
-		return { error: `element ${id} has no string field ${field} (${object.file})` };
+	if (value) {
+		return { english: value.text };
 	}
-	return { english: value.text };
+	if (field === 'trigger') {
+		cache.abilities ??= indexAbilitySections(root);
+		const { index: abilities, duplicates } = cache.abilities;
+		if (duplicates.has(id)) {
+			return { error: `ability id ${id} is defined more than once under src/data` };
+		}
+		const ability = abilities.get(id);
+		if (ability?.triggerError) {
+			return { error: `element ${id} trigger ${ability.triggerError}` };
+		}
+		if (typeof ability?.trigger === 'string') {
+			return { english: ability.trigger };
+		}
+	}
+	return { error: `element ${id} has no string field ${field} (${object.file})` };
 };
 
 const dataEnglish = (root, className, field) => {
@@ -1324,8 +1338,69 @@ const depth1ValueAt = (objectText, name) => {
 };
 
 /**
+ * The first string argument of one call, or an error when the call is not a
+ * single string literal. A missing call returns null.
+ */
+const callStringArgument = (objectText, name) => {
+	let found = null;
+	let i = 0;
+	let line = 1;
+	while (i < objectText.length) {
+		const char = objectText[i];
+		if (char === '\n') {
+			line += 1;
+			i += 1;
+			continue;
+		}
+		const comment = skipComment(objectText, i, line);
+		if (comment) {
+			i = comment.i;
+			line = comment.line;
+			continue;
+		}
+		if (char === '\'' || char === '"' || char === '`') {
+			const parsed = skipLiteral(objectText, i, line);
+			i = parsed.i;
+			line = parsed.line;
+			continue;
+		}
+		if (objectText.startsWith(name, i)) {
+			const before = i > 0 ? objectText[i - 1] : '';
+			const after = objectText[i + name.length] ?? '';
+			if (!/[A-Za-z0-9_$]/.test(before) && !/[A-Za-z0-9_$]/.test(after)) {
+				let j = i + name.length;
+				while (j < objectText.length && /[ \t\r\n]/.test(objectText[j])) {
+					j += 1;
+				}
+				if (objectText[j] === '(') {
+					j += 1;
+					while (j < objectText.length && /[ \t\r\n]/.test(objectText[j])) {
+						j += 1;
+					}
+					const quote = objectText[j];
+					if (quote !== '\'' && quote !== '"' && quote !== '`') {
+						return { error: `${name} argument is not a string literal` };
+					}
+					const parsed = readString(objectText, j, line);
+					if (!parsed.ok) {
+						return { error: `${name} argument is not a string literal` };
+					}
+					if (found !== null) {
+						return { error: `more than one ${name}` };
+					}
+					found = parsed.value;
+				}
+			}
+		}
+		i += 1;
+	}
+	return found === null ? null : { english: found };
+};
+
+/**
  * FactoryLogic.createAbility({ ... }) objects. The id comes from objectsWithId
  * and must also be the depth-1 string field, so a nested id is not the ability.
+ * A createTrigger string on that object is the ability's trigger field.
  */
 const abilitiesFromCalls = text => {
 	const found = [];
@@ -1379,7 +1454,13 @@ const abilitiesFromCalls = text => {
 										sections = splitTopLevel(objectText.slice(valueAt + 1, end)).map(textSectionLiteral);
 									}
 								}
-								found.push({ id, sections });
+								const trigger = callStringArgument(objectText, 'createTrigger');
+								found.push({
+									id,
+									sections,
+									trigger: trigger?.english,
+									triggerError: trigger?.error
+								});
 							}
 						}
 					}

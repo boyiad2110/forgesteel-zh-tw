@@ -39,13 +39,11 @@ const reserved = new Set([
 
 const kept = new Set([ 'Perk', 'Perks', 'info-circle', 'close', 'right', 'left', 'thunderbolt', 'potency', 'etc', 'Auto-calculate damage' ]);
 
-// English that still has no approved row or Adaptation. Level 1 and level 5 match.
+// Level 1 and level 5 match. Friend Catapult's effect is the one remainder:
+// a hero rewrites "twice your Might score" to a number, and that section has
+// no approved calculation binding, so the calculated English stays.
 const segment3Leftovers: Record<string, string[]> = {
 	'perk-friend-catapult @ drawer': [
-		'You hurl your ally through the air.',
-		'Distance',
-		'Target',
-		'Self',
 		'You grab a willing adjacent ally or object of your size or smaller',
 		'then vertical push that target up to a number of squares equal to',
 		'If a creature you push falls as a result of this movement',
@@ -53,14 +51,8 @@ const segment3Leftovers: Record<string, string[]> = {
 		'When you use this perk',
 		'you can’t use it again until you earn',
 		'or more Victories.'
-	],
-	'perk-friend-catapult @ sheet': [
-		'You hurl your ally through the air.'
 	],
 	'perk-friend-catapult @ card': [
-		'You hurl your ally through the air.',
-		'Self',
-		'Effect',
 		'You grab a willing adjacent ally or object of your size or smaller',
 		'then vertical push that target up to a number of squares equal to',
 		'If a creature you push falls as a result of this movement',
@@ -68,167 +60,6 @@ const segment3Leftovers: Record<string, string[]> = {
 		'When you use this perk',
 		'you can’t use it again until you earn',
 		'or more Victories.'
-	],
-	'perk-friend-catapult @ selected': [
-		'You hurl your ally through the air.'
-	],
-	'perk-ive-got-you @ drawer': [
-		'You catch a falling ally at the last possible moment.',
-		'free',
-		'Free Triggered Action',
-		'Distance',
-		'Target',
-		'Self',
-		'Trigger',
-		'A willing ally lands on you or adjacent to you when they fall.',
-		'You catch your ally. Neither of you takes damage from the fall.'
-	],
-	'perk-ive-got-you @ sheet': [
-		'Free Triggered Action',
-		'You catch a falling ally at the last possible moment.'
-	],
-	'perk-ive-got-you @ card': [
-		'Triggered Action',
-		'You catch a falling ally at the last possible moment.',
-		'Free Triggered Action',
-		'Self',
-		'Trigger',
-		'A willing ally lands on you or adjacent to you when they fall.',
-		'Effect',
-		'You catch your ally. Neither of you takes damage from the fall.'
-	],
-	'perk-ive-got-you @ selected': [
-		'You catch a falling ally at the last possible moment.'
-	],
-	'perk-gum-up-the-works @ drawer': [
-		'You prevent a trap from activating.',
-		'trigger',
-		'Triggered Action',
-		'Distance',
-		'Target',
-		'Self',
-		'Trigger',
-		'A mundane trap activates within',
-		'squares of you.',
-		'You can move up to',
-		'squares toward the trap. If this movement brings you adjacent to any of the trap’s mechanisms',
-		'you can jam the trap',
-		'preventing it from activating. As long as you stay adjacent to the mechanism',
-		'the trap can’t go off unless an attempt to disarm it fails.'
-	],
-	'perk-gum-up-the-works @ sheet': [
-		'Triggered Action',
-		'You prevent a trap from activating.'
-	],
-	'perk-gum-up-the-works @ card': [
-		'Triggered Action',
-		'You prevent a trap from activating.',
-		'Self',
-		'Trigger',
-		'A mundane trap activates within',
-		'squares of you.',
-		'Effect',
-		'You can move up to',
-		'squares toward the trap. If this movement brings you adjacent to any of the trap’s mechanisms',
-		'you can jam the trap',
-		'preventing it from activating. As long as you stay adjacent to the mechanism',
-		'the trap can’t go off unless an attempt to disarm it fails.'
-	],
-	'perk-gum-up-the-works @ selected': [
-		'You prevent a trap from activating.'
-	],
-	'perk-creature-sense @ drawer': [
-		'You intuit a creature\'s keywords.',
-		'Distance',
-		'Target',
-		'Self',
-		'Choose a creature within',
-		'squares. If that creature is your level or lower',
-		'you learn the keywords in their stat block',
-		'Demon',
-		'Humanoid',
-		'Undead',
-		'and so forth'
-	],
-	'perk-creature-sense @ sheet': [
-		'You intuit a creature\'s keywords.'
-	],
-	'perk-creature-sense @ card': [
-		'You intuit a creature\'s keywords.',
-		'Self',
-		'Effect',
-		'Choose a creature within',
-		'squares. If that creature is your level or lower',
-		'you learn the keywords in their stat block',
-		'Demon',
-		'Humanoid',
-		'Undead',
-		'and so forth'
-	],
-	'perk-creature-sense @ selected': [
-		'You intuit a creature\'s keywords.'
-	],
-	'perk-invisible-force @ drawer': [
-		'You manipulate a tiny object with your mind.',
-		'Psionic',
-		'Distance',
-		'Target',
-		'size',
-		'T unattended object',
-		'You can grab or manipulate the target object with your mind',
-		'moving the object up to a number of squares equal to your Reason',
-		'Intuition',
-		'or Presence score',
-		'your choice',
-		'You can use this ability to turn doorknobs',
-		'pull levers',
-		'and so forth. You can manipulate any small movable piece of a larger object as long as the piece is unattended and size',
-		'T. You can’t use this ability to break a smaller piece off a larger object.'
-	],
-	'perk-invisible-force @ sheet': [
-		'You manipulate a tiny object with your mind.'
-	],
-	'perk-invisible-force @ card': [
-		'You manipulate a tiny object with your mind.',
-		'Psionic',
-		'size',
-		'T unattended object',
-		'Effect',
-		'You can grab or manipulate the target object with your mind',
-		'moving the object up to a number of squares equal to your Reason',
-		'Intuition',
-		'or Presence score',
-		'your choice',
-		'You can use this ability to turn doorknobs',
-		'pull levers',
-		'and so forth. You can manipulate any small movable piece of a larger object as long as the piece is unattended and size',
-		'T. You can’t use this ability to break a smaller piece off a larger object.'
-	],
-	'perk-invisible-force @ selected': [
-		'You manipulate a tiny object with your mind.'
-	],
-	'perk-psychic-whisper @ drawer': [
-		'You send a one-way telepathic message to a friend.',
-		'Psionic',
-		'Distance',
-		'Target',
-		'ally who understands at least one language',
-		'You send a telepathic message to them that takes',
-		'seconds or less to speak. The target knows who the message is from and can decide to ignore it and subsequent messages.'
-	],
-	'perk-psychic-whisper @ sheet': [
-		'You send a one-way telepathic message to a friend.'
-	],
-	'perk-psychic-whisper @ card': [
-		'You send a one-way telepathic message to a friend.',
-		'Psionic',
-		'ally who understands at least one language',
-		'Effect',
-		'You send a telepathic message to them that takes',
-		'seconds or less to speak. The target knows who the message is from and can decide to ignore it and subsequent messages.'
-	],
-	'perk-psychic-whisper @ selected': [
-		'You send a one-way telepathic message to a friend.'
 	]
 };
 

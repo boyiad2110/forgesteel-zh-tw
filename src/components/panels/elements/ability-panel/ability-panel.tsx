@@ -27,6 +27,7 @@ import { RollModifierPanel } from '@/components/panels/roll-modifier-panel/roll-
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useOptions } from '@/contexts/data-context';
+import { useUI } from '@/l10n/ui-text';
 
 import './ability-panel.scss';
 
@@ -46,6 +47,7 @@ interface Props {
 export const AbilityPanel = (props: Props) => {
 	const [ autoCalc, setAutoCalc ] = useState<boolean>(true);
 	const options = useOptions();
+	const ui = useUI();
 	const clipboard = useClipboard();
 
 	const keywords = AbilityLogic.getKeywords(props.ability, props.hero);
@@ -344,7 +346,7 @@ export const AbilityPanel = (props: Props) => {
 				<Markdown text={props.ability.description} className='ability-description-text' l10nKey={descriptionKey} />
 				{
 					keywords.length > 0 ?
-						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{perkGrantLabel(props.ability.id, k)}</Tag>)}</Flex>
+						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{perkGrantLabel(props.ability.id, k, ui)}</Tag>)}</Flex>
 						: null
 				}
 				<AbilityInfoPanel ability={props.ability} hero={props.hero} />

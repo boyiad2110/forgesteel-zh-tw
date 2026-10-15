@@ -389,6 +389,16 @@
     "updated": "2026-10-10",
     "zh": "詳情"
   },
+  "ui.hero-builder.distance-target.2c3fa3ef": {
+    "en": "Distance / Target",
+    "updated": "2026-10-15",
+    "zh": "射程 / 目標"
+  },
+  "ui.hero-builder.distance.b7bdf7a2": {
+    "en": "Distance",
+    "updated": "2026-10-15",
+    "zh": "射程"
+  },
   "ui.hero-builder.domain.67b22e3e": {
     "en": "Domain",
     "updated": "2026-10-10",
@@ -403,6 +413,11 @@
     "en": "Duplicated",
     "updated": "2026-10-10",
     "zh": "重複選擇"
+  },
+  "ui.hero-builder.effect.2252d5cf": {
+    "en": "Effect",
+    "updated": "2026-10-15",
+    "zh": "效果"
   },
   "ui.hero-builder.environment.b9b1aade": {
     "en": "Environment",
@@ -443,6 +458,11 @@
     "en": "Former Life",
     "updated": "2026-10-10",
     "zh": "昔日人生"
+  },
+  "ui.hero-builder.free-triggered-action.acb2b603": {
+    "en": "Free Triggered Action",
+    "updated": "2026-10-15",
+    "zh": "免費反應動作"
   },
   "ui.hero-builder.from-the-heroclass-name.1847bb79": {
     "en": "` from the ${heroClass.name}`",
@@ -729,6 +749,11 @@
     "updated": "2026-10-10",
     "zh": "{cost}pt"
   },
+  "ui.hero-builder.psionic.cd9fca98": {
+    "en": "Psionic",
+    "updated": "2026-10-15",
+    "zh": "靈能"
+  },
   "ui.hero-builder.pt-ancestry-feature.c76f6671": {
     "en": "pt ancestry feature.",
     "updated": "2026-10-10",
@@ -793,6 +818,11 @@
     "en": "Selecting a perk from outside the listed groups is typically against the rules.",
     "updated": "2026-10-11",
     "zh": "選擇不屬於所列類別的專長，通常不符合規則。"
+  },
+  "ui.hero-builder.self.85bc0f95": {
+    "en": "Self",
+    "updated": "2026-10-15",
+    "zh": "自身"
   },
   "ui.hero-builder.show-details.257cf510": {
     "en": "Show details",
@@ -904,6 +934,11 @@
     "updated": "2026-10-10",
     "zh": "分頁，為英雄命名。"
   },
+  "ui.hero-builder.target.978354db": {
+    "en": "Target",
+    "updated": "2026-10-15",
+    "zh": "目標"
+  },
   "ui.hero-builder.this-can-t-be-undone-are-you.c4b878e6": {
     "en": "This can't be undone; are you sure?",
     "updated": "2026-10-10",
@@ -933,6 +968,16 @@
     "en": "To Add",
     "updated": "2026-10-10",
     "zh": "要新增"
+  },
+  "ui.hero-builder.trigger.8b9c6437": {
+    "en": "Trigger",
+    "updated": "2026-10-15",
+    "zh": "觸發"
+  },
+  "ui.hero-builder.triggered-action.5550c36a": {
+    "en": "Triggered Action",
+    "updated": "2026-10-15",
+    "zh": "反應動作"
   },
   "ui.hero-builder.tutorial-mode.6b8e85d4": {
     "en": "Tutorial Mode",

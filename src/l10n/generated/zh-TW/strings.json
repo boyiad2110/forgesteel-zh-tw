@@ -7314,6 +7314,11 @@
   },
   "heroes.perks.creature-sense.effect": {
     "en": "As a maneuver, choose a creature within 10 squares. If that creature is your level or lower, you learn the keywords in their stat block (Demon, Humanoid, Undead, and so forth).",
+    "fs": {
+      "basisHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1",
+      "en": "Choose a creature within 10 squares. If that creature is your level or lower, you learn the keywords in their stat block (Demon, Humanoid, Undead, and so forth)",
+      "zh": "你可以選擇 10 格內的 1 個生物。若該生物的等級 ≦ 你的等級，你會知道他數據表中的關鍵詞（例如惡魔、類人生物、亡靈等）。"
+    },
     "updated": "2026-10-14",
     "zh": "使用機動動作，你可以選擇 10 格內的 1 個生物。若該生物的等級 ≦ 你的等級，你會知道他數據表中的關鍵詞（例如惡魔、類人生物、亡靈等）。"
   },
@@ -7364,11 +7369,21 @@
   },
   "heroes.perks.friend-catapult.effect": {
     "en": "As a maneuver, you grab a willing adjacent ally or object of your size or smaller, then vertical push that target up to a number of squares equal to twice your Might score. If a creature you push falls as a result of this movement, the effective distance of the fall is reduced by a number of squares equal to twice your Might score. When you use this perk, you can’t use it again until you earn 1 or more Victories.",
+    "fs": {
+      "basisHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2",
+      "en": "You grab a willing adjacent ally or object of your size or smaller, then vertical push that target up to a number of squares equal to twice your Might score. If a creature you push falls as a result of this movement, the effective distance of the fall is reduced by a number of squares equal to twice your Might score. When you use this perk, you can’t use it again until you earn 1 or more Victories.",
+      "zh": "你抓住 1 個相鄰的自願盟友或物體（兩者的體型都必須 ≦ 你），然後將目標垂直推動最多等於你力量 ×2 的格數。如果你推動的生物因此墜落，墜落的有效距離會減少等於你力量 ×2 的格數。使用此專長後，你必須至少獲得 1 點勝利值才能再次使用。"
+    },
     "updated": "2026-10-14",
     "zh": "使用機動動作，你抓住 1 個相鄰的自願盟友或物體（兩者的體型都必須 ≦ 你），然後將目標垂直推動最多等於你力量 ×2 的格數。如果你推動的生物因此墜落，墜落的有效距離會減少等於你力量 ×2 的格數。使用此專長後，你必須至少獲得 1 點勝利值才能再次使用。"
   },
   "heroes.perks.gum-up-the-works.effect": {
     "en": "Whenever a mundane trap activates within 3 squares, you can use a triggered action to move up to 3 squares toward it. If this movement brings you adjacent to any of the trap’s mechanisms, you can jam the trap, preventing it from activating. As long as you stay adjacent to the mechanism, the trap can’t go off unless an attempt to disarm it fails.",
+    "fs": {
+      "basisHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd",
+      "en": "You can move up to 3 squares toward the trap. If this movement brings you adjacent to any of the trap’s mechanisms, you can jam the trap, preventing it from activating. As long as you stay adjacent to the mechanism, the trap can’t go off unless an attempt to disarm it fails.",
+      "zh": "向陷阱移動最多 3 格。若這次移動能讓你與陷阱的任何機關相鄰，你可以卡住陷阱，阻止它啟動。只要你保持與機關相鄰，除非有人嘗試解除陷阱卻失敗，否則陷阱不會觸發。"
+    },
     "updated": "2026-10-14",
     "zh": "每當 3 格內的 1 個尋常陷阱啟動時，你可以使用反應動作向陷阱移動最多 3 格。若這次移動能讓你與陷阱的任何機關相鄰，你可以卡住陷阱，阻止它啟動。只要你保持與機關相鄰，除非有人嘗試解除陷阱卻失敗，否則陷阱不會觸發。"
   },
@@ -7394,11 +7409,21 @@
   },
   "heroes.perks.invisible-force.effect": {
     "en": "You have the ability Invisible Force.\nInvisible Force\nYou manipulate a tiny object with your mind.\nPsionic, Ranged • Maneuver • Ranged 10 • One size 1T object\nEffect: You can grab or manipulate the target object with your mind, moving the object up to a number of squares equal to your Reason, Intuition, or Presence score (your choice). You can use this ability to turn doorknobs, pull levers, and so forth. You can manipulate any small movable piece of a larger object as long as the piece is unattended and size 1T. You can’t use this ability to break a smaller piece off a larger object.",
+    "fs": {
+      "basisHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38",
+      "en": "You can grab or manipulate the target object with your mind, moving the object up to a number of squares equal to your Reason, Intuition, or Presence score (your choice). You can use this ability to turn doorknobs, pull levers, and so forth. You can manipulate any small movable piece of a larger object as long as the piece is unattended and size 1T. You can’t use this ability to break a smaller piece off a larger object.",
+      "zh": "你可以透過意念抓取或操控目標物體，將它移動最多等於你理智、直覺或氣場（由你選擇）的格數。你可以使用此招式來轉動門把、拉動操縱桿等物體。你也可以操控較大物體中的較小且可移動的部件（前提是該部件無人持有或操控，且體型為 1T），但你無法使用此招式將這些較小的部件從較大的物體上折斷。"
+    },
     "updated": "2026-10-14",
     "zh": "你擁有以下招式。\n\n無形念力（Invisible Force）\n你可以透過意念操控微小的物體。\n靈能、遠程／機動動作／遠程 10／1 個體型 1T 的物體\n效果：你可以透過意念抓取或操控目標物體，將它移動最多等於你理智、直覺或氣場（由你選擇）的格數。你可以使用此招式來轉動門把、拉動操縱桿等物體。你也可以操控較大物體中的較小且可移動的部件（前提是該部件無人持有或操控，且體型為 1T），但你無法使用此招式將這些較小的部件從較大的物體上折斷。"
   },
   "heroes.perks.ive-got-you.effect": {
     "en": "Whenever a willing ally falls and would land on you or adjacent to you, you can safely catch them as a free triggered action. Neither of you takes damage from the ally’s fall.",
+    "fs": {
+      "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
+      "en": "You catch your ally. Neither of you takes damage from the fall.",
+      "zh": "你接住你的盟友。你們都不會受到墜落造成的傷害。"
+    },
     "updated": "2026-10-14",
     "zh": "當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時，你可以使用免費反應動作安全地接住他。你和盟友都不會受到墜落造成的傷害。"
   },
@@ -7459,6 +7484,11 @@
   },
   "heroes.perks.psychic-whisper.effect": {
     "en": "You have the following ability.\nPsychic Whisper\nYou send a one-way telepathic message to a friend.\nPsionic, Ranged • Maneuver • Ranged 10 • One ally\nEffect: As long as the target understands one or more languages, you send a telepathic message to them that takes 10 seconds or less to speak. The target knows who the message is from and can decide to ignore it and subsequent messages.",
+    "fs": {
+      "basisHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37",
+      "en": "You send a telepathic message to them that takes 10 seconds or less to speak. The target knows who the message is from and can decide to ignore it and subsequent messages.",
+      "zh": "你可以向目標傳送 1 則 10 秒之內能說完的心靈訊息。目標會知道訊息來自何人，而且可以決定是否忽略此訊息及後續訊息。"
+    },
     "updated": "2026-10-14",
     "zh": "你擁有以下招式。\n\n心靈低語（Psychic Whisper）\n你向朋友發送單向的心靈訊息。\n靈能、遠程／機動動作／遠程 10／1 個盟友\n效果：只要目標理解至少 1 種語言，你可以向目標傳送 1 則 10 秒之內能說完的心靈訊息。目標會知道訊息來自何人，而且可以決定是否忽略此訊息及後續訊息。"
   },

@@ -4567,6 +4567,76 @@
         "zhHash": "827a9efd4895644413e59f1ef2b24d1fc794128cf675f9b893134379fc6c9556"
       }
     },
+    "heroes.perks.creature-sense.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.creature-sense.effect",
+          "enHash": "09e5c0547819368f2d7aa92fd3c62042bba4fc3942f733cb1bd243eb7f9c941d",
+          "zhHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1"
+        }
+      ],
+      "sourcesHash": "4f07edc076668b025d10baf0f09ad66d063cc87281d9bc98f81248c6f126ac2d",
+      "fs": {
+        "enHash": "627220ec901c727d9b4bbe6f3516680b73a44781c2d83fe5932bca2fe5302b1f",
+        "zhHash": "308a5f9a418183272eab66efc38620df70acbbae78278a77f6c651ad6c42dcce"
+      }
+    },
+    "heroes.perks.friend-catapult.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.friend-catapult.effect",
+          "enHash": "e70b4175bc0242917dd2dfe89d09091cd2f341f7442fa7b1a7da8207ffbf5841",
+          "zhHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2"
+        }
+      ],
+      "sourcesHash": "b31a6197770e0db72bbdfe944bbb5699c9312894e1acd9513f260e94f1792a16",
+      "fs": {
+        "enHash": "c805074e205a05cffcfdd92ec7ab8e130036ce2acc838189f19fc2157f775ed7",
+        "zhHash": "43dcd6186e4fd7ad24ea3c945072d01eb9be60b1709a46bf7507729522170e6d"
+      }
+    },
+    "heroes.perks.gum-up-the-works.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.gum-up-the-works.effect",
+          "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+          "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+        }
+      ],
+      "sourcesHash": "804e5ab26044f1d6bae44cde6b9161fa0845863e18076fe62dd80269034f7c14",
+      "fs": {
+        "enHash": "81d4b952d84a7c5f6a5f4028286d0681caa96adb8f756e53548ca7fe1571353d",
+        "zhHash": "89d1642e6f16826d3d0e3ee230ef01563d7a217fb26125c0cf8dd663a8bc6634"
+      }
+    },
+    "heroes.perks.invisible-force.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.invisible-force.effect",
+          "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+          "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+        }
+      ],
+      "sourcesHash": "068c5886c44d3cc912c05a4bbfe19c9074c4fa73885e622b1581fb75575b69b5",
+      "fs": {
+        "enHash": "1a1f4e8b768b94d0a3fe5655e422b75ca75c378d2fbecdc680477db1512975c5",
+        "zhHash": "8990d4b9eb2cd4cb506696f46ea8cabbee5e00efee6cab7f15256968462cd81b"
+      }
+    },
+    "heroes.perks.ive-got-you.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.ive-got-you.effect",
+          "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+          "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+        }
+      ],
+      "sourcesHash": "1d005aa4d15318b066f1d7eab0dbe484cfd690adc5d9cc01100b45efa84642b0",
+      "fs": {
+        "enHash": "fd4f90d06e618753af0d08fe400fb3a772d1b2ea9ad40c447666a1f66251e499",
+        "zhHash": "4d58da92972e3d0c3949f4539f0b59f80ccb655bcabcbb6d1899bcbebd2c317e"
+      }
+    },
     "heroes.perks.linguist.effect": {
       "sources": [
         {
@@ -4579,6 +4649,20 @@
       "fs": {
         "enHash": "68c4ee3bfd13b01562f11c4ff5555cd0c29da408f457155a86978b6e4e31d785",
         "zhHash": "294f79aaa4a7278dc7d5d88766acab3d39f35af594cef6e08e3f31548d2ca2f0"
+      }
+    },
+    "heroes.perks.psychic-whisper.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.perks.psychic-whisper.effect",
+          "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+          "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
+        }
+      ],
+      "sourcesHash": "456dc4a64e3474a09a54c6bd920da8ade9e4a8eb92139595ab5dfe232b972728",
+      "fs": {
+        "enHash": "3ef13d8a9fb00378134cbb8a998de87160997c6e77d2dfa2fc01d1bac60b1f67",
+        "zhHash": "d0679ff6838d6ca688c74e7cdccf017c808edcc130599efc93358eddc2f9d728"
       }
     },
     "heroes.perks.teamwork.effect": {

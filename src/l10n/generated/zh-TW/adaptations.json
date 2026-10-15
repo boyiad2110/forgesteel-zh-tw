@@ -5219,6 +5219,214 @@
       }
     ]
   },
+  "fs-adapt:heroes.perks.creature-sense.effect": {
+    "bookStringId": "heroes.perks.creature-sense.effect",
+    "usageKey": "section:perk-creature-sense-1:0",
+    "en": "Choose a creature within 10 squares. If that creature is your level or lower, you learn the keywords in their stat block (Demon, Humanoid, Undead, and so forth)",
+    "zh": "你可以選擇 10 格內的 1 個生物。若該生物的等級 ≦ 你的等級，你會知道他數據表中的關鍵詞（例如惡魔、類人生物、亡靈等）。",
+    "basisHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.creature-sense.effect",
+        "enHash": "09e5c0547819368f2d7aa92fd3c62042bba4fc3942f733cb1bd243eb7f9c941d",
+        "zhHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.creature-sense.effect.short": {
+    "bookStringId": "heroes.perks.creature-sense.effect",
+    "usageKey": "element:perk-creature-sense:description",
+    "en": "You intuit a creature's keywords.",
+    "zh": "你直覺得知生物的關鍵詞。",
+    "basisHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.creature-sense.effect",
+        "enHash": "09e5c0547819368f2d7aa92fd3c62042bba4fc3942f733cb1bd243eb7f9c941d",
+        "zhHash": "9b6c1fba5ba3ebf0f8ee929c0b646ab7a9a5f7424a929a4cf7b9bfc3e69597a1"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.friend-catapult.effect": {
+    "bookStringId": "heroes.perks.friend-catapult.effect",
+    "usageKey": "section:perk-friend-catapult-1:0",
+    "en": "You grab a willing adjacent ally or object of your size or smaller, then vertical push that target up to a number of squares equal to twice your Might score. If a creature you push falls as a result of this movement, the effective distance of the fall is reduced by a number of squares equal to twice your Might score. When you use this perk, you can’t use it again until you earn 1 or more Victories.",
+    "zh": "你抓住 1 個相鄰的自願盟友或物體（兩者的體型都必須 ≦ 你），然後將目標垂直推動最多等於你力量 ×2 的格數。如果你推動的生物因此墜落，墜落的有效距離會減少等於你力量 ×2 的格數。使用此專長後，你必須至少獲得 1 點勝利值才能再次使用。",
+    "basisHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.friend-catapult.effect",
+        "enHash": "e70b4175bc0242917dd2dfe89d09091cd2f341f7442fa7b1a7da8207ffbf5841",
+        "zhHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.friend-catapult.effect.short": {
+    "bookStringId": "heroes.perks.friend-catapult.effect",
+    "usageKey": "element:perk-friend-catapult:description",
+    "en": "You hurl your ally through the air.",
+    "zh": "你將盟友擲向空中。",
+    "basisHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.friend-catapult.effect",
+        "enHash": "e70b4175bc0242917dd2dfe89d09091cd2f341f7442fa7b1a7da8207ffbf5841",
+        "zhHash": "dc3c70583cad8843340f5bc24550b8eb71a84c468932c7509fe27cd5d5349ba2"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.gum-up-the-works.effect": {
+    "bookStringId": "heroes.perks.gum-up-the-works.effect",
+    "usageKey": "section:perk-gum-up-the-works-1:0",
+    "en": "You can move up to 3 squares toward the trap. If this movement brings you adjacent to any of the trap’s mechanisms, you can jam the trap, preventing it from activating. As long as you stay adjacent to the mechanism, the trap can’t go off unless an attempt to disarm it fails.",
+    "zh": "向陷阱移動最多 3 格。若這次移動能讓你與陷阱的任何機關相鄰，你可以卡住陷阱，阻止它啟動。只要你保持與機關相鄰，除非有人嘗試解除陷阱卻失敗，否則陷阱不會觸發。",
+    "basisHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.gum-up-the-works.effect",
+        "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+        "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.gum-up-the-works.effect.short": {
+    "bookStringId": "heroes.perks.gum-up-the-works.effect",
+    "usageKey": "element:perk-gum-up-the-works:description",
+    "en": "You prevent a trap from activating.",
+    "zh": "你阻止陷阱啟動。",
+    "basisHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.gum-up-the-works.effect",
+        "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+        "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.gum-up-the-works.effect.trigger": {
+    "bookStringId": "heroes.perks.gum-up-the-works.effect",
+    "usageKey": "element:perk-gum-up-the-works-1:trigger",
+    "en": "A mundane trap activates within 3 squares of you.",
+    "zh": "3 格內的 1 個尋常陷阱啟動時。",
+    "basisHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.gum-up-the-works.effect",
+        "enHash": "3b81e4bb775763ffadcdf8d5a78391180a1b40391b72e1eac9af468853747d87",
+        "zhHash": "a3d46a7792cca740ca39fdf7a6e37b2be9b59cd12f81453512144c58680b31dd"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.invisible-force.effect": {
+    "bookStringId": "heroes.perks.invisible-force.effect",
+    "usageKey": "section:perk-invisible-force-1:0",
+    "en": "You can grab or manipulate the target object with your mind, moving the object up to a number of squares equal to your Reason, Intuition, or Presence score (your choice). You can use this ability to turn doorknobs, pull levers, and so forth. You can manipulate any small movable piece of a larger object as long as the piece is unattended and size 1T. You can’t use this ability to break a smaller piece off a larger object.",
+    "zh": "你可以透過意念抓取或操控目標物體，將它移動最多等於你理智、直覺或氣場（由你選擇）的格數。你可以使用此招式來轉動門把、拉動操縱桿等物體。你也可以操控較大物體中的較小且可移動的部件（前提是該部件無人持有或操控，且體型為 1T），但你無法使用此招式將這些較小的部件從較大的物體上折斷。",
+    "basisHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.invisible-force.effect",
+        "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+        "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.invisible-force.effect.short": {
+    "bookStringId": "heroes.perks.invisible-force.effect",
+    "usageKey": "element:perk-invisible-force:description",
+    "en": "You manipulate a tiny object with your mind.",
+    "zh": "你可以透過意念操控微小的物體。",
+    "basisHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.invisible-force.effect",
+        "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+        "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.invisible-force.effect.target": {
+    "bookStringId": "heroes.perks.invisible-force.effect",
+    "usageKey": "element:perk-invisible-force-1:target",
+    "en": "1 size 1T unattended object",
+    "zh": "1 個體型 1T、無人持有的物體",
+    "basisHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.invisible-force.effect",
+        "enHash": "c755126abbaf0e51b3a10224862645d21e30678676b4ebec55055108710ce186",
+        "zhHash": "d2a1c8049098e016ea2c416ee833980d88a89709b3dcce2cdd777e986f890c38"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.ive-got-you.effect": {
+    "bookStringId": "heroes.perks.ive-got-you.effect",
+    "usageKey": "section:perk-ive-got-you-1:0",
+    "en": "You catch your ally. Neither of you takes damage from the fall.",
+    "zh": "你接住你的盟友。你們都不會受到墜落造成的傷害。",
+    "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.ive-got-you.effect",
+        "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+        "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.ive-got-you.effect.short": {
+    "bookStringId": "heroes.perks.ive-got-you.effect",
+    "usageKey": "element:perk-ive-got-you:description",
+    "en": "You catch a falling ally at the last possible moment.",
+    "zh": "你在最後一刻接住墜落的盟友。",
+    "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.ive-got-you.effect",
+        "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+        "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.ive-got-you.effect.trigger": {
+    "bookStringId": "heroes.perks.ive-got-you.effect",
+    "usageKey": "element:perk-ive-got-you-1:trigger",
+    "en": "A willing ally lands on you or adjacent to you when they fall.",
+    "zh": "當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時。",
+    "basisHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.ive-got-you.effect",
+        "enHash": "e978c0477ba2ccf61372370819b9b02b1c29e85cb5b7fc26a2aa5839c12693fd",
+        "zhHash": "e27f438bfd57a80dec356b1762edc8c189047272a73c26c306db2cdfd01914cf"
+      }
+    ]
+  },
   "fs-adapt:heroes.perks.linguist.effect": {
     "bookStringId": "heroes.perks.linguist.effect",
     "usageKey": "element:perk-linguist:description",
@@ -5248,6 +5456,54 @@
         "sourceId": "heroes.perks.linguist.effect",
         "enHash": "03f29eb20d6a8fcd95a97a9094f266e29979c757cf227bea92d647b691ca0d89",
         "zhHash": "e0dc27ed288a211a725943b004d8219c627fb281fe53c08810075d382692b17f"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.psychic-whisper.effect": {
+    "bookStringId": "heroes.perks.psychic-whisper.effect",
+    "usageKey": "section:perk-psychic-whisper-1:0",
+    "en": "You send a telepathic message to them that takes 10 seconds or less to speak. The target knows who the message is from and can decide to ignore it and subsequent messages.",
+    "zh": "你可以向目標傳送 1 則 10 秒之內能說完的心靈訊息。目標會知道訊息來自何人，而且可以決定是否忽略此訊息及後續訊息。",
+    "basisHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.psychic-whisper.effect",
+        "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+        "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.psychic-whisper.effect.short": {
+    "bookStringId": "heroes.perks.psychic-whisper.effect",
+    "usageKey": "element:perk-psychic-whisper:description",
+    "en": "You send a one-way telepathic message to a friend.",
+    "zh": "你向朋友發送單向的心靈訊息。",
+    "basisHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.psychic-whisper.effect",
+        "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+        "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
+      }
+    ]
+  },
+  "fs-adapt:heroes.perks.psychic-whisper.effect.target": {
+    "bookStringId": "heroes.perks.psychic-whisper.effect",
+    "usageKey": "element:perk-psychic-whisper-1:target",
+    "en": "1 ally who understands at least one language",
+    "zh": "1 個理解至少 1 種語言的盟友",
+    "basisHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37",
+    "updated": "2026-10-15",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.psychic-whisper.effect",
+        "enHash": "34a7827ace11fd823775678757f92c603ba3f364f1c81ad316bb07176d1d6a36",
+        "zhHash": "2f2e322fe74b1055178a333f64275fcc31b12d31a9ddca0286a7ab4a494d8f37"
       }
     ]
   },
