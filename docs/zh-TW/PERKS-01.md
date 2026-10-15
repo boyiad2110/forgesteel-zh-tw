@@ -190,6 +190,8 @@ Adaptations 第 333–348 列、Adaptation Sources 第 339–354 列已接入。
 
 有英雄時，投擲盟友的效果會被上游把 “twice your Might score” 換成數字。這段沒有核准的計算綁定，計算後的英文整句保留。沒有改寫時才顯示核准效果。其餘五個效果、兩句觸發、兩句目標與六句短描述都已接入。奧術戲法與魔寵仍是英文，留第 4 段。
 
+來源覆蓋守門只檢查寫進書本列 `fs` 的那一列中文：它必須能由書本中文刪字得到。`fs-adapt:heroes.perks.ive-got-you.effect`（Adaptations 第 337 列，Usage Key `section:perk-ive-got-you-1:0`，Forge Steel Target Text）目前是「你接住你的盟友。你們都不會受到墜落造成的傷害。」書本句是「當 1 個自願的盟友即將墜落在你身上或與你相鄰的位置時，你可以使用免費反應動作安全地接住他。你和盟友都不會受到墜落造成的傷害。」刪字對不上「你接住你的盟友。你們」。`.short` 與 `.trigger` 不寫進 `fs`，不受這條檢查。其餘五個無後綴效果都通過。這格改成書本句的刪節之後才能重跑通過；程式沒有改這句核准中文。
+
 ### 第 4 段：奧術戲法與魔寵
 
 `perk-arcane-trick-1` 是主要動作、關鍵詞 Magic，效果區有 7 個選項。書本 String `heroes.perks.arcane-trick.effect` 的核准中文要完整顯示，不摘要。
