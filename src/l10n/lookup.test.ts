@@ -18,7 +18,9 @@ import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { AncestryData } from '@/data/ancestry-data';
+import { CareerCard } from '@/components/panels/classic-sheet/career-card/career-card';
 import { Characteristic } from '@/enums/characteristic';
+import { ClassFeaturesCard } from '@/components/panels/classic-sheet/class-features-card/class-features-card';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { ConditionType } from '@/enums/condition-type';
 import { ConfigPerk } from '@/components/features/feature-data/perk';
@@ -44,6 +46,8 @@ import { SkillsCard } from '@/components/panels/classic-sheet/skills-card/skills
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { StandardAbilitySelectModal } from '@/components/modals/select/standard-ability-select/standard-ability-select-modal';
+import { applyUITemplate } from '@/l10n/ui-text';
+import { artisan } from '@/data/careers/artisan';
 import { core } from '@/data/sourcebooks/official/core';
 import { createElement } from 'react';
 import { elementScopeFields } from '@/l10n/element-scope';
@@ -53,8 +57,10 @@ import { languageNameKey } from '@/l10n/language-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
+import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
 import { renderToStaticMarkup } from 'react-dom/server';
 import strings from '@/l10n/generated/zh-TW/strings.json';
+import { talent } from '@/data/classes/talent/talent';
 import { useLanguageNames } from '@/l10n/language-text';
 
 vi.mock('dompurify', () => ({
@@ -1375,6 +1381,151 @@ describe('skill display batch', () => {
 		setLanguage('en');
 		const severalEnglish = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, { feature: several })));
 		expect(severalEnglish).toContain('• 1 Exploration, Interpersonal or Intrigue Perk');
+		setLanguage('zh-TW');
+	});
+
+	test('perk count uses only the templates that case needs and falls back to the whole English line', () => {
+		const line = (count: number, lists: PerkList[]) => {
+			const feature: FeaturePerk = FactoryLogic.feature.createPerk({
+				id: `perk-line-${count}-${lists.join('-')}`,
+				lists,
+				count: count || 1,
+				selected: []
+			});
+			feature.data.count = count;
+			feature.data.lists = lists;
+			const before = JSON.stringify(feature);
+			const html = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(FeatureComponent, { feature })));
+			expect(JSON.stringify(feature)).toBe(before);
+			return html;
+		};
+		const countUI = (language: 'en' | 'zh-TW') => ({
+			language,
+			text: (id: string, english: string) => translate(`ui:${id}`, english),
+			format: (id: string, source: string, english: string, values: Record<string, string | number>) =>
+				applyUITemplate(translate(`ui:${id}`, source), source, english, values)
+		});
+		const text = (count: number, categories: readonly string[]) => perkCountCategoryLine(count, categories, countUI('zh-TW'));
+
+		expect(line(0, [])).toContain('• 0 項 Perk');
+		expect(line(1, [])).toContain('• 1 項 Perk');
+		expect(line(2, [])).toContain('• 2 項 Perk');
+		expect(line(1, [ PerkList.Crafting ])).toContain('• 1 項工藝類 Perk');
+		expect(line(1, [ PerkList.Crafting, PerkList.Lore ])).toContain('• 1 項工藝類或學識類 Perk');
+		expect(line(1, [ PerkList.Interpersonal, PerkList.Intrigue, PerkList.Lore ])).toContain('• 1 項交涉類、諜報類或學識類 Perk');
+		expect(line(2, [ PerkList.Crafting, PerkList.Exploration, PerkList.Interpersonal, PerkList.Intrigue ])).toContain('• 2 項工藝類、探索類、交涉類或諜報類 Perk');
+		expect(text(1, [ PerkList.Crafting ])).toBe('1 項工藝類 Perk');
+
+		setLanguage('en');
+		expect(line(0, [])).toContain('• 0 Perks');
+		expect(line(1, [])).toContain('• 1 Perk');
+		expect(line(2, [ PerkList.Crafting ])).toContain('• 2 Crafting Perks');
+		expect(line(1, [ PerkList.Crafting, PerkList.Lore ])).toContain('• 1 Crafting or Lore Perk');
+		expect(line(1, [ PerkList.Interpersonal, PerkList.Intrigue, PerkList.Lore ])).toContain('• 1 Interpersonal, Intrigue or Lore Perk');
+		expect(perkCountCategoryLine(2, [ PerkList.Crafting, PerkList.Lore ], countUI('en'))).toBe('2 Crafting or Lore Perks');
+		for (const html of [
+			line(1, [ PerkList.Crafting ]),
+			line(1, [ PerkList.Crafting, PerkList.Lore ]),
+			line(1, [ PerkList.Interpersonal, PerkList.Intrigue, PerkList.Lore ])
+		]) {
+			expect(html).not.toContain('工藝');
+			expect(html).not.toContain('學識');
+			expect(html).not.toContain('交涉');
+			expect(html).not.toContain('諜報');
+			expect(html).not.toContain('項');
+		}
+		setLanguage('zh-TW');
+
+		const catalog = peekCatalog()!;
+		const restore = (id: string, previous: typeof catalog[string] | undefined) => {
+			if (previous) {
+				catalog[id] = previous;
+			} else {
+				delete catalog[id];
+			}
+		};
+		const countId = 'ui.hero-builder.perk-count.e5bc2580';
+		const listId = 'ui.hero-builder.perk-count-list.9eaae349';
+		const orId = 'ui.hero-builder.list-or.7382d0ab';
+		const craftingId = 'term.crafting-skill-group';
+		const intrigueId = 'term.intrigue-skill-group';
+		const saved = {
+			count: catalog[countId],
+			list: catalog[listId],
+			or: catalog[orId],
+			crafting: catalog[craftingId],
+			intrigue: catalog[intrigueId]
+		};
+		try {
+			delete catalog[orId];
+			expect(text(1, [ PerkList.Crafting ])).toBe('1 項工藝類 Perk');
+			expect(text(1, [])).toBe('1 項 Perk');
+			expect(text(1, [ PerkList.Crafting, PerkList.Lore ])).toBe('1 Crafting or Lore Perk');
+			catalog[orId] = saved.or;
+
+			delete catalog[countId];
+			expect(text(0, [])).toBe('0 Perks');
+			expect(text(1, [ PerkList.Crafting ])).toBe('1 項工藝類 Perk');
+			catalog[countId] = saved.count;
+
+			catalog[listId] = { ...saved.list, zh: '{count} 項{oops} Perk' };
+			expect(text(1, [ PerkList.Crafting ])).toBe('1 Crafting Perk');
+			expect(text(2, [])).toBe('2 項 Perk');
+			catalog[listId] = saved.list;
+
+			catalog[orId] = { ...saved.or, zh: '{items}或{missing}' };
+			expect(text(1, [ PerkList.Crafting, PerkList.Lore ])).toBe('1 Crafting or Lore Perk');
+			expect(text(1, [ PerkList.Crafting ])).toBe('1 項工藝類 Perk');
+			catalog[orId] = saved.or;
+
+			catalog[craftingId] = { ...saved.crafting, zh: '' };
+			expect(text(1, [ PerkList.Crafting ])).toBe('1 Crafting Perk');
+			expect(text(1, [ PerkList.Crafting, PerkList.Lore ])).toBe('1 Crafting or Lore Perk');
+			catalog[craftingId] = saved.crafting;
+
+			catalog[intrigueId] = { ...saved.intrigue, zh: '' };
+			const mixed = text(1, [ PerkList.Interpersonal, PerkList.Intrigue, PerkList.Lore ]);
+			expect(mixed).toBe('1 Interpersonal, Intrigue or Lore Perk');
+			expect(mixed).not.toContain('交涉');
+			expect(mixed).not.toContain('學識');
+			catalog[intrigueId] = saved.intrigue;
+
+			expect(text(1, [ 'Home Brew' ])).toBe('1 Home Brew Perk');
+			expect(text(1, [ 'Home Brew' ])).not.toContain('項');
+		} finally {
+			restore(countId, saved.count);
+			restore(listId, saved.list);
+			restore(orId, saved.or);
+			restore(craftingId, saved.crafting);
+			restore(intrigueId, saved.intrigue);
+			setLanguage('zh-TW');
+		}
+
+		const hero = FactoryLogic.createHero();
+		hero.career = artisan;
+		const careerBefore = JSON.stringify(artisan);
+		const careerHtml = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(CareerCard, {
+			career: { id: artisan.id, name: artisan.name, benefits: artisan.features },
+			hero
+		})));
+		expect(careerHtml).toContain('1 項工藝類 Perk');
+		expect(JSON.stringify(artisan)).toBe(careerBefore);
+
+		const classPerk = talent.featuresByLevel.find(level => level.level === 2)!.features[0];
+		const classBefore = JSON.stringify(classPerk);
+		const classHtml = renderToStaticMarkup(withOptions(FactoryLogic.createOptions(), createElement(SourcebooksContext, { value: [ core ] }, createElement(ClassFeaturesCard, {
+			character: { hero, classFeatures: [ classPerk ] } as HeroSheet
+		}))));
+		expect(classHtml).toContain('1 項交涉類、學識類或超常類 Perk');
+		expect(JSON.stringify(classPerk)).toBe(classBefore);
+		setLanguage('en');
+		const englishClass = renderToStaticMarkup(withOptions(FactoryLogic.createOptions(), createElement(SourcebooksContext, { value: [ core ] }, createElement(ClassFeaturesCard, {
+			character: { hero, classFeatures: [ classPerk ] } as HeroSheet
+		}))));
+		expect(englishClass).toContain('1 Interpersonal, Lore or Supernatural Perk');
+		expect(englishClass).not.toContain('交涉');
+		expect(englishClass).not.toContain('超常');
+		expect(englishClass).not.toContain('項');
 		setLanguage('zh-TW');
 	});
 });

@@ -24,54 +24,68 @@ export const perkListText = (list: PerkList, ui: ReturnType<typeof useUI>) => {
 	}
 };
 
-/** The perk measure word, the character after "1 " in the approved "Choose a perk." prompt. */
-const perkMeasureWord = () => {
-	const prompt = translate('ui:ui.hero-builder.choose-a-perk.38f11151', 'Choose a perk.');
-	return prompt.match(/1 (\p{Script=Han})/u)?.[1] ?? '';
+const knownPerkLists = new Set<string>(Object.values(PerkList));
+
+/** The English count line. One perk stays singular; every other count uses Perks. */
+const englishPerkCountLine = (count: number, categories: readonly string[]) => {
+	const label = categories.length === 0
+		? ''
+		: categories.length <= 2
+			? categories.join(' or ')
+			: `${categories.slice(0, -2).join(', ')}, ${categories.slice(-2).join(' or ')}`;
+	const word = count === 1 ? 'Perk' : 'Perks';
+	return label ? `${count} ${label} ${word}` : `${count} ${word}`;
+};
+
+/** An approved category name. An unknown or still-English category stays unresolved. */
+const approvedPerkCategory = (category: string) => {
+	if (!knownPerkLists.has(category)) {
+		return undefined;
+	}
+	const [ key, english ] = category === PerkList.Supernatural
+		? [ 'ui:ui.hero-builder.supernatural.fe29726a', 'Supernatural' ]
+		: category === PerkList.Special
+			? [ 'ui:ui.hero-builder.special.997c544f', 'Special' ]
+			: [ `enum:PerkList:${category}`, category ];
+	const translated = translate(key, english);
+	return translated === english ? undefined : translated;
 };
 
 /**
- * The list conjunction. The approved Small! description places it inside fullwidth
- * parentheses. A missing catalog keeps the English word so this file stores no Han text.
+ * Classic-sheet perk count. Count and category order come from the caller.
+ * Chinese uses only the templates that case needs. A missing template, a wrong
+ * placeholder, or any untranslated or unknown category keeps the whole English line.
  */
-const perkListConjunction = () => {
-	const sentence = translate(
-		'element:polder-feature-2:description',
-		'Your diminutive stature lets you easily get out of — or into — trouble.'
-	);
-	return sentence.match(/\uFF08(\p{Script=Han})/u)?.[1] ?? ' or ';
-};
-
-const joinPerkCategories = (categories: string[], language: Language) => {
-	if (categories.length === 0) {
-		return '';
+export const perkCountCategoryLine = (count: number, categories: readonly string[], ui: ReturnType<typeof useUI>) => {
+	const english = englishPerkCountLine(count, categories);
+	if (ui.language !== 'zh-TW') {
+		return english;
 	}
-	if (language === 'zh-TW') {
-		const conjunction = perkListConjunction();
-		if (categories.length === 1) {
-			return categories[0];
+	const translated: string[] = [];
+	for (const category of categories) {
+		const name = approvedPerkCategory(category);
+		if (!name) {
+			return english;
 		}
-		if (categories.length === 2) {
-			return categories.join(conjunction);
+		translated.push(name);
+	}
+	if (translated.length === 0) {
+		return ui.format('ui.hero-builder.perk-count.e5bc2580', '`${count} Perk`', english, { count });
+	}
+	let list = translated[0];
+	if (translated.length > 1) {
+		const joined = ui.format(
+			'ui.hero-builder.list-or.7382d0ab',
+			'`${items} or ${last}`',
+			english,
+			{ items: translated.slice(0, -1).join('\u3001'), last: translated[translated.length - 1] }
+		);
+		if (joined === english) {
+			return english;
 		}
-		return `${categories.slice(0, -1).join('\u3001')}${conjunction}${categories[categories.length - 1]}`;
+		list = joined;
 	}
-	if (categories.length <= 2) {
-		return categories.join(' or ');
-	}
-	return `${categories.slice(0, -2).join(', ')}, ${categories.slice(-2).join(' or ')}`;
-};
-
-/** Classic-sheet count line. Chinese inserts the perk measure word and leaves Perk in English. */
-export const perkCountCategoryLine = (count: number, categories: string[], language: Language) => {
-	const label = joinPerkCategories(categories, language);
-	if (language === 'zh-TW') {
-		const measure = perkMeasureWord();
-		const counted = measure ? `${count} ${measure}` : `${count}`;
-		return label ? `${counted}${label} Perk` : `${counted} Perk`;
-	}
-	const word = count === 1 ? 'Perk' : 'Perks';
-	return label ? `${count} ${label} ${word}` : `${count} ${word}`;
+	return ui.format('ui.hero-builder.perk-count-list.9eaae349', '`${count} ${list} Perk`', english, { count, list });
 };
 
 const featuresWithin = (feature: Feature): Feature[] => {

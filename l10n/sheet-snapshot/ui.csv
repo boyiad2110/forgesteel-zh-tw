@@ -125,6 +125,7 @@ ui.hero-builder.level-props-data-level.acd6b237,APPROVED,（等級 {level}+）,`
 ui.hero-builder.level-t-level.e10d2e65,APPROVED,（等級 {level}+）,` (level ${t.level}+)`,2026-10-10,29ac972131821c6c05890325d3e6211852679c0b543865f8d748dfe03071dad8
 ui.hero-builder.level.b383f415,APPROVED,等級,Level,2026-10-10,1709305c9fa966d14f56f0da3c3614bbc10adcf53d72f90341bb96d24afcfca3
 ui.hero-builder.level.b63ee29c,APPROVED,{level} 級,`level ${props.hero.class.level}`,2026-10-10,39904dafb022ba9d6988c88cc033ffc8f8d514204343a2facfac93a0cf08e779
+ui.hero-builder.list-or.7382d0ab,APPROVED,{items}或{last},`${items} or ${last}`,2026-10-16,7382d0ab00e98efbc924c51236303b1bf9dc49728cc5d67e1af8e9eb83103b85
 ui.hero-builder.looking-for-something-specif.65c7e1a8,APPROVED,找不到想要的內容嗎？若是第三方或自製內容，請確認已加入所屬來源書。,"Looking for something specific? If it's third-party or homebrew, make sure you've included the sourcebook it's in.",2026-10-10,077ba1b6a7b7432ec709f8f016371a6c4f349d7af96cac1cdf5b22d0a3e605fb
 ui.hero-builder.lore-perk.9eddcd07,APPROVED,學識類專長,Lore Perk,2026-10-11,9eddcd079ca777f8b57e0cd0fc907e92593358c4455ada6ee18761ba1f947636
 ui.hero-builder.lost-skill.f6d9bfe4,APPROVED,失去的技能,Lost Skill,2026-10-10,527351440fd24da66a702b8f872555e445ec33c5c65417548768edc64ad8dd50
@@ -153,6 +154,8 @@ ui.hero-builder.other-perks.2706cc67,APPROVED,其他專長,Other Perks,2026-10-1
 ui.hero-builder.other-skills.66fa9a26,APPROVED,其他技能,Other skills,2026-10-10,7160172aa4821c8d9481af37230227b698112fa5264130deae86eeab97ab69ad
 ui.hero-builder.otherwise.eea1c613,APPROVED,否則：,Otherwise:,2026-10-10,6ba58147f51567fccfa0a2fda563396679b94449ebbad5abc3093f92918504cc
 ui.hero-builder.overview.d4b1ea57,APPROVED,總覽,Overview,2026-10-11,d4b1ea5708dd532930a85188b45aff6f0a3ed458500c7577e0127a538eb0d100
+ui.hero-builder.perk-count-list.9eaae349,APPROVED,{count} 項{list} Perk,`${count} ${list} Perk`,2026-10-16,9eaae34966808b953bdbd4f572fdfdf39230eab3bb0616c850f3a5c0ec5dd741
+ui.hero-builder.perk-count.e5bc2580,APPROVED,{count} 項 Perk,`${count} Perk`,2026-10-16,e5bc2580330148dd33be983c6ee508d47b6cf6691ff79e3c679a2c129168719d
 ui.hero-builder.portrait.84680994,APPROVED,肖像,Portrait,2026-10-10,f71094c30160d155c9b29fd67e3b6f86ad254003a163da4c24d1f0061b0ed0ad
 ui.hero-builder.professional-cultures.9011d8e9,APPROVED,職業文化,Professional Cultures,2026-10-10,ad64cf2fc08999ebe1715e24b059b6c7948c5b5aa0c62b6ca06379efeed55c33
 ui.hero-builder.project.7dc34b5f,APPROVED,專案,Project,2026-10-10,985959785319747668373cc6dee294b11db782b03cdd90a2851fbdc0637c6b7b
