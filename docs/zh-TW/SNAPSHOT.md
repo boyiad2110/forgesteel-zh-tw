@@ -101,7 +101,7 @@ Marc 已驗收，PERKS-01 為 COMPLETE：Heroes 47/47 專長、6 個類別。正
 
 ## 專長計數列模板（2026-10-16）
 
-三筆 Marc 已核准的 Forge Steel UI 已寫入並回讀：perk-count-list、perk-count、list-or。書本 Master 修改時間 `2026-10-14T08:59:41.775Z`，指紋 `23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`。Forge Master 修改時間 `2026-10-16T05:39:26.084Z`，指紋 `8dcce02b146b050beb254dac6398e0d388426714e072b6601519b87ccd6d1197`。目錄 Glossary 333／Names 131／Strings 1192／UI 233。mapping 1034。程式 `1802f6b1` 的隔離驗證見 [PROGRESS](PROGRESS.md)。合併狀態見 [PR #71](https://github.com/boyiad2110/forgesteel-zh-tw/pull/71)。Project State 的歷史遷移筆數 209 未改。
+三筆 Marc 已核准的 Forge Steel UI 已寫入並回讀：perk-count-list、perk-count、list-or。書本 Master 修改時間 `2026-10-14T08:59:41.775Z`，指紋 `23bbba7157315271b85aff4ff4a2aa0553d6336ddfa37eedfcc88797a4cc8573`。Forge Master 修改時間 `2026-10-16T05:39:26.084Z`，指紋 `8dcce02b146b050beb254dac6398e0d388426714e072b6601519b87ccd6d1197`。目錄 Glossary 333／Names 131／Strings 1192／UI 233。mapping 1034。程式 `1802f6b1` 的隔離驗證見 [PROGRESS](PROGRESS.md)。Marc 已於 2026-10-16 驗收；合併狀態見 [PR #71](https://github.com/boyiad2110/forgesteel-zh-tw/pull/71)。Project State 的歷史遷移筆數 209 未改。
 
 # 多來源核准檢查點（2026-10-10）
 
