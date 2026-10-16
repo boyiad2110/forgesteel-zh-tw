@@ -110,7 +110,7 @@ export const MonsterPanel = (props: Props) => {
 	const nameKey = shownName === props.monster.name ? familiarNameKey(props.monster) : undefined;
 	const movementDash = familiarMovementDash(props.monster);
 	const prose = familiarDescription(props.monster.id, props.monster.description);
-	const staminaValue = familiarStaminaValue(props.monster, props.hero) ?? MonsterLogic.getStaminaDescription(props.monster);
+	const staminaValue = familiarStaminaValue(props.monster, props.hero, props.sourcebooks) ?? MonsterLogic.getStaminaDescription(props.monster);
 	const showBlankResist = props.monster.id === 'familiar' && ui.language === 'zh-TW';
 	const telepathic = props.monster.id === 'familiar' ? props.monster.features.find(feature => feature.id === 'familiar-2') : undefined;
 	const telepathicName = useL10nText(telepathic?.name === 'Telepathic' ? 'element:familiar-2:name' : undefined, telepathic?.name ?? '');

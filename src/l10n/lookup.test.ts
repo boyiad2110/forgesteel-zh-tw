@@ -1,7 +1,9 @@
+import * as catalogModule from '@/l10n/catalog';
 import { AbilityName, abilityDescriptionKey, abilityNameKey, abilitySectionKey, useAbilityName } from '@/l10n/ability-text';
 import { Catalog, loadCatalog, peekCatalog, peekUsageAdaptation } from '@/l10n/catalog';
 import { EnvironmentData, OrganizationData, UpbringingData } from '@/data/culture-data';
 import { Feature, FeaturePerk } from '@/models/feature';
+import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
 import { displayKey, displayListMarkup, resolveText, translate } from '@/l10n/text';
@@ -29,8 +31,8 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { InfoConditionImmunity } from '@/components/features/feature-data/condition-immunity';
+import { MonsterLogic } from '@/logic/monster-logic';
 import { MonsterPanel } from '@/components/panels/elements/monster-panel/monster-panel';
-import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { PanelMode } from '@/enums/panel-mode';
 import { PartyModal } from '@/components/modals/party/party-modal';
 import { PerkList } from '@/enums/perk-list';
@@ -39,6 +41,8 @@ import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
 import { SidebarPanel } from '@/components/panels/hero/sidebar/sidebar-panel';
 import { SkillList } from '@/enums/skill-list';
 import { SkillsCard } from '@/components/panels/classic-sheet/skills-card/skills-card';
+import { Sourcebook } from '@/models/sourcebook';
+import { SourcebookType } from '@/enums/sourcebook-type';
 import { StandardAbilitySelectModal } from '@/components/modals/select/standard-ability-select/standard-ability-select-modal';
 import { core } from '@/data/sourcebooks/official/core';
 import { createElement } from 'react';
@@ -2109,7 +2113,8 @@ describe('perk name segment', () => {
 		})));
 		expect(unowned).toContain('field-label">體力</span><span class="field-value">2 × 你的等級</span>');
 		expect(unowned).toContain('field-label">免疫</span><span class="field-value">—</span>');
-		expect(peekCatalog()!['heroes.perks.familiar.effect'].zh.slice(223, 231)).toBe('2 × 你的等級');
+		expect(peekUsageAdaptation('element:familiar:stamina')?.zh).toBe('2 × 你的等級');
+		expect(peekCatalog()!['heroes.perks.familiar.effect'].zh).toContain('2 × 你的等級');
 		const renamed = structuredClone(familiarMonster);
 		renamed.id = 'not-the-familiar';
 		const other = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(MonsterPanel, {
@@ -2148,6 +2153,103 @@ describe('perk name segment', () => {
 		expect(englishFamiliar).not.toContain('Immunities');
 		expect(englishFamiliar).not.toContain('每級 +2');
 		expect(englishFamiliar).not.toContain('2 × 你的等級');
+		setLanguage('zh-TW');
+	});
+
+	test('familiar stamina uses the approved formula only for the official structure', async () => {
+		await loadCatalog();
+		const perk = core.perks.find(item => item.id === 'perk-familiar');
+		if (!perk || perk.type !== FeatureType.Summon) {
+			throw new Error('familiar');
+		}
+		const familiarMonster = perk.data.summons[0].monster;
+		const formula = peekUsageAdaptation('element:familiar:stamina')?.zh ?? '';
+		expect(formula).toBe('2 × 你的等級');
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		const renderMonster = (monster: typeof familiarMonster, sourcebooks: Sourcebook[], level?: number) => {
+			if (hero.class && level) {
+				hero.class.level = level;
+			}
+			return renderToStaticMarkup(createElement(SourcebooksContext, { value: sourcebooks }, createElement(MonsterPanel, {
+				monster,
+				hero: level ? hero : undefined,
+				sourcebooks,
+				mode: PanelMode.Full
+			})));
+		};
+		const staminaOf = (html: string) => {
+			const match = /field-label">(?:體力|Stamina)<\/span><span class="field-value">([^<]*)<\/span>/.exec(html);
+			if (!match) {
+				throw new Error('stamina field missing');
+			}
+			return match[1];
+		};
+		expect(staminaOf(renderMonster(familiarMonster, [ core ]))).toBe(formula);
+		expect(staminaOf(renderMonster(familiarMonster, [ core ], 1))).toBe('2');
+		expect(staminaOf(renderMonster(familiarMonster, [ core ], 5))).toBe('10');
+		const damaged = structuredClone(familiarMonster);
+		damaged.state.staminaDamage = 3;
+		expect(staminaOf(renderMonster(damaged, [ core ], 5))).toBe('7 / 10');
+		damaged.state.staminaTemp = 4;
+		expect(staminaOf(renderMonster(damaged, [ core ], 5))).toBe('7 / 10 +4');
+		damaged.state.staminaDamage = 0;
+		expect(staminaOf(renderMonster(damaged, [ core ], 5))).toBe('10 +4');
+		expect(staminaOf(renderMonster(familiarMonster, []))).toBe(MonsterLogic.getStaminaDescription(familiarMonster));
+		expect(staminaOf(renderMonster(familiarMonster, [ orden ]))).toBe(MonsterLogic.getStaminaDescription(familiarMonster));
+		expect(staminaOf(renderMonster(familiarMonster, [ { ...core, type: SourcebookType.Homebrew } ]))).toBe('0');
+		expect(staminaOf(renderMonster(familiarMonster, [], 5))).toBe('0');
+		expect(staminaOf(renderMonster(familiarMonster, [ { ...core, type: SourcebookType.ThirdParty } ], 5))).toBe('0');
+		const edited = structuredClone(familiarMonster);
+		edited.description = 'A custom familiar.';
+		expect(staminaOf(renderMonster(edited, [ core ]))).toBe(MonsterLogic.getStaminaDescription(edited));
+		expect(staminaOf(renderMonster(edited, [ core ], 5))).toBe(MonsterLogic.getStaminaDescription(edited));
+		const scaled = structuredClone(familiarMonster);
+		const bonus = scaled.features.find(feature => feature.id === 'familiar-1');
+		if (!bonus || bonus.type !== FeatureType.Bonus) {
+			throw new Error('bonus');
+		}
+		bonus.data.valuePerLevel = 3;
+		const scaledText = staminaOf(renderMonster(scaled, [ core ]));
+		expect(scaledText).toBe(MonsterLogic.getStaminaDescription(scaled));
+		expect(scaledText).not.toContain(formula);
+		expect(scaledText).not.toContain('3 ×');
+		const usage = peekUsageAdaptation('element:familiar:stamina');
+		if (!usage || usage.sources.length !== 1) {
+			throw new Error('usage');
+		}
+		const savedHash = usage.sources[0].enHash;
+		usage.sources[0].enHash = '0'.repeat(64);
+		try {
+			expect(staminaOf(renderMonster(familiarMonster, [ core ]))).toBe('0');
+			expect(staminaOf(renderMonster(familiarMonster, [ core ], 5))).toBe('0');
+		} finally {
+			usage.sources[0].enHash = savedHash;
+		}
+		const savedBasis = usage.basisHash;
+		usage.basisHash = '0'.repeat(64);
+		try {
+			expect(staminaOf(renderMonster(familiarMonster, [ core ]))).toBe('0');
+		} finally {
+			usage.basisHash = savedBasis;
+		}
+		const original = catalogModule.usageAdaptation.peek;
+		const spy = vi.spyOn(catalogModule.usageAdaptation, 'peek').mockImplementation(key => {
+			if (key === 'element:familiar:stamina') {
+				return undefined;
+			}
+			return original(key);
+		});
+		try {
+			expect(staminaOf(renderMonster(familiarMonster, [ core ]))).toBe('0');
+			expect(staminaOf(renderMonster(familiarMonster, [ core ], 5))).toBe('0');
+		} finally {
+			spy.mockRestore();
+		}
+		expect(staminaOf(renderMonster(familiarMonster, [ core ]))).toBe(formula);
+		setLanguage('en');
+		expect(staminaOf(renderMonster(familiarMonster, [ core ], 5))).toBe('0');
+		expect(renderMonster(familiarMonster, [ core ])).not.toContain(formula);
 		setLanguage('zh-TW');
 	});
 
