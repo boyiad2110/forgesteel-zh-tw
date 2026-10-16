@@ -32,7 +32,6 @@ import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
-import { perkListText } from '@/l10n/perk-list-ui';
 import { useOptionalSourcebooks } from '@/contexts/data-context';
 import { useUI } from '@/l10n/ui-text';
 
@@ -131,6 +130,7 @@ const isAllPerkLists = (lists: PerkList[]): boolean => {
 
 const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, ui: ReturnType<typeof useUI>, descriptionKey?: string) => {
 	let listNames;
+	let perkLists;
 	let choiceType;
 	switch (feature.type) {
 		case FeatureType.SkillChoice:
@@ -141,7 +141,7 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 			break;
 		case FeatureType.Perk:
 			if (!isAllPerkLists(feature.data.lists)) {
-				listNames = feature.data.lists.map(l => perkListText(l, ui));
+				perkLists = feature.data.lists;
 			}
 			choiceType = 'Perk';
 			break;
@@ -172,7 +172,7 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 				: null}
 			<div className='feature-line'>
 				• {feature.type === FeatureType.Perk
-					? perkCountCategoryLine(feature.data.count, listNames ?? [], ui.language)
+					? perkCountCategoryLine(feature.data.count, perkLists ?? [], ui.language)
 					: skillLine ?? `${feature.data.count} ${lists} ${SheetFormatter.pluralize(choiceType, feature.data.count)}`}
 			</div>
 			{selectedOptions}

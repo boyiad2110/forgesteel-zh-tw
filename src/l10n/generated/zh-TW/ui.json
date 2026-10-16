@@ -629,6 +629,11 @@
     "updated": "2026-10-10",
     "zh": "{level} 級"
   },
+  "ui.hero-builder.list-or.7382d0ab": {
+    "en": "`${items} or ${last}`",
+    "updated": "2026-10-16",
+    "zh": "{items}或{last}"
+  },
   "ui.hero-builder.looking-for-something-specif.65c7e1a8": {
     "en": "Looking for something specific? If it's third-party or homebrew, make sure you've included the sourcebook it's in.",
     "updated": "2026-10-10",
@@ -768,6 +773,16 @@
     "en": "Overview",
     "updated": "2026-10-11",
     "zh": "總覽"
+  },
+  "ui.hero-builder.perk-count-list.9eaae349": {
+    "en": "`${count} ${list} Perk`",
+    "updated": "2026-10-16",
+    "zh": "{count} 項{list} Perk"
+  },
+  "ui.hero-builder.perk-count.e5bc2580": {
+    "en": "`${count} Perk`",
+    "updated": "2026-10-16",
+    "zh": "{count} 項 Perk"
   },
   "ui.hero-builder.portrait.84680994": {
     "en": "Portrait",
