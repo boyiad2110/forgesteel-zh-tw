@@ -18,11 +18,11 @@ import { AbilityKeyword } from '@/enums/ability-keyword';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { AncestryData } from '@/data/ancestry-data';
+import { CareerCard } from '@/components/panels/classic-sheet/career-card/career-card';
 import { Characteristic } from '@/enums/characteristic';
+import { ClassFeaturesCard } from '@/components/panels/classic-sheet/class-features-card/class-features-card';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { ConditionType } from '@/enums/condition-type';
-import { CareerCard } from '@/components/panels/classic-sheet/career-card/career-card';
-import { ClassFeaturesCard } from '@/components/panels/classic-sheet/class-features-card/class-features-card';
 import { ConfigPerk } from '@/components/features/feature-data/perk';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
@@ -46,9 +46,9 @@ import { SkillsCard } from '@/components/panels/classic-sheet/skills-card/skills
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { StandardAbilitySelectModal } from '@/components/modals/select/standard-ability-select/standard-ability-select-modal';
+import { applyUITemplate } from '@/l10n/ui-text';
 import { artisan } from '@/data/careers/artisan';
 import { core } from '@/data/sourcebooks/official/core';
-import { talent } from '@/data/classes/talent/talent';
 import { createElement } from 'react';
 import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
@@ -57,10 +57,10 @@ import { languageNameKey } from '@/l10n/language-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
-import { applyUITemplate } from '@/l10n/ui-text';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
 import { renderToStaticMarkup } from 'react-dom/server';
 import strings from '@/l10n/generated/zh-TW/strings.json';
+import { talent } from '@/data/classes/talent/talent';
 import { useLanguageNames } from '@/l10n/language-text';
 
 vi.mock('dompurify', () => ({
