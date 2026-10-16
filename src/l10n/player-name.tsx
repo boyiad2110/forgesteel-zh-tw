@@ -91,7 +91,10 @@ const addCulture = (names: Map<string, string>, culture: { id: string, name: str
 
 export const playerNameKey = (element: NamedElement, sourcebooks: Sourcebook[]) => {
 	const canonical = getPlayerNameIndex(sourcebooks).get(element.id);
-	if (canonical !== element.name) {
+	const caseOnlyKitName = element.id.startsWith('kit-')
+		&& canonical !== undefined
+		&& canonical.toLocaleLowerCase('en-US') === element.name.toLocaleLowerCase('en-US');
+	if (canonical !== element.name && !caseOnlyKitName) {
 		return undefined;
 	}
 	const key = `element:${element.id}:name`;

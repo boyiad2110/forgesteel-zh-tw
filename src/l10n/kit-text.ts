@@ -26,7 +26,8 @@ standardKits.forEach(kit => kit.features.forEach(feature => {
 /** A signature name is translated only when its current text is unchanged. */
 export const kitAbilityNameKey = (ability: { id: string, name: string }): string | undefined => {
 	const canonical = kitAbilityNames.get(ability.id);
-	if (!canonical || ability.name !== canonical.name) {
+	if (!canonical || (ability.name !== canonical.name
+		&& ability.name.toLocaleLowerCase('en-US') !== canonical.name.toLocaleLowerCase('en-US'))) {
 		return undefined;
 	}
 	return canonical.key;
@@ -39,6 +40,8 @@ export const kitFieldLabel = (ui: KitUi, english: string): string => {
 	switch (english) {
 		case 'Armor': return ui.text('ui.hero-builder.armor.d165ace3', 'Armor');
 		case 'Speed': return ui.text('ui.hero-builder.speed.a2b81141', 'Speed');
+		case 'Uses': return ui.text('ui.hero-builder.uses.9e6151ac', 'Uses');
+		case 'Stats': return ui.text('ui.hero-builder.stats.b4a73657', 'Stats');
 		case 'Stamina': return translate('enum:FeatureField:Stamina', 'Stamina');
 		case 'Stability': return translate('enum:FeatureField:Stability', 'Stability');
 		default: return english;

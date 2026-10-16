@@ -53,7 +53,7 @@ export const KitPanel = (props: Props) => {
 		return (
 			<>
 				<Markdown text={props.kit.description} />
-				<Field label='Uses' value={[ ...props.kit.armor, ...props.kit.weapon ].join(', ')} />
+				<Field label={kitFieldLabel(ui, 'Uses')} value={[ ...props.kit.armor, ...props.kit.weapon ].join(', ')} />
 				<Field
 					label={ui.text('ui.hero-builder.features.31d1245f', 'Features')}
 					value={props.kit.features.map((feature, index) => (
@@ -100,7 +100,7 @@ export const KitPanel = (props: Props) => {
 					block={true}
 					options={[
 						{ value: 'overview', label: ui.text('ui.hero-builder.overview.d4b1ea57', 'Overview') },
-						{ value: 'stats', label: 'Stats' },
+						{ value: 'stats', label: kitFieldLabel(ui, 'Stats') },
 						{ value: 'features', label: ui.text('ui.hero-builder.features.31d1245f', 'Features') }
 					]}
 					value={page}

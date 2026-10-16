@@ -1326,7 +1326,7 @@ heroes.kits.battlemind.bonus.melee-damage,APPROVED,近戰傷害加值：+2/+2/+2
 heroes.kits.battlemind.bonus.speed,APPROVED,速度加值：+2,Speed Bonus: +2,2026-10-14,,,,
 heroes.kits.battlemind.bonus.stability,APPROVED,穩度加值：+1,Stability Bonus: +1,2026-10-14,,,,
 heroes.kits.battlemind.bonus.stamina,APPROVED,體力加值：每境界 +3,Stamina Bonus: +3 per echelon,2026-10-14,,,,
-heroes.kits.battlemind.description,APPROVED,誰說輕甲英雄不能難以撼動？只要運用一些靈能就行了！戰念套裝利用你的心靈力量讓你更難被移動，同時讓你的敵人更容易被推開。,Who says lightly armored heroes can’t also be hard to move? You just need to employ some psionics! The Battlemind kit harnesses the power of your mind to make you harder to move—and to make your foes easier to push around.,2026-10-14,,,,
+heroes.kits.battlemind.description,APPROVED,誰說輕甲英雄不能難以撼動？只要運用一些靈能就行了！戰念套裝利用你的心靈力量讓你更難被移動，同時讓你的敵人更容易被推開。,Who says lightly armored heroes can’t also be hard to move? You just need to employ some psionics! The Battlemind kit harnesses the power of your mind to make you harder to move—and to make your foes easier to push around.,2026-10-14,Who says lightly armored heroes can't also be hard to move? You just need to employ some psionics! The Battlemind kit harnesses the power of your mind to make you harder to move—and to make your foes easier to push around.,誰說輕甲英雄不能難以撼動？只要運用一些靈能就行了！戰念套裝利用你的心靈力量讓你更難被移動，同時讓你的敵人更容易被推開。,APPROVED,c4761ff3e46fff5af5ebae7e2b2dcbeb20d56e8f81360dd02bd3833183ba08fe
 heroes.kits.battlemind.equipment,APPROVED,你穿戴輕甲，持用 1 件中型武器。,You wear light armor and wield a medium weapon.,2026-10-14,,,,
 heroes.kits.battlemind.signature.unmooring,APPROVED,"脫韁解錨（Unmooring）
 你的武器釋放出靈能，減輕目標的重量。
@@ -1538,7 +1538,7 @@ Effect: If you obtain a tier 2 or tier 3 outcome and can’t swap places with th
 heroes.kits.mountain.bonus.melee-damage,APPROVED,近戰傷害加值：+0/+0/+4,Melee Damage Bonus: +0/+0/+4,2026-10-14,,,,
 heroes.kits.mountain.bonus.stability,APPROVED,穩度加值：+2,Stability Bonus: +2,2026-10-14,,,,
 heroes.kits.mountain.bonus.stamina,APPROVED,體力加值：每境界 +9,Stamina Bonus: +9 per echelon,2026-10-14,,,,
-heroes.kits.mountain.description,APPROVED,山嶽套裝完美體現其名稱的精神。你身穿重甲、手持重型武器，穩固地抵禦敵人，並在輪到你攻擊時迅速擊潰他們。,"The Mountain kit does exactly what it says on the tin. You don heavy armor and raise a heavy weapon to stand strong against your foes, quickly demolishing them when it’s your turn to strike.",2026-10-14,,,,
+heroes.kits.mountain.description,APPROVED,山嶽套裝完美體現其名稱的精神。你身穿重甲、手持重型武器，穩固地抵禦敵人，並在輪到你攻擊時迅速擊潰他們。,"The Mountain kit does exactly what it says on the tin. You don heavy armor and raise a heavy weapon to stand strong against your foes, quickly demolishing them when it’s your turn to strike.",2026-10-14,"The Mountain kit does exactly what it says on the tin. You don heavy armor and raise a heavy weapon to stand strong against your foes, quickly demolishing them when it's your turn to strike.",山嶽套裝完美體現其名稱的精神。你身穿重甲、手持重型武器，穩固地抵禦敵人，並在輪到你攻擊時迅速擊潰他們。,APPROVED,a9949e456dfab138caf67e4b2a942307e154d6ca0557686e41ea8de77138fede
 heroes.kits.mountain.equipment,APPROVED,你穿戴重甲，持用 1 件重型武器。,You wear heavy armor and wield a heavy weapon.,2026-10-14,,,,
 heroes.kits.mountain.signature.pain-for-pain,APPROVED,"以牙還牙（Pain for Pain）
 傷害你的敵人將會付出代價。
@@ -1626,7 +1626,7 @@ heroes.kits.ranger.bonus.ranged-damage,APPROVED,遠程傷害加值：+1/+1/+1,Ra
 heroes.kits.ranger.bonus.ranged-distance,APPROVED,遠程射程加值：+5,Ranged Distance Bonus: +5,2026-10-14,,,,
 heroes.kits.ranger.bonus.speed,APPROVED,速度加值：+1,Speed Bonus: +1,2026-10-14,,,,
 heroes.kits.ranger.bonus.stamina,APPROVED,體力加值：每境界 +6,Stamina Bonus: +6 per echelon,2026-10-14,,,,
-heroes.kits.ranger.description,APPROVED,遊俠套裝為你提供了應對各種挑戰的中甲和武器，能讓你在近身和遠程戰鬥之間靈活切換。這組套裝在防禦與攻擊之間達到良好的平衡，塑造出全方位的英雄。,"The Ranger kit outfits you with medium armor and weapons for every challenge, letting you easily switch between melee and ranged combat. This kit provides a good balance of bonuses to defense and offense to create a hero who is a jack-of-all-trades.",2026-10-14,,,,
+heroes.kits.ranger.description,APPROVED,遊俠套裝為你提供了應對各種挑戰的中甲和武器，能讓你在近身和遠程戰鬥之間靈活切換。這組套裝在防禦與攻擊之間達到良好的平衡，塑造出全方位的英雄。,"The Ranger kit outfits you with medium armor and weapons for every challenge, letting you easily switch between melee and ranged combat. This kit provides a good balance of bonuses to defense and offense to create a hero who is a jack-of-all-trades.",2026-10-14,"The Ranger kit outfits you with light armor and weapons for every challenge, letting you easily switch between melee and ranged combat. This kit provides a good balance of bonuses to defense and offense to create a hero who is a jack-of-all-trades.",遊俠套裝為你提供了應對各種挑戰的中甲和武器，能讓你在近身和遠程戰鬥之間靈活切換。這組套裝在防禦與攻擊之間達到良好的平衡，塑造出全方位的英雄。,APPROVED,db2091d38d9b206c29e2067f3a344079f86ad7e89b1ebd2e645868b59f5b2559
 heroes.kits.ranger.equipment,APPROVED,你穿戴中甲，持用 1 把弓箭和 1 件中型武器。,You wear medium armor and wield a bow and a medium weapon.,2026-10-14,,,,
 heroes.kits.ranger.signature.hamstring-shot,APPROVED,"斷筋射擊（Hamstring Shot）
 一發精準的射擊讓你的敵人舉步維艱。
@@ -1726,7 +1726,7 @@ heroes.kits.spellsword.bonus.melee-damage,APPROVED,近戰傷害加值：+2/+2/+2
 heroes.kits.spellsword.bonus.speed,APPROVED,速度加值：+1,Speed Bonus: +1,2026-10-14,,,,
 heroes.kits.spellsword.bonus.stability,APPROVED,穩度加值：+1,Stability Bonus: +1,2026-10-14,,,,
 heroes.kits.spellsword.bonus.stamina,APPROVED,體力加值：每境界 +6,Stamina Bonus: +6 per echelon,2026-10-14,,,,
-heroes.kits.spellsword.description,APPROVED,魔刃套裝結合了近身戰鬥與少量魔法，讓你不需要在咒語和刀刃之間陷入二選一的窘境。,"The Spellsword kit combines melee strikes and a little bit of magic, letting you create a warrior who doesn’t have to choose between the incantation and the blade.",2026-10-14,,,,
+heroes.kits.spellsword.description,APPROVED,魔刃套裝結合了近身戰鬥與少量魔法，讓你不需要在咒語和刀刃之間陷入二選一的窘境。,"The Spellsword kit combines melee strikes and a little bit of magic, letting you create a warrior who doesn’t have to choose between the incantation and the blade.",2026-10-14,"The Spellsword kit combines melee strikes and a little bit of magic, letting you create a warrior who doesn't have to choose between the incantation and the blade.",魔刃套裝結合了近身戰鬥與少量魔法，讓你不需要在咒語和刀刃之間陷入二選一的窘境。,APPROVED,8f432a8e48fefc91f8865039cbdb5b15050af1537ccde8602a2293cccd0e05b5
 heroes.kits.spellsword.equipment,APPROVED,你穿戴輕甲，持用 1 面盾牌和 1 件中型武器。,You wear light armor and wield a shield and a medium weapon.,2026-10-14,,,,
 heroes.kits.spellsword.signature.leaping-lightning,APPROVED,"電光閃擊（Leaping Lightning）
 當你發動攻擊時，一道閃電從你的武器躍出，傷害附近的敵人。
@@ -1748,7 +1748,7 @@ heroes.kits.stick-and-robe.bonus.melee-damage,APPROVED,近戰傷害加值：+1/+
 heroes.kits.stick-and-robe.bonus.melee-distance,APPROVED,近戰射程加值：+1,Melee Distance Bonus: +1,2026-10-14,,,,
 heroes.kits.stick-and-robe.bonus.speed,APPROVED,速度加值：+2,Speed Bonus: +2,2026-10-14,,,,
 heroes.kits.stick-and-robe.bonus.stamina,APPROVED,體力加值：每境界 +3,Stamina Bonus: +3 per echelon,2026-10-14,,,,
-heroes.kits.stick-and-robe.description,APPROVED,使用杖袍套裝的角色持用一把簡單的長兵器（通常是長棍），並因穿戴輕甲而具有高度機動性。這讓你的英雄能夠充分發揮長柄武器的優勢。,"Armed with a simple reach weapon, often a quarterstaff, a character using the Stick and Robe kit is highly mobile thanks to their light armor. This allows your hero to make maximum use of their weapon’s length.",2026-10-14,,,,
+heroes.kits.stick-and-robe.description,APPROVED,使用杖袍套裝的角色持用一把簡單的長兵器（通常是長棍），並因穿戴輕甲而具有高度機動性。這讓你的英雄能夠充分發揮長柄武器的優勢。,"Armed with a simple reach weapon, often a quarterstaff, a character using the Stick and Robe kit is highly mobile thanks to their light armor. This allows your hero to make maximum use of their weapon’s length.",2026-10-14,"Armed with a simple reach weapon, often a quarterstaff, a character using the Stick and Robe kit is highly mobile thanks to their light armor. This allows your hero to make maximum use of their weapon's length.",使用杖袍套裝的角色持用一把簡單的長兵器（通常是長棍），並因穿戴輕甲而具有高度機動性。這讓你的英雄能夠充分發揮長柄武器的優勢。,APPROVED,47d4dfc76a39c665cdd5fe986e944ee213cc4cb74949850b595931e2cc24cebd
 heroes.kits.stick-and-robe.equipment,APPROVED,你穿戴輕甲，持用 1 件長柄武器。,You wear light armor and wield a polearm.,2026-10-14,,,,
 heroes.kits.stick-and-robe.signature.where-i-want-you,APPROVED,"隨心所置（Where I Want You）
 當你的棍杖發聲，敵人就得移動。
@@ -1788,7 +1788,7 @@ heroes.kits.sword-and-board.bonus.disengage,APPROVED,撤離加值：+1,Disengage
 heroes.kits.sword-and-board.bonus.melee-damage,APPROVED,近戰傷害加值：+2/+2/+2,Melee Damage Bonus: +2/+2/+2,2026-10-14,,,,
 heroes.kits.sword-and-board.bonus.stability,APPROVED,穩度加值：+1,Stability Bonus: +1,2026-10-14,,,,
 heroes.kits.sword-and-board.bonus.stamina,APPROVED,體力加值：每境界 +9,Stamina Bonus: +9 per echelon,2026-10-14,,,,
-heroes.kits.sword-and-board.description,APPROVED,劍盾套裝不只提供你一面盾牌，而是讓盾牌成為你重要的進攻手段。一手持中型武器，一手握著鋼鐵或實木盾牌，你既能控制戰場，又能保護自己。,"The Sword and Board kit doesn’t just give you a shield—it makes the shield part of your offensive arsenal. With a medium weapon in one hand and a block of steel or solid oak in the other, you protect yourself while you control the battlefield.",2026-10-14,,,,
+heroes.kits.sword-and-board.description,APPROVED,劍盾套裝不只提供你一面盾牌，而是讓盾牌成為你重要的進攻手段。一手持中型武器，一手握著鋼鐵或實木盾牌，你既能控制戰場，又能保護自己。,"The Sword and Board kit doesn’t just give you a shield—it makes the shield part of your offensive arsenal. With a medium weapon in one hand and a block of steel or solid oak in the other, you protect yourself while you control the battlefield.",2026-10-14,"The Sword and Board kit doesn't just give you a shield—it makes the shield part of your offensive arsenal. With a medium weapon in one hand and a block of steel or solid oak in the other, you protect yourself while you control the battlefield.",劍盾套裝不只提供你一面盾牌，而是讓盾牌成為你重要的進攻手段。一手持中型武器，一手握著鋼鐵或實木盾牌，你既能控制戰場，又能保護自己。,APPROVED,1351ef541c9e06cabe751459ff42e786267474352e93bd685a8b0a8648c08931
 heroes.kits.sword-and-board.equipment,APPROVED,你穿戴中甲，持用 1 面盾牌和 1 件中型武器。,You wear medium armor and wield a shield and a medium weapon.,2026-10-14,,,,
 heroes.kits.sword-and-board.signature.shield-bash,APPROVED,"盾擊（Shield Bash）
 你手中的盾牌不僅僅是防禦工具。

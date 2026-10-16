@@ -369,6 +369,17 @@ describe('sheet english', () => {
 		);
 	});
 
+	test('allows a canonical kit name whose only difference is capitalization', () => {
+		const root = scratch();
+		write(root, 'src/data/kits/stick-and-robe.ts', "export const kit = { id: 'kit-stick-and-robe', name: 'Stick And Robe' };\n");
+		sheet(root, [ 'name.kit.stick-and-robe' ], { 'name.kit.stick-and-robe': 'Stick and Robe' });
+		write(root, 'src/l10n/mapping.ts', mappingSource([
+			{ key: 'element:kit-stick-and-robe:name', sheetId: 'name.kit.stick-and-robe', enHash: hashEnglish('Stick And Robe') }
+		]));
+
+		expect(checkMapping(root)).toEqual([]);
+	});
+
 	test('allows a listed punctuation-only difference', () => {
 		const root = scratch();
 		writePair(root, forge, sheetEn);

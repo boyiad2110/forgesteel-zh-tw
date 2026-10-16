@@ -964,6 +964,11 @@
     "updated": "2026-10-10",
     "zh": "狀況"
   },
+  "ui.hero-builder.stats.b4a73657": {
+    "en": "Stats",
+    "updated": "2026-10-16",
+    "zh": "數據"
+  },
   "ui.hero-builder.summon.759c2262": {
     "en": "Summon",
     "updated": "2026-10-15",
@@ -1098,6 +1103,11 @@
     "en": "Use the tabs above to select your hero's",
     "updated": "2026-10-10",
     "zh": "使用上方分頁設定英雄的"
+  },
+  "ui.hero-builder.uses.9e6151ac": {
+    "en": "Uses",
+    "updated": "2026-10-16",
+    "zh": "裝備"
   },
   "ui.hero-builder.weaknesses.af393b75": {
     "en": "Weaknesses",

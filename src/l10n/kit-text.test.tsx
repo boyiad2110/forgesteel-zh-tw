@@ -22,6 +22,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { resolveText } from '@/l10n/text';
 import { setLanguage } from '@/l10n/language';
 import strings from '@/l10n/generated/zh-TW/strings.json';
+import ui from '@/l10n/generated/zh-TW/ui.json';
 
 vi.mock('dompurify', () => ({
 	default: {
@@ -96,10 +97,10 @@ describe('standard kit localization', () => {
 			}
 		});
 
-		expect(mappedNames).toHaveLength(19);
-		expect(mappedDescriptions).toHaveLength(15);
-		expect(mappedAbilities).toHaveLength(16);
-		expect(Object.keys(mapping).filter(key => key.startsWith('element:kit-'))).toHaveLength(50);
+		expect(mappedNames).toHaveLength(20);
+		expect(mappedDescriptions).toHaveLength(21);
+		expect(mappedAbilities).toHaveLength(19);
+		expect(Object.keys(mapping).filter(key => key.startsWith('element:kit-'))).toHaveLength(60);
 		setLanguage('en');
 		expect(kitModifierName('Arcane Archer & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe('Arcane Archer & Panther');
 		expect(kitModifierName('Arcane Archer (custom) & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe('Arcane Archer (custom) & Panther');
@@ -118,6 +119,8 @@ describe('standard kit localization', () => {
 		const ability = generated[mapping['element:kit-arcane-archer-signature:name'].sheetId].zh;
 
 		expect(compact).toContain(name);
+		expect(full).toContain(ui['ui.hero-builder.stats.b4a73657'].zh);
+		expect(full).toContain(ui['ui.hero-builder.uses.9e6151ac'].zh);
 		expect(compact).toContain(generated[mapping['element:kit-arcane-archer:description'].sheetId].zh);
 		expect(full).toContain(name);
 		expect(full).toContain(ability);

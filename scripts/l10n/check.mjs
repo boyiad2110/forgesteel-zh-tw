@@ -1884,6 +1884,12 @@ const checkSheetEnglish = (entry, sheetEn, forgeEn, exception) => {
 	if (!pair) {
 		return null;
 	}
+	const kitNameKey = entry.key.startsWith('element:kit-') && entry.key.endsWith(':name');
+	const kitNameSource = entry.sheetId.startsWith('name.kit.') || entry.sheetId.startsWith('name.kit-ability.');
+	if (kitNameKey && kitNameSource && !exception
+		&& pair.sheet.toLocaleLowerCase('en-US') === pair.forge.toLocaleLowerCase('en-US')) {
+		return null;
+	}
 	const diff = englishDifference(pair.forge, pair.sheet);
 	if (diff === 'same') {
 		if (exception) {

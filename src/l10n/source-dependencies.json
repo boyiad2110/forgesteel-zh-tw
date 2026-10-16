@@ -4762,6 +4762,90 @@
         "enHash": "891cbeeb5619897edf0cd06e88b2abf36727dedf6b0a2b884a190cc46f324d4a",
         "zhHash": "55e347d1368356184bd81f0cab71b0ae659387cc6714aee11743e7731381626e"
       }
+    },
+    "heroes.kits.battlemind.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.battlemind.description",
+          "enHash": "9ebc747dcff58c893cc3ec7e2090701a119bdfd35da6997e48e0bbe519723640",
+          "zhHash": "c4761ff3e46fff5af5ebae7e2b2dcbeb20d56e8f81360dd02bd3833183ba08fe"
+        }
+      ],
+      "sourcesHash": "4c6bbc0e833deb4a187f52ee8c762371a2e62246817a483b9296b508a9a96052",
+      "fs": {
+        "enHash": "ef698d299c504e04c41e5b6782e7283849ab047f039664e6839a95c059735163",
+        "zhHash": "c4761ff3e46fff5af5ebae7e2b2dcbeb20d56e8f81360dd02bd3833183ba08fe"
+      }
+    },
+    "heroes.kits.mountain.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.mountain.description",
+          "enHash": "5cf14287f0bda898d4f3ad91302b85628d1e55793d60c229184268d1d51171b4",
+          "zhHash": "a9949e456dfab138caf67e4b2a942307e154d6ca0557686e41ea8de77138fede"
+        }
+      ],
+      "sourcesHash": "981b721fbeefef0319359ce872c6b7ff99d73930d8d6df537703b8cdeb45c7ea",
+      "fs": {
+        "enHash": "f0debfc89f1d419f987570183fcf6958ea8f9b41cb51fc42c9b4368fa71cd813",
+        "zhHash": "a9949e456dfab138caf67e4b2a942307e154d6ca0557686e41ea8de77138fede"
+      }
+    },
+    "heroes.kits.ranger.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.ranger.description",
+          "enHash": "f1c58820729627dec67fe5d0ff347e77eb9508e3a87f9e5fed3a3bc936d1f020",
+          "zhHash": "db2091d38d9b206c29e2067f3a344079f86ad7e89b1ebd2e645868b59f5b2559"
+        }
+      ],
+      "sourcesHash": "cdc65bf78d7982f2f5ad192174994e90eac711a325f54fd1b9ae6633049282ba",
+      "fs": {
+        "enHash": "24e1096dc9adc96865fa682753721246921b14e811b8fa4208399b3ce31fcaef",
+        "zhHash": "db2091d38d9b206c29e2067f3a344079f86ad7e89b1ebd2e645868b59f5b2559"
+      }
+    },
+    "heroes.kits.spellsword.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.spellsword.description",
+          "enHash": "37c85224844e7150f89965a1128ca7e8891805ec8775804514b16497c74935a9",
+          "zhHash": "8f432a8e48fefc91f8865039cbdb5b15050af1537ccde8602a2293cccd0e05b5"
+        }
+      ],
+      "sourcesHash": "a6ee83d8c95ada9d7a07e0492cd87f76f2aff24e77f92f734a59f1be85c1436c",
+      "fs": {
+        "enHash": "2946691c55cac3479352af140acbc8d3fd018508763fe1f56379a3d00192d71e",
+        "zhHash": "8f432a8e48fefc91f8865039cbdb5b15050af1537ccde8602a2293cccd0e05b5"
+      }
+    },
+    "heroes.kits.stick-and-robe.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.stick-and-robe.description",
+          "enHash": "ed4f7770e625d84087d5e24953ad899a32d76a8878e7a51b90ea9b8196d1de01",
+          "zhHash": "47d4dfc76a39c665cdd5fe986e944ee213cc4cb74949850b595931e2cc24cebd"
+        }
+      ],
+      "sourcesHash": "aa7fb5be65a2505d8b83698a6687f3d83f7b6446fefc649600f15ec47fca471b",
+      "fs": {
+        "enHash": "a070139694cee43783df845555cfde290f4120f23dec62493f97faaa1d0e6e26",
+        "zhHash": "47d4dfc76a39c665cdd5fe986e944ee213cc4cb74949850b595931e2cc24cebd"
+      }
+    },
+    "heroes.kits.sword-and-board.description": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.sword-and-board.description",
+          "enHash": "f9bff36984ffc82363e82914078e06f55b893d74795c4862a1165428361c4f78",
+          "zhHash": "1351ef541c9e06cabe751459ff42e786267474352e93bd685a8b0a8648c08931"
+        }
+      ],
+      "sourcesHash": "e61cf3713347251e4f473310c9971f45c68148dc447e167f8c6fb86b20400923",
+      "fs": {
+        "enHash": "31022778e81158f3b98f5ae8b2a97248c3d452b5f684db457be963800f9fdaa1",
+        "zhHash": "1351ef541c9e06cabe751459ff42e786267474352e93bd685a8b0a8648c08931"
+      }
     }
   }
 }
