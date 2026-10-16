@@ -15,7 +15,7 @@
 2. 各來源分別記錄讀取前／後 `modifiedTime`；任何讀取錯誤、截斷、Spreadsheet ID 不符、欄位缺漏或前後時間不同，丟棄整次擷取並停止。重新擷取不可沿用另一輪的分頁資料。
 3. 對完整範圍核對唯一 ID、Status、核准與來源關聯，計算本輪內容指紋。只將必要欄位、APPROVED 資料及其來源關聯寫入暫存輸入；草稿、私有筆記及不需匯出的欄位不落盤。保留來源文字、空白、換行和 Calculation Display Note 原值。
 4. 在隔離工作分支執行 `node scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json>` dry-run。檢查四份 CSV、生成目錄、Adaptations、Source 關聯、metadata 和所有檔案雜湊；未預期的有效目錄差異、核准 Hash 不符或檢查失敗即停止。
-5. 僅在 dry-run 和該工具的 staged 守門通過後，以相同命令加 `--apply`。套用後的穩定版本依 RULES 跑一次完整驗證，不另手動重跑已被涵蓋的守門或匯出一致性。PR 保留雙來源 metadata 與指紋供審查。
+5. 僅在 dry-run 和該工具的 staged 守門通過後，以相同命令加 `--apply`。套用後依 RULES 對該版本跑一次完整驗證；該次已涵蓋的守門與匯出一致性不另手動重跑。版本再變更時重新驗證；定位失敗可跑相關單檔測試，單檔結果不能當成整體通過。PR 保留雙來源 metadata 與指紋供審查。
 6. 檢視完整 Git diff，確認沒有草稿、私有筆記、譯文／Hash／mapping／runtime 的非授權變更，並移除暫存擷取檔。來源時間或內容在套用前再次改變時，停止並從步驟 1 重新開始。
 
 ## 狀態與結案寫入
@@ -92,7 +92,7 @@ node scripts/l10n/refresh-sheet.mjs --input .l10n-approved-capture.json --apply
 - 完整重建動態 Note 集合，不合併舊 Note 掩蓋遺漏。沒有句型的列不需要 Note；已啟用句型的列缺 Note 由守門拒絕。
 - 成功後移除暫存輸入並核對 `git diff`。來源時間是這次取得時間，後續寫 Project State／Status 不代表譯文再取得一次。非本批的譯文差異另列對照預覽，不順帶納入。
 
-套用後的穩定版本依 RULES 跑一次完整驗證，並如實記錄未通過項目；不在完整驗證之外再手動重跑守門、匯出一致性或單檔測試。不改預設逾時或依賴來讓本批過關。
+套用後依 RULES 對該版本跑一次完整驗證，並如實記錄未通過項目。該次已涵蓋的守門與匯出一致性不另手動重跑；版本再變更時重新驗證。定位失敗可跑相關單檔測試，單檔結果不能當成整體通過。不改預設逾時或依賴來讓本批過關。
 
 ## PERKS-01 結案快照（2026-10-15）
 

@@ -8,7 +8,7 @@ Stage B Reviewer 已核准獨立 Forge Steel Localization Sheet；以下 DEC-001
 
 - **DEC-0010 多來源過期偵測**：取代 DEC-0009 的「合併只看第一列」取捨；每個 Forge Steel 版記錄全部依賴 Sheet ID、英文／中文 hash 與核准 fs hash，守門檢查任何來源變動。中文刪字與接合限制不變。實作及多用途方案見 [P4-STRUCTURE](P4-STRUCTURE.md)。
 - **DEC-0011 多用途對照**：方案採 Master Sheet 獨立 Forge Steel 對照分頁，每用途一列、引用書本 ID 與完整依賴；現有欄位先維持兼容，第一個實際多用途批次再按核准欄位遷移，不建立翻譯平台。這是結構方案定案，不是未存在譯文的核准。
-- **DEC-0012 維護驗收與結案**：本次使用者授權免人工驗收完成維護 1–5；一般內容仍走預覽／Marc 核准。批次紀錄集中原 PR，不再每批另開結案 PR；TODO 是唯一目前待辦。
+- **DEC-0012 維護驗收與結案**：本次使用者授權免人工驗收完成維護 1–5。批次紀錄集中原 PR，不再每批另開結案 PR。TODO 管未交付工作；已交付項目由 PROGRESS 索引至原 PR，驗收與合併結果以原 PR 為準。人工關卡見 [RULES](RULES.md)。
 - **DEC-0013 上游與門檻**：main 僅 fast-forward 鏡像；整合走 develop PR 且必須通過 l10n（含六項檢查與瀏覽器回歸），不要求第二位審查者。禁止 force push／刪分支；main 不要求 PR，以保留鏡像更新。每週 Upstream watch 唯讀比較 main 與 develop，不自動合併或部署。
 - **DEC-0014 最小依賴修補**：同步至上游 14.207.0 後，稽核剩 brace-expansion／minimatch 兩項 high；既有 brace-expansion override 從 5.0.8 更新到 5.0.12，不放寬 audit，不執行 audit fix --force。依據 [官方公告](https://github.com/advisories/GHSA-q2hr-2g5m-vwhr)，實際結果見 PROGRESS。
 - **DEC-0015 官方文化摘要的正體中文標點（2026-10-10）**：P2-1-5 原決定保留來源標點；本批僅對已由既有保護條件確認為官方三面向組合摘要的內容，在正體中文模式使用「、」分隔並以「。」結尾，保留面向順序與 APPROVED 名稱。英文模式保留原文；自訂自由描述、改名、Homebrew、未知格式及其他不符合官方資料的內容維持原值。此決定不改寫 P2-1-5 歷史、不做全站標點替換、不修改資料或存檔，亦不新增翻譯／mapping。實作與驗收見 DISPLAY-01 批次 PR。
