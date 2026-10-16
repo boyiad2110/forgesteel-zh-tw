@@ -2,6 +2,9 @@ import { ErrorBoundary } from '@/components/controls/error-boundary/error-bounda
 import { FeaturePanel } from '@/components/panels/elements/feature-panel/feature-panel';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
+import { AbilityName } from '@/l10n/ability-text';
+import { ElementScope } from '@/l10n/element-scope';
+import { FeatureType } from '@/enums/feature-type';
 import { Hero } from '@/models/hero';
 import { Kit } from '@/models/kit';
 import { Markdown } from '@/components/controls/markdown/markdown';
@@ -12,6 +15,8 @@ import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
+import { kitFieldLabel } from '@/l10n/kit-text';
 
 import './kit-panel.scss';
 
@@ -22,7 +27,26 @@ interface Props {
 	mode?: PanelMode;
 }
 
+export const KitStats = (props: { kit: Kit }) => {
+	const ui = useUI();
+	return (
+		<>
+			{props.kit.armor.length > 0 ? <Field label={kitFieldLabel(ui, 'Armor')} value={props.kit.armor.join(', ')} /> : null}
+			{props.kit.weapon.length > 0 ? <Field label='Weapon' value={props.kit.weapon.join(', ')} /> : null}
+			{props.kit.stamina > 0 ? <Field label={kitFieldLabel(ui, 'Stamina')} value={`+${props.kit.stamina}`} /> : null}
+			{props.kit.speed > 0 ? <Field label={kitFieldLabel(ui, 'Speed')} value={`+${props.kit.speed}`} /> : null}
+			{props.kit.stability > 0 ? <Field label={kitFieldLabel(ui, 'Stability')} value={`+${props.kit.stability}`} /> : null}
+			{props.kit.meleeDamage ? <Field label='Melee Damage' value={`+${props.kit.meleeDamage.tier1} / +${props.kit.meleeDamage.tier2} / +${props.kit.meleeDamage.tier3}`} /> : null}
+			{props.kit.rangedDamage ? <Field label='Ranged Damage' value={`+${props.kit.rangedDamage.tier1} / +${props.kit.rangedDamage.tier2} / +${props.kit.rangedDamage.tier3}`} /> : null}
+			{props.kit.meleeDistance > 0 ? <Field label='Melee Distance' value={`+${props.kit.meleeDistance}`} /> : null}
+			{props.kit.rangedDistance > 0 ? <Field label='Ranged Distance' value={`+${props.kit.rangedDistance}`} /> : null}
+			{props.kit.disengage > 0 ? <Field label='Disengage' value={`+${props.kit.disengage}`} /> : null}
+		</>
+	);
+};
+
 export const KitPanel = (props: Props) => {
+	const ui = useUI();
 	const [ page, setPage ] = useState<string>('overview');
 
 	const getOverview = () => {
@@ -30,34 +54,21 @@ export const KitPanel = (props: Props) => {
 			<>
 				<Markdown text={props.kit.description} />
 				<Field label='Uses' value={[ ...props.kit.armor, ...props.kit.weapon ].join(', ')} />
-				<Field label='Features' value={props.kit.features.map(f => f.name).join(', ')} />
+				<Field
+					label={ui.text('ui.hero-builder.features.31d1245f', 'Features')}
+					value={props.kit.features.map((feature, index) => (
+						<span key={feature.id}>
+							{index > 0 ? ', ' : ''}
+							{feature.type === FeatureType.Ability ? <AbilityName ability={feature.data.ability} /> : feature.name}
+						</span>
+					))}
+				/>
 			</>
 		);
 	};
 
 	const getStats = () => {
-		return (
-			<>
-				{props.kit.armor.length > 0 ? <Field label='Armor' value={props.kit.armor.join(', ')} /> : null}
-				{props.kit.weapon.length > 0 ? <Field label='Weapon' value={props.kit.weapon.join(', ')} /> : null}
-				{props.kit.stamina > 0 ? <Field label='Stamina' value={`+${props.kit.stamina}`} /> : null}
-				{props.kit.speed > 0 ? <Field label='Speed' value={`+${props.kit.speed}`} /> : null}
-				{props.kit.stability > 0 ? <Field label='Stability' value={`+${props.kit.stability}`} /> : null}
-				{
-					props.kit.meleeDamage ?
-						<Field label='Melee Damage' value={`+${props.kit.meleeDamage.tier1} / +${props.kit.meleeDamage.tier2} / +${props.kit.meleeDamage.tier3}`} />
-						: null
-				}
-				{
-					props.kit.rangedDamage ?
-						<Field label='Ranged Damage' value={`+${props.kit.rangedDamage.tier1} / +${props.kit.rangedDamage.tier2} / +${props.kit.rangedDamage.tier3}`} />
-						: null
-				}
-				{props.kit.meleeDistance > 0 ? <Field label='Melee Distance' value={`+${props.kit.meleeDistance}`} /> : null}
-				{props.kit.rangedDistance > 0 ? <Field label='Ranged Distance' value={`+${props.kit.rangedDistance}`} /> : null}
-				{props.kit.disengage > 0 ? <Field label='Disengage' value={`+${props.kit.disengage}`} /> : null}
-			</>
-		);
+		return <KitStats kit={props.kit} />;
 	};
 
 	const getFeatures = () => {
@@ -88,9 +99,9 @@ export const KitPanel = (props: Props) => {
 					style={{ marginBottom: '20px' }}
 					block={true}
 					options={[
-						{ value: 'overview', label: 'Overview' },
+						{ value: 'overview', label: ui.text('ui.hero-builder.overview.d4b1ea57', 'Overview') },
 						{ value: 'stats', label: 'Stats' },
-						{ value: 'features', label: 'Features' }
+						{ value: 'features', label: ui.text('ui.hero-builder.features.31d1245f', 'Features') }
 					]}
 					value={page}
 					onChange={setPage}
@@ -114,21 +125,25 @@ export const KitPanel = (props: Props) => {
 
 	if (props.mode !== PanelMode.Full) {
 		return (
-			<div className='kit-panel compact'>
-				<HeaderText level={1} tags={tags}>
-					{props.kit.name || 'Unnamed Kit'}
-				</HeaderText>
-				<Markdown text={props.kit.description} />
-			</div>
+			<ElementScope element={props.kit}>
+				<div className='kit-panel compact'>
+					<HeaderText level={1} tags={tags}>
+						{props.kit.name || 'Unnamed Kit'}
+					</HeaderText>
+					<Markdown text={props.kit.description} />
+				</div>
+			</ElementScope>
 		);
 	}
 
 	return (
 		<ErrorBoundary>
-			<div className='kit-panel' id={SheetFormatter.getPageId('kit', props.kit.id)}>
-				<HeaderText level={1} tags={tags}>{props.kit.name || 'Unnamed Kit'}</HeaderText>
-				{getContent()}
-			</div>
+			<ElementScope element={props.kit}>
+				<div className='kit-panel' id={SheetFormatter.getPageId('kit', props.kit.id)}>
+					<HeaderText level={1} tags={tags}>{props.kit.name || 'Unnamed Kit'}</HeaderText>
+					{getContent()}
+				</div>
+			</ElementScope>
 		</ErrorBoundary>
 	);
 };

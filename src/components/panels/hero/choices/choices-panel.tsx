@@ -153,12 +153,12 @@ export const ChoicesPanel = (props: Props) => {
 					HeroLogic.getKits(props.hero).map(kit =>
 						useRows ?
 							<div key={kit.id} className='selectable-row clickable' onClick={() => props.onSelectKit(kit)}>
-								<div>{ui.text('ui.hero-builder.kit.63d5adfa', 'Kit')}: <b>{kit.name}</b></div>
+								<div>{ui.text('ui.hero-builder.kit.63d5adfa', 'Kit')}: <b><PlayerName element={kit} /></b></div>
 							</div>
 							:
 							<div key={kit.id} className='overview-tile clickable' onClick={() => props.onSelectKit(kit)}>
 								<HeaderText>{ui.text('ui.hero-builder.kit.63d5adfa', 'Kit')}</HeaderText>
-								<Field label={ui.text('ui.hero-builder.kit.63d5adfa', 'Kit')} value={kit.name} />
+								<Field label={ui.text('ui.hero-builder.kit.63d5adfa', 'Kit')} value={<PlayerName element={kit} />} />
 								{kit.armor.length > 0 ? <Field label={ui.text('ui.hero-builder.armor.d165ace3', 'Armor')} value={kit.armor.join(', ')} /> : null}
 								{kit.weapon.length > 0 ? <Field label={ui.text('ui.hero-builder.weapons.3189d297', 'Weapons')} value={kit.weapon.join(', ')} /> : null}
 							</div>

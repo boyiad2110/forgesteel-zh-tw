@@ -21,7 +21,8 @@ export const isPlayerNameKey = (element: NamedElement) => {
 	return !!entry && (entry.sheetId.startsWith('heroes.ancestries.')
 		|| entry.sheetId.startsWith('heroes.background.culture.')
 		|| entry.sheetId.startsWith('heroes.background.career.')
-		|| entry.sheetId.startsWith('name.perk.'));
+		|| entry.sheetId.startsWith('name.perk.')
+		|| entry.sheetId.startsWith('name.kit.'));
 };
 
 const addName = (names: Map<string, string>, element: NamedElement) => {
@@ -74,6 +75,7 @@ const getPlayerNameIndex = (sourcebooks: Sourcebook[]) => {
 			sourcebook.cultures.forEach(culture => addCulture(names, culture));
 			sourcebook.careers.forEach(career => addCareer(names, career));
 			sourcebook.perks.forEach(perk => addName(names, perk));
+			sourcebook.kits.forEach(kit => addName(names, kit));
 		});
 
 	sourcebookIndexes.set(sourcebooks, names);

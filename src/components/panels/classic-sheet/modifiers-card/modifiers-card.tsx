@@ -1,7 +1,9 @@
 import { LabeledBooleanField, LabeledTextField } from '@/components/panels/classic-sheet/components/labeled-field';
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
+import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
+import { useKitModifierName } from '@/l10n/kit-text';
 
 import './modifiers-card.scss';
 
@@ -15,6 +17,7 @@ interface Props {
 }
 
 export const ModifiersCard = (props: Props) => {
+	const modifierName = useKitModifierName(props.character.modifierName || '', HeroLogic.getKits(props.character.hero));
 	const character = useMemo(
 		() => props.character,
 		[ props.character ]
@@ -105,7 +108,7 @@ export const ModifiersCard = (props: Props) => {
 			</h2>
 			<LabeledTextField
 				label={getModifierNameLabel()}
-				content={character.modifierName}
+				content={modifierName}
 				additionalClasses={[ 'name', 'label-overlay' ]}
 			/>
 
