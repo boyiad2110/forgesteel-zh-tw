@@ -24,13 +24,6 @@ export const perkListText = (list: PerkList, ui: ReturnType<typeof useUI>) => {
 	}
 };
 
-const PERK_COUNT_LIST = 'ui.hero-builder.perk-count-list.9eaae349';
-const PERK_COUNT = 'ui.hero-builder.perk-count.e5bc2580';
-const LIST_OR = 'ui.hero-builder.list-or.7382d0ab';
-const PERK_COUNT_LIST_SOURCE = '`${count} ${list} Perk`';
-const PERK_COUNT_SOURCE = '`${count} Perk`';
-const LIST_OR_SOURCE = '`${items} or ${last}`';
-
 const knownPerkLists = new Set<string>(Object.values(PerkList));
 
 /** The English count line. One perk stays singular; every other count uses Perks. */
@@ -63,9 +56,9 @@ const approvedPerkCategory = (category: string) => {
  * Chinese uses only the templates that case needs. A missing template, a wrong
  * placeholder, or any untranslated or unknown category keeps the whole English line.
  */
-export const perkCountCategoryLine = (count: number, categories: readonly string[], language: Language) => {
+export const perkCountCategoryLine = (count: number, categories: readonly string[], ui: ReturnType<typeof useUI>) => {
 	const english = englishPerkCountLine(count, categories);
-	if (language !== 'zh-TW') {
+	if (ui.language !== 'zh-TW') {
 		return english;
 	}
 	const translated: string[] = [];
@@ -77,18 +70,13 @@ export const perkCountCategoryLine = (count: number, categories: readonly string
 		translated.push(name);
 	}
 	if (translated.length === 0) {
-		return applyUITemplate(
-			translate(`ui:${PERK_COUNT}`, PERK_COUNT_SOURCE),
-			PERK_COUNT_SOURCE,
-			english,
-			{ count }
-		);
+		return ui.format('ui.hero-builder.perk-count.e5bc2580', '`${count} Perk`', english, { count });
 	}
 	let list = translated[0];
 	if (translated.length > 1) {
-		const joined = applyUITemplate(
-			translate(`ui:${LIST_OR}`, LIST_OR_SOURCE),
-			LIST_OR_SOURCE,
+		const joined = ui.format(
+			'ui.hero-builder.list-or.7382d0ab',
+			'`${items} or ${last}`',
 			english,
 			{ items: translated.slice(0, -1).join('\u3001'), last: translated[translated.length - 1] }
 		);
@@ -97,12 +85,7 @@ export const perkCountCategoryLine = (count: number, categories: readonly string
 		}
 		list = joined;
 	}
-	return applyUITemplate(
-		translate(`ui:${PERK_COUNT_LIST}`, PERK_COUNT_LIST_SOURCE),
-		PERK_COUNT_LIST_SOURCE,
-		english,
-		{ count, list }
-	);
+	return ui.format('ui.hero-builder.perk-count-list.9eaae349', '`${count} ${list} Perk`', english, { count, list });
 };
 
 const featuresWithin = (feature: Feature): Feature[] => {

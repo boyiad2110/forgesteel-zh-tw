@@ -172,7 +172,7 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 				: null}
 			<div className='feature-line'>
 				• {feature.type === FeatureType.Perk
-					? perkCountCategoryLine(feature.data.count, perkLists ?? [], ui.language)
+					? perkCountCategoryLine(feature.data.count, perkLists ?? [], ui)
 					: skillLine ?? `${feature.data.count} ${lists} ${SheetFormatter.pluralize(choiceType, feature.data.count)}`}
 			</div>
 			{selectedOptions}

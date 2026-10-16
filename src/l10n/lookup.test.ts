@@ -57,6 +57,7 @@ import { languageNameKey } from '@/l10n/language-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
+import { applyUITemplate } from '@/l10n/ui-text';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
 import { renderToStaticMarkup } from 'react-dom/server';
 import strings from '@/l10n/generated/zh-TW/strings.json';
@@ -1398,7 +1399,13 @@ describe('skill display batch', () => {
 			expect(JSON.stringify(feature)).toBe(before);
 			return html;
 		};
-		const text = (count: number, categories: readonly string[]) => perkCountCategoryLine(count, categories, 'zh-TW');
+		const countUI = (language: 'en' | 'zh-TW') => ({
+			language,
+			text: (id: string, english: string) => translate(`ui:${id}`, english),
+			format: (id: string, source: string, english: string, values: Record<string, string | number>) =>
+				applyUITemplate(translate(`ui:${id}`, source), source, english, values)
+		});
+		const text = (count: number, categories: readonly string[]) => perkCountCategoryLine(count, categories, countUI('zh-TW'));
 
 		expect(line(0, [])).toContain('• 0 項 Perk');
 		expect(line(1, [])).toContain('• 1 項 Perk');
@@ -1415,7 +1422,7 @@ describe('skill display batch', () => {
 		expect(line(2, [ PerkList.Crafting ])).toContain('• 2 Crafting Perks');
 		expect(line(1, [ PerkList.Crafting, PerkList.Lore ])).toContain('• 1 Crafting or Lore Perk');
 		expect(line(1, [ PerkList.Interpersonal, PerkList.Intrigue, PerkList.Lore ])).toContain('• 1 Interpersonal, Intrigue or Lore Perk');
-		expect(perkCountCategoryLine(2, [ PerkList.Crafting, PerkList.Lore ], 'en')).toBe('2 Crafting or Lore Perks');
+		expect(perkCountCategoryLine(2, [ PerkList.Crafting, PerkList.Lore ], countUI('en'))).toBe('2 Crafting or Lore Perks');
 		for (const html of [
 			line(1, [ PerkList.Crafting ]),
 			line(1, [ PerkList.Crafting, PerkList.Lore ]),
