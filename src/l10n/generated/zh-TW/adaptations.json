@@ -5459,6 +5459,22 @@
       }
     ]
   },
+  "fs-adapt:heroes.perks.familiar.effect.stamina": {
+    "bookStringId": "heroes.perks.familiar.effect",
+    "usageKey": "element:familiar:stamina",
+    "en": "2 × your level",
+    "zh": "2 × 你的等級",
+    "basisHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983",
+    "updated": "2026-10-16",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.perks.familiar.effect",
+        "enHash": "47435fd66eec7e2282a579e91958bc668ddb7d1679610580ffef5c0e455fc85b",
+        "zhHash": "8ef48f0acbf8137ab3729ff314bc4a3aa8e4399b99211c24feaa9ec8e8fec983"
+      }
+    ]
+  },
   "fs-adapt:heroes.perks.familiar.effect.telepathic": {
     "bookStringId": "heroes.perks.familiar.effect",
     "usageKey": "element:familiar-2:description",

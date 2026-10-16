@@ -19,11 +19,19 @@ export interface SheetEntry {
 
 export type Catalog = Record<string, SheetEntry>;
 
+export interface AdaptationSourceLink {
+	order: number;
+	sourceId: string;
+	enHash: string;
+	zhHash: string;
+}
+
 export interface UsageAdaptation {
 	bookStringId: string;
 	en: string;
 	zh: string;
 	basisHash: string;
+	sources: AdaptationSourceLink[];
 }
 
 let catalog: Catalog | null = null;
@@ -38,11 +46,41 @@ export const peekCatalog = (): Catalog | null => {
 };
 
 /** A second approved use of a book row, selected by its usage key. */
-export const peekUsageAdaptation = (key: string | undefined): UsageAdaptation | undefined => {
-	if (!key || !usageAdaptations) {
-		return undefined;
+export const usageAdaptation = {
+	peek: (key: string | undefined): UsageAdaptation | undefined => {
+		if (!key || !usageAdaptations) {
+			return undefined;
+		}
+		return usageAdaptations[key];
 	}
-	return usageAdaptations[key];
+};
+
+export const peekUsageAdaptation = (key: string | undefined): UsageAdaptation | undefined => {
+	return usageAdaptation.peek(key);
+};
+
+const readSourceLinks = (value: unknown): AdaptationSourceLink[] | undefined => {
+	if (!Array.isArray(value)) {
+		return [];
+	}
+	const links: AdaptationSourceLink[] = [];
+	for (const item of value) {
+		if (!item || typeof item !== 'object') {
+			return undefined;
+		}
+		const source = item as Record<string, unknown>;
+		if (typeof source.order !== 'number' || typeof source.sourceId !== 'string'
+			|| typeof source.enHash !== 'string' || typeof source.zhHash !== 'string') {
+			return undefined;
+		}
+		links.push({
+			order: source.order,
+			sourceId: source.sourceId,
+			enHash: source.enHash,
+			zhHash: source.zhHash
+		});
+	}
+	return links;
 };
 
 const readUsageAdaptations = (value: unknown): Record<string, UsageAdaptation> => {
@@ -55,16 +93,19 @@ const readUsageAdaptations = (value: unknown): Record<string, UsageAdaptation> =
 			continue;
 		}
 		const row = entry as Record<string, unknown>;
+		const sources = readSourceLinks(row.sources);
 		if (typeof row.usageKey !== 'string' || row.usageKey.length === 0
 			|| typeof row.bookStringId !== 'string' || typeof row.en !== 'string'
-			|| typeof row.zh !== 'string' || typeof row.basisHash !== 'string') {
+			|| typeof row.zh !== 'string' || typeof row.basisHash !== 'string'
+			|| !sources) {
 			continue;
 		}
 		map[row.usageKey] = {
 			bookStringId: row.bookStringId,
 			en: row.en,
 			zh: row.zh,
-			basisHash: row.basisHash
+			basisHash: row.basisHash,
+			sources
 		};
 	}
 	return map;
