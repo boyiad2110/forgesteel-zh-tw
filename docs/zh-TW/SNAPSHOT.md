@@ -15,7 +15,7 @@
 2. 各來源分別記錄讀取前／後 `modifiedTime`；任何讀取錯誤、截斷、Spreadsheet ID 不符、欄位缺漏或前後時間不同，丟棄整次擷取並停止。重新擷取不可沿用另一輪的分頁資料。
 3. 對完整範圍核對唯一 ID、Status、核准與來源關聯，計算本輪內容指紋。只將必要欄位、APPROVED 資料及其來源關聯寫入暫存輸入；草稿、私有筆記及不需匯出的欄位不落盤。保留來源文字、空白、換行和 Calculation Display Note 原值。
 4. 在隔離工作分支執行 `node scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json>` dry-run。檢查四份 CSV、生成目錄、Adaptations、Source 關聯、metadata 和所有檔案雜湊；未預期的有效目錄差異、核准 Hash 不符或檢查失敗即停止。
-5. 僅在 dry-run 和 staged 守門通過後執行相同命令加 `--apply`。接著執行 `node scripts/l10n/export-sheet.mjs --check`、`node scripts/l10n/check.mjs` 及 RULES 指定的完整隔離驗證；PR 需保留雙來源 metadata 與指紋供審查。
+5. 僅在 dry-run 和該工具的 staged 守門通過後，以相同命令加 `--apply`。套用後的穩定版本依 RULES 跑一次完整驗證，不另手動重跑已被涵蓋的守門或匯出一致性。PR 保留雙來源 metadata 與指紋供審查。
 6. 檢視完整 Git diff，確認沒有草稿、私有筆記、譯文／Hash／mapping／runtime 的非授權變更，並移除暫存擷取檔。來源時間或內容在套用前再次改變時，停止並從步驟 1 重新開始。
 
 ## 狀態與結案寫入
@@ -26,6 +26,7 @@
 - 更新前再次確認鍵值／原值未變；若他人同時修改就重新讀取。連接器寫入不具條件式版本鎖，維持單一寫入者，縮短讀寫間隔；原子 batchUpdate 只包含已確認的範圍。
 - 寫入後逐一回讀變更範圍，確認 ID 唯一、欄位正確、日期與數字對應本批最新證據，且鄰接歷史列未變。失敗或遭自動審查拒絕時先查明原因；不改用其他介面繞過拒絕。
 - 狀態寫入不代表重新擷取核准譯文；未改翻譯資產時不刷新快照，不修改既有 APPROVED、計數或書本 BATCH-006 的進度。
+- Sheet 只寫該批必要狀態。驗收敘述與合併結果留在原 PR；結果尚未發生前不寫成已驗收或已合併。不為把這些結果抄進 repo 文件而另開提交，也不改寫歷史列。
 
 ## 舊單來源流程（僅回復 D1 快照）
 
@@ -82,8 +83,6 @@ await tools.apply_patch('*** Begin Patch\n*** Add File: .l10n-approved-capture.j
 ```powershell
 node scripts/l10n/refresh-sheet.mjs --input .l10n-approved-capture.json
 node scripts/l10n/refresh-sheet.mjs --input .l10n-approved-capture.json --apply
-node scripts/l10n/export-sheet.mjs --check
-node scripts/l10n/check.mjs
 ```
 
 - 預設試跑，不更新正式檔案；列出變更檔名、sha256、核准列數及動態 Note 數。
@@ -93,7 +92,7 @@ node scripts/l10n/check.mjs
 - 完整重建動態 Note 集合，不合併舊 Note 掩蓋遺漏。沒有句型的列不需要 Note；已啟用句型的列缺 Note 由守門拒絕。
 - 成功後移除暫存輸入並核對 `git diff`。來源時間是這次取得時間，後續寫 Project State／Status 不代表譯文再取得一次。非本批的譯文差異另列對照預覽，不順帶納入。
 
-相關測試：`npx vitest run scripts/l10n/refresh-sheet.test.mjs scripts/l10n/check.test.mjs`。每批依 RULES 跑 `node scripts/l10n/verify.mjs` 並如實記錄未通過項目；不改預設逾時或依賴來讓本批過關。
+套用後的穩定版本依 RULES 跑一次完整驗證，並如實記錄未通過項目；不在完整驗證之外再手動重跑守門、匯出一致性或單檔測試。不改預設逾時或依賴來讓本批過關。
 
 ## PERKS-01 結案快照（2026-10-15）
 

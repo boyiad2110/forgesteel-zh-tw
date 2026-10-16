@@ -21,11 +21,11 @@
 
 ## 批次、分支與狀態
 
-- 內容批次範圍單一：預覽（鍵、Sheet ID、兩種英文、中文、差異、建議、動態限制）→ Marc 核准 → 必要 Sheet 寫入 → 工作分支 PR → 驗證 → Marc 驗收 → 同一 PR 補驗收及簡短狀態 → 最新 CI 通過 → 合併 develop。工具／流程改善先確定範圍，完成驗證後交付 PR 驗收；自主合併須有適用於該批的明確授權。一般內容與工具改善用 squash；同步 PR 用 merge commit 保留上游祖先。
+- 一般內容批次有兩道人工關卡：實作前核准範圍與譯文，以及交付後的人工驗收。預覽含鍵、Sheet ID、兩種英文、中文、差異、建議與動態限制。已核准範圍內的盤點、實作、測試修正與必要文件整理由執行者自行完成；只有新譯文、擴大範圍、改變既有決策，或規則無法解決的阻塞，才再詢問。使用者明示要分段驗收時必須照做，執行者不能自行取消。核准譯文的必要 Sheet 寫入、一次完整驗證與 repo 文件更新完成後，交付同一工作分支 PR。驗收與合併的實際結果之後回寫該 PR 與 Sheet。工具／流程改善先確定範圍，完成驗證後交付 PR 驗收；自主合併須有適用於該批的明確授權。一般內容與工具改善用 squash；同步 PR 用 merge commit 保留上游祖先。
 - **本次維護例外（2026-10-10）**：Marc 明確要求完成附件 1–5 且免人工驗收，故可依完整自動驗證與瀏覽器文字／DOM 操作自行合併。不擴及新譯文核准或正式發布，不冒稱人工驗收。
 - `main` 永遠等於上游；develop 工作必須走 PR。必要檢查與保護見 UPSTREAM。上游不能直接推送，分叉不自動部署。
 - Sheet、mapping、進度狀態維持單一寫入者；一般內容單一執行者，獨立盤點／審查才並行。
-- 每批範圍、來源、版本、驗收位置、限制放原 PR 一次，依 BATCH-TEMPLATE。合併前同步 PROGRESS／TODO／README／有效決策中的目前狀態；PROGRESS 只留狀態、PR、驗證版本與下一步。repo 文件寫「已驗收；合併狀態見 PR」，避免合併後仍留「等待驗收／等待合併」；合併後把實際 SHA 補到原 PR 與 Sheet，不為未知的 merge SHA 預留另一個文件 PR。
+- 結案集中兩處，依 BATCH-TEMPLATE：原 PR 保存完整範圍、來源、驗證證據、人工驗收與合併結果；Sheet 保存必要狀態。交付驗收前，同一批更新 repo 文件。PROGRESS 留已交付範圍、驗證版本、PR 連結與下一步；驗收與合併狀態以原 PR 為準。已交付的 TODO 改由 PROGRESS 的 PR 索引追蹤，不在 TODO 再留一份結案紀錄。不預寫「已驗收」，也不改寫既有歷史紀錄。驗收結果與實際 merge SHA 只在發生後回寫原 PR，並依 SNAPSHOT 把必要狀態精準寫入 Sheet 與回讀；不為驗收或合併 SHA 另開只改文件的提交。
 - Sheet 批次依其 README／Handoff Protocol 更新 Project State、Status 與一筆必要結案 Changelog；翻譯或結構異動另記對應事件，避免為同一狀態重複新增紀錄。按 SNAPSHOT 的寫入規則先讀鍵值、範圍及序號，再精準寫入與回讀。正式快照須同次擷取書本 Master 的 Glossary／Names／Strings 與 Forge Steel Master 的 UI／Adaptations／Adaptation Sources 六個分頁的核准資料（含適用的動態 Note）；兩份來源分別核對讀取前後修改時間，不一致即停止，不能沿用舊 Note。
 
 ## 驗證
@@ -35,4 +35,4 @@
 - 本機有使用中的開發伺服器或需乾淨安裝時，優先 `node scripts/l10n/verify-isolated.mjs`：複製目前追蹤檔與未忽略的新檔，保留尚未提交的修改及刪除；在系統暫存區的副本 `npm ci`、完整 verify、瀏覽器回歸，最後清理副本。副本位於原工作目錄之外，TEMP／TMP／TMPDIR 只對子程序設在副本內，測試伺服器不監看暫存 profile；不改 workers／逾時。前後來源指紋不同就失敗，不能把舊副本結果當成目前工作樹通過。忽略檔與使用者瀏覽器 profile 不複製；CI 沿用既有乾淨 checkout。
 - Sass／暫存／權限異常先 `node scripts/l10n/verify.mjs --doctor`；診斷包含 sass-embedded 套件、實際編譯器啟動及暫存目錄寫入。不要在使用中工作目錄執行 `npm ci`，也不以補拷部分 node_modules 作為乾淨安裝證據。副本在一般成功／失敗時清理；強制終止留下的目錄須依命令輸出的完整路徑，確認其位於系統暫存區且名稱為 `forgesteel-l10n-verify-*` 再清理。
 - 依影響先跑回歸再完整驗證。共用機制涵蓋數值、計算開關、語言切換、未知備援、資料不變；少量可重複瀏覽器檢查旅程與列印 DOM，不截圖、不錄影。
-- 總數只在 inventory.test.ts 集中，批次測試驗自己的鍵與行為。同程式版本只補文件時，檢查 diff／連結／狀態一致性並引用日期、版本、限制，不重跑全部遊戲測試。守門含匯出一致性，不重複跑 export-sheet --check。
+- 總數只在 inventory.test.ts 集中，批次測試驗自己的鍵與行為。穩定程式版本跑一次完整驗證；守門已含匯出一致性，完整驗證涵蓋後不另手動執行 `node scripts/l10n/export-sheet.mjs --check` 或 `node scripts/l10n/check.mjs`。快照工具的 dry-run 與 `--apply` 安全檢查仍照 SNAPSHOT 執行。同程式版本只改文件時，引用該版本既有驗證的日期、版本與限制，只檢查文件 diff、連結與一致性，不重跑完整驗證。
