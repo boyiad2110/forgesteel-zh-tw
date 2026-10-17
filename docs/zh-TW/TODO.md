@@ -4,7 +4,7 @@
 
 | ID | 狀態／負責範圍 | 下一個動作 | 完成條件 |
 |---|---|---|---|
-| KITS-CLASSIC-UI | 實作中；六筆 Classic View 核准 UI 已進雙來源快照 | 接入 Classic View 的套裝卡片標題；完成語系守門、mapping、回歸測試、完整隔離驗證後送 Marc 人工驗收 | 六個標題正體中文／英文皆能正確顯示；未部署 |
+| KITS-CLASSIC-UI | 等待 Marc 人工驗收；[PR #78](https://github.com/boyiad2110/forgesteel-zh-tw/pull/78) | 按 [驗收清單](KITS-CLASSIC-UI.md) 檢查 Classic View 套裝卡片六個標題與 English 切換 | 六個標題正體中文／英文皆正確；驗收後依結果結案；未部署 |
 | DISPLAY-DEFAULTS | 待後續批次 / 54 種未核准特性預設描述 | Career 的 Crafting Perk 標題、Skills 標題及 Perk 類別標籤已接入既有 APPROVED UI／Glossary；一般特性預設說明仍需依呼叫情境盤點：9 類空描述先核對實際頁面，45 類逐一追蹤接點。Perk 預設說明仍待來源核准 | 不以生成語言／技能提示代替 FeatureType 預設描述完成率；每批先預覽 |
 | BOOK-01 | Inciting Incidents／Career Summary／Career UI 已驗收；PR #66 與 PR #68 均已合併 | #66 已接入 108 個事件名稱／描述及 18 個 Career 名稱／簡介，Marc 於 2026-10-13 驗收並合併 develop。Career UI [PR #68](https://github.com/boyiad2110/forgesteel-zh-tw/pull/68) 已於 2026-10-13 squash 合併 develop `5e7f7220`：15 個英文吻合的專長名稱已接入；`I've Read About This Place`、`Put Your Back Into It`、`Spot The Tell` 維持網站英文。74 筆 Career 背景問題已隨 2026-10-14 書本快照進入核准目錄，網站仍無對應欄位 | 74 筆問題維持書本範圍，不新增欄位、不改模型或存檔 |
 | BOOK-02 | 外部書本翻譯依賴／Marc | 書本工作流決定 Glossary Enhancement | 書本 Master Sheet 決策更新；不阻塞現有名稱顯示 |
