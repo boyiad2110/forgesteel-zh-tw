@@ -48,6 +48,32 @@ export const kitFieldLabel = (ui: KitUi, english: string): string => {
 	}
 };
 
+const kitEquipmentTerms: Record<string, string> = {
+	'Light Armor': 'enum:KitArmor:Light',
+	'Medium Armor': 'enum:KitArmor:Medium',
+	'Heavy Armor': 'enum:KitArmor:Heavy',
+	'Shield': 'enum:KitArmor:Shield',
+	'Light Weapon': 'enum:KitWeapon:Light',
+	'Medium Weapon': 'enum:KitWeapon:Medium',
+	'Heavy Weapon': 'enum:KitWeapon:Heavy',
+	'Bow': 'enum:KitWeapon:Bow',
+	'Ensnaring Weapon': 'enum:KitWeapon:Ensnaring',
+	'Polearm': 'enum:KitWeapon:Polearm',
+	'Unarmed Strike': 'enum:KitWeapon:Unarmed',
+	'Whip': 'enum:KitWeapon:Whip'
+};
+
+/** Translate only the exact, approved kit armor and weapon enum values. */
+export const kitEquipmentLabel = (english: string): string => {
+	const key = kitEquipmentTerms[english];
+	return key && mapping[key] ? translate(key, english) : english;
+};
+
+/** Translate a displayed list without changing custom or unknown values. */
+export const kitEquipmentLabels = (english: string[]): string => {
+	return english.map(kitEquipmentLabel).join(', ');
+};
+
 /** Translate canonical standard kit names individually; preserve custom or unknown names as shown. */
 export const kitModifierName = (shown: string, kits: Kit[]): string => {
 	const names = shown.split(' & ');

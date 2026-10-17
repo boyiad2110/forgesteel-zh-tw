@@ -16,7 +16,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { SourcebookType } from '@/enums/sourcebook-type';
 import { useState } from 'react';
 import { useUI } from '@/l10n/ui-text';
-import { kitFieldLabel } from '@/l10n/kit-text';
+import { kitEquipmentLabels, kitFieldLabel } from '@/l10n/kit-text';
 
 import './kit-panel.scss';
 
@@ -31,8 +31,8 @@ export const KitStats = (props: { kit: Kit }) => {
 	const ui = useUI();
 	return (
 		<>
-			{props.kit.armor.length > 0 ? <Field label={kitFieldLabel(ui, 'Armor')} value={props.kit.armor.join(', ')} /> : null}
-			{props.kit.weapon.length > 0 ? <Field label='Weapon' value={props.kit.weapon.join(', ')} /> : null}
+			{props.kit.armor.length > 0 ? <Field label={kitFieldLabel(ui, 'Armor')} value={kitEquipmentLabels(props.kit.armor)} /> : null}
+			{props.kit.weapon.length > 0 ? <Field label='Weapon' value={kitEquipmentLabels(props.kit.weapon)} /> : null}
 			{props.kit.stamina > 0 ? <Field label={kitFieldLabel(ui, 'Stamina')} value={`+${props.kit.stamina}`} /> : null}
 			{props.kit.speed > 0 ? <Field label={kitFieldLabel(ui, 'Speed')} value={`+${props.kit.speed}`} /> : null}
 			{props.kit.stability > 0 ? <Field label={kitFieldLabel(ui, 'Stability')} value={`+${props.kit.stability}`} /> : null}
@@ -53,7 +53,7 @@ export const KitPanel = (props: Props) => {
 		return (
 			<>
 				<Markdown text={props.kit.description} />
-				<Field label={kitFieldLabel(ui, 'Uses')} value={[ ...props.kit.armor, ...props.kit.weapon ].join(', ')} />
+				<Field label={kitFieldLabel(ui, 'Uses')} value={kitEquipmentLabels([ ...props.kit.armor, ...props.kit.weapon ])} />
 				<Field
 					label={ui.text('ui.hero-builder.features.31d1245f', 'Features')}
 					value={props.kit.features.map((feature, index) => (

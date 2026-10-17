@@ -18,6 +18,7 @@ import { Sourcebook } from '@/models/sourcebook';
 import { Title } from '@/models/title';
 import { useOptions } from '@/contexts/data-context';
 import { useUI } from '@/l10n/ui-text';
+import { kitEquipmentLabels } from '@/l10n/kit-text';
 
 import './choices-panel.scss';
 
@@ -159,8 +160,8 @@ export const ChoicesPanel = (props: Props) => {
 							<div key={kit.id} className='overview-tile clickable' onClick={() => props.onSelectKit(kit)}>
 								<HeaderText>{ui.text('ui.hero-builder.kit.63d5adfa', 'Kit')}</HeaderText>
 								<Field label={ui.text('ui.hero-builder.kit.63d5adfa', 'Kit')} value={<PlayerName element={kit} />} />
-								{kit.armor.length > 0 ? <Field label={ui.text('ui.hero-builder.armor.d165ace3', 'Armor')} value={kit.armor.join(', ')} /> : null}
-								{kit.weapon.length > 0 ? <Field label={ui.text('ui.hero-builder.weapons.3189d297', 'Weapons')} value={kit.weapon.join(', ')} /> : null}
+								{kit.armor.length > 0 ? <Field label={ui.text('ui.hero-builder.armor.d165ace3', 'Armor')} value={kitEquipmentLabels(kit.armor)} /> : null}
+								{kit.weapon.length > 0 ? <Field label={ui.text('ui.hero-builder.weapons.3189d297', 'Weapons')} value={kitEquipmentLabels(kit.weapon)} /> : null}
 							</div>
 					)
 					:

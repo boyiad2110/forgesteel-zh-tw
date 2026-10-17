@@ -124,6 +124,11 @@
     "updated": "2026-09-29",
     "zh": "加值"
   },
+  "term.bow": {
+    "en": "Bow",
+    "updated": "2026-10-17",
+    "zh": "弓"
+  },
   "term.brag-skill": {
     "en": "Brag",
     "updated": "2026-10-06",
@@ -509,6 +514,11 @@
     "updated": "2026-09-29",
     "zh": "敵人"
   },
+  "term.ensnaring-weapon": {
+    "en": "Ensnaring Weapon",
+    "updated": "2026-10-17",
+    "zh": "捕縛武器"
+  },
   "term.environment": {
     "en": "Environment",
     "updated": "2026-10-01",
@@ -694,6 +704,16 @@
     "updated": "2026-10-06",
     "zh": "醫療"
   },
+  "term.heavy-armor": {
+    "en": "Heavy Armor",
+    "updated": "2026-10-17",
+    "zh": "重甲"
+  },
+  "term.heavy-weapon": {
+    "en": "Heavy Weapon",
+    "updated": "2026-10-17",
+    "zh": "重型武器"
+  },
   "term.hero": {
     "en": "Hero",
     "updated": "2026-09-29",
@@ -869,6 +889,16 @@
     "updated": "2026-10-06",
     "zh": "舉重"
   },
+  "term.light-armor": {
+    "en": "Light Armor",
+    "updated": "2026-10-17",
+    "zh": "輕甲"
+  },
+  "term.light-weapon": {
+    "en": "Light Weapon",
+    "updated": "2026-10-17",
+    "zh": "輕型武器"
+  },
   "term.line": {
     "en": "Line",
     "updated": "2026-09-29",
@@ -923,6 +953,16 @@
     "en": "Mechanics",
     "updated": "2026-10-06",
     "zh": "機關"
+  },
+  "term.medium-armor": {
+    "en": "Medium Armor",
+    "updated": "2026-10-17",
+    "zh": "中甲"
+  },
+  "term.medium-weapon": {
+    "en": "Medium Weapon",
+    "updated": "2026-10-17",
+    "zh": "中型武器"
   },
   "term.melee": {
     "en": "Melee",
@@ -1118,6 +1158,11 @@
     "en": "Polder",
     "updated": "2026-09-29",
     "zh": "波德人"
+  },
+  "term.polearm": {
+    "en": "Polearm",
+    "updated": "2026-10-17",
+    "zh": "長柄武器"
   },
   "term.potency": {
     "en": "Potency",
@@ -1338,6 +1383,11 @@
     "en": "Shadow",
     "updated": "2026-09-29",
     "zh": "影舞者"
+  },
+  "term.shield": {
+    "en": "Shield",
+    "updated": "2026-10-17",
+    "zh": "盾牌"
   },
   "term.shift": {
     "en": "Shift",
@@ -1579,6 +1629,11 @@
     "updated": "2026-09-29",
     "zh": "回合"
   },
+  "term.unarmed-strike": {
+    "en": "Unarmed Strike",
+    "updated": "2026-10-17",
+    "zh": "徒手打擊"
+  },
   "term.unattended-object": {
     "en": "Unattended Object",
     "updated": "2026-09-29",
@@ -1643,6 +1698,11 @@
     "en": "Wealth",
     "updated": "2026-09-29",
     "zh": "財富"
+  },
+  "term.whip": {
+    "en": "Whip",
+    "updated": "2026-10-17",
+    "zh": "鞭笞武器"
   },
   "term.wilderness": {
     "en": "Wilderness",
