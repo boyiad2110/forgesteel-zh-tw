@@ -279,6 +279,36 @@
     "updated": "2026-10-10",
     "zh": "職業"
   },
+  "ui.hero-builder.classic-armor-ward.cc07ef85": {
+    "en": "Armor / Ward",
+    "updated": "2026-10-18",
+    "zh": "護甲／護咒"
+  },
+  "ui.hero-builder.classic-effects.358511c8": {
+    "en": "Effects",
+    "updated": "2026-10-18",
+    "zh": "效果"
+  },
+  "ui.hero-builder.classic-equipment-and-modifiers.94215895": {
+    "en": "Equipment and Modifiers",
+    "updated": "2026-10-18",
+    "zh": "裝備與調整值"
+  },
+  "ui.hero-builder.classic-melee-damage-bonus.a17961ad": {
+    "en": "Melee Damage Bonus",
+    "updated": "2026-10-18",
+    "zh": "近戰傷害加值"
+  },
+  "ui.hero-builder.classic-ranged-damage-bonus.0ea33528": {
+    "en": "Ranged Damage Bonus",
+    "updated": "2026-10-18",
+    "zh": "遠程傷害加值"
+  },
+  "ui.hero-builder.classic-weapon-implement.23348605": {
+    "en": "Weapon / Implement",
+    "updated": "2026-10-18",
+    "zh": "武器／法器"
+  },
   "ui.hero-builder.click-here.319b8c1e": {
     "en": "Click Here",
     "updated": "2026-10-10",

@@ -48,7 +48,7 @@ export const ModifiersCard = (props: Props) => {
 		return (
 			<>
 				<div className='power-roll-damage-modifiers'>
-					<h4>Melee Damage Bonus</h4>
+					<h4>{ui.text('ui.hero-builder.classic-melee-damage-bonus.a17961ad', 'Melee Damage Bonus')}</h4>
 					<div className='roll-tiers'>
 						<div className='tier t1'>
 							<div className='effect'>{SheetFormatter.addSign(character.modifierMeleeDamageT1)}</div>
@@ -65,7 +65,7 @@ export const ModifiersCard = (props: Props) => {
 					</div>
 				</div>
 				<div className='power-roll-damage-modifiers'>
-					<h4>Ranged Damage Bonus</h4>
+					<h4>{ui.text('ui.hero-builder.classic-ranged-damage-bonus.0ea33528', 'Ranged Damage Bonus')}</h4>
 					<div className='roll-tiers'>
 						<div className='tier t1'>
 							<div className='effect'>{SheetFormatter.addSign(character.modifierRangedDamageT1)}</div>
@@ -102,7 +102,7 @@ export const ModifiersCard = (props: Props) => {
 	return (
 		<div className='modifiers card'>
 			<h2>
-				<div className='title'>Equipment and Modifiers</div>
+				<div className='title'>{ui.text('ui.hero-builder.classic-equipment-and-modifiers.94215895', 'Equipment and Modifiers')}</div>
 				<LabeledBooleanField
 					label={kitFieldLabel(ui, 'Kit')}
 					value={character.modifierTypes?.includes('Kit')}
@@ -119,7 +119,7 @@ export const ModifiersCard = (props: Props) => {
 					{
 						bothWeaponArmor || onlyWeaponImplement ?
 							<LabeledTextField
-								label='Weapon / Implement'
+								label={ui.text('ui.hero-builder.classic-weapon-implement.23348605', 'Weapon / Implement')}
 								content={character.modifierWeaponImplement ? kitEquipmentLabels(character.modifierWeaponImplement.split(', ')) : character.modifierWeaponImplement}
 								additionalClasses={[ 'label-overlay' ]}
 							/>
@@ -128,7 +128,7 @@ export const ModifiersCard = (props: Props) => {
 					{
 						bothWeaponArmor || onlyArmorWard ?
 							<LabeledTextField
-								label='Armor / Ward'
+								label={ui.text('ui.hero-builder.classic-armor-ward.cc07ef85', 'Armor / Ward')}
 								content={character.modifierArmorWard ? kitEquipmentLabels(character.modifierArmorWard.split(', ')) : character.modifierArmorWard}
 								additionalClasses={[ 'label-overlay' ]}
 							/>
@@ -170,7 +170,7 @@ export const ModifiersCard = (props: Props) => {
 				</div>
 
 				<div className='benefits'>
-					<h3>Effects</h3>
+					<h3>{ui.text('ui.hero-builder.classic-effects.358511c8', 'Effects')}</h3>
 					<div className='features'>
 						{character.modifierBenefits?.map(f =>
 							<FeatureComponent

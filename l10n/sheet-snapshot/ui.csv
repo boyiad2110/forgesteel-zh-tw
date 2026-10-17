@@ -55,6 +55,12 @@ ui.hero-builder.choose-your-environment-orga.16eef6b1,APPROVED,選擇你的生�
 ui.hero-builder.choose.5fbc8355,APPROVED,選擇,Choose,2026-10-10,c7f937836f5d82d53bc507752075f87e25009ec11bc9fd4e282f0b645e47af7c
 ui.hero-builder.class.93255bb9,APPROVED,職業,Class,2026-10-10,4f3a9bd003974a5ed8c9ad65d4aeda3b8a0db6fd903e36e83a3a950624b09bbd
 ui.hero-builder.class.9be228a0,APPROVED,職業,Class,2026-10-10,4f3a9bd003974a5ed8c9ad65d4aeda3b8a0db6fd903e36e83a3a950624b09bbd
+ui.hero-builder.classic-armor-ward.cc07ef85,APPROVED,護甲／護咒,Armor / Ward,2026-10-18,cc07ef8533a731bf9df735dfff757844bc93ca967760ab4d47f55a0cbfe4f6fa
+ui.hero-builder.classic-effects.358511c8,APPROVED,效果,Effects,2026-10-18,358511c8c09805c9c10b1ba11157ed0c08ced8599d59e27e16fa226bdc32d63e
+ui.hero-builder.classic-equipment-and-modifiers.94215895,APPROVED,裝備與調整值,Equipment and Modifiers,2026-10-18,942158954835dc82096ce2c3ca26903b0a380fcca0c12b7dcf10df373a799a10
+ui.hero-builder.classic-melee-damage-bonus.a17961ad,APPROVED,近戰傷害加值,Melee Damage Bonus,2026-10-18,a17961adace3ed084d8f7b384e814bf29bf95b3a421ba7be7c87093a4947fc90
+ui.hero-builder.classic-ranged-damage-bonus.0ea33528,APPROVED,遠程傷害加值,Ranged Damage Bonus,2026-10-18,0ea33528d28936df1e18970a1d7b7dfa3ac099113cdbf02b155bf7a3ac34afcc
+ui.hero-builder.classic-weapon-implement.23348605,APPROVED,武器／法器,Weapon / Implement,2026-10-18,2334860555bc97fefaf1d23b1c910c8f46d4acea5198a2060ba689cd985625ac
 ui.hero-builder.click-here.319b8c1e,APPROVED,點擊這裡,Click Here,2026-10-10,7fb128e872e5d19261b9d511440a403421269b1bb6e1b39db84d0d5798d110c3
 ui.hero-builder.common-language-description.cc9ef9be,APPROVED,選擇 1 種通用語。,Choose a Common language.,2026-10-11,cc9ef9be49ebd6ba61fbba2b6f214d990cc33dcce674b2d6816553063b659d83
 ui.hero-builder.completed.1c31b48e,APPROVED,已完成,Completed,2026-10-10,22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1
