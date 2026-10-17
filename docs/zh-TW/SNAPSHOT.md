@@ -18,6 +18,13 @@
 5. 僅在 dry-run 和該工具的 staged 守門通過後，以相同命令加 `--apply`。套用後依 RULES 對該版本跑一次完整驗證；該次已涵蓋的守門與匯出一致性不另手動重跑。版本再變更時重新驗證；定位失敗可跑相關單檔測試，單檔結果不能當成整體通過。PR 保留雙來源 metadata 與指紋供審查。
 6. 檢視完整 Git diff，確認沒有草稿、私有筆記、譯文／Hash／mapping／runtime 的非授權變更，並移除暫存擷取檔。來源時間或內容在套用前再次改變時，停止並從步驟 1 重新開始。
 
+### 快速且安全的雙來源擷取
+
+- 先從 Sheet metadata 確認每個分頁的完整範圍與標題，再一次呼叫 `captureDualSheets`：Book 三個分頁與 Forge 三個分頁可平行讀取；函式會在六頁讀取前後各比對兩份 Sheet 的 ID 與修改時間。它會檢查必要標題、APPROVED 狀態、唯一 ID、所有來源關聯及 Hash。任何錯誤都丟棄整次資料，不能只重讀失敗分頁後拼接舊回應。
+- 擷取函式回傳的是已投影的 APPROVED 資料。將結果包成 `{ "format": "forgesteel-approved-dual-capture/v1", "sources": ..., "book": ..., "forge": ... }`，直接在同一個工具執行環境用 `JSON.stringify` 和一次 `apply_patch` 寫入 `.l10n-approved-dual-capture.json`。不要把完整擷取內容印到對話、手動分塊複製或做 Base64 轉碼；只回報兩份修改時間、六頁列數與擷取成功／失敗摘要。
+- `refresh-dual-sheet.mjs` 僅接受上述版本化核准投影檔。它會重建標題列與狀態，重新執行來源、關聯和 Hash 驗證；草稿不會寫進輸入檔。先 dry-run 一次，確認預期差異後以同一檔案 `--apply` 一次，再移除暫存輸入。
+- 程式最後一次變更後，跑一次完整驗證。不要先額外跑一遍已包含在完整驗證中的目標測試；只有完整驗證失敗時，才用單檔／`--only` 定位。隔離驗證的乾淨安裝因 registry 或 npm 環境失敗時，先記錄失敗項；環境未改變前不要重跑同一安裝流程。
+
 ## 狀態與結案寫入
 
 - 先讀 metadata 與標題，確認分頁 ID、實際欄位和有界資料範圍。以 Batch ID／Key 查找 Project State、Status 的現有列，不從回傳陣列長度推算列號。

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { BOOK_SHEET_ID, FORGE_SHEET_ID, DUAL_HEADERS, buildDualCatalog,
-  buildDualCatalogFromSnapshot, captureDualSheets, projectDualCapture } from './dual-sheet.mjs';
+import { APPROVED_DUAL_CAPTURE_FORMAT, BOOK_SHEET_ID, FORGE_SHEET_ID, DUAL_HEADERS, buildDualCatalog,
+  buildDualCatalogFromSnapshot, captureDualSheets, projectDualCapture, revalidateApprovedDualCapture } from './dual-sheet.mjs';
 import { hashDependencyIds, hashDependencyText } from './source-dependencies.mjs';
 import { createHash } from 'node:crypto';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -44,6 +44,22 @@ const base = () => {
 };
 
 describe('dual-source capture', () => {
+  test('round-trips a compact approved projection and rejects drafts or stale source hashes', () => {
+    const approved = projectDualCapture(base());
+    const bundle = { format: APPROVED_DUAL_CAPTURE_FORMAT, ...approved };
+    const revalidated = revalidateApprovedDualCapture(bundle);
+    expect(revalidated).toEqual(approved);
+    expect(Array.from(buildDualCatalog(revalidated).snapshot))
+      .toEqual(Array.from(buildDualCatalog(approved).snapshot));
+
+    const draft = structuredClone(bundle);
+    draft.forge.Adaptations[0][5] = 'REVIEW';
+    expect(() => revalidateApprovedDualCapture(draft)).toThrow('non-approved row');
+
+    const stale = structuredClone(bundle);
+    stale.forge.Adaptations[0][11] = sha('stale');
+    expect(() => revalidateApprovedDualCapture(stale)).toThrow('stale Basis, Source List, or Forge Steel hash');
+  });
   test('preserves stable IDs, blank Usage Key, ordered multi-source links and verbatim Note', () => {
     const capture = projectDualCapture(base());
     const { snapshot, catalog } = buildDualCatalog(capture);
