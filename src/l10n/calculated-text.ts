@@ -133,7 +133,8 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 			: '';
 		let projected = targetParts[0];
 		values.forEach((value, index) => {
-			projected += formulaReplacement(projected, value, binding.valueTemplate!, suffix) + targetParts[index + 1];
+			const after = targetParts[index + 1];
+			projected += formulaReplacement(projected, value, binding.valueTemplate!, suffix, after) + after;
 		});
 		return calculated.slice(0, leadingLength) + projected + calculated.slice(trailingStart);
 	}
@@ -146,7 +147,8 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 			chinese.slice(0, targetStart),
 			values[0],
 			display.template,
-			''
+			'',
+			chinese.slice(targetEnd)
 		);
 		return calculated.slice(0, leadingLength) + chinese.slice(0, targetStart) + replacement + chinese.slice(targetEnd) + calculated.slice(trailingStart);
 	}
@@ -163,13 +165,16 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 
 /**
  * Replaces one whole formula. The template may only add the upstream integer
- * and a suffix copied from that formula. Template spacing is preserved; a
- * single leading space is added only when the surrounding Chinese needs it.
+ * and a suffix copied from that formula. Template spacing is preserved;
+ * spaces are added only at Chinese/numeric boundaries when needed.
  */
-const formulaReplacement = (before: string, value: string, template: string, suffix: string) => {
+const formulaReplacement = (before: string, value: string, template: string, suffix: string, after: string) => {
 	let filled = template.replaceAll('{suffix}', suffix).replaceAll('{value}', value);
-	if (before.length > 0 && !/\s$/.test(before) && !/^\s/.test(filled)) {
+	if (before.length > 0 && !/\s$/.test(before) && !/^\s/.test(filled) && /^-?\d/.test(filled)) {
 		filled = ` ${filled}`;
+	}
+	if (/-?\d$/.test(filled) && /^[\u3400-\u9fff]/.test(after)) {
+		filled = `${filled} `;
 	}
 	return filled;
 };

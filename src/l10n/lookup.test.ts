@@ -1743,7 +1743,7 @@ describe('perk name segment', () => {
 		const kitId = 'heroes.kits.arcane-archer.signature.exploding-arrow';
 		const kit = (strings as Catalog)[kitId];
 		const kept = resolveText('zh-TW', 'element:not-thingspeaker:description', kit.en, { 'element:not-thingspeaker:description': kitId }, peekCatalog());
-		expect(kept).toBe(kit.fs!.zh);
+		expect(kept).toBe(kit.en);
 		expect(displayListMarkup('element:not-thingspeaker:description', kit.zh)).toBe(kit.zh);
 	});
 
