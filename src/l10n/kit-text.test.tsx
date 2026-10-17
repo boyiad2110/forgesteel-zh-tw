@@ -1,9 +1,10 @@
 import { Catalog, loadCatalog } from '@/l10n/catalog';
 import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { kitAbilityNameKey, kitModifierName, standardKits, stormwightKitIds } from '@/l10n/kit-text';
+import { kitAbilityNameKey, kitEquipmentLabel, kitEquipmentLabels, kitModifierName, standardKits, stormwightKitIds } from '@/l10n/kit-text';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { ConfigKit } from '@/components/features/feature-data/kit';
+import { ChoicesPanel } from '@/components/panels/hero/choices/choices-panel';
 import { FactoryLogic } from '@/logic/factory-logic';
 import { FeatureType } from '@/enums/feature-type';
 import { HeroLogic } from '@/logic/hero-logic';
@@ -17,6 +18,7 @@ import { core } from '@/data/sourcebooks/official/core';
 import { createElement } from 'react';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
+import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { playerNameKey } from '@/l10n/player-name';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { resolveText } from '@/l10n/text';
@@ -38,7 +40,7 @@ vi.mock('@/hooks/use-clipboard', () => ({
 	})
 }));
 
-const generated = { ...names, ...strings } as Catalog;
+const generated = { ...glossary, ...names, ...strings } as Catalog;
 let store: Record<string, string>;
 
 beforeEach(() => {
@@ -54,6 +56,30 @@ afterEach(() => {
 });
 
 describe('standard kit localization', () => {
+	test('translates the twelve approved equipment values and preserves unknown values', async () => {
+		setLanguage('zh-TW');
+		await loadCatalog();
+		const expected: Record<string, string> = {
+			'Light Armor': 'term.light-armor',
+			'Medium Armor': 'term.medium-armor',
+			'Heavy Armor': 'term.heavy-armor',
+			'Shield': 'term.shield',
+			'Light Weapon': 'term.light-weapon',
+			'Medium Weapon': 'term.medium-weapon',
+			'Heavy Weapon': 'term.heavy-weapon',
+			'Bow': 'term.bow',
+			'Ensnaring Weapon': 'term.ensnaring-weapon',
+			'Polearm': 'term.polearm',
+			'Unarmed Strike': 'term.unarmed-strike',
+			'Whip': 'term.whip'
+		};
+		Object.entries(expected).forEach(([ english, sheetId ]) => expect(kitEquipmentLabel(english)).toBe(generated[sheetId].zh));
+		expect(kitEquipmentLabels([ 'Light Armor', 'Bow', 'Custom Weapon' ]))
+			.toBe(`${generated['term.light-armor'].zh}, ${generated['term.bow'].zh}, Custom Weapon`);
+		setLanguage('en');
+		expect(kitEquipmentLabel('Light Armor')).toBe('Light Armor');
+	});
+
 	test('resolves the approved names and exact descriptions across all 21 standard kits', () => {
 		expect(standardKits).toHaveLength(21);
 		expect(standardKits.some(kit => stormwightKitIds.has(kit.id))).toBe(false);
@@ -118,6 +144,9 @@ describe('standard kit localization', () => {
 		const rapidFire = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(KitPanel, {
 			kit: KitData.rapidFire, sourcebooks: [ core ]
 		})));
+		const mountain = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(KitPanel, {
+			kit: KitData.mountain, sourcebooks: [ core ], mode: PanelMode.Full
+		})));
 		const name = generated[mapping['element:kit-arcane-archer:name'].sheetId].zh;
 		const rapidFireName = generated[mapping['element:kit-rapid-fire:name'].sheetId].zh;
 		const ability = generated[mapping['element:kit-arcane-archer-signature:name'].sheetId].zh;
@@ -128,7 +157,35 @@ describe('standard kit localization', () => {
 		expect(compact).toContain(generated[mapping['element:kit-arcane-archer:description'].sheetId].zh);
 		expect(full).toContain(name);
 		expect(full).toContain(ability);
+		expect(full).toContain(generated['term.bow'].zh);
+		expect(mountain).toContain(generated['term.heavy-armor'].zh);
+		expect(mountain).toContain(generated['term.heavy-weapon'].zh);
 		expect(rapidFire).toContain(rapidFireName);
+	});
+
+	test('shows translated equipment values in the selected-kit hero summary', async () => {
+		setLanguage('zh-TW');
+		await loadCatalog();
+		const options = FactoryLogic.createOptions();
+		const hero = FactoryLogic.createHero();
+		const feature = FactoryLogic.feature.createKitChoice({ id: 'test-kit-choice', count: 1 });
+		feature.data.selected = [ KitData.mountain ];
+		hero.features = [ feature ];
+		const summary = renderToStaticMarkup(createElement(OptionsContext, { value: options }, createElement(SourcebooksContext, { value: [ core ] }, createElement(ChoicesPanel, {
+			hero,
+			sourcebooks: [ core ],
+			onSelectAncestry: () => undefined,
+			onSelectCulture: () => undefined,
+			onSelectCareer: () => undefined,
+			onSelectClass: () => undefined,
+			onSelectComplication: () => undefined,
+			onSelectDomain: () => undefined,
+			onSelectKit: () => undefined,
+			onSelectTitle: () => undefined,
+			onShowState: () => undefined
+		}))));
+		expect(summary).toContain(generated['term.heavy-armor'].zh);
+		expect(summary).toContain(generated['term.heavy-weapon'].zh);
 	});
 
 	test('keeps mapped names in kit configuration, ability panels, and classic modifiers', async () => {

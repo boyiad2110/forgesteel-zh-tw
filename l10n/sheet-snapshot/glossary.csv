@@ -24,6 +24,7 @@ term.benefit,APPROVED,益處,Benefit,2026-10-14
 term.blacksmithing-skill,APPROVED,鍛造,Blacksmithing,2026-10-06
 term.bleeding,APPROVED,出血,Bleeding,2026-09-29
 term.bonus,APPROVED,加值,Bonus,2026-09-29
+term.bow,APPROVED,弓,Bow,2026-10-17
 term.brag-skill,APPROVED,誇耀,Brag,2026-10-06
 term.breakthrough,APPROVED,突破,Breakthrough,2026-09-29
 term.bureaucratic,APPROVED,官僚,Bureaucratic,2026-10-01
@@ -101,6 +102,7 @@ term.elementalist,APPROVED,元素師,Elementalist,2026-09-29
 term.empathize-skill,APPROVED,共感,Empathize,2026-10-06
 term.endurance-skill,APPROVED,耐力,Endurance,2026-10-06
 term.enemy,APPROVED,敵人,Enemy,2026-09-29
+term.ensnaring-weapon,APPROVED,捕縛武器,Ensnaring Weapon,2026-10-17
 term.environment,APPROVED,生活環境,Environment,2026-10-01
 term.eot,APPROVED,EoT,EoT,2026-09-29
 term.escape-artist-skill,APPROVED,脫逃,Escape Artist,2026-10-06
@@ -138,6 +140,8 @@ term.handle-animals-skill,APPROVED,馴獸,Handle Animals,2026-10-06
 term.heal-action,APPROVED,治療,Heal,2026-10-06
 term.heal-main-action,APPROVED,治療主要動作,Heal Main Action,2026-09-29
 term.heal-skill,APPROVED,醫療,Heal,2026-10-06
+term.heavy-armor,APPROVED,重甲,Heavy Armor,2026-10-17
+term.heavy-weapon,APPROVED,重型武器,Heavy Weapon,2026-10-17
 term.hero,APPROVED,英雄,Hero,2026-09-29
 term.hero-token,APPROVED,英雄幣,Hero Tokens,2026-09-29
 term.heroic-ability,APPROVED,英雄招式,Heroic Ability,2026-09-29
@@ -173,6 +177,8 @@ term.level,APPROVED,等級,Level,2026-09-29
 term.leveled-treasure,APPROVED,共鳴寶物,Leveled Treasure,2026-09-29
 term.lie-skill,APPROVED,欺瞞,Lie,2026-10-06
 term.lift-skill,APPROVED,舉重,Lift,2026-10-06
+term.light-armor,APPROVED,輕甲,Light Armor,2026-10-17
+term.light-weapon,APPROVED,輕型武器,Light Weapon,2026-10-17
 term.line,APPROVED,線形,Line,2026-09-29
 term.line-of-effect,APPROVED,效果線,Line of Effect,2026-09-29
 term.lore-skill-group,APPROVED,學識類,Lore,2026-10-06
@@ -184,6 +190,8 @@ term.maneuver,APPROVED,機動動作,Maneuver,2026-09-29
 term.manifold,APPROVED,衍界,Manifold,2026-09-29
 term.martial,APPROVED,尚武,Martial,2026-10-01
 term.mechanics-skill,APPROVED,機關,Mechanics,2026-10-06
+term.medium-armor,APPROVED,中甲,Medium Armor,2026-10-17
+term.medium-weapon,APPROVED,中型武器,Medium Weapon,2026-10-17
 term.melee,APPROVED,近戰,Melee,2026-09-29
 term.melee-free-strike,APPROVED,近戰基礎打擊,Melee Free Strike,2026-09-29
 term.memonek,APPROVED,梅莫人,Memonek,2026-09-29
@@ -223,6 +231,7 @@ term.pick-pocket-skill,APPROVED,扒竊,Pick Pocket,2026-10-06
 term.piety,APPROVED,虔誠,Piety,2026-09-29
 term.pitfall,APPROVED,雷點,Pitfall,2026-09-29
 term.polder,APPROVED,波德人,Polder,2026-09-29
+term.polearm,APPROVED,長柄武器,Polearm,2026-10-17
 term.potency,APPROVED,效力,Potency,2026-09-29
 term.power-roll,APPROVED,檢定,Power Roll,2026-09-29
 term.presence,APPROVED,氣場,Presence,2026-09-29
@@ -267,6 +276,7 @@ term.search-for-hidden-creatures-maneuver,APPROVED,搜索隱藏生物機動動�
 term.search-skill,APPROVED,搜索,Search,2026-10-06
 term.secluded,APPROVED,隱居,Secluded,2026-10-01
 term.shadow,APPROVED,影舞者,Shadow,2026-09-29
+term.shield,APPROVED,盾牌,Shield,2026-10-17
 term.shift,APPROVED,遁移,Shift,2026-09-29
 term.side,APPROVED,陣營,Side,2026-09-29
 term.signature-ability,APPROVED,招牌招式,Signature Ability,2026-09-29
@@ -315,6 +325,7 @@ term.triggered-action,APPROVED,反應動作,Triggered Action,2026-09-29
 term.trinket,APPROVED,飾品,Trinket,2026-09-29
 term.troubadour,APPROVED,遊唱家,Troubadour,2026-09-29
 term.turn,APPROVED,回合,Turn,2026-09-29
+term.unarmed-strike,APPROVED,徒手打擊,Unarmed Strike,2026-10-17
 term.unattended-object,APPROVED,無主物體,Unattended Object,2026-09-29
 term.underwater-combat,APPROVED,水下戰鬥,Underwater combat,2026-09-29
 term.untyped-damage,APPROVED,普通傷害,Untyped Damage,2026-09-29
@@ -328,6 +339,7 @@ term.walk,APPROVED,步行,Walk,2026-09-29
 term.wall,APPROVED,障壁,Wall,2026-09-29
 term.weakened,APPROVED,虛弱,Weakened,2026-09-29
 term.wealth,APPROVED,財富,Wealth,2026-09-29
+term.whip,APPROVED,鞭笞武器,Whip,2026-10-17
 term.wilderness,APPROVED,荒野,Wilderness,2026-10-01
 term.winded,APPROVED,疲態,Winded,2026-09-29
 term.wode-elf,APPROVED,幻林精靈,Wode Elf,2026-09-29
