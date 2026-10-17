@@ -1,6 +1,6 @@
 # 先讀這裡
 
-- KITS-01 已接入六筆核准套裝描述適配、套裝欄位 UI 與官方名稱大小寫差異；[PR #73](https://github.com/boyiad2110/forgesteel-zh-tw/pull/73) 待 Marc 人工驗收，驗證結果與限制見 [PROGRESS](PROGRESS.md)。八筆護甲／武器 Glossary 仍是 AI_DRAFT，尚未進入正式快照。
+- KITS-01 已接入六筆核准套裝描述適配、套裝欄位 UI、官方名稱大小寫差異，以及 Marc 核准的 Rapid Fire → 箭雨名稱適配；[PR #73](https://github.com/boyiad2110/forgesteel-zh-tw/pull/73) 待 Rapid Fire 修正人工複驗，驗證結果與限制見 [PROGRESS](PROGRESS.md)。八筆護甲／武器 Glossary 仍是 AI_DRAFT，尚未進入正式快照。
 
 本專案保留現有顯示層中文化架構。先讀此摘要即可接手；詳細內容依任務載入。
 

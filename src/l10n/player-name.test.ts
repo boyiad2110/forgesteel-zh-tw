@@ -77,6 +77,14 @@ describe('player name lookup', () => {
 		expect(playerNameKey({ ...kit, name: 'Stick And Robe (custom)' }, officialSourcebooks)).toBeUndefined();
 	});
 
+	test('applies the approved Rapid Fire punctuation variant to its official kit only', () => {
+		const kit = core.kits.find(item => item.id === 'kit-rapid-fire')!;
+		expect(kit.name).toBe('Rapid Fire');
+		expect(playerNameKey(kit, officialSourcebooks)).toBe('element:kit-rapid-fire:name');
+		expect(playerNameKey({ ...kit, name: 'Rapid Fire!' }, officialSourcebooks)).toBeUndefined();
+		expect(playerNameKey({ ...kit, id: 'kit-ranger' }, officialSourcebooks)).toBeUndefined();
+	});
+
 	test('looks up cultures and their three aspects from official sourcebooks only', () => {
 		const culture = core.cultures.find(c => c.name === 'Artisan Guild')!;
 		expect(playerNameKey(culture, officialSourcebooks)).toBe('element:culture-artisan-guild:name');

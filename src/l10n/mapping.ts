@@ -1126,6 +1126,7 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:kit-ranger:description': { sheetId: 'heroes.kits.ranger.description', enHash: '24e1096dc9adc96865fa682753721246921b14e811b8fa4208399b3ce31fcaef' },
 	'element:kit-ranger-signature:name': { sheetId: 'name.kit-ability.hamstring-shot', enHash: 'bfbd8e0fcf4656ac49bcf1799c08d96cda41d718110ce81d54e20f89ac434059' },
 	'element:kit-rapid-fire:description': { sheetId: 'heroes.kits.rapid-fire.description', enHash: 'de5f31a5a34326525092b03ce9413df8aa30cb6adc28bf90ec3cbbc629106094' },
+	'element:kit-rapid-fire:name': { sheetId: 'name.kit.rapid-fire', enHash: 'c5e30b06c99f1687acfcb245914eb4f67cfcf8ba60ad99bbb4a60d128d0b29d8' },
 	'element:kit-rapid-fire-signature:name': { sheetId: 'name.kit-ability.two-shot', enHash: '357f6b0f341a7a56f2ff83f7ea2d5913018e6ad9f9f8d3dd4ea25448d3ca0ee9' },
 	'element:kit-retiarius:name': { sheetId: 'name.kit.retiarius', enHash: '205e2bb91392bfe2c7afc7e3fea2f5535d117b172991065286806ae69ff94b98' },
 	'element:kit-retiarius:description': { sheetId: 'heroes.kits.retiarius.description', enHash: '31292b3955b4e1976b055f587b92ac68476ad1db2626e3a8e81dcfdb10d2e52c' },

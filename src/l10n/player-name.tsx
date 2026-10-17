@@ -94,7 +94,11 @@ export const playerNameKey = (element: NamedElement, sourcebooks: Sourcebook[]) 
 	const caseOnlyKitName = element.id.startsWith('kit-')
 		&& canonical !== undefined
 		&& canonical.toLocaleLowerCase('en-US') === element.name.toLocaleLowerCase('en-US');
-	if (canonical !== element.name && !caseOnlyKitName) {
+	const approvedRapidFireNameVariant = element.id === 'kit-rapid-fire'
+		&& canonical === 'Rapid-Fire'
+		&& element.name === 'Rapid Fire'
+		&& mapping[`element:${element.id}:name`]?.sheetId === 'name.kit.rapid-fire';
+	if (canonical !== element.name && !caseOnlyKitName && !approvedRapidFireNameVariant) {
 		return undefined;
 	}
 	const key = `element:${element.id}:name`;

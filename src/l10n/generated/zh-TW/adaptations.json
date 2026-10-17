@@ -5875,6 +5875,22 @@
       }
     ]
   },
+  "fs-adapt:name.kit.rapid-fire": {
+    "bookStringId": "name.kit.rapid-fire",
+    "usageKey": "element:kit-rapid-fire:name",
+    "en": "Rapid Fire",
+    "zh": "箭雨",
+    "basisHash": "059db8072c4ae8daa86b6d98cbe1e2f53371fca6ae2959937bf05e23d66c40b2",
+    "updated": "2026-10-17",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "name.kit.rapid-fire",
+        "enHash": "b5143042d9fc16bcce2625e7d001166ef87a5346c6a2a9c3e020810a1d370a03",
+        "zhHash": "059db8072c4ae8daa86b6d98cbe1e2f53371fca6ae2959937bf05e23d66c40b2"
+      }
+    ]
+  },
   "fs-adapt:name.perk.gum-up-the-works": {
     "bookStringId": "name.perk.gum-up-the-works",
     "usageKey": "element:perk-gum-up-the-works:name",

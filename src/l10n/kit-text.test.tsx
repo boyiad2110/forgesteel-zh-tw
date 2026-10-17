@@ -97,10 +97,10 @@ describe('standard kit localization', () => {
 			}
 		});
 
-		expect(mappedNames).toHaveLength(20);
+		expect(mappedNames).toHaveLength(21);
 		expect(mappedDescriptions).toHaveLength(21);
 		expect(mappedAbilities).toHaveLength(19);
-		expect(Object.keys(mapping).filter(key => key.startsWith('element:kit-'))).toHaveLength(60);
+		expect(Object.keys(mapping).filter(key => key.startsWith('element:kit-'))).toHaveLength(61);
 		setLanguage('en');
 		expect(kitModifierName('Arcane Archer & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe('Arcane Archer & Panther');
 		expect(kitModifierName('Arcane Archer (custom) & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe('Arcane Archer (custom) & Panther');
@@ -115,7 +115,11 @@ describe('standard kit localization', () => {
 		);
 		const compact = render();
 		const full = render(PanelMode.Full);
+		const rapidFire = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(KitPanel, {
+			kit: KitData.rapidFire, sourcebooks: [ core ]
+		})));
 		const name = generated[mapping['element:kit-arcane-archer:name'].sheetId].zh;
+		const rapidFireName = generated[mapping['element:kit-rapid-fire:name'].sheetId].zh;
 		const ability = generated[mapping['element:kit-arcane-archer-signature:name'].sheetId].zh;
 
 		expect(compact).toContain(name);
@@ -124,6 +128,7 @@ describe('standard kit localization', () => {
 		expect(compact).toContain(generated[mapping['element:kit-arcane-archer:description'].sheetId].zh);
 		expect(full).toContain(name);
 		expect(full).toContain(ability);
+		expect(rapidFire).toContain(rapidFireName);
 	});
 
 	test('keeps mapped names in kit configuration, ability panels, and classic modifiers', async () => {
