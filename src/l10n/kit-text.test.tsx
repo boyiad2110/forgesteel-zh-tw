@@ -1,8 +1,9 @@
 import { Catalog, loadCatalog } from '@/l10n/catalog';
 import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { kitAbilityNameKey, kitEquipmentLabel, kitEquipmentLabels, kitModifierName, standardKits, stormwightKitIds } from '@/l10n/kit-text';
+import { kitAbilityNameKey, kitEquipmentLabel, kitEquipmentLabels, kitModifierName, kitSourceName, standardKits, stormwightKitIds } from '@/l10n/kit-text';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
+import { AbilitiesPanel } from '@/components/panels/hero/abilities/abilities-panel';
 import { ConfigKit } from '@/components/features/feature-data/kit';
 import { ChoicesPanel } from '@/components/panels/hero/choices/choices-panel';
 import { FactoryLogic } from '@/logic/factory-logic';
@@ -111,7 +112,9 @@ describe('standard kit localization', () => {
 		expect(kitEquipmentLabel('Light Armor')).toBe('Light Armor');
 	});
 
-	test('resolves the approved names and exact descriptions across all 21 standard kits', () => {
+	test('resolves the approved names and exact descriptions across all 21 standard kits', async () => {
+		setLanguage('zh-TW');
+		await loadCatalog();
 		expect(standardKits).toHaveLength(21);
 		expect(standardKits.some(kit => stormwightKitIds.has(kit.id))).toBe(false);
 
@@ -158,9 +161,13 @@ describe('standard kit localization', () => {
 		expect(mappedDescriptions).toHaveLength(21);
 		expect(mappedAbilities).toHaveLength(19);
 		expect(Object.keys(mapping).filter(key => key.startsWith('element:kit-'))).toHaveLength(61);
+		const arcaneArcherName = generated[mapping['element:kit-arcane-archer:name'].sheetId].zh;
+		const pantherName = generated[mapping['element:kit-panther:name'].sheetId].zh;
+		expect(kitModifierName('Arcane Archer & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe(`${arcaneArcherName} & ${pantherName}`);
+		expect(kitModifierName('Arcane Archer (custom) & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe(`Arcane Archer (custom) & ${pantherName}`);
+		expect(kitSourceName('Arcane Archer', [ KitData.arcaneArcher ])).toBe(generated[mapping['element:kit-arcane-archer:name'].sheetId].zh);
+		expect(kitSourceName('Homebrew Archer', [ { ...KitData.arcaneArcher, name: 'Homebrew Archer' } ])).toBe('Homebrew Archer');
 		setLanguage('en');
-		expect(kitModifierName('Arcane Archer & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe('Arcane Archer & Panther');
-		expect(kitModifierName('Arcane Archer (custom) & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe('Arcane Archer (custom) & Panther');
 	});
 
 	test('shows the mapped name, description, and signature name in compact and full kit panels', async () => {
@@ -246,6 +253,13 @@ describe('standard kit localization', () => {
 			ability: signature.data.ability,
 			mode: PanelMode.Compact
 		})));
+		vi.stubGlobal('window', { matchMedia: () => ({ matches: false, addEventListener: () => undefined, removeEventListener: () => undefined }) });
+		const abilitySourceTag = renderToStaticMarkup(createElement(OptionsContext, { value: { ...options, compactView: true, showSources: true } }, createElement(AbilitiesPanel, {
+			title: 'Abilities',
+			abilities: [ { ability: signature.data.ability, source: kit.name, level: undefined } ],
+			hero,
+			onSelectAbility: () => undefined
+		})));
 		const character = {
 			hero,
 			modifierTypes: [ 'Kit' ],
@@ -273,8 +287,10 @@ describe('standard kit localization', () => {
 		const abilityName = generated[mapping['element:kit-arcane-archer-signature:name'].sheetId].zh;
 
 		expect(config).toContain(kitName);
+		expect(config).toContain(`<span class="field-label">${kitName}</span>`);
 		expect(config).toContain(generated[mapping['element:kit-arcane-archer:description'].sheetId].zh);
 		expect(ability).toContain(abilityName);
+		expect(abilitySourceTag).toContain(kitName);
 		const modifierName = [ KitData.arcaneArcher, KitData.panther ].map(item => {
 			const entry = mapping[`element:${item.id}:name`];
 			return generated[entry.sheetId].zh;
@@ -284,5 +300,73 @@ describe('standard kit localization', () => {
 			.toBe(`Arcane Archer (custom) & ${modifierName.split(' & ')[1]}`);
 		expect(kitModifierName('Arcane Archer & Panther', [ { ...KitData.arcaneArcher, id: 'homebrew-archer' }, KitData.panther ]))
 			.toBe(`Arcane Archer & ${modifierName.split(' & ')[1]}`);
+	});
+
+	test('localizes approved Classic View kit labels and equipment values', async () => {
+		setLanguage('zh-TW');
+		await loadCatalog();
+		const hero = FactoryLogic.createHero();
+		const feature = FactoryLogic.feature.createKitChoice({ id: 'test-classic-kit' });
+		feature.data.selected = [ KitData.arcaneArcher ];
+		hero.features = [ feature ];
+		const signatureFeature = KitData.arcaneArcher.features.find(item => item.type === FeatureType.Ability);
+		if (!signatureFeature || signatureFeature.type !== FeatureType.Ability) {
+			throw new Error('Expected Arcane Archer to have a signature feature.');
+		}
+		const character = {
+			hero,
+			modifierTypes: [ 'Kit' ],
+			modifierName: 'Arcane Archer',
+			modifierWeaponImplement: 'Bow, Light Weapon',
+			modifierArmorWard: 'Light Armor',
+			modifierSpeed: 1,
+			modifierDisengage: 2,
+			modifierStamina: 3,
+			modifierStability: 4,
+			modifierMeleeDistance: 5,
+			modifierRangedDistance: 6,
+			modifierMeleeDamageT1: 1,
+			modifierMeleeDamageT2: 2,
+			modifierMeleeDamageT3: 3,
+			modifierRangedDamageT1: 4,
+			modifierRangedDamageT2: 5,
+			modifierRangedDamageT3: 6,
+			modifierBenefits: [ signatureFeature ],
+			immunities: [],
+			weaknesses: [],
+			stamina: {},
+			recoveries: {},
+			extraComplications: [],
+			projects: [],
+			abilities: [],
+			standardAbilities: [],
+			followers: [],
+			summons: [],
+			fixtures: [],
+			featuresReferenceOther: [],
+			extraReferenceItems: [],
+			notes: ''
+		} as HeroSheet;
+		const rendered = renderToStaticMarkup(createElement(ModifiersCard, { character }));
+		[
+			ui['ui.hero-builder.kit.63d5adfa'].zh,
+			generated['term.light-armor'].zh,
+			generated['term.bow'].zh,
+			ui['ui.hero-builder.speed.a2b81141'].zh,
+			generated['term.stamina'].zh,
+			generated['term.stability'].zh,
+			generated['term.disengage-action'].zh,
+			ui['ui.hero-builder.melee-distance.7c498629'].zh,
+			ui['ui.hero-builder.ranged-distance.b55a9de7'].zh
+		].forEach(label => expect(rendered).toContain(label));
+		expect(rendered).toContain(generated[mapping['element:kit-arcane-archer-signature:name'].sheetId].zh);
+		expect(rendered).toContain(ui['ui.hero-builder.main-action.147a0625'].zh);
+		expect(rendered).toContain('Weapon / Implement');
+		expect(rendered).toContain('Armor / Ward');
+		expect(rendered).toContain('Melee Damage Bonus');
+		expect(rendered).toContain('Ranged Damage Bonus');
+		expect(rendered).toContain('Effects');
+		expect(rendered).not.toContain('Bow, Light Weapon');
+		setLanguage('en');
 	});
 });

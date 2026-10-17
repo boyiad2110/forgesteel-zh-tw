@@ -7,6 +7,8 @@ import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability
 import { Empty } from '@/components/controls/empty/empty';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
+import { HeroLogic } from '@/logic/hero-logic';
+import { kitSourceName } from '@/l10n/kit-text';
 import { PanelMode } from '@/enums/panel-mode';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { useIsSmall } from '@/hooks/use-is-small';
@@ -24,6 +26,8 @@ interface Props {
 export const AbilitiesPanel = (props: Props) => {
 	const isSmall = useIsSmall();
 	const options = useOptions();
+	const kits = HeroLogic.getKits(props.hero);
+	const getSource = (source: string) => kitSourceName(source, kits);
 
 	if (props.abilities.length === 0) {
 		return null;
@@ -35,7 +39,7 @@ export const AbilitiesPanel = (props: Props) => {
 				<div><b><AbilityName ability={data.ability} /></b></div>
 				<div>{data.ability.distance.map(d => AbilityLogic.getDistance(d, data.ability, props.hero)).join(' or ')}</div>
 				<div>{data.ability.target}</div>
-				{options.showSources ? <Tag variant='outlined'>{data.source}</Tag> : null}
+				{options.showSources ? <Tag variant='outlined'>{getSource(data.source)}</Tag> : null}
 				{
 					data.ability.cost === 'signature' ?
 						<Pill>Signature</Pill>
@@ -71,7 +75,7 @@ export const AbilitiesPanel = (props: Props) => {
 									ability={a.ability}
 									hero={props.hero}
 									mode={PanelMode.Full}
-									tags={options.showSources ? [ a.level ? `${a.source} (level ${a.level})` : a.source ] : undefined}
+									tags={options.showSources ? [ a.level ? `${getSource(a.source)} (level ${a.level})` : getSource(a.source) ] : undefined}
 								/>
 							</SelectablePanel>
 					)
@@ -93,7 +97,7 @@ export const AbilitiesPanel = (props: Props) => {
 									ability={a.ability}
 									hero={props.hero}
 									mode={PanelMode.Full}
-									tags={options.showSources ? [ a.source ] : undefined}
+									tags={options.showSources ? [ getSource(a.source) ] : undefined}
 								/>
 							</SelectablePanel>
 					)

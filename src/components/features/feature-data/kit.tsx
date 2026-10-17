@@ -17,6 +17,7 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
 import { PanelMode } from '@/enums/panel-mode';
+import { PlayerName } from '@/l10n/player-name';
 import { SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
@@ -141,7 +142,7 @@ export const ConfigKit = (props: ConfigProps) => {
 								<ElementScope element={kit}>
 									<Field
 										style={{ flex: '1 1 0' }}
-										label={kit.name}
+										label={<PlayerName element={kit} />}
 										value={<Markdown text={kit.description} useSpan={true} />}
 									/>
 								</ElementScope>

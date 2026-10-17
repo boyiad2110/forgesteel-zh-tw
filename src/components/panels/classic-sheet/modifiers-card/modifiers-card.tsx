@@ -3,7 +3,8 @@ import { FeatureComponent } from '@/components/panels/classic-sheet/components/f
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { SheetFormatter } from '@/logic/classic-sheet/sheet-formatter';
-import { useKitModifierName } from '@/l10n/kit-text';
+import { kitEquipmentLabels, kitFieldLabel, useKitModifierName } from '@/l10n/kit-text';
+import { useUI } from '@/l10n/ui-text';
 
 import './modifiers-card.scss';
 
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const ModifiersCard = (props: Props) => {
+	const ui = useUI();
 	const modifierName = useKitModifierName(props.character.modifierName || '', HeroLogic.getKits(props.character.hero));
 	const character = useMemo(
 		() => props.character,
@@ -27,8 +29,8 @@ export const ModifiersCard = (props: Props) => {
 		let label = 'Name';
 
 		if (character.modifierTypes.includes('Kit')) {
-			label = 'Kit';
-			if (character.modifierName?.includes('&')) {
+			label = kitFieldLabel(ui, 'Kit');
+			if (character.modifierName?.includes('&') && ui.language === 'en') {
 				label += 's';
 			}
 		} else if (character.modifierTypes.includes('Augmentation')) {
@@ -102,7 +104,7 @@ export const ModifiersCard = (props: Props) => {
 			<h2>
 				<div className='title'>Equipment and Modifiers</div>
 				<LabeledBooleanField
-					label='Kit'
+					label={kitFieldLabel(ui, 'Kit')}
 					value={character.modifierTypes?.includes('Kit')}
 				/>
 			</h2>
@@ -118,7 +120,7 @@ export const ModifiersCard = (props: Props) => {
 						bothWeaponArmor || onlyWeaponImplement ?
 							<LabeledTextField
 								label='Weapon / Implement'
-								content={character.modifierWeaponImplement}
+								content={character.modifierWeaponImplement ? kitEquipmentLabels(character.modifierWeaponImplement.split(', ')) : character.modifierWeaponImplement}
 								additionalClasses={[ 'label-overlay' ]}
 							/>
 							: null
@@ -127,7 +129,7 @@ export const ModifiersCard = (props: Props) => {
 						bothWeaponArmor || onlyArmorWard ?
 							<LabeledTextField
 								label='Armor / Ward'
-								content={character.modifierArmorWard}
+								content={character.modifierArmorWard ? kitEquipmentLabels(character.modifierArmorWard.split(', ')) : character.modifierArmorWard}
 								additionalClasses={[ 'label-overlay' ]}
 							/>
 							: null
@@ -136,27 +138,27 @@ export const ModifiersCard = (props: Props) => {
 
 				<div className='stats'>
 					<LabeledTextField
-						label='Speed'
+						label={kitFieldLabel(ui, 'Speed')}
 						content={SheetFormatter.addSign(character.modifierSpeed)}
 					/>
 					<LabeledTextField
-						label='Disengage'
+						label={kitFieldLabel(ui, 'Disengage')}
 						content={SheetFormatter.addSign(character.modifierDisengage)}
 					/>
 					<LabeledTextField
-						label='Stamina'
+						label={kitFieldLabel(ui, 'Stamina')}
 						content={SheetFormatter.addSign(character.modifierStamina)}
 					/>
 					<LabeledTextField
-						label='Stability'
+						label={kitFieldLabel(ui, 'Stability')}
 						content={SheetFormatter.addSign(character.modifierStability)}
 					/>
 					<LabeledTextField
-						label='Melee Dist.'
+						label={kitFieldLabel(ui, 'Melee Distance')}
 						content={SheetFormatter.addSign(character.modifierMeleeDistance)}
 					/>
 					<LabeledTextField
-						label='Ranged Dist.'
+						label={kitFieldLabel(ui, 'Ranged Distance')}
 						content={SheetFormatter.addSign(character.modifierRangedDistance)}
 					/>
 				</div>
