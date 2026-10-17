@@ -31,4 +31,4 @@
 
 ## 結案
 
-等待 Marc 人工驗收。驗收與合併結果僅在發生後補入原 PR 與 Master Sheet。
+等待 Marc 人工驗收；PR #76 目前開啟於 `develop`，head `ef3817b4`。驗收與合併結果僅在發生後補入原 PR 與 Master Sheet。
