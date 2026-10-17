@@ -20,7 +20,7 @@
 - `node scripts/l10n/verify.mjs`：語系守門、lint（0 errors；39 個 import 排序 warnings）、TypeScript、正式建置通過。
 - 完整 Vitest 有 48 個 suites 因 Windows Vite SSR 暫存 `ENOENT` 無法載入；套裝專用測試通過。
 - `npm audit` 因連線 `registry.npmjs.org` 遇 DNS `ENOTFOUND` 未完成。
-- PR 最新 head 的 GitHub CI 待執行；不部署。
+- PR head `67c5a87e` 的 GitHub Localization CI #273 全通過：語系守門、lint、TypeScript、Vitest、正式建置、依賴稽核及玩家旅程瀏覽器回歸。不部署。
 
 ## 人工驗收位置與限制
 
