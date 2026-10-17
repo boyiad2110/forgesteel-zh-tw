@@ -9,6 +9,7 @@ import { hashDependencyIds, hashDependencyText } from './source-dependencies.mjs
 
 export const BOOK_SHEET_ID = '1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4';
 export const FORGE_SHEET_ID = '1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw';
+export const APPROVED_DUAL_CAPTURE_FORMAT = 'forgesteel-approved-dual-capture/v1';
 export const DUAL_HEADERS = {
   book: {
     Glossary: [ 'Glossary ID', 'Status', 'Target Term', 'Source Term', 'Last Updated' ],
@@ -160,6 +161,48 @@ export function projectDualCapture(raw) {
     book: { spreadsheetId: BOOK_SHEET_ID, modifiedTime: bookTime },
     forge: { spreadsheetId: FORGE_SHEET_ID, modifiedTime: forgeTime }
   }, book, forge };
+}
+
+/** Revalidate a compact, versioned projection before it is used as refresh input. */
+export function revalidateApprovedDualCapture(bundle) {
+  if (bundle?.format !== APPROVED_DUAL_CAPTURE_FORMAT) {
+    throw new Error(`expected ${APPROVED_DUAL_CAPTURE_FORMAT}`);
+  }
+  const exactKeys = (value, expected, label) => {
+    if (!value || typeof value !== 'object' || Array.isArray(value)
+      || Object.keys(value).sort().join('\0') !== expected.slice().sort().join('\0')) {
+      throw new Error(`${label}: missing or unexpected table`);
+    }
+  };
+  exactKeys(bundle.book, Object.keys(DUAL_HEADERS.book), 'Book capture');
+  exactKeys(bundle.forge, Object.keys(DUAL_HEADERS.forge), 'Forge capture');
+  const table = (rows, headers, label) => {
+    if (!Array.isArray(rows) || rows.some(row => !Array.isArray(row) || row.length !== headers.length
+      || row.some(value => typeof value !== 'string'))) {
+      throw new Error(`${label}: invalid projected row width or cell type`);
+    }
+    const statusIndex = headers.indexOf('Status');
+    if (statusIndex !== -1 && rows.some(row => row[statusIndex] !== 'APPROVED')) {
+      throw new Error(`${label}: projected capture contains a non-approved row`);
+    }
+    return { values: [ headers, ...rows ] };
+  };
+  const book = Object.fromEntries(Object.entries(DUAL_HEADERS.book).map(([ name, headers ]) =>
+    [ name, table(bundle.book[name], headers, name) ]));
+  const forge = Object.fromEntries(Object.entries(DUAL_HEADERS.forge).map(([ name, headers ]) =>
+    [ name, table(bundle.forge[name], headers, name) ]));
+  const sourceMeta = (source, expected, label) => {
+    if (source?.spreadsheetId !== expected || typeof source.modifiedTime !== 'string'
+      || !Number.isFinite(Date.parse(source.modifiedTime))) {
+      throw new Error(`${label}: invalid source identity or modified time`);
+    }
+    return { id: source.spreadsheetId, mime_type: 'application/vnd.google-apps.spreadsheet',
+      modified_time: source.modifiedTime };
+  };
+  const bookMeta = sourceMeta(bundle.sources?.book, BOOK_SHEET_ID, 'Book capture');
+  const forgeMeta = sourceMeta(bundle.sources?.forge, FORGE_SHEET_ID, 'Forge capture');
+  return projectDualCapture({ book, forge, bookBefore: bookMeta, bookAfter: bookMeta,
+    forgeBefore: forgeMeta, forgeAfter: forgeMeta });
 }
 
 /** A legacy-compatible view is generated only from the two approved inputs. */

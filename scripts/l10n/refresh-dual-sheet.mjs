@@ -5,13 +5,15 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildDualCatalog, buildDualCatalogFromSnapshot, projectDualCapture } from './dual-sheet.mjs';
+import { APPROVED_DUAL_CAPTURE_FORMAT, buildDualCatalog, buildDualCatalogFromSnapshot,
+  projectDualCapture, revalidateApprovedDualCapture } from './dual-sheet.mjs';
 import { formatIssues, runCheck } from './check.mjs';
 import { replaceFiles } from './refresh-sheet.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export function refreshDualSheet(raw, { root: target = root, apply = false } = {}) {
-  const capture = projectDualCapture(raw);
+  const capture = raw?.format === APPROVED_DUAL_CAPTURE_FORMAT
+    ? revalidateApprovedDualCapture(raw) : projectDualCapture(raw);
   const { snapshot, catalog } = buildDualCatalog(capture);
   const stage = mkdtempSync(path.join(tmpdir(), 'l10n-dual-refresh-'));
   try {
@@ -50,7 +52,11 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       || (args.length === 3 && args[2] !== '--apply')) {
       throw new Error('usage: node scripts/l10n/refresh-dual-sheet.mjs --input <approved-dual-capture.json> [--apply]');
     }
-    console.log(JSON.stringify(refreshDualSheet(JSON.parse(readFileSync(args[1], 'utf8')),
+    const input = JSON.parse(readFileSync(args[1], 'utf8'));
+    if (input?.format !== APPROVED_DUAL_CAPTURE_FORMAT) {
+      throw new Error(`input must be the approved projection (${APPROVED_DUAL_CAPTURE_FORMAT}); do not persist raw Sheet responses`);
+    }
+    console.log(JSON.stringify(refreshDualSheet(input,
       { apply: args.length === 3 }), null, 2));
   } catch (error) {
     console.error(error.message);
