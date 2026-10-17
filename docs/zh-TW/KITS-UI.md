@@ -31,4 +31,4 @@
 
 ## 結案
 
-等待 Marc 人工驗收；PR #76 目前開啟於 `develop`，head `ef3817b4`。驗收與合併結果僅在發生後補入原 PR 與 Master Sheet。
+Marc 已於 2026-10-17 人工驗收通過；[PR #76](https://github.com/boyiad2110/forgesteel-zh-tw/pull/76) 已 squash 合併至 develop `3067540057b3d47ec0c012100ff340d49402d64b`。GitHub Localization CI #270 全綠，含語系守門、lint、TypeScript、Vitest、正式建置、audit 與玩家旅程瀏覽器回歸；本機完整 Vitest／audit 限制見上文。本批未部署。
