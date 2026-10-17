@@ -163,15 +163,15 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 
 /**
  * Replaces one whole formula. The template may only add the upstream integer
- * and a suffix copied from that formula. The integer keeps one half-width
- * space on each side, without doubling a space the template already has.
+ * and a suffix copied from that formula. Template spacing is preserved; a
+ * single leading space is added only when the surrounding Chinese needs it.
  */
 const formulaReplacement = (before: string, value: string, template: string, suffix: string) => {
 	let filled = template.replaceAll('{suffix}', suffix).replaceAll('{value}', value);
 	if (before.length > 0 && !/\s$/.test(before) && !/^\s/.test(filled)) {
 		filled = ` ${filled}`;
 	}
-	return filled.replace(/(-?\d+)(?!\s)/, '$1 ');
+	return filled;
 };
 
 /**

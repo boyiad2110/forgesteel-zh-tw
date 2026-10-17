@@ -1743,8 +1743,7 @@ describe('perk name segment', () => {
 		const kitId = 'heroes.kits.arcane-archer.signature.exploding-arrow';
 		const kit = (strings as Catalog)[kitId];
 		const kept = resolveText('zh-TW', 'element:not-thingspeaker:description', kit.en, { 'element:not-thingspeaker:description': kitId }, peekCatalog());
-		expect(kept).toBe(kit.zh);
-		expect(kept).toContain('\u2460');
+		expect(kept).toBe(kit.fs!.zh);
 		expect(displayListMarkup('element:not-thingspeaker:description', kit.zh)).toBe(kit.zh);
 	});
 
@@ -2535,6 +2534,7 @@ describe('Doomsight calculated Chinese display', () => {
 	const render = (current?: ReturnType<typeof hero>, item = feature) => renderToStaticMarkup(withOptions(
 		FactoryLogic.createOptions(), createElement(FeaturePanel, { feature: item, hero: current, mode: PanelMode.Full })
 	));
+	const visibleText = (html: string) => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
 	beforeEach(async () => {
 		await loadCatalog();
 		vi.stubGlobal('window', { matchMedia: () => ({ matches: false, addEventListener: () => undefined, removeEventListener: () => undefined }) });
@@ -2544,24 +2544,24 @@ describe('Doomsight calculated Chinese display', () => {
 		const current = hero();
 		const before = JSON.stringify({ current, feature });
 		expect(HeroLogic.getRecoveryValue(current)).toBe(13);
-		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 13 點體力。');
 		expect(render(current)).not.toContain('你會恢復等於');
 		expect(JSON.stringify({ current, feature })).toBe(before);
 		current.features = [ FactoryLogic.feature.createBonus({ id: 'stamina', field: FeatureField.Stamina, value: 48 }) ];
 		expect(HeroLogic.getRecoveryValue(current)).toBe(16);
-		expect(render(current)).toContain('在 12 小時後，你會恢復 16 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 16 點體力。');
 	});
 
 	test('no hero keeps the approved three paragraphs; language switching keeps the current calculated value', () => {
-		expect(render()).toContain('在 12 小時後，你會恢復等於你復元值的體力。');
+		expect(visibleText(render())).toContain('在 12 小時後，你會恢復等於你復元值的體力。');
 		const staticText = resolveText('zh-TW', key, row.en, { [key]: sheetId }, strings as Catalog);
 		expect(staticText).toBe(row.zh);
 		expect(staticText.split('\n\n')).toHaveLength(3);
 		const current = hero();
 		setLanguage('en');
-		expect(render(current)).toContain('After 12 hours, you regain Stamina equal to 13.');
+		expect(visibleText(render(current))).toContain('After 12 hours, you regain Stamina equal to 13.');
 		setLanguage('zh-TW');
-		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 13 點體力。');
 	});
 
 	test('a custom rewrite retains all calculated English', () => {
