@@ -5,6 +5,7 @@ import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/component
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useUI } from '@/l10n/ui-text';
+import { isStandardKitAbility } from '@/l10n/kit-text';
 
 import './ability-card.scss';
 
@@ -130,6 +131,7 @@ export const AbilityCard = (props: Props) => {
 	const getEffectSection = (section: string, isFirstText: boolean, key: number) => {
 		const label = perkGrantLabel(ability.id, 'Effect', ui);
 		const listed = arcaneTrickSection(ability.id, section);
+		const kitKey = !listed && isStandardKitAbility(ability) ? abilitySectionKey(ability.id, key, section) : undefined;
 		const split = isFirstText && label !== 'Effect' && !(section.startsWith('##') || ability.isNotTrueAbility);
 		let text = listed ?? section;
 		if (!listed && !split && isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
@@ -137,11 +139,12 @@ export const AbilityCard = (props: Props) => {
 		}
 		return (
 			<div className='effect' key={key}>
+				{kitKey ? <Markdown text={`**${ui.text('ui.hero-builder.effect.2252d5cf', 'Effect')}:**`} className='ability-effect' /> : null}
 				{split ? <Markdown text={`**${label}:**`} className='ability-effect' /> : null}
 				<Markdown
-					text={text}
+					text={kitKey ? section : text}
 					className='ability-effect'
-					l10nKey={listed ? undefined : abilitySectionKey(ability.id, key, text)}
+					l10nKey={kitKey ?? (listed ? undefined : abilitySectionKey(ability.id, key, text))}
 				/>
 			</div>
 		);

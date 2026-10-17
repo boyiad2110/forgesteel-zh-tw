@@ -133,7 +133,8 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 			: '';
 		let projected = targetParts[0];
 		values.forEach((value, index) => {
-			projected += formulaReplacement(projected, value, binding.valueTemplate!, suffix) + targetParts[index + 1];
+			const after = targetParts[index + 1];
+			projected += formulaReplacement(projected, value, binding.valueTemplate!, suffix, after) + after;
 		});
 		return calculated.slice(0, leadingLength) + projected + calculated.slice(trailingStart);
 	}
@@ -142,7 +143,13 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 			|| display.template.split('{value}').length !== 2 || /[{}]/.test(display.template.replace('{value}', ''))) {
 			return calculated;
 		}
-		const replacement = display.template.replace('{value}', values[0]);
+		const replacement = formulaReplacement(
+			chinese.slice(0, targetStart),
+			values[0],
+			display.template,
+			'',
+			chinese.slice(targetEnd)
+		);
 		return calculated.slice(0, leadingLength) + chinese.slice(0, targetStart) + replacement + chinese.slice(targetEnd) + calculated.slice(trailingStart);
 	}
 	if (binding.useDisplayTemplate || display) {
@@ -158,15 +165,18 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 
 /**
  * Replaces one whole formula. The template may only add the upstream integer
- * and a suffix copied from that formula. The integer keeps one half-width
- * space on each side, without doubling a space the template already has.
+ * and a suffix copied from that formula. Template spacing is preserved;
+ * spaces are added only at Chinese/numeric boundaries when needed.
  */
-const formulaReplacement = (before: string, value: string, template: string, suffix: string) => {
+const formulaReplacement = (before: string, value: string, template: string, suffix: string, after: string) => {
 	let filled = template.replaceAll('{suffix}', suffix).replaceAll('{value}', value);
-	if (before.length > 0 && !/\s$/.test(before) && !/^\s/.test(filled)) {
+	if (before.length > 0 && !/\s$/.test(before) && !/^\s/.test(filled) && /^-?\d/.test(filled)) {
 		filled = ` ${filled}`;
 	}
-	return filled.replace(/(-?\d+)(?!\s)/, '$1 ');
+	if (/-?\d$/.test(filled) && /^[\u3400-\u9fff]/.test(after)) {
+		filled = `${filled} `;
+	}
+	return filled;
 };
 
 /**

@@ -1,7 +1,7 @@
 # 先讀這裡
 
 - KITS-01 已由 Marc 驗收並於 2026-10-17 squash 合併至 `develop` `19c03197fbe37660eeaedae7bb480e4fe84b3f26`；Rapid Fire 顯示「箭雨」。KITS-GLOSSARY 的 12 筆護甲／武器詞也已驗收並 squash 合併至 develop `90094a293e5d682e848bb46fdb777a63b34d3878`。KITS-01 與 Glossary 的驗證結果見 [PROGRESS](PROGRESS.md)。
-- KITS-01、KITS-GLOSSARY、KITS-UI 與 KITS-DISPLAY 均已由 Marc 驗收並合併；KITS-DISPLAY 的 [PR #77](https://github.com/boyiad2110/forgesteel-zh-tw/pull/77) 已 squash 合併至 `develop` `ebec57187580c9d780761ea05cd50cfbcdd7a1a6`。Classic View 六個複合標題補譯進度見 [PROGRESS](PROGRESS.md) 與 [KITS-CLASSIC-UI](KITS-CLASSIC-UI.md)。
+- KITS-01、KITS-GLOSSARY、KITS-UI、KITS-DISPLAY 與 KITS-CLASSIC-UI 均已由 Marc 驗收並合併；KITS-CLASSIC-UI 的 [PR #78](https://github.com/boyiad2110/forgesteel-zh-tw/pull/78) 已 squash 合併至 `develop` `d445ac4c0eb003a48182aae6eea5ab2b84e0ff20`。標準套裝招牌招式補譯進度見 [PROGRESS](PROGRESS.md) 與 [KITS-ABILITIES-01](KITS-ABILITIES-01.md)。
 
 本專案保留現有顯示層中文化架構。先讀此摘要即可接手；詳細內容依任務載入。
 

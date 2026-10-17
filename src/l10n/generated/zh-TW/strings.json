@@ -6319,6 +6319,11 @@
   },
   "heroes.kits.arcane-archer.signature.exploding-arrow": {
     "en": "Exploding Arrow\nYour ammunition explodes with magical energy.\nMagic, Ranged, Strike, Weapon • Main action • Ranged 15 • One creature or object\nPower Roll + Agility, Reason, Intuition, or Presence:\nTier 1: 5 + A, R, I, or P fire damage\nTier 2: 7 + A, R, I, or P fire damage\nTier 3: 10 + A, R, I, or P fire damage\nEffect: One creature or object of your choice within 2 squares of the target takes fire damage equal to the characteristic score used for this ability’s power roll.",
+    "fs": {
+      "basisHash": "4fb533459e3600e3c1c6960b9f52e69f202f392789452608b7da54106528ff74",
+      "en": "One creature or object of your choice within 2 squares of the target takes fire damage equal to the characteristic score used for this ability's power roll.",
+      "zh": "目標 2 格內的 1 個生物或物體（由你選擇）會受到 X 點火焰傷害，X 等於此招式檢定所使用的屬性值。"
+    },
     "updated": "2026-10-14",
     "zh": "爆裂箭矢（Exploding Arrow）\n你的彈藥在魔法能量的作用下爆炸。\n魔法、遠程、打擊、武器／主要動作／遠程 15／1 個生物或物體\n檢定 + 敏捷、理智、直覺或氣場：\n① 5 + 敏捷、理智、直覺或氣場火焰傷害\n② 7 + 敏捷、理智、直覺或氣場火焰傷害\n③ 10 + 敏捷、理智、直覺或氣場火焰傷害\n效果：目標 2 格內的 1 個生物或物體（由你選擇）會受到 X 點火焰傷害，X 等於此招式檢定所使用的屬性值。"
   },
@@ -6359,6 +6364,11 @@
   },
   "heroes.kits.battlemind.signature.unmooring": {
     "en": "Unmooring\nYour weapon unleashes psionic energy that reduces your target’s weight.\nMelee, Psionic, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might, Reason, Intuition, or Presence:\nTier 1: 5 + M, R, I, or P damage\nTier 2: 8 + M, R, I, or P damage\nTier 3: 11 + M, R, I, or P damage\nEffect: Until the end of the target’s next turn, any forced movement that affects the target has its distance increased by 2.",
+    "fs": {
+      "basisHash": "89c6ae75769d0a30b4e568f43e5976b11d48b35636f9ffe5f53da2023717cd7b",
+      "en": "Until the end of the target's next turn, any forced movement that affects the target has its distance increased by 2.",
+      "zh": "直到目標下個回合結束之前，所有對目標造成的強制移動距離都會 +2。"
+    },
     "updated": "2026-10-14",
     "zh": "脫韁解錨（Unmooring）\n你的武器釋放出靈能，減輕目標的重量。\n近戰、靈能、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量、理智、直覺或氣場：\n① 5 + 力量、理智、直覺或氣場傷害\n② 8 + 力量、理智、直覺或氣場傷害\n③ 11 + 力量、理智、直覺或氣場傷害\n效果：直到目標下個回合結束之前，所有對目標造成的強制移動距離都會 +2。"
   },
@@ -6404,6 +6414,11 @@
   },
   "heroes.kits.cloak-and-dagger.signature.fade": {
     "en": "Fade\nA stab, and a few quick, careful steps back.\nMelee, Ranged, Strike, Weapon • Main action • Melee 1 or ranged 10 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage; you can shift 1 square\nTier 2: 6 + M or A damage; you can shift up to 2 squares\nTier 3: 8 + M or A damage; you can shift up to 3 squares",
+    "fs": {
+      "basisHash": "547bbf8c9b9eaeeb2b93b310e500521dd3f1e3a28038224f1b21482b25bcb198",
+      "en": "A stab, and a few quick, careful steps back.",
+      "zh": "一記精準刺擊，隨後靈巧後退幾步。"
+    },
     "updated": "2026-10-14",
     "zh": "回身掠影（Fade）\n一記精準刺擊，隨後靈巧後退幾步。\n近戰、遠程、打擊、武器／主要動作／近戰 1 或遠程 10／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害；你可以遁移 1 格\n② 6 + 力量或敏捷傷害；你可以遁移最多 2 格\n③ 8 + 力量或敏捷傷害；你可以遁移最多 3 格"
   },
@@ -6439,6 +6454,11 @@
   },
   "heroes.kits.dual-wielder.signature.double-strike": {
     "en": "Double Strike\nWhy strike once when you could do it twice?\nMelee, Strike, Weapon • Main action • Melee 1 • Two creatures or objects\nPower Roll + Might or Agility:\nTier 1: 4 damage\nTier 2: 6 damage\nTier 3: 8 damage\nEffect: If you use this ability on your turn, you can use it against one target, then use your maneuver and your move action for that turn before using the ability against a second target. You still use the same power roll for both targets.",
+    "fs": {
+      "basisHash": "d8813593ef18d01f0e0547196af0d39e1033c72c83683c40279233b470506502",
+      "en": "If you use this ability on your turn, you can use it against one target, then use your maneuver and your move action for that turn before using the ability against a second target. You still use the same power roll for both targets.",
+      "zh": "若你在你的回合中發動此招式，你可以先打擊第一個目標，然後使用你該回合的機動動作和移動動作，然後再打擊第二個目標。你仍然只進行 1 次檢定。"
+    },
     "updated": "2026-10-14",
     "zh": "雙重打擊（Double Strike）\n既然可以打兩次，為什麼只打一次呢？\n近戰、打擊、武器／主要動作／近戰 1／2 個生物或物體\n檢定 + 力量或敏捷：\n① 4 傷害\n② 6 傷害\n③ 8 傷害\n效果：若你在你的回合中發動此招式，你可以先打擊第一個目標，然後使用你該回合的機動動作和移動動作，然後再打擊第二個目標。你仍然只進行 1 次檢定。"
   },
@@ -6699,6 +6719,11 @@
   },
   "heroes.kits.guisarmier.signature.forward-thrust-backward-smash": {
     "en": "Forward Thrust, Backward Smash\nIn your hands, the haft is as good as the head.\nMelee, Strike, Weapon • Main action • Melee 2 • Two creatures or objects\nPower Roll + Might or Agility:\nTier 1: 4 damage\nTier 2: 7 damage\nTier 3: 9 damage",
+    "fs": {
+      "basisHash": "6c8a82abafb0f5142cb8974844a4282f86ef2d708c80cc5c48c8ac8a80b17476",
+      "en": "In your hands, the haft is as good as the head.",
+      "zh": "武器的握柄和頭部在你手中同樣致命。"
+    },
     "updated": "2026-10-14",
     "zh": "前刺後劈（Forward Thrust, Backward Smash）\n武器的握柄和頭部在你手中同樣致命。\n近戰、打擊、武器／主要動作／近戰 2／2 個生物或物體\n檢定 + 力量或敏捷：\n① 4 傷害\n② 7 傷害\n③ 9 傷害"
   },
@@ -6734,6 +6759,11 @@
   },
   "heroes.kits.martial-artist.signature.battle-grace": {
     "en": "Battle Grace\nYou feint to move your enemies into perfect position.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 5 + M or A damage\nTier 2: 8 + M or A damage; you can swap places with the target\nTier 3: 11 + M or A damage; you can swap places with the target\nEffect: If you obtain a tier 2 or tier 3 outcome and can’t swap places with the target because one or both of you is too big to fit into the swapped space, you both remain in your original spaces and the target takes 1 extra damage.",
+    "fs": {
+      "basisHash": "f158f4f770b804170539e212b050523f01b3a00265ab9d1789399d95e43ea2b1",
+      "en": "If you obtain a tier 2 or tier 3 outcome and can't swap places with the target because one or both of you is too big to fit into the swapped space, you both remain in your original spaces and the target takes 1 extra damage.",
+      "zh": "若你獲得 T2 或 T3 結果，但因為其中一方或雙方體型太大而無法互換位置，則雙方將維持在原本的位置，而且目標會額外受到 1 點傷害。"
+    },
     "updated": "2026-10-14",
     "zh": "戰鬥之舞（Battle Grace）\n你虛晃一招，引誘敵人站到最完美的位置。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 5 + 力量或敏捷傷害\n② 8 + 力量或敏捷傷害；你可以與目標互換位置\n③ 11 + 力量或敏捷傷害；你可以與目標互換位置\n效果：若你獲得 T2 或 T3 結果，但因為其中一方或雙方體型太大而無法互換位置，則雙方將維持在原本的位置，而且目標會額外受到 1 點傷害。"
   },
@@ -6769,6 +6799,15 @@
   },
   "heroes.kits.mountain.signature.pain-for-pain": {
     "en": "Pain for Pain\nAn enemy who tagged you will pay for that.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 5 + M or A damage\nTier 3: 13 + M or A damage\nEffect: If the target dealt damage to you since the end of your last turn, this strike deals additional damage equal to your Might or Agility score (your choice).",
+    "fs": {
+      "basisHash": "0bd7e741c534d007f3e2438186824d09d500d12ac99b15ebe20282fecddc2908",
+      "calculationDisplay": {
+        "target": "等於你力量或敏捷（由你選擇）屬性值",
+        "template": "{value}"
+      },
+      "en": "If the target dealt damage to you since the end of your last turn, this strike deals additional damage equal to your Might or Agility score (your choice).",
+      "zh": "若目標從你上回合結束後曾對你造成傷害，此次打擊會額外造成等於你力量或敏捷（由你選擇）屬性值的傷害。"
+    },
     "updated": "2026-10-14",
     "zh": "以牙還牙（Pain for Pain）\n傷害你的敵人將會付出代價。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 5 + 力量或敏捷傷害\n③ 13 + 力量或敏捷傷害\n效果：若目標從你上回合結束後曾對你造成傷害，此次打擊會額外造成等於你力量或敏捷（由你選擇）屬性值的傷害。"
   },
@@ -6804,6 +6843,11 @@
   },
   "heroes.kits.panther.signature.devastating-rush": {
     "en": "Devastating Rush\nThe faster you move, the harder you hit.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature or object\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage\nTier 3: 13 + M or A damage\nEffect: You can move up to 3 squares straight toward the target before this strike, which deals extra damage equal to the number of squares you move this way.",
+    "fs": {
+      "basisHash": "9d029829e42130355110fcfae1c5bce9d3b23ca983d1aa24f5495a239eed6b5c",
+      "en": "You can move up to 3 squares straight toward the target before this strike, which deals extra damage equal to the number of squares you move this way.",
+      "zh": "打擊前，你可以朝目標直線移動最多 3 格，每移動 1 格就會額外造成 1 點傷害。"
+    },
     "updated": "2026-10-14",
     "zh": "毀滅衝刺（Devastating Rush）\n你衝得越快，打得就越痛。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物或物體\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害\n③ 13 + 力量或敏捷傷害\n效果：打擊前，你可以朝目標直線移動最多 3 格，每移動 1 格就會額外造成 1 點傷害。"
   },
@@ -6839,6 +6883,11 @@
   },
   "heroes.kits.pugilist.signature.lets-dance": {
     "en": "Let’s Dance\nKeeping your enemies stumbling around the battlefield is second nature to you.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage; slide 1\nTier 3: 8 + M or A damage; slide 2\nEffect: You can shift into any square the target leaves after you slide them.",
+    "fs": {
+      "basisHash": "659754be236b794480951737744124aaf656e11102dfbc1f43b8ef2706ea1add",
+      "en": "You can shift into any square the target leaves after you slide them.",
+      "zh": "在你滑動目標後，你可以遁移到目標離開的任何方格。"
+    },
     "updated": "2026-10-14",
     "zh": "共舞吧（Let’s Dance）\n讓敵人在戰場上踉蹌不已是你的拿手好戲。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害；滑動 1\n③ 8 + 力量或敏捷傷害；滑動 2\n效果：在你滑動目標後，你可以遁移到目標離開的任何方格。"
   },
@@ -6884,6 +6933,11 @@
   },
   "heroes.kits.raider.signature.raiders-awe": {
     "en": "Raider's Awe\nYou execute a brutal strike that leaves your foe reeling.\nMelee, Ranged, Strike, Weapon • Main action • Melee 1 or ranged 10 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage\nTier 3: 8 + M or A damage\nEffect: The target takes a bane on their next power roll made before the end of their next turn.",
+    "fs": {
+      "basisHash": "0b8bdc69d873a3d474f359f59f013df2c0c896d3eff36ea98646c9d58b6c2c5b",
+      "en": "The target takes a bane on their next power roll made before the end of their next turn",
+      "zh": "在目標下個回合結束之前，他的下次檢定會承受 1 個劣勢。"
+    },
     "updated": "2026-10-14",
     "zh": "突擊威勢（Raider's Awe）\n你施展一次兇猛打擊，讓敵人踉蹌不已。\n近戰、遠程、打擊、武器／主要動作／近戰 1 或遠程 10／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害\n③ 8 + 力量或敏捷傷害\n效果：在目標下個回合結束之前，他的下次檢定會承受 1 個劣勢。"
   },
@@ -6934,6 +6988,11 @@
   },
   "heroes.kits.ranger.signature.hamstring-shot": {
     "en": "Hamstring Shot\nA well-placed shot leaves your enemy struggling to move.\nRanged, Strike, Weapon • Main action • Ranged 10 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage; A < w, slowed (save ends)\nTier 2: 5 + M or A damage; A < v, slowed (save ends)\nTier 3: 7 + M or A damage; A < s, slowed (save ends)",
+    "fs": {
+      "basisHash": "cf6073ed574f65c59739519c2b7578350b1498638766b933f40250764f0b34f3",
+      "en": "A well-placed shot leaves your enemy struggling to move.",
+      "zh": "一發精準的射擊讓你的敵人舉步維艱。"
+    },
     "updated": "2026-10-14",
     "zh": "斷筋射擊（Hamstring Shot）\n一發精準的射擊讓你的敵人舉步維艱。\n遠程、打擊、武器／主要動作／遠程 10／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害；敏捷 < 弱，緩速（豁免解除）\n② 5 + 力量或敏捷傷害；敏捷 < 中，緩速（豁免解除）\n③ 7 + 力量或敏捷傷害；敏捷 < 強，緩速（豁免解除）"
   },
@@ -6974,6 +7033,11 @@
   },
   "heroes.kits.rapid-fire.signature.two-shot": {
     "en": "Two Shot\nWhen you fire two arrows back-to-back, both hit their mark.\nRanged, Strike, Weapon • Main action • Ranged 12 • Two creatures or objects\nPower Roll + Might or Agility:\nTier 1: 4 damage\nTier 2: 6 damage\nTier 3: 8 damage",
+    "fs": {
+      "basisHash": "67d310aec888c00dfe925190f26b24e2a9a3987b5dc8f335b4ee48288dbb115e",
+      "en": "When you fire two arrows back to back, both hit their mark.",
+      "zh": "你連射兩箭，每一箭都精準命中目標。"
+    },
     "updated": "2026-10-14",
     "zh": "雙重射擊（Two Shot）\n你連射兩箭，每一箭都精準命中目標。\n遠程、打擊、武器／主要動作／遠程 12／2 個生物或物體\n檢定 + 力量或敏捷：\n① 4 傷害\n② 6 傷害\n③ 8 傷害"
   },
@@ -7014,6 +7078,11 @@
   },
   "heroes.kits.retiarius.signature.net-and-stab": {
     "en": "Net and Stab\nThe well-thrown net that follows your main attack leaves your foes right where you want them.\nMelee, Strike, Weapon • Main action • Melee 2 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage; A < w, slowed (EoT)\nTier 2: 6 + M or A damage; A < v, slowed (EoT)\nTier 3: 8 + M or A damage; A < s, restrained (EoT)",
+    "fs": {
+      "basisHash": "8a86604ab34828cc2aa3d979d01b4d95d27ba27dfe02279f20fd97304da1bd2d",
+      "en": "The well-thrown net that follows your main attack leaves your foes right where you want them.",
+      "zh": "隨著你的主要攻擊，一張精準投擲的捕網將敵人固定在你想要的位置。"
+    },
     "updated": "2026-10-14",
     "zh": "捕縛刺擊（Net and Stab）\n隨著你的主要攻擊，一張精準投擲的捕網將敵人固定在你想要的位置。\n近戰、打擊、武器／主要動作／近戰 2／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害；敏捷 < 弱，緩速（EoT）\n② 6 + 力量或敏捷傷害；敏捷 < 中，緩速（EoT）\n③ 8 + 力量或敏捷傷害；敏捷 < 強，束縛（EoT）"
   },
@@ -7044,6 +7113,11 @@
   },
   "heroes.kits.shining-armor.signature.protective-attack": {
     "en": "Protective Attack\nThe strength of your assault makes it impossible for your foe to ignore you.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 5 + M or A damage\nTier 2: 8 + M or A damage\nTier 3: 11 + M or A damage\nEffect: The target is taunted until the end of their next turn.",
+    "fs": {
+      "basisHash": "1523735be7e34516316089ddca6aab369b63d8903ead51579b04369ba84229ef",
+      "en": "The target is taunted until the end of their next turn.",
+      "zh": "目標被你嘲諷，直到他下個回合結束。"
+    },
     "updated": "2026-10-14",
     "zh": "以攻為守（Protective Attack）\n你銳不可當的攻勢讓敵人無法忽視你的存在。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 5 + 力量或敏捷傷害\n② 8 + 力量或敏捷傷害\n③ 11 + 力量或敏捷傷害\n效果：目標被你嘲諷，直到他下個回合結束。"
   },
@@ -7079,6 +7153,15 @@
   },
   "heroes.kits.sniper.signature.patient-shot": {
     "en": "Patient Shot\nBreathe … aim … wait … then strike!\nRanged, Strike, Weapon • Main action • Ranged 15 • One creature\nPower Roll + Might or Agility:\nTier 1: 3 + M or A damage\nTier 2: 6 + M or A damage\nTier 3: 13 + M or A damage\nEffect: If you don’t take a move action this turn, this strike deals extra damage equal to your Might or Agility score (your choice).",
+    "fs": {
+      "basisHash": "29a02015a98022ba16e6e6e811ac79c9931e75bd55cc0086f42b54657efa9346",
+      "calculationDisplay": {
+        "target": "等於你力量或敏捷屬性值（由你選擇）",
+        "template": "{value}"
+      },
+      "en": "If you don't take a move action this turn, this strike deals extra damage equal to your Might or Agility score (your choice).",
+      "zh": "若你在本回合沒有進行移動動作，此打擊會額外造成等於你力量或敏捷屬性值（由你選擇）的傷害。"
+    },
     "updated": "2026-10-14",
     "zh": "沉穩射擊（Patient Shot）\n呼吸……瞄準……等待……然後射擊！\n遠程、打擊、武器／主要動作／遠程 15／1 個生物\n檢定 + 力量或敏捷：\n① 3 + 力量或敏捷傷害\n② 6 + 力量或敏捷傷害\n③ 13 + 力量或敏捷傷害\n效果：若你在本回合沒有進行移動動作，此打擊會額外造成等於你力量或敏捷屬性值（由你選擇）的傷害。"
   },
@@ -7119,6 +7202,11 @@
   },
   "heroes.kits.spellsword.signature.leaping-lightning": {
     "en": "Leaping Lightning\nLightning jumps from your weapon as you strike to harm a nearby foe.\nMagic, Melee, Strike, Weapon • Main action • Melee 1 • One creature or object\nPower Roll + Might, Reason, Intuition, or Presence:\nTier 1: 5 + M, R, I, or P lightning damage\nTier 2: 8 + M, R, I, or P lightning damage\nTier 3: 11 + M, R, I, or P lightning damage\nEffect: A creature or object of your choice within 2 squares of the target takes lightning damage equal to the characteristic score used for this ability’s power roll.",
+    "fs": {
+      "basisHash": "8aefbdab2cb3bb02b001da86296d8afdf98959253f005802d96f646cf6389b48",
+      "en": "A creature or object of your choice within 2 squares of the target takes lightning damage equal to the characteristic score used for this ability's power roll.",
+      "zh": "目標 2 格內的 1 個生物或物體（由你選擇）會受到 X 點閃電傷害，X 等於此招式檢定所使用的屬性值。"
+    },
     "updated": "2026-10-14",
     "zh": "電光閃擊（Leaping Lightning）\n當你發動攻擊時，一道閃電從你的武器躍出，傷害附近的敵人。\n魔法、近戰、打擊、武器／主要動作／近戰 1／1 個生物或物體\n檢定 + 力量、理智、直覺或氣場：\n① 5 + 力量、理智、直覺或氣場閃電傷害\n② 8 + 力量、理智、直覺或氣場閃電傷害\n③ 11 + 力量、理智、直覺或氣場閃電傷害\n效果：目標 2 格內的 1 個生物或物體（由你選擇）會受到 X 點閃電傷害，X 等於此招式檢定所使用的屬性值。"
   },
@@ -7164,6 +7252,11 @@
   },
   "heroes.kits.stick-and-robe.signature.where-i-want-you": {
     "en": "Where I Want You\nWhen your stick speaks, your enemy moves.\nMelee, Strike, Weapon • Main action • Melee 2 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage\nTier 2: 7 + M or A damage; slide 1\nTier 3: 10 + M or A damage; slide 3",
+    "fs": {
+      "basisHash": "b04b7900a7cfea5d7a8864fc4318a56a40b11048681a9e6338e2a9f4eacc4ea1",
+      "en": "When your stick speaks, your enemy moves.",
+      "zh": "當你的棍杖發聲，敵人就得移動。"
+    },
     "updated": "2026-10-14",
     "zh": "隨心所置（Where I Want You）\n當你的棍杖發聲，敵人就得移動。\n近戰、打擊、武器／主要動作／近戰 2／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害\n② 7 + 力量或敏捷傷害；滑動 1\n③ 10 + 力量或敏捷傷害；滑動 3"
   },
@@ -7199,6 +7292,11 @@
   },
   "heroes.kits.swashbuckler.signature.fancy-footwork": {
     "en": "Fancy Footwork\nAll combat is a dance—and you’ll be the one leading.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 5 + M or A damage\nTier 2: 7 + M or A damage; push 1\nTier 3: 10 + M or A damage; push 2\nEffect: You can shift into any square the target leaves after you push them.",
+    "fs": {
+      "basisHash": "c6e89b9a4055a01c5bf75ba31692d125e201f676badc72979099b609c401d98e",
+      "en": "You can shift into any square the target leaves after you push them",
+      "zh": "在你推動目標後，你可以遁移到目標離開的任何方格。"
+    },
     "updated": "2026-10-14",
     "zh": "華麗步法（Fancy Footwork）\n每場戰鬥都是一場舞蹈，而你就是領舞者。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 5 + 力量或敏捷傷害\n② 7 + 力量或敏捷傷害；推動 1\n③ 10 + 力量或敏捷傷害；推動 2\n效果：在你推動目標後，你可以遁移到目標離開的任何方格。"
   },
@@ -7239,6 +7337,11 @@
   },
   "heroes.kits.sword-and-board.signature.shield-bash": {
     "en": "Shield Bash\nIn your hands, a shield isn’t just for protection.\nMelee, Strike, Weapon • Main action • Melee 1 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage; push 1\nTier 2: 7 + M or A damage; push 2\nTier 3: 9 + M or A damage; push 3; M < s, prone",
+    "fs": {
+      "basisHash": "055753626a5b24316fc364347da03d44f3c589bb727dc57bb5391fb158cfb60b",
+      "en": "In your hands, a shield isn't just for protection.",
+      "zh": "你手中的盾牌不僅僅是防禦工具。"
+    },
     "updated": "2026-10-14",
     "zh": "盾擊（Shield Bash）\n你手中的盾牌不僅僅是防禦工具。\n近戰、打擊、武器／主要動作／近戰 1／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害；推動 1\n② 7 + 力量或敏捷傷害；推動 2\n③ 9 + 力量或敏捷傷害；推動 3；力量 < 強，伏地"
   },
@@ -7274,6 +7377,11 @@
   },
   "heroes.kits.warrior-priest.signature.weakening-brand": {
     "en": "Weakening Brand\nThe impact of your weapon brands your target for destruction.\nMagic, Melee, Strike, Weapon • Main action • Melee 1 • One creature or object\nPower Roll + Might, Reason, Intuition, or Presence:\nTier 1: 3 + M, R, I, or P holy damage\nTier 2: 5 + M, R, I, or P holy damage\nTier 3: 8 + M, R, I, or P holy damage\nEffect: Until the end of the target’s next turn, they have damage weakness equal to the characteristic score used for this ability’s power roll.",
+    "fs": {
+      "basisHash": "0347b4c1ac3b6c8d41ae58a293656d7dc56669cbe9e1209e892eab391bc8e16f",
+      "en": "Until the end of the target's next turn, they have damage weakness equal to the characteristic score used for this ability's power roll.",
+      "zh": "在目標下個回合結束之前，他具有 X 點傷害弱點，X 等於此招式檢定所使用的屬性值。"
+    },
     "updated": "2026-10-14",
     "zh": "弱化烙印（Weakening Brand）\n你的武器擊中目標，在對方身上烙下毀滅的印記。\n魔法、近戰、打擊、武器／主要動作／近戰 1／1 個生物或物體\n檢定 + 力量、理智、直覺或氣場：\n① 3 + 力量、理智、直覺或氣場神聖傷害\n② 5 + 力量、理智、直覺或氣場神聖傷害\n③ 8 + 力量、理智、直覺或氣場神聖傷害\n效果：在目標下個回合結束之前，他具有 X 點傷害弱點，X 等於此招式檢定所使用的屬性值。"
   },
@@ -7309,6 +7417,11 @@
   },
   "heroes.kits.whirlwind.signature.extension-of-my-arm": {
     "en": "Extension of My Arm\nWhen you draw your whip back after an attack, your enemy is drawn ever closer.\nMelee, Strike, Weapon • Main action • Melee 3 • One creature\nPower Roll + Might or Agility:\nTier 1: 4 + M or A damage; vertical pull 1\nTier 2: 7 + M or A damage; vertical pull 2\nTier 3: 10 + M or A damage; vertical pull 3",
+    "fs": {
+      "basisHash": "414289bfca5f159aa6c384c5bdc824127494fa54a90821e558d39948812e944d",
+      "en": "When you draw your whip back after an attack, your enemy is drawn ever closer.",
+      "zh": "在你攻擊並收回鞭子後，敵人會被拉得更近。"
+    },
     "updated": "2026-10-14",
     "zh": "鞭影出臂（Extension of My Arm）\n在你攻擊並收回鞭子後，敵人會被拉得更近。\n近戰、打擊、武器／主要動作／近戰 3／1 個生物\n檢定 + 力量或敏捷：\n① 4 + 力量或敏捷傷害；垂直拉動 1\n② 7 + 力量或敏捷傷害；垂直拉動 2\n③ 10 + 力量或敏捷傷害；垂直拉動 3"
   },

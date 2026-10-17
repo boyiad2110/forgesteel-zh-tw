@@ -54,6 +54,7 @@ import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { languageNameKey } from '@/l10n/language-text';
+import { standardKits } from '@/l10n/kit-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
@@ -1742,8 +1743,7 @@ describe('perk name segment', () => {
 		const kitId = 'heroes.kits.arcane-archer.signature.exploding-arrow';
 		const kit = (strings as Catalog)[kitId];
 		const kept = resolveText('zh-TW', 'element:not-thingspeaker:description', kit.en, { 'element:not-thingspeaker:description': kitId }, peekCatalog());
-		expect(kept).toBe(kit.zh);
-		expect(kept).toContain('\u2460');
+		expect(kept).toBe(kit.en);
 		expect(displayListMarkup('element:not-thingspeaker:description', kit.zh)).toBe(kit.zh);
 	});
 
@@ -2534,6 +2534,7 @@ describe('Doomsight calculated Chinese display', () => {
 	const render = (current?: ReturnType<typeof hero>, item = feature) => renderToStaticMarkup(withOptions(
 		FactoryLogic.createOptions(), createElement(FeaturePanel, { feature: item, hero: current, mode: PanelMode.Full })
 	));
+	const visibleText = (html: string) => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
 	beforeEach(async () => {
 		await loadCatalog();
 		vi.stubGlobal('window', { matchMedia: () => ({ matches: false, addEventListener: () => undefined, removeEventListener: () => undefined }) });
@@ -2543,24 +2544,24 @@ describe('Doomsight calculated Chinese display', () => {
 		const current = hero();
 		const before = JSON.stringify({ current, feature });
 		expect(HeroLogic.getRecoveryValue(current)).toBe(13);
-		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 13 點體力。');
 		expect(render(current)).not.toContain('你會恢復等於');
 		expect(JSON.stringify({ current, feature })).toBe(before);
 		current.features = [ FactoryLogic.feature.createBonus({ id: 'stamina', field: FeatureField.Stamina, value: 48 }) ];
 		expect(HeroLogic.getRecoveryValue(current)).toBe(16);
-		expect(render(current)).toContain('在 12 小時後，你會恢復 16 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 16 點體力。');
 	});
 
 	test('no hero keeps the approved three paragraphs; language switching keeps the current calculated value', () => {
-		expect(render()).toContain('在 12 小時後，你會恢復等於你復元值的體力。');
+		expect(visibleText(render())).toContain('在 12 小時後，你會恢復等於你復元值的體力。');
 		const staticText = resolveText('zh-TW', key, row.en, { [key]: sheetId }, strings as Catalog);
 		expect(staticText).toBe(row.zh);
 		expect(staticText.split('\n\n')).toHaveLength(3);
 		const current = hero();
 		setLanguage('en');
-		expect(render(current)).toContain('After 12 hours, you regain Stamina equal to 13.');
+		expect(visibleText(render(current))).toContain('After 12 hours, you regain Stamina equal to 13.');
 		setLanguage('zh-TW');
-		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 13 點體力。');
 	});
 
 	test('a custom rewrite retains all calculated English', () => {
@@ -3494,5 +3495,102 @@ describe('ancestry ability names', () => {
 			expect(card).toContain(`ability-name">${english}<`);
 			expect(card).not.toContain(zh);
 		}
+	});
+});
+
+describe('standard kit signature ability localizations', () => {
+	const kitAbilities = standardKits.flatMap(kit => kit.features.reduce<Ability[]>((abilities, feature) => {
+		if (feature.type === FeatureType.Ability) {
+			abilities.push(feature.data.ability);
+		}
+		return abilities;
+	}, []));
+	const catalog = strings as Catalog;
+	const nameCatalog = names as Catalog;
+
+	const renderPanel = (ability: Ability, hero?: ReturnType<typeof FactoryLogic.createHero>) => renderToStaticMarkup(withOptions(
+		FactoryLogic.createOptions(), createElement(AbilityPanel, { ability, hero, mode: PanelMode.Full })
+	));
+
+	const renderCard = (ability: Ability, hero?: ReturnType<typeof FactoryLogic.createHero>) => renderToStaticMarkup(createElement(AbilityCard, {
+		ability: ClassicSheetBuilder.buildAbilitySheet(ability, hero, undefined, FactoryLogic.createOptions())
+	}));
+
+	beforeEach(async () => {
+		await loadCatalog();
+		setLanguage('zh-TW');
+		vi.stubGlobal('window', {
+			matchMedia: () => ({
+				matches: false,
+				addEventListener: () => undefined,
+				removeEventListener: () => undefined
+			})
+		});
+	});
+
+	test('all twenty-one names and descriptions render in ability panels and Classic View cards', () => {
+		expect(kitAbilities).toHaveLength(21);
+		for (const ability of kitAbilities) {
+			const nameKey = abilityNameKey(ability);
+			const descriptionKey = abilityDescriptionKey(ability);
+			expect(nameKey).toBe(`element:${ability.id}:name`);
+			expect(descriptionKey).toBe(`element:${ability.id}:description`);
+			const nameSheet = mapping[nameKey!].sheetId;
+			const descriptionSheet = mapping[descriptionKey!].sheetId;
+			const nameZh = resolveText('zh-TW', nameKey, ability.name, { [nameKey!]: nameSheet }, nameCatalog);
+			const descriptionZh = resolveText('zh-TW', descriptionKey, ability.description, { [descriptionKey!]: descriptionSheet }, catalog);
+			const panel = renderPanel(ability);
+			const card = renderCard(ability);
+			expect(panel, ability.id).toContain(nameZh);
+			expect(panel, ability.id).toContain(descriptionZh);
+			expect(card, ability.id).toContain(nameZh);
+			expect(card, ability.id).toContain(descriptionZh);
+			expect(panel, ability.id).not.toContain(ability.description);
+			expect(card, ability.id).not.toContain(ability.description);
+		}
+	});
+
+	test('all thirteen signature effects are localized at their text section, leaving the power roll untouched', () => {
+		let effects = 0;
+		for (const ability of kitAbilities) {
+			const textSection = ability.sections.find((section, index) => index > 0 && section.type === 'text');
+			if (!textSection || textSection.type !== 'text') {
+				continue;
+			}
+			effects += 1;
+			const index = ability.sections.indexOf(textSection);
+			const key = `section:${ability.id}:${index}`;
+			expect(mapping[key], ability.id).toBeDefined();
+			expect(abilitySectionKey(ability.id, index, textSection.text, textSection.text), ability.id).toBe(key);
+			expect(abilitySectionKey(ability.id, 0, textSection.text, textSection.text), ability.id).toBeUndefined();
+			const zh = resolveText('zh-TW', key, textSection.text, { [key]: mapping[key].sheetId }, catalog);
+			expect(plainForLookup(renderPanel(ability)), ability.id).toContain(plainForLookup(zh));
+			expect(plainForLookup(renderCard(ability)), ability.id).toContain(plainForLookup(zh));
+		}
+		expect(effects).toBe(13);
+	});
+
+	test.each([ 'kit-mountain-signature', 'kit-sniper-signature' ])('%s keeps the upstream calculated value in both ability views', abilityId => {
+		const ability = kitAbilities.find(item => item.id === abilityId)!;
+		const key = `section:${ability.id}:1`;
+		const source = catalog[mapping[key].sheetId].fs!;
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.characteristics = FactoryLogic.createCharacteristics(3, 2, 0, 0, 0);
+		const before = JSON.stringify({ ability, hero });
+		const calculated = AbilityLogic.getTextEffect(source.en, hero);
+		const translated = resolveText('zh-TW', abilitySectionKey(ability.id, 1, calculated, source.en), calculated,
+			{ [key]: mapping[key].sheetId }, catalog);
+		expect(translated).toContain('額外造成 3 的傷害');
+		expect(translated).not.toContain('equal to');
+		const panel = renderPanel(ability, hero);
+		const card = renderCard(ability, hero);
+		expect(panel).toContain('額外造成 3 的傷害');
+		expect(card).toContain('額外造成 3 的傷害');
+		expect(card).toContain('6 damage');
+		expect(JSON.stringify({ ability, hero })).toBe(before);
+		hero.class.characteristics = FactoryLogic.createCharacteristics(1, 4, 0, 0, 0);
+		expect(renderPanel(ability, hero)).toContain('額外造成 4 的傷害');
+		expect(renderCard(ability, hero)).toContain('額外造成 4 的傷害');
 	});
 });

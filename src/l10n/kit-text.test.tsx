@@ -159,8 +159,8 @@ describe('standard kit localization', () => {
 
 		expect(mappedNames).toHaveLength(21);
 		expect(mappedDescriptions).toHaveLength(21);
-		expect(mappedAbilities).toHaveLength(19);
-		expect(Object.keys(mapping).filter(key => key.startsWith('element:kit-'))).toHaveLength(61);
+		expect(mappedAbilities).toHaveLength(21);
+		expect(Object.keys(mapping).filter(key => key.startsWith('element:kit-'))).toHaveLength(84);
 		const arcaneArcherName = generated[mapping['element:kit-arcane-archer:name'].sheetId].zh;
 		const pantherName = generated[mapping['element:kit-panther:name'].sheetId].zh;
 		expect(kitModifierName('Arcane Archer & Panther', [ KitData.arcaneArcher, KitData.panther ])).toBe(`${arcaneArcherName} & ${pantherName}`);
