@@ -4860,6 +4860,328 @@
         "enHash": "c5e30b06c99f1687acfcb245914eb4f67cfcf8ba60ad99bbb4a60d128d0b29d8",
         "zhHash": "059db8072c4ae8daa86b6d98cbe1e2f53371fca6ae2959937bf05e23d66c40b2"
       }
+    },
+    "heroes.kits.arcane-archer.signature.exploding-arrow": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.arcane-archer.signature.exploding-arrow",
+          "enHash": "22b2cb798e543247b95e6afab830d0668046d438d626e8f65810984c06f36211",
+          "zhHash": "4fb533459e3600e3c1c6960b9f52e69f202f392789452608b7da54106528ff74"
+        }
+      ],
+      "sourcesHash": "130c54946cafbbfcaf9c5d0f3d0a8228007c7665fe3f7df0204f9d241ed1d8f5",
+      "fs": {
+        "enHash": "01d167e7ca24b00707ab5f18adf593621b8adbf5726bd45c8718bc1fc7695f44",
+        "zhHash": "4006c9de709bbb7c20a9c21760c978b39c7b6cc04a58a18aeb8903fb650d017f"
+      }
+    },
+    "heroes.kits.battlemind.signature.unmooring": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.battlemind.signature.unmooring",
+          "enHash": "e5ce83d5d1e5623aa01ed9b9af887fdf8a10f1c516dbe4dd8ff67901bfcc03a5",
+          "zhHash": "89c6ae75769d0a30b4e568f43e5976b11d48b35636f9ffe5f53da2023717cd7b"
+        }
+      ],
+      "sourcesHash": "5dcd1a6885b61ac47f5641db626ce8f20816e78d4df65664ca4368e1c3020bcc",
+      "fs": {
+        "enHash": "f065ebd6a854a6defa994c731aa609b3fe7ea5867eaabc59e20c53cbeca88324",
+        "zhHash": "ee200bcb44cfd456e58a71a782309f49e5a33b76d9dd06f3f846716d5cdbe10f"
+      }
+    },
+    "heroes.kits.cloak-and-dagger.signature.fade": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.cloak-and-dagger.signature.fade",
+          "enHash": "48e306bccd5eb25f5e16be615d0369c89e46b57f6fbab8cd735b718ee1b009da",
+          "zhHash": "547bbf8c9b9eaeeb2b93b310e500521dd3f1e3a28038224f1b21482b25bcb198"
+        }
+      ],
+      "sourcesHash": "3e09415af3e5d83c7406f12fa0a12429dcbbce655d6257cc65da43327cd9c43d",
+      "fs": {
+        "enHash": "ef515e4e7ba7e1001955be81d0dbe4c1dfe2af60e7efd330d55e25aefb20d0e0",
+        "zhHash": "8a30253b38fee025ce31eec3a5522a888963c13057dc906a26988c5bbcb9266b"
+      }
+    },
+    "heroes.kits.dual-wielder.signature.double-strike": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.dual-wielder.signature.double-strike",
+          "enHash": "c5201910d0f0394ced1264dff7d97fa918b5d667042c51f16f134c378d573dc9",
+          "zhHash": "d8813593ef18d01f0e0547196af0d39e1033c72c83683c40279233b470506502"
+        }
+      ],
+      "sourcesHash": "283a157bc7a9ce3109db8b73bfb7f90b65a2c62e799b4d14760ce35b14f83002",
+      "fs": {
+        "enHash": "784eb5841bc88de10948b30a99d43fd6a8bfe3345ae31f7c2aebffeb8fc4ba97",
+        "zhHash": "a69aee5860a572ba9a618c20020202186c5bfb773e6f8c01883ba8e353cad840"
+      }
+    },
+    "heroes.kits.guisarmier.signature.forward-thrust-backward-smash": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.guisarmier.signature.forward-thrust-backward-smash",
+          "enHash": "89e208db52c015fad3d4be1aeaf68bb321a9b32acc405951b7b1230ec3bfe986",
+          "zhHash": "6c8a82abafb0f5142cb8974844a4282f86ef2d708c80cc5c48c8ac8a80b17476"
+        }
+      ],
+      "sourcesHash": "9da62d5bf3ff4fa2a69cd336e828ccfdb796739251c08bcbd35b49da7bed2352",
+      "fs": {
+        "enHash": "a23c9933ae46ab186f0dba4bb8f309843a18b59fbd65186d69430818711dd4b9",
+        "zhHash": "83952b5c423db9ad62ddad969344e7dc079b782d8ac6be5cb991eff3a6692cfb"
+      }
+    },
+    "heroes.kits.martial-artist.signature.battle-grace": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.martial-artist.signature.battle-grace",
+          "enHash": "c36e142f3cbc3a28351977aeced282424eda75ed093cdcc9b759d541bde50cf6",
+          "zhHash": "f158f4f770b804170539e212b050523f01b3a00265ab9d1789399d95e43ea2b1"
+        }
+      ],
+      "sourcesHash": "365799cad8f9c85ba452fa02514e9baf78deaf587ebc8d150b5b150c30c1d008",
+      "fs": {
+        "enHash": "0321d45fefffb290489b1d2c6b76035391d45fe156a1227e850639448d333cb9",
+        "zhHash": "07f536b1f3fdb7ba43e59e408cd41c4cafe526b7870a4397e7d5b4f4127472f7"
+      }
+    },
+    "heroes.kits.mountain.signature.pain-for-pain": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.mountain.signature.pain-for-pain",
+          "enHash": "ffe04f109e3f645ad6e4a423eea659277ed6c9c694d4ee60f645beee498ebd2d",
+          "zhHash": "0bd7e741c534d007f3e2438186824d09d500d12ac99b15ebe20282fecddc2908"
+        }
+      ],
+      "sourcesHash": "3b92bae12a4db0a8bc0af753381b5e3eab755c73604e22df0627e00cf9413acf",
+      "fs": {
+        "enHash": "bcb01a2056acb66c2f1d8cf57f2ccda24de9eb8439b0af57892ad558875009ab",
+        "zhHash": "30845af37e0b3231d6846b10604f4921e8be9c9a6d22d7ea001bad3d84a61be9"
+      }
+    },
+    "heroes.kits.panther.signature.devastating-rush": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.panther.signature.devastating-rush",
+          "enHash": "ecc5015200bd278916bb68105ee657cc1e52eaf5503aa2d2506abac82eb5b4b9",
+          "zhHash": "9d029829e42130355110fcfae1c5bce9d3b23ca983d1aa24f5495a239eed6b5c"
+        }
+      ],
+      "sourcesHash": "6537a63b405792be5e0edaf30edec4762abfeeec30a5ff660107afe8cc17ae9a",
+      "fs": {
+        "enHash": "171c1aa883751523cb7f0d43866d64b012485776f3cb36a0052b73702043c599",
+        "zhHash": "3a2a48bf60a7e05da59a3eece11adcbf4361c200c7b3dad5937c7f6f8fb5961f"
+      }
+    },
+    "heroes.kits.pugilist.signature.lets-dance": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.pugilist.signature.lets-dance",
+          "enHash": "2e236a68946bb56ea76d10bfdbfce1aa6fac024ee5907ceea0fe67367bde6006",
+          "zhHash": "659754be236b794480951737744124aaf656e11102dfbc1f43b8ef2706ea1add"
+        }
+      ],
+      "sourcesHash": "ab742fb47ed1013e3247328209ee473d4344ec12f0181cd01e6de69e4e100f4f",
+      "fs": {
+        "enHash": "60191aa05802a3204a616176fcf584c49678e0f85f0bde6b6f1be77dcd4cf102",
+        "zhHash": "36aff738fe35da4ea65a9eb565665e22e0f0e6148b5888932ec1f3e58e7d3cd2"
+      }
+    },
+    "heroes.kits.raider.signature.raiders-awe": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.raider.signature.raiders-awe",
+          "enHash": "04fea1eb5e88f693e0c7e9d5dcc5d9481b28961b6c2d618bcd94447745d47e76",
+          "zhHash": "0b8bdc69d873a3d474f359f59f013df2c0c896d3eff36ea98646c9d58b6c2c5b"
+        }
+      ],
+      "sourcesHash": "3ad8b67a0c7546d182ddf66c97a430b42b5750bad09f18297e2c960414af512a",
+      "fs": {
+        "enHash": "7366adc17cfbb23f8301b94f1911834a509c2a64ac2dafa155454e363b1331c9",
+        "zhHash": "9bc22b4a25f49781d405590643480d01fa26e7191ccfd61bd7b20f81a31666e8"
+      }
+    },
+    "heroes.kits.ranger.signature.hamstring-shot": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.ranger.signature.hamstring-shot",
+          "enHash": "12832ddee415c996ca332216d06410e05206baf8741f0857ba7f8f2952f29718",
+          "zhHash": "cf6073ed574f65c59739519c2b7578350b1498638766b933f40250764f0b34f3"
+        }
+      ],
+      "sourcesHash": "66362638923a60f99c678d372b9fe5c49355a02a8c4b51ec7ea53cf7eced9428",
+      "fs": {
+        "enHash": "54c9e440ae85211b6a8f63cc89d6f5ae022e096c126e49db5a809ca6d9e92aaf",
+        "zhHash": "82c7dd1b9b80e6089ac0090150fd3623af389e3a67fb1ff8f51fd3a46fd038e9"
+      }
+    },
+    "heroes.kits.rapid-fire.signature.two-shot": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.rapid-fire.signature.two-shot",
+          "enHash": "4e252fbae268aa676cd9633e3227c466e6da9cffed491afade3cb2748c8531cf",
+          "zhHash": "67d310aec888c00dfe925190f26b24e2a9a3987b5dc8f335b4ee48288dbb115e"
+        }
+      ],
+      "sourcesHash": "99077285e28cc472b32b43ca62500ae6455ed7512d187046f615f70f2af1a416",
+      "fs": {
+        "enHash": "cd0d10afa4d13b0396c40728f1360ad012ec57dd160c6ca802062d15e250fbba",
+        "zhHash": "0ef383ba7c4788ee1da2bf8e88f7b54c44dbf4c8a7eb49f926fe634d6a31a219"
+      }
+    },
+    "heroes.kits.retiarius.signature.net-and-stab": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.retiarius.signature.net-and-stab",
+          "enHash": "6a51bbb3d265c8e473811bb95b6caab3bf017bddb0a76d577064400624a303f4",
+          "zhHash": "8a86604ab34828cc2aa3d979d01b4d95d27ba27dfe02279f20fd97304da1bd2d"
+        }
+      ],
+      "sourcesHash": "62b8fe3b5f83f5e578512d2f39c881cd0c3d4f1a9e6f8d817ad618a577a8f958",
+      "fs": {
+        "enHash": "e1729504e3b757bc8467da74caf6d5ba7e70cadda1801880499531d745a85ec3",
+        "zhHash": "5a785dbcf7d7f7e3649934610ddf64d5ffbbba56e71334e7785ab5f3114a068c"
+      }
+    },
+    "heroes.kits.shining-armor.signature.protective-attack": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.shining-armor.signature.protective-attack",
+          "enHash": "006ffe09e055f8e4ae3a562e6dbb250959ce865404e128ae0c03f185c667e82d",
+          "zhHash": "1523735be7e34516316089ddca6aab369b63d8903ead51579b04369ba84229ef"
+        }
+      ],
+      "sourcesHash": "973ccb98f60a110c052c79d04c1e5a783a39a98eb8be32559a1d03da0b1f395b",
+      "fs": {
+        "enHash": "cef9477132925d1e6aa204743822c56736f14999e23f1a07fc5e6abf9fdaff11",
+        "zhHash": "30fa75af8f60a6f2550d57c013107d9b1bbe7ec57121aedb103efe899badeac7"
+      }
+    },
+    "heroes.kits.sniper.signature.patient-shot": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.sniper.signature.patient-shot",
+          "enHash": "c891eafbb797611141034a5930d3313f4eb0a53ee122501ddf25b7ccf12be10e",
+          "zhHash": "29a02015a98022ba16e6e6e811ac79c9931e75bd55cc0086f42b54657efa9346"
+        }
+      ],
+      "sourcesHash": "28f8b984485d4eabf57442a011ddc70a45024354067acaee5f79560fd5a603a7",
+      "fs": {
+        "enHash": "37aea470f180058bc45fffb577e2cda979fe57cdbb07fa739da572f4d36ae715",
+        "zhHash": "9d3dfb77c03746d51a9e59baf9c30531ab6de1658c84bdf3dc786587951b916e"
+      }
+    },
+    "heroes.kits.spellsword.signature.leaping-lightning": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.spellsword.signature.leaping-lightning",
+          "enHash": "f907b2dd5802c57a9403a64d01ef3fb9da2f77fd511400e30af6b91f4f76b880",
+          "zhHash": "8aefbdab2cb3bb02b001da86296d8afdf98959253f005802d96f646cf6389b48"
+        }
+      ],
+      "sourcesHash": "da66067bc515e369fbe873fa95f12e4404e19b28cd9b8be2209f8db9a299cc28",
+      "fs": {
+        "enHash": "f1e9df1b67d091dc97b2490c1ab8c8c1d09b9a30f394c11a98df60a4e3d7eb51",
+        "zhHash": "70d3752902eb222a2bdd6a5e0f376ceaea569bee2f018fefd94df815b396aa38"
+      }
+    },
+    "heroes.kits.stick-and-robe.signature.where-i-want-you": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.stick-and-robe.signature.where-i-want-you",
+          "enHash": "e64f0b52d76e358032375036db72163bac75dd0bfefcaa530d1d10a5d56b5147",
+          "zhHash": "b04b7900a7cfea5d7a8864fc4318a56a40b11048681a9e6338e2a9f4eacc4ea1"
+        }
+      ],
+      "sourcesHash": "c36184cdebfb9e999c16208ba77647c11835c27a00f6053c80804393daf03777",
+      "fs": {
+        "enHash": "12bcf4285b17ae8c02c2220238cf79f15215046892a0010063e995dce0a870b9",
+        "zhHash": "f4192a191df47e92e7178d34e80b012b05469dbd3e6ccdea451661eb4ee7cf0d"
+      }
+    },
+    "heroes.kits.swashbuckler.signature.fancy-footwork": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.swashbuckler.signature.fancy-footwork",
+          "enHash": "134b2fcbe481b876e59a21371a6d763d08d34782946e552985acc1bb5a0a9aef",
+          "zhHash": "c6e89b9a4055a01c5bf75ba31692d125e201f676badc72979099b609c401d98e"
+        }
+      ],
+      "sourcesHash": "b812761184b373988f33334943abad03f4e2c5ed85ef0cceb351f04ddfcc5035",
+      "fs": {
+        "enHash": "3b863587f94b3f7b5085502c4138f8757f24842b64af186cf7f5308859cb37db",
+        "zhHash": "cd057e39fcf83f89bf4c6eb1fd5e8bc3e23f73dc22fff16ded1ab07e9f0a1aa9"
+      }
+    },
+    "heroes.kits.sword-and-board.signature.shield-bash": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.sword-and-board.signature.shield-bash",
+          "enHash": "6be02d865db2432b0a17b77971a1e5642b55d2661efdd976077c83acfee6f66a",
+          "zhHash": "055753626a5b24316fc364347da03d44f3c589bb727dc57bb5391fb158cfb60b"
+        }
+      ],
+      "sourcesHash": "6d902956b9cff8464bbd32b9fe50635183ad9783ab11e458dea4d0bcca47993c",
+      "fs": {
+        "enHash": "b72963aa8f6f6093c04f2c3ac13709a9542a924c3125e2a3eafc5b6c528e45d8",
+        "zhHash": "a3d62d6582616f0fffd3d3877d7878aef26697df286d36e0aa69114fcce097cd"
+      }
+    },
+    "heroes.kits.warrior-priest.signature.weakening-brand": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.warrior-priest.signature.weakening-brand",
+          "enHash": "8842e80f774bbdc874cfcd1b3b03954b8bc42d56b0549c51a9838ff1f772fd7e",
+          "zhHash": "0347b4c1ac3b6c8d41ae58a293656d7dc56669cbe9e1209e892eab391bc8e16f"
+        }
+      ],
+      "sourcesHash": "a0761e1fe547e208a6bd5d06934d20fb2c28c9e3c568a45d6e765c0a72052c98",
+      "fs": {
+        "enHash": "35b11b337b6acafb90a1d7a45934b97ca5726ed5ae0062e51fe3e08c1d3eed03",
+        "zhHash": "33b1360ae6bc46ba9a70701030d8359db1f12056915b606a0e387479039fcdd3"
+      }
+    },
+    "heroes.kits.whirlwind.signature.extension-of-my-arm": {
+      "sources": [
+        {
+          "sheetId": "heroes.kits.whirlwind.signature.extension-of-my-arm",
+          "enHash": "20d53fc2c51fad6615221de390fefee7d1acb56c702ac47ea6c4e18be7f9808f",
+          "zhHash": "414289bfca5f159aa6c384c5bdc824127494fa54a90821e558d39948812e944d"
+        }
+      ],
+      "sourcesHash": "c8033809f74c176629de586d3bc01052ad7ad2dd20a47ec7da07e11e097f5c44",
+      "fs": {
+        "enHash": "b947070d92fe7ba9862a6acfe4983a48f18158f053b5ffa2a5d6523685b997f7",
+        "zhHash": "7d7738785e3690ad346ff2d72356a7051d8cdca9c0e051fa4f2a6286ea6ca5ba"
+      }
+    },
+    "name.kit-ability.lets-dance": {
+      "sources": [
+        {
+          "sheetId": "name.kit-ability.lets-dance",
+          "enHash": "4147904f37d521486efa1405dea73bea3dda1e41a2e53d9711f3ac4521dcd1cb",
+          "zhHash": "92f25229755feba469e566b47519739cdbaa8faf75fea704dad0ec1f437b5f4a"
+        }
+      ],
+      "sourcesHash": "cbc47ad91facb43569c42430c0703182c7c7a2327fbb703b31377782edb02516",
+      "fs": {
+        "enHash": "1c2099f83a9cabe1155c3a5313cee16b2896646587cc6101b4be860c8f837af2",
+        "zhHash": "92f25229755feba469e566b47519739cdbaa8faf75fea704dad0ec1f437b5f4a"
+      }
+    },
+    "name.kit-ability.raiders-awe": {
+      "sources": [
+        {
+          "sheetId": "name.kit-ability.raiders-awe",
+          "enHash": "8b57311ecd7690a067a1fa2df37ba448b880dafeb4a05c3a2312347c4cff9522",
+          "zhHash": "240feaec450631360a4eb9980a5b1aed68187c17faa76eec775270b82a3bc8e2"
+        }
+      ],
+      "sourcesHash": "14548c19c28f1c4978c91cb664ca646310c3037b64ae5af2127db2dde6549b0c",
+      "fs": {
+        "enHash": "a8ac2502ae7cf6dd84ce605403187e0b050b05626fc07cccfc7fd6c31f716be9",
+        "zhHash": "240feaec450631360a4eb9980a5b1aed68187c17faa76eec775270b82a3bc8e2"
+      }
     }
   }
 }

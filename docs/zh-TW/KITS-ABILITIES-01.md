@@ -1,0 +1,24 @@
+# KITS-ABILITIES-01：標準套裝招牌招式
+
+## 範圍與來源
+
+- 覆蓋 21 個標準套裝的招牌招式；Stormwight 不在 Book Master 核准範圍。
+- 重用 Book Master 已核准的招式名稱與文字；`Let's Dance`、`Raider’s Awe` 使用已核准名稱「共舞吧」、「突擊威勢」，並記錄網站名稱差異適配。
+- Forge Steel Master 新增 36 筆 Adaptations 與 36 筆來源關聯：21 個招式描述、13 個文字效果與 2 個名稱差異。招式 Power Roll 保持原樣。
+- Mountain 與 Sniper 效果使用核准的 Calculation Display Note。顯示層只投射上游計算出的數值，不改能力資料或計算邏輯。
+
+## 實作與驗證
+
+- 能力面板與 Classic View 卡片都接入標準套裝招式名稱、短描述及 13 個文字效果。Classic View 也顯示在地化的「效果」標籤。
+- Mountain／Sniper 會依英雄目前力量或敏捷，把上游自動計算結果顯示在中文句子中；切換中英文不改動英雄或能力資料。
+- 本機 `node scripts/l10n/verify.mjs`：l10n guard、lint、TypeScript 與正式建置通過。針對本批的 4 項回歸及 inventory 3 項檢查通過。完整 Vitest 有多個 Windows sandbox SSR 暫存檔 `ENOENT`；`npm audit` 因無法連到 `registry.npmjs.org` 而回報 DNS `ENOTFOUND`。完整驗證未全數通過；PR CI 須在可用環境再檢查。
+- 不截圖、不錄影；尚未人工驗收，不合併、不部署。
+
+## Marc 人工驗收清單
+
+1. 開啟任一標準套裝的招牌招式詳情，確認名稱與短描述是正體中文；挑選「共舞吧」或「突擊威勢」核對名稱。
+2. 確認招式效果是中文，Power Roll 的階級與傷害仍正常顯示；Classic View 卡片亦顯示中文效果與「效果」標籤。
+3. 用 Mountain 或 Sniper 英雄招式測試自動計算：力量 3／敏捷 2 時，中文效果應顯示「額外造成 3 的傷害」；改成力量 1／敏捷 4 後應顯示「額外造成 4 的傷害」。確認 Classic View 與能力面板都會更新。
+4. 切換成 English，確認恢復上游英文與數值；再切回正體中文，確認翻譯恢復。若角色有自訂／改名招式，確認自訂文字仍保留。
+
+人工驗收通過後，再依專案流程更新本批 Sheet 狀態與原 PR；目前工作分支為 `codex/kits-abilities-01`。

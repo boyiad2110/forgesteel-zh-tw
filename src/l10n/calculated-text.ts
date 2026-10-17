@@ -142,7 +142,12 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 			|| display.template.split('{value}').length !== 2 || /[{}]/.test(display.template.replace('{value}', ''))) {
 			return calculated;
 		}
-		const replacement = display.template.replace('{value}', values[0]);
+		const replacement = formulaReplacement(
+			chinese.slice(0, targetStart),
+			values[0],
+			display.template,
+			''
+		);
 		return calculated.slice(0, leadingLength) + chinese.slice(0, targetStart) + replacement + chinese.slice(targetEnd) + calculated.slice(trailingStart);
 	}
 	if (binding.useDisplayTemplate || display) {
