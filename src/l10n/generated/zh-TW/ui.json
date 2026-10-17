@@ -664,6 +664,16 @@
     "updated": "2026-10-15",
     "zh": "機動"
   },
+  "ui.hero-builder.melee-damage.025e8b60": {
+    "en": "Melee Damage",
+    "updated": "2026-10-17",
+    "zh": "近戰傷害"
+  },
+  "ui.hero-builder.melee-distance.7c498629": {
+    "en": "Melee Distance",
+    "updated": "2026-10-17",
+    "zh": "近戰射程"
+  },
   "ui.hero-builder.move-sash.683a62ce": {
     "en": "move",
     "updated": "2026-10-15",
@@ -823,6 +833,16 @@
     "en": "Random",
     "updated": "2026-10-10",
     "zh": "隨機選擇"
+  },
+  "ui.hero-builder.ranged-damage.ed353d2b": {
+    "en": "Ranged Damage",
+    "updated": "2026-10-17",
+    "zh": "遠程傷害"
+  },
+  "ui.hero-builder.ranged-distance.b55a9de7": {
+    "en": "Ranged Distance",
+    "updated": "2026-10-17",
+    "zh": "遠程射程"
   },
   "ui.hero-builder.remove.5fd82c75": {
     "en": "Remove",
@@ -1113,6 +1133,11 @@
     "en": "Weaknesses",
     "updated": "2026-10-15",
     "zh": "弱點"
+  },
+  "ui.hero-builder.weapon.1710782c": {
+    "en": "Weapon",
+    "updated": "2026-10-17",
+    "zh": "武器"
   },
   "ui.hero-builder.weapons.3189d297": {
     "en": "Weapons",
