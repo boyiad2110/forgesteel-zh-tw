@@ -371,6 +371,11 @@
   },
   "name.kit.rapid-fire": {
     "en": "Rapid-Fire",
+    "fs": {
+      "basisHash": "059db8072c4ae8daa86b6d98cbe1e2f53371fca6ae2959937bf05e23d66c40b2",
+      "en": "Rapid Fire",
+      "zh": "箭雨"
+    },
     "updated": "2026-10-14",
     "zh": "箭雨"
   },

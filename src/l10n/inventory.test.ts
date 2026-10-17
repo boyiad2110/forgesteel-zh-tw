@@ -6,8 +6,8 @@ import strings from '@/l10n/generated/zh-TW/strings.json';
 
 // Update only these approved totals when a content batch changes the inventory.
 const expectedInventory = {
-	mappingKeys: 1034,
-	forgeSteelStringRows: 334,
+	mappingKeys: 1097,
+	forgeSteelStringRows: 340,
 	englishExceptions: 17
 };
 

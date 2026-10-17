@@ -69,6 +69,22 @@ describe('player name lookup', () => {
 		expect(playerNameKey(core.perks.find(item => item.id === 'perk-familiar')!, officialSourcebooks)).toBe('element:perk-familiar:name');
 	});
 
+	test('translates a kit name when its only difference is capitalization', () => {
+		const kit = core.kits.find(item => item.id === 'kit-stick-and-robe')!;
+		expect(kit.name).toBe('Stick And Robe');
+		expect(playerNameKey(kit, officialSourcebooks)).toBe('element:kit-stick-and-robe:name');
+		expect(playerNameKey({ ...kit, name: 'Stick and Robe!' }, officialSourcebooks)).toBeUndefined();
+		expect(playerNameKey({ ...kit, name: 'Stick And Robe (custom)' }, officialSourcebooks)).toBeUndefined();
+	});
+
+	test('applies the approved Rapid Fire punctuation variant to its official kit only', () => {
+		const kit = core.kits.find(item => item.id === 'kit-rapid-fire')!;
+		expect(kit.name).toBe('Rapid Fire');
+		expect(playerNameKey(kit, officialSourcebooks)).toBe('element:kit-rapid-fire:name');
+		expect(playerNameKey({ ...kit, name: 'Rapid Fire!' }, officialSourcebooks)).toBeUndefined();
+		expect(playerNameKey({ ...kit, id: 'kit-ranger' }, officialSourcebooks)).toBeUndefined();
+	});
+
 	test('looks up cultures and their three aspects from official sourcebooks only', () => {
 		const culture = core.cultures.find(c => c.name === 'Artisan Guild')!;
 		expect(playerNameKey(culture, officialSourcebooks)).toBe('element:culture-artisan-guild:name');

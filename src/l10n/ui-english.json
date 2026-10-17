@@ -231,5 +231,7 @@
   "ui.hero-builder.trigger-sash.683259fe": "trigger",
   "ui.hero-builder.perk-count-list.9eaae349": "`${count} ${list} Perk`",
   "ui.hero-builder.perk-count.e5bc2580": "`${count} Perk`",
-  "ui.hero-builder.list-or.7382d0ab": "`${items} or ${last}`"
+  "ui.hero-builder.list-or.7382d0ab": "`${items} or ${last}`",
+  "ui.hero-builder.uses.9e6151ac": "Uses",
+  "ui.hero-builder.stats.b4a73657": "Stats"
 }

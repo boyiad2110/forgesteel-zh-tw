@@ -21,7 +21,8 @@ export const isPlayerNameKey = (element: NamedElement) => {
 	return !!entry && (entry.sheetId.startsWith('heroes.ancestries.')
 		|| entry.sheetId.startsWith('heroes.background.culture.')
 		|| entry.sheetId.startsWith('heroes.background.career.')
-		|| entry.sheetId.startsWith('name.perk.'));
+		|| entry.sheetId.startsWith('name.perk.')
+		|| entry.sheetId.startsWith('name.kit.'));
 };
 
 const addName = (names: Map<string, string>, element: NamedElement) => {
@@ -74,6 +75,7 @@ const getPlayerNameIndex = (sourcebooks: Sourcebook[]) => {
 			sourcebook.cultures.forEach(culture => addCulture(names, culture));
 			sourcebook.careers.forEach(career => addCareer(names, career));
 			sourcebook.perks.forEach(perk => addName(names, perk));
+			sourcebook.kits.forEach(kit => addName(names, kit));
 		});
 
 	sourcebookIndexes.set(sourcebooks, names);
@@ -89,7 +91,14 @@ const addCulture = (names: Map<string, string>, culture: { id: string, name: str
 
 export const playerNameKey = (element: NamedElement, sourcebooks: Sourcebook[]) => {
 	const canonical = getPlayerNameIndex(sourcebooks).get(element.id);
-	if (canonical !== element.name) {
+	const caseOnlyKitName = element.id.startsWith('kit-')
+		&& canonical !== undefined
+		&& canonical.toLocaleLowerCase('en-US') === element.name.toLocaleLowerCase('en-US');
+	const approvedRapidFireNameVariant = element.id === 'kit-rapid-fire'
+		&& canonical === 'Rapid-Fire'
+		&& element.name === 'Rapid Fire'
+		&& mapping[`element:${element.id}:name`]?.sheetId === 'name.kit.rapid-fire';
+	if (canonical !== element.name && !caseOnlyKitName && !approvedRapidFireNameVariant) {
 		return undefined;
 	}
 	const key = `element:${element.id}:name`;

@@ -12,6 +12,8 @@ Stage B Reviewer 已核准獨立 Forge Steel Localization Sheet；以下 DEC-001
 - **DEC-0013 上游與門檻**：main 僅 fast-forward 鏡像；整合走 develop PR 且必須通過 l10n（含六項檢查與瀏覽器回歸），不要求第二位審查者。禁止 force push／刪分支；main 不要求 PR，以保留鏡像更新。每週 Upstream watch 唯讀比較 main 與 develop，不自動合併或部署。
 - **DEC-0014 最小依賴修補**：同步至上游 14.207.0 後，稽核剩 brace-expansion／minimatch 兩項 high；既有 brace-expansion override 從 5.0.8 更新到 5.0.12，不放寬 audit，不執行 audit fix --force。依據 [官方公告](https://github.com/advisories/GHSA-q2hr-2g5m-vwhr)，實際結果見 PROGRESS。
 - **DEC-0015 官方文化摘要的正體中文標點（2026-10-10）**：P2-1-5 原決定保留來源標點；本批僅對已由既有保護條件確認為官方三面向組合摘要的內容，在正體中文模式使用「、」分隔並以「。」結尾，保留面向順序與 APPROVED 名稱。英文模式保留原文；自訂自由描述、改名、Homebrew、未知格式及其他不符合官方資料的內容維持原值。此決定不改寫 P2-1-5 歷史、不做全站標點替換、不修改資料或存檔，亦不新增翻譯／mapping。實作與驗收見 DISPLAY-01 批次 PR。
+- **DEC-0016 官方套裝名稱僅大小寫差異（2026-10-16）**：若官方 Kit／招牌能力 ID 已核對，顯示名稱與 Book Master APPROVED 名稱逐字忽略大小寫後完全相同，則沿用該書本核准譯名並以 Forge Steel 當前英文計算 mapping hash。不得忽略標點、空白、拼字或其他字元差異；改名、自訂及非官方資料維持原文。依 Marc 指示處理 Stick And Robe、Pain For Pain、Net And Stab、Extension Of My Arm，不改上游資料或書本正典。
+- **DEC-0017 Rapid Fire 名稱適配（2026-10-17）**：Marc 核准網站官方套裝 `kit-rapid-fire` 的 `Rapid Fire` 沿用 Book Master `Rapid-Fire` 的正體中文「箭雨」。此為單一 ID／原文例外，不擴大 DEC-0016 的大小寫規則；自訂名稱及其他內容仍不套用。Forge Steel Master 的 Book Name 適配與來源雜湊已核准並納入雙來源快照。
 
 ## 仍有效的內容決策
 

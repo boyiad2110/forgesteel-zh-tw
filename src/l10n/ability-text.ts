@@ -8,6 +8,7 @@ import { FeatureType } from '@/enums/feature-type';
 import { IntriguePerkData } from '@/data/perks/intrigue';
 import { SupernaturalPerkData } from '@/data/perks/supernatural';
 import { mapping } from '@/l10n/mapping';
+import { kitAbilityNameKey } from '@/l10n/kit-text';
 import { translate } from '@/l10n/text';
 import { useL10nText } from '@/l10n/hooks';
 import { useUI } from '@/l10n/ui-text';
@@ -266,6 +267,10 @@ export const abilityTargetKey = (ability: { id: string, target: string }): strin
  * Strike (melee) and Free Strike (ranged), has no key.
  */
 export const abilityNameKey = (ability: { id: string, name: string }): string | undefined => {
+	const kit = kitAbilityNameKey(ability);
+	if (kit) {
+		return kit;
+	}
 	const perk = perkGrantNames.get(ability.id);
 	if (perk) {
 		if (!ability.name || ability.name !== perk.name) {

@@ -4,6 +4,7 @@ import { Collections } from '@/utils/collections';
 import { Empty } from '@/components/controls/empty/empty';
 import { Expander } from '@/components/controls/expander/expander';
 import { FeatureConfigPanel } from '@/components/panels/feature-config-panel/feature-config-panel';
+import { ElementScope } from '@/l10n/element-scope';
 import { FeatureLogic } from '@/logic/feature-logic';
 import { Field } from '@/components/controls/field/field';
 import { HeaderText } from '@/components/controls/header-text/header-text';
@@ -137,11 +138,13 @@ export const ConfigKit = (props: ConfigProps) => {
 						<SelectionBox
 							key={kit.id}
 							content={
-								<Field
-									style={{ flex: '1 1 0' }}
-									label={kit.name}
-									value={<Markdown text={kit.description} useSpan={true} />}
-								/>
+								<ElementScope element={kit}>
+									<Field
+										style={{ flex: '1 1 0' }}
+										label={kit.name}
+										value={<Markdown text={kit.description} useSpan={true} />}
+									/>
+								</ElementScope>
 							}
 							customizeContent={
 								choiceFeatures.length > 0 ?
