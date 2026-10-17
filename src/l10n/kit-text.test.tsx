@@ -144,6 +144,9 @@ describe('standard kit localization', () => {
 		const rapidFire = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(KitPanel, {
 			kit: KitData.rapidFire, sourcebooks: [ core ]
 		})));
+		const mountain = renderToStaticMarkup(createElement(SourcebooksContext, { value: [ core ] }, createElement(KitPanel, {
+			kit: KitData.mountain, sourcebooks: [ core ], mode: PanelMode.Full
+		})));
 		const name = generated[mapping['element:kit-arcane-archer:name'].sheetId].zh;
 		const rapidFireName = generated[mapping['element:kit-rapid-fire:name'].sheetId].zh;
 		const ability = generated[mapping['element:kit-arcane-archer-signature:name'].sheetId].zh;
@@ -154,8 +157,9 @@ describe('standard kit localization', () => {
 		expect(compact).toContain(generated[mapping['element:kit-arcane-archer:description'].sheetId].zh);
 		expect(full).toContain(name);
 		expect(full).toContain(ability);
-		expect(full).toContain(generated['term.light-armor'].zh);
 		expect(full).toContain(generated['term.bow'].zh);
+		expect(mountain).toContain(generated['term.heavy-armor'].zh);
+		expect(mountain).toContain(generated['term.heavy-weapon'].zh);
 		expect(rapidFire).toContain(rapidFireName);
 	});
 
@@ -165,7 +169,7 @@ describe('standard kit localization', () => {
 		const options = FactoryLogic.createOptions();
 		const hero = FactoryLogic.createHero();
 		const feature = FactoryLogic.feature.createKitChoice({ id: 'test-kit-choice', count: 1 });
-		feature.data.selected = [ KitData.arcaneArcher ];
+		feature.data.selected = [ KitData.mountain ];
 		hero.features = [ feature ];
 		const summary = renderToStaticMarkup(createElement(OptionsContext, { value: options }, createElement(SourcebooksContext, { value: [ core ] }, createElement(ChoicesPanel, {
 			hero,
@@ -180,8 +184,8 @@ describe('standard kit localization', () => {
 			onSelectTitle: () => undefined,
 			onShowState: () => undefined
 		}))));
-		expect(summary).toContain(generated['term.light-armor'].zh);
-		expect(summary).toContain(generated['term.bow'].zh);
+		expect(summary).toContain(generated['term.heavy-armor'].zh);
+		expect(summary).toContain(generated['term.heavy-weapon'].zh);
 	});
 
 	test('keeps mapped names in kit configuration, ability panels, and classic modifiers', async () => {
