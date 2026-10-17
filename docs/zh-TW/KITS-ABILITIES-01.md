@@ -1,5 +1,7 @@
 # KITS-ABILITIES-01：標準套裝招牌招式
 
+交付：[draft PR #79](https://github.com/boyiad2110/forgesteel-zh-tw/pull/79)。目前等待 Marc 人工驗收，不合併、不部署。
+
 ## 範圍與來源
 
 - 覆蓋 21 個標準套裝的招牌招式；Stormwight 不在 Book Master 核准範圍。
@@ -21,4 +23,4 @@
 3. 用 Mountain 或 Sniper 英雄招式測試自動計算：力量 3／敏捷 2 時，中文效果應顯示「額外造成 3 的傷害」；改成力量 1／敏捷 4 後應顯示「額外造成 4 的傷害」。確認 Classic View 與能力面板都會更新。
 4. 切換成 English，確認恢復上游英文與數值；再切回正體中文，確認翻譯恢復。若角色有自訂／改名招式，確認自訂文字仍保留。
 
-人工驗收通過後，再依專案流程更新本批 Sheet 狀態與原 PR；目前工作分支為 `codex/kits-abilities-01`。
+人工驗收後，請在 [PR #79](https://github.com/boyiad2110/forgesteel-zh-tw/pull/79) 回覆結果；目前工作分支為 `codex/kits-abilities-01`。
