@@ -15,7 +15,7 @@
 
 ## 驗證
 
-2026-10-17，Node v24.18.0，程式驗證版本為本批分支 head。`node scripts/l10n/verify.mjs` 的 guard、lint（0 errors、32 warnings）、TypeScript 與正式建置通過。Vitest 有 73 個測試通過；48 個測試套件在匯入階段因 Windows sandbox Vite SSR 暫存檔 `ENOENT` 失敗，包含本批測試檔，因此本機未能確認該檔執行結果。`npm audit` 因 `registry.npmjs.org` DNS `ENOTFOUND` 失敗。請以 PR CI 的必要檢查補足；不以本機結果宣稱完整驗證通過。
+2026-10-17，本機 Node v24.18.0 的 `node scripts/l10n/verify.mjs` 通過 guard、lint（0 errors、32 warnings）、TypeScript 與正式建置；Vitest 測試套件在 Windows sandbox Vite SSR 暫存檔 `ENOENT` 時無法載入，audit 則因 Registry DNS `ENOTFOUND` 未完成。最新 PR head `5bb5de9b` 的 [CI run #264](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38996758789) 已補足完整驗證：54/54 測試套件、1054/1054 測試、語系守門、lint、TypeScript、正式建置、audit 及 10 組瀏覽器旅程均通過。前一輪 CI 發現測試夾具誤用沒有護甲的魔弓套裝；改以山嶽套裝覆蓋護甲與武器後通過。
 
 ## 驗收位置與限制
 
