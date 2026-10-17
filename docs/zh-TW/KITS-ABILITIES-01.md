@@ -12,8 +12,8 @@
 ## 實作與驗證
 
 - 能力面板與 Classic View 卡片都接入標準套裝招式名稱、短描述及 13 個文字效果。Classic View 也顯示在地化的「效果」標籤。
-- Mountain／Sniper 會依英雄目前力量或敏捷，把上游自動計算結果顯示在中文句子中；切換中英文不改動英雄或能力資料。
-- 本機 `node scripts/l10n/verify.mjs`：l10n guard、lint、TypeScript 與正式建置通過。針對本批的 4 項回歸及 inventory 3 項檢查通過。完整 Vitest 有多個 Windows sandbox SSR 暫存檔 `ENOENT`；`npm audit` 因無法連到 `registry.npmjs.org` 而回報 DNS `ENOTFOUND`。完整驗證未全數通過；PR CI 須在可用環境再檢查。
+- Mountain／Sniper 會依英雄目前力量或敏捷，把上游自動計算結果顯示在中文句子中；切換中英文不改動英雄或能力資料。共用數值投射器現在依核准模板處理中英文與數字的空白，避免護甲值句子多出空白，也保留套裝額外傷害句所需的空格。
+- 最新程式版本 `da8d7ae2` 的 GitHub Localization CI #282（run `39057185386`）全數通過：語系守門、lint、TypeScript、完整 Vitest、正式建置、dependency audit 與玩家旅程瀏覽器回歸。本機 `node scripts/l10n/verify.mjs` 的 guard、lint、TypeScript 與正式建置通過；Windows sandbox 的 Vitest 遇 SSR 暫存檔 `ENOENT`，`npm audit` 因 registry DNS `ENOTFOUND` 無法完成，本機完整驗證未全數通過。
 - 不截圖、不錄影；尚未人工驗收，不合併、不部署。
 
 ## Marc 人工驗收清單
