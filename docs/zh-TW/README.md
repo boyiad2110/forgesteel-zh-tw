@@ -1,6 +1,7 @@
 # 先讀這裡
 
-- KITS-01 已由 Marc 驗收並於 2026-10-17 squash 合併至 `develop` `19c03197fbe37660eeaedae7bb480e4fe84b3f26`；Rapid Fire 顯示「箭雨」。PR #73 的驗證結果與限制見 [PROGRESS](PROGRESS.md)。KITS-GLOSSARY 的 12 筆護甲／武器 Glossary 已核准並納入正式快照，正在接入裝備值顯示；批次與驗收位置見 [KITS-GLOSSARY](KITS-GLOSSARY.md)。
+- KITS-01 已由 Marc 驗收並於 2026-10-17 squash 合併至 `develop` `19c03197fbe37660eeaedae7bb480e4fe84b3f26`；Rapid Fire 顯示「箭雨」。KITS-GLOSSARY 的 12 筆護甲／武器詞也已驗收並 squash 合併至 develop `90094a293e5d682e848bb46fdb777a63b34d3878`。KITS-01 與 Glossary 的驗證結果見 [PROGRESS](PROGRESS.md)。
+- KITS-UI 的五個核准套裝數據標籤與 Book Master「撤離」已接入；[PR #76](https://github.com/boyiad2110/forgesteel-zh-tw/pull/76) 等待 Marc 人工驗收，批次範圍見 [KITS-UI](KITS-UI.md)。
 
 本專案保留現有顯示層中文化架構。先讀此摘要即可接手；詳細內容依任務載入。
 

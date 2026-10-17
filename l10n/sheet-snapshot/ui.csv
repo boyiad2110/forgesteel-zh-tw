@@ -132,6 +132,8 @@ ui.hero-builder.lost-skill.f6d9bfe4,APPROVED,失去的技能,Lost Skill,2026-10-
 ui.hero-builder.main-action.147a0625,APPROVED,主要動作,Main Action,2026-10-15,147a062503182fda6a85d535bc2ec7207895a104f1ff51f068b33a6d4e734a1d
 ui.hero-builder.main-sash.0d6e4079,APPROVED,主要,main,2026-10-15,0d6e4079e36703ebd37c00722f5891d28b0e2811dc114b129215123adcce3605
 ui.hero-builder.maneuver-sash.ce99528b,APPROVED,機動,maneuver,2026-10-15,ce99528b7b40b2daefb88cb6ce5da51844ee8c5d51b94677c1e2c970e2ca5949
+ui.hero-builder.melee-damage.025e8b60,APPROVED,近戰傷害,Melee Damage,2026-10-17,025e8b606d98b6b60541586bb2229b937173ec99921228436c4c4e80a8fb276f
+ui.hero-builder.melee-distance.7c498629,APPROVED,近戰射程,Melee Distance,2026-10-17,7c498629ff97566d313bef98ebf4e6143f3e98870048c1ef9e97acf6d2a10d14
 ui.hero-builder.move-sash.683a62ce,APPROVED,移動,move,2026-10-15,683a62ce15fbabb1ac867022e56e6e4f4f581762d77c3abb2f8dc8b165b3b1b9
 ui.hero-builder.movement-mode.56db4b3c,APPROVED,移動模式。,movement mode.,2026-10-10,4a87677ddfc8054551bffc93067d3d2735617100e57688065bce9f7201cb3e1f
 ui.hero-builder.movement.49ba63e8,APPROVED,移動,Movement,2026-10-15,49ba63e89af69e4d6d4cf7618c4dca31e1fa03753edddbc9ddeaf773364c9665
@@ -164,6 +166,8 @@ ui.hero-builder.psionic.cd9fca98,APPROVED,靈能,Psionic,2026-10-15,cd9fca98a5c2
 ui.hero-builder.pt-ancestry-feature.c76f6671,APPROVED,點族裔特性。,pt ancestry feature.,2026-10-10,ed62b3ed886b31651c2c1e170043aaef5b24f89260a920e03efd774e564943a3
 ui.hero-builder.purchased-traits.394205e5,APPROVED,自購特性,Purchased Traits,2026-10-10,394205e58484c069da3e0a350bd2df2493f363d389620332785acc62cfd632fb
 ui.hero-builder.random.948804e8,APPROVED,隨機選擇,Random,2026-10-10,67bc484430fe87babe3c35d2ba4827d029f1c7e415a92de44885a9c88536661f
+ui.hero-builder.ranged-damage.ed353d2b,APPROVED,遠程傷害,Ranged Damage,2026-10-17,ed353d2b643bf868f05b40593edda757b9bbea6b4ac08630682269e7c60c8f6b
+ui.hero-builder.ranged-distance.b55a9de7,APPROVED,遠程射程,Ranged Distance,2026-10-17,b55a9de7302efd9a9e71a54fce4826c4cf6ba97401c1e4fb8d329c0622157e0e
 ui.hero-builder.remove.5fd82c75,APPROVED,移除,Remove,2026-10-10,c3812fc4acb861d5182fc2b8155f327f736fbe5e5eb86a7bd7afcb6dc5497282
 ui.hero-builder.resisting-potencies.08dcb6db,APPROVED,抵抗效力,Resisting potencies,2026-10-10,a7ac612e530ff4f9a38bfd8a23c8d6946489c64e521651c5a9c8da3075795382
 ui.hero-builder.save-changes.7215be78,APPROVED,儲存變更,Save Changes,2026-10-10,35322b5bb5a218a15401cfa54d23b16459e9e1c616977526a4b37b6c87d30c50
@@ -222,6 +226,7 @@ ui.hero-builder.upbringing.402fbf01,APPROVED,成長經歷,Upbringing,2026-10-10,
 ui.hero-builder.use-the-tabs-above-to-select.03b413ab,APPROVED,使用上方分頁設定英雄的,Use the tabs above to select your hero's,2026-10-10,059933e2eb7baa4d96ce0bd97c27aefb95f09fff87a4f7c2223f1215c37f10c5
 ui.hero-builder.uses.9e6151ac,APPROVED,裝備,Uses,2026-10-16,9e6151acb057025d16cbccee815e728994335db9c3c980e9489194be2f7937c2
 ui.hero-builder.weaknesses.af393b75,APPROVED,弱點,Weaknesses,2026-10-15,af393b754ae38e85ea6f2dfe589285ae5307b4deb7f3941ce483eabf96191d44
+ui.hero-builder.weapon.1710782c,APPROVED,武器,Weapon,2026-10-17,1710782c5d15b9135ea757fbcc88f5d7d9a69c3a99f904a9b4396bcae9320be6
 ui.hero-builder.weapons.3189d297,APPROVED,武器,Weapons,2026-10-10,aafc7b0e9b9e48bdd9f860937e6e80ea5a9a02942e9cdc42e8135210212a89aa
 ui.hero-builder.when-you-re-done-click.a682c8f7,APPROVED,完成後，點選上方工具列的,"When you're done, click",2026-10-10,f5f5f531f501fbeed133a9973c814f6963e15696c3268464173b732c940eebe5
 ui.hero-builder.when.ec4ba8f6,APPROVED,時機,When,2026-10-10,cf9c7aa24a26aac4f0ec4b6395cbfdcc055677c3dac87bd6af898bccd66d4e17

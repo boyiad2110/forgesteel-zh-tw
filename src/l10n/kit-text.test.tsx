@@ -10,7 +10,7 @@ import { FeatureType } from '@/enums/feature-type';
 import { HeroLogic } from '@/logic/hero-logic';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
 import { KitData } from '@/data/kit-data';
-import { KitPanel } from '@/components/panels/elements/kit-panel/kit-panel';
+import { KitPanel, KitStats } from '@/components/panels/elements/kit-panel/kit-panel';
 import { ModifiersCard } from '@/components/panels/classic-sheet/modifiers-card/modifiers-card';
 import { PanelMode } from '@/enums/panel-mode';
 import { abilityNameKey } from '@/l10n/ability-text';
@@ -56,6 +56,37 @@ afterEach(() => {
 });
 
 describe('standard kit localization', () => {
+	test('translates all approved kit stat labels and reuses the approved Disengage glossary term', async () => {
+		setLanguage('zh-TW');
+		await loadCatalog();
+		const kit = {
+			...KitData.raider,
+			meleeDamage: { tier1: 1, tier2: 2, tier3: 3 },
+			rangedDamage: { tier1: 4, tier2: 5, tier3: 6 },
+			meleeDistance: 1,
+			rangedDistance: 2,
+			disengage: 1
+		};
+		const rendered = renderToStaticMarkup(createElement(KitStats, { kit }));
+		const expected = [
+			[ 'Weapon', 'ui.hero-builder.weapon.1710782c' ],
+			[ 'Melee Damage', 'ui.hero-builder.melee-damage.025e8b60' ],
+			[ 'Ranged Damage', 'ui.hero-builder.ranged-damage.ed353d2b' ],
+			[ 'Melee Distance', 'ui.hero-builder.melee-distance.7c498629' ],
+			[ 'Ranged Distance', 'ui.hero-builder.ranged-distance.b55a9de7' ]
+		] as const;
+		expected.forEach(([ , id ]) => expect(rendered).toContain(ui[id].zh));
+		expect(rendered).toContain(glossary['term.disengage-action'].zh);
+		expect(rendered).toContain('+1 / +2 / +3');
+		expect(rendered).toContain('+4 / +5 / +6');
+		expect(rendered).toContain('+1');
+
+		setLanguage('en');
+		const english = renderToStaticMarkup(createElement(KitStats, { kit }));
+		expected.forEach(([ source ]) => expect(english).toContain(source));
+		expect(english).toContain('Disengage');
+	});
+
 	test('translates the twelve approved equipment values and preserves unknown values', async () => {
 		setLanguage('zh-TW');
 		await loadCatalog();

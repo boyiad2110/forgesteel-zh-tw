@@ -32,15 +32,15 @@ export const KitStats = (props: { kit: Kit }) => {
 	return (
 		<>
 			{props.kit.armor.length > 0 ? <Field label={kitFieldLabel(ui, 'Armor')} value={kitEquipmentLabels(props.kit.armor)} /> : null}
-			{props.kit.weapon.length > 0 ? <Field label='Weapon' value={kitEquipmentLabels(props.kit.weapon)} /> : null}
+			{props.kit.weapon.length > 0 ? <Field label={kitFieldLabel(ui, 'Weapon')} value={kitEquipmentLabels(props.kit.weapon)} /> : null}
 			{props.kit.stamina > 0 ? <Field label={kitFieldLabel(ui, 'Stamina')} value={`+${props.kit.stamina}`} /> : null}
 			{props.kit.speed > 0 ? <Field label={kitFieldLabel(ui, 'Speed')} value={`+${props.kit.speed}`} /> : null}
 			{props.kit.stability > 0 ? <Field label={kitFieldLabel(ui, 'Stability')} value={`+${props.kit.stability}`} /> : null}
-			{props.kit.meleeDamage ? <Field label='Melee Damage' value={`+${props.kit.meleeDamage.tier1} / +${props.kit.meleeDamage.tier2} / +${props.kit.meleeDamage.tier3}`} /> : null}
-			{props.kit.rangedDamage ? <Field label='Ranged Damage' value={`+${props.kit.rangedDamage.tier1} / +${props.kit.rangedDamage.tier2} / +${props.kit.rangedDamage.tier3}`} /> : null}
-			{props.kit.meleeDistance > 0 ? <Field label='Melee Distance' value={`+${props.kit.meleeDistance}`} /> : null}
-			{props.kit.rangedDistance > 0 ? <Field label='Ranged Distance' value={`+${props.kit.rangedDistance}`} /> : null}
-			{props.kit.disengage > 0 ? <Field label='Disengage' value={`+${props.kit.disengage}`} /> : null}
+			{props.kit.meleeDamage ? <Field label={kitFieldLabel(ui, 'Melee Damage')} value={`+${props.kit.meleeDamage.tier1} / +${props.kit.meleeDamage.tier2} / +${props.kit.meleeDamage.tier3}`} /> : null}
+			{props.kit.rangedDamage ? <Field label={kitFieldLabel(ui, 'Ranged Damage')} value={`+${props.kit.rangedDamage.tier1} / +${props.kit.rangedDamage.tier2} / +${props.kit.rangedDamage.tier3}`} /> : null}
+			{props.kit.meleeDistance > 0 ? <Field label={kitFieldLabel(ui, 'Melee Distance')} value={`+${props.kit.meleeDistance}`} /> : null}
+			{props.kit.rangedDistance > 0 ? <Field label={kitFieldLabel(ui, 'Ranged Distance')} value={`+${props.kit.rangedDistance}`} /> : null}
+			{props.kit.disengage > 0 ? <Field label={kitFieldLabel(ui, 'Disengage')} value={`+${props.kit.disengage}`} /> : null}
 		</>
 	);
 };

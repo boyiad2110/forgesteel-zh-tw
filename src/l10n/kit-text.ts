@@ -39,6 +39,12 @@ type KitUi = ReturnType<typeof useUI>;
 export const kitFieldLabel = (ui: KitUi, english: string): string => {
 	switch (english) {
 		case 'Armor': return ui.text('ui.hero-builder.armor.d165ace3', 'Armor');
+		case 'Weapon': return ui.text('ui.hero-builder.weapon.1710782c', 'Weapon');
+		case 'Melee Damage': return ui.text('ui.hero-builder.melee-damage.025e8b60', 'Melee Damage');
+		case 'Ranged Damage': return ui.text('ui.hero-builder.ranged-damage.ed353d2b', 'Ranged Damage');
+		case 'Melee Distance': return ui.text('ui.hero-builder.melee-distance.7c498629', 'Melee Distance');
+		case 'Ranged Distance': return ui.text('ui.hero-builder.ranged-distance.b55a9de7', 'Ranged Distance');
+		case 'Disengage': return translate('element:disengage:name', 'Disengage');
 		case 'Speed': return ui.text('ui.hero-builder.speed.a2b81141', 'Speed');
 		case 'Uses': return ui.text('ui.hero-builder.uses.9e6151ac', 'Uses');
 		case 'Stats': return ui.text('ui.hero-builder.stats.b4a73657', 'Stats');
