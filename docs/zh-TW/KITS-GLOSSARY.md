@@ -7,7 +7,7 @@
 ## 範圍與來源
 
 - 批次：`KITS-GLOSSARY`，承接 `KITS-01`。
-- 交付：等待 Marc 人工驗收；[PR #75](https://github.com/boyiad2110/forgesteel-zh-tw/pull/75)。
+- 交付：Marc 已於 2026-10-17 人工驗收；[PR #75](https://github.com/boyiad2110/forgesteel-zh-tw/pull/75) 已 squash 合併至 develop `90094a293e5d682e848bb46fdb777a63b34d3878`。
 - 正典來源：Draw Steel Book Master Glossary `A336:M347`，12 列均為 `APPROVED`。不新增 Forge Steel Adaptation，因網站顯示值與 Book Master 原文完全相同。
 - 裝備對照：Light Armor＝輕甲、Medium Armor＝中甲、Heavy Armor＝重甲、Shield＝盾牌、Light Weapon＝輕型武器、Medium Weapon＝中型武器、Heavy Weapon＝重型武器、Bow＝弓、Ensnaring Weapon＝捕縛武器、Polearm＝長柄武器、Unarmed Strike＝徒手打擊、Whip＝鞭笞武器。
 - 顯示範圍：標準套裝的詳情頁與建角面板已選套裝摘要。只比對精確官方 enum 值；未知、自訂值保留原文。英文模式維持原文。
@@ -19,11 +19,13 @@
 
 ## 驗收位置與限制
 
-請在目前本機開發站切換正體中文，依序確認：
+Marc 已於 2026-10-17 確認套裝詳情與建角已選套裝摘要的護甲／武器分類值均正常顯示正體中文。本批未部署。
+
+原人工驗收位置：
 
 1. 開啟「圖書館 → 套裝」，檢查 Light Armor、Heavy Armor、Shield、Bow、Polearm、Unarmed Strike、Whip 等套裝組合在「總覽」與「數據」分頁顯示中文。
 2. 建立或開啟英雄，在建角選擇面板檢查已選套裝摘要的護甲與武器值顯示中文。
 3. 切換 English，確認以上值回復英文。
 4. 若可用，透過自訂／Homebrew 套裝確認不屬於 12 個核准 enum 的自訂值仍原樣顯示。
 
-不截圖、不錄影。驗收與合併結果待發生後回寫原 PR 與 Sheet；本批未部署。
+不截圖、不錄影。驗收與合併結果以原 PR 為準；本批未部署。

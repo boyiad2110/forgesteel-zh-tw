@@ -8,6 +8,7 @@ import { FeatureType } from '@/enums/feature-type';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
+import { kitSourceName } from '@/l10n/kit-text';
 import { LabelControl } from '@/components/controls/label-control/label-control';
 import { PanelMode } from '@/enums/panel-mode';
 import { PlayerName } from '@/l10n/player-name';
@@ -32,6 +33,8 @@ export const FeaturesPanel = (props: Props) => {
 	const [ featureSort, setFeatureSort ] = useState<string>('az');
 	const [ featureAll, setFeatureAll ] = useState<boolean>(false);
 	const options = useOptions();
+	const kits = HeroLogic.getKits(props.hero);
+	const getSource = (source: string) => kitSourceName(source, kits);
 
 	const heroFeatures = HeroLogic.getFeatures(props.hero);
 
@@ -101,7 +104,7 @@ export const FeaturesPanel = (props: Props) => {
 		return (
 			<div key={data.feature.id} className='selectable-row clickable' onClick={() => props.onSelectFeature(data.feature)}>
 				<div><b><PlayerName element={data.feature} /></b></div>
-				{options.showSources ? <Tag variant='outlined'>{data.source}</Tag> : null}
+				{options.showSources ? <Tag variant='outlined'>{getSource(data.source)}</Tag> : null}
 			</div>
 		);
 	};
@@ -153,7 +156,7 @@ export const FeaturesPanel = (props: Props) => {
 				buckets.map((bucket, n) =>
 					<div key={n}>
 						<HeaderText extra={n === 0 ? controls : null}>
-							{bucket.name}
+							{getSource(bucket.name)}
 						</HeaderText>
 						<Space orientation='vertical' style={{ width: '100%' }}>
 							{
@@ -164,7 +167,7 @@ export const FeaturesPanel = (props: Props) => {
 										<SelectablePanel key={f.feature.id} onSelect={() => props.onSelectFeature(f.feature)}>
 											<FeaturePanel
 												feature={f.feature}
-												source={options.showSources ? (f.level ? `${f.source} (level ${f.level})` : f.source) : undefined}
+												source={options.showSources ? (f.level ? `${getSource(f.source)} (level ${f.level})` : getSource(f.source)) : undefined}
 												hero={props.hero}
 												sourcebooks={props.sourcebooks}
 												mode={PanelMode.Full}

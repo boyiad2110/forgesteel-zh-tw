@@ -11,17 +11,26 @@ export const stormwightKitIds = new Set([ 'kit-boren', 'kit-corven', 'kit-raden'
 export const standardKits: Kit[] = (Object.values(KitData) as Kit[]).filter(kit => !stormwightKitIds.has(kit.id));
 
 const kitAbilityNames = new Map<string, { name: string, key: string }>();
+const canonicalKitAbilityNames = new Map<string, string>();
 
 standardKits.forEach(kit => kit.features.forEach(feature => {
 	if (feature.type !== FeatureType.Ability) {
 		return;
 	}
 	const ability = feature.data.ability;
+	canonicalKitAbilityNames.set(ability.id, ability.name);
 	const key = `element:${ability.id}:name`;
 	if (mapping[key]) {
 		kitAbilityNames.set(ability.id, { name: ability.name, key });
 	}
 }));
+
+/** True only for an unchanged official kit ability or an approved case-only variant. */
+export const isStandardKitAbility = (ability: { id: string, name: string }): boolean => {
+	const canonical = canonicalKitAbilityNames.get(ability.id);
+	return canonical !== undefined && (ability.name === canonical
+		|| ability.name.toLocaleLowerCase('en-US') === canonical.toLocaleLowerCase('en-US'));
+};
 
 /** A signature name is translated only when its current text is unchanged. */
 export const kitAbilityNameKey = (ability: { id: string, name: string }): string | undefined => {
@@ -40,11 +49,13 @@ export const kitFieldLabel = (ui: KitUi, english: string): string => {
 	switch (english) {
 		case 'Armor': return ui.text('ui.hero-builder.armor.d165ace3', 'Armor');
 		case 'Weapon': return ui.text('ui.hero-builder.weapon.1710782c', 'Weapon');
+		case 'Kit': return ui.text('ui.hero-builder.kit.63d5adfa', 'Kit');
 		case 'Melee Damage': return ui.text('ui.hero-builder.melee-damage.025e8b60', 'Melee Damage');
 		case 'Ranged Damage': return ui.text('ui.hero-builder.ranged-damage.ed353d2b', 'Ranged Damage');
 		case 'Melee Distance': return ui.text('ui.hero-builder.melee-distance.7c498629', 'Melee Distance');
 		case 'Ranged Distance': return ui.text('ui.hero-builder.ranged-distance.b55a9de7', 'Ranged Distance');
 		case 'Disengage': return translate('element:disengage:name', 'Disengage');
+		case 'Main Action': return ui.text('ui.hero-builder.main-action.147a0625', 'Main Action');
 		case 'Speed': return ui.text('ui.hero-builder.speed.a2b81141', 'Speed');
 		case 'Uses': return ui.text('ui.hero-builder.uses.9e6151ac', 'Uses');
 		case 'Stats': return ui.text('ui.hero-builder.stats.b4a73657', 'Stats');
@@ -52,6 +63,12 @@ export const kitFieldLabel = (ui: KitUi, english: string): string => {
 		case 'Stability': return translate('enum:FeatureField:Stability', 'Stability');
 		default: return english;
 	}
+};
+
+/** Translate an exact selected kit source label, preserving custom and renamed kits. */
+export const kitSourceName = (shown: string, kits: Kit[]): string => {
+	const kit = kits.find(item => item.name === shown);
+	return kit ? kitModifierName(shown, [ kit ]) : shown;
 };
 
 const kitEquipmentTerms: Record<string, string> = {

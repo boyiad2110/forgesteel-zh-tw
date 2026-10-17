@@ -1,5 +1,5 @@
 import { Feature, FeatureAbility, FeatureAbilityDamage, FeatureAbilityDistance, FeatureAncestryChoice, FeatureBonus, FeatureCharacteristicBonus, FeatureChoice, FeatureClassAbility, FeatureCompanion, FeatureConditionImmunity, FeatureDamageModifier, FeatureDomain, FeatureDomainFeature, FeatureFollower, FeatureHeroicResource, FeatureHeroicResourceThreshold, FeatureItemChoice, FeatureKit, FeatureLanguageChoice, FeatureMalice, FeatureMaliceAbility, FeatureMultiple, FeaturePackage, FeaturePerk, FeaturePotencyResistance, FeatureSkillChoice, FeatureSurgeGain, FeatureText } from '@/models/feature';
-import { familiarPerLevelLine, familiarSummonLabel, perkGrantLabel } from '@/l10n/ability-text';
+import { AbilityName, familiarPerLevelLine, familiarSummonLabel, perkGrantLabel } from '@/l10n/ability-text';
 import { Ability } from '@/models/ability';
 import { AbilityComponent } from '@/components/panels/classic-sheet/components/ability-component';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -29,6 +29,7 @@ import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
 import { perkSkillCountLine } from '@/l10n/perk-list-ui';
 import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
+import { isStandardKitAbility, kitFieldLabel } from '@/l10n/kit-text';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
 import { perkCountCategoryLine } from '@/l10n/perk-list-ui';
@@ -269,8 +270,8 @@ const AbilityFeatureComponent = (feature: FeatureAbility, ui: ReturnType<typeof 
 		<>
 			<div className='feature-title'>
 				<img src={abilityIcon} alt='Ability' />
-				<span className='ability-name'><OfficialPerkName feature={feature} /></span>
-				<span className={typeClasses.join(' ')}>{perkGrantLabel(feature.data.ability.id, type, ui)}</span>
+				<span className='ability-name'><AbilityName ability={feature.data.ability} /></span>
+				<span className={typeClasses.join(' ')}>{isStandardKitAbility(feature.data.ability) ? kitFieldLabel(ui, type) : perkGrantLabel(feature.data.ability.id, type, ui)}</span>
 			</div>
 			<div className='feature-description'><em>{description.replace(/^\s+/, '')}</em></div>
 		</>
