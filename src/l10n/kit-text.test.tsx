@@ -361,12 +361,22 @@ describe('standard kit localization', () => {
 		].forEach(label => expect(rendered).toContain(label));
 		expect(rendered).toContain(generated[mapping['element:kit-arcane-archer-signature:name'].sheetId].zh);
 		expect(rendered).toContain(ui['ui.hero-builder.main-action.147a0625'].zh);
-		expect(rendered).toContain('Weapon / Implement');
-		expect(rendered).toContain('Armor / Ward');
-		expect(rendered).toContain('Melee Damage Bonus');
-		expect(rendered).toContain('Ranged Damage Bonus');
-		expect(rendered).toContain('Effects');
+		expect(rendered).toContain(ui['ui.hero-builder.classic-equipment-and-modifiers.94215895'].zh);
+		expect(rendered).toContain(ui['ui.hero-builder.classic-weapon-implement.23348605'].zh);
+		expect(rendered).toContain(ui['ui.hero-builder.classic-armor-ward.cc07ef85'].zh);
+		expect(rendered).toContain(ui['ui.hero-builder.classic-melee-damage-bonus.a17961ad'].zh);
+		expect(rendered).toContain(ui['ui.hero-builder.classic-ranged-damage-bonus.0ea33528'].zh);
+		expect(rendered).toContain(ui['ui.hero-builder.classic-effects.358511c8'].zh);
 		expect(rendered).not.toContain('Bow, Light Weapon');
 		setLanguage('en');
+		const renderedEnglish = renderToStaticMarkup(createElement(ModifiersCard, { character }));
+		[
+			'Equipment and Modifiers',
+			'Weapon / Implement',
+			'Armor / Ward',
+			'Melee Damage Bonus',
+			'Ranged Damage Bonus',
+			'Effects'
+		].forEach(label => expect(renderedEnglish).toContain(label));
 	});
 });
