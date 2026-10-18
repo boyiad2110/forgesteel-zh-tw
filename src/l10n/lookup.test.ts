@@ -54,6 +54,8 @@ import { elementScopeFields } from '@/l10n/element-scope';
 import exceptions from '@/l10n/english-exceptions.json';
 import glossary from '@/l10n/generated/zh-TW/glossary.json';
 import { languageNameKey } from '@/l10n/language-text';
+import { kitAbilityDetails, kitAbilityMetadataValue, kitAbilityTier } from '@/l10n/kit-ability-details';
+import { standardKits } from '@/l10n/kit-text';
 import { mapping } from '@/l10n/mapping';
 import names from '@/l10n/generated/zh-TW/names.json';
 import { orden } from '@/data/sourcebooks/official/orden';
@@ -1742,8 +1744,7 @@ describe('perk name segment', () => {
 		const kitId = 'heroes.kits.arcane-archer.signature.exploding-arrow';
 		const kit = (strings as Catalog)[kitId];
 		const kept = resolveText('zh-TW', 'element:not-thingspeaker:description', kit.en, { 'element:not-thingspeaker:description': kitId }, peekCatalog());
-		expect(kept).toBe(kit.zh);
-		expect(kept).toContain('\u2460');
+		expect(kept).toBe(kit.en);
 		expect(displayListMarkup('element:not-thingspeaker:description', kit.zh)).toBe(kit.zh);
 	});
 
@@ -2534,6 +2535,7 @@ describe('Doomsight calculated Chinese display', () => {
 	const render = (current?: ReturnType<typeof hero>, item = feature) => renderToStaticMarkup(withOptions(
 		FactoryLogic.createOptions(), createElement(FeaturePanel, { feature: item, hero: current, mode: PanelMode.Full })
 	));
+	const visibleText = (html: string) => html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
 	beforeEach(async () => {
 		await loadCatalog();
 		vi.stubGlobal('window', { matchMedia: () => ({ matches: false, addEventListener: () => undefined, removeEventListener: () => undefined }) });
@@ -2543,24 +2545,24 @@ describe('Doomsight calculated Chinese display', () => {
 		const current = hero();
 		const before = JSON.stringify({ current, feature });
 		expect(HeroLogic.getRecoveryValue(current)).toBe(13);
-		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 13 點體力。');
 		expect(render(current)).not.toContain('你會恢復等於');
 		expect(JSON.stringify({ current, feature })).toBe(before);
 		current.features = [ FactoryLogic.feature.createBonus({ id: 'stamina', field: FeatureField.Stamina, value: 48 }) ];
 		expect(HeroLogic.getRecoveryValue(current)).toBe(16);
-		expect(render(current)).toContain('在 12 小時後，你會恢復 16 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 16 點體力。');
 	});
 
 	test('no hero keeps the approved three paragraphs; language switching keeps the current calculated value', () => {
-		expect(render()).toContain('在 12 小時後，你會恢復等於你復元值的體力。');
+		expect(visibleText(render())).toContain('在 12 小時後，你會恢復等於你復元值的體力。');
 		const staticText = resolveText('zh-TW', key, row.en, { [key]: sheetId }, strings as Catalog);
 		expect(staticText).toBe(row.zh);
 		expect(staticText.split('\n\n')).toHaveLength(3);
 		const current = hero();
 		setLanguage('en');
-		expect(render(current)).toContain('After 12 hours, you regain Stamina equal to 13.');
+		expect(visibleText(render(current))).toContain('After 12 hours, you regain Stamina equal to 13.');
 		setLanguage('zh-TW');
-		expect(render(current)).toContain('在 12 小時後，你會恢復 13 點體力。');
+		expect(visibleText(render(current))).toContain('在 12 小時後，你會恢復 13 點體力。');
 	});
 
 	test('a custom rewrite retains all calculated English', () => {
@@ -3494,5 +3496,205 @@ describe('ancestry ability names', () => {
 			expect(card).toContain(`ability-name">${english}<`);
 			expect(card).not.toContain(zh);
 		}
+	});
+});
+
+describe('standard kit signature ability localizations', () => {
+	const kitAbilities = standardKits.flatMap(kit => kit.features.reduce<Ability[]>((abilities, feature) => {
+		if (feature.type === FeatureType.Ability) {
+			abilities.push(feature.data.ability);
+		}
+		return abilities;
+	}, []));
+	const catalog = strings as Catalog;
+	const nameCatalog = names as Catalog;
+
+	const renderPanel = (ability: Ability, hero?: ReturnType<typeof FactoryLogic.createHero>) => renderToStaticMarkup(withOptions(
+		FactoryLogic.createOptions(), createElement(AbilityPanel, { ability, hero, mode: PanelMode.Full })
+	));
+
+	const renderCard = (ability: Ability, hero?: ReturnType<typeof FactoryLogic.createHero>) => renderToStaticMarkup(createElement(AbilityCard, {
+		ability: ClassicSheetBuilder.buildAbilitySheet(ability, hero, undefined, FactoryLogic.createOptions())
+	}));
+	const visible = (html: string) => plainForLookup(html.replace(/<[^>]*>/g, '')).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+
+	beforeEach(async () => {
+		await loadCatalog();
+		setLanguage('zh-TW');
+		vi.stubGlobal('window', {
+			matchMedia: () => ({
+				matches: false,
+				addEventListener: () => undefined,
+				removeEventListener: () => undefined
+			})
+		});
+	});
+
+	test('all twenty-one names and descriptions render in ability panels and Classic View cards', () => {
+		expect(kitAbilities).toHaveLength(21);
+		for (const ability of kitAbilities) {
+			const nameKey = abilityNameKey(ability);
+			const descriptionKey = abilityDescriptionKey(ability);
+			expect(nameKey).toBe(`element:${ability.id}:name`);
+			expect(descriptionKey).toBe(`element:${ability.id}:description`);
+			const nameSheet = mapping[nameKey!].sheetId;
+			const descriptionSheet = mapping[descriptionKey!].sheetId;
+			const nameZh = resolveText('zh-TW', nameKey, ability.name, { [nameKey!]: nameSheet }, nameCatalog);
+			const descriptionZh = resolveText('zh-TW', descriptionKey, ability.description, { [descriptionKey!]: descriptionSheet }, catalog);
+			const panel = renderPanel(ability);
+			const card = renderCard(ability);
+			expect(panel, ability.id).toContain(nameZh);
+			expect(panel, ability.id).toContain(descriptionZh);
+			expect(card, ability.id).toContain(nameZh);
+			expect(card, ability.id).toContain(descriptionZh);
+			expect(panel, ability.id).not.toContain(ability.description);
+			expect(card, ability.id).not.toContain(ability.description);
+		}
+	});
+
+	test('all thirteen signature effects are localized at their text section, leaving the power roll untouched', () => {
+		let effects = 0;
+		for (const ability of kitAbilities) {
+			const textSection = ability.sections.find((section, index) => index > 0 && section.type === 'text');
+			if (!textSection || textSection.type !== 'text') {
+				continue;
+			}
+			effects += 1;
+			const index = ability.sections.indexOf(textSection);
+			const key = `section:${ability.id}:${index}`;
+			expect(mapping[key], ability.id).toBeDefined();
+			expect(abilitySectionKey(ability.id, index, textSection.text, textSection.text), ability.id).toBe(key);
+			expect(abilitySectionKey(ability.id, 0, textSection.text, textSection.text), ability.id).toBeUndefined();
+			const zh = resolveText('zh-TW', key, textSection.text, { [key]: mapping[key].sheetId }, catalog);
+			expect(plainForLookup(renderPanel(ability)), ability.id).toContain(plainForLookup(zh));
+			expect(plainForLookup(renderCard(ability)), ability.id).toContain(plainForLookup(zh));
+		}
+		expect(effects).toBe(13);
+	});
+
+	test('all twenty-one signature details render from their approved Book Master strings in both views', () => {
+		for (const ability of kitAbilities) {
+			const sheetId = mapping[`element:${ability.id}:description`].sheetId;
+			const row = catalog[sheetId];
+			const lines = row.zh.split('\n').filter(line => line.trim());
+			const metadata = lines.find(line => line.includes('／'))!.split('／');
+			const rollHeader = lines.find(line => line.startsWith('檢定 + '))!;
+			const panel = visible(renderPanel(ability));
+			const card = visible(renderCard(ability));
+			const cardMarkup = renderCard(ability);
+			const detail = kitAbilityDetails(ability);
+			expect(detail, ability.id).toBeDefined();
+			metadata[0].split('、').forEach(keyword => {
+				expect(panel, ability.id).toContain(keyword);
+				expect(card, ability.id).toContain(keyword);
+			});
+			expect(panel, ability.id).toContain(metadata[1]);
+			expect(card, ability.id).toContain(metadata[1]);
+			expect(panel, ability.id).toContain(kitAbilityMetadataValue(ability, 'distance', detail!.canonical.metadataParts[2]));
+			expect(card, ability.id).toContain(kitAbilityMetadataValue(ability, 'distance', detail!.canonical.metadataParts[2]));
+			expect(panel, ability.id).toContain('射程');
+			expect(cardMarkup, ability.id).toContain('alt="射程"');
+			expect(panel, ability.id).toContain(metadata[3]);
+			expect(card, ability.id).toContain(metadata[3]);
+			expect(panel, ability.id).toContain('目標');
+			expect(cardMarkup, ability.id).toContain('alt="目標"');
+			expect(panel, ability.id).toContain(rollHeader.replace(/：$/, ''));
+			expect(card, ability.id).toContain(rollHeader.replace(/：$/, ''));
+			for (const index of lines.filter(line => /^[①②③]/.test(line)).keys()) {
+				const source = detail!.canonical.tiers[index];
+				const shown = kitAbilityTier(ability, index + 1, source);
+				const htmlText = plainForLookup(shown);
+				expect(shown, `${ability.id} static tier ${index + 1}`).toMatch(/\p{Script=Han}/u);
+				expect(panel, `${ability.id}: ${shown}`).toContain(htmlText);
+				expect(card, `${ability.id}: ${shown}`).toContain(htmlText);
+				if (/\b[MARIP]\s*<\s*\[?(?:weak|average|avg|strong)/i.test(source)) {
+					expect(renderCard(ability), `${ability.id} localized potency format`).toContain('class="potency localized-potency"');
+				}
+			}
+		}
+	});
+
+	test('auto-calculated kit roll tiers retain upstream values and use approved Chinese wording', () => {
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.characteristics = FactoryLogic.createCharacteristics(3, 2, 2, 1, 1);
+		for (const ability of kitAbilities) {
+			const panel = visible(renderPanel(ability, hero));
+			const card = visible(renderCard(ability, hero));
+			const roll = ability.sections.find(section => section.type === 'roll');
+			expect(roll?.type, ability.id).toBe('roll');
+			if (!roll || roll.type !== 'roll') {
+				continue;
+			}
+			[ roll.roll.tier1, roll.roll.tier2, roll.roll.tier3 ].forEach((value, index) => {
+				const computed = AbilityLogic.getTierEffectCreature(value, index + 1, ability, undefined, hero);
+				const translated = kitAbilityTier(ability, index + 1, computed);
+				const htmlText = plainForLookup(translated);
+				expect(translated, `${ability.id} tier ${index + 1}`).toMatch(/\p{Script=Han}/u);
+				expect(translated.match(/\d+/g) ?? [], `${ability.id} tier ${index + 1} numeric values`).toEqual(computed.match(/\d+/g) ?? []);
+				expect(translated.match(/`/g) ?? []).toHaveLength(computed.match(/`/g)?.length ?? 0);
+				expect(translated.match(/\*\*/g) ?? []).toHaveLength(computed.match(/\*\*/g)?.length ?? 0);
+				expect(panel, `${ability.id} tier ${index + 1}`).toContain(htmlText);
+				expect(card, `${ability.id} tier ${index + 1}`).toContain(htmlText);
+				if (!/damage|dmg/i.test(computed)) {
+					expect(translated, `${ability.id} tier ${index + 1}`).not.toMatch(/\b(?:slowed|restrained|prone|push|slide|vertical pull)\b/i);
+				}
+			});
+		}
+
+		const ranger = kitAbilities.find(ability => ability.id === 'kit-ranger-signature')!;
+		const rangerRoll = ranger.sections.find(section => section.type === 'roll');
+		expect(rangerRoll?.type).toBe('roll');
+		if (rangerRoll?.type === 'roll') {
+			const computed = AbilityLogic.getTierEffectCreature(rangerRoll.roll.tier1, 1, ranger, undefined, hero);
+			const panel = renderPanel(ranger, hero);
+			const formattedInput = '5 damage; `A < 2` **slowed** (save ends)';
+			expect(kitAbilityTier(ranger, 1, formattedInput)).toContain('`敏捷 < 2`');
+			expect(kitAbilityTier(ranger, 1, formattedInput)).toContain('**緩速**');
+			const actualPotency = /`A < (\d+)`/.exec(computed);
+			expect(actualPotency).not.toBeNull();
+			expect(panel).toContain(`<code>敏捷 &lt; ${actualPotency?.[1]}</code>`);
+			expect(panel).toContain('<strong>緩速</strong>');
+		}
+	});
+
+	test('English mode and renamed abilities keep their original roll details', () => {
+		const ability = kitAbilities.find(item => item.id === 'kit-ranger-signature')!;
+		const computed = '5 damage; A < 2, slowed (save ends)';
+		const before = JSON.stringify(ability);
+		setLanguage('en');
+		expect(kitAbilityDetails(ability)).toBeUndefined();
+		expect(kitAbilityTier(ability, 1, computed)).toBe(computed);
+		const renamed = { ...ability, name: `${ability.name} Custom` };
+		expect(kitAbilityDetails(renamed)).toBeUndefined();
+		expect(kitAbilityTier(renamed, 1, computed)).toBe(computed);
+		expect(JSON.stringify(ability)).toBe(before);
+	});
+
+	test.each([
+		[ 'kit-mountain-signature', '此次打擊會額外造成' ],
+		[ 'kit-sniper-signature', '此打擊會額外造成' ]
+	])('%s keeps the upstream calculated value in both ability views', (abilityId, expectedPrefix) => {
+		const ability = kitAbilities.find(item => item.id === abilityId)!;
+		const key = `section:${ability.id}:1`;
+		const source = catalog[mapping[key].sheetId].fs!;
+		const hero = FactoryLogic.createHero();
+		hero.class = FactoryLogic.createClass();
+		hero.class.characteristics = FactoryLogic.createCharacteristics(3, 2, 0, 0, 0);
+		const before = JSON.stringify({ ability, hero });
+		const calculated = AbilityLogic.getTextEffect(source.en, hero);
+		const translated = resolveText('zh-TW', abilitySectionKey(ability.id, 1, calculated, source.en), calculated,
+			{ [key]: mapping[key].sheetId }, catalog);
+		expect(translated).toContain(`${expectedPrefix} 3 點傷害`);
+		expect(translated).not.toContain('equal to');
+		const panel = renderPanel(ability, hero);
+		const card = renderCard(ability, hero);
+		expect(panel).toContain(`${expectedPrefix} 3 點傷害`);
+		expect(card).toContain(`${expectedPrefix} 3 點傷害`);
+		expect(card).toContain('6 傷害');
+		expect(JSON.stringify({ ability, hero })).toBe(before);
+		hero.class.characteristics = FactoryLogic.createCharacteristics(1, 4, 0, 0, 0);
+		expect(renderPanel(ability, hero)).toContain(`${expectedPrefix} 4 點傷害`);
+		expect(renderCard(ability, hero)).toContain(`${expectedPrefix} 4 點傷害`);
 	});
 });

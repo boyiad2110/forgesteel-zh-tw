@@ -8,7 +8,7 @@ import { FeatureType } from '@/enums/feature-type';
 import { IntriguePerkData } from '@/data/perks/intrigue';
 import { SupernaturalPerkData } from '@/data/perks/supernatural';
 import { mapping } from '@/l10n/mapping';
-import { kitAbilityNameKey } from '@/l10n/kit-text';
+import { kitAbilityNameKey, standardKits } from '@/l10n/kit-text';
 import { translate } from '@/l10n/text';
 import { useL10nText } from '@/l10n/hooks';
 import { useUI } from '@/l10n/ui-text';
@@ -51,6 +51,14 @@ const collectAncestryAbilities = (feature: Feature) => {
 ].forEach(ancestry => ancestry.features.forEach(feature => collectAncestryAbilities(feature)));
 
 const abilities = new Map([ ...AbilityData.standardAbilities, ...ancestryAbilities.values() ].map(ability => [ ability.id, ability ]));
+
+/** Canonical signature abilities from the 21 standard kits; Stormwight is excluded. */
+const standardKitAbilities = new Map<string, Ability>();
+standardKits.forEach(kit => kit.features.forEach(feature => {
+	if (feature.type === FeatureType.Ability) {
+		standardKitAbilities.set(feature.data.ability.id, feature.data.ability);
+	}
+}));
 
 /** Segment 3 grants plus Arcane Trick. Familiar is a summon, not an ability. */
 const perkGrantAbilityIds = new Set([
@@ -322,6 +330,14 @@ export const abilitySectionKey = (abilityId: string, index: number, shown: strin
 		}
 		return sectionKeyForSource(abilityId, index, shown, stored, canonical, true);
 	}
+	const kitSection = standardKitAbilities.get(abilityId)?.sections[index];
+	if (kitSection) {
+		if (kitSection.type !== 'text') {
+			return undefined;
+		}
+		const kitShown = shown.replace(/^\*\*Effect:\*\*\s*/, '');
+		return sectionKeyForSource(abilityId, index, kitShown, kitSection.text, canonical, true);
+	}
 	const section = abilities.get(abilityId)?.sections[index];
 	if (!section || section.type !== 'text') {
 		return undefined;
@@ -340,6 +356,14 @@ export const abilityDescriptionKey = (ability: { id: string, description?: strin
 			return undefined;
 		}
 		return perk.key;
+	}
+	const kitDescription = standardKitAbilities.get(ability.id)?.description;
+	if (kitDescription !== undefined) {
+		if (!ability.description || ability.description !== kitDescription) {
+			return undefined;
+		}
+		const key = `element:${ability.id}:description`;
+		return mapping[key] ? key : undefined;
 	}
 	const description = ancestryAbilities.get(ability.id)?.description;
 	if (!ability.description || description === undefined || ability.description !== description) {

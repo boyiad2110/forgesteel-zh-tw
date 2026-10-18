@@ -261,6 +261,11 @@
   },
   "name.kit-ability.lets-dance": {
     "en": "Let’s Dance",
+    "fs": {
+      "basisHash": "92f25229755feba469e566b47519739cdbaa8faf75fea704dad0ec1f437b5f4a",
+      "en": "Let's Dance",
+      "zh": "共舞吧"
+    },
     "updated": "2026-10-14",
     "zh": "共舞吧"
   },
@@ -286,6 +291,11 @@
   },
   "name.kit-ability.raiders-awe": {
     "en": "Raider's Awe",
+    "fs": {
+      "basisHash": "240feaec450631360a4eb9980a5b1aed68187c17faa76eec775270b82a3bc8e2",
+      "en": "Raider’s Awe",
+      "zh": "突擊威勢"
+    },
     "updated": "2026-10-14",
     "zh": "突擊威勢"
   },

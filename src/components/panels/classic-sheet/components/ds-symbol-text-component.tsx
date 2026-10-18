@@ -1,5 +1,6 @@
 import { Fragment, createElement } from 'react';
 import { JSX } from 'react/jsx-runtime';
+import glossary from '@/l10n/generated/zh-TW/glossary.json';
 
 import './ds-symbol-text-component.scss';
 
@@ -11,15 +12,18 @@ interface Props {
 export const DrawSteelSymbolText = (props: Props) => {
 	const lookFor = props.lookFor || 'both';
 
-	const potencyRegex = '\\`?([MARIP])\\s*<\\s*\\[?(\\d+|weak|average|avg|strong)\\]?\\`?';
+	const potencyRegex = '`?([MARIP])\\s*<\\s*\\[?(\\d+|weak|average|avg|strong)\\]?`?';
+	const localizedCharacteristicNames = [ glossary['term.might'].zh, glossary['term.agility'].zh, glossary['term.reason'].zh, glossary['term.intuition'].zh, glossary['term.presence'].zh ];
+	const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	const localizedPotencyRegex = '`?(' + localizedCharacteristicNames.map(escapeRegExp).join('|') + ')\\s*<\\s*(\\d+|\\p{Script=Han}+)`?';
 	const characteristicRegex = '\\b([MARIP])\\b';
 	let flags = 'g';
 	let regexString;
 
 	switch (lookFor) {
 		case 'potencies':
-			regexString = potencyRegex;
-			flags += 'i';
+			regexString = `${potencyRegex}|${localizedPotencyRegex}`;
+			flags += 'iu';
 			break;
 		case 'characteristics':
 			regexString = characteristicRegex;
@@ -57,7 +61,9 @@ export const DrawSteelSymbolText = (props: Props) => {
 			i = str.index + str[0].length;
 			results.push(...boldify(beforeMatch, `before-${matchIndex}`));
 
-			if (str.length > 2 && str[2]) { // potency
+			if (lookFor === 'potencies' && str[3]) {
+				results.push(<span className='potency localized-potency' key={`localized-${matchIndex}`}>{`${str[3]} < ${str[4]}`}</span>);
+			} else if (str.length > 2 && str[2]) { // potency
 				const c = str[1].toLowerCase();
 				let check = str[2];
 				switch (str[2].toLowerCase()) {

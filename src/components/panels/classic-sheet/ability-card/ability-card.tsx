@@ -1,10 +1,13 @@
-import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel, perkGrantList, perkGrantTarget } from '@/l10n/ability-text';
+import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel, perkGrantTarget } from '@/l10n/ability-text';
+import { kitAbilityClassicRollHeader, kitAbilityMetadataValue, kitAbilityTier } from '@/l10n/kit-ability-details';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useUI } from '@/l10n/ui-text';
+import { isStandardKitAbility } from '@/l10n/kit-text';
+import { translate } from '@/l10n/text';
 
 import './ability-card.scss';
 
@@ -31,24 +34,33 @@ export const AbilityCard = (props: Props) => {
 	};
 
 	const getStatsSection = () => {
+		const keywords = ability.keywords?.split(', ').map((keyword, index) => kitAbilityMetadataValue(ability, 'keywords', keyword, index) ?? perkGrantLabel(ability.id, keyword, ui)).join(isStandardKitAbility(ability) ? '、' : ', ');
+		const label = (english: 'Distance' | 'Target') => {
+			if (!isStandardKitAbility(ability)) {
+				return perkGrantLabel(ability.id, english, ui);
+			}
+			return english === 'Distance'
+				? ui.text('ui.hero-builder.distance.b7bdf7a2', 'Distance')
+				: ui.text('ui.hero-builder.target.978354db', 'Target');
+		};
 		return (
 			<div className='stats'>
 				<div className='keywords-action-type'>
-					<div className='keywords'>{perkGrantList(ability.id, ability.keywords || '', ui)}</div>
-					<div className='action-type'>{perkGrantLabel(ability.id, ability.actionType || '', ui)}</div>
+					<div className='keywords'>{keywords}</div>
+					<div className='action-type'>{kitAbilityMetadataValue(ability, 'actionType', ability.actionType || '') ?? perkGrantLabel(ability.id, ability.actionType || '', ui)}</div>
 				</div>
 				<div className='distance-target'>
 					<div className='distance'>
 						{ability.distance?.length ?
-							<img src={distanceIcon} alt={perkGrantLabel(ability.id, 'Distance', ui)} />
+							<img src={distanceIcon} alt={label('Distance')} />
 							: undefined }
-						<span>{perkGrantDistance(ability.id, ability.distance || '', ui)}</span>
+						<span>{kitAbilityMetadataValue(ability, 'distance', ability.distance || '') ?? perkGrantDistance(ability.id, ability.distance || '', ui)}</span>
 					</div>
 					<div className='target'>
 						{ability.target?.length ?
-							<img src={targetIcon} alt={perkGrantLabel(ability.id, 'Target', ui)} />
+							<img src={targetIcon} alt={label('Target')} />
 							: undefined }
-						<span>{perkGrantTarget(ability.id, ability.target || '', ui)}</span>
+						<span>{kitAbilityMetadataValue(ability, 'target', ability.target || '') ?? perkGrantTarget(ability.id, ability.target || '', ui)}</span>
 					</div>
 				</div>
 			</div>
@@ -89,26 +101,30 @@ export const AbilityCard = (props: Props) => {
 	};
 
 	const getPowerRollSection = (section: PowerRollSection, key: number) => {
+		const kitRollHeader = kitAbilityClassicRollHeader(ability, section.rollPower || '');
+		const rollHeader = kitRollHeader ?? (isStandardKitAbility(ability) && section.rollPower && /^\d+$/.test(section.rollPower)
+			? `${translate('term.power-roll', 'Power Roll')} + ${section.rollPower}`
+			: `Power Roll + ${section.rollPower}`);
 		return (
 			<div className='power-roll' key={key}>
-				<div className='power'>Power Roll + <DrawSteelSymbolText content={section.rollPower} lookFor='characteristics' /></div>
+				<div className='power'>{kitRollHeader ?? <>{rollHeader.replace(section.rollPower || '', '')}<DrawSteelSymbolText content={section.rollPower} lookFor='characteristics' /></>}</div>
 				<div className='roll-tiers'>
 					<div className='tier t1'>
 						<img src={rollT1} alt='≤ 11' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={section.rollT1Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 1, section.rollT1Effect || '') : section.rollT1Effect} lookFor='potencies' />
 						</div>
 					</div>
 					<div className='tier t2'>
 						<img src={rollT2} alt='12 - 16' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={section.rollT2Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 2, section.rollT2Effect || '') : section.rollT2Effect} lookFor='potencies' />
 						</div>
 					</div>
 					<div className='tier t3'>
 						<img src={rollT3} alt='17 +' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={section.rollT3Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 3, section.rollT3Effect || '') : section.rollT3Effect} lookFor='potencies' />
 						</div>
 					</div>
 				</div>
@@ -130,6 +146,7 @@ export const AbilityCard = (props: Props) => {
 	const getEffectSection = (section: string, isFirstText: boolean, key: number) => {
 		const label = perkGrantLabel(ability.id, 'Effect', ui);
 		const listed = arcaneTrickSection(ability.id, section);
+		const kitKey = !listed && isStandardKitAbility(ability) ? abilitySectionKey(ability.id, key, section) : undefined;
 		const split = isFirstText && label !== 'Effect' && !(section.startsWith('##') || ability.isNotTrueAbility);
 		let text = listed ?? section;
 		if (!listed && !split && isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
@@ -137,11 +154,12 @@ export const AbilityCard = (props: Props) => {
 		}
 		return (
 			<div className='effect' key={key}>
+				{kitKey ? <Markdown text={`**${ui.text('ui.hero-builder.effect.2252d5cf', 'Effect')}:**`} className='ability-effect' /> : null}
 				{split ? <Markdown text={`**${label}:**`} className='ability-effect' /> : null}
 				<Markdown
-					text={text}
+					text={kitKey ? section : text}
 					className='ability-effect'
-					l10nKey={listed ? undefined : abilitySectionKey(ability.id, key, text)}
+					l10nKey={kitKey ?? (listed ? undefined : abilitySectionKey(ability.id, key, text))}
 				/>
 			</div>
 		);

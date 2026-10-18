@@ -135,5 +135,39 @@
       10,
       11
     ]
+  },
+  "section:kit-mountain-signature:1": {
+    "sheetId": "heroes.kits.mountain.signature.pain-for-pain",
+    "enHash": "bcb01a2056acb66c2f1d8cf57f2ccda24de9eb8439b0af57892ad558875009ab",
+    "zhHash": "30845af37e0b3231d6846b10604f4921e8be9c9a6d22d7ea001bad3d84a61be9",
+    "sourceSpan": [
+      112,
+      139
+    ],
+    "targetSpan": [
+      24,
+      48
+    ],
+    "sourceLength": 154,
+    "targetLength": 49,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
+  },
+  "section:kit-sniper-signature:1": {
+    "sheetId": "heroes.kits.sniper.signature.patient-shot",
+    "enHash": "37aea470f180058bc45fffb577e2cda979fe57cdbb07fa739da572f4d36ae715",
+    "zhHash": "9d3dfb77c03746d51a9e59baf9c30531ab6de1658c84bdf3dc786587951b916e",
+    "sourceSpan": [
+      83,
+      110
+    ],
+    "targetSpan": [
+      19,
+      43
+    ],
+    "sourceLength": 125,
+    "targetLength": 44,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
   }
 }
