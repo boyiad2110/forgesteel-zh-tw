@@ -4,6 +4,7 @@ import { CSSProperties, useState } from 'react';
 import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
 import { abilityDescriptionKey, abilityNameKey, abilitySectionKey, perkGrantLabel } from '@/l10n/ability-text';
+import { kitAbilityMetadataValue } from '@/l10n/kit-ability-details';
 import { AbilityData } from '@/data/ability-data';
 import { AbilityInfoPanel } from '@/components/panels/ability-info/ability-info-panel';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -348,7 +349,7 @@ export const AbilityPanel = (props: Props) => {
 				<Markdown text={props.ability.description} className='ability-description-text' l10nKey={descriptionKey} />
 				{
 					keywords.length > 0 ?
-						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{perkGrantLabel(props.ability.id, k, ui)}</Tag>)}</Flex>
+						<Flex gap={3}>{keywords.map((k, n) => <Tag key={n} variant='outlined'>{kitAbilityMetadataValue(props.ability, 'keywords', k, n) ?? perkGrantLabel(props.ability.id, k, ui)}</Tag>)}</Flex>
 						: null
 				}
 				<AbilityInfoPanel ability={props.ability} hero={props.hero} />

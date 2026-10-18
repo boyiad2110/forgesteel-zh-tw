@@ -12,6 +12,8 @@ import { HeroLogic } from '@/logic/hero-logic';
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { PowerRoll } from '@/models/power-roll';
+import { kitAbilityRollHeader, kitAbilityTier } from '@/l10n/kit-ability-details';
+import { useUI } from '@/l10n/ui-text';
 import { useState } from 'react';
 
 import './power-roll-panel.scss';
@@ -27,6 +29,7 @@ interface Props {
 }
 
 export const PowerRollPanel = (props: Props) => {
+	const ui = useUI();
 	const [ distance, setDistance ] = useState<AbilityDistanceType | undefined>(props.ability && props.ability.distance.length > 1 ? props.ability.distance[0].type : undefined);
 	const [ showOdds, setShowOdds ] = useState<boolean>(false);
 
@@ -169,19 +172,23 @@ export const PowerRollPanel = (props: Props) => {
 	};
 
 	const getTier = (tier: number, value: string) => {
+		let result = value;
 		if (props.autoCalc && props.ability) {
-			return AbilityLogic.getTierEffectCreature(value, tier, props.ability, distance, props.creature);
+			result = AbilityLogic.getTierEffectCreature(value, tier, props.ability, distance, props.creature);
 		}
-
-		return value;
+		return ui.language === 'zh-TW' && props.ability ? kitAbilityTier(props.ability, tier, result) : result;
 	};
 
 	const footer = getFooter();
+	const header = getHeader();
+	const translatedHeader = ui.language === 'zh-TW' && props.ability && !props.test
+		? kitAbilityRollHeader(props.ability, header) ?? header
+		: header;
 
 	return (
 		<div className='power-roll-panel'>
 			<div className='power-roll-row power-roll-header'>
-				{getHeader()}
+				{translatedHeader}
 				<Space onClick={e => e.stopPropagation()}>
 					{
 						props.autoCalc && props.ability && (props.ability.distance.length > 1) ?
