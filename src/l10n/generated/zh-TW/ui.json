@@ -779,6 +779,11 @@
     "updated": "2026-10-10",
     "zh": "未開始"
   },
+  "ui.hero-builder.odds.e0382a01": {
+    "en": "Odds",
+    "updated": "2026-10-18",
+    "zh": "機率"
+  },
   "ui.hero-builder.optional.1aea6d2c": {
     "en": "Optional",
     "updated": "2026-10-10",
@@ -884,6 +889,11 @@
     "updated": "2026-10-10",
     "zh": "抵抗效力"
   },
+  "ui.hero-builder.roll-modifiers.2a3fad7d": {
+    "en": "Roll Modifiers",
+    "updated": "2026-10-18",
+    "zh": "擲骰調整"
+  },
   "ui.hero-builder.save-changes.7215be78": {
     "en": "Save Changes",
     "updated": "2026-10-10",
@@ -933,6 +943,16 @@
     "en": "Show details",
     "updated": "2026-10-10",
     "zh": "顯示詳情"
+  },
+  "ui.hero-builder.signature-ability.5252b981": {
+    "en": "Signature Ability",
+    "updated": "2026-10-18",
+    "zh": "招牌招式"
+  },
+  "ui.hero-builder.signature.f1a73e22": {
+    "en": "Signature",
+    "updated": "2026-10-18",
+    "zh": "招牌"
   },
   "ui.hero-builder.size.0805dc7c": {
     "en": "Size",

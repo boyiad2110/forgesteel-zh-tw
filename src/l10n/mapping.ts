@@ -46,6 +46,7 @@ export interface MappingEntry {
  *                          The nth text section of an ability.
  */
 export const mapping: Record<string, MappingEntry> = {
+	'enum:AbilityKeyword:Melee': { sheetId: 'term.melee', enHash: '2e24eb8ac3378a24fb64d99f02cd9135880e26f0b84b5dd3feac1be91a16a00f' },
 	'enum:AbilityKeyword:Magic': { sheetId: 'term.magic-skill', enHash: 'ed1a5a81b8121ad13a8796e7a7eb113f25d5b18b0a3831bae13d697ba5dae38b' },
 	'enum:AbilityKeyword:Ranged': { sheetId: 'term.ranged', enHash: '3f0b51a2492f73ecf48a84bc7f261e4223a8701efbda4726fa1de490fdf12498' },
 	'enum:AbilityUsage:Maneuver': { sheetId: 'term.maneuver', enHash: 'd7846fc90c7818076d672fe7dad73c25fd88954c0146ecfc5a7ede49bcf343de' },
@@ -795,6 +796,10 @@ export const mapping: Record<string, MappingEntry> = {
 	'ui:ui.hero-builder.ranged-damage.ed353d2b': { sheetId: 'ui.hero-builder.ranged-damage.ed353d2b', enHash: 'ed353d2b643bf868f05b40593edda757b9bbea6b4ac08630682269e7c60c8f6b' },
 	'ui:ui.hero-builder.melee-distance.7c498629': { sheetId: 'ui.hero-builder.melee-distance.7c498629', enHash: '7c498629ff97566d313bef98ebf4e6143f3e98870048c1ef9e97acf6d2a10d14' },
 	'ui:ui.hero-builder.ranged-distance.b55a9de7': { sheetId: 'ui.hero-builder.ranged-distance.b55a9de7', enHash: 'b55a9de7302efd9a9e71a54fce4826c4cf6ba97401c1e4fb8d329c0622157e0e' },
+	'ui:ui.hero-builder.signature.f1a73e22': { sheetId: 'ui.hero-builder.signature.f1a73e22', enHash: 'f1a73e2204a114077f988c9da98d7f8b604ab250496f25aeb3cbd153f5369c83' },
+	'ui:ui.hero-builder.signature-ability.5252b981': { sheetId: 'ui.hero-builder.signature-ability.5252b981', enHash: '5252b981253954620c51b164e20b9a6ddbf79dcfd898e13b6b8b7fbdcc0dda10' },
+	'ui:ui.hero-builder.odds.e0382a01': { sheetId: 'ui.hero-builder.odds.e0382a01', enHash: 'e0382a0130bda601c79b321b61af5b7d5db47ebaa144d7e6602d5aab731b8395' },
+	'ui:ui.hero-builder.roll-modifiers.2a3fad7d': { sheetId: 'ui.hero-builder.roll-modifiers.2a3fad7d', enHash: '2a3fad7deacdbc9ef203f15a2e4fbd2a5b594383390575b660ab5c90f2c9ade0' },
 	'element:perk-friend-catapult:description': { sheetId: 'heroes.perks.friend-catapult.effect', enHash: 'd323415f79d31dae4262626f844e8994cfde3129a1b9835dbbad2d70c120fc7b' },
 	'section:perk-friend-catapult-1:0': { sheetId: 'heroes.perks.friend-catapult.effect', enHash: 'c805074e205a05cffcfdd92ec7ab8e130036ce2acc838189f19fc2157f775ed7' },
 	'element:perk-ive-got-you:description': { sheetId: 'heroes.perks.ive-got-you.effect', enHash: '1e813f85af86acf1983ad397fef28c284559e59aa61f334fac663507fe9cf803' },

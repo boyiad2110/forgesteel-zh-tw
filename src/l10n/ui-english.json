@@ -244,5 +244,9 @@
   "ui.hero-builder.perk-count.e5bc2580": "`${count} Perk`",
   "ui.hero-builder.list-or.7382d0ab": "`${items} or ${last}`",
   "ui.hero-builder.uses.9e6151ac": "Uses",
-  "ui.hero-builder.stats.b4a73657": "Stats"
+  "ui.hero-builder.stats.b4a73657": "Stats",
+  "ui.hero-builder.signature.f1a73e22": "Signature",
+  "ui.hero-builder.signature-ability.5252b981": "Signature Ability",
+  "ui.hero-builder.odds.e0382a01": "Odds",
+  "ui.hero-builder.roll-modifiers.2a3fad7d": "Roll Modifiers"
 }

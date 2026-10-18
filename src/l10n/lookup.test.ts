@@ -36,6 +36,7 @@ import { InfoConditionImmunity } from '@/components/features/feature-data/condit
 import { MonsterLogic } from '@/logic/monster-logic';
 import { MonsterPanel } from '@/components/panels/elements/monster-panel/monster-panel';
 import { PanelMode } from '@/enums/panel-mode';
+import { PowerRollPanel } from '@/components/panels/power-roll/power-roll-panel';
 import { PartyModal } from '@/components/modals/party/party-modal';
 import { PerkList } from '@/enums/perk-list';
 import { PerkSelectModal } from '@/components/modals/select/perk-select/perk-select-modal';
@@ -3656,6 +3657,74 @@ describe('standard kit signature ability localizations', () => {
 			expect(panel).toContain(`<code>敏捷 &lt; ${actualPotency?.[1]}</code>`);
 			expect(panel).toContain('<strong>緩速</strong>');
 		}
+	});
+
+	test('hero-computed kit distances keep upstream numbers in details and compact ability rows', () => {
+		for (const ability of kitAbilities) {
+			const kit = standardKits.find(item => item.features.some(feature => feature.type === FeatureType.Ability && feature.data.ability.id === ability.id));
+			expect(kit, ability.id).toBeDefined();
+			if (!kit) {
+				continue;
+			}
+			const hero = FactoryLogic.createHero();
+			const kitChoice = FactoryLogic.feature.createKitChoice({ id: `audit-${kit.id}` });
+			kitChoice.data.selected = [ kit ];
+			hero.features = [ kitChoice ];
+			const source = ability.distance.map(distance => AbilityLogic.getDistance(distance, ability, hero)).join(' or ');
+			const translated = kitAbilityMetadataValue(ability, 'distance', source);
+			expect(translated, ability.id).toMatch(/\p{Script=Han}/u);
+			expect(translated?.match(/\d+/g) ?? [], ability.id).toEqual(source.match(/\d+/g) ?? []);
+			expect(visible(renderPanel(ability, hero)), ability.id).toContain(translated ?? '');
+			expect(visible(renderCard(ability, hero)), ability.id).toContain(translated ?? '');
+
+			const compact = renderToStaticMarkup(withOptions(
+				{ ...FactoryLogic.createOptions(), compactView: true, showSources: true },
+				createElement(AbilitiesPanel, {
+					title: 'Abilities',
+					abilities: [ { ability, source: kit.name, level: undefined } ],
+					hero,
+					onSelectAbility: () => undefined
+				})
+			));
+			expect(compact, ability.id).toContain(translated ?? '');
+			expect(compact, ability.id).toContain('Signature');
+			expect(compact, ability.id).not.toContain('One creature');
+		}
+	});
+
+	test('kit bonus rows use approved kit names and damage labels in both ability views', () => {
+		const ability = kitAbilities.find(item => item.id === 'kit-arcane-archer-signature')!;
+		const kit = standardKits.find(item => item.id === 'kit-arcane-archer')!;
+		const hero = FactoryLogic.createHero();
+		const kitChoice = FactoryLogic.feature.createKitChoice({ id: 'kit-bonus-render' });
+		kitChoice.data.selected = [ kit ];
+		hero.features = [ kitChoice ];
+		const roll = ability.sections.find(section => section.type === 'roll');
+		expect(roll?.type).toBe('roll');
+		if (!roll || roll.type !== 'roll') {
+			return;
+		}
+		const panel = visible(renderToStaticMarkup(withOptions(
+			FactoryLogic.createOptions(),
+			createElement(PowerRollPanel, { powerRoll: roll.roll, ability, creature: hero, autoCalc: false })
+		)));
+		expect(panel).toContain('魔弓');
+		expect(panel).toContain('遠程傷害');
+		expect(panel).not.toContain('Arcane Archer');
+		expect(panel).not.toContain('ranged damage');
+
+		const sheet = ClassicSheetBuilder.buildAbilitySheet(ability, hero, undefined, FactoryLogic.createOptions());
+		const sheetRoll = sheet.sections.find(section => typeof section !== 'string');
+		expect(sheetRoll && typeof sheetRoll !== 'string').toBe(true);
+		if (!sheetRoll || typeof sheetRoll === 'string') {
+			return;
+		}
+		sheetRoll.rollBonuses = [ { name: kit.name, type: 'ranged', tier1: '+1', tier2: '+1', tier3: '+1' } ];
+		const card = visible(renderToStaticMarkup(createElement(AbilityCard, { ability: sheet })));
+		expect(card).toContain('魔弓');
+		expect(card).toContain('遠程傷害');
+		expect(card).not.toContain('Arcane Archer');
+		expect(card).not.toContain('ranged damage');
 	});
 
 	test('English mode and renamed abilities keep their original roll details', () => {

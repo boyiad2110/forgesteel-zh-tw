@@ -45,8 +45,12 @@ export const InfoKit = (props: InfoProps) => {
 		);
 	}
 
+	const types = props.data.types.filter(type => type.length > 0);
+	if (props.data.count === 1 && types.length === 0) {
+		return <div className='ds-text'>{ui.text('ui.hero-builder.choose-a-kit.8cc3cd8c', 'Choose a kit')}{ui.language === 'zh-TW' ? '。' : '.'}</div>;
+	}
 	return (
-		<div className='ds-text'>{ui.text('ui.hero-builder.choose.5fbc8355', 'Choose')} {props.data.count > 1 ? props.data.count : 'a'} {props.data.types.join(', ')} {props.data.count > 1 ? 'kits' : 'kit'}.</div>
+		<div className='ds-text'>{ui.text('ui.hero-builder.choose.5fbc8355', 'Choose')} {props.data.count > 1 ? props.data.count : 'a'} {types.join(', ')} {props.data.count > 1 ? 'kits' : 'kit'}.</div>
 	);
 };
 
@@ -117,7 +121,7 @@ export const ConfigKit = (props: ConfigProps) => {
 	const getAddButton = () => {
 		if (sortedKits.length === 0) {
 			return (
-				<Empty text='There are no options to choose for this feature.' />
+				<Empty text={ui.text('ui.hero-builder.no-options.6662aa9c', 'There are no options to choose for this feature.')} />
 			);
 		}
 

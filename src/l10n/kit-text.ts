@@ -114,6 +114,21 @@ export const kitModifierName = (shown: string, kits: Kit[]): string => {
 	}).join(' & ');
 };
 
+/** Translate only complete, canonical kit names in Classic View damage rows. */
+export const kitBonusSourceName = (shown: string): string => {
+	const separator = shown.includes(' / ') ? ' / ' : ' & ';
+	const parts = shown.split(separator);
+	const kits = parts.map(name => standardKits.find(kit => kit.name === name));
+	if (kits.some(kit => !kit)) {
+		return shown;
+	}
+	return (kits as Kit[]).map((kit, index) => {
+		const name = parts[index];
+		const key = `element:${kit.id}:name`;
+		return mapping[key] ? translate(key, name) : name;
+	}).join(separator);
+};
+
 /** Hook wrapper keeps the classic card subscribed to language and catalog updates. */
 export const useKitModifierName = (shown: string, kits: Kit[]): string => {
 	useUI();
