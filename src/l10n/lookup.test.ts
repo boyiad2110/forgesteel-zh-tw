@@ -3687,7 +3687,7 @@ describe('standard kit signature ability localizations', () => {
 				})
 			));
 			expect(compact, ability.id).toContain(translated ?? '');
-			expect(compact, ability.id).toContain('Signature');
+			expect(compact, ability.id).toContain('招牌');
 			expect(compact, ability.id).not.toContain('One creature');
 		}
 	});
