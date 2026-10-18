@@ -8,11 +8,13 @@ import { Empty } from '@/components/controls/empty/empty';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
+import { kitAbilityMetadataValue } from '@/l10n/kit-ability-details';
 import { kitSourceName } from '@/l10n/kit-text';
 import { PanelMode } from '@/enums/panel-mode';
 import { SelectablePanel } from '@/components/controls/selectable-panel/selectable-panel';
 import { useIsSmall } from '@/hooks/use-is-small';
 import { useOptions } from '@/contexts/data-context';
+import { useUI } from '@/l10n/ui-text';
 
 import './abilities-panel.scss';
 
@@ -26,6 +28,7 @@ interface Props {
 export const AbilitiesPanel = (props: Props) => {
 	const isSmall = useIsSmall();
 	const options = useOptions();
+	const ui = useUI();
 	const kits = HeroLogic.getKits(props.hero);
 	const getSource = (source: string) => kitSourceName(source, kits);
 
@@ -34,15 +37,18 @@ export const AbilitiesPanel = (props: Props) => {
 	}
 
 	const getRow = (data: { ability: Ability, source: string }) => {
+		const sourceDistance = data.ability.distance.map(d => AbilityLogic.getDistance(d, data.ability, props.hero)).join(' or ');
+		const distance = kitAbilityMetadataValue(data.ability, 'distance', sourceDistance) ?? sourceDistance;
+		const target = kitAbilityMetadataValue(data.ability, 'target', data.ability.target) ?? data.ability.target;
 		return (
 			<div key={data.ability.id} className='selectable-row clickable' onClick={() => props.onSelectAbility(data.ability)}>
 				<div><b><AbilityName ability={data.ability} /></b></div>
-				<div>{data.ability.distance.map(d => AbilityLogic.getDistance(d, data.ability, props.hero)).join(' or ')}</div>
-				<div>{data.ability.target}</div>
+				<div>{distance}</div>
+				<div>{target}</div>
 				{options.showSources ? <Tag variant='outlined'>{getSource(data.source)}</Tag> : null}
 				{
 					data.ability.cost === 'signature' ?
-						<Pill>Signature</Pill>
+						<Pill>{ui.text('ui.hero-builder.signature.f1a73e22', 'Signature')}</Pill>
 						:
 						(data.ability.cost > 0) ? <ResourcePill value={data.ability.cost} repeatable={data.ability.repeatable} /> : null
 				}

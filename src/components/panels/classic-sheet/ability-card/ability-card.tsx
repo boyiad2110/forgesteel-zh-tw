@@ -6,7 +6,7 @@ import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/component
 import { Markdown } from '@/components/controls/markdown/markdown';
 import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useUI } from '@/l10n/ui-text';
-import { isStandardKitAbility } from '@/l10n/kit-text';
+import { isStandardKitAbility, kitBonusSourceName, kitFieldLabel } from '@/l10n/kit-text';
 import { translate } from '@/l10n/text';
 
 import './ability-card.scss';
@@ -133,7 +133,7 @@ export const AbilityCard = (props: Props) => {
 						<div className='roll-bonuses'>
 							{section.rollBonuses.map(bonus => (
 								<p key={bonus.name}>
-									<strong>{bonus.name}</strong>: {bonus.tier1} | {bonus.tier2} | {bonus.tier3} {bonus.type} damage
+									<strong>{kitBonusSourceName(bonus.name)}</strong>: {bonus.tier1} | {bonus.tier2} | {bonus.tier3} {kitFieldLabel(ui, bonus.type === 'melee' ? 'Melee Damage' : 'Ranged Damage')}
 								</p>
 							))}
 						</div>
@@ -179,7 +179,11 @@ export const AbilityCard = (props: Props) => {
 	return (
 		<div className={getCardClasses(ability)}>
 			<section className='bordered'>
-				<h3>{perkGrantLabel(ability.id, ability.abilityType || '', ui)}</h3>
+				<h3>
+					{isStandardKitAbility(ability) && ability.abilityType === 'Signature Ability'
+						? ui.text('ui.hero-builder.signature-ability.5252b981', 'Signature Ability')
+						: perkGrantLabel(ability.id, ability.abilityType || '', ui)}
+				</h3>
 				<h2><span className='ability-name'><AbilityName ability={ability} /></span>{getAbilityCost()}</h2>
 				{ability.description?.length ?
 					<p className='description'><AbilityDescription ability={ability} /></p>

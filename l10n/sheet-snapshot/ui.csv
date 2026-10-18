@@ -155,6 +155,7 @@ ui.hero-builder.no-options.6662aa9c,APPROVED,此特性沒有可選的選項。,T
 ui.hero-builder.no-perks.b95a0ec8,APPROVED,不包含專長,No perks,2026-10-10,475858f4bf00bc579b22fd1a70b1b3510e3357956252e9bd70bea4485bcf1417
 ui.hero-builder.no-triggered-action-abilitie.a6aa88d8,APPROVED,不包含反應動作招式,No triggered action abilities,2026-10-10,5373d8096aa18aa518778a12e5be2189f210cfce48892711d19ee22a4e4e56f6
 ui.hero-builder.not-started.dad5ea5d,APPROVED,未開始,Not Started,2026-10-10,6d54f9ecea632e075385f044d66bfd47b2f26322cec751084d0f45b0532cf7ba
+ui.hero-builder.odds.e0382a01,APPROVED,機率,Odds,2026-10-18,e0382a0130bda601c79b321b61af5b7d5db47ebaa144d7e6602d5aab731b8395
 ui.hero-builder.optional.1aea6d2c,APPROVED,非必要,Optional,2026-10-10,59be71333c960fd08e7e4fe9862206d9355f0a9884121a5b50ef8b36efdfe4cf
 ui.hero-builder.optionally-you-can-choose-a.1b063f03,APPROVED,此外，你也可以選擇 1 項,"Optionally, you can choose a",2026-10-10,d8a04137b7ead67e7a2c48eb91ebe5685ec058306ac0518a7b1fb7732b3212b5
 ui.hero-builder.organization.a6425036,APPROVED,組織型態,Organization,2026-10-10,d764d42592fc968709b4c6c25c6e6b77919295dfce2c57ead02bedac5ddb3218
@@ -176,6 +177,7 @@ ui.hero-builder.ranged-damage.ed353d2b,APPROVED,遠程傷害,Ranged Damage,2026-
 ui.hero-builder.ranged-distance.b55a9de7,APPROVED,遠程射程,Ranged Distance,2026-10-17,b55a9de7302efd9a9e71a54fce4826c4cf6ba97401c1e4fb8d329c0622157e0e
 ui.hero-builder.remove.5fd82c75,APPROVED,移除,Remove,2026-10-10,c3812fc4acb861d5182fc2b8155f327f736fbe5e5eb86a7bd7afcb6dc5497282
 ui.hero-builder.resisting-potencies.08dcb6db,APPROVED,抵抗效力,Resisting potencies,2026-10-10,a7ac612e530ff4f9a38bfd8a23c8d6946489c64e521651c5a9c8da3075795382
+ui.hero-builder.roll-modifiers.2a3fad7d,APPROVED,擲骰調整,Roll Modifiers,2026-10-18,2a3fad7deacdbc9ef203f15a2e4fbd2a5b594383390575b660ab5c90f2c9ade0
 ui.hero-builder.save-changes.7215be78,APPROVED,儲存變更,Save Changes,2026-10-10,35322b5bb5a218a15401cfa54d23b16459e9e1c616977526a4b37b6c87d30c50
 ui.hero-builder.save.6dfceca4,APPROVED,豁免,Save,2026-10-10,1509f561f2416598629b886ad7d3c05a7e221e4e0675c84bbff4ee6d9e03913d
 ui.hero-builder.search.f1270409,APPROVED,搜尋,Search,2026-10-10,49c266baaaa70981ea188fa714d5c40cf13830d786a861c9943ae0d26a7f3fe9
@@ -186,6 +188,8 @@ ui.hero-builder.select.ed8e93ef,APPROVED,選取,Select,2026-10-10,2a78025de6aae5
 ui.hero-builder.selecting-a-perk-from-outside-th.1be9b4cd,APPROVED,選擇不屬於所列類別的專長，通常不符合規則。,Selecting a perk from outside the listed groups is typically against the rules.,2026-10-11,1be9b4cd0a123a411b34f354548192aaf8b01aed40ee33734a4c505dcba97e28
 ui.hero-builder.self.85bc0f95,APPROVED,自身,Self,2026-10-15,85bc0f95858d757232c2f3662d3edb11168ddbfb426bfc240b478dc444308c9b
 ui.hero-builder.show-details.257cf510,APPROVED,顯示詳情,Show details,2026-10-10,1af77ee273cbdaaec500c36db6130612d94fc3450a9b4665433508954070fde9
+ui.hero-builder.signature-ability.5252b981,APPROVED,招牌招式,Signature Ability,2026-10-18,5252b981253954620c51b164e20b9a6ddbf79dcfd898e13b6b8b7fbdcc0dda10
+ui.hero-builder.signature.f1a73e22,APPROVED,招牌,Signature,2026-10-18,f1a73e2204a114077f988c9da98d7f8b604ab250496f25aeb3cbd153f5369c83
 ui.hero-builder.size.0805dc7c,APPROVED,體型,Size,2026-10-10,1af851907331c0ed99e7c63b4e55df808bc5fc4c990a1cf80ca8c0f76daf1f3b
 ui.hero-builder.skill-choice-description.9172d5a4,APPROVED,從{source}中選擇 1 項技能。,`Choose a skill from ${source}.`,2026-10-11,9172d5a4b4a134f997f556511afbb53c6989c860ebce1b86b88f63f3960d50a1
 ui.hero-builder.skill-choices.f8854ea1,APPROVED,技能選項,Skill Choices,2026-10-10,268389718cb71ffdcd77731e53c7d05bd196abdce7210f12f6f1b147896623a9

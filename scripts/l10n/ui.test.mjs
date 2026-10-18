@@ -91,4 +91,18 @@ describe('approved UI bindings', () => {
 		expect(applyUITemplate('{list}技能', category, 'Crafting skills', { list: '工藝類' })).toBe('工藝類技能');
 		expect(applyUITemplate('從{source}中選擇 {count} 項技能。', plural, 'Choose 2 from Home Brew.', { source: 'Home Brew' })).toBe('Choose 2 from Home Brew.');
 	});
+
+	test('registers the approved Kit ability UI labels', () => {
+		const expected = {
+			'ui.hero-builder.signature.f1a73e22': [ 'Signature', '招牌' ],
+			'ui.hero-builder.signature-ability.5252b981': [ 'Signature Ability', '招牌招式' ],
+			'ui.hero-builder.odds.e0382a01': [ 'Odds', '機率' ],
+			'ui.hero-builder.roll-modifiers.2a3fad7d': [ 'Roll Modifiers', '擲骰調整' ]
+		};
+		for (const [ id, [ english, chinese ] ] of Object.entries(expected)) {
+			expect(approvedEnglish[id]).toBe(english);
+			expect(ui[id]?.en).toBe(english);
+			expect(ui[id]?.zh).toBe(chinese);
+		}
+	});
 });

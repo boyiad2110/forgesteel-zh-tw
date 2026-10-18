@@ -192,7 +192,7 @@ export const AbilityPanel = (props: Props) => {
 	const getRibbon = () => {
 		if (isSignature) {
 			return (
-				<Pill>Signature</Pill>
+				<Pill>{ui.text('ui.hero-builder.signature.f1a73e22', 'Signature')}</Pill>
 			);
 		}
 
@@ -333,7 +333,7 @@ export const AbilityPanel = (props: Props) => {
 									{
 										type: 'button',
 										icon: autoCalc ? <ThunderboltFilled style={{ color: 'var(--fs-accent)' }} /> : <ThunderboltOutlined />,
-										tooltip: 'Auto-calculate damage, potency, etc',
+										tooltip: ui.text('ui.hero-builder.auto-calculate-damage-potenc.dfd07bc3', 'Auto-calculate damage, potency, etc'),
 										onClick: () => setAutoCalc(!autoCalc)
 									}
 									: null,
@@ -357,7 +357,7 @@ export const AbilityPanel = (props: Props) => {
 				{
 					rollModifiers.length > 0 ?
 						<div>
-							<HeaderText>Roll Modifiers</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.roll-modifiers.2a3fad7d', 'Roll Modifiers')}</HeaderText>
 							{rollModifiers.map(f => <RollModifierPanel key={f.id} modifier={f} />)}
 						</div>
 						: null

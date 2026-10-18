@@ -1,6 +1,6 @@
 # KITS-ABILITIES-01：標準套裝招牌招式
 
-交付：[draft PR #79](https://github.com/boyiad2110/forgesteel-zh-tw/pull/79)。目前等待 Marc 人工驗收，不合併、不部署。
+Marc 已驗收並 squash 合併：[PR #79](https://github.com/boyiad2110/forgesteel-zh-tw/pull/79) 已合併至 `develop` `4baefd664651cf80079eaa78e3b29d96d54f6ec4`。未部署。
 
 ## 範圍與來源
 

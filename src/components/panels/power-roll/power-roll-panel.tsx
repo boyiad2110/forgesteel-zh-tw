@@ -13,6 +13,8 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { PowerRoll } from '@/models/power-roll';
 import { kitAbilityRollHeader, kitAbilityTier } from '@/l10n/kit-ability-details';
+import { kitBonusSourceName, kitFieldLabel } from '@/l10n/kit-text';
+import { translate } from '@/l10n/text';
 import { useUI } from '@/l10n/ui-text';
 import { useState } from 'react';
 
@@ -116,8 +118,8 @@ export const PowerRollPanel = (props: Props) => {
 						sections.push(
 							<Field
 								key={`kit-${n}`}
-								label={`${bonus.name}`}
-								value={`+${bonus.tier1} / +${bonus.tier2} / +${bonus.tier3} ${bonus.type} damage`}
+								label={kitBonusSourceName(bonus.name)}
+								value={`+${bonus.tier1} / +${bonus.tier2} / +${bonus.tier3} ${kitFieldLabel(ui, bonus.type === 'melee' ? 'Melee Damage' : 'Ranged Damage')}`}
 							/>
 						);
 					});
@@ -193,7 +195,10 @@ export const PowerRollPanel = (props: Props) => {
 					{
 						props.autoCalc && props.ability && (props.ability.distance.length > 1) ?
 							<Segmented
-								options={props.ability.distance.map(d => d.type)}
+								options={props.ability.distance.map(d => ({
+									label: translate(d.type === AbilityDistanceType.Melee ? 'term.melee' : 'term.ranged', d.type),
+									value: d.type
+								}))}
 								value={distance}
 								onChange={setDistance}
 							/>
@@ -203,7 +208,7 @@ export const PowerRollPanel = (props: Props) => {
 						props.odds ?
 							<Button
 								type='text'
-								title='Odds'
+								title={ui.text('ui.hero-builder.odds.e0382a01', 'Odds')}
 								icon={<BarChartOutlined style={showOdds ? { color: 'var(--fs-accent)' } : undefined} />}
 								onClick={() => setShowOdds(!showOdds)}
 							/>

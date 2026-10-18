@@ -337,7 +337,7 @@ export const kitAbilityMetadataValue = (ability: { id: string, name?: string }, 
 	const partIndex = field === 'keywords' ? 0 : field === 'actionType' ? 1 : field === 'distance' ? 2 : 3;
 	const canonical = details.canonical.metadataParts[partIndex];
 	if (field === 'distance' && sameExceptNumbers(canonical.replace(/,\s*/g, ' or '), source.replace(/,\s*/g, ' or '))) {
-		return details.distance;
+		return projectNumbers(source, canonical, details.distance ?? '');
 	}
 	if (field === 'keywords' && index !== undefined) {
 		const sourceKeywords = canonical.split(', ');
