@@ -3626,6 +3626,7 @@ describe('standard kit signature ability localizations', () => {
 				const translated = kitAbilityTier(ability, index + 1, computed);
 				const htmlText = translated.replace(/</g, '&lt;');
 				expect(translated, `${ability.id} tier ${index + 1}`).toMatch(/\p{Script=Han}/u);
+				expect(translated.match(/\d+/g) ?? [], `${ability.id} tier ${index + 1} numeric values`).toEqual(computed.match(/\d+/g) ?? []);
 				expect(panel, `${ability.id} tier ${index + 1}`).toContain(htmlText);
 				expect(card, `${ability.id} tier ${index + 1}`).toContain(htmlText);
 				if (!/damage|dmg/i.test(computed)) {

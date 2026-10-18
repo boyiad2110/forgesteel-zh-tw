@@ -15,7 +15,7 @@
 - 靜態欄位逐欄比對網站資料與核准 Book Master 字串；網站射程／傷害基數不同時，只把網站原有數字投射到核准中文句型，不覆蓋遊戲資料。例如 Book Master 的弧術射手射程為 15，網站來源為 5，畫面顯示「遠程 5」。未知或結構不同的內容保留英文。
 - 自動計算後的 Power Roll 階級只投射上游結果中的傷害數字、強度門檻及推拉／遁移數字，再使用核准中文詞語與句型；結構對不上時保留完整計算後英文。Classic View 的數值擲骰標題也顯示「檢定 + 數值」。
 - Mountain／Sniper 會依英雄目前力量或敏捷，把上游自動計算結果顯示在中文句子中；切換中英文不改動英雄或能力資料。共用數值投射器現在依核准模板處理中英文與數字的空白，避免護甲值句子多出空白，也保留套裝額外傷害句所需的空格。
-- 既有程式版本 `da8d7ae2` 的 GitHub Localization CI #282（run `39057185386`）全數通過；本次新增完整詳細欄位後，2026-10-18 的 `node scripts/l10n/verify.mjs` 顯示 guard、lint（0 errors）、TypeScript 與正式建置通過。定向 UI 綁定測試 4/4、套裝招式詳細內容／自動計算測試 7/7 通過。完整 Vitest 在 Windows sandbox 遇 SSR 暫存模組 `ENOENT`，`npm audit` 因 registry DNS `ENOTFOUND` 無法連線；本機完整驗證未全數通過，需由 PR CI 再驗證。
+- 既有程式版本 `da8d7ae2` 的 GitHub Localization CI #282（run `39057185386`）全數通過；本次新增完整詳細欄位後，2026-10-18 的 `node scripts/l10n/verify.mjs` 顯示 guard、lint（0 errors）、TypeScript 與正式建置通過。定向 UI 綁定測試 4/4、套裝招式詳細內容／自動計算測試 7/7 通過，並逐項斷言翻譯前後的數字序列完全相同。完整 Vitest 執行 90 個測試通過，但 49 個測試檔在載入階段因 Windows sandbox SSR 暫存模組 `ENOENT` 失敗；`npm audit` 因 registry DNS `ENOTFOUND` 無法連線。本機完整驗證未全數通過，需由 PR CI 再驗證。
 - 不截圖、不錄影；尚未人工驗收，不合併、不部署。
 
 ## Marc 人工驗收清單
