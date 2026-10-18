@@ -3570,7 +3570,10 @@ describe('standard kit signature ability localizations', () => {
 		expect(effects).toBe(13);
 	});
 
-	test.each([ 'kit-mountain-signature', 'kit-sniper-signature' ])('%s keeps the upstream calculated value in both ability views', abilityId => {
+	test.each([
+		[ 'kit-mountain-signature', '此次打擊會額外造成' ],
+		[ 'kit-sniper-signature', '此打擊會額外造成' ]
+	])('%s keeps the upstream calculated value in both ability views', (abilityId, expectedPrefix) => {
 		const ability = kitAbilities.find(item => item.id === abilityId)!;
 		const key = `section:${ability.id}:1`;
 		const source = catalog[mapping[key].sheetId].fs!;
@@ -3581,16 +3584,16 @@ describe('standard kit signature ability localizations', () => {
 		const calculated = AbilityLogic.getTextEffect(source.en, hero);
 		const translated = resolveText('zh-TW', abilitySectionKey(ability.id, 1, calculated, source.en), calculated,
 			{ [key]: mapping[key].sheetId }, catalog);
-		expect(translated).toContain('額外造成 3 的傷害');
+		expect(translated).toContain(`${expectedPrefix} 3 點傷害`);
 		expect(translated).not.toContain('equal to');
 		const panel = renderPanel(ability, hero);
 		const card = renderCard(ability, hero);
-		expect(panel).toContain('額外造成 3 的傷害');
-		expect(card).toContain('額外造成 3 的傷害');
+		expect(panel).toContain(`${expectedPrefix} 3 點傷害`);
+		expect(card).toContain(`${expectedPrefix} 3 點傷害`);
 		expect(card).toContain('6 damage');
 		expect(JSON.stringify({ ability, hero })).toBe(before);
 		hero.class.characteristics = FactoryLogic.createCharacteristics(1, 4, 0, 0, 0);
-		expect(renderPanel(ability, hero)).toContain('額外造成 4 的傷害');
-		expect(renderCard(ability, hero)).toContain('額外造成 4 的傷害');
+		expect(renderPanel(ability, hero)).toContain(`${expectedPrefix} 4 點傷害`);
+		expect(renderCard(ability, hero)).toContain(`${expectedPrefix} 4 點傷害`);
 	});
 });

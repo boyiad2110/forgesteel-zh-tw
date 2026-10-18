@@ -6802,8 +6802,8 @@
     "fs": {
       "basisHash": "0bd7e741c534d007f3e2438186824d09d500d12ac99b15ebe20282fecddc2908",
       "calculationDisplay": {
-        "target": "等於你力量或敏捷（由你選擇）屬性值",
-        "template": "{value}"
+        "target": "額外造成等於你力量或敏捷（由你選擇）屬性值的傷害",
+        "template": "額外造成 {value} 點傷害"
       },
       "en": "If the target dealt damage to you since the end of your last turn, this strike deals additional damage equal to your Might or Agility score (your choice).",
       "zh": "若目標從你上回合結束後曾對你造成傷害，此次打擊會額外造成等於你力量或敏捷（由你選擇）屬性值的傷害。"
@@ -7156,8 +7156,8 @@
     "fs": {
       "basisHash": "29a02015a98022ba16e6e6e811ac79c9931e75bd55cc0086f42b54657efa9346",
       "calculationDisplay": {
-        "target": "等於你力量或敏捷屬性值（由你選擇）",
-        "template": "{value}"
+        "target": "額外造成等於你力量或敏捷屬性值（由你選擇）的傷害",
+        "template": "額外造成 {value} 點傷害"
       },
       "en": "If you don't take a move action this turn, this strike deals extra damage equal to your Might or Agility score (your choice).",
       "zh": "若你在本回合沒有進行移動動作，此打擊會額外造成等於你力量或敏捷屬性值（由你選擇）的傷害。"
