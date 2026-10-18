@@ -3516,6 +3516,7 @@ describe('standard kit signature ability localizations', () => {
 	const renderCard = (ability: Ability, hero?: ReturnType<typeof FactoryLogic.createHero>) => renderToStaticMarkup(createElement(AbilityCard, {
 		ability: ClassicSheetBuilder.buildAbilitySheet(ability, hero, undefined, FactoryLogic.createOptions())
 	}));
+	const visible = (html: string) => plainForLookup(html.replace(/<[^>]*>/g, '')).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 
 	beforeEach(async () => {
 		await loadCatalog();
@@ -3578,8 +3579,9 @@ describe('standard kit signature ability localizations', () => {
 			const lines = row.zh.split('\n').filter(line => line.trim());
 			const metadata = lines.find(line => line.includes('／'))!.split('／');
 			const rollHeader = lines.find(line => line.startsWith('檢定 + '))!;
-			const panel = plainForLookup(renderPanel(ability));
-			const card = plainForLookup(renderCard(ability));
+			const panel = visible(renderPanel(ability));
+			const card = visible(renderCard(ability));
+			const cardMarkup = renderCard(ability);
 			const detail = kitAbilityDetails(ability);
 			expect(detail, ability.id).toBeDefined();
 			metadata[0].split('、').forEach(keyword => {
@@ -3591,20 +3593,23 @@ describe('standard kit signature ability localizations', () => {
 			expect(panel, ability.id).toContain(kitAbilityMetadataValue(ability, 'distance', detail!.canonical.metadataParts[2]));
 			expect(card, ability.id).toContain(kitAbilityMetadataValue(ability, 'distance', detail!.canonical.metadataParts[2]));
 			expect(panel, ability.id).toContain('射程');
-			expect(card, ability.id).toContain('alt="射程"');
+			expect(cardMarkup, ability.id).toContain('alt="射程"');
 			expect(panel, ability.id).toContain(metadata[3]);
 			expect(card, ability.id).toContain(metadata[3]);
 			expect(panel, ability.id).toContain('目標');
-			expect(card, ability.id).toContain('alt="目標"');
+			expect(cardMarkup, ability.id).toContain('alt="目標"');
 			expect(panel, ability.id).toContain(rollHeader.replace(/：$/, ''));
 			expect(card, ability.id).toContain(rollHeader.replace(/：$/, ''));
 			for (const index of lines.filter(line => /^[①②③]/.test(line)).keys()) {
 				const source = detail!.canonical.tiers[index];
 				const shown = kitAbilityTier(ability, index + 1, source);
-				const htmlText = shown.replace(/</g, '&lt;');
+				const htmlText = plainForLookup(shown);
 				expect(shown, `${ability.id} static tier ${index + 1}`).toMatch(/\p{Script=Han}/u);
 				expect(panel, `${ability.id}: ${shown}`).toContain(htmlText);
 				expect(card, `${ability.id}: ${shown}`).toContain(htmlText);
+				if (/\b[MARIP]\s*<\s*\[?(?:weak|average|avg|strong)/i.test(source)) {
+					expect(renderCard(ability), `${ability.id} localized potency format`).toContain('class="potency localized-potency"');
+				}
 			}
 		}
 	});
@@ -3614,8 +3619,8 @@ describe('standard kit signature ability localizations', () => {
 		hero.class = FactoryLogic.createClass();
 		hero.class.characteristics = FactoryLogic.createCharacteristics(3, 2, 2, 1, 1);
 		for (const ability of kitAbilities) {
-			const panel = plainForLookup(renderPanel(ability, hero));
-			const card = plainForLookup(renderCard(ability, hero));
+			const panel = visible(renderPanel(ability, hero));
+			const card = visible(renderCard(ability, hero));
 			const roll = ability.sections.find(section => section.type === 'roll');
 			expect(roll?.type, ability.id).toBe('roll');
 			if (!roll || roll.type !== 'roll') {
@@ -3624,15 +3629,32 @@ describe('standard kit signature ability localizations', () => {
 			[ roll.roll.tier1, roll.roll.tier2, roll.roll.tier3 ].forEach((value, index) => {
 				const computed = AbilityLogic.getTierEffectCreature(value, index + 1, ability, undefined, hero);
 				const translated = kitAbilityTier(ability, index + 1, computed);
-				const htmlText = translated.replace(/</g, '&lt;');
+				const htmlText = plainForLookup(translated);
 				expect(translated, `${ability.id} tier ${index + 1}`).toMatch(/\p{Script=Han}/u);
 				expect(translated.match(/\d+/g) ?? [], `${ability.id} tier ${index + 1} numeric values`).toEqual(computed.match(/\d+/g) ?? []);
+				expect(translated.match(/`/g) ?? []).toHaveLength(computed.match(/`/g)?.length ?? 0);
+				expect(translated.match(/\*\*/g) ?? []).toHaveLength(computed.match(/\*\*/g)?.length ?? 0);
 				expect(panel, `${ability.id} tier ${index + 1}`).toContain(htmlText);
 				expect(card, `${ability.id} tier ${index + 1}`).toContain(htmlText);
 				if (!/damage|dmg/i.test(computed)) {
 					expect(translated, `${ability.id} tier ${index + 1}`).not.toMatch(/\b(?:slowed|restrained|prone|push|slide|vertical pull)\b/i);
 				}
 			});
+		}
+
+		const ranger = kitAbilities.find(ability => ability.id === 'kit-ranger-signature')!;
+		const rangerRoll = ranger.sections.find(section => section.type === 'roll');
+		expect(rangerRoll?.type).toBe('roll');
+		if (rangerRoll?.type === 'roll') {
+			const computed = AbilityLogic.getTierEffectCreature(rangerRoll.roll.tier1, 1, ranger, undefined, hero);
+			const panel = renderPanel(ranger, hero);
+			const formattedInput = '5 damage; `A < 2` **slowed** (save ends)';
+			expect(kitAbilityTier(ranger, 1, formattedInput)).toContain('`敏捷 < 2`');
+			expect(kitAbilityTier(ranger, 1, formattedInput)).toContain('**緩速**');
+			const actualPotency = /`A < (\d+)`/.exec(computed);
+			expect(actualPotency).not.toBeNull();
+			expect(panel).toContain(`<code>敏捷 &lt; ${actualPotency?.[1]}</code>`);
+			expect(panel).toContain('<strong>緩速</strong>');
 		}
 	});
 

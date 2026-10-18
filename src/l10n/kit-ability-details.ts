@@ -5,6 +5,7 @@ import { Catalog, SheetEntry, peekCatalog } from '@/l10n/catalog';
 import { mapping } from '@/l10n/mapping';
 import { standardKits } from '@/l10n/kit-text';
 import { FeatureType } from '@/enums/feature-type';
+import { ConditionType } from '@/enums/condition-type';
 import { getLanguage } from '@/l10n/language';
 
 export interface KitAbilityDetails {
@@ -209,6 +210,43 @@ const sourceDamageSuffix = (zh: string, characteristicText: string) => {
 	return /\p{Script=Han}+$/u.exec(zh)?.[0] ?? '';
 };
 
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const conditionPairs = (catalog: Catalog) => Object.entries(ConditionType)
+	.filter(([ key ]) => key !== 'Custom' && key !== 'Quick')
+	.flatMap(([ key, english ]) => {
+		const sheetId = mapping[`enum:ConditionType:${key}`]?.sheetId;
+		const translated = sheetId ? catalog[sheetId]?.zh : undefined;
+		return translated ? [ { english, translated } ] : [];
+	});
+
+const projectTierFormatting = (computed: string, translated: string, catalog: Catalog): string | undefined => {
+	let result = translated;
+	const codePotencies = [ ...computed.matchAll(/`([MARIP])\s*<\s*\d+`/gi) ];
+	for (let i = 0; i < codePotencies.length; i++) {
+		const potency = /\p{Script=Han}+\s*<\s*(?:\d+|\p{Script=Han}+)/u.exec(result);
+		if (!potency) {
+			return undefined;
+		}
+		result = result.replace(potency[0], `\`${potency[0]}\``);
+	}
+
+	const strongTokens = [ ...computed.matchAll(/\*\*(.+?)\*\*/g) ].map(match => plain(match[1]).toLocaleLowerCase('en-US'));
+	const conditions = conditionPairs(catalog);
+	for (const token of strongTokens) {
+		const condition = conditions.find(item => item.english.toLocaleLowerCase('en-US') === token);
+		if (!condition) {
+			return undefined;
+		}
+		const unformatted = new RegExp(`(?<!\\*)${escapeRegExp(condition.translated)}(?!\\*)`, 'u');
+		if (!unformatted.test(result)) {
+			return undefined;
+		}
+		result = result.replace(unformatted, `**${condition.translated}**`);
+	}
+	return result;
+};
+
 const translateTierSegment = (source: string, computed: string, zh: string, characteristicText: string): string | undefined => {
 	if (plain(source).toLowerCase() === plain(computed).toLowerCase()) {
 		return zh;
@@ -243,7 +281,15 @@ export const kitAbilityTier = (ability: { id: string, name?: string }, tier: num
 		return computed;
 	}
 	const result = sourceParts.map((part, index) => translateTierSegment(part, computedParts[index], translatedParts[index], details.localizedCharacteristicText));
-	return result.some(part => part === undefined) ? computed : result.join('；');
+	if (result.some(part => part === undefined)) {
+		return computed;
+	}
+	const catalog = peekCatalog();
+	if (!catalog) {
+		return computed;
+	}
+	const formatted = result.map((part, index) => projectTierFormatting(computedParts[index], part!, catalog));
+	return formatted.some(part => part === undefined) ? computed : formatted.join('；');
 };
 
 /** True only when the supplied source line is the canonical roll header. */

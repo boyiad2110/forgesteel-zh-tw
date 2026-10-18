@@ -13,5 +13,12 @@
         @include common.font-glyphs();
         display: inline-block;
         font-size: round(1.2rem, 1px);
+
+        &.localized-potency {
+            font-family: inherit;
+            border: 1px solid currentColor;
+            border-radius: 3px;
+            padding: 0 3px;
+        }
     }
 }
