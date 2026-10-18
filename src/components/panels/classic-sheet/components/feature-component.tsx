@@ -1,5 +1,5 @@
 import { Feature, FeatureAbility, FeatureAbilityDamage, FeatureAbilityDistance, FeatureAncestryChoice, FeatureBonus, FeatureCharacteristicBonus, FeatureChoice, FeatureClassAbility, FeatureCompanion, FeatureConditionImmunity, FeatureDamageModifier, FeatureDomain, FeatureDomainFeature, FeatureFollower, FeatureHeroicResource, FeatureHeroicResourceThreshold, FeatureItemChoice, FeatureKit, FeatureLanguageChoice, FeatureMalice, FeatureMaliceAbility, FeatureMultiple, FeaturePackage, FeaturePerk, FeaturePotencyResistance, FeatureSkillChoice, FeatureSurgeGain, FeatureText } from '@/models/feature';
-import { AbilityName, familiarPerLevelLine, familiarSummonLabel, perkGrantLabel } from '@/l10n/ability-text';
+import { AbilityName, abilityDescriptionKey as getAbilityDescriptionKey, familiarPerLevelLine, familiarSummonLabel, perkGrantLabel } from '@/l10n/ability-text';
 import { Ability } from '@/models/ability';
 import { AbilityComponent } from '@/components/panels/classic-sheet/components/ability-component';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -573,6 +573,12 @@ export const FeatureComponent = (props: Props) => {
 	const sourcebooks = useOptionalSourcebooks() || [];
 	const perkDescriptionKey = feature.id.startsWith('perk-') ? officialPerkDescriptionKey(feature, sourcebooks) : undefined;
 	const perkDescription = useL10nText(perkDescriptionKey, feature.description);
+	const kitAbilityDescriptionKey = feature.type === FeatureType.Ability
+		&& isStandardKitAbility(feature.data.ability)
+		&& feature.description === feature.data.ability.description
+		? getAbilityDescriptionKey(feature.data.ability)
+		: undefined;
+	const kitAbilityDescription = useL10nText(kitAbilityDescriptionKey, feature.description);
 	let content;
 	switch (feature.type) {
 		case FeatureType.LanguageChoice:
@@ -600,7 +606,7 @@ export const FeatureComponent = (props: Props) => {
 			content = PackageFeatureComponent(feature, hero);
 			break;
 		case FeatureType.Ability:
-			content = AbilityFeatureComponent(feature, ui, perkDescription);
+			content = AbilityFeatureComponent(feature, ui, kitAbilityDescriptionKey ? kitAbilityDescription : perkDescription);
 			break;
 		case FeatureType.ClassAbility:
 			content = ClassAbilityFeatureComponent(feature);

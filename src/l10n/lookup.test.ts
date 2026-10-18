@@ -3553,6 +3553,27 @@ describe('standard kit signature ability localizations', () => {
 		}
 	});
 
+	test('all standard kit effect descriptions render in Classic equipment and modifiers benefits', () => {
+		for (const kit of standardKits) {
+			for (const feature of kit.features) {
+				if (feature.type !== FeatureType.Ability) {
+					continue;
+				}
+				const ability = feature.data.ability;
+				const key = abilityDescriptionKey(ability);
+				expect(key, ability.id).toBe(`element:${ability.id}:description`);
+				const translated = resolveText('zh-TW', key!, feature.description, { [key!]: mapping[key!].sheetId }, catalog);
+				const rendered = visible(renderToStaticMarkup(withOptions(
+					FactoryLogic.createOptions(),
+					createElement(FeatureComponent, { feature })
+				)));
+
+				expect(rendered, ability.id).toContain(plainForLookup(translated));
+				expect(rendered, ability.id).not.toContain(feature.description);
+			}
+		}
+	});
+
 	test('all thirteen signature effects are localized at their text section, leaving the power roll untouched', () => {
 		let effects = 0;
 		for (const ability of kitAbilities) {
