@@ -52,6 +52,13 @@ const collectAncestryAbilities = (feature: Feature) => {
 
 const abilities = new Map([ ...AbilityData.standardAbilities, ...ancestryAbilities.values() ].map(ability => [ ability.id, ability ]));
 
+/** True only for an unchanged built-in ancestry ability. */
+export const isOfficialAncestryAbility = (ability: { id: string, name: string, actionType?: string }): boolean => {
+	const source = ancestryAbilities.get(ability.id);
+	return source?.name === ability.name
+		&& (ability.actionType === undefined || source.type.usage.toString() === ability.actionType);
+};
+
 /** Canonical signature abilities from the 21 standard kits; Stormwight is excluded. */
 const standardKitAbilities = new Map<string, Ability>();
 standardKits.forEach(kit => kit.features.forEach(feature => {
@@ -342,7 +349,8 @@ export const abilitySectionKey = (abilityId: string, index: number, shown: strin
 	if (!section || section.type !== 'text') {
 		return undefined;
 	}
-	return sectionKeyForSource(abilityId, index, shown, section.text, canonical, false);
+	const ancestryShown = ancestryAbilities.has(abilityId) ? shown.replace(/^\*\*Effect:\*\*\s*/, '') : shown;
+	return sectionKeyForSource(abilityId, index, ancestryShown, section.text, canonical, false);
 };
 
 /**

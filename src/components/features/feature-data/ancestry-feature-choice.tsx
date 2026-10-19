@@ -10,7 +10,9 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
+import { Markdown } from '@/components/controls/markdown/markdown';
 import { PlayerName } from '@/l10n/player-name';
+import { isOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
@@ -120,7 +122,7 @@ export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
 
 	if (sortedFeatures.length === 0) {
 		return (
-			<Empty text='There are no options to choose for this feature.' />
+			<Empty text={ui.text('ui.hero-builder.no-options.6662aa9c', 'There are no options to choose for this feature.')} />
 		);
 	}
 
@@ -134,7 +136,16 @@ export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
 				options={sortedFeatures.map(f => ({ label: f.name, value: f.id, desc: f.description || f.type, disabled: currentFeatureIDs.includes(f.id) }))}
 				optionRender={option => {
 					const feature = sortedFeatures.find(f => f.id === option.data.value);
-					return <Field disabled={option.data.disabled} label={feature ? <PlayerName element={feature} /> : option.data.label} value={option.data.desc} />;
+					const approvedAncestryFeature = feature && isOfficialAncestryFeatureSource(feature, props.sourcebooks || []);
+					return (
+						<Field
+							disabled={option.data.disabled}
+							label={feature ? <PlayerName element={feature} /> : option.data.label}
+							value={approvedAncestryFeature
+								? <Markdown text={option.data.desc} l10nKey={`element:${feature.id}:description`} />
+								: option.data.desc}
+						/>
+					);
 				}}
 				labelRender={option => {
 					const feature = sortedFeatures.find(f => f.id === option.value);

@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { isPlayerNameKey, playerNameKey } from '@/l10n/player-name';
 import { perkDescriptionRewritten } from '@/l10n/perk-list-ui';
 import { useOptionalSourcebooks } from '@/contexts/data-context';
+import { Sourcebook } from '@/models/sourcebook';
 
 export { L10nUnscoped } from '@/l10n/hooks';
 
@@ -47,8 +48,10 @@ export const elementScopeFields = (element: ElementText, overlay?: ElementOverla
  * HeaderText and Markdown look up matching fields; explicitly bound calculated
  * fields use the same key with projection validation.
  */
-export const ElementScope = (props: { element: ElementText, overlay?: ElementOverlay | null, children: ReactNode }) => {
-	const sourcebooks = useOptionalSourcebooks();
+
+export const ElementScope = (props: { element: ElementText, overlay?: ElementOverlay | null, sourcebooks?: Sourcebook[], children: ReactNode }) => {
+	const contextSourcebooks = useOptionalSourcebooks();
+	const sourcebooks = props.sourcebooks || contextSourcebooks;
 	const canonicalPlayerName = !isPlayerNameKey(props.element) || !sourcebooks || playerNameKey(props.element, sourcebooks) !== undefined;
 	const fields = elementScopeFields(props.element, props.overlay, canonicalPlayerName);
 	const guarded = perkDescriptionRewritten(props.element, sourcebooks || [])

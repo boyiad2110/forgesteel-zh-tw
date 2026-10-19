@@ -25,6 +25,8 @@ import { SourcebookType } from '@/enums/sourcebook-type';
 import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { perkListText } from '@/l10n/perk-list-ui';
 import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
+import { mapping } from '@/l10n/mapping';
 import { useUI } from '@/l10n/ui-text';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useL10nText } from '@/l10n/hooks';
@@ -162,6 +164,14 @@ export const FeaturePanel = (props: Props) => {
 	const reusedName = reusedOfficialPerkName(props.feature, props.sourcebooks || []);
 	const headerName = customization?.name || perkLabel || languageChoice.name || reusedName || (staminaKey ? staminaLabel : props.feature.name) || 'Unnamed Feature';
 	const description = customization?.description || languageChoice.description || props.feature.description;
+	const officialAncestryFeature = props.feature.type === FeatureType.Text
+		? getOfficialAncestryFeatureSource(props.feature as Feature, props.sourcebooks || [])
+		: undefined;
+	const approvedAncestryTextKey = ui.language === 'zh-TW'
+		&& officialAncestryFeature?.description === description
+		&& mapping[`element:${props.feature.id}:description`]
+		? `element:${props.feature.id}:description`
+		: undefined;
 
 	return (
 		<ElementScope element={props.feature} overlay={customization}>
@@ -199,6 +209,7 @@ export const FeaturePanel = (props: Props) => {
 					</HeaderText>
 					<Markdown
 						text={AbilityLogic.getTextEffect(description, autoCalc ? props.hero : undefined)}
+						l10nKey={approvedAncestryTextKey}
 					/>
 					{
 						props.mode === PanelMode.Full ?

@@ -405,6 +405,11 @@
   },
   "heroes.ancestries.dragon-knight.trait.draconian-guard.effect": {
     "en": "Whenever you or an adjacent creature takes damage from a strike, you can use a triggered action to guard against the blow. You reduce any damage from the strike by an amount equal to your level.",
+    "fs": {
+      "basisHash": "3f52c72ab37ee8921e24676ecb585208a7c1c04d4f0bcfe8e743c13219284e49",
+      "en": "You can swing your wings around and guard against a blow.",
+      "zh": "你可以揮動雙翼抵擋打擊。"
+    },
     "updated": "2026-10-01",
     "zh": "每當你自己或 1 個相鄰生物受到打擊造成的傷害時，你可以使用反應動作進行防護，讓該次打擊減少等於你等級的傷害。"
   },
@@ -515,6 +520,11 @@
   },
   "heroes.ancestries.dragon-knight.trait.remember-your-oath.effect": {
     "en": "As a maneuver, you can recite the following oath. Until the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",
+    "fs": {
+      "basisHash": "e9ae19d687b5362e461ee45a645a1f65b815e95ba74aa80ec7306c765b88f4c4",
+      "en": "As a maneuver, you can recite the following oath.\n\n> Even should the sun stop in the sky\n> Even should the night last a thousand years\n> I will stand forever\n> I shall not yield\n> Those who suffer and yearn for justice\n> I am your sword and shield\n> I will yield no ground\n> I will speak no lies\n> I will stand against all tyrants\n> Until the last villain dies.\n \nUntil the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",
+      "zh": "你可以使用機動動作誦讀以下誓言。\n\n> 縱使太陽停在天際，\n> 就算黑夜千年不息，\n> 我會永遠屹立，\n> 絕不退縮逃避。\n> 渴望正義的受苦之人啊，\n> 我就是你的劍與盾。\n> 寸步不讓，一字不虛，\n> 我會挺身對抗每個暴君，\n> 直到所有惡徒伏誅殞命。\n\n直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。"
+    },
     "updated": "2026-10-01",
     "zh": "你可以使用機動動作誦讀以下誓言。直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。"
   },
@@ -1824,6 +1834,11 @@
   },
   "heroes.ancestries.time-raider.trait.beyondsight.effect": {
     "en": "As a maneuver, you can adjust your vision to allow you to see through mundane obstructions that are 1 square thick or less. While your vision is adjusted this way, you can’t see the area within 1 square of you and you don’t have line of effect to any creature or object in that area. You can restore your usual vision as a maneuver.",
+    "fs": {
+      "basisHash": "e6f1de0b804a83aff9e6c544a28be3b357fcdf3b587ee085f5fc0872b51c489d",
+      "en": "You adjust your vision to allow you to see through mundane obstructions.",
+      "zh": "你調整視覺能力，讓你看穿尋常障礙物。"
+    },
     "updated": "2026-10-01",
     "zh": "你可以使用機動動作調整視覺能力，讓你看穿厚度不超過 1 格的尋常障礙物。在你啟動透視力的期間，你無法看到 1 格內的區域，而且對 1 格內的任何生物或物體都沒有效果線。你可以使用機動動作恢復成正常視覺。"
   },
@@ -1909,6 +1924,11 @@
   },
   "heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline": {
     "en": "You shoot forth a purple beam of psychic force that moves your target.",
+    "fs": {
+      "basisHash": "00b0594b1b350e9532d737a5e757d11e1a87b856cd0a1ed007ee9f3d4238c7b3",
+      "en": "You shoot forth a purple beam of psychic force that grips your target.",
+      "zh": "你射出一道能強制移動目標的紫色靈能光束。"
+    },
     "updated": "2026-10-01",
     "zh": "你射出一道能強制移動目標的紫色靈能光束。"
   },
@@ -2054,6 +2074,11 @@
   },
   "heroes.ancestries.wode-elf.trait.the-wode-defends.tagline": {
     "en": "Thorny vines erupt from every surface and attempt to bind your foe.",
+    "fs": {
+      "basisHash": "3324ca2a30fc160bc8f8f92461bac1908ca71dfecca79adce0f1cbeeea739649",
+      "en": "Thorny vines erupt into existence and attempt to bind your foe.",
+      "zh": "尖刺藤蔓從四周地表竄出，試圖纏繞你的敵人。"
+    },
     "updated": "2026-10-01",
     "zh": "尖刺藤蔓從四周地表竄出，試圖纏繞你的敵人。"
   },

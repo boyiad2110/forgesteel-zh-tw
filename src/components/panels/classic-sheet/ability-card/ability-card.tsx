@@ -1,9 +1,10 @@
-import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel, perkGrantTarget } from '@/l10n/ability-text';
+import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, isOfficialAncestryAbility, perkGrantDistance, perkGrantLabel, perkGrantTarget, perkGrantUi } from '@/l10n/ability-text';
 import { kitAbilityClassicRollHeader, kitAbilityMetadataValue, kitAbilityTier } from '@/l10n/kit-ability-details';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { Markdown } from '@/components/controls/markdown/markdown';
+import { mapping } from '@/l10n/mapping';
 import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useUI } from '@/l10n/ui-text';
 import { isStandardKitAbility, kitBonusSourceName, kitFieldLabel } from '@/l10n/kit-text';
@@ -47,7 +48,7 @@ export const AbilityCard = (props: Props) => {
 			<div className='stats'>
 				<div className='keywords-action-type'>
 					<div className='keywords'>{keywords}</div>
-					<div className='action-type'>{kitAbilityMetadataValue(ability, 'actionType', ability.actionType || '') ?? perkGrantLabel(ability.id, ability.actionType || '', ui)}</div>
+					<div className='action-type'>{kitAbilityMetadataValue(ability, 'actionType', ability.actionType || '') ?? (isOfficialAncestryAbility(ability) ? perkGrantUi(ui, ability.actionType || '') : perkGrantLabel(ability.id, ability.actionType || '', ui))}</div>
 				</div>
 				<div className='distance-target'>
 					<div className='distance'>
@@ -152,14 +153,16 @@ export const AbilityCard = (props: Props) => {
 		if (!listed && !split && isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
 			text = '**Effect:** ' + section;
 		}
+		const sectionKey = !listed && !kitKey ? abilitySectionKey(ability.id, key, text) : undefined;
+		const splitEffect = !!kitKey || (!!sectionKey && !!mapping[sectionKey] && text.startsWith('**Effect:** '));
 		return (
 			<div className='effect' key={key}>
-				{kitKey ? <Markdown text={`**${ui.text('ui.hero-builder.effect.2252d5cf', 'Effect')}:**`} className='ability-effect' /> : null}
+				{splitEffect ? <Markdown text={`**${ui.text('ui.hero-builder.effect.2252d5cf', 'Effect')}:**`} className='ability-effect' /> : null}
 				{split ? <Markdown text={`**${label}:**`} className='ability-effect' /> : null}
 				<Markdown
-					text={kitKey ? section : text}
+					text={splitEffect ? section : text}
 					className='ability-effect'
-					l10nKey={kitKey ?? (listed ? undefined : abilitySectionKey(ability.id, key, text))}
+					l10nKey={kitKey ?? sectionKey ?? (listed ? undefined : abilitySectionKey(ability.id, key, text))}
 				/>
 			</div>
 		);

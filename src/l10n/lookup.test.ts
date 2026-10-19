@@ -531,8 +531,6 @@ describe('ancestry third batch', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:devil-feature-2-3:description',
-			'element:high-elf-feature-2-0:description',
 			'element:devil-feature-2:name',
 			'element:high-elf-feature-2:name',
 			'element:polder-feature-3:name',
@@ -673,13 +671,6 @@ describe('ancestry fourth batch', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:human-feature-1:description',
-			'element:wode-elf-feature-2-5:description',
-			'element:time-raider-feature-2-1:description',
-			'element:time-raider-feature-2-2b:description',
-			'element:time-raider-feature-2-5-2:description',
-			'element:wode-elf-feature-1:description',
-			'element:time-raider-feature-2-2:description',
 			'element:human-feature-2:name',
 			'element:wode-elf-feature-2:name',
 			'element:time-raider-feature-2:name',
@@ -801,7 +792,6 @@ describe('ancestry fifth batch', () => {
 
 	test('the items left in English for this batch are not mapped', () => {
 		const unmapped = [
-			'element:dragon-knight-feature-2-1:description',
 			'element:revenant-feature-4:name',
 			'element:dragon-knight-feature-2:name',
 			'element:revenant-feature-4-2:condition'
@@ -3350,32 +3340,36 @@ describe('ancestry ability descriptions and text sections', () => {
 		}
 		expect(abilitySectionKey(shadow.id, 0, section.text)).toBe('section:polder-feature-1:0');
 		expect(abilitySectionKey(shadow.id, 0, section.text + ' extra')).toBeUndefined();
-		expect(abilitySectionKey(shadow.id, 0, '**Effect:** ' + section.text)).toBeUndefined();
+		expect(abilitySectionKey(shadow.id, 0, '**Effect:** ' + section.text)).toBe('section:polder-feature-1:0');
 		expect(abilitySectionKey('class-ability', 0, section.text)).toBeUndefined();
 		expect(abilitySectionKey(pride.id, 0, 'roll')).toBeUndefined();
 	});
 
-	test('classic card prefixes and layout estimates keep their existing behavior', () => {
+	test('classic ancestry effect prefixes translate without changing layout data', () => {
 		const shadow = byId('polder-feature-1');
 		const sheet = ClassicSheetBuilder.buildAbilitySheet(shadow, FactoryLogic.createHero(), undefined, FactoryLogic.createOptions());
 		const before = JSON.stringify(sheet);
 		const size = SheetFormatter.calculateAbilitySize(sheet, 50);
-		expect(plain(card(shadow))).toContain('You flatten yourself into a shadow');
+		expect(plain(card(shadow))).not.toContain('You flatten yourself into a shadow');
 		expect(plain(card(shadow))).toContain('你化為一道真正的影子。');
 		setLanguage('en');
 		expect(SheetFormatter.calculateAbilitySize(sheet, 50)).toEqual(size);
 		expect(JSON.stringify(sheet)).toBe(before);
 	});
 
-	test('single-version descriptions and the deferred rewritten ability text stay English', () => {
+	test('approved ancestry descriptions and static sections render Chinese', () => {
 		for (const id of [ 'devil-feature-2-3', 'high-elf-feature-2-0', 'dragon-knight-feature-2-1', 'wode-elf-feature-2-5', 'human-feature-1', 'time-raider-feature-2-1', 'time-raider-feature-2-5-2' ]) {
 			const ability = byId(id);
-			expect(plain(panel(ability))).toContain(ability.description);
-			expect(mapping[`element:${id}:description`]).toBeUndefined();
+			const key = `element:${id}:description`;
+			const chinese = translate(key, ability.description);
+			expect(mapping[key]).toBeDefined();
+			expect(chinese).not.toBe(ability.description);
+			expect(plain(panel(ability))).toContain(chinese.slice(0, 12));
 		}
 		for (const id of [ 'dragon-knight-feature-2-8', 'human-feature-2-3', 'human-feature-2-4', 'memonek-feature-3-5', 'polder-feature-3-4', 'time-raider-feature-2-1', 'time-raider-feature-2-2b' ]) {
-			expect(mapping[`section:${id}:0`]).toBeUndefined();
+			expect(mapping[`section:${id}:0`]).toBeDefined();
 		}
+		expect(mapping['section:dragon-knight-feature-2-1:0']).toBeUndefined();
 	});
 });
 
@@ -3448,7 +3442,7 @@ describe('ancestry ability names', () => {
 			throw new Error('remember your oath section 0 is text');
 		}
 		expect(abilitySectionKey(oath.id, 0, oath.sections[0].text)).toBe('section:dragon-knight-feature-2-8:0');
-		expect(mapping['section:dragon-knight-feature-2-8:0']).toBeUndefined();
+		expect(mapping['section:dragon-knight-feature-2-8:0']).toBeDefined();
 	});
 
 	test('chinese mode renames ancestry abilities and keeps unmapped text English', () => {
@@ -3461,10 +3455,10 @@ describe('ancestry ability names', () => {
 			return ability;
 		};
 		const shown = [
-			[ 'dragon-knight-feature-2-8', '銘記誓言', 'Remember your Oath', 'As a maneuver, you can recite the following oath.' ],
+			[ 'dragon-knight-feature-2-8', '銘記誓言', 'Remember your Oath', '你可以使用機動動作誦讀以下誓言。' ],
 			[ 'dragon-knight-feature-2-9', '龍人霸氣', 'Draconic Pride', '你發出震天怒吼，撼動敵人的心志。' ],
 			[ 'dragon-knight-feature-2-10', '龍息', 'Dragon Breath', '狂怒的能量噴湧而出，席捲你的敵人。' ],
-			[ 'dragon-knight-feature-2-1', '龍人守衛', 'Draconian Guard', 'You can swing your wings around and guard against a blow.' ],
+			[ 'dragon-knight-feature-2-1', '龍人守衛', 'Draconian Guard', '你可以揮動雙翼抵擋打擊。' ],
 			[ 'polder-feature-1', '融影術', 'Shadowmeld', '你化為一道真正的影子。' ]
 		] as const;
 
@@ -3485,7 +3479,7 @@ describe('ancestry ability names', () => {
 		expect(breath).toContain('Magic');
 		expect(breath).toContain('2 damage');
 		expect(breath).toContain('狂怒的能量噴湧而出');
-		expect(renderPanel(byId('dragon-knight-feature-2-8'))).not.toContain('你可以使用機動動作誦讀以下誓言');
+		expect(renderPanel(byId('dragon-knight-feature-2-8'))).toContain('你可以使用機動動作誦讀以下誓言');
 
 		setLanguage('en');
 		for (const [ id, zh, english ] of shown) {

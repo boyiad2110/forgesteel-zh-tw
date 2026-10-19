@@ -10,6 +10,7 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { Modal } from '@/components/modals/modal/modal';
 import { PanelMode } from '@/enums/panel-mode';
 import { PlayerName } from '@/l10n/player-name';
+import { isOfficialAncestryDescriptionSource } from '@/l10n/official-feature-source';
 import { SelectionBox } from '@/components/panels/feature-config-panel/feature-config-panel';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
@@ -51,6 +52,14 @@ export const ConfigAncestryChoice = (props: ConfigProps) => {
 
 	const ancestries = SourcebookLogic.getAncestries(props.sourcebooks);
 	const sortedAncestries = Collections.sort(ancestries, a => a.name);
+	const selectedSourceAncestry = props.data.selected;
+	const selectedAncestryDescription = selectedSourceAncestry ?
+		<Markdown
+			text={selectedSourceAncestry.description}
+			useSpan={true}
+			l10nKey={isOfficialAncestryDescriptionSource(selectedSourceAncestry, props.sourcebooks) ? `element:${selectedSourceAncestry.id}:description` : undefined}
+		/>
+		: undefined;
 
 	if (sortedAncestries.length === 0) {
 		return (
@@ -68,7 +77,15 @@ export const ConfigAncestryChoice = (props: ConfigProps) => {
 				options={sortedAncestries.map(a => ({ label: a.name, value: a.id, desc: a.description }))}
 				optionRender={option => {
 					const ancestry = sortedAncestries.find(a => a.id === option.data.value);
-					return <Field label={ancestry ? <PlayerName element={ancestry} /> : option.data.label} value={option.data.desc} />;
+					const approvedAncestry = ancestry && isOfficialAncestryDescriptionSource(ancestry, props.sourcebooks);
+					return (
+						<Field
+							label={ancestry ? <PlayerName element={ancestry} /> : option.data.label}
+							value={approvedAncestry
+								? <Markdown text={option.data.desc} l10nKey={`element:${ancestry.id}:description`} />
+								: option.data.desc}
+						/>
+					);
 				}}
 				labelRender={option => {
 					const ancestry = sortedAncestries.find(a => a.id === option.value);
@@ -87,8 +104,8 @@ export const ConfigAncestryChoice = (props: ConfigProps) => {
 						content={
 							<Field
 								style={{ flex: '1 1 0' }}
-								label={props.data.selected.name}
-								value={<Markdown text={props.data.selected.description} useSpan={true} />}
+								label={<PlayerName element={props.data.selected} />}
+								value={selectedAncestryDescription}
 							/>
 						}
 						onSelect={() => setSelectedAncestry(props.data.selected)}

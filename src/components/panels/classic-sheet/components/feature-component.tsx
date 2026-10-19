@@ -1,5 +1,5 @@
 import { Feature, FeatureAbility, FeatureAbilityDamage, FeatureAbilityDistance, FeatureAncestryChoice, FeatureBonus, FeatureCharacteristicBonus, FeatureChoice, FeatureClassAbility, FeatureCompanion, FeatureConditionImmunity, FeatureDamageModifier, FeatureDomain, FeatureDomainFeature, FeatureFollower, FeatureHeroicResource, FeatureHeroicResourceThreshold, FeatureItemChoice, FeatureKit, FeatureLanguageChoice, FeatureMalice, FeatureMaliceAbility, FeatureMultiple, FeaturePackage, FeaturePerk, FeaturePotencyResistance, FeatureSkillChoice, FeatureSurgeGain, FeatureText } from '@/models/feature';
-import { AbilityName, abilityDescriptionKey as getAbilityDescriptionKey, familiarPerLevelLine, familiarSummonLabel, perkGrantLabel } from '@/l10n/ability-text';
+import { AbilityName, abilityDescriptionKey as getAbilityDescriptionKey, familiarPerLevelLine, familiarSummonLabel, perkGrantLabel, perkGrantUi } from '@/l10n/ability-text';
 import { Ability } from '@/models/ability';
 import { AbilityComponent } from '@/components/panels/classic-sheet/components/ability-component';
 import { AbilityUsage } from '@/enums/ability-usage';
@@ -29,6 +29,8 @@ import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { officialPerkDescriptionKey } from '@/l10n/perk-list-ui';
 import { perkSkillCountLine } from '@/l10n/perk-list-ui';
 import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
+import { ElementScope, L10nText } from '@/l10n/element-scope';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
 import { isStandardKitAbility, kitFieldLabel } from '@/l10n/kit-text';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
@@ -56,6 +58,9 @@ const UnselectedLabel = () => {
 
 const OfficialPerkName = (props: { feature: { id: string, name: string } }) => {
 	const sourcebooks = useOptionalSourcebooks() || [];
+	if (getOfficialAncestryFeatureSource(props.feature as Feature, sourcebooks)) {
+		return <PlayerName element={props.feature} />;
+	}
 	const reused = reusedOfficialPerkName(props.feature, sourcebooks);
 	if (reused) {
 		return reused;
@@ -66,13 +71,13 @@ const OfficialPerkName = (props: { feature: { id: string, name: string } }) => {
 	return <>{props.feature.name}</>;
 };
 
-const BasicFeatureComponent = (feature: Feature, ui: ReturnType<typeof useUI>) => {
+const BasicFeatureComponent = (feature: Feature, ui: ReturnType<typeof useUI>, descriptionKey?: string) => {
 	const typeLabel = familiarSummonLabel(ui, feature) ?? feature.type;
 	return (
 		<>
 			<div className='feature-line'><strong>{`• ${typeLabel}: `}</strong><OfficialPerkName feature={feature} /></div>
 			{feature.description ?
-				<div className='feature-description'>{feature.description}</div>
+				<div className='feature-description'><Markdown text={feature.description} l10nKey={descriptionKey} /></div>
 				: undefined}
 		</>
 	);
@@ -113,7 +118,7 @@ const AncestryChoiceFeatureComponent = (feature: FeatureAncestryChoice) => {
 	return (
 		<>
 			<div className='feature-line'>
-				<strong>{`• ${feature.name}: `}</strong>{feature.data.selected ? <PlayerName element={feature.data.selected} /> : null}
+				<strong>• <OfficialPerkName feature={feature} />: </strong>{feature.data.selected ? <PlayerName element={feature.data.selected} /> : null}
 			</div>
 		</>
 	);
@@ -181,12 +186,12 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 	);
 };
 
-const BonusFeatureComponent = (props: { feature: FeatureBonus, hero?: Hero, sourcebooks?: Sourcebook[] }) => {
+const BonusFeatureComponent = (props: { feature: FeatureBonus, hero?: Hero, sourcebooks?: Sourcebook[], nameKey?: string }) => {
 	const ui = useUI();
 	const value = props.hero ? ModifierLogic.calculateModifierValue(props.feature.data, props.hero) : props.feature.data.value;
 	const staminaKey = familiarStaminaKey(props.feature);
 	const label = useL10nText(staminaKey ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
-	const title = useL10nText(staminaKey, props.feature.name);
+	const title = useL10nText(staminaKey ?? props.nameKey, props.feature.name);
 	const perLevel = props.feature.id === 'familiar-1' ? familiarPerLevelLine(ui, props.feature.data) : undefined;
 	return (
 		<>
@@ -218,7 +223,7 @@ const TextFeatureComponent = (feature: FeatureText | FeatureMultiple, descriptio
 	);
 };
 
-const PackageFeatureComponent = (feature: FeaturePackage, hero: Hero | undefined) => {
+const PackageFeatureComponent = (feature: FeaturePackage, hero: Hero | undefined, name?: string) => {
 	const packageContent = hero ?
 		HeroLogic.getFeatures(hero)
 			.map(f => f.feature)
@@ -235,7 +240,7 @@ const PackageFeatureComponent = (feature: FeaturePackage, hero: Hero | undefined
 	const showPackageContent = !feature.description.includes('class="continued-in-reference"');
 	return (
 		<>
-			<div className='feature-title'>{feature.name}</div>
+			<div className='feature-title'>{name ?? <OfficialPerkName feature={feature} />}</div>
 			<Markdown
 				text={feature.description}
 				className='feature-description'
@@ -245,7 +250,7 @@ const PackageFeatureComponent = (feature: FeaturePackage, hero: Hero | undefined
 	);
 };
 
-const AbilityFeatureComponent = (feature: FeatureAbility, ui: ReturnType<typeof useUI>, description: string) => {
+const AbilityFeatureComponent = (feature: FeatureAbility, ui: ReturnType<typeof useUI>, description: string, officialAncestry = false) => {
 	const abilityIcon = SheetFormatter.getAbilityIcon(feature.data.ability);
 
 	const getAbilityType = (ability: Ability) => {
@@ -271,7 +276,7 @@ const AbilityFeatureComponent = (feature: FeatureAbility, ui: ReturnType<typeof 
 			<div className='feature-title'>
 				<img src={abilityIcon} alt='Ability' />
 				<span className='ability-name'><AbilityName ability={feature.data.ability} /></span>
-				<span className={typeClasses.join(' ')}>{isStandardKitAbility(feature.data.ability) ? kitFieldLabel(ui, type) : perkGrantLabel(feature.data.ability.id, type, ui)}</span>
+				<span className={typeClasses.join(' ')}>{isStandardKitAbility(feature.data.ability) ? kitFieldLabel(ui, type) : officialAncestry ? perkGrantUi(ui, type) : perkGrantLabel(feature.data.ability.id, type, ui)}</span>
 			</div>
 			<div className='feature-description'><em>{description.replace(/^\s+/, '')}</em></div>
 		</>
@@ -331,7 +336,7 @@ const PrismaticScalesDamageValue = (props: { feature: FeatureDamageModifier, dam
 	return <>{damageType} {props.value}</>;
 };
 
-const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero) => {
+const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero, name?: string) => {
 	const isPrismaticScales = isPrismaticScalesOption(feature.id);
 	const modifiersMap = feature.data.modifiers.reduce((map, m) => {
 		const modifiers = map.get(m.type) || [];
@@ -362,7 +367,7 @@ const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero) =>
 
 	return (
 		<>
-			<div className='feature-title'>{isPrismaticScales ? <PrismaticScalesName feature={feature} /> : feature.name}</div>
+			<div className='feature-title'>{isPrismaticScales ? <PrismaticScalesName feature={feature} /> : name ?? <OfficialPerkName feature={feature} />}</div>
 			{modifiers}
 		</>
 	);
@@ -393,7 +398,7 @@ const ConditionImmunityFeatureComponent = (feature: FeatureConditionImmunity) =>
 	});
 	return (
 		<>
-			<div className='feature-line'><strong>• {feature.name}</strong>: Immune to </div>
+			<div className='feature-line'><strong>• <OfficialPerkName feature={feature} /></strong>: Immune to </div>
 			{immunities}
 		</>
 	);
@@ -402,7 +407,7 @@ const ConditionImmunityFeatureComponent = (feature: FeatureConditionImmunity) =>
 const HeroicResourceComponent = (feature: FeatureHeroicResource) => {
 	return (
 		<>
-			<div className='feature-line'><strong>{`• ${feature.type}: `}</strong>{feature.name}</div>
+			<div className='feature-line'><strong>{`• ${feature.type}: `}</strong><OfficialPerkName feature={feature} /></div>
 			{feature.data.details ?
 				<div className='feature-description'>{feature.data.details}</div>
 				: undefined}
@@ -426,7 +431,7 @@ const HeroicResourceThresholdComponent = (feature: FeatureHeroicResourceThreshol
 const SurgeGainFeatureComponent = (feature: FeatureSurgeGain) => {
 	return (
 		<>
-			<div className='feature-title'>{feature.name}</div>
+			<div className='feature-title'><OfficialPerkName feature={feature} /></div>
 			<div className='feature-description'>{SheetFormatter.getSurgeGainSummary(feature.data)}</div>
 			{feature.data.condition ?
 				<div className='feature-description'>{feature.data.condition}</div>
@@ -441,9 +446,9 @@ const SurgeGainFeatureComponent = (feature: FeatureSurgeGain) => {
 const PotencyResistanceFeatureComponent = (feature: FeaturePotencyResistance) => {
 	return (
 		<>
-			<div className='feature-line'><strong>{`• ${feature.name}: `}</strong>{SheetFormatter.getPotencyResistanceSummary(feature.data)}</div>
+			<div className='feature-line'><strong>• <OfficialPerkName feature={feature} />: </strong>{SheetFormatter.getPotencyResistanceSummary(feature.data)}</div>
 			{feature.description ?
-				<div className='feature-description'>{feature.description}</div>
+				<div className='feature-description'><L10nText text={feature.description} /></div>
 				: undefined}
 		</>
 	);
@@ -570,8 +575,15 @@ export const FeatureComponent = (props: Props) => {
 	const feature = props.feature;
 	const hero = props.hero;
 	const ui = useUI();
-	const sourcebooks = useOptionalSourcebooks() || [];
+	const contextSourcebooks = useOptionalSourcebooks();
+	const sourcebooks = props.sourcebooks || contextSourcebooks || [];
 	const perkDescriptionKey = feature.id.startsWith('perk-') ? officialPerkDescriptionKey(feature, sourcebooks) : undefined;
+	const ancestryFeatureSource = getOfficialAncestryFeatureSource(feature, sourcebooks);
+	const ancestryFeature = ancestryFeatureSource !== undefined;
+	const ancestryNameKey = ancestryFeature ? `element:${feature.id}:name` : undefined;
+	const ancestryDescriptionKey = ancestryFeature ? `element:${feature.id}:description` : undefined;
+	const ancestryName = useL10nText(ancestryNameKey, feature.name);
+	const ancestryDescription = useL10nText(ancestryDescriptionKey, feature.description);
 	const perkDescription = useL10nText(perkDescriptionKey, feature.description);
 	const kitAbilityDescriptionKey = feature.type === FeatureType.Ability
 		&& isStandardKitAbility(feature.data.ability)
@@ -594,19 +606,19 @@ export const FeatureComponent = (props: Props) => {
 			content = SkillChoiceFeatureComponent(feature, ui, perkDescriptionKey);
 			break;
 		case FeatureType.Bonus:
-			content = <BonusFeatureComponent feature={feature} hero={hero} sourcebooks={props.sourcebooks} />;
+			content = <BonusFeatureComponent feature={feature} hero={hero} sourcebooks={props.sourcebooks} nameKey={ancestryNameKey} />;
 			break;
 		case FeatureType.CharacteristicBonus:
 			content = CharacteristicBonusFeatureComponent(feature);
 			break;
 		case FeatureType.Text:
-			content = TextFeatureComponent(feature, perkDescriptionKey);
+			content = TextFeatureComponent(feature, ancestryDescriptionKey ?? perkDescriptionKey);
 			break;
 		case FeatureType.Package:
-			content = PackageFeatureComponent(feature, hero);
+			content = PackageFeatureComponent(feature, hero, ancestryFeature ? ancestryName : undefined);
 			break;
 		case FeatureType.Ability:
-			content = AbilityFeatureComponent(feature, ui, kitAbilityDescriptionKey ? kitAbilityDescription : perkDescription);
+			content = AbilityFeatureComponent(feature, ui, ancestryFeature ? ancestryDescription : kitAbilityDescriptionKey ? kitAbilityDescription : perkDescription, ancestryFeature);
 			break;
 		case FeatureType.ClassAbility:
 			content = ClassAbilityFeatureComponent(feature);
@@ -616,7 +628,7 @@ export const FeatureComponent = (props: Props) => {
 			content = AbilityModifierComponent(feature, hero);
 			break;
 		case FeatureType.DamageModifier:
-			content = DamageModifierComponent(feature, hero);
+			content = DamageModifierComponent(feature, hero, ancestryFeature ? ancestryName : undefined);
 			break;
 		case FeatureType.Domain:
 		case FeatureType.DomainFeature:
@@ -653,17 +665,25 @@ export const FeatureComponent = (props: Props) => {
 			content = MaliceAbilityFeatureComponent(feature);
 			break;
 		case FeatureType.Multiple:
-			content = feature.description ? TextFeatureComponent(feature, perkDescriptionKey) : undefined;
+			content = feature.description ? TextFeatureComponent(feature, ancestryDescriptionKey ?? perkDescriptionKey) : undefined;
 			break;
 		case FeatureType.PackageContent: // These are brought in as part of the Package
 			break;
 		default:
-			content = BasicFeatureComponent(feature, ui);
+			content = BasicFeatureComponent(feature, ui, ancestryDescriptionKey);
 			break;
 	}
 	return (
 		<div className={classes} key={feature.id}>
-			{content}
+			{ancestryFeature ?
+				<ElementScope
+					element={feature}
+					overlay={feature.description === ancestryFeatureSource.description ? undefined : { description: feature.description }}
+					sourcebooks={sourcebooks}
+				>
+					{content}
+				</ElementScope>
+				: content}
 		</div>
 	);
 };

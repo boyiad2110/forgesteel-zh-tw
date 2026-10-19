@@ -223,6 +223,22 @@
       }
     ]
   },
+  "fs-adapt:heroes.ancestries.devil.trait.glowing-eyes.effect.2": {
+    "bookStringId": "heroes.ancestries.devil.trait.glowing-eyes.effect",
+    "usageKey": "element:devil-feature-2-3:description",
+    "en": "Your eyes are a solid, vibrant color that flares to show your excitement or rage.",
+    "zh": "你的雙眼呈現單一的鮮艷顏色，當你感到興奮或憤怒時會閃爍發光。",
+    "basisHash": "a43b87697d70cf84f72255ca1e91805dbbbbaae6c3486b604ec7cd0cd7351f1f",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.devil.trait.glowing-eyes.effect",
+        "enHash": "25b29fab4ae0847f655295ee042ac4dc18f7d39d0ca6defffebe620677d0d4b5",
+        "zhHash": "a43b87697d70cf84f72255ca1e91805dbbbbaae6c3486b604ec7cd0cd7351f1f"
+      }
+    ]
+  },
   "fs-adapt:heroes.ancestries.devil.trait.impressive-horns.effect": {
     "bookStringId": "heroes.ancestries.devil.trait.impressive-horns.effect",
     "usageKey": "element:devil-feature-2-5:description",
@@ -252,6 +268,38 @@
         "sourceId": "heroes.ancestries.dragon-knight.signature.wyrmplate.effect",
         "enHash": "46e17c572bd924387c721ce77f06451eb3ed4cce3a8cb8fca923bc0af183cb27",
         "zhHash": "9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.draconian-guard.effect": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.draconian-guard.effect",
+    "usageKey": "element:dragon-knight-feature-2-1:description",
+    "en": "You can swing your wings around and guard against a blow.",
+    "zh": "你可以揮動雙翼抵擋打擊。",
+    "basisHash": "3f52c72ab37ee8921e24676ecb585208a7c1c04d4f0bcfe8e743c13219284e49",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.draconian-guard.effect",
+        "enHash": "721bd0d4dfe36293bcf13af7e24056a82fb7cd5232892861eb417bd894be207c",
+        "zhHash": "3f52c72ab37ee8921e24676ecb585208a7c1c04d4f0bcfe8e743c13219284e49"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.draconian-guard.effect.2": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.draconian-guard.effect",
+    "usageKey": "section:dragon-knight-feature-2-1:0",
+    "en": "You reduce the damage from the strike by an amount equal to your level.",
+    "zh": "讓該次打擊減少等於你等級的傷害。",
+    "basisHash": "3f52c72ab37ee8921e24676ecb585208a7c1c04d4f0bcfe8e743c13219284e49",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.draconian-guard.effect",
+        "enHash": "721bd0d4dfe36293bcf13af7e24056a82fb7cd5232892861eb417bd894be207c",
+        "zhHash": "3f52c72ab37ee8921e24676ecb585208a7c1c04d4f0bcfe8e743c13219284e49"
       }
     ]
   },
@@ -364,6 +412,28 @@
         "sourceId": "heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name",
         "enHash": "9bcb689780c09b87b1593296e96a346b569ad4c08946218e3cd9c8740b0d75c7",
         "zhHash": "e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.dragon-knight.trait.remember-your-oath.effect": {
+    "bookStringId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.effect",
+    "usageKey": "section:dragon-knight-feature-2-8:0",
+    "en": "As a maneuver, you can recite the following oath.\n\n> Even should the sun stop in the sky\n> Even should the night last a thousand years\n> I will stand forever\n> I shall not yield\n> Those who suffer and yearn for justice\n> I am your sword and shield\n> I will yield no ground\n> I will speak no lies\n> I will stand against all tyrants\n> Until the last villain dies.\n \nUntil the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",
+    "zh": "你可以使用機動動作誦讀以下誓言。\n\n> 縱使太陽停在天際，\n> 就算黑夜千年不息，\n> 我會永遠屹立，\n> 絕不退縮逃避。\n> 渴望正義的受苦之人啊，\n> 我就是你的劍與盾。\n> 寸步不讓，一字不虛，\n> 我會挺身對抗每個暴君，\n> 直到所有惡徒伏誅殞命。\n\n直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。",
+    "basisHash": "e9ae19d687b5362e461ee45a645a1f65b815e95ba74aa80ec7306c765b88f4c4",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.effect",
+        "enHash": "51838aaa5e7cb8f17b267ea45589dcf7598a04138bb0059f11b94abfd827f53c",
+        "zhHash": "e9ae19d687b5362e461ee45a645a1f65b815e95ba74aa80ec7306c765b88f4c4"
+      },
+      {
+        "order": 2,
+        "sourceId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.oath",
+        "enHash": "fc889244b521b3d7694e0816e1541ace0671e3d3f846a06cb8cdc6305308595f",
+        "zhHash": "e09e1e25e70605c7e5f3fbc3654aabfd69d6fe21bb827f915dc7379a829c0802"
       }
     ]
   },
@@ -647,6 +717,22 @@
       }
     ]
   },
+  "fs-adapt:heroes.ancestries.high-elf.trait.glamor-of-terror.effect.2": {
+    "bookStringId": "heroes.ancestries.high-elf.trait.glamor-of-terror.effect",
+    "usageKey": "element:high-elf-feature-2-0:description",
+    "en": "When a foe strikes, you reverse the magic of your glamor to instill fear into their heart.",
+    "zh": "當敵人攻擊你時，你可以反轉魅術的魔力，將恐懼注入對方心中。",
+    "basisHash": "6c82d0638cbfbd2e934ec9d7902e8b3f185dd696ef5b87fed4431114723aa190",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.high-elf.trait.glamor-of-terror.effect",
+        "enHash": "fc60eddb0ae8f7f1683227ca4970a7e5ec69fd3234d6b54b3ba592876d82a565",
+        "zhHash": "6c82d0638cbfbd2e934ec9d7902e8b3f185dd696ef5b87fed4431114723aa190"
+      }
+    ]
+  },
   "fs-adapt:heroes.ancestries.high-elf.trait.unstoppable-mind.effect": {
     "bookStringId": "heroes.ancestries.high-elf.trait.unstoppable-mind.effect",
     "usageKey": "element:high-elf-feature-2-5:description",
@@ -679,6 +765,22 @@
       }
     ]
   },
+  "fs-adapt:heroes.ancestries.human.signature.detect-supernatural.effect.2": {
+    "bookStringId": "heroes.ancestries.human.signature.detect-supernatural.effect",
+    "usageKey": "element:human-feature-1:description",
+    "en": "You open your awareness to detect supernatural creatures and phenomena.",
+    "zh": "你啟動感知能力來偵測超常生物和現象。",
+    "basisHash": "142053d97fe838e4abcee39895faff3dc5134a01f3bef10141dc8b60a87c696d",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.signature.detect-supernatural.effect",
+        "enHash": "9e19d917878d3e0eff066e1ee19a902d4ec2cbed6455a925ae93e383fd45b16f",
+        "zhHash": "142053d97fe838e4abcee39895faff3dc5134a01f3bef10141dc8b60a87c696d"
+      }
+    ]
+  },
   "fs-adapt:heroes.ancestries.human.trait.determination.effect": {
     "bookStringId": "heroes.ancestries.human.trait.determination.effect",
     "usageKey": "element:human-feature-2-4:description",
@@ -686,6 +788,22 @@
     "zh": "你可以忍受痛苦和壓力，在困境中堅持前行。",
     "basisHash": "ea710b813a080399d4ec707fbfa83fa3f787442e3d835f43dfe913cee01a868a",
     "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.trait.determination.effect",
+        "enHash": "02cefcd1e8f00dcf437d72f3d515623965f152a014ea14597b9a424e4fb43920",
+        "zhHash": "ea710b813a080399d4ec707fbfa83fa3f787442e3d835f43dfe913cee01a868a"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.human.trait.determination.effect.2": {
+    "bookStringId": "heroes.ancestries.human.trait.determination.effect",
+    "usageKey": "section:human-feature-2-4:0",
+    "en": "You immediately end one of the frightened, slowed, or weakened conditions on yourself.",
+    "zh": "若你處於畏縮、緩速或虛弱狀態，你可以立刻解除其中 1 種狀態。",
+    "basisHash": "ea710b813a080399d4ec707fbfa83fa3f787442e3d835f43dfe913cee01a868a",
+    "updated": "2026-10-19",
     "sources": [
       {
         "order": 1,
@@ -743,6 +861,22 @@
       }
     ]
   },
+  "fs-adapt:heroes.ancestries.human.trait.resist-the-unnatural.effect.2": {
+    "bookStringId": "heroes.ancestries.human.trait.resist-the-unnatural.effect",
+    "usageKey": "section:human-feature-2-3:0",
+    "en": "You halve the damage.",
+    "zh": "你將該傷害減半。",
+    "basisHash": "e7533774183898b3a5ca7c0a7eb1bb04a9a9ee70cadcf71b4118ab9018fd8530",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.human.trait.resist-the-unnatural.effect",
+        "enHash": "18ca624c1fd36e0106c480cfbc8e5a8540bda6eeb6034855a9c82fe7aa336ce9",
+        "zhHash": "e7533774183898b3a5ca7c0a7eb1bb04a9a9ee70cadcf71b4118ab9018fd8530"
+      }
+    ]
+  },
   "fs-adapt:heroes.ancestries.human.trait.staying-power.effect": {
     "bookStringId": "heroes.ancestries.human.trait.staying-power.effect",
     "usageKey": "element:human-feature-2-5:description",
@@ -766,6 +900,22 @@
     "zh": "你與「至律位面」公理界的連結能讓你控制周圍的混亂。",
     "basisHash": "fb8b1389aab8b9fe447be20a68ebd871a551a76238cbf81ffe977129d1ecff5b",
     "updated": "2026-10-07",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.memonek.trait.keeper-of-order.effect",
+        "enHash": "9e9dd0a5ec7b146ef89df7b3553976f0cec18596f616f95e87cbcb1a416439ed",
+        "zhHash": "fb8b1389aab8b9fe447be20a68ebd871a551a76238cbf81ffe977129d1ecff5b"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.memonek.trait.keeper-of-order.effect.2": {
+    "bookStringId": "heroes.ancestries.memonek.trait.keeper-of-order.effect",
+    "usageKey": "section:memonek-feature-3-5:0",
+    "en": "You can remove an edge or a bane on the roll, turn a double edge into an edge, or turn a double bane into a bane. You can only use this benefit once per round.",
+    "zh": "每輪 1 次，你可以移除該次檢定的 1 個優勢或劣勢、將雙優勢轉為單優勢，或將雙劣勢轉為單劣勢。",
+    "basisHash": "fb8b1389aab8b9fe447be20a68ebd871a551a76238cbf81ffe977129d1ecff5b",
+    "updated": "2026-10-19",
     "sources": [
       {
         "order": 1,
@@ -951,6 +1101,22 @@
       }
     ]
   },
+  "fs-adapt:heroes.ancestries.polder.trait.reactive-tumble.effect.2": {
+    "bookStringId": "heroes.ancestries.polder.trait.reactive-tumble.effect",
+    "usageKey": "section:polder-feature-3-4:0",
+    "en": "You shift 1 square after the forced movement is resolved.",
+    "zh": "在該次強制移動結算後，你可以遁移 1 格。",
+    "basisHash": "f406282ec426dacf12bec6305ebb7a5b8f7b3737c2f67184226522db44608acb",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.polder.trait.reactive-tumble.effect",
+        "enHash": "f4fff5a8edb36818468eef2bb3c1e6865a2b2bbe6b79280de1449f69507ff4f8",
+        "zhHash": "f406282ec426dacf12bec6305ebb7a5b8f7b3737c2f67184226522db44608acb"
+      }
+    ]
+  },
   "fs-adapt:heroes.ancestries.revenant.description.1": {
     "bookStringId": "heroes.ancestries.revenant.description.1",
     "usageKey": "element:ancestry-revenant:description",
@@ -1027,6 +1193,38 @@
       }
     ]
   },
+  "fs-adapt:heroes.ancestries.time-raider.trait.beyondsight.effect": {
+    "bookStringId": "heroes.ancestries.time-raider.trait.beyondsight.effect",
+    "usageKey": "element:time-raider-feature-2-1:description",
+    "en": "You adjust your vision to allow you to see through mundane obstructions.",
+    "zh": "你調整視覺能力，讓你看穿尋常障礙物。",
+    "basisHash": "e6f1de0b804a83aff9e6c544a28be3b357fcdf3b587ee085f5fc0872b51c489d",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.time-raider.trait.beyondsight.effect",
+        "enHash": "030e9a769744d9e0cf276202318edf648ba27c5a709a11b8fc97863b0d8ae21d",
+        "zhHash": "e6f1de0b804a83aff9e6c544a28be3b357fcdf3b587ee085f5fc0872b51c489d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.time-raider.trait.beyondsight.effect.2": {
+    "bookStringId": "heroes.ancestries.time-raider.trait.beyondsight.effect",
+    "usageKey": "section:time-raider-feature-2-1:0",
+    "en": "You can see through mundane obstructions that are 1 square thick or less. While your vision is adjusted this way, you can’t see the area within 1 square of you and you don’t have line of effect to any creature or object in that area. You can restore your usual vision as a maneuver.",
+    "zh": "你看穿厚度不超過 1 格的尋常障礙物。在你啟動透視力的期間，你無法看到 1 格內的區域，而且對 1 格內的任何生物或物體都沒有效果線。你可以使用機動動作恢復成正常視覺。",
+    "basisHash": "e6f1de0b804a83aff9e6c544a28be3b357fcdf3b587ee085f5fc0872b51c489d",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.time-raider.trait.beyondsight.effect",
+        "enHash": "030e9a769744d9e0cf276202318edf648ba27c5a709a11b8fc97863b0d8ae21d",
+        "zhHash": "e6f1de0b804a83aff9e6c544a28be3b357fcdf3b587ee085f5fc0872b51c489d"
+      }
+    ]
+  },
   "fs-adapt:heroes.ancestries.time-raider.trait.foresight.effect": {
     "bookStringId": "heroes.ancestries.time-raider.trait.foresight.effect",
     "usageKey": "element:time-raider-feature-2-2a:description",
@@ -1040,6 +1238,54 @@
         "sourceId": "heroes.ancestries.time-raider.trait.foresight.effect",
         "enHash": "d8815db31ce90fdf0cccda35f94048b593e245e98f89088af97e960c7cb558aa",
         "zhHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.time-raider.trait.foresight.effect.2": {
+    "bookStringId": "heroes.ancestries.time-raider.trait.foresight.effect",
+    "usageKey": "element:time-raider-feature-2-2:description",
+    "en": "Your senses extend past mundane obscuration and the veil of the future alike.",
+    "zh": "你的感官能夠穿越世俗的阻礙與未來的帷幕。",
+    "basisHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.time-raider.trait.foresight.effect",
+        "enHash": "d8815db31ce90fdf0cccda35f94048b593e245e98f89088af97e960c7cb558aa",
+        "zhHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.time-raider.trait.foresight.effect.3": {
+    "bookStringId": "heroes.ancestries.time-raider.trait.foresight.effect",
+    "usageKey": "section:time-raider-feature-2-2b:0",
+    "en": "You impose a bane on the power roll.",
+    "zh": "你讓該次檢定承受 1 個劣勢。",
+    "basisHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.time-raider.trait.foresight.effect",
+        "enHash": "d8815db31ce90fdf0cccda35f94048b593e245e98f89088af97e960c7cb558aa",
+        "zhHash": "5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline": {
+    "bookStringId": "heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline",
+    "usageKey": "element:time-raider-feature-2-5-2:description",
+    "en": "You shoot forth a purple beam of psychic force that grips your target.",
+    "zh": "你射出一道能強制移動目標的紫色靈能光束。",
+    "basisHash": "00b0594b1b350e9532d737a5e757d11e1a87b856cd0a1ed007ee9f3d4238c7b3",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline",
+        "enHash": "9392910e43c1c1c8b7d88db7e4da4e24514bc8c02ff80faab2672ceccb0f9d87",
+        "zhHash": "00b0594b1b350e9532d737a5e757d11e1a87b856cd0a1ed007ee9f3d4238c7b3"
       }
     ]
   },
@@ -1088,6 +1334,38 @@
         "sourceId": "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect",
         "enHash": "366852c55557d4ce3c18589a6e7345916cecbd1a40242a7a6c3f0bcc48fc1114",
         "zhHash": "7dba891410cabaa1d4d1b7c38a29e0b00ceac304ba03fdb5bdfa1de89ada489d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect.2": {
+    "bookStringId": "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect",
+    "usageKey": "element:wode-elf-feature-1:description",
+    "en": "You can magically alter your appearance to better blend in with your surroundings.",
+    "zh": "你可以運用魔法改變外表，讓自己更容易融入周遭環境。",
+    "basisHash": "7dba891410cabaa1d4d1b7c38a29e0b00ceac304ba03fdb5bdfa1de89ada489d",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect",
+        "enHash": "366852c55557d4ce3c18589a6e7345916cecbd1a40242a7a6c3f0bcc48fc1114",
+        "zhHash": "7dba891410cabaa1d4d1b7c38a29e0b00ceac304ba03fdb5bdfa1de89ada489d"
+      }
+    ]
+  },
+  "fs-adapt:heroes.ancestries.wode-elf.trait.the-wode-defends.tagline": {
+    "bookStringId": "heroes.ancestries.wode-elf.trait.the-wode-defends.tagline",
+    "usageKey": "element:wode-elf-feature-2-5:description",
+    "en": "Thorny vines erupt into existence and attempt to bind your foe.",
+    "zh": "尖刺藤蔓從四周地表竄出，試圖纏繞你的敵人。",
+    "basisHash": "3324ca2a30fc160bc8f8f92461bac1908ca71dfecca79adce0f1cbeeea739649",
+    "updated": "2026-10-19",
+    "sources": [
+      {
+        "order": 1,
+        "sourceId": "heroes.ancestries.wode-elf.trait.the-wode-defends.tagline",
+        "enHash": "3d83f17839c8273298c60194fe16f7e6cb2143e77f7d69814bb90d002be80aa4",
+        "zhHash": "3324ca2a30fc160bc8f8f92461bac1908ca71dfecca79adce0f1cbeeea739649"
       }
     ]
   },

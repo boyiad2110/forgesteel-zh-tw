@@ -1,5 +1,7 @@
 import { Feature, FeatureLanguageChoice, FeatureSkillChoice, isFeature } from '@/models/feature';
 import { CultureData } from '@/data/culture-data';
+import { AncestryData } from '@/data/ancestry-data';
+import { Ancestry } from '@/models/ancestry';
 import { FactoryFeatureLogic } from '@/logic/factory-feature-logic';
 import { FeatureType } from '@/enums/feature-type';
 import { LanguageType } from '@/enums/language-type';
@@ -12,7 +14,14 @@ const signature = (feature: Feature) => {
 	return JSON.stringify({ id: feature.id, name: feature.name, description: feature.description, type: feature.type, data });
 };
 
+const sourceIdentity = (feature: Feature) => {
+	const data = { ...feature.data } as Record<string, unknown>;
+	delete data.selected;
+	return JSON.stringify({ id: feature.id, name: feature.name, type: feature.type, data });
+};
+
 const indexCache = new WeakMap<Sourcebook[], Map<string, Set<string>>>();
+const ancestryIndexCache = new WeakMap<Sourcebook[], Map<string, Feature[]>>();
 
 const officialFeatures = (sourcebooks: Sourcebook[]) => {
 	const cached = indexCache.get(sourcebooks);
@@ -50,6 +59,58 @@ export const isOfficialFeatureSource = (feature: Feature, sourcebooks: Sourceboo
 		return false;
 	}
 	return officialFeatures(sourcebooks).get(feature.id)?.has(signature(feature)) === true;
+};
+
+const officialAncestryFeatures = (sourcebooks: Sourcebook[]) => {
+	const cached = ancestryIndexCache.get(sourcebooks);
+	if (cached) {
+		return cached;
+	}
+
+	const index = new Map<string, Feature[]>();
+	const seen = new WeakSet<object>();
+	const visit = (value: unknown) => {
+		if (!value || typeof value !== 'object' || seen.has(value)) {
+			return;
+		}
+		seen.add(value);
+		if (isFeature(value)) {
+			const features = index.get(value.id) || [];
+			features.push(value);
+			index.set(value.id, features);
+		}
+		Object.values(value).forEach(visit);
+	};
+
+	Object.values(AncestryData).forEach(ancestry => ancestry.features.forEach(visit));
+	sourcebooks
+		.filter(sourcebook => sourcebook.type === SourcebookType.Official)
+		.forEach(sourcebook => sourcebook.ancestries.forEach(ancestry => ancestry.features.forEach(visit)));
+	ancestryIndexCache.set(sourcebooks, index);
+	return index;
+};
+
+/** Match an unchanged feature that belongs to an official ancestry. */
+export const isOfficialAncestryFeatureSource = (feature: Feature, sourcebooks: Sourcebook[]): boolean => {
+	return officialAncestryFeatures(sourcebooks).get(feature.id)?.some(source => signature(source) === signature(feature)) === true;
+};
+
+/** Find the canonical ancestry feature while allowing display-only description cleanup. */
+export const getOfficialAncestryFeatureSource = (feature: Feature, sourcebooks: Sourcebook[]): Feature | undefined => {
+	return officialAncestryFeatures(sourcebooks).get(feature.id)?.find(source => sourceIdentity(source) === sourceIdentity(feature));
+};
+
+/** Confirm the exact approved identity and description source for an ancestry. */
+export const isOfficialAncestryDescriptionSource = (ancestry: Ancestry, sourcebooks: Sourcebook[]): boolean => {
+	const official = [
+		...Object.values(AncestryData),
+		...sourcebooks
+			.filter(sourcebook => sourcebook.type === SourcebookType.Official)
+			.flatMap(sourcebook => sourcebook.ancestries)
+	];
+	return official.some(source => source.id === ancestry.id
+		&& source.name === ancestry.name
+		&& source.description === ancestry.description);
 };
 
 /** The builder-owned default language has no sourcebook record to match. */

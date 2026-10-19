@@ -1218,5 +1218,22 @@ export const mapping: Record<string, MappingEntry> = {
 	'element:kit-sword-and-board-signature:description': { sheetId: 'heroes.kits.sword-and-board.signature.shield-bash', enHash: 'b72963aa8f6f6093c04f2c3ac13709a9542a924c3125e2a3eafc5b6c528e45d8' },
 	'element:kit-warrior-priest-signature:description': { sheetId: 'heroes.kits.warrior-priest.signature.weakening-brand', enHash: 'abe0b2f13b0e76b9d2a4eefc5c81ec4fda69ad309def2f5fb93c7eb57aae99b2' },
 	'section:kit-warrior-priest-signature:1': { sheetId: 'heroes.kits.warrior-priest.signature.weakening-brand', enHash: '35b11b337b6acafb90a1d7a45934b97ca5726ed5ae0062e51fe3e08c1d3eed03' },
+	// ANCESTRY-A: approved static ancestry descriptions and effects.
+	'element:devil-feature-2-3:description': { sheetId: 'heroes.ancestries.devil.trait.glowing-eyes.effect', enHash: 'd882f3e637049d5e173f61633ec5f4047ee196ceeb0eb4bf60a6d709b76b63b5' },
+	'element:dragon-knight-feature-2-1:description': { sheetId: 'heroes.ancestries.dragon-knight.trait.draconian-guard.effect', enHash: '95aa79f12b2b8b3180a19c028e3f80a78ddc491a18599315a114877bd63a7f59' },
+	'element:high-elf-feature-2-0:description': { sheetId: 'heroes.ancestries.high-elf.trait.glamor-of-terror.effect', enHash: '534345bc3b60006a20acaa6148e9d2ab210144e77c3198a149bea65ff97a9ed9' },
+	'element:wode-elf-feature-2-5:description': { sheetId: 'heroes.ancestries.wode-elf.trait.the-wode-defends.tagline', enHash: '2d4e22bd48731f1abe53a234440992d365b9ea614d91a8a201c9fc3a8711add1' },
+	'element:human-feature-1:description': { sheetId: 'heroes.ancestries.human.signature.detect-supernatural.effect', enHash: 'd640ba2a9c09d0663ac7e7792d8ec7d40226ec6a2738502d05a9d21425403865' },
+	'element:time-raider-feature-2-1:description': { sheetId: 'heroes.ancestries.time-raider.trait.beyondsight.effect', enHash: 'fd8571f830a9a458a2a9ca1bcbea6bae436114fef75a09b399d42a579aa2400f' },
+	'element:time-raider-feature-2-5-2:description': { sheetId: 'heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline', enHash: 'b9cae07d8a908af591e3abebeb7e19a426a6ab98ff59d19be4f6f4decb9f24aa' },
+	'element:wode-elf-feature-1:description': { sheetId: 'heroes.ancestries.wode-elf.signature.wode-elf-glamor.effect', enHash: 'dd9b32d7ca04f89cca4add2516047a1edbbd30c5ed93ea35c62a1207cc7a1891' },
+	'element:time-raider-feature-2-2:description': { sheetId: 'heroes.ancestries.time-raider.trait.foresight.effect', enHash: '29f09a49d82c6991d9bf3a7ccbd0f7f7e65a5a5d9ba986d4028b10378500abb3' },
+	'section:dragon-knight-feature-2-8:0': { sheetId: 'heroes.ancestries.dragon-knight.trait.remember-your-oath.effect', enHash: 'f227fe3df15222a36266a7ed4545570f0262711c4266e75306884edf34612eab' },
+	'section:human-feature-2-3:0': { sheetId: 'heroes.ancestries.human.trait.resist-the-unnatural.effect', enHash: 'f6fd13f7283673ed1929350605dfe66b49647e10958a431abe929ae25bc00181' },
+	'section:human-feature-2-4:0': { sheetId: 'heroes.ancestries.human.trait.determination.effect', enHash: '5bcc98744e2d2123fe6d2733b7375173bc85c60c730868ed2b914445dfe5c676' },
+	'section:memonek-feature-3-5:0': { sheetId: 'heroes.ancestries.memonek.trait.keeper-of-order.effect', enHash: '9a81e3fe0c41dc6d132fc65f360e5c73f7580ddf05e7ddee6e3bec80b5f1d85e' },
+	'section:polder-feature-3-4:0': { sheetId: 'heroes.ancestries.polder.trait.reactive-tumble.effect', enHash: 'ab96f0607ba795560eb31dad674c21168a03b14ac5a68653ba05cdb7be52235d' },
+	'section:time-raider-feature-2-1:0': { sheetId: 'heroes.ancestries.time-raider.trait.beyondsight.effect', enHash: '3ff307b1158ade44805646f2d7ca12c7e564d908cea184b84b11a9b2a0e64457' },
+	'section:time-raider-feature-2-2b:0': { sheetId: 'heroes.ancestries.time-raider.trait.foresight.effect', enHash: '6f15296c9eedb1e7af5fae1fd2410a654f9ca902e5a572feabfb80c12dc9bd39' },
 	'element:kit-whirlwind-signature:description': { sheetId: 'heroes.kits.whirlwind.signature.extension-of-my-arm', enHash: 'b947070d92fe7ba9862a6acfe4983a48f18158f053b5ffa2a5d6523685b997f7' }
 };

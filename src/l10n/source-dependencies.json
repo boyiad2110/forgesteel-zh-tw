@@ -5182,6 +5182,81 @@
         "enHash": "a8ac2502ae7cf6dd84ce605403187e0b050b05626fc07cccfc7fd6c31f716be9",
         "zhHash": "240feaec450631360a4eb9980a5b1aed68187c17faa76eec775270b82a3bc8e2"
       }
+    },
+    "heroes.ancestries.dragon-knight.trait.draconian-guard.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.draconian-guard.effect",
+          "enHash": "721bd0d4dfe36293bcf13af7e24056a82fb7cd5232892861eb417bd894be207c",
+          "zhHash": "3f52c72ab37ee8921e24676ecb585208a7c1c04d4f0bcfe8e743c13219284e49"
+        }
+      ],
+      "sourcesHash": "3b0ea5715e0546943ee28da33fcae0d6e6748b4d9bd6cadc73dfee9f4f7dfd03",
+      "fs": {
+        "enHash": "95aa79f12b2b8b3180a19c028e3f80a78ddc491a18599315a114877bd63a7f59",
+        "zhHash": "1f9fa76cd010edb0efa48698f5dd472742ba38957c20c49eec7f18e973b43f66"
+      }
+    },
+    "heroes.ancestries.dragon-knight.trait.remember-your-oath.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.effect",
+          "enHash": "51838aaa5e7cb8f17b267ea45589dcf7598a04138bb0059f11b94abfd827f53c",
+          "zhHash": "e9ae19d687b5362e461ee45a645a1f65b815e95ba74aa80ec7306c765b88f4c4"
+        },
+        {
+          "sheetId": "heroes.ancestries.dragon-knight.trait.remember-your-oath.oath",
+          "enHash": "fc889244b521b3d7694e0816e1541ace0671e3d3f846a06cb8cdc6305308595f",
+          "zhHash": "e09e1e25e70605c7e5f3fbc3654aabfd69d6fe21bb827f915dc7379a829c0802"
+        }
+      ],
+      "sourcesHash": "7d658f7538547dda6465c645e6fab03d7ef0e5d331f283d3ea808fc62dbca237",
+      "fs": {
+        "enHash": "1714727c1bbe0429552a786bf396ec07abc32eb4800774fc5411c5e55c33c8a0",
+        "zhHash": "4a0db295034590926d68adb73feb1f57b30cda7ae2c240d66f70f8b5cc67c829"
+      }
+    },
+    "heroes.ancestries.time-raider.trait.beyondsight.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.time-raider.trait.beyondsight.effect",
+          "enHash": "030e9a769744d9e0cf276202318edf648ba27c5a709a11b8fc97863b0d8ae21d",
+          "zhHash": "e6f1de0b804a83aff9e6c544a28be3b357fcdf3b587ee085f5fc0872b51c489d"
+        }
+      ],
+      "sourcesHash": "801b6b4bd1bbffdb150f497264b45c48b4a448f679a5954751a74bffe05dfee6",
+      "fs": {
+        "enHash": "fd8571f830a9a458a2a9ca1bcbea6bae436114fef75a09b399d42a579aa2400f",
+        "zhHash": "89239afd9c48ef59628a918562991844fc691a9c4cd2c44cfb3817ebed00ceb8"
+      }
+    },
+    "heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline",
+          "enHash": "9392910e43c1c1c8b7d88db7e4da4e24514bc8c02ff80faab2672ceccb0f9d87",
+          "zhHash": "00b0594b1b350e9532d737a5e757d11e1a87b856cd0a1ed007ee9f3d4238c7b3"
+        }
+      ],
+      "sourcesHash": "e5e58332636301b2d7aa8b35cdc2f1038e2cd0db9f21dbd4bf8585d35050b02c",
+      "fs": {
+        "enHash": "b9cae07d8a908af591e3abebeb7e19a426a6ab98ff59d19be4f6f4decb9f24aa",
+        "zhHash": "00b0594b1b350e9532d737a5e757d11e1a87b856cd0a1ed007ee9f3d4238c7b3"
+      }
+    },
+    "heroes.ancestries.wode-elf.trait.the-wode-defends.tagline": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.wode-elf.trait.the-wode-defends.tagline",
+          "enHash": "3d83f17839c8273298c60194fe16f7e6cb2143e77f7d69814bb90d002be80aa4",
+          "zhHash": "3324ca2a30fc160bc8f8f92461bac1908ca71dfecca79adce0f1cbeeea739649"
+        }
+      ],
+      "sourcesHash": "b5596e56f269624265bf5cf04af19739899294472382025f6b7b3f2edc82fb94",
+      "fs": {
+        "enHash": "2d4e22bd48731f1abe53a234440992d365b9ea614d91a8a201c9fc3a8711add1",
+        "zhHash": "3324ca2a30fc160bc8f8f92461bac1908ca71dfecca79adce0f1cbeeea739649"
+      }
     }
   }
 }

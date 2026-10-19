@@ -43,7 +43,9 @@ const rowsOf = (table, headers, name, statusHeader) => {
     if (found.length !== 1) throw new Error(`${name}: missing or duplicate header ${header}`);
     return found[0];
   });
-  return values.slice(1).map((row, index) => {
+  const dataRows = values.slice(1).filter(row => !(name === 'Adaptation Sources'
+    && Array.isArray(row) && row.every(value => value === '' || value === null || value === undefined)));
+  return dataRows.map((row, index) => {
     if (!Array.isArray(row)) throw new Error(`${name}: invalid row ${index + 2}`);
     return indexes.map((column, i) => requireText(row[column] ?? '', `${name} row ${index + 2} ${headers[i]}`));
   }).filter(row => statusHeader === undefined || row[headers.indexOf(statusHeader)] === 'APPROVED');
