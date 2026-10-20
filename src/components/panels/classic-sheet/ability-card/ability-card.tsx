@@ -1,9 +1,10 @@
-import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel, perkGrantTarget } from '@/l10n/ability-text';
+import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, ancestryAbilityTierById, ancestryAbilityTriggerText, isOfficialAncestryAbility, perkGrantDistance, perkGrantLabel, perkGrantTarget, perkGrantUi } from '@/l10n/ability-text';
 import { kitAbilityClassicRollHeader, kitAbilityMetadataValue, kitAbilityTier } from '@/l10n/kit-ability-details';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
 import { Collections } from '@/utils/collections';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { Markdown } from '@/components/controls/markdown/markdown';
+import { mapping } from '@/l10n/mapping';
 import { arcaneTrickSection } from '@/l10n/perk-prose';
 import { useUI } from '@/l10n/ui-text';
 import { isStandardKitAbility, kitBonusSourceName, kitFieldLabel } from '@/l10n/kit-text';
@@ -47,7 +48,7 @@ export const AbilityCard = (props: Props) => {
 			<div className='stats'>
 				<div className='keywords-action-type'>
 					<div className='keywords'>{keywords}</div>
-					<div className='action-type'>{kitAbilityMetadataValue(ability, 'actionType', ability.actionType || '') ?? perkGrantLabel(ability.id, ability.actionType || '', ui)}</div>
+					<div className='action-type'>{kitAbilityMetadataValue(ability, 'actionType', ability.actionType || '') ?? (isOfficialAncestryAbility(ability) ? perkGrantUi(ui, ability.actionType || '') : perkGrantLabel(ability.id, ability.actionType || '', ui))}</div>
 				</div>
 				<div className='distance-target'>
 					<div className='distance'>
@@ -69,23 +70,25 @@ export const AbilityCard = (props: Props) => {
 
 	const getTriggerSection = () => {
 		if (ability.trigger) {
+			const ancestryTrigger = ancestryAbilityTriggerText(ability, ability.trigger, ui);
 			const label = perkGrantLabel(ability.id, 'Trigger', ui);
 			if (label !== 'Trigger') {
 				return (
 					<div className='trigger'>
 						<Markdown text={`**${label}:**`} className='trigger' />
-						<Markdown text={ability.trigger} className='trigger' l10nKey={abilityTriggerKey(ability.id, ability.trigger)} />
+						<Markdown text={ancestryTrigger ?? ability.trigger} className='trigger' l10nKey={ancestryTrigger ? undefined : abilityTriggerKey(ability.id, ability.trigger)} />
 					</div>
 				);
 			}
 			return (
-				<Markdown
-					text={'**Trigger:** ' + ability.trigger}
-					className='trigger'
-				/>
+				<Markdown text={'**Trigger:** ' + (ancestryTrigger ?? ability.trigger)} className='trigger' />
 			);
 		}
 	};
+
+	const ancestryTierText = (tier: number, text: string) => isOfficialAncestryAbility(ability)
+		? ancestryAbilityTierById(ability, tier, text, ui)
+		: text;
 
 	const getSections = () => {
 		let isFirstText = true;
@@ -112,19 +115,19 @@ export const AbilityCard = (props: Props) => {
 					<div className='tier t1'>
 						<img src={rollT1} alt='≤ 11' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 1, section.rollT1Effect || '') : section.rollT1Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 1, section.rollT1Effect || '') : ancestryTierText(1, section.rollT1Effect || '')} lookFor='potencies' />
 						</div>
 					</div>
 					<div className='tier t2'>
 						<img src={rollT2} alt='12 - 16' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 2, section.rollT2Effect || '') : section.rollT2Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 2, section.rollT2Effect || '') : ancestryTierText(2, section.rollT2Effect || '')} lookFor='potencies' />
 						</div>
 					</div>
 					<div className='tier t3'>
 						<img src={rollT3} alt='17 +' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 3, section.rollT3Effect || '') : section.rollT3Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 3, section.rollT3Effect || '') : ancestryTierText(3, section.rollT3Effect || '')} lookFor='potencies' />
 						</div>
 					</div>
 				</div>
@@ -152,14 +155,16 @@ export const AbilityCard = (props: Props) => {
 		if (!listed && !split && isFirstText && !(section.startsWith('##') || ability.isNotTrueAbility)) {
 			text = '**Effect:** ' + section;
 		}
+		const sectionKey = !listed && !kitKey ? abilitySectionKey(ability.id, key, text) : undefined;
+		const splitEffect = !!kitKey || (!!sectionKey && !!mapping[sectionKey] && text.startsWith('**Effect:** '));
 		return (
 			<div className='effect' key={key}>
-				{kitKey ? <Markdown text={`**${ui.text('ui.hero-builder.effect.2252d5cf', 'Effect')}:**`} className='ability-effect' /> : null}
+				{splitEffect ? <Markdown text={`**${ui.text('ui.hero-builder.effect.2252d5cf', 'Effect')}:**`} className='ability-effect' /> : null}
 				{split ? <Markdown text={`**${label}:**`} className='ability-effect' /> : null}
 				<Markdown
-					text={kitKey ? section : text}
+					text={splitEffect ? section : text}
 					className='ability-effect'
-					l10nKey={kitKey ?? (listed ? undefined : abilitySectionKey(ability.id, key, text))}
+					l10nKey={kitKey ?? sectionKey ?? (listed ? undefined : abilitySectionKey(ability.id, key, text))}
 				/>
 			</div>
 		);

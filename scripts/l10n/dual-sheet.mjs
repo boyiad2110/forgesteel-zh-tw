@@ -43,7 +43,9 @@ const rowsOf = (table, headers, name, statusHeader) => {
     if (found.length !== 1) throw new Error(`${name}: missing or duplicate header ${header}`);
     return found[0];
   });
-  return values.slice(1).map((row, index) => {
+  const dataRows = values.slice(1).filter(row => !(name === 'Adaptation Sources'
+    && Array.isArray(row) && row.every(value => value === '' || value === null || value === undefined)));
+  return dataRows.map((row, index) => {
     if (!Array.isArray(row)) throw new Error(`${name}: invalid row ${index + 2}`);
     return indexes.map((column, i) => requireText(row[column] ?? '', `${name} row ${index + 2} ${headers[i]}`));
   }).filter(row => statusHeader === undefined || row[headers.indexOf(statusHeader)] === 'APPROVED');
@@ -214,7 +216,7 @@ export function buildDualSnapshot(capture) {
   const byBook = new Map();
   const byName = new Map();
   const notes = {};
-  for (const row of capture.forge.Adaptations) {
+  for (const row of capture.forge.Adaptations.slice().sort((a, b) => a[0].localeCompare(b[0], 'en'))) {
     const [ id, bookId, , en, zh, , basis, note ] = row;
     if (id === `fs-adapt:${bookId}`) {
       const canonical = nameIds.has(bookId) ? byName : byBook;
@@ -273,10 +275,13 @@ export function buildDualCatalog(capture) {
       links.get(id).push({ order: Number(order), sourceId, enHash, zhHash });
     }
     const adaptations = {};
-    for (const [ id, bookStringId, usageKey, en, zh, , basisHash, , updated ] of
+    for (const [ id, bookStringId, usageKey, en, zh, , basisHash, note, updated ] of
       capture.forge.Adaptations.slice().sort((a, b) => a[0].localeCompare(b[0], 'en'))) {
       adaptations[id] = { bookStringId, usageKey, en, zh, basisHash, updated,
         sources: (links.get(id) || []).sort((a, b) => a.order - b.order) };
+      if (note && /(^|\r?\n)\s*Calculation Display:/.test(note)) {
+        adaptations[id].calculationDisplay = parseCalculationDisplay(note, zh);
+      }
     }
     catalog.set('adaptations.json', json(adaptations));
     return { snapshot, catalog };

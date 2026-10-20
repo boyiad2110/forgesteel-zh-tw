@@ -1,7 +1,7 @@
 import { getCatalogTick, subscribeToCatalog } from '@/l10n/catalog';
 import { getLanguage, subscribeToLanguage } from '@/l10n/language';
 import approvedEnglish from '@/l10n/ui-english.json';
-import { translate } from '@/l10n/text';
+import { normalizeChineseSlashes, translate } from '@/l10n/text';
 import { useSyncExternalStore } from 'react';
 
 type UIId = keyof typeof approvedEnglish;
@@ -26,7 +26,7 @@ export const applyUITemplate = (target: string, source: string, english: string,
 	if (found.length !== expected.length || found.some((name, index) => name !== expected[index])) {
 		return english;
 	}
-	return target.replace(/\{([a-zA-Z][a-zA-Z0-9]*)\}/g, (_, name: string) => String(values[name]));
+	return normalizeChineseSlashes(target.replace(/\{([a-zA-Z][a-zA-Z0-9]*)\}/g, (_, name: string) => String(values[name])));
 };
 
 /**

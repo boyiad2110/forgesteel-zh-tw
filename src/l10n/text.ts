@@ -262,6 +262,18 @@ export const displayListMarkup = (key: string | undefined, text: string) => {
 	return out.join('\n');
 };
 
+/** Apply the approved Taiwan-Chinese slash spacing without changing code or URLs. */
+export const normalizeChineseSlashes = (text: string): string => {
+	const protectedParts: string[] = [];
+	const protectedText = text.replace(/`[^`]*`|[a-z][a-z0-9+.-]*:\/\/[^\s<>()]+/gi, value => {
+		const marker = `\uE000${protectedParts.length}\uE001`;
+		protectedParts.push(value);
+		return marker;
+	});
+	return protectedText.replace(/[ \t\u3000]*[／/][ \t\u3000]*/g, ' / ')
+		.replace(/\uE000(\d+)\uE001/g, (_, index: string) => protectedParts[Number(index)]);
+};
+
 /**
  * The string to show. English mode always returns `english`, the exact value
  * the screen already had — never the sheet's own English copy.
@@ -284,7 +296,7 @@ export const resolveText = (language: Language, key: string | undefined, english
 	}
 
 	const row = catalog[sheetId];
-	const show = (shown: string) => displayListMarkup(key, carryConditionBold(english, shown));
+	const show = (shown: string) => displayListMarkup(key, carryConditionBold(english, normalizeChineseSlashes(shown)));
 	const usage = peekUsageAdaptation(key);
 	const alternate = usage && usage.bookStringId === sheetId && row?.fs
 		&& (usage.en !== row.fs.en || usage.zh !== row.fs.zh)
@@ -294,7 +306,7 @@ export const resolveText = (language: Language, key: string | undefined, english
 		if (!alternate.zh || blank(alternate.zh)) {
 			return english;
 		}
-		return show(projectCalculatedText(key, alternate.en, english, alternate.zh));
+		return show(projectCalculatedText(key, alternate.en, english, alternate.zh, alternate.calculationDisplay));
 	}
 	if (row?.fs) {
 		if (!row.fs.zh || blank(row.fs.zh)) {

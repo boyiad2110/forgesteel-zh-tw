@@ -3,6 +3,8 @@
 - KITS-01 已由 Marc 驗收並於 2026-10-17 squash 合併至 `develop` `19c03197fbe37660eeaedae7bb480e4fe84b3f26`；Rapid Fire 顯示「箭雨」。KITS-GLOSSARY 的 12 筆護甲／武器詞也已驗收並 squash 合併至 develop `90094a293e5d682e848bb46fdb777a63b34d3878`。KITS-01 與 Glossary 的驗證結果見 [PROGRESS](PROGRESS.md)。
 - KITS-01、KITS-GLOSSARY、KITS-UI、KITS-DISPLAY、KITS-CLASSIC-UI 與 KITS-ABILITIES-01 均已由 Marc 驗收並合併；KITS-ABILITIES-01 的 [PR #79](https://github.com/boyiad2110/forgesteel-zh-tw/pull/79) 已 squash 合併至 `develop` `4baefd664651cf80079eaa78e3b29d96d54f6ec4`。套裝招式殘留 UI 標籤補齊進度見 [KITS-AUDIT-UI-01](KITS-AUDIT-UI-01.md) 與 [PROGRESS](PROGRESS.md)。
 - KITS-AUDIT-UI-01 正在補齊套裝招式殘留 UI 標籤、射程與 Classic View 效果描述；四筆已核准 UI 已接入雙來源快照。人工驗收清單與進度見 [KITS-AUDIT-UI-01](KITS-AUDIT-UI-01.md) 與 [PROGRESS](PROGRESS.md)。
+- 族裔缺漏 A–E5 已由 Marc 驗收或指示納入本次 PR 收尾；目前由 PR #81 整合，等待遠端必要檢查與合併。A 批見 [Draft PR #81](https://github.com/boyiad2110/forgesteel-zh-tw/pull/81)，B 批見 [驗收紀錄](ANCESTRY-DAMAGE-MODIFIERS.md)，C 批見 [驗收紀錄](ANCESTRY-C.md)，D 批見 [ANCESTRY-D](ANCESTRY-D.md)，E1 見 [ANCESTRY-E1](ANCESTRY-E1.md)，E2 見 [ANCESTRY-E2](ANCESTRY-E2.md)，E3 見 [ANCESTRY-E3](ANCESTRY-E3.md)，E4 見 [ANCESTRY-E4](ANCESTRY-E4.md)。
+- E5 修正重複截圖指出的共用顯示漏接，僅重用已核准譯文；Marc 於 2026-10-20 驗收通過，已納入 PR #81。範圍與驗收位置見 [ANCESTRY-E5](ANCESTRY-E5.md) 與 [PROGRESS](PROGRESS.md)。
 
 本專案保留現有顯示層中文化架構。先讀此摘要即可接手；詳細內容依任務載入。
 

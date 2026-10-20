@@ -105,4 +105,37 @@ describe('approved UI bindings', () => {
 			expect(ui[id]?.zh).toBe(chinese);
 		}
 	});
+
+	test('registers approved ancestry damage-modifier terms', () => {
+		const expected = {
+			'ui.hero-builder.damage-modifier.a9292a2f': [ 'Damage Modifier', '傷害調整' ],
+			'ui.hero-builder.immunity.806f8b53': [ 'Immunity', '免疫' ],
+			'ui.hero-builder.weakness.f3e0689e': [ 'Weakness', '弱點' ],
+			'ui.hero-builder.acid.c4fdf6b8': [ 'Acid', '酸蝕' ],
+			'ui.hero-builder.cold.f151cd9e': [ 'Cold', '寒冷' ],
+			'ui.hero-builder.corruption.abf56455': [ 'Corruption', '腐朽' ],
+			'ui.hero-builder.fire.c141faa8': [ 'Fire', '火焰' ],
+			'ui.hero-builder.lightning.41e68f2c': [ 'Lightning', '閃電' ],
+			'ui.hero-builder.poison.d5a78b99': [ 'Poison', '毒素' ],
+			'ui.hero-builder.psychic.2c73e325': [ 'Psychic', '心靈' ],
+			'ui.hero-builder.per-level.1caaa3dd': [ '+1 per level', '每級 +1' ]
+		};
+		for (const [ id, [ english, chinese ] ] of Object.entries(expected)) {
+			expect(approvedEnglish[id]).toBe(english);
+			expect(ui[id]?.en).toBe(english);
+			expect(ui[id]?.zh).toBe(chinese);
+		}
+	});
+
+	test('registers approved ancestry detail labels', () => {
+		const expected = {
+			'ui.hero-builder.ancestry-points.be56c10c': [ 'Ancestry Points', '族裔點數' ],
+			'ui.hero-builder.purchased.5fa14d9a': [ 'Purchased', '自購' ]
+		};
+		for (const [ id, [ english, chinese ] ] of Object.entries(expected)) {
+			expect(approvedEnglish[id]).toBe(english);
+			expect(ui[id]?.en).toBe(english);
+			expect(ui[id]?.zh).toBe(chinese);
+		}
+	});
 });

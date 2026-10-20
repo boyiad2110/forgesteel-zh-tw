@@ -4,6 +4,7 @@ import { CopyOutlined, ThunderboltFilled, ThunderboltOutlined } from '@ant-desig
 import { Pill, ResourcePill } from '@/components/controls/pill/pill';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { careerPerkNameText } from '@/l10n/career-perk-ui';
+import { damageModifierFeatureName } from '@/l10n/damage-modifier-ui';
 import { familiarStaminaKey } from '@/l10n/familiar-stat';
 import { AbilityPanel } from '@/components/panels/elements/ability-panel/ability-panel';
 import { ButtonGroup } from '@/components/controls/button-group/button-group';
@@ -25,6 +26,9 @@ import { SourcebookType } from '@/enums/sourcebook-type';
 import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { perkListText } from '@/l10n/perk-list-ui';
 import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
+import { ancestryUiText } from '@/l10n/ancestry-ui';
+import { mapping } from '@/l10n/mapping';
 import { useUI } from '@/l10n/ui-text';
 import { useClipboard } from '@/hooks/use-clipboard';
 import { useL10nText } from '@/l10n/hooks';
@@ -159,9 +163,48 @@ export const FeaturePanel = (props: Props) => {
 		? careerPerkNameText(props.feature as Feature, props.sourcebooks || [], ui)
 		: undefined;
 	const languageChoice = officialLanguageChoiceDisplay(props.feature, props.sourcebooks || []);
+	const officialAncestrySource = 'type' in props.feature
+		? getOfficialAncestryFeatureSource(props.feature as Feature, props.sourcebooks || [])
+		: undefined;
+	const ancestryName = officialAncestrySource?.name === props.feature.name
+		? ancestryUiText(props.feature.name.toLocaleUpperCase(), ui)
+		: undefined;
+	const interpersonalSkillChoice = officialAncestrySource?.id === 'devil-feature-1b'
+		&& props.feature.type === FeatureType.SkillChoice
+		&& props.feature.name === 'Interpersonal Skill'
+		&& props.feature.description === 'Choose a skill from Interpersonal skills.';
+	const interpersonalSkillName = interpersonalSkillChoice
+		? ui.text('ui.hero-builder.interpersonal-skill.3095ff6f', 'Interpersonal Skill')
+		: undefined;
 	const reusedName = reusedOfficialPerkName(props.feature, props.sourcebooks || []);
-	const headerName = customization?.name || perkLabel || languageChoice.name || reusedName || (staminaKey ? staminaLabel : props.feature.name) || 'Unnamed Feature';
-	const description = customization?.description || languageChoice.description || props.feature.description;
+	const officialDamageModifier = 'type' in props.feature
+		&& props.feature.type === FeatureType.DamageModifier
+		&& props.feature.name === 'Damage Modifier'
+		&& getOfficialAncestryFeatureSource(props.feature as Feature, props.sourcebooks || []) !== undefined;
+	const tacticianArsenal = props.feature.id === 'tactician-4-3'
+		&& props.feature.name === 'Improved Field Arsenal'
+		&& props.feature.description === 'Your expertise with weapons has grown.';
+	const tacticianArsenalName = tacticianArsenal
+		? ui.text('ui.hero-builder.tactician-improved-arsenal.3e132d50', 'Improved Field Arsenal')
+		: undefined;
+	const tacticianArsenalDescription = tacticianArsenal
+		? ui.text('ui.hero-builder.tactician-arsenal-desc.b15b7d02', 'Your expertise with weapons has grown.')
+		: undefined;
+	const headerName = customization?.name || perkLabel || languageChoice.name || reusedName || ancestryName || interpersonalSkillName
+		|| (officialDamageModifier ? damageModifierFeatureName(ui) : tacticianArsenalName ?? (staminaKey ? staminaLabel : props.feature.name))
+		|| 'Unnamed Feature';
+	const interpersonalSkillDescription = interpersonalSkillChoice
+		? ui.text('ui.hero-builder.interpersonal-skill-description.3ff1394b', 'Choose a skill from Interpersonal skills.')
+		: undefined;
+	const description = customization?.description || languageChoice.description || tacticianArsenalDescription || interpersonalSkillDescription || props.feature.description;
+	const officialAncestryFeature = props.feature.type === FeatureType.Text
+		? getOfficialAncestryFeatureSource(props.feature as Feature, props.sourcebooks || [])
+		: undefined;
+	const approvedAncestryTextKey = ui.language === 'zh-TW'
+		&& officialAncestryFeature?.description === description
+		&& mapping[`element:${props.feature.id}:description`]
+		? `element:${props.feature.id}:description`
+		: undefined;
 
 	return (
 		<ElementScope element={props.feature} overlay={customization}>
@@ -199,6 +242,7 @@ export const FeaturePanel = (props: Props) => {
 					</HeaderText>
 					<Markdown
 						text={AbilityLogic.getTextEffect(description, autoCalc ? props.hero : undefined)}
+						l10nKey={approvedAncestryTextKey}
 					/>
 					{
 						props.mode === PanelMode.Full ?

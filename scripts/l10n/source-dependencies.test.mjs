@@ -162,13 +162,22 @@ describe('committed approved source inventory', () => {
 		row.zh = '改寫';
 		expect(validateSourceDependencies(manifest, { [source.sheetId]: row })[0].message).toContain('zh changed');
 	});
-	test('every adaptation derives from its declared book sources, except six explicitly approved option names', () => {
+	test('every adaptation derives from its declared book sources, except explicitly approved compositions', () => {
 		const rows = {};
 		for (const file of [ 'glossary.json', 'names.json', 'strings.json' ]) {
 			Object.assign(rows, JSON.parse(readFileSync(path.join(repo, 'src/l10n/generated/zh-TW', file), 'utf8')));
 		}
 		const optionPrefix = 'heroes.ancestries.dragon-knight.trait.prismatic-scales.option.';
-		const exceptions = new Set([ 'acid', 'cold', 'corruption', 'fire', 'lightning', 'poison' ].map(type => `${optionPrefix}${type}.name`));
+		const exceptions = new Set([
+			...([ 'acid', 'cold', 'corruption', 'fire', 'lightning', 'poison' ].map(type => `${optionPrefix}${type}.name`)),
+			// The approved website tagline is new wording, not a literal excerpt.
+			'heroes.ancestries.dragon-knight.trait.draconian-guard.effect',
+			// These approved website strings compose multiple source regions or add formatting.
+			'heroes.ancestries.dragon-knight.trait.remember-your-oath.effect',
+			'heroes.ancestries.dwarf.signature.runic-carving.intro',
+			'heroes.ancestries.hakaan.trait.doomsight.effect.1',
+			'heroes.ancestries.revenant.trait.vengeance-mark.effect.1'
+		]);
 		for (const [ id, entry ] of Object.entries(manifest.rows)) {
 			if (exceptions.has(id)) continue;
 			const source = entry.sources.map(item => rows[item.sheetId].zh).join('').replace(/\s/g, '');

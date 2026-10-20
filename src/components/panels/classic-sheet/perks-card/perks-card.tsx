@@ -1,5 +1,6 @@
 import { FeatureComponent } from '@/components/panels/classic-sheet/components/feature-component';
 import { HeroSheet } from '@/models/classic-sheets/hero-sheet';
+import { useUI } from '@/l10n/ui-text';
 import './perks-card.scss';
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export const PerksCard = (props: Props) => {
+	const ui = useUI();
 	const character = props.character;
 
 	let moreInRef;
@@ -15,7 +17,7 @@ export const PerksCard = (props: Props) => {
 	}
 	return (
 		<div className='perks card'>
-			<h2>Ancestry Traits and Perks</h2>
+			<h2>{ui.text('ui.hero-builder.ancestry-traits-and-perks.a0bf6477', 'Ancestry Traits and Perks')}</h2>
 			<div className='features-container two-column'>
 				{character.ancestryTraitsPerksCombined?.map(f =>
 					<FeatureComponent

@@ -5,6 +5,8 @@
 ## 來源與顯示
 
 - Draw Steel Master Sheet 是書本 Glossary／Names／Strings 的唯一語言正典；Forge Steel Localization Sheet 管理網站 UI、Adaptations、來源關聯及網站進度。Repo 只整合兩份來源的 APPROVED，匯出原樣保存，不自行改寫／意譯。Forge Steel Agent 不核准或修改書本正典；公開 repo 不存未核准譯文或私有筆記。正式快照更新必須同次整合兩份 Sheet 的 APPROVED 資料；舊單來源流程僅供回復 D1 快照，不作一般更新方法。
+- 全域術語／格式覆寫（Marc 2026-10-19 核准）：網站中的 `Damage Modifier` 顯示為「傷害調整」；傷害類型後接 `Immunity`／`Weakness` 時分別連寫為「XX免疫」／「XX弱點」。正體中文譯文顯示中的斜線一律改為半形斜線，前後各留 1 個半形空格（`A / B`）；既有全形斜線 `／` 及未留空格的半形斜線都在顯示層正規化。此規則不改程式碼、ID、URL 或遊戲資料。
+- 全域招式目標定稿（Marc 2026-10-19 核准；Draw Steel Master TM-000020）：`Self` 一律顯示為「自身」，適用所有招式目標文字；不得依畫面或能力來源改用其他譯法。
 - 保留上游遊戲資料、列舉、邏輯、存檔格式、分享碼。同步上游帶入的原生更新不算中文化改寫。對照集中 `src/l10n`，少改上游元件，不另建每畫面翻譯系統。
 - 名稱須核對官方 ID 與原英文；官方名稱若只差大小寫且其他字元完全相同，可沿用核准對照。改名、自訂、Homebrew、未知或其他未對照值保留原值。內建來源僅官方；Homebrew 功能保留，社群／第三方入口隱藏。搜尋／排序仍依英文資料。
 - 在文件、PR、介面稱「正體中文」；預設 zh-TW，語言只存 localStorage `forgesteel-language`，不進英雄檔或分享碼。

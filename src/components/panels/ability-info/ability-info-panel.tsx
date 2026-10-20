@@ -1,4 +1,4 @@
-import { abilitySashLabel, abilityTargetKey, abilityTriggerKey, perkGrantDistance, perkGrantLabel } from '@/l10n/ability-text';
+import { abilityMetadataLabel, abilitySashLabel, abilityTargetKey, abilityTriggerKey, ancestryAbilityMetadataValue, ancestryAbilityTarget, ancestryAbilityTriggerText, isOfficialAncestryAbility, perkGrantDistance } from '@/l10n/ability-text';
 import { kitAbilityMetadataValue } from '@/l10n/kit-ability-details';
 import { Ability } from '@/models/ability';
 import { AbilityKeyword } from '@/enums/ability-keyword';
@@ -67,9 +67,10 @@ export const AbilityInfoPanel = (props: Props) => {
 	const kitActionType = kitAbilityMetadataValue(props.ability, 'actionType', FormatLogic.getAbilityType(props.ability.type));
 	const kitDistance = kitAbilityMetadataValue(props.ability, 'distance', distance);
 	const kitTarget = kitAbilityMetadataValue(props.ability, 'target', props.ability.target);
+	const ancestryTrigger = ancestryAbilityTriggerText(props.ability, props.ability.type.trigger, ui);
 	const label = (source: 'Distance' | 'Distance / Target' | 'Target') => {
 		if (!kitActionType) {
-			return perkGrantLabel(props.ability.id, source, ui);
+			return abilityMetadataLabel(props.ability, source, ui);
 		}
 		switch (source) {
 			case 'Distance': return ui.text('ui.hero-builder.distance.b7bdf7a2', 'Distance');
@@ -82,14 +83,14 @@ export const AbilityInfoPanel = (props: Props) => {
 		<div className='ability-info-panel'>
 			{monogram ? <SashPanel monogram={monogram} label={sashLabel} /> : null}
 			<div className='ds-text compact-text bold-text' style={{ position: 'relative', zIndex: '10' }}>
-				{kitActionType ?? perkGrantLabel(props.ability.id, FormatLogic.getAbilityType(props.ability.type), ui)}
+				{kitActionType ?? abilityMetadataLabel(props.ability, FormatLogic.getAbilityType(props.ability.type), ui)}
 			</div>
 			{
 				distance ?
 					<Field
 						compact={true}
 						label={label(distanceLabel)}
-						value={<Markdown useSpan={true} text={kitDistance ?? perkGrantDistance(props.ability.id, distance, ui)} />}
+						value={<Markdown useSpan={true} text={kitDistance ?? (isOfficialAncestryAbility(props.ability) ? ancestryAbilityMetadataValue(props.ability, distance, ui) : perkGrantDistance(props.ability.id, distance, ui))} />}
 					/>
 					: null
 			}
@@ -98,7 +99,7 @@ export const AbilityInfoPanel = (props: Props) => {
 					<Field
 						compact={true}
 						label={label('Target')}
-						value={<Markdown useSpan={true} text={kitTarget ?? props.ability.target} l10nKey={kitTarget ? undefined : abilityTargetKey(props.ability)} />}
+						value={<Markdown useSpan={true} text={kitTarget ?? ancestryAbilityTarget(props.ability, ancestryAbilityMetadataValue(props.ability, props.ability.target, ui), ui)} l10nKey={kitTarget ? undefined : abilityTargetKey(props.ability)} />}
 					/>
 					: null
 			}
@@ -106,8 +107,8 @@ export const AbilityInfoPanel = (props: Props) => {
 				props.ability.type.trigger ?
 					<Field
 						compact={true}
-						label={perkGrantLabel(props.ability.id, 'Trigger', ui)}
-						value={<Markdown useSpan={true} text={props.ability.type.trigger} l10nKey={abilityTriggerKey(props.ability.id, props.ability.type.trigger)} />}
+						label={abilityMetadataLabel(props.ability, 'Trigger', ui)}
+						value={<Markdown useSpan={true} text={ancestryTrigger ?? props.ability.type.trigger} l10nKey={ancestryTrigger ? undefined : abilityTriggerKey(props.ability.id, props.ability.type.trigger)} />}
 					/>
 					: null
 			}

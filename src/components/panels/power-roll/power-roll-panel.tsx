@@ -13,6 +13,7 @@ import { Markdown } from '@/components/controls/markdown/markdown';
 import { Monster } from '@/models/monster';
 import { PowerRoll } from '@/models/power-roll';
 import { kitAbilityRollHeader, kitAbilityTier } from '@/l10n/kit-ability-details';
+import { ancestryAbilityRollHeader, ancestryAbilityTier } from '@/l10n/ability-text';
 import { kitBonusSourceName, kitFieldLabel } from '@/l10n/kit-text';
 import { translate } from '@/l10n/text';
 import { useUI } from '@/l10n/ui-text';
@@ -178,13 +179,17 @@ export const PowerRollPanel = (props: Props) => {
 		if (props.autoCalc && props.ability) {
 			result = AbilityLogic.getTierEffectCreature(value, tier, props.ability, distance, props.creature);
 		}
-		return ui.language === 'zh-TW' && props.ability ? kitAbilityTier(props.ability, tier, result) : result;
+		if (ui.language === 'zh-TW' && props.ability) {
+			const kitResult = kitAbilityTier(props.ability, tier, result);
+			return kitResult === result ? ancestryAbilityTier(props.ability, tier, result, ui) : kitResult;
+		}
+		return result;
 	};
 
 	const footer = getFooter();
 	const header = getHeader();
 	const translatedHeader = ui.language === 'zh-TW' && props.ability && !props.test
-		? kitAbilityRollHeader(props.ability, header) ?? header
+		? ancestryAbilityRollHeader(props.ability, kitAbilityRollHeader(props.ability, header) ?? header, ui)
 		: header;
 
 	return (

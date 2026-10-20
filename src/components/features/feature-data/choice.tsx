@@ -25,6 +25,8 @@ import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
 import { useUI } from '@/l10n/ui-text';
+import { damageModifierFeatureName } from '@/l10n/damage-modifier-ui';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
 
 interface InfoProps {
 	data: FeatureChoiceData;
@@ -38,7 +40,7 @@ export const InfoChoice = (props: InfoProps) => {
 	if (props.data.selected.length > 0) {
 		return (
 			<Space orientation='vertical' style={{ width: '100%', padding: '0 20px', borderLeft: '5px solid rgb(200 200 200)' }}>
-				{props.data.selected.map(f => <FeaturePanel key={f.id} feature={f} mode={PanelMode.Full} />)}
+				{props.data.selected.map(f => <FeaturePanel key={f.id} feature={f} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />)}
 			</Space>
 		);
 	}
@@ -62,8 +64,16 @@ export const InfoChoice = (props: InfoProps) => {
 				{
 					props.data.options.map(o => (
 						<ElementScope key={o.feature.id} element={o.feature}>
-							<Expander title={<L10nText text={o.feature.name} />}>
-								<FeaturePanel feature={o.feature} cost={showCosts ? o.value : undefined} mode={PanelMode.Full} />
+							<Expander
+								title={
+									o.feature.type === FeatureType.DamageModifier
+										&& o.feature.name === 'Damage Modifier'
+										&& getOfficialAncestryFeatureSource(o.feature, props.sourcebooks || [])
+										? damageModifierFeatureName(ui)
+										: <L10nText text={o.feature.name} />
+								}
+							>
+								<FeaturePanel feature={o.feature} sourcebooks={props.sourcebooks} cost={showCosts ? o.value : undefined} mode={PanelMode.Full} />
 							</Expander>
 						</ElementScope>
 					))

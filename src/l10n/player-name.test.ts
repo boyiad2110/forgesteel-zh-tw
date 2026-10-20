@@ -32,12 +32,12 @@ describe('player name lookup', () => {
 		const aspects = cultures.flatMap(culture => [ culture.environment, culture.organization, culture.upbringing ]).filter(feature => feature !== null);
 		const aspectIds = new Set(aspects.map(feature => feature.id));
 		const approvedIds = (prefix: string) => Object.entries(mapping)
-			.filter(([ , value ]) => value.sheetId.startsWith(prefix))
+			.filter(([ key, value ]) => key.startsWith('element:') && key.endsWith(':name') && value.sheetId.startsWith(prefix))
 			.map(([ key ]) => key.slice('element:'.length, -':name'.length));
 
 		expect(approvedIds('heroes.ancestries.').filter(id => ancestryIds.has(id))).toHaveLength(12);
 		const ancestryFeatureIdsMapped = approvedIds('heroes.ancestries.').filter(id => ancestryFeatureIds.has(id));
-		expect(new Set(ancestryFeatureIdsMapped)).toHaveLength(113);
+		expect(new Set(ancestryFeatureIdsMapped)).toHaveLength(112);
 		expect(approvedIds('heroes.background.culture.').filter(id => cultureIds.has(id))).toHaveLength(27);
 		expect(approvedIds('heroes.background.culture.').filter(id => aspectIds.has(id))).toHaveLength(13);
 		expect(approvedIds('heroes.background.career.').filter(id => core.careers.some(career => career.id === id))).toHaveLength(18);

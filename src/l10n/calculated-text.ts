@@ -83,7 +83,7 @@ export const isProjectedCalculation = (key: string, canonical: string, calculate
 	if (!binding || canonical.length !== binding.sourceLength) {
 		return false;
 	}
-	const calculatedText = calculated.slice(calculated.length - calculated.trimStart().length, calculated.trimEnd().length);
+	const calculatedText = plainForLookup(calculated.slice(calculated.length - calculated.trimStart().length, calculated.trimEnd().length));
 	if (calculatedText === canonical) {
 		return true;
 	}
@@ -109,7 +109,7 @@ export const projectCalculatedText = (key: string, canonical: string, calculated
 	}
 	const leadingLength = calculated.length - calculated.trimStart().length;
 	const trailingStart = calculated.trimEnd().length;
-	const calculatedText = calculated.slice(leadingLength, trailingStart);
+	const calculatedText = plainForLookup(calculated.slice(leadingLength, trailingStart));
 	if (calculatedText === canonical) {
 		return chinese;
 	}

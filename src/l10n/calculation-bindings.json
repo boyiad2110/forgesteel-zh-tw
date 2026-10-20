@@ -169,5 +169,131 @@
     "targetLength": 44,
     "valueSuffix": "",
     "useDisplayTemplate": true
+  },
+  "element:devil-feature-2-1:description": {
+    "sheetId": "heroes.ancestries.devil.trait.barbed-tail.effect",
+    "enHash": "a273814881cb587c5ad077cb6c3bf69af35b6d005a8ac0c041c950e7246aebc6",
+    "sourceHash": "a273814881cb587c5ad077cb6c3bf69af35b6d005a8ac0c041c950e7246aebc6",
+    "zhHash": "07d312f757ab94acde0f999fa45ca006f21d20827ee6dcefd4a7e010f65e3df5",
+    "sourceSpan": [
+      155,
+      188
+    ],
+    "targetSpan": [
+      41,
+      52
+    ],
+    "sourceLength": 189,
+    "targetLength": 53,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
+  },
+  "element:devil-feature-2-7a:description": {
+    "sheetId": "heroes.ancestries.devil.trait.wings.effect",
+    "enHash": "b1900157cc417e97d24fb4cfdafe31fa9fa831061f0c405da490fc099d15a0ba",
+    "sourceHash": "b1900157cc417e97d24fb4cfdafe31fa9fa831061f0c405da490fc099d15a0ba",
+    "zhHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc",
+    "sourceSpan": [
+      138,
+      154
+    ],
+    "targetSpan": [
+      34,
+      42
+    ],
+    "sourceLength": 270,
+    "targetLength": 85,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
+  },
+  "element:polder-feature-3-1:description": {
+    "sheetId": "heroes.ancestries.polder.trait.corruption-immunity.effect",
+    "enHash": "0fb88efb690d483e0268d0ca1c021e282f959f3ddffd57c72332765ebaa10516",
+    "sourceHash": "0fb88efb690d483e0268d0ca1c021e282f959f3ddffd57c72332765ebaa10516",
+    "zhHash": "b6473d9a66dab8db720d184039ebe2e696ff745d89e2f5db5ef112bdc5005b0d",
+    "sourceSpan": [
+      108,
+      118
+    ],
+    "targetSpan": [
+      23,
+      37
+    ],
+    "sourceLength": 123,
+    "targetLength": 38,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
+  },
+  "element:revenant-feature-3:description": {
+    "sheetId": "heroes.ancestries.revenant.signature.tough-but-withered.effect.2",
+    "enHash": "152575b22307d0ad07f059d3d9d5d1d0c0ec3596d8d979826ecff08d5049c820",
+    "sourceHash": "152575b22307d0ad07f059d3d9d5d1d0c0ec3596d8d979826ecff08d5049c820",
+    "zhHash": "aab073c9dc5c30d2b117d5e7950c9ac6d57531102af473a7fd6e4628806c71ac",
+    "sourceSpan": [
+      400,
+      419
+    ],
+    "targetSpan": [
+      133,
+      142
+    ],
+    "sourceLength": 420,
+    "targetLength": 143,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
+  },
+  "element:revenant-feature-4-5-1:description": {
+    "sheetId": "heroes.ancestries.revenant.trait.vengeance-mark.effect.1",
+    "enHash": "b7a399d24d1d1397376095478ce4ae2edb58a25965816abddc50ffbf6748cda2",
+    "sourceHash": "aed12b7ab3484dfac43ab1c9011a83df7b30f063ce766e545e182da3afb22022",
+    "zhHash": "28eb82008bfeb67056d943bc323893c27e5f9e4ddf73520d837cf959ffbcae52",
+    "sourceSpan": [
+      396,
+      406
+    ],
+    "targetSpan": [
+      119,
+      129
+    ],
+    "sourceLength": 611,
+    "targetLength": 191,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
+  },
+  "element:time-raider-feature-1:description": {
+    "sheetId": "heroes.ancestries.time-raider.signature.psychic-scar.effect",
+    "enHash": "bab9f512fb5f0089c824c8877b5f63f9477d6b0fcfe8d2cbc831aeff8829a8cc",
+    "sourceHash": "bab9f512fb5f0089c824c8877b5f63f9477d6b0fcfe8d2cbc831aeff8829a8cc",
+    "zhHash": "893c63429afd744b4b08aec7da971d649e386bf010f300d30086e0b085c06569",
+    "sourceSpan": [
+      79,
+      89
+    ],
+    "targetSpan": [
+      20,
+      30
+    ],
+    "sourceLength": 90,
+    "targetLength": 31,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
+  },
+  "section:dragon-knight-feature-2-1:0": {
+    "sheetId": "heroes.ancestries.dragon-knight.trait.draconian-guard.effect",
+    "enHash": "7be6261ed6613526a4124b37d6081edc6a8e24e79549b062dc0903961e02455e",
+    "sourceHash": "7be6261ed6613526a4124b37d6081edc6a8e24e79549b062dc0903961e02455e",
+    "zhHash": "06d583be7fb840b7404a59dabf2b84a0310d2d0547a1c5dafcdc42d8441a67eb",
+    "sourceSpan": [
+      60,
+      70
+    ],
+    "targetSpan": [
+      0,
+      15
+    ],
+    "sourceLength": 71,
+    "targetLength": 16,
+    "valueSuffix": "",
+    "useDisplayTemplate": true
   }
 }

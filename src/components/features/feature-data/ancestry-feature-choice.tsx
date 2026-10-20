@@ -10,7 +10,9 @@ import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
 import { HeroLogic } from '@/logic/hero-logic';
 import { NumberSpin } from '@/components/controls/number-spin/number-spin';
+import { Markdown } from '@/components/controls/markdown/markdown';
 import { PlayerName } from '@/l10n/player-name';
+import { isOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
 import { Sourcebook } from '@/models/sourcebook';
 import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { Toggle } from '@/components/controls/toggle/toggle';
@@ -45,6 +47,7 @@ interface EditProps {
 }
 
 export const EditAncestryFeatureChoice = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureAncestryFeatureChoiceData>(Utils.copy(props.data));
 
 	const setSourceCurrent = (value: boolean) => {
@@ -70,10 +73,10 @@ export const EditAncestryFeatureChoice = (props: EditProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<HeaderText>Source</HeaderText>
-			<Toggle label='Current ancestry' value={data.source.current} onChange={setSourceCurrent} />
-			<Toggle label='Former ancestry' value={data.source.former} onChange={setSourceFormer} />
-			<HeaderText>Value</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.source.0e570ca6', 'Source')}</HeaderText>
+			<Toggle label={ui.text('ui.hero-builder.current-ancestry.7b823070', 'Current ancestry')} value={data.source.current} onChange={setSourceCurrent} />
+			<Toggle label={ui.text('ui.hero-builder.former-ancestry.162fd55c', 'Former ancestry')} value={data.source.former} onChange={setSourceFormer} />
+			<HeaderText>{ui.text('ui.hero-builder.value.8e37953d', 'Value')}</HeaderText>
 			<NumberSpin value={data.value} onChange={setValue} />
 		</Space>
 	);
@@ -120,7 +123,7 @@ export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
 
 	if (sortedFeatures.length === 0) {
 		return (
-			<Empty text='There are no options to choose for this feature.' />
+			<Empty text={ui.text('ui.hero-builder.no-options.6662aa9c', 'There are no options to choose for this feature.')} />
 		);
 	}
 
@@ -134,7 +137,16 @@ export const ConfigAncestryFeatureChoice = (props: ConfigProps) => {
 				options={sortedFeatures.map(f => ({ label: f.name, value: f.id, desc: f.description || f.type, disabled: currentFeatureIDs.includes(f.id) }))}
 				optionRender={option => {
 					const feature = sortedFeatures.find(f => f.id === option.data.value);
-					return <Field disabled={option.data.disabled} label={feature ? <PlayerName element={feature} /> : option.data.label} value={option.data.desc} />;
+					const approvedAncestryFeature = feature && isOfficialAncestryFeatureSource(feature, props.sourcebooks || []);
+					return (
+						<Field
+							disabled={option.data.disabled}
+							label={feature ? <PlayerName element={feature} /> : option.data.label}
+							value={approvedAncestryFeature
+								? <Markdown text={option.data.desc} l10nKey={`element:${feature.id}:description`} />
+								: option.data.desc}
+						/>
+					);
 				}}
 				labelRender={option => {
 					const feature = sortedFeatures.find(f => f.id === option.value);

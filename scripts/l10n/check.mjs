@@ -2166,6 +2166,7 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 	}
 	const entries = parseMapping('src/l10n/mapping.ts', read(path.join(root, 'src/l10n/mapping.ts')) ?? '').entries;
 	const rows = loadSheetRows(path.join(catalogRoot, 'src/l10n/generated/zh-TW'));
+	const usageAdaptations = loadUsageAdaptations(catalogRoot);
 	const fields = new Set([ 'sheetId', 'enHash', 'sourceHash', 'zhHash', 'sourceSpan', 'targetSpan', 'sourceLength', 'targetLength', 'valueSuffix', 'useDisplayTemplate', 'valueTemplate', 'suffixSpan' ]);
 	const errors = [];
 	const validSpan = (span, length) => Array.isArray(span) && span.length === 2 && span.every(Number.isInteger) && span[0] >= 0 && span[0] < span[1] && span[1] <= length;
@@ -2179,9 +2180,13 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 		const stored = rows.get(binding.sheetId);
 		// The screen reads a Forge Steel version when one exists. A book row
 		// is the text on screen only when that version is absent.
-		const row = stored?.fs ?? (
+		const baseRow = stored?.fs ?? (
 			stored && typeof stored.en === 'string' && typeof stored.zh === 'string' ? stored : undefined
 		);
+		const usage = usageAdaptations.get(key);
+		const row = usage && usage.bookStringId === binding.sheetId
+			? { en: usage.en, zh: usage.zh, calculationDisplay: usage.calculationDisplay }
+			: baseRow;
 		if (!entry || entry.sheetId !== binding.sheetId || !row) {
 			fail('binding must reference its mapped approved row');
 			continue;

@@ -72,6 +72,13 @@ describe('dual-source capture', () => {
     expect(JSON.parse(snapshot.get('source.json')).sources.forge.spreadsheetId).toBe(FORGE_SHEET_ID);
     expect(JSON.parse(catalog.get('adaptations.json'))[`fs-adapt:${bookId}`].sources).toHaveLength(2);
   });
+  test('ignores only fully blank divider rows in Adaptation Sources', () => {
+    const raw = base();
+    raw.forge['Adaptation Sources'].values.splice(2, 0, Array(7).fill(''));
+    expect(projectDualCapture(raw)).toEqual(projectDualCapture(base()));
+    raw.forge['Adaptation Sources'].values[2][0] = 'orphan';
+    expect(() => projectDualCapture(raw)).toThrow('orphan');
+  });
   test('accepts a second approved website use of the same Book String with its own ID', () => {
     const raw = base();
     const second = [ ...raw.forge.Adaptations.values[1] ];

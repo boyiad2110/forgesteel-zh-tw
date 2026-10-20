@@ -1,4 +1,5 @@
 import { Feature, FeatureBonusData } from '@/models/feature';
+import { FeatureType } from '@/enums/feature-type';
 import { Select, Space } from 'antd';
 import { Characteristic } from '@/enums/characteristic';
 import { FeatureField } from '@/enums/feature-field';
@@ -15,6 +16,8 @@ import { familiarPerLevelLine } from '@/l10n/ability-text';
 import { familiarStaminaKey } from '@/l10n/familiar-stat';
 import { useL10nText } from '@/l10n/hooks';
 import { useUI } from '@/l10n/ui-text';
+import { ancestryUiText } from '@/l10n/ancestry-ui';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
 
 interface InfoProps {
 	data: FeatureBonusData;
@@ -25,9 +28,24 @@ interface InfoProps {
 
 export const InfoBonus = (props: InfoProps) => {
 	const ui = useUI();
+	const ancestrySource = getOfficialAncestryFeatureSource(props.feature, props.sourcebooks || []);
 	const labelKey = familiarStaminaKey(props.feature) ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []);
-	const label = useL10nText(labelKey, props.data.field);
+	const translatedLabel = useL10nText(labelKey ?? `enum:FeatureField:${props.data.field}`, props.data.field);
+	const ancestryLabel = ancestrySource?.type === FeatureType.Bonus
+		&& ancestrySource.data.field === props.data.field
+		? ancestryUiText(props.data.field, ui)
+		: undefined;
+	const label = ancestryLabel ?? translatedLabel;
 	const perLevel = props.feature.id === 'familiar-1' ? familiarPerLevelLine(ui, props.data) : undefined;
+	const perEchelon = ancestrySource?.id === 'dwarf-feature-2-5'
+		&& ancestrySource.type === FeatureType.Bonus
+		&& ancestrySource.data.field === props.data.field && props.data.field === 'Stamina'
+		&& ancestrySource.data.valuePerEchelon === props.data.valuePerEchelon && props.data.valuePerEchelon === 6
+		? ancestryUiText('Stamina +6 per echelon', ui)
+		: undefined;
+	if (perEchelon) {
+		return <Field label={label} value={perEchelon.startsWith(label) ? perEchelon.slice(label.length).trimStart() : perEchelon} />;
+	}
 	return (
 		<Field label={label} value={perLevel ?? FormatLogic.getModifier(props.data)} />
 	);

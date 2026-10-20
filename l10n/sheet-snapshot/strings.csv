@@ -288,7 +288,7 @@ heroes.ancestries.devil.quick-build,APPROVED,速選：獸腿、威嚴犄角。,"
 heroes.ancestries.devil.signature.silver-tongue.effect,APPROVED,你與生俱來的魔法能夠扭轉他人對你言語的理解，讓你更容易解讀他人並說服對方接受你的觀點。你獲得自選的 1 項交涉類技能。此外，在談判中，當你嘗試識破 NPC 的動機與雷點時，相關考驗會獲得 1 個優勢。,"Your innate magic allows you to twist how your words are perceived to get a better read on people and convince them to see things your way. You have one skill of your choice from the interpersonal skill group (see Skills in Chapter 9: Tests), and you gain an edge on tests when attempting to discover an NPC’s motivations and pitfalls during a negotiation (see Chapter 11: Negotiation).",2026-10-01,,,,
 heroes.ancestries.devil.signature.silver-tongue.name,APPROVED,巧舌如簧,Silver Tongue,2026-10-01,,,,
 heroes.ancestries.devil.summary,APPROVED,魔鬼起源於地獄七城，擁有能夠說服他人的超常魅力。他們的身形與人類相近，膚色包括深藍、紫色和紅色。他們長有犄角、各種顏色的眼睛（包括金色和紅色）與尾巴，有些魔鬼還有羽毛或皮革般的翅膀。,"Devils originated in the Seven Cities of Hell and have a supernatural charisma that helps them persuade others. They are similar in stature to humans, and their skin tones include deep blues, purples, and reds. They sport horns, eyes of all shades (including gold and red), and tails, and some have feathered or leathery wings.",2026-10-01,,,,
-heroes.ancestries.devil.trait.barbed-tail.effect,APPROVED,你尖銳的尾巴能為所有行動錦上添花。每輪 1 次，當你發動近戰打擊時，你可以額外造成等於你最高屬性值的傷害。,"Your pointy tail allows you to punctuate all your actions. Once per round when you make a melee strike, you can deal extra damage with the strike equal to your highest characteristic score.",2026-10-01,,,,
+heroes.ancestries.devil.trait.barbed-tail.effect,APPROVED,你尖銳的尾巴能為所有行動錦上添花。每輪 1 次，當你發動近戰打擊時，你可以額外造成等於你最高屬性值的傷害。,"Your pointy tail allows you to punctuate all your actions. Once per round when you make a melee strike, you can deal extra damage with the strike equal to your highest characteristic score.",2026-10-01,"Your pointy tail allows you to punctuate all your actions. Once per round when you make a melee strike, you can deal extra damage with the strike equal to your highest characteristic score.",你尖銳的尾巴能為所有行動錦上添花。每輪 1 次，當你發動近戰打擊時，你可以額外造成等於你最高屬性值的傷害。,APPROVED,07d312f757ab94acde0f999fa45ca006f21d20827ee6dcefd4a7e010f65e3df5
 heroes.ancestries.devil.trait.barbed-tail.name,APPROVED,尖刺尾巴,Barbed Tail,2026-10-01,,,,
 heroes.ancestries.devil.trait.beast-legs.effect,APPROVED,你強壯的雙腿能讓你跑得更快。你的速度為 6。,Your powerful legs make you faster. You have speed 6.,2026-10-01,Your powerful legs improve your speed. Your Speed is 6.,你強壯的雙腿能讓你跑得更快。你的速度為 6。,APPROVED,27209c660201722dd99daf55dd39009c5bfd1d65da0bb9d14cb65a377535e351
 heroes.ancestries.devil.trait.beast-legs.name,APPROVED,獸腿,Beast Legs,2026-10-01,,,,
@@ -300,7 +300,7 @@ heroes.ancestries.devil.trait.impressive-horns.effect,APPROVED,你珍愛的雙�
 heroes.ancestries.devil.trait.impressive-horns.name,APPROVED,威嚴犄角,Impressive Horns,2026-10-01,,,,
 heroes.ancestries.devil.trait.prehensile-tail.effect,APPROVED,你的靈活尾巴能讓你同時對付四面八方的敵人。你不會被夾擊。,Your prehensile tail allows you to challenge foes on all sides. You can’t be flanked.,2026-10-01,,,,
 heroes.ancestries.devil.trait.prehensile-tail.name,APPROVED,靈活尾巴,Prehensile Tail,2026-10-01,,,,
-heroes.ancestries.devil.trait.wings.effect,APPROVED,你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。,"You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might score (minimum 1 round) before you fall. While using your wings to fly at 3rd level or lower, you have damage weakness 5.",2026-10-01,,,,
+heroes.ancestries.devil.trait.wings.effect,APPROVED,你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。,"You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might score (minimum 1 round) before you fall. While using your wings to fly at 3rd level or lower, you have damage weakness 5.",2026-10-01,"You possess wings powerful enough to take you airborne. While using your wings to fly, you can stay aloft for a number of rounds equal to your Might score (minimum 1 round) before you fall. While using your wings to fly at 3rd level or lower, you have damage weakness 5.",你強壯的翅膀能帶你飛上天空。當你使用翅膀飛行時，你最多可以在空中停留等於你力量的輪數（至少 1 輪），之後就會墜落。若你在 3 級以下使用翅膀飛行，你會擁有傷害弱點 5。,APPROVED,05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc
 heroes.ancestries.devil.trait.wings.name,APPROVED,飛翼,Wings,2026-10-01,,,,
 heroes.ancestries.devil.traits.heading,APPROVED,魔鬼特性,Devil Traits,2026-10-01,,,,
 heroes.ancestries.devil.traits.intro,APPROVED,魔鬼英雄可以獲得以下特性。,Devil heroes have access to the following traits.,2026-10-01,,,,
@@ -315,7 +315,7 @@ heroes.ancestries.dragon-knight.quick-build,APPROVED,速選：龍息、虹彩鱗
 heroes.ancestries.dragon-knight.signature.wyrmplate.effect,APPROVED,你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。,"Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.",2026-10-01,"Your hardened scales grant you damage immunity equal to your level to one of the following damage types: acid, cold, corruption, fire, lightning, or poison. You can change your damage immunity type when you finish a respite.",你堅硬的鱗片會提供以下其中 1 種傷害類型的免疫（免疫值等於你的等級）：酸蝕、寒冷、腐朽、火焰、閃電、毒素。每次完成休整時，你可以更改傷害免疫的類型。,APPROVED,9edb756a023652cb6513ea4ea93f1cbfc7041d14202551df185f14387f5b64d7
 heroes.ancestries.dragon-knight.signature.wyrmplate.name,APPROVED,龍鱗,Wyrmplate,2026-10-01,,,,
 heroes.ancestries.dragon-knight.summary,APPROVED,龍騎士是肌肉發達的龍形類人生物，身高介於 6 到 7 呎之間。他們頭部、身軀和尾巴上的鱗片可以呈現各種顏色。所有龍騎士都有翅膀，但只有少數人的翅膀大到足以飛行。,"Dragon knights are muscled draconic humanoids who stand between 6 and 7 feet tall. The scales covering their reptilian heads, bodies, and tails can be almost any color. All dragon knights have wings, but on only a few are those wings big enough to let them fly.",2026-10-01,,,,
-heroes.ancestries.dragon-knight.trait.draconian-guard.effect,APPROVED,每當你自己或 1 個相鄰生物受到打擊造成的傷害時，你可以使用反應動作進行防護，讓該次打擊減少等於你等級的傷害。,"Whenever you or an adjacent creature takes damage from a strike, you can use a triggered action to guard against the blow. You reduce any damage from the strike by an amount equal to your level.",2026-10-01,,,,
+heroes.ancestries.dragon-knight.trait.draconian-guard.effect,APPROVED,每當你自己或 1 個相鄰生物受到打擊造成的傷害時，你可以使用反應動作進行防護，讓該次打擊減少等於你等級的傷害。,"Whenever you or an adjacent creature takes damage from a strike, you can use a triggered action to guard against the blow. You reduce any damage from the strike by an amount equal to your level.",2026-10-01,You can swing your wings around and guard against a blow.,你可以揮動雙翼抵擋打擊。,APPROVED,3f52c72ab37ee8921e24676ecb585208a7c1c04d4f0bcfe8e743c13219284e49
 heroes.ancestries.dragon-knight.trait.draconian-guard.name,APPROVED,龍人守衛,Draconian Guard,2026-10-01,,,,
 heroes.ancestries.dragon-knight.trait.draconian-pride.name,APPROVED,龍人霸氣,Draconian Pride,2026-10-01,Draconic Pride,龍人霸氣,APPROVED,4c4d821cacbe03f7058b076dde6619a907956e6670895b77c3060291084117d2
 heroes.ancestries.dragon-knight.trait.draconian-pride.tagline,APPROVED,你發出震天怒吼，撼動敵人的心志。,You let loose a mighty roar to shake your foes’ spirits.,2026-10-01,,,,
@@ -330,7 +330,32 @@ heroes.ancestries.dragon-knight.trait.prismatic-scales.option.corruption.name,AP
 heroes.ancestries.dragon-knight.trait.prismatic-scales.option.fire.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (fire),虹彩鱗片（火焰）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
 heroes.ancestries.dragon-knight.trait.prismatic-scales.option.lightning.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (lightning),虹彩鱗片（閃電）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
 heroes.ancestries.dragon-knight.trait.prismatic-scales.option.poison.name,APPROVED,虹彩鱗片,Prismatic Scales,2026-10-08,Prismatic Scales (poison),虹彩鱗片（毒素）,APPROVED,e5cca197855237ce0895898eda55e491ddc971a29346ee3ff4483214806adff0
-heroes.ancestries.dragon-knight.trait.remember-your-oath.effect,APPROVED,你可以使用機動動作誦讀以下誓言。直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。,"As a maneuver, you can recite the following oath. Until the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",2026-10-01,,,,
+heroes.ancestries.dragon-knight.trait.remember-your-oath.effect,APPROVED,你可以使用機動動作誦讀以下誓言。直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。,"As a maneuver, you can recite the following oath. Until the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.",2026-10-01,"As a maneuver, you can recite the following oath.
+
+> Even should the sun stop in the sky
+> Even should the night last a thousand years
+> I will stand forever
+> I shall not yield
+> Those who suffer and yearn for justice
+> I am your sword and shield
+> I will yield no ground
+> I will speak no lies
+> I will stand against all tyrants
+> Until the last villain dies.
+ 
+Until the start of your next turn, whenever you make a saving throw, you succeed on a 4 or higher.","你可以使用機動動作誦讀以下誓言。
+
+> 縱使太陽停在天際，
+> 就算黑夜千年不息，
+> 我會永遠屹立，
+> 絕不退縮逃避。
+> 渴望正義的受苦之人啊，
+> 我就是你的劍與盾。
+> 寸步不讓，一字不虛，
+> 我會挺身對抗每個暴君，
+> 直到所有惡徒伏誅殞命。
+
+直到你下個回合開始前，每當你進行豁免時，擲出 4 以上就算成功。",APPROVED,e9ae19d687b5362e461ee45a645a1f65b815e95ba74aa80ec7306c765b88f4c4
 heroes.ancestries.dragon-knight.trait.remember-your-oath.name,APPROVED,銘記誓言,Remember Your Oath,2026-10-01,Remember your Oath,銘記誓言,APPROVED,fe225223d1bcbcdf9cb261d6852694e2c1cc9f3ab1658f7fb0a730c626ad1b0e
 heroes.ancestries.dragon-knight.trait.remember-your-oath.oath,APPROVED,"縱使太陽停在天際，
 就算黑夜千年不息，
@@ -533,7 +558,7 @@ heroes.ancestries.polder.signature.shadowmeld.tagline,APPROVED,你化為一道�
 heroes.ancestries.polder.signature.small.effect,APPROVED,你嬌小的身材能讓你更輕易地擺脫（或陷入）麻煩。你的體型為 1S。,Your diminutive stature lets you easily get out of—or into—trouble. Your size is 1S.,2026-10-01,Your diminutive stature lets you easily get out of — or into — trouble.,你嬌小的身材能讓你更輕易地擺脫（或陷入）麻煩。,APPROVED,2f1aa6123177173801359eb2af735f48941c244693f69eb954431df22be8728c
 heroes.ancestries.polder.signature.small.name,APPROVED,小個子！,Small!,2026-10-01,,,,
 heroes.ancestries.polder.summary,APPROVED,波德人是核心規則中體型最小的族裔，身高不超過 3.5 呎。他們看起來像較矮小的人類，並且擁有融入陰影的能力。,"The smallest of the ancestries in this book, polders stand no taller than 3-1/2 feet. They look like smaller humans, and they have the ability to blend in with the shadows.",2026-10-01,,,,
-heroes.ancestries.polder.trait.corruption-immunity.effect,APPROVED,你與生俱來的暗影魔法能讓你抵抗異常傷害。你擁有等於你等級 +2 的腐朽免疫。,Your innate shadow magic grants you resilience against the unnatural. You have corruption immunity equal to your level + 2.,2026-10-01,,,,
+heroes.ancestries.polder.trait.corruption-immunity.effect,APPROVED,你與生俱來的暗影魔法能讓你抵抗異常傷害。你擁有等於你等級 +2 的腐朽免疫。,Your innate shadow magic grants you resilience against the unnatural. You have corruption immunity equal to your level + 2.,2026-10-01,Your innate shadow magic grants you resilience against the unnatural. You have corruption immunity equal to your level + 2.,你與生俱來的暗影魔法能讓你抵抗異常傷害。你擁有等於你等級 +2 的腐朽免疫。,APPROVED,b6473d9a66dab8db720d184039ebe2e696ff745d89e2f5db5ef112bdc5005b0d
 heroes.ancestries.polder.trait.corruption-immunity.name,APPROVED,腐朽免疫,Corruption Immunity,2026-10-01,,,,
 heroes.ancestries.polder.trait.fearless.effect,APPROVED,你天生勇敢無懼。你不會陷入畏縮狀態。,Courage is all you know. You can’t be made frightened.,2026-10-01,Courage is all you know.,你天生勇敢無懼。,APPROVED,054138f52cef5cfb2c733d447eec33e2e734b7ac4f8ee8810ea4e93a6f4d5707
 heroes.ancestries.polder.trait.fearless.name,APPROVED,無所畏懼,Fearless,2026-10-01,,,,
@@ -588,10 +613,10 @@ heroes.ancestries.time-raider.name,APPROVED,時空獵手,Time Raider,2026-10-01,
 heroes.ancestries.time-raider.purchased.heading,APPROVED,自購時空獵手特性,Purchased Time Raider Traits,2026-10-01,,,,
 heroes.ancestries.time-raider.purchased.intro,APPROVED,你有 3 點族裔點數，可以用來購買以下特性。,You have 3 ancestry points to spend on the following traits.,2026-10-01,,,,
 heroes.ancestries.time-raider.quick-build,APPROVED,速選：透視力、靈能天賦（靈能射線）,"Quick Build: Beyondsight, Psionic Gift with Psionic Bolt.",2026-10-01,,,,
-heroes.ancestries.time-raider.signature.psychic-scar.effect,APPROVED,你的心智本身就是一道強大的防護罩。你擁有等於你等級的心靈免疫。,Your mind is a formidable layer of defense. You have psychic immunity equal to your level.,2026-10-01,,,,
+heroes.ancestries.time-raider.signature.psychic-scar.effect,APPROVED,你的心智本身就是一道強大的防護罩。你擁有等於你等級的心靈免疫。,Your mind is a formidable layer of defense. You have psychic immunity equal to your level.,2026-10-01,Your mind is a formidable layer of defense. You have psychic immunity equal to your level.,你的心智本身就是一道強大的防護罩。你擁有等於你等級的心靈免疫。,APPROVED,893c63429afd744b4b08aec7da971d649e386bf010f300d30086e0b085c06569
 heroes.ancestries.time-raider.signature.psychic-scar.name,APPROVED,心靈傷痕,Psychic Scar,2026-10-01,,,,
 heroes.ancestries.time-raider.summary,APPROVED,時空獵手是時界中的旅人，他們自稱庫蘭佐伊，擁有四隻手臂，並以光學感應器取代眼睛。許多時空獵手天生具有靈能力，讓他們成為強悍的戰士。,"Travelers of the timescape, the time raiders (or kuran’zoi as they call themselves) have four arms and a single ocular sensor instead of a pair of eyes. Many have innate psionic abilities that make them capable warriors.",2026-10-01,,,,
-heroes.ancestries.time-raider.trait.beyondsight.effect,APPROVED,你可以使用機動動作調整視覺能力，讓你看穿厚度不超過 1 格的尋常障礙物。在你啟動透視力的期間，你無法看到 1 格內的區域，而且對 1 格內的任何生物或物體都沒有效果線。你可以使用機動動作恢復成正常視覺。,"As a maneuver, you can adjust your vision to allow you to see through mundane obstructions that are 1 square thick or less. While your vision is adjusted this way, you can’t see the area within 1 square of you and you don’t have line of effect to any creature or object in that area. You can restore your usual vision as a maneuver.",2026-10-01,,,,
+heroes.ancestries.time-raider.trait.beyondsight.effect,APPROVED,你可以使用機動動作調整視覺能力，讓你看穿厚度不超過 1 格的尋常障礙物。在你啟動透視力的期間，你無法看到 1 格內的區域，而且對 1 格內的任何生物或物體都沒有效果線。你可以使用機動動作恢復成正常視覺。,"As a maneuver, you can adjust your vision to allow you to see through mundane obstructions that are 1 square thick or less. While your vision is adjusted this way, you can’t see the area within 1 square of you and you don’t have line of effect to any creature or object in that area. You can restore your usual vision as a maneuver.",2026-10-01,You adjust your vision to allow you to see through mundane obstructions.,你調整視覺能力，讓你看穿尋常障礙物。,APPROVED,e6f1de0b804a83aff9e6c544a28be3b357fcdf3b587ee085f5fc0872b51c489d
 heroes.ancestries.time-raider.trait.beyondsight.name,APPROVED,透視力,Beyondsight,2026-10-01,,,,
 heroes.ancestries.time-raider.trait.foresight.effect,APPROVED,你的感官能夠穿越世俗的阻礙與未來的帷幕。你會自動知道 20 格內任何對你具有遮蔽但並未處於隱藏的生物位置，而且當你對這些生物發動打擊時，你會無視通常需要承受的 1 個劣勢。此外，每當你成為打擊的目標時，你可以使用反應動作，讓該次檢定承受 1 個劣勢。,"Your senses extend past mundane obscuration and the veil of the future alike. You automatically know the location of any creature with concealment who isn’t hidden from you within 20, and you negate the usual bane on strikes against such creatures. Additionally, whenever you are targeted by a strike, you can use a triggered action to impose a bane on the power roll.",2026-10-01,"You automatically know the location of any creature with concealment who isn’t hidden from you within 20, and you negate the usual bane on strikes against such creatures.",你會自動知道 20 格內任何對你具有遮蔽但並未處於隱藏的生物位置，而且當你對這些生物發動打擊時，你會無視通常需要承受的 1 個劣勢。,APPROVED,5867cc22e44b3cb8ab4465f0ebbb18cdeba5495ce9c043f2fc7f1b77815cde21
 heroes.ancestries.time-raider.trait.foresight.name,APPROVED,預視力,Foresight,2026-10-01,,,,
@@ -607,7 +632,7 @@ heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.name,APPROVE
 heroes.ancestries.time-raider.trait.psionic-gift.minor-acceleration.tagline,APPROVED,你讓自己或盟友瞬間爆發出更快的速度。,You fill yourself or an ally with a burst of speed.,2026-10-01,,,,
 heroes.ancestries.time-raider.trait.psionic-gift.name,APPROVED,靈能天賦,Psionic Gift,2026-10-01,,,,
 heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.name,APPROVED,靈能射線,Psionic Bolt,2026-10-01,,,,
-heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline,APPROVED,你射出一道能強制移動目標的紫色靈能光束。,You shoot forth a purple beam of psychic force that moves your target.,2026-10-01,,,,
+heroes.ancestries.time-raider.trait.psionic-gift.psionic-bolt.tagline,APPROVED,你射出一道能強制移動目標的紫色靈能光束。,You shoot forth a purple beam of psychic force that moves your target.,2026-10-01,You shoot forth a purple beam of psychic force that grips your target.,你射出一道能強制移動目標的紫色靈能光束。,APPROVED,00b0594b1b350e9532d737a5e757d11e1a87b856cd0a1ed007ee9f3d4238c7b3
 heroes.ancestries.time-raider.trait.unstoppable-mind.effect,APPROVED,你的心智能讓你在任何情況下保持專注。你不會陷入暈眩狀態。,Your mind allows you to maintain your focus in any situation. You can’t be made dazed.,2026-10-01,Your mind allows you to maintain your focus in any situation.,你的心智能讓你在任何情況下保持專注。,APPROVED,9494bd36b57390b3a5076b596e44d4d91d76ce7e0c9a002869de4251218e4644
 heroes.ancestries.time-raider.trait.unstoppable-mind.name,APPROVED,頑強心智,Unstoppable Mind,2026-10-01,,,,
 heroes.ancestries.time-raider.traits.heading,APPROVED,時空獵手特性,Time Raider Traits,2026-10-01,,,,
@@ -633,7 +658,7 @@ heroes.ancestries.wode-elf.trait.swift.effect,APPROVED,你的速度為 6。,You 
 heroes.ancestries.wode-elf.trait.swift.name,APPROVED,迅捷步伐,Swift,2026-10-01,,,,
 heroes.ancestries.wode-elf.trait.the-wode-defends.effect,APPROVED,你獲得以下招牌招式。,You have the following signature ability. Signature abilities can be used at will.,2026-10-01,,,,
 heroes.ancestries.wode-elf.trait.the-wode-defends.name,APPROVED,幻林護衛,The Wode Defends,2026-10-01,,,,
-heroes.ancestries.wode-elf.trait.the-wode-defends.tagline,APPROVED,尖刺藤蔓從四周地表竄出，試圖纏繞你的敵人。,Thorny vines erupt from every surface and attempt to bind your foe.,2026-10-01,,,,
+heroes.ancestries.wode-elf.trait.the-wode-defends.tagline,APPROVED,尖刺藤蔓從四周地表竄出，試圖纏繞你的敵人。,Thorny vines erupt from every surface and attempt to bind your foe.,2026-10-01,Thorny vines erupt into existence and attempt to bind your foe.,尖刺藤蔓從四周地表竄出，試圖纏繞你的敵人。,APPROVED,3324ca2a30fc160bc8f8f92461bac1908ca71dfecca79adce0f1cbeeea739649
 heroes.ancestries.wode-elf.traits.heading,APPROVED,幻林精靈特性,Wode Elf Traits,2026-10-01,,,,
 heroes.ancestries.wode-elf.traits.intro,APPROVED,幻林精靈英雄可以獲得以下特性。,Wode elf heroes have access to the following traits.,2026-10-01,,,,
 heroes.background.career.agent.benefit.languages,APPROVED,語言：2 種語言,Languages: Two languages,2026-10-11,,,,

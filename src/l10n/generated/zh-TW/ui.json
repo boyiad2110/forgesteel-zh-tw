@@ -1,4 +1,9 @@
 {
+  "ui.hero-builder.acid.c4fdf6b8": {
+    "en": "Acid",
+    "updated": "2026-10-19",
+    "zh": "酸蝕"
+  },
   "ui.hero-builder.add-a-custom-element.4555eada": {
     "en": "Add a custom element",
     "updated": "2026-10-11",
@@ -28,6 +33,176 @@
     "en": "Ancestral Cultures",
     "updated": "2026-10-10",
     "zh": "族裔文化"
+  },
+  "ui.hero-builder.ancestry-area.024dc204": {
+    "en": "Area",
+    "updated": "2026-10-19",
+    "zh": "區域"
+  },
+  "ui.hero-builder.ancestry-burst.b3ee1661": {
+    "en": "{value} Burst",
+    "updated": "2026-10-19",
+    "zh": "{value} 爆發"
+  },
+  "ui.hero-builder.ancestry-condition-all-arms.8cc038d7": {
+    "en": "When you can use all your arms in the attempt",
+    "updated": "2026-10-19",
+    "zh": "當你能用所有手臂進行嘗試時"
+  },
+  "ui.hero-builder.ancestry-condition-interacting-undead.488ee1e7": {
+    "en": "When interacting with undead creatures",
+    "updated": "2026-10-19",
+    "zh": "與亡靈生物互動時"
+  },
+  "ui.hero-builder.ancestry-condition-lifting-hauling.153ce9f9": {
+    "en": "When lifting and hauling heavy objects",
+    "updated": "2026-10-19",
+    "zh": "舉起或搬運重物時"
+  },
+  "ui.hero-builder.ancestry-condition-noticing-threats.82f01689": {
+    "en": "When noticing threats",
+    "updated": "2026-10-19",
+    "zh": "察覺威脅時"
+  },
+  "ui.hero-builder.ancestry-condition-parsing-documents.3e54cb37": {
+    "en": "When parsing schematics, maps, and other systematic documents that aren’t inherently chaotic",
+    "updated": "2026-10-19",
+    "zh": "解析藍圖、地圖及其他本質上並不混亂的系統性文件時"
+  },
+  "ui.hero-builder.ancestry-condition-recalling-lore.41dee668": {
+    "en": "When recalling lore",
+    "updated": "2026-10-19",
+    "zh": "回想知識時"
+  },
+  "ui.hero-builder.ancestry-condition-resisting-effects.4dc8b301": {
+    "en": "When resisting environmental effects or a creature’s traits or abilities",
+    "updated": "2026-10-19",
+    "zh": "抵抗環境效果或生物的特性與招式時"
+  },
+  "ui.hero-builder.ancestry-corruption-growth.7932cd16": {
+    "en": "Corruption Immunity +3 +1 per level after 1st",
+    "updated": "2026-10-19",
+    "zh": "腐朽免疫 +3；第 1 級後每級 +1"
+  },
+  "ui.hero-builder.ancestry-cube-within.7de28835": {
+    "en": "{size} Cube within {distance}",
+    "updated": "2026-10-19",
+    "zh": "{distance} 格內 {size} 立方"
+  },
+  "ui.hero-builder.ancestry-damage-push.002730d6": {
+    "en": "{damage} damage; push {distance}",
+    "updated": "2026-10-19",
+    "zh": "{damage} 傷害；推動 {distance}"
+  },
+  "ui.hero-builder.ancestry-damage.04b5358f": {
+    "en": "{value} damage",
+    "updated": "2026-10-19",
+    "zh": "{value} 傷害"
+  },
+  "ui.hero-builder.ancestry-each-enemy.9f98d4d1": {
+    "en": "Each enemy in the area",
+    "updated": "2026-10-19",
+    "zh": "區域內每個敵人"
+  },
+  "ui.hero-builder.ancestry-feature.d02c24ce": {
+    "en": "Ancestry Feature",
+    "updated": "2026-10-19",
+    "zh": "族裔特性"
+  },
+  "ui.hero-builder.ancestry-forced-movement-pull.f6e02a59": {
+    "en": "Forced Movement: Pull",
+    "updated": "2026-10-19",
+    "zh": "強制移動：拉動"
+  },
+  "ui.hero-builder.ancestry-forced-movement-push.14a22b13": {
+    "en": "Forced Movement: Push",
+    "updated": "2026-10-19",
+    "zh": "強制移動：推動"
+  },
+  "ui.hero-builder.ancestry-forced-movement-slide.8b9656a6": {
+    "en": "Forced Movement: Slide",
+    "updated": "2026-10-19",
+    "zh": "強制移動：滑動"
+  },
+  "ui.hero-builder.ancestry-movement-mode-label.3251952c": {
+    "en": "MOVEMENT MODE",
+    "updated": "2026-10-19",
+    "zh": "移動模式"
+  },
+  "ui.hero-builder.ancestry-points.be56c10c": {
+    "en": "Ancestry Points",
+    "updated": "2026-10-19",
+    "zh": "族裔點數"
+  },
+  "ui.hero-builder.ancestry-power-roll-might-agility.ad066156": {
+    "en": "Power Roll + Might or Agility",
+    "updated": "2026-10-19",
+    "zh": "檢定 + 力量或敏捷"
+  },
+  "ui.hero-builder.ancestry-power-roll-might-presence.0ea0eaad": {
+    "en": "Power Roll + Might or Presence",
+    "updated": "2026-10-19",
+    "zh": "檢定 + 力量或氣場"
+  },
+  "ui.hero-builder.ancestry-power-roll-reason-intuition-presence.c37df268": {
+    "en": "Power Roll + Reason or Intuition or Presence",
+    "updated": "2026-10-19",
+    "zh": "檢定 + 理智、直覺或氣場"
+  },
+  "ui.hero-builder.ancestry-scope-all-tests.c8966d43": {
+    "en": "All tests",
+    "updated": "2026-10-19",
+    "zh": "所有考驗"
+  },
+  "ui.hero-builder.ancestry-scope-climb-gymnastics-swim.4aa03efa": {
+    "en": "Climb, Gymnastics, Swim",
+    "updated": "2026-10-19",
+    "zh": "攀爬、體操、游泳"
+  },
+  "ui.hero-builder.ancestry-scope-hide-sneak.ace7141d": {
+    "en": "Hide, Sneak",
+    "updated": "2026-10-19",
+    "zh": "隱匿、潛行"
+  },
+  "ui.hero-builder.ancestry-scope-might-tests.1fdd0d78": {
+    "en": "Might tests",
+    "updated": "2026-10-19",
+    "zh": "力量考驗"
+  },
+  "ui.hero-builder.ancestry-scope-presence-flirt-persuade.50bb7256": {
+    "en": "Presence tests using Flirt, Persuade",
+    "updated": "2026-10-19",
+    "zh": "使用魅惑或遊說進行的氣場考驗"
+  },
+  "ui.hero-builder.ancestry-scope-reason-intuition-presence.56765d20": {
+    "en": "Reason, Intuition, Presence tests",
+    "updated": "2026-10-19",
+    "zh": "理智、直覺、氣場考驗"
+  },
+  "ui.hero-builder.ancestry-stamina-per-echelon.56bdc7d5": {
+    "en": "Stamina +6 per echelon",
+    "updated": "2026-10-19",
+    "zh": "體力每境界 +6"
+  },
+  "ui.hero-builder.ancestry-surge-per-encounter.9459bbc7": {
+    "en": "+1 SURGE PER ENCOUNTER",
+    "updated": "2026-10-19",
+    "zh": "鬥志 +1 / 每場遭遇"
+  },
+  "ui.hero-builder.ancestry-surge-start-of-combat.787b64ff": {
+    "en": "Start of combat",
+    "updated": "2026-10-19",
+    "zh": "戰鬥開始時"
+  },
+  "ui.hero-builder.ancestry-traits-and-perks.a0bf6477": {
+    "en": "Ancestry Traits and Perks",
+    "updated": "2026-10-19",
+    "zh": "族裔特性與專長"
+  },
+  "ui.hero-builder.ancestry-trigger-targeted-by-strike.3b5a09c7": {
+    "en": "You are targeted with a strike",
+    "updated": "2026-10-19",
+    "zh": "當你成為打擊的目標時"
   },
   "ui.hero-builder.ancestry.638cf5ee": {
     "en": "Ancestry",
@@ -74,6 +249,21 @@
     "updated": "2026-10-10",
     "zh": "自訂文化"
   },
+  "ui.hero-builder.bolt-tier-1.c23fccd2": {
+    "en": "2 + R, I, or P psychic damage; slide 1",
+    "updated": "2026-10-19",
+    "zh": "2 + 理智、直覺或氣場心靈傷害；滑動 1"
+  },
+  "ui.hero-builder.bolt-tier-2.d520ad1c": {
+    "en": "5 + R, I, or P psychic damage; slide 2",
+    "updated": "2026-10-19",
+    "zh": "5 + 理智、直覺或氣場心靈傷害；滑動 2"
+  },
+  "ui.hero-builder.bolt-tier-3.644c6a0d": {
+    "en": "7 + R, I, or P psychic damage; slide 3",
+    "updated": "2026-10-19",
+    "zh": "7 + 理智、直覺或氣場心靈傷害；滑動 3"
+  },
   "ui.hero-builder.bonus-per-level.f68c64a2": {
     "en": "`${mod.value >= 0 ? '+' : ''}${mod.value} per level`",
     "updated": "2026-10-15",
@@ -108,6 +298,11 @@
     "en": "Characteristics",
     "updated": "2026-10-10",
     "zh": "屬性"
+  },
+  "ui.hero-builder.cherry-pick.bb78f611": {
+    "en": "Cherry Pick",
+    "updated": "2026-10-19",
+    "zh": "挑選特性"
   },
   "ui.hero-builder.choice-feature-description.3a5f7705": {
     "en": "This feature allows you to choose from a collection of features.",
@@ -314,6 +509,11 @@
     "updated": "2026-10-10",
     "zh": "點擊這裡"
   },
+  "ui.hero-builder.cold.f151cd9e": {
+    "en": "Cold",
+    "updated": "2026-10-19",
+    "zh": "寒冷"
+  },
   "ui.hero-builder.common-language-description.cc9ef9be": {
     "en": "Choose a Common language.",
     "updated": "2026-10-11",
@@ -338,6 +538,16 @@
     "en": "Configure",
     "updated": "2026-10-10",
     "zh": "設定"
+  },
+  "ui.hero-builder.corruption.abf56455": {
+    "en": "Corruption",
+    "updated": "2026-10-19",
+    "zh": "腐朽"
+  },
+  "ui.hero-builder.cost.204a5eb2": {
+    "en": "Cost",
+    "updated": "2026-10-19",
+    "zh": "費用"
   },
   "ui.hero-builder.crafting-perk.cc40cc14": {
     "en": "Crafting Perk",
@@ -369,6 +579,11 @@
     "updated": "2026-10-10",
     "zh": "文化"
   },
+  "ui.hero-builder.current-ancestry.7b823070": {
+    "en": "Current ancestry",
+    "updated": "2026-10-19",
+    "zh": "現有族裔"
+  },
   "ui.hero-builder.custom-language-name.5b0c1f59": {
     "en": "Custom Language Name",
     "updated": "2026-10-10",
@@ -393,6 +608,11 @@
     "en": "Customize",
     "updated": "2026-10-10",
     "zh": "自訂"
+  },
+  "ui.hero-builder.damage-modifier.a9292a2f": {
+    "en": "Damage Modifier",
+    "updated": "2026-10-19",
+    "zh": "傷害調整"
   },
   "ui.hero-builder.default-language.28bee244": {
     "en": "Default Language",
@@ -479,6 +699,11 @@
     "updated": "2026-10-10",
     "zh": "最後，前往"
   },
+  "ui.hero-builder.fire.c141faa8": {
+    "en": "Fire",
+    "updated": "2026-10-19",
+    "zh": "火焰"
+  },
   "ui.hero-builder.folder.5d207c4a": {
     "en": "Folder",
     "updated": "2026-10-10",
@@ -488,6 +713,11 @@
     "en": "`${FormatLogic.getModifier(props.data)} distance`",
     "updated": "2026-10-10",
     "zh": "{modifier} 射程"
+  },
+  "ui.hero-builder.former-ancestry.162fd55c": {
+    "en": "Former ancestry",
+    "updated": "2026-10-19",
+    "zh": "昔日族裔"
   },
   "ui.hero-builder.former-life.2d120c9d": {
     "en": "Former Life",
@@ -539,10 +769,20 @@
     "updated": "2026-10-15",
     "zh": "免疫"
   },
+  "ui.hero-builder.immunity.806f8b53": {
+    "en": "Immunity",
+    "updated": "2026-10-19",
+    "zh": "免疫"
+  },
   "ui.hero-builder.import-a-sourcebook.37cebd77": {
     "en": "Import a sourcebook",
     "updated": "2026-10-10",
     "zh": "匯入來源書"
+  },
+  "ui.hero-builder.import.2cff9baa": {
+    "en": "Import",
+    "updated": "2026-10-19",
+    "zh": "匯入"
   },
   "ui.hero-builder.in-progress.c78428c0": {
     "en": "In Progress",
@@ -659,6 +899,11 @@
     "updated": "2026-10-10",
     "zh": "{level} 級"
   },
+  "ui.hero-builder.lightning.41e68f2c": {
+    "en": "Lightning",
+    "updated": "2026-10-19",
+    "zh": "閃電"
+  },
   "ui.hero-builder.list-or.7382d0ab": {
     "en": "`${items} or ${last}`",
     "updated": "2026-10-16",
@@ -704,10 +949,20 @@
     "updated": "2026-10-17",
     "zh": "近戰射程"
   },
+  "ui.hero-builder.move-down.b58330ac": {
+    "en": "Move Down",
+    "updated": "2026-10-19",
+    "zh": "下移"
+  },
   "ui.hero-builder.move-sash.683a62ce": {
     "en": "move",
     "updated": "2026-10-15",
     "zh": "移動"
+  },
+  "ui.hero-builder.move-up.1359626e": {
+    "en": "Move Up",
+    "updated": "2026-10-19",
+    "zh": "上移"
   },
   "ui.hero-builder.movement-mode.56db4b3c": {
     "en": "movement mode.",
@@ -819,6 +1074,11 @@
     "updated": "2026-10-11",
     "zh": "總覽"
   },
+  "ui.hero-builder.per-level.1caaa3dd": {
+    "en": "+1 per level",
+    "updated": "2026-10-19",
+    "zh": "每級 +1"
+  },
   "ui.hero-builder.perk-count-list.9eaae349": {
     "en": "`${count} ${list} Perk`",
     "updated": "2026-10-16",
@@ -829,10 +1089,20 @@
     "updated": "2026-10-16",
     "zh": "{count} 項 Perk"
   },
+  "ui.hero-builder.poison.d5a78b99": {
+    "en": "Poison",
+    "updated": "2026-10-19",
+    "zh": "毒素"
+  },
   "ui.hero-builder.portrait.84680994": {
     "en": "Portrait",
     "updated": "2026-10-10",
     "zh": "肖像"
+  },
+  "ui.hero-builder.preview.324b134f": {
+    "en": "Preview",
+    "updated": "2026-10-19",
+    "zh": "預覽"
   },
   "ui.hero-builder.professional-cultures.9011d8e9": {
     "en": "Professional Cultures",
@@ -854,6 +1124,11 @@
     "updated": "2026-10-15",
     "zh": "靈能"
   },
+  "ui.hero-builder.psychic.2c73e325": {
+    "en": "Psychic",
+    "updated": "2026-10-19",
+    "zh": "心靈"
+  },
   "ui.hero-builder.pt-ancestry-feature.c76f6671": {
     "en": "pt ancestry feature.",
     "updated": "2026-10-10",
@@ -863,6 +1138,11 @@
     "en": "Purchased Traits",
     "updated": "2026-10-10",
     "zh": "自購特性"
+  },
+  "ui.hero-builder.purchased.5fa14d9a": {
+    "en": "Purchased",
+    "updated": "2026-10-19",
+    "zh": "自購"
   },
   "ui.hero-builder.random.948804e8": {
     "en": "Random",
@@ -944,10 +1224,30 @@
     "updated": "2026-10-10",
     "zh": "顯示詳情"
   },
+  "ui.hero-builder.sigil-tier-1.7d9ec74e": {
+    "en": "3 + R, I, or P damage; slide 1",
+    "updated": "2026-10-19",
+    "zh": "3 + 理智、直覺或氣場傷害；滑動 1"
+  },
+  "ui.hero-builder.sigil-tier-2.22746c9f": {
+    "en": "5 + R, I, or P damage; slide 2",
+    "updated": "2026-10-19",
+    "zh": "5 + 理智、直覺或氣場傷害；滑動 2"
+  },
+  "ui.hero-builder.sigil-tier-3.fc65f971": {
+    "en": "7 + R, I, or P damage; slide 3",
+    "updated": "2026-10-19",
+    "zh": "7 + 理智、直覺或氣場傷害；滑動 3"
+  },
   "ui.hero-builder.signature-ability.5252b981": {
     "en": "Signature Ability",
     "updated": "2026-10-18",
     "zh": "招牌招式"
+  },
+  "ui.hero-builder.signature-traits.fcbaa026": {
+    "en": "Signature Traits",
+    "updated": "2026-10-19",
+    "zh": "招牌特性"
   },
   "ui.hero-builder.signature.f1a73e22": {
     "en": "Signature",
@@ -993,6 +1293,26 @@
     "en": "Skills",
     "updated": "2026-10-11",
     "zh": "技能"
+  },
+  "ui.hero-builder.slam-tier-1.2c6b0e34": {
+    "en": "2 + R, I, or P damage",
+    "updated": "2026-10-19",
+    "zh": "2 + 理智、直覺或氣場傷害"
+  },
+  "ui.hero-builder.slam-tier-2.719485ce": {
+    "en": "5 + R, I, or P damage; push 1",
+    "updated": "2026-10-19",
+    "zh": "5 + 理智、直覺或氣場傷害；推動 1"
+  },
+  "ui.hero-builder.slam-tier-3.9cbf7f6d": {
+    "en": "7 + R, I, or P damage; push 2; M < [strong] prone",
+    "updated": "2026-10-19",
+    "zh": "7 + 理智、直覺或氣場傷害；推動 2；力量 < 強，伏地"
+  },
+  "ui.hero-builder.source.0e570ca6": {
+    "en": "Source",
+    "updated": "2026-10-19",
+    "zh": "來源"
   },
   "ui.hero-builder.sourcebooks.52e8200a": {
     "en": "Sourcebooks",
@@ -1069,6 +1389,46 @@
     "updated": "2026-10-10",
     "zh": "分頁，為英雄命名。"
   },
+  "ui.hero-builder.tactician-ability-rolls.39be354e": {
+    "en": "Ability rolls",
+    "updated": "2026-10-19",
+    "zh": "招式檢定"
+  },
+  "ui.hero-builder.tactician-arsenal-condition.d5a7fdcd": {
+    "en": "When you use a signature ability from one of your equipped kits, or make a free strike using a weapon from one of your equipped kits",
+    "updated": "2026-10-19",
+    "zh": "當你使用已裝備套裝中的招牌招式，或使用已裝備套裝中的武器發動基礎打擊時"
+  },
+  "ui.hero-builder.tactician-arsenal-desc.b15b7d02": {
+    "en": "Your expertise with weapons has grown.",
+    "updated": "2026-10-19",
+    "zh": "你的武器專精更上一層樓。"
+  },
+  "ui.hero-builder.tactician-improved-arsenal.3e132d50": {
+    "en": "Improved Field Arsenal",
+    "updated": "2026-10-19",
+    "zh": "強化戰場武庫"
+  },
+  "ui.hero-builder.target-creature-object.1c9539cc": {
+    "en": "One creature or object",
+    "updated": "2026-10-19",
+    "zh": "1 個生物或物體"
+  },
+  "ui.hero-builder.target-one-creature-sigil.e1206b59": {
+    "en": "One creature bearing your sigil",
+    "updated": "2026-10-19",
+    "zh": "1 個帶有你符印的生物"
+  },
+  "ui.hero-builder.target-one-creature.bdc53e7b": {
+    "en": "One creature",
+    "updated": "2026-10-19",
+    "zh": "1 個生物"
+  },
+  "ui.hero-builder.target-self-ally.d296a449": {
+    "en": "Self or one ally",
+    "updated": "2026-10-19",
+    "zh": "自身或 1 個盟友"
+  },
   "ui.hero-builder.target.978354db": {
     "en": "Target",
     "updated": "2026-10-15",
@@ -1104,10 +1464,35 @@
     "updated": "2026-10-10",
     "zh": "要新增"
   },
+  "ui.hero-builder.trigger-adjacent-power-roll.66545558": {
+    "en": "You, or a creature adjacent to you, makes a power roll",
+    "updated": "2026-10-19",
+    "zh": "你或 1 個相鄰生物進行檢定時"
+  },
+  "ui.hero-builder.trigger-creature-damage.d99e1985": {
+    "en": "You take damage from a creature",
+    "updated": "2026-10-19",
+    "zh": "你受到生物造成的傷害時"
+  },
+  "ui.hero-builder.trigger-draconian-guard.59674111": {
+    "en": "You, or a creature adjacent to you, takes damage from a strike",
+    "updated": "2026-10-19",
+    "zh": "你或 1 個相鄰生物受到打擊傷害時"
+  },
+  "ui.hero-builder.trigger-force-moved.86b1e2b2": {
+    "en": "Whenever you are force moved",
+    "updated": "2026-10-19",
+    "zh": "每當你被強制移動時"
+  },
   "ui.hero-builder.trigger-sash.683259fe": {
     "en": "trigger",
     "updated": "2026-10-15",
     "zh": "反應"
+  },
+  "ui.hero-builder.trigger-untyped-damage.c921df18": {
+    "en": "You take damage that isn’t untyped",
+    "updated": "2026-10-19",
+    "zh": "你受到非普通傷害時"
   },
   "ui.hero-builder.trigger.8b9c6437": {
     "en": "Trigger",
@@ -1179,6 +1564,16 @@
     "updated": "2026-10-16",
     "zh": "裝備"
   },
+  "ui.hero-builder.value.8e37953d": {
+    "en": "Value",
+    "updated": "2026-10-19",
+    "zh": "點數"
+  },
+  "ui.hero-builder.weakness.f3e0689e": {
+    "en": "Weakness",
+    "updated": "2026-10-19",
+    "zh": "弱點"
+  },
   "ui.hero-builder.weaknesses.af393b75": {
     "en": "Weaknesses",
     "updated": "2026-10-15",
@@ -1203,6 +1598,21 @@
     "en": "When",
     "updated": "2026-10-10",
     "zh": "時機"
+  },
+  "ui.hero-builder.wode-tier-1.3703ac76": {
+    "en": "2 + M or A damage; A < [weak] slowed (save ends)",
+    "updated": "2026-10-19",
+    "zh": "2 + 力量或敏捷傷害；敏捷 < 弱，緩速（豁免解除）"
+  },
+  "ui.hero-builder.wode-tier-2.954a7369": {
+    "en": "3 + M or A damage; A < [average] slowed (save ends)",
+    "updated": "2026-10-19",
+    "zh": "3 + 力量或敏捷傷害；敏捷 < 中，緩速（豁免解除）"
+  },
+  "ui.hero-builder.wode-tier-3.e40c6a44": {
+    "en": "5 + M or A damage; A < [strong] restrained (save ends)",
+    "updated": "2026-10-19",
+    "zh": "5 + 力量或敏捷傷害；敏捷 < 強，束縛（豁免解除）"
   },
   "ui.hero-builder.xp.39a5f606": {
     "en": "XP",

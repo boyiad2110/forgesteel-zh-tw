@@ -27,6 +27,7 @@ import { Toggle } from '@/components/controls/toggle/toggle';
 import { Utils } from '@/utils/utils';
 import { useHiddenSourcebookIDs } from '@/contexts/data-context';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 import './ancestry-edit-panel.scss';
 
@@ -38,6 +39,7 @@ interface Props {
 }
 
 export const AncestryEditPanel = (props: Props) => {
+	const ui = useUI();
 	const [ ancestry, setAncestry ] = useState<Ancestry>(props.ancestry);
 	const [ featureCost, setFeatureCost ] = useState<number>(0);
 	const [ featureSearch, setFeatureSearch ] = useState<string>('');
@@ -108,17 +110,17 @@ export const AncestryEditPanel = (props: Props) => {
 						<Button type='text' icon={<PlusOutlined />} onClick={addFeature} />
 					}
 				>
-					Signature Traits
+					{ui.text('ui.hero-builder.signature-traits.fcbaa026', 'Signature Traits')}
 				</HeaderText>
 				{
 					features.map(f => (
 						<Expander
 							key={f.id}
-							title={f.name || 'Unnamed Feature'}
+							title={f.name || ui.text('ui.hero-builder.unnamed-feature.fe5fa185', 'Unnamed Feature')}
 							tags={[ FeatureLogic.getFeatureTag(f) ]}
 							extra={[
-								<Button key='up' type='text' title='Move Up' icon={<CaretUpOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f, 'up'); }} />,
-								<Button key='down' type='text' title='Move Down' icon={<CaretDownOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f, 'down'); }} />,
+								<Button key='up' type='text' title={ui.text('ui.hero-builder.move-up.1359626e', 'Move Up')} icon={<CaretUpOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f, 'up'); }} />,
+								<Button key='down' type='text' title={ui.text('ui.hero-builder.move-down.b58330ac', 'Move Down')} icon={<CaretDownOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f, 'down'); }} />,
 								<DangerButton key='delete' mode='clear' onConfirm={e => { e.stopPropagation(); deleteFeature(f); }} />
 							]}
 						>
@@ -207,28 +209,28 @@ export const AncestryEditPanel = (props: Props) => {
 
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
-				<HeaderText>Ancestry Points</HeaderText>
+				<HeaderText>{ui.text('ui.hero-builder.ancestry-points.be56c10c', 'Ancestry Points')}</HeaderText>
 				<NumberSpin min={1} value={ancestry.ancestryPoints} onChange={setAncestryPoints} />
 				<HeaderText
 					extra={
 						<Button type='text' icon={<PlusOutlined />} onClick={addFeature} />
 					}
 				>
-					Purchased Traits
+					{ui.text('ui.hero-builder.purchased-traits.394205e5', 'Purchased Traits')}
 				</HeaderText>
 				{
 					features.map(f => (
 						<Expander
 							key={f.feature.id}
-							title={f.feature.name || 'Unnamed Feature'}
+							title={f.feature.name || ui.text('ui.hero-builder.unnamed-feature.fe5fa185', 'Unnamed Feature')}
 							tags={[ FeatureLogic.getFeatureTag(f.feature) ]}
 							extra={[
-								<Button key='up' type='text' title='Move Up' icon={<CaretUpOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f.feature.id, 'up'); }} />,
-								<Button key='down' type='text' title='Move Down' icon={<CaretDownOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f.feature.id, 'down'); }} />,
+								<Button key='up' type='text' title={ui.text('ui.hero-builder.move-up.1359626e', 'Move Up')} icon={<CaretUpOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f.feature.id, 'up'); }} />,
+								<Button key='down' type='text' title={ui.text('ui.hero-builder.move-down.b58330ac', 'Move Down')} icon={<CaretDownOutlined />} onClick={e => { e.stopPropagation(); moveFeature(f.feature.id, 'down'); }} />,
 								<DangerButton key='delete' mode='clear' onConfirm={e => { e.stopPropagation(); deleteFeature(f.feature.id); }} />
 							]}
 						>
-							<HeaderText>Cost</HeaderText>
+							<HeaderText>{ui.text('ui.hero-builder.cost.204a5eb2', 'Cost')}</HeaderText>
 							<NumberSpin min={1} max={2} value={f.value} onChange={v => changeFeature({ feature: f.feature, value: v })} />
 							<FeatureEditPanel
 								feature={f.feature}
@@ -264,7 +266,7 @@ export const AncestryEditPanel = (props: Props) => {
 
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
-				<HeaderText>Culture</HeaderText>
+				<HeaderText>{ui.text('ui.hero-builder.culture.06f1b137', 'Culture')}</HeaderText>
 				<Toggle label='Include a culture' value={!!ancestry.culture} onChange={setHasCulture} />
 				{
 					ancestry.culture ?
@@ -318,7 +320,7 @@ export const AncestryEditPanel = (props: Props) => {
 				<Segmented
 					block={true}
 					options={[
-						{ value: 0, label: 'Signature' },
+						{ value: 0, label: ui.text('ui.hero-builder.signature.f1a73e22', 'Signature') },
 						{ value: 1, label: '1pt' },
 						{ value: 2, label: '2pt' }
 					]}
@@ -340,7 +342,7 @@ export const AncestryEditPanel = (props: Props) => {
 											cherryPick(f.feature, f.value);
 										}}
 									>
-										Import
+										{ui.text('ui.hero-builder.import.2cff9baa', 'Import')}
 									</Button>
 								}
 							>
@@ -364,22 +366,22 @@ export const AncestryEditPanel = (props: Props) => {
 					items={[
 						{
 							key: '1',
-							label: 'Ancestry',
+							label: ui.text('ui.hero-builder.ancestry.638cf5ee', 'Ancestry'),
 							children: getNameAndDescriptionSection()
 						},
 						{
 							key: '2',
-							label: 'Signature Traits',
+							label: ui.text('ui.hero-builder.signature-traits.fcbaa026', 'Signature Traits'),
 							children: getSignatureEditSection()
 						},
 						{
 							key: '3',
-							label: 'Purchased Traits',
+							label: ui.text('ui.hero-builder.purchased-traits.394205e5', 'Purchased Traits'),
 							children: getPurchasedEditSection()
 						},
 						{
 							key: '4',
-							label: 'Culture',
+							label: ui.text('ui.hero-builder.culture.06f1b137', 'Culture'),
 							children: getCultureEditSection()
 						}
 					]}
@@ -392,7 +394,7 @@ export const AncestryEditPanel = (props: Props) => {
 							items={[
 								{
 									key: '1',
-									label: 'Preview',
+									label: ui.text('ui.hero-builder.preview.324b134f', 'Preview'),
 									children: (
 										<SelectablePanel>
 											<AncestryPanel
@@ -405,7 +407,7 @@ export const AncestryEditPanel = (props: Props) => {
 								},
 								{
 									key: '2',
-									label: 'Cherry Pick',
+									label: ui.text('ui.hero-builder.cherry-pick.bb78f611', 'Cherry Pick'),
 									children: getCherryPick()
 								}
 							]}

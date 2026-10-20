@@ -3,6 +3,7 @@ import { Feature, FeatureDamageModifierData } from '@/models/feature';
 import { Characteristic } from '@/enums/characteristic';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
 import { DamageType } from '@/enums/damage-type';
+import { ancestryDamageModifierText } from '@/l10n/damage-modifier-ui';
 import { DangerButton } from '@/components/controls/danger-button/danger-button';
 import { Empty } from '@/components/controls/empty/empty';
 import { Expander } from '@/components/controls/expander/expander';
@@ -15,6 +16,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import { RadioGroup } from '@/components/controls/radio-group/radio-group';
 import { Sourcebook } from '@/models/sourcebook';
 import { Utils } from '@/utils/utils';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
+import { useUI } from '@/l10n/ui-text';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -25,9 +28,18 @@ interface InfoProps {
 }
 
 export const InfoDamageModifier = (props: InfoProps) => {
+	const ui = useUI();
+	const officialAncestryFeature = getOfficialAncestryFeatureSource(props.feature, props.sourcebooks || []) !== undefined;
+	const translated = officialAncestryFeature && ui.language === 'zh-TW'
+		? props.data.modifiers.map(modifier => ancestryDamageModifierText(ui, modifier))
+		: [];
+	const text = translated.length > 0 && translated.every(value => value !== undefined)
+		? translated.join('、')
+		: props.data.modifiers.map(FormatLogic.getDamageModifier).join(', ');
+
 	return (
 		<div className='ds-text'>
-			{props.data.modifiers.map(FormatLogic.getDamageModifier).join(', ')}
+			{text}
 		</div>
 	);
 };
