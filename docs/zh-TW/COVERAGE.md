@@ -1,5 +1,7 @@
 # 玩家旅程顯示覆蓋與 P3 前置盤點
 
+**現行批次檢查（COVERAGE-PILOT-01）**：`src/l10n/coverage-contracts.json` 明列已核准歐克特性 `orc-feature-1` 的名稱與描述，並由 `coverage-contracts.test.tsx` 驗證特性詳情及經典角色卡的中文、英文顯示。這是小型試行清單，只證明表列兩個位置；其他內容或玩家旅程位置須在各批清單與測試中逐步加入，不可由此推論整站完成率。
+
 **歷史盤點說明（更新於 2026-10-12）**：下列 2026-10-10／11 的 UI-05、Career、核准數量與 PR 狀態屬當時盤點紀錄，不代表目前進度。MASTER-SPLIT-D2 已完成並合併 [PR #64](https://github.com/boyiad2110/forgesteel-zh-tw/pull/64)，現行網站 UI／Adaptations 來源為獨立 Forge Steel Master Sheet；最新核准目錄以 `src/l10n/generated/zh-TW/meta.json`、來源檢查點以 `src/l10n/source-dependencies.json` 為準，正式待辦只看 [TODO](TODO.md) 與 [PROGRESS](PROGRESS.md)。
 
 2026-10-10 維護順序 4。依本機顯示接線、既有核准決策與測試盤點；上游 `5968ff54` 同步版本的回歸結果另見 [PROGRESS.md](PROGRESS.md)。這份表不是逐條譯文審校或瀏覽器驗收結果，也不以 mapping／Forge Steel 版／英文例外總數當作產品完成率。

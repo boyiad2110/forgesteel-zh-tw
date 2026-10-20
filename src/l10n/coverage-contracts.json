@@ -1,0 +1,14 @@
+{
+  "batchId": "COVERAGE-PILOT-01",
+  "checks": [
+    {
+      "featureId": "orc-feature-1",
+      "fields": ["name", "description"],
+      "sourceIds": {
+        "name": "heroes.ancestries.orc.signature.relentless.name",
+        "description": "heroes.ancestries.orc.signature.relentless.effect"
+      },
+      "surfaces": ["detail", "classic"]
+    }
+  ]
+}
