@@ -665,6 +665,39 @@ try {
 		await careerPage.evaluate(() => window.careerL10nRegression.source), 'Career source names and descriptions remain unchanged');
 	await careerPage.evaluate(() => { window.careerL10nRegression.root.unmount(); document.querySelector('#career-l10n-regression').remove(); });
 	console.log('PASS browser: all 18 Career names and descriptions in compact and full CareerPanel, zh / en / zh, source unchanged');
+
+	// Keep the coverage-contract pilot tied to actual selected and overview routes.
+	const orcPilot = await page.evaluate(async () => {
+		const { orc } = await import('/src/data/ancestries/orc.ts');
+		const { mapping } = await import('/src/l10n/mapping.ts');
+		const { default: strings } = await import('/src/l10n/generated/zh-TW/strings.json');
+		const value = (id, field) => {
+			const row = strings[mapping[`element:${id}:${field}`].sheetId];
+			return { en: row.fs?.en ?? row.en, zh: row.fs?.zh ?? row.zh };
+		};
+		return { source: orc, featureName: value('orc-feature-1', 'name'), featureDescription: value('orc-feature-1', 'description') };
+	});
+	state.storage['forgesteel-heroes'].find(hero => hero.id === state.heroes.fury.id).ancestry = orcPilot.source;
+	await writeSeedState(page, state.storage);
+	await page.reload();
+	await page.goto(`${origin}#/hero/edit/${state.heroes.fury.id}/ancestry`);
+	await page.locator('#ancestry-selected .ant-segmented-item').filter({ hasText: uiText('ui.hero-builder.signature.f1a73e22') }).click();
+	const selectedOrc = page.locator('#ancestry-selected');
+	await selectedOrc.getByText(orcPilot.featureName.zh, { exact: true }).waitFor();
+	await selectedOrc.getByText(orcPilot.featureDescription.zh, { exact: true }).waitFor();
+	await page.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
+	await selectedOrc.getByText(orcPilot.featureName.en, { exact: true }).waitFor();
+	await selectedOrc.getByText(orcPilot.featureDescription.en, { exact: true }).waitFor();
+	await page.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
+	await page.goto(`${origin}#/hero/view/${state.heroes.fury.id}`);
+	await page.locator('.center-top .ant-segmented-item').filter({ hasText: 'Features' }).click();
+	const overviewOrc = page.locator('.features-section');
+	await overviewOrc.getByText(orcPilot.featureName.zh, { exact: true }).waitFor();
+	await overviewOrc.getByText(orcPilot.featureDescription.zh, { exact: true }).waitFor();
+	await page.goto(`${origin}#/hero/sheet/${state.heroes.fury.id}`);
+	await page.getByText(orcPilot.featureName.zh, { exact: true }).first().waitFor();
+	await page.getByText(orcPilot.featureDescription.zh, { exact: true }).first().waitFor();
+	console.log('PASS browser: orc feature selected, overview, and classic descriptions, zh / en');
 	assert.deepEqual(errors, [], 'Browser page errors');
 	await context.close();
 } finally {

@@ -27,6 +27,7 @@ import { officialLanguageChoiceDisplay } from '@/l10n/perk-list-ui';
 import { perkListText } from '@/l10n/perk-list-ui';
 import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
+import { hasCalculationBinding } from '@/l10n/calculated-text';
 import { ancestryUiText } from '@/l10n/ancestry-ui';
 import { mapping } from '@/l10n/mapping';
 import { useUI } from '@/l10n/ui-text';
@@ -205,9 +206,15 @@ export const FeaturePanel = (props: Props) => {
 		&& mapping[`element:${props.feature.id}:description`]
 		? `element:${props.feature.id}:description`
 		: undefined;
+	const changedAncestryDescription = officialAncestrySource
+		&& props.feature.description !== officialAncestrySource.description
+		&& !hasCalculationBinding(`element:${props.feature.id}:description`);
+	const scopeOverlay = changedAncestryDescription
+		? { ...customization, description: props.feature.description }
+		: customization;
 
 	return (
-		<ElementScope element={props.feature} overlay={customization}>
+		<ElementScope element={props.feature} overlay={scopeOverlay}>
 			<ErrorBoundary>
 				<div className={props.mode === PanelMode.Full ? 'feature-panel' : 'feature-panel compact'} id={props.mode === PanelMode.Full ? SheetFormatter.getPageId('feature', props.feature.id) : undefined} style={props.style}>
 					<HeaderText
