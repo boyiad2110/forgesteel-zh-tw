@@ -3,8 +3,9 @@ import { CloseOutlined, InfoCircleOutlined, ThunderboltFilled, ThunderboltOutlin
 import { Feature, FeatureData } from '@/models/feature';
 import { ReactNode, useState } from 'react';
 import { getChoiceDisplaySource, isDefaultLanguageFeature } from '@/l10n/official-feature-source';
-import { careerPerkNameText, isSingleCareerPerk } from '@/l10n/career-perk-ui';
 import { skillListKey, skillNameKey, useSkillListNames, useSkillNames } from '@/l10n/skill-text';
+import { careerPerkNameText } from '@/l10n/career-perk-ui';
+import { defaultFeatureDescriptionText } from '@/l10n/default-feature-description';
 import { AbilityLogic } from '@/logic/ability-logic';
 import { ConfigFeature } from '@/components/features/feature';
 import { DangerButton } from '@/components/controls/danger-button/danger-button';
@@ -157,10 +158,7 @@ export const FeatureConfigPanel = (props: Props) => {
 
 		if (!desc) {
 			desc = FeatureLogic.getFeatureTypeDescription(props.feature.type);
-		}
-		if ('type' in props.feature && desc === 'This feature allows you to choose a perk.'
-			&& isSingleCareerPerk(props.feature, props.sourcebooks)) {
-			desc = ui.text('ui.hero-builder.this-feature-allows-you-to-choos.f843efd3', 'This feature allows you to choose a perk.');
+			desc = defaultFeatureDescriptionText(props.feature, props.sourcebooks, desc, ui);
 		}
 
 		if (purchasedTraitFeatureIDs.has(props.feature.id)

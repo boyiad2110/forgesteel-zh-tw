@@ -122,8 +122,16 @@ ui.hero-builder.custom-skill-name.7937e4be,APPROVED,自訂技能名稱,Custom Sk
 ui.hero-builder.custom-skill.b3339162,APPROVED,自訂技能,Custom Skill,2026-10-10,8bc353d312155cde3cb6421209ffeea4391188f46e0ccf97b799f14cdd37a99d
 ui.hero-builder.customize.6ddfe8c5,APPROVED,自訂,Customize,2026-10-10,c5276e27afba47df67704ededdb5cf2cfaaf0a9d7d1be1eabb0d4087dd2b724b
 ui.hero-builder.damage-modifier.a9292a2f,APPROVED,傷害調整,Damage Modifier,2026-10-19,a9292a2fe16b3498ef05d95b510ae3587733b5c3bf56b7c3a3477d385f92dab2
+ui.hero-builder.default-ancestry-feature-choice.9f684d5a,APPROVED,此特性能讓你從族裔中選擇特性。,This feature allows you to select a feature from an ancestry.,2026-10-20,9f684d5ac4c188e6f8902788876d572fa76204afaa05b1597616c06cc96556e3
+ui.hero-builder.default-class-ability-choice.40b32187,APPROVED,此特性能讓你從職業招式中做出選擇。,This feature allows you to choose an ability from your class.,2026-10-20,40b321879841162fcf387942fd9af91c46763b35df12cfcfc9e6134b030c06eb
+ui.hero-builder.default-domain-choice.f9ddbbd3,APPROVED,此特性能讓你選擇領域。,This feature allows you to choose a domain.,2026-10-20,f9ddbbd3dc224a570dbb682b634d869b4ee634591e232aaa924c8c70a51a7d0b
+ui.hero-builder.default-item-choice.7348d5a4,APPROVED,此特性能讓你選擇 1 件道具。,This feature allows you to choose an item.,2026-10-20,7348d5a489bfa4e4e038265bc4853075752bbf76250b25c56376fbe8903f1c34
+ui.hero-builder.default-kit-choice.24ea1aa2,APPROVED,此特性能讓你選擇 1 組套裝。,This feature allows you to choose a kit.,2026-10-20,24ea1aa21046c7b071ba0ca36b88a79f85434a8cc161972920250656dabecd02
 ui.hero-builder.default-language.28bee244,APPROVED,預設語言,Default Language,2026-10-11,28bee2441243a8fc69d2007d9683ec904fb2119e9837aae9641a5cc0d99b0134
 ui.hero-builder.default-option.18977ea3,APPROVED,預設選項,Default Option,2026-10-10,a4cfb7ac5bf33f8ef84014f36f40517ff4a330c94076c98d67815974f0ec1b30
+ui.hero-builder.default-retainer.fbf28dbf,APPROVED,此特性能讓你獲得 1 名隨從。,This feature grants you a retainer.,2026-10-20,fbf28dbf636a5a45898fc85a17889ee4d42f63805a23f02855daa748b09d811b
+ui.hero-builder.default-summon-choice.10f57c03,APPROVED,此特性能讓你選擇可召喚的怪物。,This feature allows you to choose monsters you can summon.,2026-10-20,10f57c03c34d860c17fd0df12dbd26d1c8baa7b877f247fb02e67f582d1e6617
+ui.hero-builder.default-toggle.c42fc5cd,APPROVED,此特性能讓你開啟或關閉 1 項特性。,This feature allows you to turn a feature on or off.,2026-10-20,c42fc5cd0b1b36f48e4f9a3e892c75e6cd0dbc45cc43c1b03a94871f5b00c3d6
 ui.hero-builder.delete.01152930,APPROVED,刪除,Delete,2026-10-10,e2d0a54968ead24efc0dffa6ac78fc606dceec34a0f586177a74a54cc2272cf8
 ui.hero-builder.description.526e0087,APPROVED,描述,Description,2026-10-11,526e0087cc3f254d9f86f6c7d8e23d954c4dfda2b312efc29194ae8a860106ba
 ui.hero-builder.details.a3eba45b,APPROVED,詳情,Details,2026-10-10,45989de49fb7f66dfe17a8fc26f3a02c7abcd74f7e8e6cf9f39fa0e3775780df
@@ -287,7 +295,7 @@ ui.hero-builder.target-one-creature.bdc53e7b,APPROVED,1 個生物,One creature,2
 ui.hero-builder.target-self-ally.d296a449,APPROVED,自身或 1 個盟友,Self or one ally,2026-10-19,d296a4493a8f7334f931fbb01519bb22029ba5d4f32eacfddeb64a79c419bcca
 ui.hero-builder.target.978354db,APPROVED,目標,Target,2026-10-15,978354db0c00fc78c3a5524f462a73bc425df3fb2767e51a5f46352ae26ae6f9
 ui.hero-builder.this-can-t-be-undone-are-you.c4b878e6,APPROVED,此操作無法復原，確定要繼續嗎？,This can't be undone; are you sure?,2026-10-10,8eedcc53129ba36e95148bb359db36403a58bab49ee6e8e81dade59101b883de
-ui.hero-builder.this-feature-allows-you-to-choos.f843efd3,APPROVED,此特性能讓你選擇 1 項專長。,This feature allows you to choose a perk.,2026-10-11,f843efd3ba38a11472e4a2f70bfd3cdfda725873534dd16090919e769e10896d
+ui.hero-builder.this-feature-allows-you-to-choos.f843efd3,APPROVED,此特性能讓你選擇 1 項專長。,This feature allows you to choose a perk.,2026-10-20,f843efd3ba38a11472e4a2f70bfd3cdfda725873534dd16090919e769e10896d
 ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba,APPROVED,此英雄可使用以下來源書的內容：,This hero can use content from the following sourcebooks:,2026-10-10,695ae48becbe5f8d7d94633b29985cae9fc57635dc8670ef68d6d114c070c916
 ui.hero-builder.this-is-typically-against-th.a0988409,APPROVED,這通常不符合規則。,This is typically against the rules.,2026-10-10,5d4613d8f3832c9f7eff9cdfcc045e193bc21ef157f64c462a8ee6bd4252f156
 ui.hero-builder.title.f0bf18b2,APPROVED,稱號,Title,2026-10-10,7e8cd2056da73a7fefb6cd91f4e5d199d08d9058c517b9a2476b1b520324d674

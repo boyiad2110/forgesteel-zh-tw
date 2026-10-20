@@ -1,6 +1,6 @@
 # 先讀這裡
 
-本專案保留現有顯示層中文化架構。`develop` 已整合 MASTER-SPLIT B／C／D1／D2（[PR #64](https://github.com/boyiad2110/forgesteel-zh-tw/pull/64)）、套裝招式 UI 盤點（[PR #80](https://github.com/boyiad2110/forgesteel-zh-tw/pull/80)）與族裔 A–E5（[PR #81](https://github.com/boyiad2110/forgesteel-zh-tw/pull/81)）。每批的範圍、當時驗證與人工驗收請查 [PROGRESS](PROGRESS.md) 及原 PR；目前未完成工作只看 [TODO](TODO.md)。
+本專案保留現有顯示層中文化架構。`develop` 已整合 MASTER-SPLIT B／C／D1／D2（[PR #64](https://github.com/boyiad2110/forgesteel-zh-tw/pull/64)）、套裝招式 UI 盤點（[PR #80](https://github.com/boyiad2110/forgesteel-zh-tw/pull/80)）與族裔 A–E5（[PR #81](https://github.com/boyiad2110/forgesteel-zh-tw/pull/81)）。目前 DISPLAY-DEFAULTS 的 9 種官方預設描述已核准接入、待人工驗收；範圍見 [DISPLAY-DEFAULTS](DISPLAY-DEFAULTS.md)。每批的範圍、當時驗證與人工驗收請查 [PROGRESS](PROGRESS.md) 及原 PR；目前未完成工作只看 [TODO](TODO.md)。
 
 ## 中文化工作順序
 

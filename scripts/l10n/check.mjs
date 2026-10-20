@@ -2242,17 +2242,18 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 };
 
 export const checkCoverageContracts = (root = repoRoot) => {
-	const file = 'src/l10n/coverage-contracts.json';
-	const fullPath = path.join(root, file);
-	if (!existsSync(fullPath)) {
-		return root === repoRoot ? [ issue('coverage', file, null, null, 'coverage contract is missing') ] : [];
-	}
-	try {
-		return validateCoverageContracts(readCoverageContracts(fullPath))
-			.map(message => issue('coverage', file, null, null, message));
-	} catch (error) {
-		return [ issue('coverage', file, null, null, `invalid coverage contract: ${error.message}`) ];
-	}
+	return [ 'src/l10n/coverage-contracts.json', 'src/l10n/default-description-contracts.json' ].flatMap(file => {
+		const fullPath = path.join(root, file);
+		if (!existsSync(fullPath)) {
+			return root === repoRoot ? [ issue('coverage', file, null, null, 'coverage contract is missing') ] : [];
+		}
+		try {
+			return validateCoverageContracts(readCoverageContracts(fullPath))
+				.map(message => issue('coverage', file, null, null, message));
+		} catch (error) {
+			return [ issue('coverage', file, null, null, `invalid coverage contract: ${error.message}`) ];
+		}
+	});
 };
 
 export const runCheck = (root = repoRoot, catalogRoot = root) => {
@@ -2278,4 +2279,5 @@ if (isDirect) {
 	}
 	console.log('l10n check ok');
 	console.log(formatCoverageReport(readCoverageContracts()));
+	console.log(formatCoverageReport(readCoverageContracts(path.join(repoRoot, 'src/l10n/default-description-contracts.json'))));
 }

@@ -2,6 +2,8 @@
 
 **現行批次檢查（COVERAGE-PILOT-01）**：`src/l10n/coverage-contracts.json` 明列已核准歐克特性 `orc-feature-1` 的名稱與描述，並將六個旅程位置逐一分類。已選族裔的 Signature 頁與英雄總覽由 `browser-smoke.mjs` 驗證；特性詳情與經典角色卡由 `coverage-contracts.test.tsx` 驗證，經典角色卡另有瀏覽器證據。候選精簡卡與右側 Choices 摘要不顯示這項特性，故列不適用。改名、改寫描述、未知 ID 必須保留玩家原文；本批發現並修正自訂描述被核准中文蓋掉的缺陷。`node scripts/l10n/coverage-report.mjs` 可印出分類，語系守門會拒絕漏列位置；仍須以測試與瀏覽器結果作顯示證據。這份清單只涵蓋本項特性，不代表整站完成率。
 
+**DISPLAY-DEFAULTS**：`src/l10n/default-description-contracts.json` 另列 9 種官方特性預設句、10 個代表來源的六位置分類。右側 `FeatureConfigPanel` 共用顯示由 Vitest 與瀏覽器 DOM 驗證；不產生此預設句的其他位置列不適用。其他 45 種、管理編輯器與特性類型選單仍待盤點；範圍與人工驗收路徑見 [DISPLAY-DEFAULTS](DISPLAY-DEFAULTS.md)。
+
 **歷史盤點說明（更新於 2026-10-12）**：下列 2026-10-10／11 的 UI-05、Career、核准數量與 PR 狀態屬當時盤點紀錄，不代表目前進度。MASTER-SPLIT-D2 已完成並合併 [PR #64](https://github.com/boyiad2110/forgesteel-zh-tw/pull/64)，現行網站 UI／Adaptations 來源為獨立 Forge Steel Master Sheet；最新核准目錄以 `src/l10n/generated/zh-TW/meta.json`、來源檢查點以 `src/l10n/source-dependencies.json` 為準，正式待辦只看 [TODO](TODO.md) 與 [PROGRESS](PROGRESS.md)。
 
 2026-10-10 維護順序 4。依本機顯示接線、既有核准決策與測試盤點；上游 `5968ff54` 同步版本的回歸結果另見 [PROGRESS.md](PROGRESS.md)。這份表不是逐條譯文審校或瀏覽器驗收結果，也不以 mapping／Forge Steel 版／英文例外總數當作產品完成率。

@@ -1,0 +1,465 @@
+{
+  "batchId": "DISPLAY-DEFAULTS",
+  "checks": [
+    {
+      "featureId": "revenant-feature-4-1",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-ancestry-feature-choice.9f684d5a"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "career-artisan-feature-4",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.this-feature-allows-you-to-choos.f843efd3"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "censor-2-1",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.this-feature-allows-you-to-choos.f843efd3"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "censor-1-2",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-domain-choice.f9ddbbd3"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "censor-1-5",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-kit-choice.24ea1aa2"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "censor-1-8",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-class-ability-choice.40b32187"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "summoner-1-1-4",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-summon-choice.10f57c03"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "comp-artifactBonded-ba",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-item-choice.7348d5a4"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "comp-meddlingButler-b",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-retainer.fbf28dbf"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    },
+    {
+      "featureId": "comp-shatteredLegacy-b",
+      "fields": [
+        "description"
+      ],
+      "sourceIds": {
+        "description": "ui.hero-builder.default-toggle.c42fc5cd"
+      },
+      "surfaces": [
+        "summary"
+      ],
+      "journey": {
+        "candidate": {
+          "status": "not-applicable",
+          "reason": "Parent selection cards do not render the generated feature-type description."
+        },
+        "selected": {
+          "status": "not-applicable",
+          "reason": "The generated description is rendered in the right-side FeatureConfigPanel, classified as summary."
+        },
+        "summary": {
+          "status": "verified",
+          "evidence": [
+            "vitest",
+            "browser"
+          ]
+        },
+        "overview": {
+          "status": "not-applicable",
+          "reason": "Hero overview does not generate a fallback feature-type description."
+        },
+        "detail": {
+          "status": "not-applicable",
+          "reason": "Feature detail does not generate a fallback feature-type description."
+        },
+        "classic": {
+          "status": "not-applicable",
+          "reason": "Classic sheet does not generate a fallback feature-type description."
+        }
+      },
+      "englishFallbacks": [
+        "renamed",
+        "edited-description",
+        "unknown-id"
+      ]
+    }
+  ]
+}

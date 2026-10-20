@@ -4,7 +4,7 @@
     "glossary": 345,
     "names": 131,
     "strings": 1192,
-    "ui": 332
+    "ui": 340
   },
   "sheetFileId": "1RAtKBsoL3HdPUZ0WNszdM7t2e_ac_Z3nBlpn7ud-cZ4",
   "sheetModifiedTime": "2026-10-19T07:42:48.958Z",
@@ -16,8 +16,8 @@
     },
     "forge": {
       "spreadsheetId": "1bbtgLVODKGrghfsGDnp4ePECcqS9j3SnCXvcptxXWaw",
-      "modifiedTime": "2026-10-19T09:00:02.298Z",
-      "contentSha256": "ba5e9573cb32bd4bb20133620a3bbb7b0dad180bf17058f5968d6f4f4ef3f1e8"
+      "modifiedTime": "2026-10-20T08:22:41.791Z",
+      "contentSha256": "a7d4edb728b1ac7c4d7d871c33e65275464a782bf20b414f644bd1c8f1734efc"
     }
   }
 }
