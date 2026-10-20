@@ -37,6 +37,7 @@ import { SourcebookLogic } from '@/logic/sourcebook-logic';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
+import { useUI } from '@/l10n/ui-text';
 
 import './hero-customize-modal.scss';
 
@@ -53,6 +54,7 @@ const getPotencyResistanceName = (data: FeaturePotencyResistanceData) => {
 };
 
 export const HeroCustomizeModal = (props: Props) => {
+	const ui = useUI();
 	const [ hero, setHero ] = useState<Hero>(Utils.copy(props.hero));
 	const [ menuOpen, setMenuOpen ] = useState<boolean>(false);
 
@@ -227,7 +229,7 @@ export const HeroCustomizeModal = (props: Props) => {
 									}));
 								}}
 							>
-								Ancestry Feature
+								{ui.text('ui.hero-builder.ancestry-feature.d02c24ce', 'Ancestry Feature')}
 							</Button>
 							<Button
 								block={true}

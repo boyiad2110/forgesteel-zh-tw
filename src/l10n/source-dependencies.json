@@ -5257,6 +5257,62 @@
         "enHash": "2d4e22bd48731f1abe53a234440992d365b9ea614d91a8a201c9fc3a8711add1",
         "zhHash": "3324ca2a30fc160bc8f8f92461bac1908ca71dfecca79adce0f1cbeeea739649"
       }
+    },
+    "heroes.ancestries.devil.trait.barbed-tail.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.devil.trait.barbed-tail.effect",
+          "enHash": "a273814881cb587c5ad077cb6c3bf69af35b6d005a8ac0c041c950e7246aebc6",
+          "zhHash": "07d312f757ab94acde0f999fa45ca006f21d20827ee6dcefd4a7e010f65e3df5"
+        }
+      ],
+      "sourcesHash": "1a5c1620824cde3cd072b801754c9aca57d0700c314283e31dc23f0da136aa2f",
+      "fs": {
+        "enHash": "a273814881cb587c5ad077cb6c3bf69af35b6d005a8ac0c041c950e7246aebc6",
+        "zhHash": "07d312f757ab94acde0f999fa45ca006f21d20827ee6dcefd4a7e010f65e3df5"
+      }
+    },
+    "heroes.ancestries.devil.trait.wings.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.devil.trait.wings.effect",
+          "enHash": "b1900157cc417e97d24fb4cfdafe31fa9fa831061f0c405da490fc099d15a0ba",
+          "zhHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc"
+        }
+      ],
+      "sourcesHash": "c65b2c2c12a78a1603b5eb82f0a7702a560f4d411705f4c1b91f474e0fdd7617",
+      "fs": {
+        "enHash": "b1900157cc417e97d24fb4cfdafe31fa9fa831061f0c405da490fc099d15a0ba",
+        "zhHash": "05b4c70cf359d5e46a91d6ea4f22d8d68dd5ef1968581de8d5ac0359262ab8fc"
+      }
+    },
+    "heroes.ancestries.polder.trait.corruption-immunity.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.polder.trait.corruption-immunity.effect",
+          "enHash": "0fb88efb690d483e0268d0ca1c021e282f959f3ddffd57c72332765ebaa10516",
+          "zhHash": "b6473d9a66dab8db720d184039ebe2e696ff745d89e2f5db5ef112bdc5005b0d"
+        }
+      ],
+      "sourcesHash": "cbed29543057b5b15f4bf0bca311eb52f21adf23b6e73f37f2f1f0df2e7a6480",
+      "fs": {
+        "enHash": "0fb88efb690d483e0268d0ca1c021e282f959f3ddffd57c72332765ebaa10516",
+        "zhHash": "b6473d9a66dab8db720d184039ebe2e696ff745d89e2f5db5ef112bdc5005b0d"
+      }
+    },
+    "heroes.ancestries.time-raider.signature.psychic-scar.effect": {
+      "sources": [
+        {
+          "sheetId": "heroes.ancestries.time-raider.signature.psychic-scar.effect",
+          "enHash": "bab9f512fb5f0089c824c8877b5f63f9477d6b0fcfe8d2cbc831aeff8829a8cc",
+          "zhHash": "893c63429afd744b4b08aec7da971d649e386bf010f300d30086e0b085c06569"
+        }
+      ],
+      "sourcesHash": "ce33e0df94a29cec92367755ba3009c0f00250fd40030a56b20b8a56a1c1835a",
+      "fs": {
+        "enHash": "bab9f512fb5f0089c824c8877b5f63f9477d6b0fcfe8d2cbc831aeff8829a8cc",
+        "zhHash": "893c63429afd744b4b08aec7da971d649e386bf010f300d30086e0b085c06569"
+      }
     }
   }
 }

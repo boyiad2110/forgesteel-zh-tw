@@ -216,7 +216,7 @@ export function buildDualSnapshot(capture) {
   const byBook = new Map();
   const byName = new Map();
   const notes = {};
-  for (const row of capture.forge.Adaptations) {
+  for (const row of capture.forge.Adaptations.slice().sort((a, b) => a[0].localeCompare(b[0], 'en'))) {
     const [ id, bookId, , en, zh, , basis, note ] = row;
     if (id === `fs-adapt:${bookId}`) {
       const canonical = nameIds.has(bookId) ? byName : byBook;
@@ -275,10 +275,13 @@ export function buildDualCatalog(capture) {
       links.get(id).push({ order: Number(order), sourceId, enHash, zhHash });
     }
     const adaptations = {};
-    for (const [ id, bookStringId, usageKey, en, zh, , basisHash, , updated ] of
+    for (const [ id, bookStringId, usageKey, en, zh, , basisHash, note, updated ] of
       capture.forge.Adaptations.slice().sort((a, b) => a[0].localeCompare(b[0], 'en'))) {
       adaptations[id] = { bookStringId, usageKey, en, zh, basisHash, updated,
         sources: (links.get(id) || []).sort((a, b) => a.order - b.order) };
+      if (note && /(^|\r?\n)\s*Calculation Display:/.test(note)) {
+        adaptations[id].calculationDisplay = parseCalculationDisplay(note, zh);
+      }
     }
     catalog.set('adaptations.json', json(adaptations));
     return { snapshot, catalog };

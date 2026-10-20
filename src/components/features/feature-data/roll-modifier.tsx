@@ -1,4 +1,5 @@
 import { Feature, FeatureRollModifierData, RollModifierScope } from '@/models/feature';
+import { FeatureType } from '@/enums/feature-type';
 import { Select, Space } from 'antd';
 import { Characteristic } from '@/enums/characteristic';
 import { FeatureLogic } from '@/logic/feature-logic';
@@ -14,6 +15,9 @@ import { TextInput } from '@/components/controls/text-input/text-input';
 import { Utils } from '@/utils/utils';
 import { useState } from 'react';
 import { useUI } from '@/l10n/ui-text';
+import { ancestryUiText } from '@/l10n/ancestry-ui';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
+import { useL10nText } from '@/l10n/hooks';
 
 interface InfoProps {
 	data: FeatureRollModifierData;
@@ -24,12 +28,39 @@ interface InfoProps {
 
 export const InfoRollModifier = (props: InfoProps) => {
 	const ui = useUI();
+	const scope = FeatureLogic.getRollModifierScope(props.data);
+	const ancestrySource = getOfficialAncestryFeatureSource(props.feature, props.sourcebooks || []);
+	const ancestryModifier = ancestrySource?.type === FeatureType.RollModifier
+		? ancestrySource.data as FeatureRollModifierData
+		: undefined;
+	const approvedAncestryScope = ancestryModifier
+		&& FeatureLogic.getRollModifierScope(ancestryModifier) === scope
+		? ancestryUiText(scope, ui)
+		: undefined;
+	const isImprovedFieldArsenal = props.feature.id === 'tactician-4-3'
+		&& props.feature.name === 'Improved Field Arsenal'
+		&& props.feature.description === 'Your expertise with weapons has grown.';
+	const displayedScope = isImprovedFieldArsenal && scope === 'Ability rolls'
+		? ui.text('ui.hero-builder.tactician-ability-rolls.39be354e', 'Ability rolls')
+		: approvedAncestryScope ?? scope;
+	const displayedCondition = isImprovedFieldArsenal
+		&& props.data.condition === 'When you use a signature ability from one of your equipped kits, or make a free strike using a weapon from one of your equipped kits'
+		? ui.text('ui.hero-builder.tactician-arsenal-condition.d5a7fdcd', 'When you use a signature ability from one of your equipped kits, or make a free strike using a weapon from one of your equipped kits')
+		: ancestryModifier?.condition === props.data.condition
+			? ancestryUiText(props.data.condition, ui) ?? props.data.condition
+			: props.data.condition;
+	const modifierKey = props.data.modifier === RollModifierType.Edge
+		? 'enum:RollModifierType:Edge'
+		: props.data.modifier === RollModifierType.DoubleEdge
+			? 'enum:RollModifierType:DoubleEdge'
+			: undefined;
+	const displayedModifier = useL10nText(modifierKey, props.data.modifier);
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<Field label={props.data.modifier} value={FeatureLogic.getRollModifierScope(props.data)} />
+			<Field label={displayedModifier} value={displayedScope} />
 			{
 				props.data.condition ?
-					<Field label={ui.text('ui.hero-builder.when.ec4ba8f6', 'When')} value={props.data.condition} />
+					<Field label={ui.text('ui.hero-builder.when.ec4ba8f6', 'When')} value={displayedCondition} />
 					: null
 			}
 		</Space>

@@ -6,7 +6,7 @@ import { Feature, FeaturePerk } from '@/models/feature';
 import { OptionsContext, SourcebooksContext } from '@/contexts/data-context';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { characteristicNameKey, textAfterCharacteristicSymbol } from '@/l10n/characteristic-text';
-import { displayKey, displayListMarkup, resolveText, translate } from '@/l10n/text';
+import { displayKey, displayListMarkup, normalizeChineseSlashes, resolveText, translate } from '@/l10n/text';
 import { getLanguage, languageLabel, setLanguage, toggleLanguage } from '@/l10n/language';
 import { hasCalculationBinding, plainForLookup, projectCalculatedText } from '@/l10n/calculated-text';
 import { skillListKey, skillNameKey, useSkillListNames } from '@/l10n/skill-text';
@@ -154,6 +154,12 @@ describe('languageLabel', () => {
 });
 
 describe('resolveText', () => {
+	test('uses half-width spaced slashes in translated text while preserving code and URLs', () => {
+		expect(normalizeChineseSlashes('\u514d\u75ab\uff0f\u5f31\u9ede\u3001\u5bd2\u51b7\uff0f\u8150\u673d\uff0f\u706b\u7130\uff0c\u4ee5\u53ca +2/+2/+2\uff1b`a/b` https://example.com/a/b'))
+			.toBe('\u514d\u75ab / \u5f31\u9ede\u3001\u5bd2\u51b7 / \u8150\u673d / \u706b\u7130\uff0c\u4ee5\u53ca +2 / +2 / +2\uff1b`a/b` https://example.com/a/b');
+		expect(normalizeChineseSlashes('\u7532\uff0f\u4e59\n\u4e0b\u4e00\u884c')).toBe('\u7532 / \u4e59\n\u4e0b\u4e00\u884c');
+	});
+
 	test('returns the original string from an empty table in both languages', () => {
 		expect(resolveText('zh-TW', orcKey, 'Orc', {}, null)).toBe('Orc');
 		expect(resolveText('en', orcKey, 'Orc', {}, catalog)).toBe('Orc');
@@ -544,7 +550,8 @@ describe('ancestry third batch', () => {
 			expect(mapping[key]).toBeUndefined();
 		}
 		expect(Object.keys(mapping).some(key => key.startsWith('element:devil-feature-1b'))).toBe(false);
-		expect(Object.keys(mapping).some(key => key.startsWith('element:devil-feature-2-7b'))).toBe(false);
+		expect(mapping['element:devil-feature-2-7b:mode'].sheetId).toBe('term.fly');
+		expect(Object.keys(mapping).filter(key => key.startsWith('element:devil-feature-2-7b:'))).toEqual([ 'element:devil-feature-2-7b:mode' ]);
 	});
 });
 
@@ -812,8 +819,10 @@ describe('ancestry fifth batch', () => {
 			'dragon-knight-feature-2-11b'
 		];
 		for (const id of generated) {
-			expect(Object.keys(mapping).some(key => key.startsWith(`element:${id}:`))).toBe(false);
+			const expected = id === 'dragon-knight-feature-2-11b' ? [ `element:${id}:mode` ] : [];
+			expect(Object.keys(mapping).filter(key => key.startsWith(`element:${id}:`))).toEqual(expected);
 		}
+		expect(mapping['element:dragon-knight-feature-2-11b:mode'].sheetId).toBe('term.fly');
 	});
 });
 
@@ -1715,7 +1724,7 @@ describe('perk name segment', () => {
 			.join('\n');
 		const shown = resolveText('zh-TW', key, row.en, { [key]: sheetId }, peekCatalog());
 		expect(row.zh).toContain('\u2460');
-		expect(shown).toBe(displayListMarkup(key, row.zh));
+		expect(shown).toBe(displayListMarkup(key, normalizeChineseSlashes(row.zh)));
 		expect(words(shown)).toBe(words(row.zh));
 		expect(shown).toContain('* 情感烙印在這個物體上的人，叫什麼名字？');
 		expect(shown).not.toMatch(/[\u2460\u2461\u2462]/);
@@ -3050,6 +3059,28 @@ describe('action descriptions', () => {
 		expect(renderPanel(custom, hero)).not.toContain(row.zh);
 	});
 
+	test('approved ancestry calculation displays project only their upstream value', () => {
+		const cases = [
+			[ 'element:devil-feature-2-1:description', 'heroes.ancestries.devil.trait.barbed-tail.effect', 'your highest characteristic score', 2, '2 點傷害' ],
+			[ 'element:devil-feature-2-7a:description', 'heroes.ancestries.devil.trait.wings.effect', 'your Might score', 3, '3 輪' ],
+			[ 'element:polder-feature-3-1:description', 'heroes.ancestries.polder.trait.corruption-immunity.effect', 'your level', 5, '腐朽免疫 5 + 2' ],
+			[ 'element:revenant-feature-3:description', 'heroes.ancestries.revenant.signature.tough-but-withered.effect.2', 'your recovery value', 34, '34 點體力' ],
+			[ 'element:revenant-feature-4-5-1:description', 'heroes.ancestries.revenant.trait.vengeance-mark.effect.1', 'your level', 5, '5 個符印' ],
+			[ 'element:time-raider-feature-1:description', 'heroes.ancestries.time-raider.signature.psychic-scar.effect', 'your level', 5, '心靈免疫 5' ],
+			[ 'section:dragon-knight-feature-2-1:0', 'heroes.ancestries.dragon-knight.trait.draconian-guard.effect', 'your level', 5, '減少 5 點傷害' ]
+		] as const;
+
+		cases.forEach(([ key, sheetId, phrase, value, expected ]) => {
+			const usage = peekUsageAdaptation(key);
+			const row: { en: string; zh: string; calculationDisplay?: { target: string; template: string } } = usage ?? strings[sheetId].fs!;
+			const display = row.calculationDisplay!;
+			const calculated = row.en.replace(phrase, String(value));
+			expect(display).toBeDefined();
+			expect(projectCalculatedText(key, row.en, calculated, row.zh, display)).toContain(expected);
+			expect(projectCalculatedText(key, row.en, `${calculated} Additional rule.`, row.zh, display)).toBe(`${calculated} Additional rule.`);
+		});
+	});
+
 	test('unbound or structurally changed text never hides calculated English behind fixed Chinese', () => {
 		const key = 'section:high-elf-feature-2-0:0';
 		const row = (strings as Catalog)[mapping[key].sheetId].fs!;
@@ -3369,7 +3400,7 @@ describe('ancestry ability descriptions and text sections', () => {
 		for (const id of [ 'dragon-knight-feature-2-8', 'human-feature-2-3', 'human-feature-2-4', 'memonek-feature-3-5', 'polder-feature-3-4', 'time-raider-feature-2-1', 'time-raider-feature-2-2b' ]) {
 			expect(mapping[`section:${id}:0`]).toBeDefined();
 		}
-		expect(mapping['section:dragon-knight-feature-2-1:0']).toBeUndefined();
+		expect(mapping['section:dragon-knight-feature-2-1:0']).toBeDefined();
 	});
 });
 
@@ -3475,9 +3506,20 @@ describe('ancestry ability names', () => {
 		}
 
 		const breath = renderPanel(byId('dragon-knight-feature-2-10'));
-		expect(breath).toContain('Area');
-		expect(breath).toContain('Magic');
-		expect(breath).toContain('2 damage');
+		expect(breath).toContain(translate('ui:ui.hero-builder.ancestry-area.024dc204', 'Area'));
+		expect(breath).not.toContain('Area');
+		expect(breath).toContain(translate('ui:ui.hero-builder.ancestry-cube-within.7de28835', '{size} Cube within {distance}')
+			.replace('{distance}', '1').replace('{size}', '3'));
+		expect(breath).not.toContain('3 Cube within 1');
+		expect(breath).toContain(translate('ui:ui.hero-builder.ancestry-each-enemy.9f98d4d1', 'Each enemy in the area'));
+		expect(breath).not.toContain('Each enemy in the area');
+		expect(breath).toContain('魔法');
+		expect(breath).not.toContain('Magic');
+		const ancestryDamageTemplate = translate('ui:ui.hero-builder.ancestry-damage.04b5358f', '{value} damage');
+		expect(breath).toContain(ancestryDamageTemplate.replace('{value}', '2'));
+		expect(breath).toContain(ancestryDamageTemplate.replace('{value}', '4'));
+		expect(breath).toContain(ancestryDamageTemplate.replace('{value}', '6'));
+		expect(breath).not.toContain('2 damage');
 		expect(breath).toContain('狂怒的能量噴湧而出');
 		expect(renderPanel(byId('dragon-knight-feature-2-8'))).toContain('你可以使用機動動作誦讀以下誓言');
 

@@ -1,4 +1,4 @@
-import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, isOfficialAncestryAbility, perkGrantDistance, perkGrantLabel, perkGrantTarget, perkGrantUi } from '@/l10n/ability-text';
+import { AbilityDescription, AbilityName, abilitySectionKey, abilityTriggerKey, ancestryAbilityTierById, ancestryAbilityTriggerText, isOfficialAncestryAbility, perkGrantDistance, perkGrantLabel, perkGrantTarget, perkGrantUi } from '@/l10n/ability-text';
 import { kitAbilityClassicRollHeader, kitAbilityMetadataValue, kitAbilityTier } from '@/l10n/kit-ability-details';
 import { AbilitySheet, PowerRollSection } from '@/models/classic-sheets/ability-sheet';
 import { Collections } from '@/utils/collections';
@@ -70,23 +70,25 @@ export const AbilityCard = (props: Props) => {
 
 	const getTriggerSection = () => {
 		if (ability.trigger) {
+			const ancestryTrigger = ancestryAbilityTriggerText(ability, ability.trigger, ui);
 			const label = perkGrantLabel(ability.id, 'Trigger', ui);
 			if (label !== 'Trigger') {
 				return (
 					<div className='trigger'>
 						<Markdown text={`**${label}:**`} className='trigger' />
-						<Markdown text={ability.trigger} className='trigger' l10nKey={abilityTriggerKey(ability.id, ability.trigger)} />
+						<Markdown text={ancestryTrigger ?? ability.trigger} className='trigger' l10nKey={ancestryTrigger ? undefined : abilityTriggerKey(ability.id, ability.trigger)} />
 					</div>
 				);
 			}
 			return (
-				<Markdown
-					text={'**Trigger:** ' + ability.trigger}
-					className='trigger'
-				/>
+				<Markdown text={'**Trigger:** ' + (ancestryTrigger ?? ability.trigger)} className='trigger' />
 			);
 		}
 	};
+
+	const ancestryTierText = (tier: number, text: string) => isOfficialAncestryAbility(ability)
+		? ancestryAbilityTierById(ability, tier, text, ui)
+		: text;
 
 	const getSections = () => {
 		let isFirstText = true;
@@ -113,19 +115,19 @@ export const AbilityCard = (props: Props) => {
 					<div className='tier t1'>
 						<img src={rollT1} alt='≤ 11' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 1, section.rollT1Effect || '') : section.rollT1Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 1, section.rollT1Effect || '') : ancestryTierText(1, section.rollT1Effect || '')} lookFor='potencies' />
 						</div>
 					</div>
 					<div className='tier t2'>
 						<img src={rollT2} alt='12 - 16' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 2, section.rollT2Effect || '') : section.rollT2Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 2, section.rollT2Effect || '') : ancestryTierText(2, section.rollT2Effect || '')} lookFor='potencies' />
 						</div>
 					</div>
 					<div className='tier t3'>
 						<img src={rollT3} alt='17 +' className='range' />
 						<div className='effect'>
-							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 3, section.rollT3Effect || '') : section.rollT3Effect} lookFor='potencies' />
+							<DrawSteelSymbolText content={isStandardKitAbility(ability) ? kitAbilityTier(ability, 3, section.rollT3Effect || '') : ancestryTierText(3, section.rollT3Effect || '')} lookFor='potencies' />
 						</div>
 					</div>
 				</div>

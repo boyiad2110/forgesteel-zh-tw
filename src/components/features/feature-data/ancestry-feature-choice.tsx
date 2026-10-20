@@ -47,6 +47,7 @@ interface EditProps {
 }
 
 export const EditAncestryFeatureChoice = (props: EditProps) => {
+	const ui = useUI();
 	const [ data, setData ] = useState<FeatureAncestryFeatureChoiceData>(Utils.copy(props.data));
 
 	const setSourceCurrent = (value: boolean) => {
@@ -72,10 +73,10 @@ export const EditAncestryFeatureChoice = (props: EditProps) => {
 
 	return (
 		<Space orientation='vertical' style={{ width: '100%' }}>
-			<HeaderText>Source</HeaderText>
-			<Toggle label='Current ancestry' value={data.source.current} onChange={setSourceCurrent} />
-			<Toggle label='Former ancestry' value={data.source.former} onChange={setSourceFormer} />
-			<HeaderText>Value</HeaderText>
+			<HeaderText>{ui.text('ui.hero-builder.source.0e570ca6', 'Source')}</HeaderText>
+			<Toggle label={ui.text('ui.hero-builder.current-ancestry.7b823070', 'Current ancestry')} value={data.source.current} onChange={setSourceCurrent} />
+			<Toggle label={ui.text('ui.hero-builder.former-ancestry.162fd55c', 'Former ancestry')} value={data.source.former} onChange={setSourceFormer} />
+			<HeaderText>{ui.text('ui.hero-builder.value.8e37953d', 'Value')}</HeaderText>
 			<NumberSpin value={data.value} onChange={setValue} />
 		</Space>
 	);

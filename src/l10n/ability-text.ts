@@ -1,6 +1,7 @@
 import { hasCalculationBinding, isProjectedCalculation, plainForLookup } from '@/l10n/calculated-text';
 import { Ability } from '@/models/ability';
 import { AbilityData } from '@/data/ability-data';
+import { AbilityLogic } from '@/logic/ability-logic';
 import { AncestryData } from '@/data/ancestry-data';
 import { ExplorationPerkData } from '@/data/perks/exploration';
 import { Feature } from '@/models/feature';
@@ -8,6 +9,7 @@ import { FeatureType } from '@/enums/feature-type';
 import { IntriguePerkData } from '@/data/perks/intrigue';
 import { SupernaturalPerkData } from '@/data/perks/supernatural';
 import { mapping } from '@/l10n/mapping';
+import { ancestryUiText } from '@/l10n/ancestry-ui';
 import { kitAbilityNameKey, standardKits } from '@/l10n/kit-text';
 import { translate } from '@/l10n/text';
 import { useL10nText } from '@/l10n/hooks';
@@ -137,7 +139,8 @@ type PerkUi = ReturnType<typeof useUI>;
 const perkGrantLabelKeys: Record<string, string> = {
 	Magic: 'enum:AbilityKeyword:Magic',
 	Maneuver: 'enum:AbilityUsage:Maneuver',
-	Ranged: 'enum:AbilityKeyword:Ranged'
+	Ranged: 'enum:AbilityKeyword:Ranged',
+	Strike: 'term.strike'
 };
 
 /** Approved labels for these perk abilities. The calls are the UI test's source bindings. */
@@ -179,6 +182,255 @@ export const perkGrantLabel = (abilityId: string, english: string, ui: PerkUi): 
 		return translate(glossary, english);
 	}
 	return perkGrantUi(ui, english);
+};
+
+/** Approved action labels and glossary words shared by perk and official ancestry abilities. */
+export const abilityMetadataLabel = (ability: { id: string, name: string, actionType?: string }, english: string, ui: PerkUi): string => {
+	if (isOfficialAncestryAbility(ability)) {
+		const source = ancestryAbilities.get(ability.id);
+		if (english === 'Area' && ui.language === 'zh-TW' && source?.keywords.includes(english as Ability['keywords'][number])) {
+			return ui.text('ui.hero-builder.ancestry-area.024dc204', 'Area');
+		}
+		const glossary = perkGrantLabelKeys[english];
+		return glossary ? translate(glossary, english) : perkGrantUi(ui, english);
+	}
+	return perkGrantLabel(ability.id, english, ui);
+};
+
+/** Safe built-in values shared by official ancestry ability metadata. */
+export const ancestryAbilityMetadataValue = (ability: { id: string, name: string, actionType?: string }, english: string, ui: PerkUi): string => {
+	if (!isOfficialAncestryAbility(ability)) {
+		return english;
+	}
+	const source = ancestryAbilities.get(ability.id);
+	if (english === 'Self') {
+		return perkGrantUi(ui, 'Self');
+	}
+	if (ui.language === 'zh-TW') {
+		const isCanonicalDistance = source?.distance.some(distance => AbilityLogic.getDistance(distance, source, undefined) === english);
+		const burst = /^(\d+) Burst$/.exec(english);
+		if (isCanonicalDistance && burst) {
+			return ui.format('ui.hero-builder.ancestry-burst.b3ee1661', '{value} Burst', english, { value: burst[1] });
+		}
+		const cube = /^(\d+) Cube within (\d+)$/.exec(english);
+		if (isCanonicalDistance && cube) {
+			return ui.format('ui.hero-builder.ancestry-cube-within.7de28835', '{size} Cube within {distance}', english, { size: cube[1], distance: cube[2] });
+		}
+	}
+	const ranged = /^(Ranged)( \d+.*)$/.exec(english);
+	if (ranged) {
+		return `${translate('enum:AbilityKeyword:Ranged', ranged[1])}${ranged[2]}`;
+	}
+	return english;
+};
+
+/** Approved ancestry targeting phrase. Custom and non-ancestry targets stay as written. */
+
+export const ancestryAbilityTarget = (ability: { id: string, name: string, actionType?: string }, target: string, ui: PerkUi): string => {
+	if (isOfficialAncestryAbility(ability) && ui.language === 'zh-TW') {
+		const canonicalTarget = ancestryAbilities.get(ability.id)?.target;
+		if (canonicalTarget !== target) {
+			return target;
+		}
+		if (target === 'Each enemy in the area') {
+			return ui.text('ui.hero-builder.ancestry-each-enemy.9f98d4d1', 'Each enemy in the area');
+		}
+		switch (target) {
+			case 'One creature': return ui.text('ui.hero-builder.target-one-creature.bdc53e7b', 'One creature');
+			case 'One creature bearing your sigil': return ui.text('ui.hero-builder.target-one-creature-sigil.e1206b59', 'One creature bearing your sigil');
+			case 'One creature or object': return ui.text('ui.hero-builder.target-creature-object.1c9539cc', 'One creature or object');
+			case 'Self or one ally': return ui.text('ui.hero-builder.target-self-ally.d296a449', 'Self or one ally');
+		}
+	}
+	return target;
+};
+
+/** Approved full ancestry trigger phrases, guarded by the unchanged official ability source. */
+export const ancestryAbilityTriggerText = (ability: { id: string, name: string, actionType?: string }, trigger: string, ui: PerkUi): string | undefined => {
+	if (!isOfficialAncestryAbility(ability) || ui.language !== 'zh-TW'
+		|| ancestryAbilities.get(ability.id)?.type.trigger !== trigger) {
+		return undefined;
+	}
+	switch (trigger) {
+		case 'You, or a creature adjacent to you, takes damage from a strike': return ui.text('ui.hero-builder.trigger-draconian-guard.59674111', 'You, or a creature adjacent to you, takes damage from a strike');
+		case 'You take damage from a creature': return ui.text('ui.hero-builder.trigger-creature-damage.d99e1985', 'You take damage from a creature');
+		case 'You take damage that isn’t untyped': return ui.text('ui.hero-builder.trigger-untyped-damage.c921df18', 'You take damage that isn’t untyped');
+		case 'You, or a creature adjacent to you, makes a power roll': return ui.text('ui.hero-builder.trigger-adjacent-power-roll.66545558', 'You, or a creature adjacent to you, makes a power roll');
+		case 'Whenever you are force moved': return ui.text('ui.hero-builder.trigger-force-moved.86b1e2b2', 'Whenever you are force moved');
+		case 'You are targeted with a strike': return ancestryUiText(trigger, ui);
+		default: return undefined;
+	}
+};
+
+/** Translate approved roll headers only when the official ancestry roll is unchanged. */
+export const ancestryAbilityRollHeader = (ability: Ability, header: string, ui: PerkUi): string => {
+	if (!isOfficialAncestryAbility(ability) || ui.language !== 'zh-TW') {
+		return header;
+	}
+	const canonical = ancestryAbilities.get(ability.id);
+	const sourceRoll = canonical?.sections.find(section => section.type === 'roll');
+	const currentRoll = ability.sections.find(section => section.type === 'roll');
+	if (!sourceRoll || sourceRoll.type !== 'roll' || !currentRoll || currentRoll.type !== 'roll'
+		|| currentRoll.roll.characteristic.join('|') !== sourceRoll.roll.characteristic.join('|')) {
+		return header;
+	}
+	const sourceHeader = `Power Roll + ${sourceRoll.roll.characteristic.join(' or ')}`;
+	return header === sourceHeader ? ancestryUiText(sourceHeader, ui) ?? header : header;
+};
+
+/** Approved ancestry tier text by official ID, guarded against user-renamed abilities. */
+export const ancestryAbilityTierById = (ability: { id: string, name: string, actionType?: string }, tier: number, shown: string, ui: PerkUi): string => {
+	if (!isOfficialAncestryAbility(ability) || !Number.isInteger(tier) || tier < 1 || tier > 3) {
+		return shown;
+	}
+	const canonicalAbility = ancestryAbilities.get(ability.id);
+	const source = canonicalAbility?.sections.find(section => section.type === 'roll');
+	if (!source || source.type !== 'roll') {
+		return shown;
+	}
+	const canonical = [ source.roll.tier1, source.roll.tier2, source.roll.tier3 ][tier - 1];
+	if (ui.language === 'zh-TW' && shown === canonical) {
+		const localized = ancestryAbilityTierText(ability.id, tier, ui);
+		if (localized) {
+			return localized;
+		}
+	}
+	if (ui.language === 'zh-TW') {
+		const projected = computedAncestryTierText(ability.id, tier, shown, ui);
+		if (projected) {
+			return projected;
+		}
+	}
+	if (!/^\d+ damage(?:; push \d+)?$/.test(canonical)) {
+		return shown;
+	}
+	const damage = /^(\d+) damage$/.exec(shown);
+	if (damage) {
+		return ui.format('ui.hero-builder.ancestry-damage.04b5358f', '{value} damage', shown, { value: damage[1] });
+	}
+	const pushed = /^(\d+) damage; push (\d+)$/.exec(shown);
+	if (pushed && /; push \d+$/.test(canonical)) {
+		return ui.format('ui.hero-builder.ancestry-damage-push.002730d6', '{damage} damage; push {distance}', shown, { damage: pushed[1], distance: pushed[2] });
+	}
+	return shown;
+};
+
+/** Reuse each ability's approved Chinese tier while projecting upstream-calculated values. */
+const computedAncestryTierText = (abilityId: string, tier: number, shown: string, ui: PerkUi): string | undefined => {
+	const result = plainForLookup(shown).trim();
+	const approved = ancestryAbilityTierText(abilityId, tier, ui);
+	if (!approved) {
+		return undefined;
+	}
+	if (abilityId === 'wode-elf-feature-2-5') {
+		const match = /^(\d+) damage; A < (\d+) (slowed|restrained) \(save ends\)$/.exec(result);
+		if (!match) {
+			return undefined;
+		}
+		const [ damageText, effectText ] = approved.split('；');
+		const damageUnitLength = 2;
+		const effectParts = effectText.split('，');
+		const threshold = effectParts[0];
+		const thresholdSeparator = threshold.lastIndexOf(' < ');
+		if (!damageText || !effectParts[1] || thresholdSeparator < 0) {
+			return undefined;
+		}
+		return `${match[1]} ${damageText.slice(-damageUnitLength)}；${threshold.slice(0, thresholdSeparator + 3)}\`${match[2]}\`，${effectParts.slice(1).join('，')}`;
+	}
+	if (abilityId === 'revenant-feature-4-5-2') {
+		const match = /^(\d+) damage; slide (\d+)$/.exec(result);
+		if (!match) {
+			return undefined;
+		}
+		const parts = approved.split('；');
+		if (parts.length !== 2) {
+			return undefined;
+		}
+		parts[0] = `${match[1]} ${parts[0].slice(-2)}`;
+		parts[1] = `${parts[1].slice(0, parts[1].lastIndexOf(' ') + 1)}${match[2]}`;
+		return parts.join('；');
+	}
+	if (abilityId === 'time-raider-feature-2-5-1') {
+		const match = /^(\d+) damage(?:; push (\d+))?(?:; M < (\d+) prone)?$/.exec(result);
+		if (!match) {
+			return undefined;
+		}
+		const parts = approved.split('；');
+		if (parts.length < 1 || parts.length > 3) {
+			return undefined;
+		}
+		parts[0] = `${match[1]} ${parts[0].slice(-2)}`;
+		if (match[2] && parts[1]) {
+			parts[1] = `${parts[1].slice(0, parts[1].lastIndexOf(' ') + 1)}${match[2]}`;
+		}
+		if (match[3] && parts[2]) {
+			const thresholdSeparator = parts[2].lastIndexOf(' < ');
+			if (thresholdSeparator < 0) {
+				return undefined;
+			}
+			const conditionParts = parts[2].slice(thresholdSeparator + 3).split('，');
+			parts[2] = `${parts[2].slice(0, thresholdSeparator + 3)}\`${match[3]}\`${conditionParts.length > 1 ? `，${conditionParts.slice(1).join('，')}` : ''}`;
+		}
+		return parts.join('；');
+	}
+	if (abilityId === 'time-raider-feature-2-5-2') {
+		const match = /^(\d+) psychic damage; slide (\d+)$/.exec(result);
+		if (!match) {
+			return undefined;
+		}
+		const parts = approved.split('；');
+		if (parts.length !== 2) {
+			return undefined;
+		}
+		parts[0] = `${match[1]} ${parts[0].slice(-4)}`;
+		parts[1] = `${parts[1].slice(0, parts[1].lastIndexOf(' ') + 1)}${match[2]}`;
+		return parts.join('；');
+	}
+	return undefined;
+};
+
+const ancestryAbilityTierText = (abilityId: string, tier: number, ui: PerkUi): string | undefined => {
+	if (abilityId === 'wode-elf-feature-2-5') {
+		switch (tier) {
+			case 1: return ui.text('ui.hero-builder.wode-tier-1.3703ac76', '2 + M or A damage; A < [weak] slowed (save ends)');
+			case 2: return ui.text('ui.hero-builder.wode-tier-2.954a7369', '3 + M or A damage; A < [average] slowed (save ends)');
+			case 3: return ui.text('ui.hero-builder.wode-tier-3.e40c6a44', '5 + M or A damage; A < [strong] restrained (save ends)');
+		}
+	}
+	if (abilityId === 'revenant-feature-4-5-2') {
+		switch (tier) {
+			case 1: return ui.text('ui.hero-builder.sigil-tier-1.7d9ec74e', '3 + R, I, or P damage; slide 1');
+			case 2: return ui.text('ui.hero-builder.sigil-tier-2.22746c9f', '5 + R, I, or P damage; slide 2');
+			case 3: return ui.text('ui.hero-builder.sigil-tier-3.fc65f971', '7 + R, I, or P damage; slide 3');
+		}
+	}
+	if (abilityId === 'time-raider-feature-2-5-1') {
+		switch (tier) {
+			case 1: return ui.text('ui.hero-builder.slam-tier-1.2c6b0e34', '2 + R, I, or P damage');
+			case 2: return ui.text('ui.hero-builder.slam-tier-2.719485ce', '5 + R, I, or P damage; push 1');
+			case 3: return ui.text('ui.hero-builder.slam-tier-3.9cbf7f6d', '7 + R, I, or P damage; push 2; M < [strong] prone');
+		}
+	}
+	if (abilityId === 'time-raider-feature-2-5-2') {
+		switch (tier) {
+			case 1: return ui.text('ui.hero-builder.bolt-tier-1.c23fccd2', '2 + R, I, or P psychic damage; slide 1');
+			case 2: return ui.text('ui.hero-builder.bolt-tier-2.d520ad1c', '5 + R, I, or P psychic damage; slide 2');
+			case 3: return ui.text('ui.hero-builder.bolt-tier-3.644c6a0d', '7 + R, I, or P psychic damage; slide 3');
+		}
+	}
+	return undefined;
+};
+
+/** Approved compact ancestry power-roll patterns; only unchanged source rolls are localized. */
+export const ancestryAbilityTier = (ability: Ability, tier: number, shown: string, ui: PerkUi): string => {
+	const canonical = ancestryAbilities.get(ability.id);
+	const sourceRoll = canonical?.sections.find(section => section.type === 'roll');
+	const currentRoll = ability.sections.find(section => section.type === 'roll');
+	if (!sourceRoll || sourceRoll.type !== 'roll' || !currentRoll || currentRoll.type !== 'roll'
+		|| currentRoll.roll.tier1 !== sourceRoll.roll.tier1 || currentRoll.roll.tier2 !== sourceRoll.roll.tier2 || currentRoll.roll.tier3 !== sourceRoll.roll.tier3) {
+		return shown;
+	}
+	return ancestryAbilityTierById(ability, tier, shown, ui);
 };
 
 /** Comma-separated keywords. Only a word with its own approved row changes. */
@@ -245,6 +497,19 @@ export const perkGrantDistance = (abilityId: string, english: string, ui: PerkUi
 
 /** The approved target sentence, or the approved word for Self. */
 export const perkGrantTarget = (abilityId: string, target: string, ui: PerkUi): string => {
+	const ancestry = ancestryAbilities.get(abilityId);
+	if (ancestry && ui.language === 'zh-TW' && ancestry.target === target) {
+		if (target === 'Self') {
+			return perkGrantUi(ui, 'Self');
+		}
+		switch (target) {
+			case 'Each enemy in the area': return ui.text('ui.hero-builder.ancestry-each-enemy.9f98d4d1', 'Each enemy in the area');
+			case 'One creature': return ui.text('ui.hero-builder.target-one-creature.bdc53e7b', 'One creature');
+			case 'One creature bearing your sigil': return ui.text('ui.hero-builder.target-one-creature-sigil.e1206b59', 'One creature bearing your sigil');
+			case 'One creature or object': return ui.text('ui.hero-builder.target-creature-object.1c9539cc', 'One creature or object');
+			case 'Self or one ally': return ui.text('ui.hero-builder.target-self-ally.d296a449', 'Self or one ally');
+		}
+	}
 	const key = abilityTargetKey({ id: abilityId, target });
 	if (key) {
 		return translate(key, target);

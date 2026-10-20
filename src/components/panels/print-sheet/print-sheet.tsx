@@ -15,6 +15,7 @@ import { DamageType } from '@/enums/damage-type';
 import { Domain } from '@/models/domain';
 import { Element } from '@/models/element';
 import { ElementScope } from '@/l10n/element-scope';
+import { useUI } from '@/l10n/ui-text';
 import { Extension } from '@/models/extension';
 import { ExtensionChangeType } from '@/enums/extension-change-type';
 import { ExtensionLogic } from '@/logic/extension-logic';
@@ -207,6 +208,7 @@ interface AncestryProps {
 };
 
 const AncestrySheet = (props: AncestryProps) => {
+	const ui = useUI();
 	return (
 		<>
 			<HeaderText level={1}>
@@ -219,8 +221,8 @@ const AncestrySheet = (props: AncestryProps) => {
 					<FeaturePanel key={f.id} feature={f} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />
 				))
 			}
-			<HeaderText level={1}>Purchased Traits</HeaderText>
-			<Field label='Ancestry Points' value={props.ancestry.ancestryPoints} />
+			<HeaderText level={1}>{ui.text('ui.hero-builder.purchased-traits.394205e5', 'Purchased Traits')}</HeaderText>
+			<Field label={ui.text('ui.hero-builder.ancestry-points.be56c10c', 'Ancestry Points')} value={props.ancestry.ancestryPoints} />
 			{
 				AncestryLogic.getPurchasedFeatures(props.ancestry).map(f => (
 					<FeaturePanel key={f.feature.id} feature={f.feature} cost={f.value} sourcebooks={props.sourcebooks} mode={PanelMode.Full} />

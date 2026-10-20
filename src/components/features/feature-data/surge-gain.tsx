@@ -1,4 +1,5 @@
 import { Feature, FeatureSurgeGainData } from '@/models/feature';
+import { FeatureType } from '@/enums/feature-type';
 import { Flex, Segmented, Select, Space } from 'antd';
 import { HeaderText } from '@/components/controls/header-text/header-text';
 import { Hero } from '@/models/hero';
@@ -7,6 +8,9 @@ import { ResourceGainFrequency } from '@/enums/resource-gain-frequency';
 import { Sourcebook } from '@/models/sourcebook';
 import { TextInput } from '@/components/controls/text-input/text-input';
 import { Utils } from '@/utils/utils';
+import { ancestryUiText } from '@/l10n/ancestry-ui';
+import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
+import { useUI } from '@/l10n/ui-text';
 import { useState } from 'react';
 
 interface InfoProps {
@@ -17,14 +21,24 @@ interface InfoProps {
 }
 
 export const InfoSurgeGain = (props: InfoProps) => {
+	const ui = useUI();
+	const ancestrySource = getOfficialAncestryFeatureSource(props.feature, props.sourcebooks || []);
+	const sourceData = ancestrySource?.type === FeatureType.SurgeGain ? ancestrySource.data : undefined;
 	// A feature panel gives no clue which resource a gain is for, so name surges here
 	const unit = props.data.value === '1' ? 'surge' : 'surges';
+	const trigger = sourceData?.trigger === props.data.trigger
+		? ancestryUiText(props.data.trigger, ui) ?? props.data.trigger
+		: props.data.trigger;
+	const translatedGain = sourceData?.value === props.data.value && props.data.value === '1'
+		&& sourceData.frequency === props.data.frequency && props.data.frequency === ResourceGainFrequency.OncePerEncounter
+		? ancestryUiText('+1 SURGE PER ENCOUNTER', ui)
+		: undefined;
 
 	return (
 		<div>
 			<Flex align='center' justify='space-between' gap={10}>
-				<div className='ds-text compact-text'>{props.data.trigger}</div>
-				<Pill>+{props.data.value} {unit} {props.data.frequency !== ResourceGainFrequency.AtWill ? props.data.frequency : null}</Pill>
+				<div className='ds-text compact-text'>{trigger}</div>
+				<Pill>{translatedGain ?? `+${props.data.value} ${unit} ${props.data.frequency !== ResourceGainFrequency.AtWill ? props.data.frequency : ''}`.trim()}</Pill>
 			</Flex>
 			{
 				props.data.condition ?

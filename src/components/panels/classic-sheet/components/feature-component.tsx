@@ -9,6 +9,8 @@ import { ConditionName } from '@/l10n/condition-text';
 import { careerBenefitFieldKey } from '@/l10n/career-benefit-ui';
 import { DamageModifier } from '@/models/damage-modifier';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
+import { DamageType } from '@/enums/damage-type';
+import { damageModifierFeatureName, damageModifierTypeName, damageTypeName } from '@/l10n/damage-modifier-ui';
 import { DrawSteelSymbolText } from '@/components/panels/classic-sheet/components/ds-symbol-text-component';
 import { FeatureLogic } from '@/logic/feature-logic';
 import { FeatureType } from '@/enums/feature-type';
@@ -31,6 +33,7 @@ import { perkSkillCountLine } from '@/l10n/perk-list-ui';
 import { reusedOfficialPerkName } from '@/l10n/perk-list-ui';
 import { ElementScope, L10nText } from '@/l10n/element-scope';
 import { getOfficialAncestryFeatureSource } from '@/l10n/official-feature-source';
+import { ancestryUiText } from '@/l10n/ancestry-ui';
 import { isStandardKitAbility, kitFieldLabel } from '@/l10n/kit-text';
 import { useL10nText } from '@/l10n/hooks';
 import { Sourcebook } from '@/models/sourcebook';
@@ -189,13 +192,21 @@ const SkillChoiceFeatureComponent = (feature: FeatureSkillChoice | FeaturePerk, 
 const BonusFeatureComponent = (props: { feature: FeatureBonus, hero?: Hero, sourcebooks?: Sourcebook[], nameKey?: string }) => {
 	const ui = useUI();
 	const value = props.hero ? ModifierLogic.calculateModifierValue(props.feature.data, props.hero) : props.feature.data.value;
+	const ancestrySource = getOfficialAncestryFeatureSource(props.feature, props.sourcebooks || []);
 	const staminaKey = familiarStaminaKey(props.feature);
 	const label = useL10nText(staminaKey ?? careerBenefitFieldKey(props.feature, props.sourcebooks || []), props.feature.data.field);
-	const title = useL10nText(staminaKey ?? props.nameKey, props.feature.name);
+	const translatedTitle = useL10nText(staminaKey ?? props.nameKey, props.feature.name);
+	const title = ancestrySource?.name === props.feature.name
+		? ancestryUiText(props.feature.name, ui) ?? translatedTitle
+		: translatedTitle;
 	const perLevel = props.feature.id === 'familiar-1' ? familiarPerLevelLine(ui, props.feature.data) : undefined;
+	const perEchelon = ancestrySource?.id === 'dwarf-feature-2-5'
+		&& props.feature.data.field === 'Stamina' && props.feature.data.valuePerEchelon === 6
+		? ancestryUiText('Stamina +6 per echelon', ui)
+		: undefined;
 	return (
 		<>
-			<div className='feature-line'><strong>• {title}: </strong>{perLevel ?? `${SheetFormatter.addSign(value)} ${label}`}</div>
+			<div className='feature-line'><strong>• {title}: </strong>{perEchelon ?? perLevel ?? `${SheetFormatter.addSign(value)} ${label}`}</div>
 		</>
 	);
 };
@@ -329,14 +340,17 @@ const PrismaticScalesName = (props: { feature: FeatureDamageModifier }) => {
 	return useL10nText(`element:${props.feature.id}:name`, props.feature.name || '');
 };
 
-const PrismaticScalesDamageValue = (props: { feature: FeatureDamageModifier, damageType: string, value: number }) => {
+const PrismaticScalesDamageValue = (props: { feature: FeatureDamageModifier, damageType: string, value: number, ui: ReturnType<typeof useUI>, translate: boolean }) => {
 	const translatedName = useL10nText(`element:${props.feature.id}:name`, props.feature.name || '');
 	const match = translatedName.match(/（([^）]+)）$/);
-	const damageType = match?.[1] || props.damageType;
+	const damageType = props.translate
+		? damageTypeName(props.ui, props.damageType as DamageType)
+		: match?.[1] || props.damageType;
 	return <>{damageType} {props.value}</>;
 };
 
-const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero, name?: string) => {
+const DamageModifierComponent = (feature: FeatureDamageModifier, hero: Hero | undefined, name: string | undefined, ui: ReturnType<typeof useUI>, translate: boolean) => {
+	const useChinese = translate && ui.language === 'zh-TW';
 	const isPrismaticScales = isPrismaticScalesOption(feature.id);
 	const modifiersMap = feature.data.modifiers.reduce((map, m) => {
 		const modifiers = map.get(m.type) || [];
@@ -344,22 +358,27 @@ const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero, na
 		map.set(m.type, modifiers);
 		return map;
 	}, new Map<DamageModifierType, DamageModifier[]>());
+	const title = useChinese && (name ?? feature.name) === 'Damage Modifier'
+		? damageModifierFeatureName(ui)
+		: name ?? <OfficialPerkName feature={feature} />;
 
 	const modifiers = Array.from(modifiersMap.keys()).map(type => {
 		const typeMods = modifiersMap.get(type)?.map(m => {
+			const value = hero ? ModifierLogic.calculateModifierValue(m, hero) : m.value;
 			return (
 				<div className={`feature-iteration damage-type ${m.damageType.toLocaleLowerCase()}`} key={`${m.type}-${m.damageType}`}>
 					{isPrismaticScales ?
-						<PrismaticScalesDamageValue feature={feature} damageType={m.damageType} value={hero ? ModifierLogic.calculateModifierValue(m, hero) : m.value} />
-						: `${m.damageType} ${hero ? ModifierLogic.calculateModifierValue(m, hero) : m.value}`}
+						<PrismaticScalesDamageValue feature={feature} damageType={m.damageType} value={value} ui={ui} translate={useChinese} />
+						: `${useChinese ? damageTypeName(ui, m.damageType) : m.damageType} ${value}`}
 				</div>
 			);
 		});
+		const typeName = useChinese ? damageModifierTypeName(ui, type) : type;
 
 		return (
 			<Fragment key={type}>
 				<div className='flex-break' />
-				<div className='feature-description'>- {type}: </div>
+				<div className='feature-description'>{useChinese ? `- ${typeName}： ` : `- ${type}: `}</div>
 				{typeMods}
 			</Fragment>
 		);
@@ -367,7 +386,7 @@ const DamageModifierComponent = (feature: FeatureDamageModifier, hero?: Hero, na
 
 	return (
 		<>
-			<div className='feature-title'>{isPrismaticScales ? <PrismaticScalesName feature={feature} /> : name ?? <OfficialPerkName feature={feature} />}</div>
+			<div className='feature-title'>{isPrismaticScales ? <PrismaticScalesName feature={feature} /> : title}</div>
 			{modifiers}
 		</>
 	);
@@ -582,7 +601,10 @@ export const FeatureComponent = (props: Props) => {
 	const ancestryFeature = ancestryFeatureSource !== undefined;
 	const ancestryNameKey = ancestryFeature ? `element:${feature.id}:name` : undefined;
 	const ancestryDescriptionKey = ancestryFeature ? `element:${feature.id}:description` : undefined;
-	const ancestryName = useL10nText(ancestryNameKey, feature.name);
+	const translatedAncestryName = useL10nText(ancestryNameKey, feature.name);
+	const ancestryName = ancestryFeatureSource?.name === feature.name
+		? ancestryUiText(feature.name.toLocaleUpperCase(), ui) ?? translatedAncestryName
+		: translatedAncestryName;
 	const ancestryDescription = useL10nText(ancestryDescriptionKey, feature.description);
 	const perkDescription = useL10nText(perkDescriptionKey, feature.description);
 	const kitAbilityDescriptionKey = feature.type === FeatureType.Ability
@@ -628,7 +650,7 @@ export const FeatureComponent = (props: Props) => {
 			content = AbilityModifierComponent(feature, hero);
 			break;
 		case FeatureType.DamageModifier:
-			content = DamageModifierComponent(feature, hero, ancestryFeature ? ancestryName : undefined);
+			content = DamageModifierComponent(feature, hero, ancestryFeature ? ancestryName : undefined, ui, ancestryFeature);
 			break;
 		case FeatureType.Domain:
 		case FeatureType.DomainFeature:

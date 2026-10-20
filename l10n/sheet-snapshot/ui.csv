@@ -1,10 +1,45 @@
 UI ID,Status,Target Text,Source Text,Last Updated,Source Hash
+ui.hero-builder.acid.c4fdf6b8,APPROVED,酸蝕,Acid,2026-10-19,c4fdf6b89bdcabbcb692f511afd5ffa4d10fdc19d3374e5b84b8cb5ac75306d8
 ui.hero-builder.add-a-custom-element.4555eada,APPROVED,新增自訂項目,Add a custom element,2026-10-11,4555eadaf5866693c34cf8c8a64d22dc52fd1bfd2ce89caa70721a97046b36df
 ui.hero-builder.add-a-custom-language.155bdaee,APPROVED,新增自訂語言,Add a custom language,2026-10-10,f1c81317b4f688e4522f720fd77c8dd4af7f918c0283fb89be0df73714c5b816
 ui.hero-builder.add-a-custom-skill.14fa1a61,APPROVED,新增自訂技能,Add a custom skill,2026-10-10,9913e7d497523461fa96dfd2b78057dd4f1f5579b77e583b0c51baf5eb68378c
 ui.hero-builder.advance-to-level.0fda668c,APPROVED,提升至等級,Advance to level,2026-10-10,953805711ab60f6fabd43bffde119bcb2a9dbb1b573cd0ae61180b3d1af8686f
 ui.hero-builder.an-types.c9af510f,APPROVED,{types},`an ${types}`,2026-10-10,c78c17c9093d38f9785bc6c32b3f8532302fab56754a53bda97d8ef30cccf7bd
 ui.hero-builder.ancestral-cultures.002658ee,APPROVED,族裔文化,Ancestral Cultures,2026-10-10,0b374d2caf0eab30d6f794449c6f97b664b624d73a494a00fee8fabd6ac924b3
+ui.hero-builder.ancestry-area.024dc204,APPROVED,區域,Area,2026-10-19,024dc204d7ba77a8ff9ba36a886c96335a5b4a0d2f9af2130d04bc5b39a1a764
+ui.hero-builder.ancestry-burst.b3ee1661,APPROVED,{value} 爆發,{value} Burst,2026-10-19,b3ee1661bb62b2aceaf45302e965e8cb7e3e8bdf579d0b18e3c651e761ad2293
+ui.hero-builder.ancestry-condition-all-arms.8cc038d7,APPROVED,當你能用所有手臂進行嘗試時,When you can use all your arms in the attempt,2026-10-19,8cc038d786ff0a3d98321af6dcc53f27e4491c6aa81b2cc0dd754a135b8eff67
+ui.hero-builder.ancestry-condition-interacting-undead.488ee1e7,APPROVED,與亡靈生物互動時,When interacting with undead creatures,2026-10-19,488ee1e77fd62369274f5cdba46fcabe37676e19f555498a978e1708ea6ce546
+ui.hero-builder.ancestry-condition-lifting-hauling.153ce9f9,APPROVED,舉起或搬運重物時,When lifting and hauling heavy objects,2026-10-19,153ce9f94901e83ea68d9cdb6652d1afdfe3564b173f5537bee166de18971b7b
+ui.hero-builder.ancestry-condition-noticing-threats.82f01689,APPROVED,察覺威脅時,When noticing threats,2026-10-19,82f01689419be94d3361544e4d5371272e7391f351ec7e588f2f802c5c03b4a7
+ui.hero-builder.ancestry-condition-parsing-documents.3e54cb37,APPROVED,解析藍圖、地圖及其他本質上並不混亂的系統性文件時,"When parsing schematics, maps, and other systematic documents that aren’t inherently chaotic",2026-10-19,3e54cb37b86274bc97da14bc4ebf536aa12dd9e5f9ffe9665df1c324ed5b0a01
+ui.hero-builder.ancestry-condition-recalling-lore.41dee668,APPROVED,回想知識時,When recalling lore,2026-10-19,41dee66809187fb835f3d3b9d5185e52e229ca2bb1b4714b09fa8b3560bbecf4
+ui.hero-builder.ancestry-condition-resisting-effects.4dc8b301,APPROVED,抵抗環境效果或生物的特性與招式時,When resisting environmental effects or a creature’s traits or abilities,2026-10-19,4dc8b301d3d098d5074838c3892e12c6b38e3477b57809922fa6ee80e360c149
+ui.hero-builder.ancestry-corruption-growth.7932cd16,APPROVED,腐朽免疫 +3；第 1 級後每級 +1,Corruption Immunity +3 +1 per level after 1st,2026-10-19,7932cd16f81fb139c49f3e5cb96ec400ef80bd8b175557a1f0346328bec6f21f
+ui.hero-builder.ancestry-cube-within.7de28835,APPROVED,{distance} 格內 {size} 立方,{size} Cube within {distance},2026-10-19,7de2883553e47c8ebba4bb29d6fb0d2ee33148b51348f79e19fec49b349c53a8
+ui.hero-builder.ancestry-damage-push.002730d6,APPROVED,{damage} 傷害；推動 {distance},{damage} damage; push {distance},2026-10-19,002730d6cdf33f401b174df061b599eb7148328a7ae4e20763f1c9f8f8c5e36e
+ui.hero-builder.ancestry-damage.04b5358f,APPROVED,{value} 傷害,{value} damage,2026-10-19,04b5358f61bfc496f1ea70da8995e6c531972b9e1962c5e0210d7224236f4d3a
+ui.hero-builder.ancestry-each-enemy.9f98d4d1,APPROVED,區域內每個敵人,Each enemy in the area,2026-10-19,9f98d4d1ea9969001b9b62757b8e89c6b1bea83a150ef5786a6764dcf1fe8c7c
+ui.hero-builder.ancestry-feature.d02c24ce,APPROVED,族裔特性,Ancestry Feature,2026-10-19,d02c24ce44bdfcee45a71dfaad6b6ab88f6f4f5855ab1d5404a046154155c361
+ui.hero-builder.ancestry-forced-movement-pull.f6e02a59,APPROVED,強制移動：拉動,Forced Movement: Pull,2026-10-19,f6e02a59e85dc37243ba7621059091e538a981f461d38216c05671b2c65674ec
+ui.hero-builder.ancestry-forced-movement-push.14a22b13,APPROVED,強制移動：推動,Forced Movement: Push,2026-10-19,14a22b13b8269f9554d438a094c31b2ce48573b5b1bb7061c63ccfdb83ff2749
+ui.hero-builder.ancestry-forced-movement-slide.8b9656a6,APPROVED,強制移動：滑動,Forced Movement: Slide,2026-10-19,8b9656a61baae15af57d6fcb2cf2ca25ccff01b1eb346c97ed0fea6b9d191a91
+ui.hero-builder.ancestry-movement-mode-label.3251952c,APPROVED,移動模式,MOVEMENT MODE,2026-10-19,3251952cea3252d3d974881d4d70372687281194082d11ee3db108fb8d8aad47
+ui.hero-builder.ancestry-points.be56c10c,APPROVED,族裔點數,Ancestry Points,2026-10-19,be56c10c2421146e46caecadee3567014c1eb3b68b430ef5cc66a6e417976581
+ui.hero-builder.ancestry-power-roll-might-agility.ad066156,APPROVED,檢定 + 力量或敏捷,Power Roll + Might or Agility,2026-10-19,ad066156961f5918c6969a5793940dc7d85c089729d4691b614c8038d5d2419b
+ui.hero-builder.ancestry-power-roll-might-presence.0ea0eaad,APPROVED,檢定 + 力量或氣場,Power Roll + Might or Presence,2026-10-19,0ea0eaad24d1f5ace885af41d3538965517c9af38560a941e3bbe625d204a7be
+ui.hero-builder.ancestry-power-roll-reason-intuition-presence.c37df268,APPROVED,檢定 + 理智、直覺或氣場,Power Roll + Reason or Intuition or Presence,2026-10-19,c37df268dcf7240f897e1ef59f0e5c173f56af998ad7a6a5cd37650586d39935
+ui.hero-builder.ancestry-scope-all-tests.c8966d43,APPROVED,所有考驗,All tests,2026-10-19,c8966d4368f90a9edcf7932aa16ffc6ddf51ed8f672e4faee6bbf9eeb9d026db
+ui.hero-builder.ancestry-scope-climb-gymnastics-swim.4aa03efa,APPROVED,攀爬、體操、游泳,"Climb, Gymnastics, Swim",2026-10-19,4aa03efac9b0069613b462badb247ea90360a793b7aa21df5f799c95bd2939bc
+ui.hero-builder.ancestry-scope-hide-sneak.ace7141d,APPROVED,隱匿、潛行,"Hide, Sneak",2026-10-19,ace7141da170f6ad684adfcf8b2d7781341c9347a8b56c07dbe91276a2f6ab83
+ui.hero-builder.ancestry-scope-might-tests.1fdd0d78,APPROVED,力量考驗,Might tests,2026-10-19,1fdd0d782a487bd4daa1cd9beb90dc71575a586e085f539d8a4823d673193ab6
+ui.hero-builder.ancestry-scope-presence-flirt-persuade.50bb7256,APPROVED,使用魅惑或遊說進行的氣場考驗,"Presence tests using Flirt, Persuade",2026-10-19,50bb725689919e63452ca7dd004532a9ceae277c89302d880604873665c0b5db
+ui.hero-builder.ancestry-scope-reason-intuition-presence.56765d20,APPROVED,理智、直覺、氣場考驗,"Reason, Intuition, Presence tests",2026-10-19,56765d207c2278145f345db7a3829fee78ff6599c112e05f91528836ce91f91b
+ui.hero-builder.ancestry-stamina-per-echelon.56bdc7d5,APPROVED,體力每境界 +6,Stamina +6 per echelon,2026-10-19,56bdc7d5fb5d1a655fd85a6a2689a5b27de39439badd4f60c498029f700aa70d
+ui.hero-builder.ancestry-surge-per-encounter.9459bbc7,APPROVED,鬥志 +1 / 每場遭遇,+1 SURGE PER ENCOUNTER,2026-10-19,9459bbc772c4d511db990cfc26316e0fbb6a00723de3fc43bd4de000110331e4
+ui.hero-builder.ancestry-surge-start-of-combat.787b64ff,APPROVED,戰鬥開始時,Start of combat,2026-10-19,787b64ff432b88a1199d86826ac50acd5c6b64471d12199b611578f253fc7d55
+ui.hero-builder.ancestry-traits-and-perks.a0bf6477,APPROVED,族裔特性與專長,Ancestry Traits and Perks,2026-10-19,a0bf6477d81f03ff5f74b22a1288db9acae27eb00366bf7ff79eb34ff01890dd
+ui.hero-builder.ancestry-trigger-targeted-by-strike.3b5a09c7,APPROVED,當你成為打擊的目標時,You are targeted with a strike,2026-10-19,3b5a09c7b5601285cadaec62319cfa52bd3aa186b958aa6a6400657420ddc207
 ui.hero-builder.ancestry.638cf5ee,APPROVED,族裔,Ancestry,2026-10-10,65a0468287c169ce0b450cc01121877fb73c10bf0ef677eb4c8cfaf758f2498c
 ui.hero-builder.ancestry.f8f07987,APPROVED,族裔,Ancestry,2026-10-10,65a0468287c169ce0b450cc01121877fb73c10bf0ef677eb4c8cfaf758f2498c
 ui.hero-builder.and.a8dce43d,APPROVED,，以及,", and",2026-10-10,4aa9bfd2f175a94ad5a7cb321e1aea9790c73eb366a3415b47a00aeaa9fbf24a
@@ -14,6 +49,9 @@ ui.hero-builder.auto-calculate-damage-potenc.dfd07bc3,APPROVED,自動計算傷�
 ui.hero-builder.benefit.0c0829d3,APPROVED,益處,Benefit,2026-10-11,0c0829d3e30125b0e9350631b17c2102c298265645d8252eefdc45831517521a
 ui.hero-builder.bespoke-culture.d5aee9b5,APPROVED,自訂文化,Bespoke Culture,2026-10-10,0c613dc154d9eb90922b49d781a41e56574ef0f1897fc3f245d4d862e6cbae37
 ui.hero-builder.bespoke-cultures.853baca5,APPROVED,自訂文化,Bespoke Cultures,2026-10-10,da8a14a7d875ee0e09c6be4b9dbd335e3e401791117e3ccdd80116564407fe2a
+ui.hero-builder.bolt-tier-1.c23fccd2,APPROVED,2 + 理智、直覺或氣場心靈傷害；滑動 1,"2 + R, I, or P psychic damage; slide 1",2026-10-19,c23fccd2e4f37c917b6d779f4263573343c0a20b256854e9577f441ca4f611f6
+ui.hero-builder.bolt-tier-2.d520ad1c,APPROVED,5 + 理智、直覺或氣場心靈傷害；滑動 2,"5 + R, I, or P psychic damage; slide 2",2026-10-19,d520ad1c4c3f6fffb3dc67a962def981f599861e26bd916e9c608c3320d0e0b8
+ui.hero-builder.bolt-tier-3.644c6a0d,APPROVED,7 + 理智、直覺或氣場心靈傷害；滑動 3,"7 + R, I, or P psychic damage; slide 3",2026-10-19,644c6a0d3adc85e130d71396c1b1c7b5d8e8c12b85dc57f79a8eaded226145c9
 ui.hero-builder.bonus-per-level.f68c64a2,APPROVED,每級 {value},`${mod.value >= 0 ? '+' : ''}${mod.value} per level`,2026-10-15,f68c64a2a477f428e3c10484d26d8c479866586ef8ec3585b9ea4accfe46f192
 ui.hero-builder.but-you-can-skip-this-if-you.21d25869,APPROVED,，但這不是必要項目，可略過。,- but you can skip this if you'd prefer.,2026-10-10,2c52797ce3c1a27992334c99cdff850a7b5c2a62e3399d8f75afa7a96ff6be71
 ui.hero-builder.cancel.5314e347,APPROVED,取消,Cancel,2026-10-10,19766ed6ccb2f4a32778eed80d1928d2c87a18d7c275ccb163ec6709d3eb2e27
@@ -21,6 +59,7 @@ ui.hero-builder.cannot-be.36cd9df2,APPROVED,不會陷入,Cannot Be,2026-10-10,95
 ui.hero-builder.career.bb829dbb,APPROVED,生涯,Career,2026-10-10,732863fa5c6125a201487a2f52e400a2f29a8c9548512fc84c35da1aef3d710d
 ui.hero-builder.career.d360a160,APPROVED,生涯,Career,2026-10-10,732863fa5c6125a201487a2f52e400a2f29a8c9548512fc84c35da1aef3d710d
 ui.hero-builder.characteristics.e0e8d3ab,APPROVED,屬性,Characteristics,2026-10-10,dd729c764e56898d0507e6b9b1ba1466bdb9d656041038b7196f622f9056184b
+ui.hero-builder.cherry-pick.bb78f611,APPROVED,挑選特性,Cherry Pick,2026-10-19,bb78f6118362b31ae1537a53c96fa7937300b656e4c42761bf3d30bbe17b68b9
 ui.hero-builder.choice-feature-description.3a5f7705,APPROVED,此特性能讓你從一組特性中做出選擇。,This feature allows you to choose from a collection of features.,2026-10-10,3a5f7705ce87643bee300014ec5f7df6ae40d8192c6b214bebb7de6717f06f9b
 ui.hero-builder.choices.6c95228b,APPROVED,選項,Choices,2026-10-10,2f75b64ac9163e816311e5c21589498f54c449f2da1d1436cb9ab2f10c160af5
 ui.hero-builder.choose-a-complication.82309699,APPROVED,選擇 1 項糾葛。,Choose a complication.,2026-10-10,2a99b902e2e50c4e3dc78b57f2e93a826438e57a3d341d73a0cfc97653bb20e4
@@ -62,22 +101,27 @@ ui.hero-builder.classic-melee-damage-bonus.a17961ad,APPROVED,近戰傷害加值,
 ui.hero-builder.classic-ranged-damage-bonus.0ea33528,APPROVED,遠程傷害加值,Ranged Damage Bonus,2026-10-18,0ea33528d28936df1e18970a1d7b7dfa3ac099113cdbf02b155bf7a3ac34afcc
 ui.hero-builder.classic-weapon-implement.23348605,APPROVED,武器／法器,Weapon / Implement,2026-10-18,2334860555bc97fefaf1d23b1c910c8f46d4acea5198a2060ba689cd985625ac
 ui.hero-builder.click-here.319b8c1e,APPROVED,點擊這裡,Click Here,2026-10-10,7fb128e872e5d19261b9d511440a403421269b1bb6e1b39db84d0d5798d110c3
+ui.hero-builder.cold.f151cd9e,APPROVED,寒冷,Cold,2026-10-19,f151cd9e12c8994edfa316e4624f956bc68460454869177f287146f8cc956a12
 ui.hero-builder.common-language-description.cc9ef9be,APPROVED,選擇 1 種通用語。,Choose a Common language.,2026-10-11,cc9ef9be49ebd6ba61fbba2b6f214d990cc33dcce674b2d6816553063b659d83
 ui.hero-builder.completed.1c31b48e,APPROVED,已完成,Completed,2026-10-10,22a970d2e5b1cc233e462be7c7b64e135a275bb09d83d87683bf4236c43113a1
 ui.hero-builder.complication.312ac90f,APPROVED,糾葛,Complication,2026-10-10,de3b942e7a0047b84e463ff9c0a973560d67c996c867a5f27770d23d58febf3c
 ui.hero-builder.complication.d37d8e77,APPROVED,糾葛,Complication,2026-10-10,de3b942e7a0047b84e463ff9c0a973560d67c996c867a5f27770d23d58febf3c
 ui.hero-builder.configure.357c15c9,APPROVED,設定,Configure,2026-10-10,6defafa2caa65304173956e3fbc26b6947c50bc769c08c3da32c1032fa6519d4
+ui.hero-builder.corruption.abf56455,APPROVED,腐朽,Corruption,2026-10-19,abf5645579cb98ff9391a57da629e9ea187f277496da76ef451a83a9c4357820
+ui.hero-builder.cost.204a5eb2,APPROVED,費用,Cost,2026-10-19,204a5eb2cd28bcfdf3be9f8c765948e9e831609e3c57048cdbd6b8a94cf49126
 ui.hero-builder.crafting-perk.cc40cc14,APPROVED,工藝類專長,Crafting Perk,2026-10-11,cc40cc144af2ba6b118d9ce943201bc265c6af06d419fa7f2505122529a4427b
 ui.hero-builder.creating-a-hero-in.9a412045,APPROVED,在,Creating a hero in,2026-10-10,6de105db4918273ebaec8f2cea13fb44d9c75a1979873c8930fb8ca6c7b171da
 ui.hero-builder.creating-a-hero.09586add,APPROVED,建立英雄,Creating a Hero,2026-10-10,2b9f21553c40cd1f5e83f307de6a9cf3c1234768331d8dcccdc08310f22f0432
 ui.hero-builder.culture-language-description.ad467037,APPROVED,選擇 1 種語言。,Choose a  language.,2026-10-10,ad46703741e0fd16716d24088e9665126d87a8f4325776809a5ee5af077411a2
 ui.hero-builder.culture.06f1b137,APPROVED,文化,Culture,2026-10-10,51d7a2ae4335df1210bcb79c32ebcda7d6043eda3ce4e191454fc78eebdb1fa8
 ui.hero-builder.culture.a3132ad2,APPROVED,文化,Culture,2026-10-10,51d7a2ae4335df1210bcb79c32ebcda7d6043eda3ce4e191454fc78eebdb1fa8
+ui.hero-builder.current-ancestry.7b823070,APPROVED,現有族裔,Current ancestry,2026-10-19,7b823070e4bf4c607acf4934b8c4dd5b6b04e34ff3d086ffb3dedebe0dbacbf2
 ui.hero-builder.custom-language-name.5b0c1f59,APPROVED,自訂語言名稱,Custom Language Name,2026-10-10,894b414d1541fdbbc233da27e2ad725f9e2cf36f33f92b1c8196e1e922cf9b97
 ui.hero-builder.custom-language.1bf43b8b,APPROVED,自訂語言,Custom Language,2026-10-10,068871f6def9c54c059a730325f42c831a5726138fbb7618f0cfbd81077fd4f9
 ui.hero-builder.custom-skill-name.7937e4be,APPROVED,自訂技能名稱,Custom Skill Name,2026-10-10,591821b8d574e3d7591f0323cfd5c9849e4789e0d150b20af22a126c10960057
 ui.hero-builder.custom-skill.b3339162,APPROVED,自訂技能,Custom Skill,2026-10-10,8bc353d312155cde3cb6421209ffeea4391188f46e0ccf97b799f14cdd37a99d
 ui.hero-builder.customize.6ddfe8c5,APPROVED,自訂,Customize,2026-10-10,c5276e27afba47df67704ededdb5cf2cfaaf0a9d7d1be1eabb0d4087dd2b724b
+ui.hero-builder.damage-modifier.a9292a2f,APPROVED,傷害調整,Damage Modifier,2026-10-19,a9292a2fe16b3498ef05d95b510ae3587733b5c3bf56b7c3a3477d385f92dab2
 ui.hero-builder.default-language.28bee244,APPROVED,預設語言,Default Language,2026-10-11,28bee2441243a8fc69d2007d9683ec904fb2119e9837aae9641a5cc0d99b0134
 ui.hero-builder.default-option.18977ea3,APPROVED,預設選項,Default Option,2026-10-10,a4cfb7ac5bf33f8ef84014f36f40517ff4a330c94076c98d67815974f0ec1b30
 ui.hero-builder.delete.01152930,APPROVED,刪除,Delete,2026-10-10,e2d0a54968ead24efc0dffa6ac78fc606dceec34a0f586177a74a54cc2272cf8
@@ -95,8 +139,10 @@ ui.hero-builder.exploration-perk.5091cd7a,APPROVED,探索類專長,Exploration P
 ui.hero-builder.extensions.6eb986a4,APPROVED,擴充項目,Extensions,2026-10-10,fe3436af86b47d22f22d93da68119fcb749dbed0335b4dc99f254e02db236156
 ui.hero-builder.features.31d1245f,APPROVED,特性,Features,2026-10-10,5697d03daef4de9cf8db7cb11755f71358a32b4acca94909a9d449f71040d2dd
 ui.hero-builder.finally-go-to-the.3f9b524b,APPROVED,最後，前往,"Finally, go to the",2026-10-10,88e535bef92c5a621890e510667091d50094f6a9dbaa7cb6a3468f422893f77f
+ui.hero-builder.fire.c141faa8,APPROVED,火焰,Fire,2026-10-19,c141faa80e43a11909f5736d1e767f12e1468aa06dadd446081746934e875fc3
 ui.hero-builder.folder.5d207c4a,APPROVED,資料夾,Folder,2026-10-10,74ccd43303847f2655300641a934959cdb11689ce171aa0f00faa92917fbd340
 ui.hero-builder.formatlogic-getmodifier-prop.d3388eac,APPROVED,{modifier} 射程,`${FormatLogic.getModifier(props.data)} distance`,2026-10-10,0338c39a721c64b9f6a768836c71aab49271c52e1e1fbcf1224441eb2d131f4e
+ui.hero-builder.former-ancestry.162fd55c,APPROVED,昔日族裔,Former ancestry,2026-10-19,162fd55c78d4e772a98977012ab30660a3efefd8efd83869e0c1c7770a4bf799
 ui.hero-builder.former-life.2d120c9d,APPROVED,昔日人生,Former Life,2026-10-10,425730bf002330c3a8ae87348a9232524ec66fb89177c9d5492b6110ce3990a3
 ui.hero-builder.free-sash.ad95d5fa,APPROVED,免費,free,2026-10-15,ad95d5fa651ba86d8923fe1238d24a4f1988a752acfe426ac72ac7c04471bc17
 ui.hero-builder.free-triggered-action.acb2b603,APPROVED,免費反應動作,Free Triggered Action,2026-10-15,acb2b603e9d2bf99e48f0e8bb188c3103b9cb0770448d2055476d78b9bc0d196
@@ -107,7 +153,9 @@ ui.hero-builder.homebrew-extensions-add-to-o.0ae4e64e,APPROVED,自製擴充項�
 ui.hero-builder.if-there-are-any-choices-to-.f393a771,APPROVED,。若有待選項目，系統會提示你完成選擇。,". If there are any choices to be made, you'll be prompted to make your selections.",2026-10-10,1cef34fdf602781b4e397bad5aad077977692ea342d29a46f289f2d9514a2cc3
 ui.hero-builder.if-you-have-a-homebrew-sourc.d8d789c8,APPROVED,若要使用此處未列出的自製來源書，請在這裡匯入。,"If you have a homebrew sourcebook you want to use, and it isn't listed here, you can import it now.",2026-10-10,55b5cca126ec34111b5c9d455dfa1a8bd1f144ef0e2a3c4fa68f01d4de1a689b
 ui.hero-builder.immunities.3721f3cd,APPROVED,免疫,Immunities,2026-10-15,3721f3cd11a40ebf5ff0e25f027464a0bd739e722b2f3cd5a7306557af2a7c66
+ui.hero-builder.immunity.806f8b53,APPROVED,免疫,Immunity,2026-10-19,806f8b53f4ec2c366721c84f3905a13dce8e3146120f9305cdc33cd84b4e00a4
 ui.hero-builder.import-a-sourcebook.37cebd77,APPROVED,匯入來源書,Import a sourcebook,2026-10-10,9664b9821e4b63e79deb5ffc29761401656019fce767f3651940d890673dcdca
+ui.hero-builder.import.2cff9baa,APPROVED,匯入,Import,2026-10-19,2cff9baabf56ca002610e113bc94deb6ededddfc3c130365b6e88ed5195bf774
 ui.hero-builder.in-progress.c78428c0,APPROVED,進行中,In Progress,2026-10-10,b4cc4b07c300103a4bc38e01e084cc945144a7eb0ae61d74d62ca49b8abe0908
 ui.hero-builder.in-the-toolbar-at-the-top-an.73c2771b,APPROVED,按鈕，即可查看你的英雄角色卡。,"in the toolbar at the top, and you'll see your hero sheet.",2026-10-10,9e74093b5e6712b1b2d10b3a55c3ccae2a4ba89bb9479a61f76fff1c70c311cc
 ui.hero-builder.inciting-incident.181ce686,APPROVED,關鍵事件,Inciting Incident,2026-10-10,5ad954bce3c11fb60d829441cd6036eb0233d249891650e041e7b4ad501bc169
@@ -131,6 +179,7 @@ ui.hero-builder.level-props-data-level.acd6b237,APPROVED,（等級 {level}+）,`
 ui.hero-builder.level-t-level.e10d2e65,APPROVED,（等級 {level}+）,` (level ${t.level}+)`,2026-10-10,29ac972131821c6c05890325d3e6211852679c0b543865f8d748dfe03071dad8
 ui.hero-builder.level.b383f415,APPROVED,等級,Level,2026-10-10,1709305c9fa966d14f56f0da3c3614bbc10adcf53d72f90341bb96d24afcfca3
 ui.hero-builder.level.b63ee29c,APPROVED,{level} 級,`level ${props.hero.class.level}`,2026-10-10,39904dafb022ba9d6988c88cc033ffc8f8d514204343a2facfac93a0cf08e779
+ui.hero-builder.lightning.41e68f2c,APPROVED,閃電,Lightning,2026-10-19,41e68f2cdb3806bb899cb2f3c3d80a2171f37c85b60e8e486742234e4e5f5738
 ui.hero-builder.list-or.7382d0ab,APPROVED,{items}或{last},`${items} or ${last}`,2026-10-16,7382d0ab00e98efbc924c51236303b1bf9dc49728cc5d67e1af8e9eb83103b85
 ui.hero-builder.looking-for-something-specif.65c7e1a8,APPROVED,找不到想要的內容嗎？若是第三方或自製內容，請確認已加入所屬來源書。,"Looking for something specific? If it's third-party or homebrew, make sure you've included the sourcebook it's in.",2026-10-10,077ba1b6a7b7432ec709f8f016371a6c4f349d7af96cac1cdf5b22d0a3e605fb
 ui.hero-builder.lore-perk.9eddcd07,APPROVED,學識類專長,Lore Perk,2026-10-11,9eddcd079ca777f8b57e0cd0fc907e92593358c4455ada6ee18761ba1f947636
@@ -140,7 +189,9 @@ ui.hero-builder.main-sash.0d6e4079,APPROVED,主要,main,2026-10-15,0d6e4079e3670
 ui.hero-builder.maneuver-sash.ce99528b,APPROVED,機動,maneuver,2026-10-15,ce99528b7b40b2daefb88cb6ce5da51844ee8c5d51b94677c1e2c970e2ca5949
 ui.hero-builder.melee-damage.025e8b60,APPROVED,近戰傷害,Melee Damage,2026-10-17,025e8b606d98b6b60541586bb2229b937173ec99921228436c4c4e80a8fb276f
 ui.hero-builder.melee-distance.7c498629,APPROVED,近戰射程,Melee Distance,2026-10-17,7c498629ff97566d313bef98ebf4e6143f3e98870048c1ef9e97acf6d2a10d14
+ui.hero-builder.move-down.b58330ac,APPROVED,下移,Move Down,2026-10-19,b58330ac25057a441365f4f4f1be20daba2d6d940142c891231e0eac66843ff4
 ui.hero-builder.move-sash.683a62ce,APPROVED,移動,move,2026-10-15,683a62ce15fbabb1ac867022e56e6e4f4f581762d77c3abb2f8dc8b165b3b1b9
+ui.hero-builder.move-up.1359626e,APPROVED,上移,Move Up,2026-10-19,1359626e7b6964345896285446db7977e67469251bb0cc52808db2a85ed940c1
 ui.hero-builder.movement-mode.56db4b3c,APPROVED,移動模式。,movement mode.,2026-10-10,4a87677ddfc8054551bffc93067d3d2735617100e57688065bce9f7201cb3e1f
 ui.hero-builder.movement.49ba63e8,APPROVED,移動,Movement,2026-10-15,49ba63e89af69e4d6d4cf7618c4dca31e1fa03753edddbc9ddeaf773364c9665
 ui.hero-builder.name.f7c27f51,APPROVED,名稱,Name,2026-10-10,dcd1d5223f73b3a965c07e3ff5dbee3eedcfedb806686a05b9b3868a2c3d6d50
@@ -163,15 +214,20 @@ ui.hero-builder.other-perks.2706cc67,APPROVED,其他專長,Other Perks,2026-10-1
 ui.hero-builder.other-skills.66fa9a26,APPROVED,其他技能,Other skills,2026-10-10,7160172aa4821c8d9481af37230227b698112fa5264130deae86eeab97ab69ad
 ui.hero-builder.otherwise.eea1c613,APPROVED,否則：,Otherwise:,2026-10-10,6ba58147f51567fccfa0a2fda563396679b94449ebbad5abc3093f92918504cc
 ui.hero-builder.overview.d4b1ea57,APPROVED,總覽,Overview,2026-10-11,d4b1ea5708dd532930a85188b45aff6f0a3ed458500c7577e0127a538eb0d100
+ui.hero-builder.per-level.1caaa3dd,APPROVED,每級 +1,+1 per level,2026-10-19,1caaa3ddf79c6287d1a4bc80383e8d7908ada394aa8ad066eb583ebabbb80667
 ui.hero-builder.perk-count-list.9eaae349,APPROVED,{count} 項{list} Perk,`${count} ${list} Perk`,2026-10-16,9eaae34966808b953bdbd4f572fdfdf39230eab3bb0616c850f3a5c0ec5dd741
 ui.hero-builder.perk-count.e5bc2580,APPROVED,{count} 項 Perk,`${count} Perk`,2026-10-16,e5bc2580330148dd33be983c6ee508d47b6cf6691ff79e3c679a2c129168719d
+ui.hero-builder.poison.d5a78b99,APPROVED,毒素,Poison,2026-10-19,d5a78b996fe640a3f9181d71da872b9dfb63bbad0d282edff0a12e4e32074b6e
 ui.hero-builder.portrait.84680994,APPROVED,肖像,Portrait,2026-10-10,f71094c30160d155c9b29fd67e3b6f86ad254003a163da4c24d1f0061b0ed0ad
+ui.hero-builder.preview.324b134f,APPROVED,預覽,Preview,2026-10-19,324b134f57c70c729ae3dc4d298bb451656717d70523e942c1ce667b8024ea07
 ui.hero-builder.professional-cultures.9011d8e9,APPROVED,職業文化,Professional Cultures,2026-10-10,ad64cf2fc08999ebe1715e24b059b6c7948c5b5aa0c62b6ca06379efeed55c33
 ui.hero-builder.project.7dc34b5f,APPROVED,專案,Project,2026-10-10,985959785319747668373cc6dee294b11db782b03cdd90a2851fbdc0637c6b7b
 ui.hero-builder.props-data-cost-pt.eadc18a0,APPROVED,{cost}pt,`${props.data.cost}pt`,2026-10-10,fc8b8b8e3a233349c9fa6c93580b619106fa0cc29070a0476bb42c2a3593d869
 ui.hero-builder.psionic.cd9fca98,APPROVED,靈能,Psionic,2026-10-15,cd9fca98a5c2b4e6806d831e707a53986449f63c1b8435881cbeb8510e32a159
+ui.hero-builder.psychic.2c73e325,APPROVED,心靈,Psychic,2026-10-19,2c73e325cb1fae2c511b6613851f2978f7b4c084bea815467a132e28e19b0642
 ui.hero-builder.pt-ancestry-feature.c76f6671,APPROVED,點族裔特性。,pt ancestry feature.,2026-10-10,ed62b3ed886b31651c2c1e170043aaef5b24f89260a920e03efd774e564943a3
 ui.hero-builder.purchased-traits.394205e5,APPROVED,自購特性,Purchased Traits,2026-10-10,394205e58484c069da3e0a350bd2df2493f363d389620332785acc62cfd632fb
+ui.hero-builder.purchased.5fa14d9a,APPROVED,自購,Purchased,2026-10-19,5fa14d9aa5232fc0768296f8f313c29cee57f9543bb7a03341a239814a7becd4
 ui.hero-builder.random.948804e8,APPROVED,隨機選擇,Random,2026-10-10,67bc484430fe87babe3c35d2ba4827d029f1c7e415a92de44885a9c88536661f
 ui.hero-builder.ranged-damage.ed353d2b,APPROVED,遠程傷害,Ranged Damage,2026-10-17,ed353d2b643bf868f05b40593edda757b9bbea6b4ac08630682269e7c60c8f6b
 ui.hero-builder.ranged-distance.b55a9de7,APPROVED,遠程射程,Ranged Distance,2026-10-17,b55a9de7302efd9a9e71a54fce4826c4cf6ba97401c1e4fb8d329c0622157e0e
@@ -188,7 +244,11 @@ ui.hero-builder.select.ed8e93ef,APPROVED,選取,Select,2026-10-10,2a78025de6aae5
 ui.hero-builder.selecting-a-perk-from-outside-th.1be9b4cd,APPROVED,選擇不屬於所列類別的專長，通常不符合規則。,Selecting a perk from outside the listed groups is typically against the rules.,2026-10-11,1be9b4cd0a123a411b34f354548192aaf8b01aed40ee33734a4c505dcba97e28
 ui.hero-builder.self.85bc0f95,APPROVED,自身,Self,2026-10-15,85bc0f95858d757232c2f3662d3edb11168ddbfb426bfc240b478dc444308c9b
 ui.hero-builder.show-details.257cf510,APPROVED,顯示詳情,Show details,2026-10-10,1af77ee273cbdaaec500c36db6130612d94fc3450a9b4665433508954070fde9
+ui.hero-builder.sigil-tier-1.7d9ec74e,APPROVED,3 + 理智、直覺或氣場傷害；滑動 1,"3 + R, I, or P damage; slide 1",2026-10-19,7d9ec74ec1333998c0a39b164c0a50b03e0fd9351c3ee50d107a24f7378a2228
+ui.hero-builder.sigil-tier-2.22746c9f,APPROVED,5 + 理智、直覺或氣場傷害；滑動 2,"5 + R, I, or P damage; slide 2",2026-10-19,22746c9f2760d78331706ea159a3b11a568b7e7df2dcf7f4e37a35c387e64d15
+ui.hero-builder.sigil-tier-3.fc65f971,APPROVED,7 + 理智、直覺或氣場傷害；滑動 3,"7 + R, I, or P damage; slide 3",2026-10-19,fc65f971851ca6de6f2f8baf21dbd932620139116643d504c46378a7d28eb393
 ui.hero-builder.signature-ability.5252b981,APPROVED,招牌招式,Signature Ability,2026-10-18,5252b981253954620c51b164e20b9a6ddbf79dcfd898e13b6b8b7fbdcc0dda10
+ui.hero-builder.signature-traits.fcbaa026,APPROVED,招牌特性,Signature Traits,2026-10-19,fcbaa026d90a873fdd0937544fed70e0f9716a5ab65c671d1bb41b11e91143e0
 ui.hero-builder.signature.f1a73e22,APPROVED,招牌,Signature,2026-10-18,f1a73e2204a114077f988c9da98d7f8b604ab250496f25aeb3cbd153f5369c83
 ui.hero-builder.size.0805dc7c,APPROVED,體型,Size,2026-10-10,1af851907331c0ed99e7c63b4e55df808bc5fc4c990a1cf80ca8c0f76daf1f3b
 ui.hero-builder.skill-choice-description.9172d5a4,APPROVED,從{source}中選擇 1 項技能。,`Choose a skill from ${source}.`,2026-10-11,9172d5a4b4a134f997f556511afbb53c6989c860ebce1b86b88f63f3960d50a1
@@ -198,6 +258,10 @@ ui.hero-builder.skill-list-description.f94c20ab,APPROVED,{list}技能,`${list} s
 ui.hero-builder.skill.a5ed2dcb,APPROVED,技能,Skill,2026-10-10,6df1bb18a59ab97df82e307b93fe4f3bbda34d531bcbb79ec573dda23ba64918
 ui.hero-builder.skills-choice-description.1a7008a2,APPROVED,從{source}中選擇 {count} 項技能。,`Choose ${count} from ${source}.`,2026-10-11,1a7008a2ff710e04d0933b0a7b4a1e848a0e244a2801938e8b9f103b8ea8a1bb
 ui.hero-builder.skills.66d0f523,APPROVED,技能,Skills,2026-10-11,66d0f523a379b2de6f8d5fba3a817ebc395f7bcaa54cc132ca9dfa665d1e9378
+ui.hero-builder.slam-tier-1.2c6b0e34,APPROVED,2 + 理智、直覺或氣場傷害,"2 + R, I, or P damage",2026-10-19,2c6b0e34dfbd58df83c77f0f849403e841b587bc97f9c802d1cb34dcc3e3db21
+ui.hero-builder.slam-tier-2.719485ce,APPROVED,5 + 理智、直覺或氣場傷害；推動 1,"5 + R, I, or P damage; push 1",2026-10-19,719485ce8c690d6df0e5e2c2ab0c10c6a739460e9a48b4dcb3eea7293fdea2fe
+ui.hero-builder.slam-tier-3.9cbf7f6d,APPROVED,7 + 理智、直覺或氣場傷害；推動 2；力量 < 強，伏地,"7 + R, I, or P damage; push 2; M < [strong] prone",2026-10-19,9cbf7f6d0c15b0373563883a3fd34ecd9ba448936a1733b729c82a7f618a47df
+ui.hero-builder.source.0e570ca6,APPROVED,來源,Source,2026-10-19,0e570ca6fabe24f94e52c1833f3ffd25567022beb826fa16891f3322051bc221
 ui.hero-builder.sourcebooks.52e8200a,APPROVED,來源書,Sourcebooks,2026-10-10,d12ee3b74c91c396e9f8524784ce224992be28714cc7213a4e3dfe5bf6dfc1df
 ui.hero-builder.special.997c544f,APPROVED,特殊類,Special,2026-10-11,997c544f1be0a2dde15ce4e764321511ce9abdb34c7e7c661439e0382191a396
 ui.hero-builder.speed.a2b81141,APPROVED,速度,Speed,2026-10-10,c372fee9b4566b85a592ae6e98e571f3929c8e262cf2feff7acba63a65a50f14
@@ -213,6 +277,14 @@ ui.hero-builder.supernatural.fe29726a,APPROVED,超常類,Supernatural,2026-10-11
 ui.hero-builder.switch-this-on-if-you-want-t.402c5efc,APPROVED,若你想逐步取得招式，請開啟此選項。,Switch this on if you want to gain your abilities incrementally.,2026-10-10,a86f04cc33f7cee46d2a26b66b0e94fe942f0793509d501df3466126e0aead05
 ui.hero-builder.switch.e1b71c88,APPROVED,切換,Switch,2026-10-10,39921a740bf2b67802a2042e1f87e9dec566131c2458aba5683e2827ced0d2c3
 ui.hero-builder.tab-and-give-your-hero-a-nam.eead94f6,APPROVED,分頁，為英雄命名。,tab and give your hero a name.,2026-10-10,f630265515816f04ad2dde2c634042b8b7649df8faff5452a2ad27f0992e7366
+ui.hero-builder.tactician-ability-rolls.39be354e,APPROVED,招式檢定,Ability rolls,2026-10-19,39be354e49da6f17e4ac92a82d7cc72be6cdf868638913382b3df4fbafcee0ef
+ui.hero-builder.tactician-arsenal-condition.d5a7fdcd,APPROVED,當你使用已裝備套裝中的招牌招式，或使用已裝備套裝中的武器發動基礎打擊時,"When you use a signature ability from one of your equipped kits, or make a free strike using a weapon from one of your equipped kits",2026-10-19,d5a7fdcdf4f7d3d7f23b3a7b858d5960fc1712c24a267a52cc1270983ddabd81
+ui.hero-builder.tactician-arsenal-desc.b15b7d02,APPROVED,你的武器專精更上一層樓。,Your expertise with weapons has grown.,2026-10-19,b15b7d02cd009c65737d0a6379a50ff7dd5b26605bcd4c1e778a39073c2d9162
+ui.hero-builder.tactician-improved-arsenal.3e132d50,APPROVED,強化戰場武庫,Improved Field Arsenal,2026-10-19,3e132d50c822bdf9d6f595d578e8e925849b4f3da34c279a29db40d3e3bd3e17
+ui.hero-builder.target-creature-object.1c9539cc,APPROVED,1 個生物或物體,One creature or object,2026-10-19,1c9539cc6ccf890d554a180b61bad1ec715f4f8c860216d49719445651a16197
+ui.hero-builder.target-one-creature-sigil.e1206b59,APPROVED,1 個帶有你符印的生物,One creature bearing your sigil,2026-10-19,e1206b59c2f70f3729a933843e785145e16979784928138e0763960922fb2c80
+ui.hero-builder.target-one-creature.bdc53e7b,APPROVED,1 個生物,One creature,2026-10-19,bdc53e7b683f6b20fb56c05e4af752af9e1a3bd7c4de51507e5635a28c0b546f
+ui.hero-builder.target-self-ally.d296a449,APPROVED,自身或 1 個盟友,Self or one ally,2026-10-19,d296a4493a8f7334f931fbb01519bb22029ba5d4f32eacfddeb64a79c419bcca
 ui.hero-builder.target.978354db,APPROVED,目標,Target,2026-10-15,978354db0c00fc78c3a5524f462a73bc425df3fb2767e51a5f46352ae26ae6f9
 ui.hero-builder.this-can-t-be-undone-are-you.c4b878e6,APPROVED,此操作無法復原，確定要繼續嗎？,This can't be undone; are you sure?,2026-10-10,8eedcc53129ba36e95148bb359db36403a58bab49ee6e8e81dade59101b883de
 ui.hero-builder.this-feature-allows-you-to-choos.f843efd3,APPROVED,此特性能讓你選擇 1 項專長。,This feature allows you to choose a perk.,2026-10-11,f843efd3ba38a11472e4a2f70bfd3cdfda725873534dd16090919e769e10896d
@@ -220,7 +292,12 @@ ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba,APPROVED,此英雄可使�
 ui.hero-builder.this-is-typically-against-th.a0988409,APPROVED,這通常不符合規則。,This is typically against the rules.,2026-10-10,5d4613d8f3832c9f7eff9cdfcc045e193bc21ef157f64c462a8ee6bd4252f156
 ui.hero-builder.title.f0bf18b2,APPROVED,稱號,Title,2026-10-10,7e8cd2056da73a7fefb6cd91f4e5d199d08d9058c517b9a2476b1b520324d674
 ui.hero-builder.to-add.23ff0fd6,APPROVED,要新增,To Add,2026-10-10,505ef5f9b8778b78bfae0a1b523f237e174d3550013bfd31cda41b1b882ef675
+ui.hero-builder.trigger-adjacent-power-roll.66545558,APPROVED,你或 1 個相鄰生物進行檢定時,"You, or a creature adjacent to you, makes a power roll",2026-10-19,66545558daf8aea505432a74953221c0bb125e23d96f376fc76c5e1171b4f82e
+ui.hero-builder.trigger-creature-damage.d99e1985,APPROVED,你受到生物造成的傷害時,You take damage from a creature,2026-10-19,d99e1985e1fabe715a4598dc2a43248f5154208716888d2cb0136a177a6951d7
+ui.hero-builder.trigger-draconian-guard.59674111,APPROVED,你或 1 個相鄰生物受到打擊傷害時,"You, or a creature adjacent to you, takes damage from a strike",2026-10-19,59674111f43d76292f45fd6f8a058fcc9893621e81f0749eb5f2826a1840fd9b
+ui.hero-builder.trigger-force-moved.86b1e2b2,APPROVED,每當你被強制移動時,Whenever you are force moved,2026-10-19,86b1e2b2d1fe495ca14200112bcffd27d58d683d450beb8716c4c434e5d992ea
 ui.hero-builder.trigger-sash.683259fe,APPROVED,反應,trigger,2026-10-15,683259feabbf5eb39895d7a5d3f4872d6989d5fa7a3eca713251d996d99a1630
+ui.hero-builder.trigger-untyped-damage.c921df18,APPROVED,你受到非普通傷害時,You take damage that isn’t untyped,2026-10-19,c921df18b97a03a8526a1efdd3e31b290190c83986470a584cadc4d1f41585d0
 ui.hero-builder.trigger.8b9c6437,APPROVED,觸發,Trigger,2026-10-15,8b9c643731c941195b61d1f3de78fda81ac490ee73f420bb7543df59d6a92206
 ui.hero-builder.triggered-action.5550c36a,APPROVED,反應動作,Triggered Action,2026-10-15,5550c36afbbb7c38dc7f49a4d6dd4a0f2cdfe6f0b4501bea6e66483a8dd91f98
 ui.hero-builder.tutorial-mode.6b8e85d4,APPROVED,教學模式,Tutorial Mode,2026-10-10,ee143180258f9fd40599d0e53dcaca8737522cd5f5ca14e61df09bca2dc9af57
@@ -235,11 +312,16 @@ ui.hero-builder.unselected.26118cfc,APPROVED,尚未選擇,Unselected,2026-10-14,
 ui.hero-builder.upbringing.402fbf01,APPROVED,成長經歷,Upbringing,2026-10-10,b6b346201c762d8fc1906c4ecf56212cfa42cf01d80346d189a448bf1e029fe4
 ui.hero-builder.use-the-tabs-above-to-select.03b413ab,APPROVED,使用上方分頁設定英雄的,Use the tabs above to select your hero's,2026-10-10,059933e2eb7baa4d96ce0bd97c27aefb95f09fff87a4f7c2223f1215c37f10c5
 ui.hero-builder.uses.9e6151ac,APPROVED,裝備,Uses,2026-10-16,9e6151acb057025d16cbccee815e728994335db9c3c980e9489194be2f7937c2
+ui.hero-builder.value.8e37953d,APPROVED,點數,Value,2026-10-19,8e37953d23daca5ff01b8282c33f4e0a2152f1d1885f94c06418617e3ee1d24e
+ui.hero-builder.weakness.f3e0689e,APPROVED,弱點,Weakness,2026-10-19,f3e0689e79fd25ed490fac398e253ebbd4828670267a9afbeda60651179cc622
 ui.hero-builder.weaknesses.af393b75,APPROVED,弱點,Weaknesses,2026-10-15,af393b754ae38e85ea6f2dfe589285ae5307b4deb7f3941ce483eabf96191d44
 ui.hero-builder.weapon.1710782c,APPROVED,武器,Weapon,2026-10-17,1710782c5d15b9135ea757fbcc88f5d7d9a69c3a99f904a9b4396bcae9320be6
 ui.hero-builder.weapons.3189d297,APPROVED,武器,Weapons,2026-10-10,aafc7b0e9b9e48bdd9f860937e6e80ea5a9a02942e9cdc42e8135210212a89aa
 ui.hero-builder.when-you-re-done-click.a682c8f7,APPROVED,完成後，點選上方工具列的,"When you're done, click",2026-10-10,f5f5f531f501fbeed133a9973c814f6963e15696c3268464173b732c940eebe5
 ui.hero-builder.when.ec4ba8f6,APPROVED,時機,When,2026-10-10,cf9c7aa24a26aac4f0ec4b6395cbfdcc055677c3dac87bd6af898bccd66d4e17
+ui.hero-builder.wode-tier-1.3703ac76,APPROVED,2 + 力量或敏捷傷害；敏捷 < 弱，緩速（豁免解除）,2 + M or A damage; A < [weak] slowed (save ends),2026-10-19,3703ac762f60d156ec376f97b6b2d76387f2560222674cd3f709ff185294bcb7
+ui.hero-builder.wode-tier-2.954a7369,APPROVED,3 + 力量或敏捷傷害；敏捷 < 中，緩速（豁免解除）,3 + M or A damage; A < [average] slowed (save ends),2026-10-19,954a7369e4f1d4aab3593d2ddc1d7c9b8ce4cb995333d9e80b80021f3a52b314
+ui.hero-builder.wode-tier-3.e40c6a44,APPROVED,5 + 力量或敏捷傷害；敏捷 < 強，束縛（豁免解除）,5 + M or A damage; A < [strong] restrained (save ends),2026-10-19,e40c6a443a6ce37314dd1a375e4f6bc401736990ae1753f0374b2820c9ec5721
 ui.hero-builder.xp.39a5f606,APPROVED,XP,XP,2026-10-10,168aad3e9812dfb60a52848beda88a7a38ad89568d54bfa43347664dbab737bc
 ui.hero-builder.you-already-have-this-skill.ff5ad6f6,APPROVED,你已經擁有這項技能。,You already have this skill.,2026-10-10,92cff31819a9d02c22106387c9bd4444a4d6af9e504ba6866c410a7a232a33dc
 ui.hero-builder.you-can-add-your-hero-to-a-f.611d350d,APPROVED,你可以將英雄加入資料夾，與其他英雄放在一起。,You can add your hero to a folder to group it with other heroes.,2026-10-10,cc57d7386bb6d1b6f25b25c165f4ec5dd2b3cc30d9d0dd1ee7b7efd985cb6dc4

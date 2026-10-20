@@ -32,6 +32,7 @@ export interface UsageAdaptation {
 	zh: string;
 	basisHash: string;
 	sources: AdaptationSourceLink[];
+	calculationDisplay?: CalculationDisplay;
 }
 
 let catalog: Catalog | null = null;
@@ -105,7 +106,12 @@ const readUsageAdaptations = (value: unknown): Record<string, UsageAdaptation> =
 			en: row.en,
 			zh: row.zh,
 			basisHash: row.basisHash,
-			sources
+			sources,
+			...(row.calculationDisplay && typeof row.calculationDisplay === 'object'
+				&& typeof (row.calculationDisplay as Record<string, unknown>).target === 'string'
+				&& typeof (row.calculationDisplay as Record<string, unknown>).template === 'string'
+				? { calculationDisplay: row.calculationDisplay as CalculationDisplay }
+				: {})
 		};
 	}
 	return map;

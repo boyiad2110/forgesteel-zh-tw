@@ -1,4 +1,5 @@
 import { ElementScope, L10nUnscoped } from '@/l10n/element-scope';
+import { useUI } from '@/l10n/ui-text';
 import { Segmented, Space } from 'antd';
 import { Ancestry } from '@/models/ancestry';
 import { AncestryLogic } from '@/logic/ancestry-logic';
@@ -29,6 +30,7 @@ interface Props {
 }
 
 export const AncestryPanel = (props: Props) => {
+	const ui = useUI();
 	const [ page, setPage ] = useState<string>('overview');
 
 	const getOverview = () => {
@@ -59,7 +61,7 @@ export const AncestryPanel = (props: Props) => {
 
 		return (
 			<Space orientation='vertical' style={{ width: '100%' }}>
-				<Field label='Ancestry Points' value={props.ancestry.ancestryPoints} />
+				<Field label={ui.text('ui.hero-builder.ancestry-points.be56c10c', 'Ancestry Points')} value={props.ancestry.ancestryPoints} />
 				{
 					features.map(f => (
 						<SelectablePanel key={f.feature.id}>
@@ -103,13 +105,13 @@ export const AncestryPanel = (props: Props) => {
 		}
 
 		const pages = [
-			{ value: 'overview', label: 'Overview' },
-			{ value: 'signature', label: 'Signature' },
-			{ value: 'purchased', label: 'Purchased' }
+			{ value: 'overview', label: ui.text('ui.hero-builder.overview.d4b1ea57', 'Overview') },
+			{ value: 'signature', label: ui.text('ui.hero-builder.signature.f1a73e22', 'Signature') },
+			{ value: 'purchased', label: ui.text('ui.hero-builder.purchased.5fa14d9a', 'Purchased') }
 		];
 
 		if (props.ancestry.culture) {
-			pages.push({ value: 'culture', label: 'Culture' });
+			pages.push({ value: 'culture', label: ui.text('ui.hero-builder.culture.06f1b137', 'Culture') });
 		}
 
 		return (

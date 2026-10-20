@@ -2,7 +2,7 @@
 
 ## 狀態
 
-17 個 APPROVED 網站適配已接入雙來源快照；16 個靜態網站用途接入 mapping，程式驗證完成後交 Marc 人工驗收。A04、A07 沿用 Book Master 譯文；A12、A17 採 Marc 指定文字；其餘沿用本批核准內容。文化、生涯、專長與族裔其他未核准段落不在本批。
+17 個 APPROVED 網站適配已接入雙來源快照；16 個靜態網站用途接入 mapping，Marc 於 2026-10-19 人工驗收通過。A04、A07 沿用 Book Master 譯文；A12、A17 採 Marc 指定文字；其餘沿用本批核准內容。文化、生涯、專長與族裔其他未核准段落不在本批。尚未合併或部署。
 
 工作分支：`codex/ancestry-approved-display-fixes`。
 
