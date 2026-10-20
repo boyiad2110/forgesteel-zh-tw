@@ -2,6 +2,7 @@
 
 | 批次 | 狀態／PR／版本 | 驗證與下一步 |
 |---|---|---|
+| DISPLAY-DEFAULTS 官方特性預設描述 | Marc 已核准 9 句及官方職業 Perk 擴用；待人工驗收、未合併 | 2026-10-20。Forge Steel UI 新增 8 筆 APPROVED、沿用 1 筆，雙來源快照 UI 340；限定官方族裔／生涯／職業／糾葛原始空描述，在 `FeatureConfigPanel` 顯示核准中文。169 個來源候選是盤點數，10 個代表的六位置分類與限制見 [DISPLAY-DEFAULTS](DISPLAY-DEFAULTS.md)。Node 24.18.0 完整隔離驗證通過：語系守門、lint 0 錯誤／98 警告、TypeScript、57 檔／1101 項測試、正式建置、audit 0 漏洞、瀏覽器 9 種描述與語言切換回歸；來源 SHA-256 845d411a7fa03accd146629661c93cd373fb7707027a3bc685b75b3322106b61。[草稿 PR #83](https://github.com/boyiad2110/forgesteel-zh-tw/pull/83) 待人工驗收。 |
 | COVERAGE-FLOW-02 中文化流程補強 | [Draft PR #82](https://github.com/boyiad2110/forgesteel-zh-tw/pull/82) 待本次擴充重新人工驗收；程式版本 `60156cfa` | 2026-10-20。六個玩家流程位置逐格標示已驗證／不適用／保留英文及理由，中文與英文顯示和改名、改描述、未知 ID 回退由契約測試與瀏覽器旅程查核。修正官方族裔特性的自訂描述被核准譯文蓋掉。歐克招牌特性四個適用位置已驗證，候選卡與摘要欄不適用；未擴大核准翻譯內容。隔離來源 SHA-256 `ddf45b8f58b760e8fafc5b1120aaa1aee2a6b1969ab9382b07b0567daa51fb97`：語系守門、lint 0 錯誤／95 個既有警告、TypeScript、56 檔／1090 項測試、正式建置、audit 0 漏洞及瀏覽器回歸通過。前次試行驗收只適用舊 head `621def01`；本次擴充待重新驗收，未合併、未部署。 |
 | COVERAGE-PILOT-01 中文化顯示覆蓋流程 | 已交付 [Draft PR #82](https://github.com/boyiad2110/forgesteel-zh-tw/pull/82) 待人工驗收；程式版本 `fdc86323` | 2026-10-20。批次模板要求逐格列核准來源、顯示位置、中文／英文及回退證據；以歐克 `orc-feature-1` 名稱與描述試行詳情和經典角色卡兩處。暫斷經典角色卡官方辨識時，測試確實抓到描述漏接；接線已還原。隔離來源 SHA-256 `0203dcb915c8061ea9ed53390d74f09969c0c83c480b64ece97fd2c8518c912f`：語系守門、lint 0 錯誤／95 個既有警告、TypeScript、56 檔／1084 項測試、正式建置、audit 0 漏洞與 10 組瀏覽器回歸均通過。試行只證明表列兩處，其他位置仍須逐批擴充；驗收與合併狀態看原 PR。 |
 | MASTER-SPLIT-C | 已完成；PR #62 已合併至 develop `139bc7d4` | 雙來源擷取與驗證工具已合併；後續來源切換由 MASTER-SPLIT-D2 處理。 |

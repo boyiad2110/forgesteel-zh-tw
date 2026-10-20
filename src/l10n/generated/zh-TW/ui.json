@@ -614,6 +614,31 @@
     "updated": "2026-10-19",
     "zh": "傷害調整"
   },
+  "ui.hero-builder.default-ancestry-feature-choice.9f684d5a": {
+    "en": "This feature allows you to select a feature from an ancestry.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你從族裔中選擇特性。"
+  },
+  "ui.hero-builder.default-class-ability-choice.40b32187": {
+    "en": "This feature allows you to choose an ability from your class.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你從職業招式中做出選擇。"
+  },
+  "ui.hero-builder.default-domain-choice.f9ddbbd3": {
+    "en": "This feature allows you to choose a domain.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你選擇領域。"
+  },
+  "ui.hero-builder.default-item-choice.7348d5a4": {
+    "en": "This feature allows you to choose an item.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你選擇 1 件道具。"
+  },
+  "ui.hero-builder.default-kit-choice.24ea1aa2": {
+    "en": "This feature allows you to choose a kit.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你選擇 1 組套裝。"
+  },
   "ui.hero-builder.default-language.28bee244": {
     "en": "Default Language",
     "updated": "2026-10-11",
@@ -623,6 +648,21 @@
     "en": "Default Option",
     "updated": "2026-10-10",
     "zh": "預設選項"
+  },
+  "ui.hero-builder.default-retainer.fbf28dbf": {
+    "en": "This feature grants you a retainer.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你獲得 1 名隨從。"
+  },
+  "ui.hero-builder.default-summon-choice.10f57c03": {
+    "en": "This feature allows you to choose monsters you can summon.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你選擇可召喚的怪物。"
+  },
+  "ui.hero-builder.default-toggle.c42fc5cd": {
+    "en": "This feature allows you to turn a feature on or off.",
+    "updated": "2026-10-20",
+    "zh": "此特性能讓你開啟或關閉 1 項特性。"
   },
   "ui.hero-builder.delete.01152930": {
     "en": "Delete",
@@ -1441,7 +1481,7 @@
   },
   "ui.hero-builder.this-feature-allows-you-to-choos.f843efd3": {
     "en": "This feature allows you to choose a perk.",
-    "updated": "2026-10-11",
+    "updated": "2026-10-20",
     "zh": "此特性能讓你選擇 1 項專長。"
   },
   "ui.hero-builder.this-hero-can-use-content-fr.5a48c1ba": {

@@ -562,6 +562,72 @@ try {
 	await assertMatrix(matrix.zh, 'zh-TW');
 	await abilityPage.evaluate(() => { window.choiceMatrix.root.unmount(); document.querySelector('#choice-matrix').remove(); });
 	console.log(`PASS browser: ${matrix.count} choices (${matrix.languageCount} language), direct + rebuilt DOM, 20 protected cases + changed-source DetailsSection, zh / en / zh, data unchanged`);
+	const defaults = await abilityPage.evaluate(async () => {
+		const ReactModule = await import('/node_modules/.vite/deps/react.js');
+		const React = ReactModule.default ?? ReactModule;
+		const reactDom = await import('/node_modules/.vite/deps/react-dom_client.js');
+		const { FeatureConfigPanel } = await import('/src/components/panels/feature-config-panel/feature-config-panel.tsx');
+		const { OptionsContext } = await import('/src/contexts/data-context.tsx');
+		const { FactoryLogic } = await import('/src/logic/factory-logic.ts');
+		const { FeatureLogic } = await import('/src/logic/feature-logic.ts');
+		const { core } = await import('/src/data/sourcebooks/official/core.ts');
+		const { summonerSourcebook } = await import('/src/data/sourcebooks/official/summoner.ts');
+		const { default: approvedUI } = await import('/src/l10n/generated/zh-TW/ui.json');
+		const books = [ core, summonerSourcebook ];
+		const ids = [
+			[ 'revenant-feature-4-1', 'default-ancestry-feature-choice.9f684d5a' ],
+			[ 'career-artisan-feature-4', 'this-feature-allows-you-to-choos.f843efd3' ],
+			[ 'censor-2-1', 'this-feature-allows-you-to-choos.f843efd3' ],
+			[ 'censor-1-2', 'default-domain-choice.f9ddbbd3' ],
+			[ 'censor-1-5', 'default-kit-choice.24ea1aa2' ],
+			[ 'censor-1-8', 'default-class-ability-choice.40b32187' ],
+			[ 'summoner-1-1-4', 'default-summon-choice.10f57c03' ],
+			[ 'comp-artifactBonded-ba', 'default-item-choice.7348d5a4' ],
+			[ 'comp-meddlingButler-b', 'default-retainer.fbf28dbf' ],
+			[ 'comp-shatteredLegacy-b', 'default-toggle.c42fc5cd' ]
+		];
+		const find = id => {
+			const seen = new WeakSet();
+			let found;
+			const visit = value => {
+				if (!value || typeof value !== 'object' || seen.has(value) || found) return;
+				seen.add(value);
+				if (value.id === id && 'data' in value && 'type' in value) { found = value; return; }
+				Object.values(value).forEach(visit);
+			};
+			books.forEach(book => [ ...book.ancestries, ...book.careers, ...book.classes, ...book.complications ].forEach(visit));
+			if (!found) throw new Error(`Missing default feature ${id}`);
+			return found;
+		};
+		const records = ids.map(([ id, suffix ]) => {
+			const feature = find(id);
+			const english = FeatureLogic.getFeatureTypeDescription(feature.type);
+			return { feature, english, chinese: approvedUI[`ui.hero-builder.${suffix}`].zh };
+		});
+		const source = records[2].feature;
+		records.push({ feature: { ...source, name: 'My custom perk' }, english: records[2].english, chinese: records[2].english });
+		records.push({ feature: { ...source, id: 'my-custom-perk' }, english: records[2].english, chinese: records[2].english });
+		const host = document.createElement('section');
+		host.id = 'default-description-matrix';
+		document.body.append(host);
+		const root = (reactDom.createRoot ?? reactDom.default.createRoot)(host);
+		root.render(React.createElement(OptionsContext, { value: FactoryLogic.createOptions() },
+			React.createElement(React.Fragment, null, ...records.map((record, index) => React.createElement(FeatureConfigPanel, {
+				key: index, feature: record.feature, hero: FactoryLogic.createHero(), sourcebooks: books, setData: () => undefined
+			})))));
+		window.defaultDescriptionRoot = root;
+		return records.map(record => ({ id: record.feature.id, english: record.english, chinese: record.chinese }));
+	});
+	const readDefaults = () => abilityPage.locator('#default-description-matrix > .feature-config-panel').evaluateAll(panels => panels.map(panel =>
+		panel.querySelector('.header-text-panel').nextElementSibling.textContent.trim().replace(/\s+/g, ' ')));
+	await abilityPage.waitForFunction(count => document.querySelectorAll('#default-description-matrix > .feature-config-panel').length === count, defaults.length);
+	assert.deepEqual(await readDefaults(), defaults.map(record => record.chinese), 'Official defaults in Chinese and protected custom descriptions');
+	await abilityPage.locator('.app-footer').getByRole('button', { name: '中文', exact: true }).click();
+	assert.deepEqual(await readDefaults(), defaults.map(record => record.english), 'Official defaults in English');
+	await abilityPage.locator('.app-footer').getByRole('button', { name: 'EN', exact: true }).click();
+	assert.deepEqual(await readDefaults(), defaults.map(record => record.chinese), 'Official defaults restored in Chinese');
+	await abilityPage.evaluate(() => { window.defaultDescriptionRoot.unmount(); document.querySelector('#default-description-matrix').remove(); });
+	console.log('PASS browser: 9 approved default types, career + class Perk, protected renamed / unknown, zh / en / zh');
 	const careerHeroes = await readStoredHeroes(page);
 	const artisan = await page.evaluate(async () => (await import('/src/data/careers/artisan.ts')).artisan);
 	careerHeroes.find(hero => hero.id === state.heroes.fury.id).career = artisan;

@@ -8,6 +8,7 @@ const evidenceKinds = [ 'vitest', 'browser' ];
 const englishReasons = [ 'unapproved', 'dynamic-unsupported', 'intentional', 'custom' ];
 const fallbackCases = [ 'renamed', 'edited-description', 'unknown-id' ];
 const contractPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../src/l10n/coverage-contracts.json');
+const defaultDescriptionPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../src/l10n/default-description-contracts.json');
 
 export const validateCoverageContracts = contract => {
 	const errors = [];
@@ -88,12 +89,12 @@ export const formatCoverageReport = contract => {
 export const readCoverageContracts = (file = contractPath) => JSON.parse(readFileSync(file, 'utf8'));
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-	const contract = readCoverageContracts();
-	const errors = validateCoverageContracts(contract);
+	const contracts = [ contractPath, defaultDescriptionPath ].map(readCoverageContracts);
+	const errors = contracts.flatMap(contract => validateCoverageContracts(contract).map(message => `${contract.batchId}: ${message}`));
 	if (errors.length) {
 		console.error(errors.join('\n'));
 		process.exitCode = 1;
 	} else {
-		console.log(formatCoverageReport(contract));
+		contracts.forEach(contract => console.log(formatCoverageReport(contract)));
 	}
 }
