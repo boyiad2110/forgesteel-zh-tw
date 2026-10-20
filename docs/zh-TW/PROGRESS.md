@@ -2,6 +2,7 @@
 
 | 批次 | 狀態／PR／版本 | 驗證與下一步 |
 |---|---|---|
+| COVERAGE-PILOT-01 中文化顯示覆蓋流程 | 已交付 [Draft PR #82](https://github.com/boyiad2110/forgesteel-zh-tw/pull/82) 待人工驗收；程式版本 `fdc86323` | 2026-10-20。批次模板要求逐格列核准來源、顯示位置、中文／英文及回退證據；以歐克 `orc-feature-1` 名稱與描述試行詳情和經典角色卡兩處。暫斷經典角色卡官方辨識時，測試確實抓到描述漏接；接線已還原。隔離來源 SHA-256 `0203dcb915c8061ea9ed53390d74f09969c0c83c480b64ece97fd2c8518c912f`：語系守門、lint 0 錯誤／95 個既有警告、TypeScript、56 檔／1084 項測試、正式建置、audit 0 漏洞與 10 組瀏覽器回歸均通過。試行只證明表列兩處，其他位置仍須逐批擴充；驗收與合併狀態看原 PR。 |
 | MASTER-SPLIT-C | 已完成；PR #62 已合併至 develop `139bc7d4` | 雙來源擷取與驗證工具已合併；後續來源切換由 MASTER-SPLIT-D2 處理。 |
 | MASTER-SPLIT-D1 | 已完成；PR #63 已 squash merge 至 develop `1a8c11f59f882e05ca44ad34a3c4d02acc445a8e` | CI #191 success。同步核准快照 Glossary／Names／Strings／UI 332／60／656／209，並整合 108 筆已核准 Adaptation checkpoints。 |
 | MASTER-SPLIT-D2 | **COMPLETE**；[PR #64](https://github.com/boyiad2110/forgesteel-zh-tw/pull/64) 已 squash merge 至 `develop` `b983dd4df4bc2dbafd1f6ca5be21af978a0a43c4` | 合併後 [CI #196](https://github.com/boyiad2110/forgesteel-zh-tw/actions/runs/38218830788) 全部通過；正式快照使用 Book＋Forge 雙來源，332／60／656／209 筆核准目錄、108 Adaptations、114 來源關聯。Forge Sheet Project State／Status／fs:CHG-0009 已確認 COMPLETE；舊 Sheet 資料保留供回復，未部署。 |
