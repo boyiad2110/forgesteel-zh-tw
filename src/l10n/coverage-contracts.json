@@ -8,7 +8,16 @@
         "name": "heroes.ancestries.orc.signature.relentless.name",
         "description": "heroes.ancestries.orc.signature.relentless.effect"
       },
-      "surfaces": ["detail", "classic"]
+      "surfaces": ["detail", "classic"],
+      "journey": {
+        "candidate": { "status": "not-applicable", "reason": "The compact ancestry candidate shows the ancestry, not individual signature features." },
+        "selected": { "status": "verified", "evidence": ["browser"] },
+        "summary": { "status": "not-applicable", "reason": "The builder choices summary does not show this signature feature." },
+        "overview": { "status": "verified", "evidence": ["browser"] },
+        "detail": { "status": "verified", "evidence": ["vitest"] },
+        "classic": { "status": "verified", "evidence": ["vitest", "browser"] }
+      },
+      "englishFallbacks": ["renamed", "edited-description", "unknown-id"]
     }
   ]
 }

@@ -123,11 +123,12 @@
  */
 
 import { createHash } from 'node:crypto';
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { checkSourceDependencies } from './source-dependencies.mjs';
+import { formatCoverageReport, readCoverageContracts, validateCoverageContracts } from './coverage-report.mjs';
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, '../..');
@@ -2240,12 +2241,27 @@ export const checkCalculationBindings = (root, catalogRoot = root) => {
 	return errors;
 };
 
+export const checkCoverageContracts = (root = repoRoot) => {
+	const file = 'src/l10n/coverage-contracts.json';
+	const fullPath = path.join(root, file);
+	if (!existsSync(fullPath)) {
+		return root === repoRoot ? [ issue('coverage', file, null, null, 'coverage contract is missing') ] : [];
+	}
+	try {
+		return validateCoverageContracts(readCoverageContracts(fullPath))
+			.map(message => issue('coverage', file, null, null, message));
+	} catch (error) {
+		return [ issue('coverage', file, null, null, `invalid coverage contract: ${error.message}`) ];
+	}
+};
+
 export const runCheck = (root = repoRoot, catalogRoot = root) => {
 	return [
 		...checkCjk(root),
 		...checkMapping(root, catalogRoot),
 		...checkCalculationBindings(root, catalogRoot),
 		...checkSourceDependencies(root, catalogRoot),
+		...checkCoverageContracts(root),
 		...checkGenerated(catalogRoot)
 	];
 };
@@ -2261,4 +2277,5 @@ if (isDirect) {
 		process.exit(1);
 	}
 	console.log('l10n check ok');
+	console.log(formatCoverageReport(readCoverageContracts()));
 }

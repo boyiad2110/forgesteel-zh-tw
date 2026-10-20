@@ -7,6 +7,7 @@ import { Characteristic } from '@/enums/characteristic';
 import { ClassicSheetBuilder } from '@/logic/classic-sheet/classic-sheet-builder';
 import { ConditionName } from '@/l10n/condition-text';
 import { careerBenefitFieldKey } from '@/l10n/career-benefit-ui';
+import { hasCalculationBinding } from '@/l10n/calculated-text';
 import { DamageModifier } from '@/models/damage-modifier';
 import { DamageModifierType } from '@/enums/damage-modifier-type';
 import { DamageType } from '@/enums/damage-type';
@@ -600,7 +601,10 @@ export const FeatureComponent = (props: Props) => {
 	const ancestryFeatureSource = getOfficialAncestryFeatureSource(feature, sourcebooks);
 	const ancestryFeature = ancestryFeatureSource !== undefined;
 	const ancestryNameKey = ancestryFeature ? `element:${feature.id}:name` : undefined;
-	const ancestryDescriptionKey = ancestryFeature ? `element:${feature.id}:description` : undefined;
+	const ancestryDescriptionKey = ancestryFeature
+		&& (feature.description === ancestryFeatureSource.description || hasCalculationBinding(`element:${feature.id}:description`))
+		? `element:${feature.id}:description`
+		: undefined;
 	const translatedAncestryName = useL10nText(ancestryNameKey, feature.name);
 	const ancestryName = ancestryFeatureSource?.name === feature.name
 		? ancestryUiText(feature.name.toLocaleUpperCase(), ui) ?? translatedAncestryName

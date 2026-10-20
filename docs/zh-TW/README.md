@@ -4,10 +4,10 @@
 
 ## 中文化工作順序
 
-1. 按 [BATCH-TEMPLATE](BATCH-TEMPLATE.md) 先列本批內容欄位、核准來源與玩家會看到的位置；逐格標明中文、刻意英文或不適用。已有 mapping 不代表所有畫面完成。
+1. 按 [BATCH-TEMPLATE](BATCH-TEMPLATE.md) 先列本批內容欄位、核准來源與玩家會看到的位置；逐格標明核准中文、英文原因或不適用。已有 mapping 不代表所有畫面完成。
 2. 書本譯文取 Draw Steel Book Master，網站 UI／Adaptations 取 Forge Steel Localization Master；正式快照只整合兩份 Sheet 的 `APPROVED`。匯入與回讀依 [SNAPSHOT](SNAPSHOT.md)。
 3. 僅在顯示層接入已核准譯文。新增或變更接點時，檢查中文、英文切換，以及自訂、改名、未知來源和動態數值的回退。
-4. 交付前跑 `node scripts/l10n/verify-isolated.mjs`，將覆蓋清單、驗證結果與人工驗收位置放入同一 PR。已交付範圍列入 [PROGRESS](PROGRESS.md)。
+4. 交付前先用 `node scripts/l10n/coverage-report.mjs` 檢查六個位置的清單，再跑 `node scripts/l10n/verify-isolated.mjs`；把畫面證據、英文殘留與人工驗收位置放入同一 PR。已交付範圍列入 [PROGRESS](PROGRESS.md)。
 
 ## 不可違反的界線
 

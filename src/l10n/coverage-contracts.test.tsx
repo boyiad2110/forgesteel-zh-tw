@@ -24,14 +24,14 @@ const pilotFeature = AncestryData.orc.features.find(feature => feature.id === 'o
 
 const visibleText = (html: string) => html.replace(/<[^>]*>/g, '').replaceAll('&nbsp;', ' ');
 
-const renderSurface = (surface: string) => {
-	if (!pilotFeature) {
+const renderSurface = (surface: string, feature = pilotFeature) => {
+	if (!feature) {
 		throw new Error('Coverage source orc-feature-1 is missing');
 	}
 	const element = surface === 'detail'
-		? createElement(FeaturePanel, { feature: pilotFeature, sourcebooks })
+		? createElement(FeaturePanel, { feature, sourcebooks })
 		: surface === 'classic'
-			? createElement(FeatureComponent, { feature: pilotFeature })
+			? createElement(FeatureComponent, { feature })
 			: undefined;
 	if (!element) {
 		throw new Error(`Unsupported coverage surface: ${surface}`);
@@ -84,6 +84,33 @@ describe('approved display coverage pilot', () => {
 					expect(chinese, `${key} at ${surface}`).not.toContain(pilotFeature[field]);
 				}
 			});
+
+			for (const fallback of check.englishFallbacks) {
+				test(`${contracts.batchId} ${check.featureId} ${surface}: ${fallback} keeps original English`, () => {
+					if (!pilotFeature || check.featureId !== pilotFeature.id) {
+						throw new Error(`Unsupported or missing coverage source: ${check.featureId}`);
+					}
+					const approvedName = strings[check.sourceIds.name as keyof typeof strings].zh;
+					const approvedDescription = strings[check.sourceIds.description as keyof typeof strings].zh;
+					if (fallback === 'renamed') {
+						const text = renderSurface(surface, { ...pilotFeature, name: 'My Relentless' });
+						expect(text).toContain('My Relentless');
+						expect(text).not.toContain(approvedName);
+					} else if (fallback === 'edited-description') {
+						const text = renderSurface(surface, { ...pilotFeature, description: 'My custom rule.' });
+						expect(text).toContain('My custom rule.');
+						expect(text).not.toContain(approvedDescription);
+					} else if (fallback === 'unknown-id') {
+						const text = renderSurface(surface, { ...pilotFeature, id: 'homebrew-relentless' });
+						expect(text).toContain(pilotFeature.name);
+						expect(text).toContain(pilotFeature.description);
+						expect(text).not.toContain(approvedName);
+						expect(text).not.toContain(approvedDescription);
+					} else {
+						throw new Error(`Unsupported fallback case: ${fallback}`);
+					}
+				});
+			}
 		}
 	}
 });
